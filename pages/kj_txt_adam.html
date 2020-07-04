@@ -1,0 +1,106 @@
+<html lang="NL"><head><title>Klaverjassen</title>
+<meta http-equiv="Content-Script-Type" content="text/javascript">
+<style type="text/css">
+body {background:silver; color:black; font-family:"Verdana","Arial"; font-size:12pt}
+th,td {background:white; font-size:12pt; padding-top:2pt; padding-bottom:2pt; padding-left:4pt; padding-right:4pt}
+input,option {font-family:"Verdana","Arial"; font-size:12pt}
+input.k {font-family:"Courier New","Courier"; font-weight: bold; font-size:14pt}
+input.b {font-family:"Courier New","Courier"; font-weight: bold; font-size:12pt}
+</style>
+<script type="text/javascript" language="javascript" src="include/kj_code_txt.js"></script></head><body>
+<table border cellspacing="0" width="100%"><tr><td valign="top"><form name="KiesTroefTxt"><input type="text" name="vld1" value="kies troef:" size="12"/>
+</form>
+</td>
+<td colspan="2"><form name="KiesTroefKleur"><input type="button" value=" ? " class="k" onClick="KiesTroef(0);"/>
+<input type="button" value=" ? " class="k" onClick="KiesTroef(1);"/>
+<input type="button" value=" ? " class="k" onClick="KiesTroef(2);"/>
+<input type="button" value=" ? " class="k" onClick="KiesTroef(3);"/>
+</form>
+</td><td valign="top">Score: </td>
+<td><form name="ShowScore"><input type="text" name="HuidigeScoreU" value="0" size="4"/>
+<input type="text" name="HuidigeScoreC" value="0" size="4"/>
+</form>
+</td><td rowspan="5"><form name="WijZij"><input type="text" name="Wij" value="Wij" size="5"/>
+<input type="text" name="Zij" value="Zij" size="5"/>
+<br></form>
+<form name="TotaleScore"><input type="text" value="" size="5"/>
+&nbsp;<input type="text" value="" size="5"/>
+<br><input type="text" value="" size="5"/>
+&nbsp;<input type="text" value="" size="5"/>
+<br><input type="text" value="" size="5"/>
+&nbsp;<input type="text" value="" size="5"/>
+<br><input type="text" value="" size="5"/>
+&nbsp;<input type="text" value="" size="5"/>
+<br><input type="text" value="" size="5"/>
+&nbsp;<input type="text" value="" size="5"/>
+<br><input type="text" value="" size="5"/>
+&nbsp;<input type="text" value="" size="5"/>
+<br><input type="text" value="" size="5"/>
+&nbsp;<input type="text" value="" size="5"/>
+</form>
+</td></tr>
+<tr><td valign="top">gekozen door: </td>
+<td colspan="2"><form name="ShowTroefKleur"><input type="text" name="HuidigeTroefKiezer" value="???" size="10"/>
+</form>
+</td><td valign="top">Roem: </td>
+<td><form name="ShowRoem"><input type="text" name="HuidigeRoemU" value="0" size="4"/>
+<input type="text" name="HuidigeRoemC" value="0" size="4"/>
+</form>
+</td></tr>
+<tr><td colspan="2"><form name="BSpelNiveau"><input type="button" value="Spelniveau:" class="b" onClick="HelpFunctie(3);"/>
+<input type="button" value="-" class="b" onClick="IncSpelNiveau(-1);"/>
+<input type="button" name="HuidigNiv" value="1" class="b" onClick="HelpFunctie(3);"/>
+<input type="button" value="+" class="b" onClick="IncSpelNiveau(1);"/>
+</form>
+</td><td><form name="ShowKaartM"><input type="text" value="" size="4" class="k"/>
+</form>
+</td><td colspan="2" align="center" valign="center"><form name="InfoHelp"><input type="button" value=" ? " class="b" onClick="HelpFunctie(1);"/>
+<input type="button" value=" i " class="b" onClick="HelpFunctie(4);"/>
+<input type="button" value=" &copy; " class="b" onClick="HelpFunctie(2);"/>
+</form>
+</td></tr>
+<tr><td>&nbsp;</td><td><form name="ShowKaartL"><input type="text" value="" size="4" class="k"/>
+</form>
+</td><td>&nbsp;</td><td><form name="ShowKaartR"><input type="text" value="" size="4" class="k"/>
+</form>
+</td><td>&nbsp;</td></tr>
+<tr><td colspan="2">&nbsp;</td><td><form name="ShowKaartS"><input type="text" value="" size="4" class="k"/>
+</form>
+</td><td colspan="2">&nbsp;</td></tr>
+<tr><td>&nbsp;</td><td colspan="5"><form name="IndeHand"><input type="button" value="WWW" class="k" onClick="SpeelDeze(0);"/>
+<input type="button" value="WWW" class="k" onClick="SpeelDeze(1);"/>
+<input type="button" value="WWW" class="k" onClick="SpeelDeze(2);"/>
+<input type="button" value="WWW" class="k" onClick="SpeelDeze(3);"/>
+<input type="button" value="WWW" class="k" onClick="SpeelDeze(4);"/>
+<input type="button" value="WWW" class="k" onClick="SpeelDeze(5);"/>
+<input type="button" value="WWW" class="k" onClick="SpeelDeze(6);"/>
+<input type="button" value="WWW" class="k" onClick="SpeelDeze(7);"/>
+</form>
+</td></tr>
+<tr><td colspan="6"><form name="msg"><input type="text" name="m0" value=" " size="43"/>
+<input type="text" name="m1" value=" " size="43"/>
+</form>
+</td></tr>
+</table>
+<table width=100%> <tr>
+<td width=100% align=center><table border cellspacing=0>
+<tr><td><a href="javascript:NieuwSpel();">nieuw&nbsp;spel</a></td>
+<td><a href="klaverjas_faq.html">settings/faq</a></td>
+<td><a href="kj_txt_rdam.html">rotterdams</a></td>
+<td><a href="kj_gfx_adam.html">met&nbsp;plaatjes</a></td>
+<td><a href="reactie.html">mail-me</a></td>
+<td><a href="index.html">homepage</a></td>
+<td><a href="sport.html">sport</a></td>
+</tr>
+</table>
+</td> </tr> </table>
+<script type="text/javascript" language="javascript">
+function setCookie(name, value) {
+var today = new Date();
+var expiry = new Date(today.getTime() + 2419200000);
+ if (value != null && value != "")
+  document.cookie=name + "=" + escape(value) + "; expires=" + expiry.toGMTString();
+}
+StartSpel();
+</script>
+</body></html>

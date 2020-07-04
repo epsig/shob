@@ -1,0 +1,91 @@
+<html lang="NL"><head><title>Klaverjassen</title>
+<meta http-equiv="Content-Script-Type" content="text/javascript">
+<style type="text/css">
+body{background:white;color:black;font-family:"Verdana","Arial";font-size:9pt}
+h1{font-weight:bold;font-size:12pt}
+th,td{font-size:9pt;padding-top:2pt;padding-bottom:2pt;padding-left:4pt;padding-right:4pt}
+.k{font-family:"Courier New","Courier";font-weight:bold;font-size:14pt}
+</style><script type="text/javascript" language="javascript" src="include/kj_code_txt.js"></script></head><body>
+<table cellspacing="0">
+<tr> <td colspan="1">
+<form name="BSpelNiveau">
+<input type="button" class="k" value="-" onClick="IncSpelNiveau(-1);">
+<input type="button" class="k" name="HuidigNiv" value="1" onClick="HelpFunctie(3);">
+<input type="button" class="k" value="+" onClick="IncSpelNiveau(1);">
+</form> </td>
+<td> <form name="ShowKaartM">
+<input type="text" class="k" name="OpTafel" value="" size="4">
+</form> </td>
+<td>
+<table>
+<tr> <td>
+<form name="KiesTroefKleur">
+<input type="button" class="k" name="KiesKlaver" value="K" onClick="KiesTroef(0);">
+<input type="button" class="k" name="KiesRuiten" value="R" onClick="KiesTroef(1);">
+<input type="button" class="k" name="KiesHarten" value="H" onClick="KiesTroef(2);">
+<input type="button" class="k" name="KiesSchoppen" value="S" onClick="KiesTroef(3);">
+</form>
+</td>
+<td>
+<form name="nL">
+<input type="button" name="Help" value=" ? " onClick="HelpFunctie(1);">
+<input type="button" name="Histo" value=" i " onClick="HelpFunctie(4);">
+<input type="button" name="Info" value=" &copy; " onClick="HelpFunctie(2);">
+</form> </td> </tr> </table> </td> </tr>
+<tr>
+<td align="right"> <form name="ShowKaartL">
+<input type="text" class="k" name="OpTafel" value="" size="4">
+</form> </td>
+<td> <form name="ShowKaartS">
+<input type="text" class="k" name="OpTafel" value="" size="4">
+</form> </td>
+<td>
+<table> <tr> <td>
+<form name="ShowKaartR">
+<input type="text" class="k" name="OpTafel" value="" size="4">
+</form> </td>
+<td> &nbsp; </td> </tr>
+</table> </td> </tr>
+</td>
+</tr>
+</table>
+<table cellspacing="0">
+<tr>
+<td> <form name="IndeHand">
+<input type="button" class="k" value="???" onClick="SpeelDeze(0);">
+<input type="button" class="k" value="???" onClick="SpeelDeze(1);">
+<input type="button" class="k" value="???" onClick="SpeelDeze(2);">
+<input type="button" class="k" value="???" onClick="SpeelDeze(3);">
+<input type="button" class="k" value="???" onClick="SpeelDeze(4);">
+<input type="button" class="k" value="???" onClick="SpeelDeze(5);">
+<input type="button" class="k" value="???" onClick="SpeelDeze(6);">
+<input type="button" class="k" value="???" onClick="SpeelDeze(7);">
+</form> </td>
+<td> &nbsp; </td>
+</tr>
+<tr> <td colspan="2"> <form name="msg">
+<input type="text" name="msg0" value=" " size="30">
+</form> </td> </tr>
+</table>
+<table> <tr>
+<td width=100% align=center><table border cellspacing=0>
+<tr><td><a href="javascript:NieuwSpel();">nieuw&nbsp;spel</a></td>
+<td><a href="klaverjas_faq.html">settings/faq</a></td>
+<td><a href="kj_klein_rdam.html">rotterdams</a></td>
+<td><a href="kj_gfx_adam.html">met&nbsp;plaatjes</a></td>
+<td><a href="reactie.html">mail-me</a></td>
+<td><a href="index.html">homepage</a></td>
+<td><a href="sport.html">sport</a></td>
+</tr>
+</table>
+</td> </tr> </table>
+<script type="text/javascript" language="javascript">
+function setCookie(name, value) {
+var today = new Date();
+var expiry = new Date(today.getTime() + 2419200000);
+ if (value != null && value != "")
+  document.cookie=name + "=" + escape(value) + "; expires=" + expiry.toGMTString();
+}
+StartSpel();
+</script>
+</body></html>

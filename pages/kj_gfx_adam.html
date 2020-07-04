@@ -1,0 +1,95 @@
+<html lang="NL"><head><title>Klaverjassen</title>
+<meta http-equiv="Content-Script-Type" content="text/javascript">
+<style type="text/css">
+body {background:silver; color:black; font-family:"Verdana","Arial"; font-size:12pt}
+th,td {background:white; font-size:12pt; padding-top:2pt; padding-bottom:2pt; padding-left:4pt; padding-right:4pt}
+input,option {font-family:"Verdana","Arial"; font-size:12pt}
+input.k {font-family:"Courier New","Courier"; font-weight: bold; font-size:14pt}
+input.b {font-family:"Courier New","Courier"; font-weight: bold; font-size:12pt}
+</style>
+<script type="text/javascript" language="javascript" src="include/kj_code_gfx.js"></script></head><body>
+<table border cellspacing="0" width="100%"><tr><td valign="top"><form name="KiesTroefTxt"><input type="text" name="vld1" value="kies troef:" size="12"/>
+</form>
+</td>
+<td colspan="2"><form name="KiesTroefKleur"><a href="javascript:KiesTroef(0)"><img border=0 src="include/wit.gif" height=40 width=40/></a>&nbsp;<a href="javascript:KiesTroef(1)"><img border=0 src="include/wit.gif" height=40 width=40/></a>&nbsp;<a href="javascript:KiesTroef(2)"><img border=0 src="include/wit.gif" height=40 width=40/></a>&nbsp;<a href="javascript:KiesTroef(3)"><img border=0 src="include/wit.gif" height=40 width=40/></a>&nbsp;</form>
+</td><td valign="top">Score: </td>
+<td><form name="ShowScore"><input type="text" name="HuidigeScoreU" value="0" size="4"/>
+<input type="text" name="HuidigeScoreC" value="0" size="4"/>
+</form>
+</td><td rowspan="4"><form name="WijZij"><input type="text" name="Wij" value="Wij" size="5"/>
+<input type="text" name="Zij" value="Zij" size="5"/>
+<br></form>
+<form name="TotaleScore"><input type="text" value="" size="5"/>
+&nbsp;<input type="text" value="" size="5"/>
+<br><input type="text" value="" size="5"/>
+&nbsp;<input type="text" value="" size="5"/>
+<br><input type="text" value="" size="5"/>
+&nbsp;<input type="text" value="" size="5"/>
+<br><input type="text" value="" size="5"/>
+&nbsp;<input type="text" value="" size="5"/>
+<br><input type="text" value="" size="5"/>
+&nbsp;<input type="text" value="" size="5"/>
+<br><input type="text" value="" size="5"/>
+&nbsp;<input type="text" value="" size="5"/>
+</form>
+</td></tr>
+<tr><td valign="top">gekozen door: </td>
+<td colspan="2"><form name="ShowTroefKleur"><input type="text" name="HuidigeTroefKiezer" value="???" size="10"/>
+</form>
+</td><td valign="top">Roem: </td>
+<td><form name="ShowRoem"><input type="text" name="HuidigeRoemU" value="0" size="4"/>
+<input type="text" name="HuidigeRoemC" value="0" size="4"/>
+</form>
+</td></tr>
+<tr><td colspan="2"><form name="BSpelNiveau"><input type="button" value="Spelniveau:" class="b" onClick="HelpFunctie(3);"/>
+<input type="button" value="-" class="b" onClick="IncSpelNiveau(-1);"/>
+<input type="button" name="HuidigNiv" value="1" class="b" onClick="HelpFunctie(3);"/>
+<input type="button" value="+" class="b" onClick="IncSpelNiveau(1);"/>
+</form>
+</td><td><form name="ShowKaartM"><img border=0 src="include/wit.gif" height=50 width=50/></form>
+</td><td colspan="2" align="center" valign="center"><form name="InfoHelp"><input type="button" value=" ? " class="b" onClick="HelpFunctie(1);"/>
+<input type="button" value=" i " class="b" onClick="HelpFunctie(4);"/>
+<input type="button" value=" &copy; " class="b" onClick="HelpFunctie(2);"/>
+</form>
+</td></tr>
+<tr><td>&nbsp;</td><td><form name="ShowKaartL"><img border=0 src="include/wit.gif" height=50 width=50/></form>
+</td><td><form name="ShowKaartS"><img border=0 src="include/wit.gif" height=50 width=50/></form>
+</td><td><form name="ShowKaartR"><img border=0 src="include/wit.gif" height=50 width=50/></form>
+</td><td>&nbsp;</td></tr>
+<tr><td colspan="6" align="center"><form name="IndeHand"><a href="javascript:SpeelDeze(0)"><img border=0 src="include/wit.gif" height=50 width=50/></a>&nbsp;
+<a href="javascript:SpeelDeze(1)"><img border=0 src="include/wit.gif" height=50 width=50/></a>&nbsp;
+<a href="javascript:SpeelDeze(2)"><img border=0 src="include/wit.gif" height=50 width=50/></a>&nbsp;
+<a href="javascript:SpeelDeze(3)"><img border=0 src="include/wit.gif" height=50 width=50/></a>&nbsp;
+<a href="javascript:SpeelDeze(4)"><img border=0 src="include/wit.gif" height=50 width=50/></a>&nbsp;
+<a href="javascript:SpeelDeze(5)"><img border=0 src="include/wit.gif" height=50 width=50/></a>&nbsp;
+<a href="javascript:SpeelDeze(6)"><img border=0 src="include/wit.gif" height=50 width=50/></a>&nbsp;
+<a href="javascript:SpeelDeze(7)"><img border=0 src="include/wit.gif" height=50 width=50/></a>&nbsp;
+</form>
+</td></tr>
+<tr><td colspan="6"><form name="msg"><input type="text" name="m0" value=" " size="43"/>
+<input type="text" name="m1" value=" " size="43"/>
+</form>
+</td></tr>
+</table>
+<table width=100%> <tr>
+<td width=100% align=center><table border cellspacing=0>
+<tr><td><a href="javascript:NieuwSpel();">nieuw&nbsp;spel</a></td>
+<td><a href="klaverjas_faq.html">settings/faq</a></td>
+<td><a href="kj_gfx_rdam.html">rotterdams</a></td>
+<td><a href="kj_txt_adam.html">tekst-only</a></td>
+<td><a href="reactie.html">mail-me</a></td>
+<td><a href="index.html">homepage</a></td>
+<td><a href="sport.html">sport</a></td>
+</tr>
+</table>
+</td> </tr> </table>
+<script type="text/javascript" language="javascript">
+function setCookie(name, value) {
+var today = new Date();
+var expiry = new Date(today.getTime() + 2419200000);
+ if (value != null && value != "")
+  document.cookie=name + "=" + escape(value) + "; expires=" + expiry.toGMTString();
+}
+StartSpel();
+</script>
+</body></html>

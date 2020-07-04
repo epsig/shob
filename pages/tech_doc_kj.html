@@ -1,0 +1,117 @@
+<html lang="NL"><head><title>Technische documentatie Klaverjassen</title>
+<style type="text/css">
+body{background:white;color:black;font-family:"Verdana","Arial";font-size:9pt}
+h1{font-weight:bold;font-size:12pt}h2{font-weight:bold;font-size:11pt}
+th,td{font-size:9pt;padding-top:2pt;padding-bottom:2pt;padding-left:4pt;padding-right:4pt}
+</style></head><body>
+<h1>Technische documentatie Klaverjassen</h1>
+<h1> 1. Algemene inleiding. </h1>
+Op de website www.epsig.nl staat een klaverjas-programma
+dat voor iedereen vrij te gebruiken is.
+Dit programma is geschreven in Javascript,
+en draait in principe op iedere computer, dus platform onafhankelijk.
+In dit document worden enkele technische aspecten van dit programma beschreven.
+Het doel is tweeledig:
+enerzijds is het programma zodanig complex dat zelfs de (enige) programmeur af
+en toe het spoor bijster is,
+anderzijds geeft het een aardig beeld wat er met open source software voor
+moois te maken is.
+<h1> 2. Platform afhankelijkheden. </h1>
+Het klaverjas-programma is oorspronkelijk geschreven
+voor een Psion handheld waarop de browser Opera draaide.
+Die versie van Opera is nogal streng, waardoor eenmaal daar,
+het eigenlijk overal draaide.
+De Psion is inmiddels vervangen door iPAQ met Microsoft's IE.
+Het enige dat problemen geeft is de try - catch
+voor de tekst-only versie op een oude Netscape op Linux.
+<h1> 3. Versiebeheer en maken van runtime code. </h1>
+De programmatuur om de runtime code te maken is onderdeel van
+<a href="tech_doc_shob.html">shob.pl</a>.
+Dit perl script wordt m.b.v. CVS beheert.
+De CVS-repository staat bij XS4ALL en wordt daar gebackupt.
+Een onderdeel van dit script maakt de Javascriptcode
+onleesbaar voor gewone mensen.
+Dit is deels om bandbreedte te besparen,
+en deels omdat de licentievoorwaarden nog niet vastliggen.
+<h1> 4. Basis ontwerp. </h1>
+Er wordt optimaal gebruik gemaakt van de event-handlers van Javascript.
+Zowel de onclick als de timeout handlers zijn de basispunten van het ontwerp.
+-- hier een tekening --
+<h2> 4.1 Klasses. </h2>
+Reeds ge&iuml;mplementeerde klasses (in test-versie):
+<ul>
+ <li> OKaart
+  <br> OKaart is de oudste klasse. Bestond al voordat klasses in aparte js-file werden gestopt.
+  <br> In OKaart staat de set-administratie per kaart.
+ </li>
+ <li> OScore
+  <br> OScore is de klasse waarin de score wordt bijgehouden, zowel tijdens de slagen als de totale score.
+  <br> TODO: bijna alle properties zijn van buiten direct te lezen en te schrijven.
+ </li>
+ <li> OBasicRules
+  <br> OBasicRules is de klasse met de regels voor puntentelling, en verplicht bijleggen.
+ </li>
+ <li> OEnvironment
+  <br> OEnvironment handelt de kookies en de settings die van de filename afhangen af.
+  <br> Bevat o.a. AmsRot, koekkies-zaken, spel-niveau.
+ </li>
+ <li> OSetAnalyse
+  <br> OSetAnalyse is de klasse dat het array kk opvolgt.
+ </li>
+ <li> OStrategy
+  <br> OStrategy is de klasse die slim uitkomen en slim bijleggen implementeert.
+  <p> 1e opzet beslisboom bijleggen voor kaart 2 en 3:
+  <ol>
+   <li> wordt troeft gevraagd of een niet-troef (volgt uit regels) ? </li>
+   <li> kan ik bekennen, zo nee, moet ik introeven (volgt uit regels) ? </li>
+   <li> kans op hogere kaart door links en maat (maat alleen voor kaart 2) </li>
+   <li> kans op introeven door links en maat (maat alleen voor kaart 2) </li>
+  </ol>
+ </li>
+ <li> OStack
+  <br> OStack is de opvolger van het array SLMR inclusief de functies voor schudden etc.
+ </li>
+ <li> OSetAdmin
+  <br> OSetAdmin is de klasse met de administratie voor &eacute;&eacute;n set (potje/8 slagen).
+  <br> Bevat o.a. SLMR, KaartOpTafel, LigtOpTafel,
+  slag_nr, g_troef, kleur_deze_slag, start_speler en troef_kiezer.
+  <br> TODO: Krijgt een reset-functie voor de undo-knop.
+ </li>
+ <li> OMatchAdmin
+  <br> OMatchAdmin is de klasse met de administratie voor het complete spel (n potjes).
+  Initieert de meeste andere objecten.
+ </li>
+ <li> OScreenAdmin
+  <br> OScreenAdmin is de klasse met de administratie voor het scherm.
+  <br> Bevat o.a. UpdateIndeHand, UpdateKaartKleur, MSGLijst, alert.
+  <br> TODO: nader in te vullen welke onderdelen daarin nog meer gaan (b.v. de functie tabel).
+ </li>
+ <li> OHelp
+  <br> OHelp is de klasse met de help-functies.
+ </li>
+</ul>
+TODO: iedere klasse starten met de (uiteindelijke) interface. <br>
+Nog te implementeren klasses:
+<ul>
+ <li> OMessages
+  <br> OMessages wordt de klasse met alle messages. Uiteindelijk meertalig; bij constructor taal opgeven.
+ </li>
+</ul>
+<h1> 5. Cookies. </h1>
+Er worden enkele cookies gebruikt. Doel daarvan:
+<ul>
+ <li> bewaren van spelniveau tussen sessies </li>
+ <li> uitwisselen settings tussen faq/beta en spel-schermen </li>
+ <li> uitwisselen log en enkele settings met reactie-formulier </li>
+ <li> uitwisselen referer met reactie-formulier (doet elke pagina) </li>
+</ul>
+<table width=100%> <tr> <td width=10%>&nbsp;</td>
+<td width=80% align=center><table border cellspacing=0>
+<tr><td><a href="reactie.html">mail-me</a></td>
+<td><a href="index.html">homepage</a></td>
+<td><a href="klaverjas_faq.html">klaverjassen</a></td>
+<td><a href="sport.html">sport</a></td>
+<td>d.d. 29 aug 2018</td></tr>
+</table>
+</td> <td width=10%>&nbsp;</td> </tr> </table>
+</body></html>
