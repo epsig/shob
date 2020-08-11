@@ -1,0 +1,630 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<!DOCTYPE names [
+<!ENTITY euml "&#xEB;">
+<!ENTITY Euml "&#203;">
+<!ENTITY iuml "&#xEF;">
+<!ENTITY uuml "&#252;">
+<!ENTITY iacute "&#237;">
+<!ENTITY eacute "&#xE9;">
+<!ENTITY aacute "&#xE1;">
+<!ENTITY egrave "&#xE8;">
+<!ENTITY atilde "&#227;">
+<!ENTITY ouml "&#xF6;">
+<!ENTITY auml "&#228;">
+<!ENTITY oslash "&#248;">
+<!ENTITY Oslash "&#216;">
+<!ENTITY acirc "&#xE2;">
+<!ENTITY ccedil "&#xE7;">
+<!ENTITY icirc "&#xEE;">
+<!ENTITY oacute "&#xF3;">
+<!ENTITY ocirc "&#xF4;">
+]>
+
+<games>
+<group_phase>
+<groupA>
+<CH_CZ>
+<stats>
+<arbiter> Rosetti (Ita) </arbiter>
+<spectators> 39730 </spectators>
+<line_up team="CH">
+Benaglio, Lichtsteiner
+(Vonlanthen/75), M&uuml;ller, Senderos, Magnin,
+Behrami (Derdiyok/84), Inler, Fernandes,
+Barnetta, Frei (Yakin/46), Streller
+</line_up>
+<line_up team="CZ">
+Cech, Grygera, Ujfalusi,
+Rozehnal, Jankulovski, Sionko (Vlcek/83),
+Jarolim (Kov&aacute;c/87), Gal&aacute;sek, Pol&aacute;k,
+Pla il, Koller (Sverkos/56)
+</line_up>
+</stats>
+</CH_CZ>
+<PT_TR>
+<stats>
+<arbiter> Fandel (Dui) </arbiter>
+<spectators> 29106 </spectators>
+<line_up team="PT">
+Ricardo, Bosingwa, Pepe,
+Carvalho, Ferreira, Ronaldo, Petit, Deco
+(Meira/90+2), Moutinho, Sim&atilde;o (Meireles/83), Nuno Gomes (Nani/69)
+</line_up>
+<line_up team="TR">
+Volkan, Hamit Altintop (Semih/
+76), G&ouml;khan (Emre Asik/55), Servet, Hakan,
+Kazim, Emre, Aur&eacute;lio, Mevl&uuml;t (Sabri/46),
+Nihat, Tuncay
+</line_up>
+</stats>
+</PT_TR>
+<CZ_PT>
+<stats>
+<arbiter> Vassaras (Gri) </arbiter>
+<spectators> 29016 </spectators>
+<line_up team="CZ">
+Cech, Grygera, Ujfalusi,
+Rozehnal, Jankulovski, Sionko, Matejovsk
+(Vlcek/68), Gal&aacute;sek (Koller/73), Pol&aacute;k,
+Pla il (Jarolim/85), Baro
+</line_up>
+<line_up team="PT">
+Ricardo, Bosingwa, Pepe,
+Carvalho, Ferreira, Ronaldo, Petit, Deco,
+Moutinho (Meira/75), Sim&atilde;o (Quaresma/
+80), Nuno Gomes (Almeida/80)
+</line_up>
+</stats>
+</CZ_PT>
+<CH_TR>
+<stats>
+<arbiter> Michel (Slw) </arbiter>
+<spectators> 39730 </spectators>
+</stats>
+</CH_TR>
+<CH_PT>
+<stats>
+<arbiter> Plautz (Oos) </arbiter>
+<spectators> 39730 </spectators>
+<line_up team="CH">
+Zuberb&uuml;hler, Lichtsteiner
+(Grichting/83), M&uuml;ller, Senderos, Magnin,
+Behrami, Fernandes, Inler, Vonlanthen
+(Barnetta/61), Yakin (Cabanas/86),
+Derdiyok
+</line_up>
+<line_up team="PT">
+Ricardo, Miguel, Pepe,
+Bruno Alves, Ferreira (Ribeiro/41),
+Meira, Veloso (Moutinho/71), Meireles,
+Quaresma, H&eacute;lder (Almeida/74), Nani
+</line_up>
+</stats>
+</CH_PT>
+<TR_CZ>
+<stats>
+<dow>zondag</dow>
+<arbiter> Fr&ouml;jdfeldt (SE) </arbiter>
+<spectators> 29016 </spectators>
+<stadium>Gen&egrave;ve</stadium>
+<chronological>
+<data min="34"> 0-1 Koller</data>
+<data min="62"> 0-2 Pla il</data>
+<data min="75"> 1-2 Arda</data>
+<data min="87"> 2-2 Nihat</data>
+<data min="89"> 3-2 Nihat</data>
+</chronological>
+<line_up team="TR">
+Volkan, Hamit Altintop,
+Emre G&uuml;ng&ouml;r (Emre Asik/63), Servet,
+Hakan, Mehmet (Kazim/57), Aur&eacute;lio, Arda,
+Tuncay, Nihat, Semih (Sabri/46)
+</line_up>
+<line_up team="CZ">
+Cech, Grygera, Ujfalusi,
+Rozehnal, Jankulovski, Sionko (Vlcek/84),
+Matejovsk  (Jarolim/39), Gal&aacute;sek, Pol&aacute;k,
+Pla il (Kadlec/80), Koller
+</line_up>
+</stats>
+</TR_CZ>
+</groupA>
+<groupB>
+<AT_HR>
+<stats>
+<arbiter> Vink (Ned) </arbiter>
+<spectators> 51428 </spectators>
+<line_up team="AT">
+Macho, Pr&ouml;dl, Stranzl,
+Pogatetz, Standfest, Aufhauser,
+Ivanschitz, S&auml;umel (Vastic/61), Gercaliu
+(Korkmaz/69), Harnik, Linz (Kienast/73)
+</line_up>
+<line_up team="HR">
+Pletikosa, Corluka, R. Kovac,
+Simunic, Pranjic, Srna, N. Kovac, Modric,
+Kranjcar (Knezevic/62), Olic (Vukojevic/83), Petric (Budan/72)
+</line_up>
+</stats>
+</AT_HR>
+<DE_PL>
+<stats>
+<arbiter> Henning &Oslash;vreb&oslash;, Noo </arbiter>
+<spectators> 30000 </spectators>
+<line_up team="DE">
+Lehmann, Lahm, Mertesacker,
+Metzelder, Jansen, Fritz (Schweinsteiger/56),
+Frings, Ballack, Podolski, Gomez
+(Hitzlsperger/75), Klose (Kuranyi/90+1)
+</line_up>
+<line_up team="PL">
+Boruc, Wasilewski, Zewlakow, Bak,
+Golanski (Saganowski/75), Lobodzinski
+(Pizczek/65), Dudka, Zurawski (Guerreiro/46),
+Lewandowski, Krzynowek, Smolarek
+</line_up>
+</stats>
+</DE_PL>
+<HR_DE>
+<stats>
+<arbiter> De Bleeckere (Bel) </arbiter>
+<spectators> 30461 </spectators>
+</stats>
+</HR_DE>
+<AT_PL>
+<stats>
+<arbiter> Webb (Eng) </arbiter>
+<spectators> 52000 </spectators>
+<line_up team="AT">
+Macho, Garics, Pr&ouml;dl, Stranzl,
+Pogatetz, Leitgeb, Aufhauser (S&auml;umel/74),
+Ivanschitz (Vastic/64), Korkmaz, Harnik,
+Linz (Kienast/64)
+</line_up>
+<line_up team="PL">
+Boruc, Wasilewski, Jop (Golanski/46), Bak, Zewlakow, Dudka, Lewandowski,
+Guerreiro (Murawski/85), Krzynowek,
+Saganowski (Lobodzinski/83), Smolarek
+</line_up>
+</stats>
+</AT_PL>
+<PL_HR>
+<stats>
+<arbiter> Vassaras (Gri) </arbiter>
+<spectators> 30461 </spectators>
+<line_up team="PL">
+Boruc, Wasilewski, Zewlakow, Dudka,
+Wawrzyniak, Lobodzinski (Smolarek/55),
+Murawski, Guerreiro, Lewandowski
+(Kokoszka/46), Krzynowek, Saganowski
+(Zahorski/68)
+</line_up>
+<line_up team="HR">
+Runje, imic, Vejic, Knezevic
+(Corluka/27), Pranjic, Leko, Vukojevic,
+Pokrivac, Rakitic, Klasnic (Kalinic/74),
+Petric (Kranjcar/74)
+</line_up>
+</stats>
+</PL_HR>
+<AT_DE>
+<stats>
+<arbiter> M&eacute;juto Gonz&aacute;lez, Spa </arbiter>
+<spectators> 51428 </spectators>
+<line_up team="AT">
+Macho, Stranzl, Hiden
+(Leitgeb/55), Pogatetz, Garics, Aufhauser
+(S&auml;umel/63), Ivanschitz, Fuchs, Harnik
+(Kienast/67), Hoffer, Korkmaz
+</line_up>
+<line_up team="DE">
+Lehmann, A. Friedrich,
+Mertesacker, Metzelder, Lahm, Fritz
+(Borowski/90+3), Frings, Ballack,
+Podolski (Neuville/83), Gomez
+(Hitzlsperger/60), Klose
+</line_up>
+</stats>
+</AT_DE>
+</groupB>
+<groupC>
+<RO_FR>
+<stats>
+<arbiter> M&eacute;juto Gonz&aacute;lez, Spa </arbiter>
+<spectators> 30585 </spectators>
+<line_up team="RO">
+Lobont, Contra, Tamas, Goian,
+Rat, Cocis (Codrea/64), Radoi (Dica/90+3),
+Chivu, Nicolita, D. Niculae, Mutu (M. Niculae/78)
+</line_up>
+<line_up team="FR">
+Coupet, Sagnol, Thuram, Gallas,
+Abidal, Rib&eacute;ry, Toulalan, Mak&eacute;l&eacute;l&eacute;,
+Malouda, Anelka (Gomis/72), Benzema (Nasri/78)
+</line_up>
+</stats>
+</RO_FR>
+<NL_IT>
+<stats>
+<dow>maandag</dow>
+<arbiter> Fr&ouml;jdfeldt (SE) </arbiter>
+<spectators> 30000 </spectators>
+<stadium>Bern</stadium>
+<chronological>
+<data min="26"> 1-0 vnistelrooy</data>
+<data min="31"> 2-0 sneijder</data>
+<data min="79"> 3-0 vbronckhorst</data>
+</chronological>
+<line_up team="NL">
+v. d. Sar, Boulahrouz
+(Heitinga/77), Ooijer, Mathijsen,
+v. Bronckhorst, Kuijt (Afellay/81),
+De Jong, v. d. Vaart, Engelaar, Sneijder,
+v. Nistelrooij (v. Persie/70)
+</line_up>
+<line_up team="IT">
+ITALI&Euml;: Buffon, Panucci, Barzagli,
+Materazzi (Grosso/54), Zambrotta,
+Gattuso, Pirlo, Ambrosini, Camoranesi
+(Cassano/75), Toni, Di Natale (Del Piero/64)
+</line_up>
+</stats>
+</NL_IT>
+<IT_RO>
+<stats>
+<arbiter> Henning &Oslash;vreb&oslash;, Noo </arbiter>
+<spectators> 30585 </spectators>
+<line_up team="IT">
+Buffon, Zambrotta, Panucci,
+Chiellini, Grosso, Camoranesi (Ambrosini/85),
+Pirlo, Perrotta (Cassano/57),
+De Rossi, Del Piero (Quagliarella/77), Toni
+</line_up>
+<line_up team="RO">
+Lobont, Contra, Tamas, Goian,
+Rat, F. Petre (Nicolita/60), Radoi (Dica/25),
+Codrea, Chivu, D. Niculae, Mutu (Cocis/88)
+</line_up>
+</stats>
+</IT_RO>
+<NL_FR>
+<stats>
+<dow>vrijdag</dow>
+<arbiter> Fandel (DE) </arbiter>
+<spectators> 30777 </spectators>
+<stadium>Bern</stadium>
+<chronological>
+<data min="9"> 1-0 kuyt</data>
+<data min="59"> 2-0 vpersie</data>
+<data min="71"> 2-1 henry</data>
+<data min="72"> 3-1 robben</data>
+<data min="90+2"> 4-1 sneijder</data>
+</chronological>
+</stats>
+</NL_FR>
+<NL_RO>
+<stats>
+<dow>dinsdag</dow>
+<arbiter> Busacca (CH) </arbiter>
+<spectators> 30777 </spectators>
+<stadium>Bern</stadium>
+<chronological>
+<data min="54"> 1-0 huntelaar</data>
+<data min="87"> 2-0 vpersie</data>
+</chronological>
+<line_up team="NL">
+Stekelenburg, Boulahrouz
+(Melchiot/58), Heitinga, Bouma, De Cler,
+Afellay, De Zeeuw, v. Persie, Engelaar,
+Robben (Kuijt/62), Huntelaar (Vennegoor/83)
+</line_up>
+<line_up team="RO">
+Lobont, Contra, Tamas, Ghionea,
+Rat, Cocis, Razvan, Codrea (Dica/72),
+Chivu, Nicolita (F. Petre/82), M. Niculae
+(D. Niculae/59), Mutu
+</line_up>
+</stats>
+</NL_RO>
+<FR_IT>
+<stats>
+<arbiter> Michel (Slw) </arbiter>
+<spectators> 30585 </spectators>
+<line_up team="FR">
+Coupet, Clerc, Gallas, Abidal,
+Evra, Govou (Anelka/66), Toulalan,
+Mak&eacute;l&eacute;l&eacute;, Rib&eacute;ry (Nasri/10, Boumsong/26),
+Benzema, Henry
+</line_up>
+<line_up team="IT">
+Buffon, Zambrotta, Panucci,
+Chiellini, Grosso, Gattuso (Aquilani/82),
+De Rossi, Perrotta (Camoranesi/64),
+Pirlo (Ambrosini/55), Toni, Cassano
+</line_up>
+</stats>
+</FR_IT>
+</groupC>
+<groupD>
+<ES_RU>
+<stats>
+<arbiter> Plautz (Oos) </arbiter>
+<spectators> 30772 </spectators>
+<line_up team="ES">
+Casillas, Ramos, Marchena, Puyol,
+Capdevila, Iniesta (Cazorla/63), Senna,
+Xavi, Silva (Alonso/78), Villa, Torres (F&aacute;bregas/54)
+</line_up>
+<line_up team="RU">
+Akinfejev, Anjoekov, Sjirokov,
+Kolodin, Zjirkov, Sytsjev (Bystrov/46-Adamov/70),
+Zyrjanov, Semak, Semsjov (Torbinskij/57), Biljaletdinov,
+Pavljoetsjenko
+</line_up>
+</stats>
+</ES_RU>
+<GR_SE>
+<stats>
+<arbiter> Busacca (Zwi) </arbiter>
+<spectators> 31063 </spectators>
+<line_up team="GR">
+Nikopolidis, Seitaridis,
+Kyrgiakos, Dellas (Amanatidis/70),
+Antzas, Torosidis, Charisteas, Basinas,
+Katsouranis, Karagounis, Gekas (Samaras/46)
+</line_up>
+<line_up team="SE">
+Isaksson, Alexandersson (Stoor/74), Mellberg, Hansson, M. Nilsson,
+Wilhelmsson (Rosenberg/78), A. Svensson,
+D. Andersson, Ljungberg, Ibrahimovic (Elmander/71), H. Larsson
+</line_up>
+</stats>
+</GR_SE>
+<SE_ES>
+<stats>
+<arbiter> Vink (Ned) </arbiter>
+<spectators> 30772 </spectators>
+<line_up team="SE">
+Isaksson, Stoor, Mellberg,
+Hansson, M. Nilsson, Elmander (S. Larsson/79),
+D. Andersson, A. Svensson, Ljungberg,
+H. Larsson (K&auml;llstr&ouml;m/87), Ibrahimovic (Rosenberg/46)
+</line_up>
+<line_up team="ES">
+Casillas, Ramos, Marchena, Puyol (Albiol/24),
+Capdevila, Iniesta (Cazorla/59),
+Senna, Xavi (F&aacute;bregas/58), Silva,
+Villa, Torres
+</line_up>
+</stats>
+</SE_ES>
+<GR_RU>
+<stats>
+<arbiter> Rosetti (Ita) </arbiter>
+<spectators> 30000 </spectators>
+<line_up team="GR">
+Nikopolidis, Seitaridis (Karagounis/40), Dellas, Kyrgiakos,
+Torosidis, Katsouranis, Basinas,
+Patsatzoglou, Charisteas, Liberopoulos
+(Gekas/61), Amanatidis (Giannakopoulos/80)
+</line_up>
+<line_up team="RU">
+Akinfejev, Anjoekov,
+Ignasjevitsj, Kolodin, Zjirkov
+(V. Berezoetsky/87), Torbinskij, Zyrjanov,
+Semak, Semsjov, Biljaletdinov (Sajenko/70), Pavljoetsjenko
+</line_up>
+</stats>
+</GR_RU>
+
+<GR_ES>
+<stats>
+<arbiter> Webb (Eng) </arbiter>
+<spectators> 30883 </spectators>
+<line_up team="GR">
+Nikopolidis, Vyntras,
+Kyrgiakos (Antzas/62), Dellas,
+Spiropoulos, Basinas, Karagounis
+(Tziolis/74), Katsouranis, Salpigidis
+(Giannakopoulos/86), Charisteas,
+Amanatidis
+</line_up>
+<line_up team="ES">
+Reina, Arbeloa, Albiol, Gutierrez,
+Navarro, Garc&iacute;a, De la Red, F&aacute;bregas,
+Alonso, Iniesta (Cazorla/58), G&uuml;iza
+</line_up>
+</stats>
+</GR_ES>
+<RU_SE>
+<stats>
+<arbiter> De Bleeckere (Bel) </arbiter>
+<spectators> 30772 </spectators>
+<line_up team="RU">
+Akinfejev, Anjoekov,
+Ignasjevitsj, Kolodin, Zjirkov, Zyrjanov,
+Semak, Semsjov, Biljaletdinov (Sajenko/66),
+Pavljoetsjenko (Bystrov/90), Arsjavin
+</line_up>
+<line_up team="SE">
+Isaksson, Stoor, Mellberg,
+Hansson, M. Nilsson (Allb&auml;ck/79),
+Elmander, D. Andersson (K&auml;llstr&ouml;m/56),
+A. Svensson, Ljungberg, H. Larsson, Ibrahimovic
+</line_up>
+</stats>
+</RU_SE>
+</groupD>
+</group_phase>
+<ko>
+<last8>
+<PT_DE>
+<stats>
+<arbiter> Fr&ouml;jdfeldt (Zwe) </arbiter>
+<spectators> 39730 </spectators>
+<line_up team="PT">
+Ricardo, Bosingwa, Pepe,
+Carvalho, Ferreira, Sim&atilde;o, Petit (H&eacute;lder/73),
+Deco, Moutinho (Meireles/31),
+Ronaldo, Nuno Gomes (Nani/67)
+</line_up>
+<line_up team="DE">
+Lehmann, Friedrich,
+Mertesacker, Metzelder, Lahm,
+Schweinsteiger (Fritz/83), Hitzlsperger
+(Borowski/73), Ballack, Rolfes, Podolski,
+Klose (Jansen/89)
+</line_up>
+</stats>
+</PT_DE>
+<HR_TR>
+<stats>
+<dow> vrijdag </dow>
+<arbiter> Rosetti (IT) </arbiter>
+<spectators> 51000 </spectators>
+<stadium>Wenen</stadium>
+<chronological>
+<data min="119"> 1-0 Klasnic</data>
+<data min="120+2"> 1-1 Semih</data>
+</chronological>
+<wns_short> 1-3 </wns_short>
+<line_up team="HR">
+Pletikosa, Corluka, R. Kovac,
+Simunic, Pranjic, Srna, Modric, N. Kovac,
+Rakitic, Kranjcar (Petric/65), Olic (Klasnic/97)
+</line_up>
+<line_up team="TR">
+R&uuml;st&uuml;, Sabri, G&ouml;khan, Emre Asik,
+Hakan, Hamit Altintop, Mehmet (Semih/76),
+Tuncay, Arda, Kazim (Ugur/61), Nihat (G&ouml;kdeniz/117)
+</line_up>
+</stats>
+</HR_TR>
+<NL_RU>
+<stats>
+<dow> zaterdag </dow>
+<arbiter> Michel (SK) </arbiter>
+<spectators> 38374 </spectators>
+<stadium>Basel</stadium>
+<chronological>
+<data min="56"> 0-1 Pavljoetsjenko</data>
+<data min="86"> 1-1 vnistelrooy</data>
+<data min="112">  1-2 Torbinskij</data>
+<data min="116"> 1-3 Arsjavin</data>
+</chronological>
+<line_up team="NL">
+v. d. Sar, Boulahrouz (Heitinga/54), Ooijer, Mathijsen,
+v. Bronckhorst, Kuijt (v. Persie/46),
+De Jong, v. d. Vaart, Engelaar (Afellay/62),
+Sneijder, v. Nistelrooij
+</line_up>
+<line_up team="RU">
+Akinfejev, Anjoekov,
+Ignasjevitsj, Kolodin, Zjirkov, Sajenko
+(Torbinskij/81), Semak, Semsjov
+(Biljaletdinov/69), Zyrjanov,
+Pavljoetsjenko (Sytsjev/115), Arsjavin
+</line_up>
+</stats>
+</NL_RU>
+<ES_IT>
+<stats>
+<arbiter> Fandel (DE) </arbiter>
+<spectators> 48000 </spectators>
+<line_up team="ES">
+Casillas, Ramos, Puyol, Marchena,
+Capdevila, Iniesta (Cazorla/59), Senna,
+Xavi (F&aacute;bregas/60), Silva, Villa, Torres
+(G&uuml;iza/85)
+</line_up>
+<line_up team="IT">
+Buffon, Zambrotta, Panucci,
+Chiellini, Grosso, Aquilani (Del Piero/108),
+De Rossi, Perrotta (Camoranesi/58),
+Ambrosini, Toni, Cassano (Di Natale/75)
+</line_up>
+</stats>
+</ES_IT>
+</last8>
+<last4>
+<DE_TR>
+<stats>
+<arbiter> Busacca (CH) </arbiter>
+<spectators> 38374 </spectators>
+<stadium> Basel </stadium>
+<chronological>
+<data min="22"> 0-1 Ugur</data>
+<data min="26"> 1-1 Schweinsteiger</data>
+<data min="79"> 2-1 Klose</data>
+<data min="86"> 2-2 Semih</data>
+<data min="90"> 3-2 Lahm</data>
+</chronological>
+<line_up team="DE">
+Lehmann, Friedrich,
+Mertesacker, Metzelder, Lahm,
+Schweinsteiger, Rolfes (Frings/46),
+Ballack, Hitzlsperger, Podolski, Klose
+(Jansen/90+2)
+</line_up>
+<line_up team="TR">
+R&uuml;st&uuml;, Sabri, G&ouml;khan, Mehmet,
+Hakan, Kazim (T&uuml;mer/90), Hamit Altintop,
+Aur&eacute;lio, Ayhan (Mevl&uuml;t/81), Ugur
+(G&ouml;kdeniz/84), Semih
+</line_up>
+</stats>
+</DE_TR>
+<RU_ES>
+<stats>
+<arbiter> De Bleeckere (BE) </arbiter>
+<spectators> 51000 </spectators>
+<stadium> Wenen </stadium>
+<chronological>
+<data min="50"> 0-1 Xavi</data>
+<data min="73"> 0-2 G&uuml;iza</data>
+<data min="82"> 0-3 Silva</data>
+</chronological>
+<line_up team="RU">
+Akinfejev, Anjoekov,
+Ignasjevitsj, V. Berezoetsky, Zjirkov,
+Sajenko (Sytsjev/57), Semak, Zyrjanov,
+Semsjov (Biljaletdinov/56),
+Pavljoetsjenko, Arsjavin
+</line_up>
+<line_up team="ES">
+Casillas, Ramos, Marchena, Puyol,
+Capdevila, Iniesta, Senna, Xavi (Alonso/69),
+Silva, Villa (F&aacute;bregas/35), Torres
+(G&uuml;iza/69)
+</line_up>
+</stats>
+</RU_ES>
+</last4>
+<final>
+<finale>
+<a> DE </a> <b> ES </b>
+<stats>
+<arbiter> Rosetti (IT) </arbiter>
+<spectators> 51428 </spectators>
+<stadium> Wenen </stadium>
+<chronological>
+<data min="33"> 1-0 Torres</data>
+</chronological>
+<line_up team="DE">
+Lehmann, Friedrich,
+Mertesacker, Metzelder, Lahm (Jansen/46),
+Schweinsteiger, Frings, Ballack,
+Hitzlsperger (Kuranyi/58), Podolski,
+Klose (Gomez/79)
+</line_up>
+<line_up team="ES">
+Casillas, Ramos, Puyol, Marchena,
+Capdevila, Iniesta, Xavi, Senna, F&aacute;bregas
+(Alonso/63), Silva (Cazorla/66), Torres
+(G&uuml;iza/78)
+</line_up>
+</stats>
+</finale>
+</final>
+</ko>
+</games>

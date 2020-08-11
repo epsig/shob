@@ -1,0 +1,113 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<!DOCTYPE names [
+<!ENTITY eacute "&#xE9;">
+<!ENTITY aacute "&#xE1;">
+<!ENTITY ouml "&#xF6;">
+]>
+
+<games>
+<group_phase>
+<groupD>
+<DE_NL>
+<stats>
+<arbiter> Frisk (SE) </arbiter>
+<yellow_card team="DE"> Kuranyi, Ballack </yellow_card>
+<yellow_card team="NL"> Cocu, Stam </yellow_card>
+<stadium> Aveiro </stadium>
+<spectators> 46536 </spectators>
+<chronological>
+<data min="30"> 1-0 Frings </data>
+<data min="81"> 1-1 vnistelrooy </data>
+</chronological>
+<line_up team="DE">
+Kahn, Friedrich, W&ouml;rns, Novotny, Lahm,
+[Schneider, Schweinsteiger, 68], Baumann, Hamann, Ballack, [Frings, Ernst, 79],
+[Kuranyi, Bobic, 85]
+</line_up>
+<line_up team="NL">
+v.d. Sar, [Heitinga, v. Hooijdonk, 74], Bouma, Stam, v. Bronckhorst,
+Cocu, [Davids, Sneijder, 46], v.d. Vaart, v.d. Meyde, vnistelrooy,
+[Zenden, Overmars, 46]
+</line_up>
+</stats>
+</DE_NL>
+<NL_CZ>
+<stats>
+<arbiter> Gonz&aacute;lez (ES) </arbiter>
+<stadium> Aveiro </stadium>
+<spectators> 31498 </spectators>
+<chronological>
+<data min="4"> 1-0 Bouma </data>
+<data min="19"> 2-0 vnistelrooy </data>
+<data min="23"> 2-1 Koller </data>
+<data min="71"> 2-2 Baros </data>
+<data min="75"> Rood (2x geel): Heitinga (NL) </data>
+<data min="88"> 2-3 Smicer </data>
+</chronological>
+</stats>
+</NL_CZ>
+<NL_LV>
+<stats>
+<arbiter> Nielsen (DK) </arbiter>
+<spectators> 30000 </spectators>
+<stadium> Braga </stadium>
+<chronological>
+<data min="27"> 1-0 vnistelrooy (p) </data>
+<data min="35"> 2-0 vnistelrooy </data>
+<data min="84"> 3-0 makaay </data>
+</chronological>
+</stats>
+</NL_LV>
+</groupD>
+</group_phase>
+<ko>
+<last8>
+<SE_NL>
+<stats>
+<spectators> 30300 </spectators>
+<stadium> Faro/Loul&eacute; </stadium>
+<wns_short> 4-5 </wns_short>
+<arbiter> Michel (SK) </arbiter>
+<chronological/>
+</stats>
+</SE_NL>
+</last8>
+<last4>
+<PT_NL>
+<stats>
+<spectators> 46679 </spectators>
+<stadium> Lissabon </stadium>
+<chronological>
+<data min="26"> 1-0 Ronaldo </data>
+<data min="58"> 2-0 Maniche </data>
+<data min="63"> 2-1 Andrade (ed) </data>
+</chronological>
+<arbiter> Frisk (SE) </arbiter>
+</stats>
+</PT_NL>
+</last4>
+<final>
+<GR_PT>
+<a> GR </a> <b> PT </b>
+<stats>
+<stadium> Lissabon </stadium>
+<itdate> 20040704 </itdate> <dow> ?dag </dow>
+<final_result> Griekenland - Portugal 1-0 </final_result>
+<chronological>
+ <data min="57"> 1-0 Charisteas </data>
+</chronological>
+<arbiter> Merk (DE) </arbiter>
+<spectators> 62865 </spectators>
+<yellow_card team="?"> - </yellow_card>
+<yellow_card team="?"> - </yellow_card>
+<line_up team="?">
+...
+</line_up>
+<line_up team="?">
+...
+</line_up>
+</stats>
+</GR_PT>
+</final>
+</ko>
+</games>

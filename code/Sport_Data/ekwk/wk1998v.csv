@@ -1,0 +1,58 @@
+# EKWK voorronde format
+gNL,SM,G3,19960602,0,5
+gNL,G3,SM,19960931,6,0
+gNL,BE,TR,19960931,2,1
+gNL,G3,NL,19961005,1,3
+gNL,SM,BE,19961009,0,3
+gNL,NL,G3,19961109,7,1
+gNL,TR,SM,19961110,7,0
+gNL,BE,NL,19961214,0,3
+gNL,G3,TR,19961215,0,0
+gNL,NL,SM,19970329,4,0
+gNL,G3,BE,19970329,1,2
+gNL,TR,NL,19970402,-1,1,0,-1,-1,-1,Seedorf mist strafschop
+gNL,SM,NL,19970430,0,6
+gNL,TR,BE,19970430,1,3
+gNL,BE,SM,19970607,6,0
+gNL,TR,G3,19970820,6,4
+gNL,NL,BE,19970906,3,1
+gNL,SM,TR,19970910,0,5
+gNL,NL,TR,19971011,0,0
+gNL,BE,G3,19971011,3,2
+gNL,ster,4
+po,HR,UA,19971029,2,0,15/16 nov '97,1,1,1
+po,RU,IT,19971029,1,1,15/16 nov '97,1,0,2
+po,IE,BE,19971029,1,1,15/16 nov '97,2,1,2
+po,HU,YU,19971029,1,7,15/16 nov '97,5,0,2
+qf,BR,titelverdediger
+qf,FR,gastland
+qf,BG,Europa: groepswinnaar
+qf,DK,Europa: groepswinnaar
+qf,DE,Europa: groepswinnaar
+qf,G1,Europa: groepswinnaar
+qf,NL,Europa: groepswinnaar
+qf,NO,Europa: groepswinnaar
+qf,AT,Europa: groepswinnaar
+qf,RO,Europa: groepswinnaar
+qf,ES,Europa: groepswinnaar
+qf,G2,Europa: beste nr. 2
+qf,BE,Europa: winnaar play-offs
+qf,IT,Europa: winnaar play-offs
+qf,YU,Europa: winnaar play-offs
+qf,HR,Europa: winnaar play-offs
+qf,CM,Afrika
+qf,MA,Afrika
+qf,NG,Afrika
+qf,TN,Afrika
+qf,ZA,Afrika
+qf,AR,Zuid-Amerika
+qf,CL,Zuid-Amerika
+qf,CO,Zuid-Amerika
+qf,PY,Zuid-Amerika
+qf,JM,Midden/Noord-Amerika
+qf,MX,Midden/Noord-Amerika
+qf,US,Midden/Noord-Amerika
+qf,IR,Azi&euml;/Oceani&euml;
+qf,JP,Azi&euml;/Oceani&euml;
+qf,SA,Azi&euml;/Oceani&euml;
+qf,KR,Azi&euml;/Oceani&euml;

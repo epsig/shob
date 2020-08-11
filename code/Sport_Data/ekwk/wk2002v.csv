@@ -1,0 +1,113 @@
+# EKWK voorronde format
+g2,EE,AD,20000816,1,0
+g2,NL,IE,20000902,2,2
+g2,AD,CY,20000902,2,3
+g2,EE,PT,20000903,1,3
+g2,CY,NL,20001007,0,4
+g2,AD,EE,20001007,1,2
+g2,PT,IE,20001007,1,1
+g2,IE,EE,20001011,2,0
+g2,NL,PT,20001011,0,2
+g2,CY,AD,20001115,5,0
+g2,PT,AD,20010214,3,0
+g2,AD,NL,20010324,0,5
+g2,CY,IE,20010324,0,4
+g2,PT,NL,20010328,2,2
+g2,CY,EE,20010328,2,2
+g2,AD,IE,20010328,0,3
+g2,NL,CY,20010425,4,0
+g2,IE,AD,20010425,3,1
+g2,EE,NL,20010602,2,4
+g2,IE,PT,20010602,1,1
+g2,EE,IE,20010606,0,2
+g2,PT,CY,20010606,6,0
+g2,EE,CY,20010815,2,2
+g2,IE,NL,20010901,1,0
+g2,AD,PT,20010901,1,7
+g2,NL,EE,20010905,5,0
+g2,CY,PT,20010905,1,3
+g2,NL,AD,20011006,4,0
+g2,PT,EE,20011006,5,0
+g2,IE,CY,20011006,4,0
+g2,ster,1
+po,IE,IR,20011110,2,0,20011115,1,0,1
+po,BE,CZ,20011110,1,0,20011114,0,1,1
+po,UA,DE,20011110,1,1,20011114,4,1,2
+po,AT,TR,20011110,0,1,20011114,5,0,2
+po,SI,RO,20011110,2,1,20011114,1,1,1
+s1,RU,10,7,2, 1,23,18, 5
+s1,SI,10,5,5, 0,20,17, 9
+s1,YU,10,5,4, 1,19,22, 8
+s1,CH,10,4,2, 4,14,18,12
+s1,FO,10,2,1, 7, 7, 6,23
+s1,LU,10,0,0,10, 0, 4,28
+s3,DK,10,6,4,0,22,22, 6
+s3,CZ,10,6,2,2,20,20, 8
+s3,BG,10,5,2,3,17,14,15
+s3,IS,10,4,1,5,13,14,20
+s3,G4,10,3,2,5,11,11,12
+s3,MT,10,0,1,9, 1, 4,24
+s4,SE,10,8,2,0,26,20, 3
+s4,TR,10,6,3,1,21,18, 8
+s4,SK,10,5,2,3,17,16, 9
+s4,MK,10,1,4,5, 7,11,18
+s4,MD,10,1,3,6, 6, 6,20
+s4,AZ,10,1,2,7, 5, 4,17
+s5,PL,10,6,3,1,21,21,11
+s5,UA,10,4,5,1,17,13, 8
+s5,BY,10,4,3,3,15,12,11
+s5,NO,10,2,4,4, 7,12,14
+s5,G3,10,1,6,3, 9,10,12
+s5,AM,10,0,5,5, 5, 7,19
+s6,HR,8,5,3,0,18,15, 2
+s6,BE,8,5,2,1,17,25, 6
+s6,G2,8,4,3,1,15,12, 6
+s6,LV,8,1,1,6, 4, 5,16
+s6,SM,8,0,1,7, 1, 3,30
+s7,ES,8,6,2,0,20,21, 4
+s7,AT,8,4,3,1,15,10, 8
+s7,IL,8,3,3,2,12,11, 7
+s7,BA,8,2,2,4, 8,12,12
+s7,LI,8,0,0,8, 0, 0,23
+s8,IT,8,6,2,0,20,16, 3
+s8,RO,8,5,1,2,16,10, 7
+s8,GE,8,3,1,4,10,12,12
+s8,HU,8,2,2,4, 8,14,13
+s8,LT,8,0,2,6, 2, 3,20
+s9,G1,8,5,2,1,17,16, 6
+s9,DE,8,5,2,1,17,14,10
+s9,FI,8,3,3,2,12,12, 7
+s9,GR,8,2,1,5, 7, 7,17
+s9,AL,8,1,0,7, 3, 5,14
+qf,FR,titelverdediger
+qf,JP,gastland
+qf,KR,gastland
+qf,PL,Europa
+qf,SE,Europa
+qf,ES,Europa
+qf,IT,Europa
+qf,RU,Europa
+qf,HR,Europa
+qf,G1,Europa
+qf,PT,Europa
+qf,DK,Europa
+qf,SI,Europa
+qf,TR,Europa
+qf,DE,Europa
+qf,BE,Europa
+qf,IE,Europa
+qf,CM,Afrika
+qf,NG,Afrika
+qf,SN,Afrika
+qf,ZA,Afrika
+qf,TN,Afrika
+qf,AR,Zuid-Amerika
+qf,PY,Zuid-Amerika
+qf,EC,Zuid-Amerika
+qf,BR,Zuid-Amerika
+qf,UY,Zuid-Amerika
+qf,CR,Midden/Noord-Amerika (Concacaf)
+qf,MX,Midden/Noord-Amerika (Concacaf)
+qf,US,Midden/Noord-Amerika (Concacaf)
+qf,CN,Azi&euml;/Oceani&euml;
+qf,SA,Azi&euml;/Oceani&euml;

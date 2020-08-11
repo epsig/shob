@@ -1,0 +1,358 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<!DOCTYPE names [
+<!ENTITY euml "&#xEB;">
+<!ENTITY Euml "&#203;">
+<!ENTITY iuml "&#xEF;">
+<!ENTITY uuml "&#252;">
+<!ENTITY iacute "&#237;">
+<!ENTITY eacute "&#xE9;">
+<!ENTITY aacute "&#xE1;">
+<!ENTITY Aacute "&#xC1;">
+<!ENTITY uacute "&#xFA;">
+<!ENTITY egrave "&#xE8;">
+<!ENTITY agrave "&#xE0;">
+<!ENTITY atilde "&#227;">
+<!ENTITY ntilde "&#xF1;">
+<!ENTITY ouml "&#xF6;">
+<!ENTITY Ouml "&#xD6;">
+<!ENTITY auml "&#228;">
+<!ENTITY oslash "&#248;">
+<!ENTITY Oslash "&#216;">
+<!ENTITY acirc "&#xE2;">
+<!ENTITY ccedil "&#xE7;">
+<!ENTITY Ccedil "&#xC7;">
+<!ENTITY aelig "&#xE6;">
+<!ENTITY icirc "&#xEE;">
+<!ENTITY oacute "&#xF3;">
+<!ENTITY ocirc "&#xF4;">
+]>
+
+<games>
+<group_phase>
+<groupA>
+<PL_GR>
+<stats>
+<stadium> Warschau </stadium>
+<itdate> 20120608 </itdate> <dow> vrijdag </dow>
+<final_result> Polen - Griekenland 1-1 </final_result>
+<chronological>
+ <data min="17"> 1-0 Lewandowski </data>
+ <data min="44"> rood: Papastathopoulos (2xg) </data>
+ <data min="51"> 1-1 Salpingidis </data>
+ <data min="69"> rood: Szczesny </data>
+ <data min="71"> Karagounis mist strafschop </data>
+</chronological>
+<arbiter> Velasco (Spa) </arbiter>
+<spectators> 56070 </spectators>
+<yellow_card team="PL"> - </yellow_card>
+<yellow_card team="GR"> Holebas, Karagounis </yellow_card>
+<line_up team="PL">
+Szczesny, Piszczek, Wasilewski,
+Perquis, Bönisch, Blaszczykowski,
+Polanski, Obraniak, Murawski, Rybus
+(Tyton/70), Lewandowski
+</line_up>
+<line_up team="GR">
+Chalkias, Torosidis,
+Papastathopoulos, A. Papadopoulos
+(K. Papadopoulos/37), Holebas, Maniatis,
+Katsouranis, Karagounis, Ninis
+(Salpingidis/46), Gekas (Fortounis/68),
+Samaras
+</line_up>
+</stats>
+</PL_GR>
+<RU_CZ>
+<stats>
+<stadium> Wroclaw </stadium>
+<itdate> 20120608 </itdate> <dow> vrijdag </dow>
+<final_result> Rusland - Tsjechi&euml; 4-1</final_result>
+<chronological>
+ <data min="15"> 1-0 Dzagojev </data>
+ <data min="24"> 2-0 Sjirokov </data>
+ <data min="52"> 2-1 Pilar </data>
+ <data min="79"> 3-1 Dzagojev </data>
+ <data min="82"> 4-1 Pavljoetsjenko </data>
+</chronological>
+<arbiter> Webb (Eng) </arbiter>
+<spectators> 40803 </spectators>
+<line_up team="RU">
+Malafejev, Anjoekov,
+A. Berezoetsky, Ignasjevitsj, Zjirkov,
+Sjirokov, Denisov, Zyrjanov, Dzagojev
+(Kokorin/85), Kerzjakov (Pavljoetsjenko/73), Arsjavin
+</line_up>
+<line_up team="CZ">
+Cech, Gebre Selassie, Hubník,
+Sivok, Kadlec, Rezek (H&uuml;bschman/46),
+Pla il, Rosick, Jir&aacute;cek (Petrzela/76),
+Pilar, Baro  (Lafata/85)
+</line_up>
+</stats>
+</RU_CZ>
+</groupA>
+<groupB>
+<NL_DK>
+<stats>
+<stadium> Charkov </stadium>
+<itdate> 20120609 </itdate> <dow> zaterdag </dow>
+<final_result> Nederland - Denemarken 0-1 </final_result>
+<chronological>
+<data min="24"> 0-1 Krohn-Dehli </data>
+</chronological>
+<arbiter> Skomina (Slo) </arbiter>
+<spectators> 35923 </spectators>
+<yellow_card team="NL"> v. Bommel </yellow_card>
+<yellow_card team="DK"> S. Poulsen, Kvist </yellow_card>
+<line_up team="NL">
+Stekelenburg, v. d. Wiel
+(Kuijt/85), Heitinga, Vlaar, Willems,
+Robben, v. Bommel, Sneijder, N. de Jong
+(v. d. Vaart/71), Afellay (Huntelaar/71),
+v. Persie
+</line_up>
+<line_up team="DK">
+Andersen, Jacobsen, Kj&aelig;r,
+Agger, S. Poulsen, Rommedahl (Mikkelsen/84),
+Kvist, Eriksen (Sch&oslash;ne/74), Zimling,
+Krohn-Dehli, Bendtner
+</line_up>
+</stats>
+</NL_DK>
+<DE_PT>
+<stats>
+<stadium> Lvov </stadium>
+<itdate> 20120609 </itdate> <dow> zaterdag </dow>
+<final_result> Duitsland - Portugal 1-0</final_result>
+<chronological>
+<data min="72"> 1-0 G&oacute;mez </data>
+</chronological>
+<arbiter> Lannoy (Fra) </arbiter>
+<spectators> 32990 </spectators>
+<yellow_card team="DE"> Badstuber, Boateng </yellow_card>
+<yellow_card team="PT"> H&eacute;lder, Coentr&atilde;o </yellow_card>
+<line_up team="DE">
+Neuer, Boateng, Hummels,
+Badstuber, Lahm, M&uuml;ller (L. Bender/90+4),
+Schweinsteiger, &Ouml;zil (Kroos/87), Khedira,
+Podolski, G&oacute;mez (Klose/80)
+</line_up>
+<line_up team="PT">
+Rui Patr&iacute;cio, Pereira, Pepe,
+Alves, Coentr&atilde;o, Meireles (Varela/80),
+Veloso, Moutinho, Nani, H&eacute;lder (Oliveira/70), Ronaldo
+</line_up>
+</stats>
+</DE_PT>
+<NL_DE>
+<stats>
+<stadium> Charkov </stadium>
+<itdate> 20120613 </itdate> <dow> woensdag </dow>
+<final_result> Nederland - Duitsland 1-2 </final_result>
+<chronological>
+<data min="24"> 0-1 G&oacute;mez </data>
+<data min="38"> 0-2 G&oacute;mez </data>
+<data min="73"> 1-2 v. Persie </data>
+</chronological>
+<arbiter> Eriksson (Zwe) </arbiter>
+<spectators> 37750 </spectators>
+<yellow_card team="NL"> N. de Jong, Willems </yellow_card>
+<yellow_card team="DE"> Boateng </yellow_card>
+<line_up team="NL">
+Stekelenburg, v. d. Wiel,
+Heitinga, Mathijsen, Willems, Robben
+(Kuijt/83), v. Bommel (v. d. Vaart/46),
+Sneijder, N. de Jong, Afellay (Huntelaar/46), v. Persie
+</line_up>
+<line_up team="DE">
+Neuer, Boateng, Hummels,
+Badstuber, Lahm, M&uuml;ller (L. Bender/90+2),
+Khedira, &Ouml;zil (Kroos/81), Schweinsteiger,
+Podolski, G&oacute;mez (Klose/72)
+</line_up>
+</stats>
+</NL_DE>
+<PT_NL>
+<stats>
+<stadium> Charkov </stadium>
+<itdate> 20120617 </itdate> <dow> zondag </dow>
+<final_result> Portugal - Nederland 2-1 </final_result>
+<chronological>
+ <data min="11"> 0-1 v. d. Vaart </data>
+ <data min="28"> 1-1 Ronaldo </data>
+ <data min="74"> 2-1 Ronaldo </data>
+</chronological>
+<arbiter> Rizzoli (Ita) </arbiter>
+<spectators> 37445 </spectators>
+<yellow_card team="PT"> Pereira </yellow_card>
+<yellow_card team="NL"> Willems, v. Persie </yellow_card>
+<line_up team="PT">
+Rui Patr&iacute;cio, Pereira, Pepe,
+Alves, Coentr&atilde;o, Meireles (Custadio/72),
+Veloso, Moutinho, Nani (Rolando/87),
+H&eacute;lder (Oliveira/64), Ronaldo
+</line_up>
+<line_up team="NL">
+Stekelenburg, v. d. Wiel, Vlaar,
+Mathijsen, Willems (Afellay/67), Robben,
+N. de Jong, v. Persie, v. d. Vaart, Sneijder,
+Huntelaar
+</line_up>
+</stats>
+</PT_NL>
+</groupB>
+<groupC>
+<ES_IT>
+<stats>
+<stadium> Gdansk </stadium>
+<itdate> 20120610 </itdate> <dow> zondag </dow>
+<final_result> Spanje - Itali&euml; 1-1 </final_result>
+<chronological>
+ <data min="60"> 0-1 Di Natale </data>
+ <data min="64"> 1-1 F&agrave;bregas </data>
+</chronological>
+<arbiter> Kassai (Hon) </arbiter>
+<spectators> 38869 </spectators>
+<yellow_card team="ES"> Alba, Arbeloa, Torres </yellow_card>
+<yellow_card team="IT"> Balotelli, Bonucci, Chiellini, Maggio </yellow_card>
+<line_up team="ES">
+Casillas, Arbeloa, Piqu&eacute;, Ramos,
+Alba, Xavi, Busquets, Xabi Alonso, Silva
+(Navas/65), F&agrave;bregas (Torres/74), Iniesta
+</line_up>
+<line_up team="IT">
+Buffon, Bonucci, De Rossi,
+Chiellini, Maggio, Marchisio, Pirlo, Motta
+(Nocerino/90), Giaccherini, Balotelli
+(Di Natale/56), A. Cassano (Giovinco/65)
+</line_up>
+</stats>
+</ES_IT>
+<IE_HR>
+<stats>
+<stadium> Poznan </stadium>
+<itdate> 20120610 </itdate> <dow> zondag </dow>
+<final_result> Ierland - Kroati&euml; 1-3 </final_result>
+<chronological>
+ <data min="3"> 0-1 Mandzukic </data>
+ <data min="19"> 1-1 St Ledger </data>
+ <data min="43"> 1-2 Jelavic </data>
+ <data min="48"> 1-3 Mandzukic </data>
+</chronological>
+<arbiter> Kuipers (Ned) </arbiter>
+<spectators> 40000 </spectators>
+<yellow_card team="IE"> Andrews </yellow_card>
+<yellow_card team="HR"> Modric, Kranjcar </yellow_card>
+<line_up team="IE">
+Given, O'Shea, Dunne, St Ledger,
+Ward, Duff, Whelan, Andrews, McGeady (Cox/54),
+Doyle (Walters/54), Keane (Long/75)
+</line_up>
+<line_up team="HR">
+Pletikosa, Srna, Corluka,
+Schildenfeld, Strinic, Rakitic (Dujmovic/90+2),
+Vukojevic, Modric, Perisic (Da Silva/89), Mandzukic, Jelavic
+(Kranjcar/72)
+</line_up>
+</stats>
+</IE_HR>
+</groupC>
+<groupD>
+<FR_G1>
+<stats>
+<stadium> Donetsk </stadium>
+<itdate> 20120611 </itdate> <dow> maandag </dow>
+<final_result> Frankrijk - Engeland 1-1 </final_result>
+<chronological>
+ <data min="30"> 0-1 Lescott </data>
+ <data min="39"> 1-1 Nasri </data>
+</chronological>
+<arbiter> Rizzoli (Ita) </arbiter>
+<spectators> 47400 </spectators>
+<yellow_card team="G1"> Oxlade-Chamberlain, Young </yellow_card>
+<line_up team="FR">
+Lloris, Debuchy, Rami, Mexès,
+Evra, Nasri, Cabaye (Ben Arfa/84), Diarra,
+Malouda (Martin/85), Ribéry, Benzema
+</line_up>
+<line_up team="G1">
+Hart, Johnson, Terry, Lescott,
+Cole, Milner, Gerrard, Young, Parker
+(Henderson/78), Oxlade-Chamberlain
+(Defoe/77), Welbeck (Walcott/90)
+</line_up>
+</stats>
+</FR_G1>
+<UA_SE>
+<stats>
+<stadium> Kiev </stadium>
+<itdate> 20120611 </itdate> <dow> maandag </dow>
+<final_result> Oekra&iuml;ne - Zweden 2-1 </final_result>
+<chronological>
+ <data min="52"> 0-1 Ibrahimovic </data>
+ <data min="55"> 1-1 Sjevtsjenko </data>
+ <data min="62"> 2-1 Sjevtsjenko </data>
+</chronological>
+<arbiter> &Ccedil;akir (Tur) </arbiter>
+<spectators> 64290 </spectators>
+<yellow_card team="SE"> K&auml;llstr&ouml;m, Elm</yellow_card>
+<line_up team="UA">
+Pjatov, Goesjev, Michalik,
+Chatsjeridi, Selin, Jarmolenko,
+Timosjtsjoek, Nazarenko, Konopljanka
+(Devic/90+3), Voronin (Rotan/85),
+Sjevtsjenko (Milevskij/82)
+</line_up>
+<line_up team="SE">
+Isaksson, Lustig, Mellberg,
+Granqvist, M. Olsson, Larsson
+(Wilhelmsson/68), Elm, Ibrahimovic,
+K&auml;llstr&ouml;m, Toivonen (A. Svensson/63),
+Rosenberg (Elmander/71)
+</line_up>
+</stats>
+</UA_SE>
+</groupD>
+</group_phase>
+<ko>
+<final>
+<finale>
+<a> ES </a> <b> IT </b>
+<stats>
+<stadium> Kiev </stadium>
+<itdate> 20120701 </itdate> <dow> zondag </dow>
+<final_result> Spanje - Itali&euml; 4-0 </final_result>
+<chronological>
+ <data min="14"> 1-0 Silva </data>
+ <data min="41"> 2-0 Alba </data>
+ <data min="84"> 3-0 Torres </data>
+ <data min="88"> 4-0 Mata </data>
+</chronological>
+<arbiter> Proen&ccedil;a (Por) </arbiter>
+<spectators> 64000 </spectators>
+<yellow_card team="ES"> Piqu&eacute; </yellow_card>
+<yellow_card team="IT"> Barzagli </yellow_card>
+<line_up team="ES">
+Casillas, Arbeloa, Piqu&eacute;, Ramos,
+Alba, Xavi, Busquets, Xabi Alonso, Silva
+(Pedro/59), F&agrave;bregas (Torres/75),
+Iniesta (Mata/87)
+</line_up>
+<line_up team="IT">
+Buffon, Abate, Barzagli, Bonucci,
+Chiellini (Balzaretti/21), Marchisio,
+Pirlo, Montolivo (Motta/57), De Rossi,
+Balotelli, Cassano (Di Natale/46)
+</line_up>
+</stats>
+</finale>
+</final>
+</ko>
+
+<coaches>
+<data> NL: Bert van Marwijk </data>
+<data> DE: Joachim L&ouml;ws </data>
+<data> DK: Morten Olsen </data>
+<data> ES: Vicente del Bosque </data>
+</coaches>
+</games>

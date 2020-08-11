@@ -1,0 +1,112 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<!DOCTYPE names [
+<!ENTITY euml "&#xEB;">
+<!ENTITY aacute "&#xE1;">
+<!ENTITY oacute "&#xF3;">
+<!ENTITY Eacute "&#xC9;">
+]>
+<games>
+<group_phase>
+<groupF>
+<HU_PT>
+<stats>
+<stadium> Lyon </stadium>
+<dow> woensdag </dow>
+<final_result> Hongarije - Portugal 3-3 </final_result> 
+<chronological>
+<data min="19"> 1-0 Gera </data>
+<data min="42"> 1-1 Nani </data>
+<data min="47"> 2-1 Dzsudzs&aacute;k </data>
+<data min="50"> 2-2 Ronaldo </data>
+<data min="55"> 3-2 Dzsudzs&aacute;k </data>
+<data min="62"> 3-3 Ronaldo </data>
+</chronological>
+<arbiter> Atkinson (Eng) </arbiter>
+<spectators>  55514 </spectators>
+</stats>
+</HU_PT>
+</groupF>
+</group_phase>
+<ko>
+<last16>
+<HU_BE>
+<stats>
+<stadium> Toulouse </stadium>
+<dow> zondag </dow>
+<final_result> Hongarije - Belgi&euml;  0-4 </final_result>
+<chronological>
+<data min="10"> 0-1 Alderweireld </data>
+<data min="78"> 0-2 Batshuayi </data>
+<data min="79"> 0-3 Hazard </data>
+<data min="90+1"> 0-4 Carrasco </data>
+</chronological>
+<arbiter> Mazic (Ser) </arbiter>
+<spectators> 30000</spectators>
+</stats>
+</HU_BE>
+</last16>
+<last8>
+<FR_IS>
+<stats>
+<stadium> Saint-Denis </stadium>
+<dow> zondag </dow>
+<final_result> Frankrijk - IJsland 5-2 </final_result>
+<chronological>
+<data min="12"> 1-0 Giroud </data>
+<data min="19"> 2-0 Pogba </data>
+<data min="43"> 3-0 Payet </data>
+<data min="45"> 4-0 Griezmann </data>
+<data min="56"> 4-1 Sigth&oacute;on </data>
+<data min="59"> 5-1 Giroud </data>
+<data min="84"> 5-2 B. Bjarnason </data>
+</chronological>
+<arbiter> Kuipers (Ned) </arbiter>
+<spectators> 75000 </spectators>
+</stats>
+</FR_IS>
+</last8>
+<last4>
+<PT_WALES>
+<stats>
+<stadium> Lyon </stadium>
+<dow> woensdag </dow>
+<final_result> Portugal - Wales 2-0 </final_result>
+<chronological>
+<data min="50"> 1-0 Ronaldo </data>
+<data min="53"> 2-0 Nani </data>
+</chronological>
+<arbiter> Eriksson (Zwe) </arbiter>
+<spectators> 55679 </spectators>
+</stats>
+</PT_WALES>
+<DE_FR>
+<stats>
+<stadium> Marseille </stadium>
+<dow> donderdag </dow>
+<final_result> Duitsland - Frankrijk 0-2 </final_result>
+<chronological>
+<data min="45+2"> 0-1 Griezmann (pen.) </data>
+<data min="72"> 0-2 Griezmann </data>
+</chronological>
+<arbiter> Rizzoli (Ita) </arbiter>
+<spectators> 64078 </spectators>
+</stats>
+</DE_FR>
+</last4>
+<final>
+<PT_FR>
+<stats>
+<stadium> Saint-Denis </stadium>
+<dow> zondag </dow>
+<final_result> Portugal wnv - Frankrijk 1-0 </final_result>
+<chronological>
+<data min="109"> 1-0 &Eacute;der </data>
+</chronological>
+<arbiter> Clattenburg (Eng) </arbiter>
+<spectators> 75868 </spectators>
+</stats>
+</PT_FR>
+</final>
+</ko>
+</games>
+

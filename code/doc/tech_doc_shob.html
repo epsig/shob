@@ -1,0 +1,78 @@
+<h1> 1. Inleiding. </h1>
+Shob is een tool om een website te bouwen.
+Het is in perl geschreven, en mede daardoor platform onafhankelijk.
+Het draait op Windows en Linux.
+<br>
+Het is goed te gebruiken in combinatie met versiebeheersystemen zoals Git,
+waardoor je eenvoudig een oude versie van je site kan reproduceren.
+Inmiddels staat ook de website zelf in versiebeheer, bij Github.
+<br>
+Shob staat voor &quot;Spee's HOmepage Builder&quot;.
+
+<h1> 2. Hoe te gebruiken. </h1>
+Shob is alleen handig als je enige kennis van perl hebt.
+Het is namelijk de bedoeling dat je iedere webpagina aanbiedt
+in de vorm van een perl-functie.
+<br>
+Iedere keer dat je dan Shob draait, worden al die functies ge&euml;valueerd,
+en vergeleken met de inhoud van de bijbehorende pagina op je site.
+Verschilt dat, dan wordt de webpagina vernieuwd.
+Een belangrijk voordeel van deze aanpak is dat je zo vaak als je wilt Shob kunt draaien,
+maar dat de webserver zoveel mogelijk z.g.n. 'not modified' responses kan teruggeven.
+Dit kan behoorlijk schelen in het internet-verkeer dat je site genereert,
+en dat kan je wellicht geld besparen.
+<br>
+Verder zijn functies geschreven die het gebruik van frames overbodig maken.
+En een website zonder frames wordt door zoekmachies (zoals Google) beter gevonden.
+<br>
+Het laatste voordeel is een functie die een stylesheet invoegt,
+maar alleen de gebruikte onderdelen.
+Dit maakt het ophalen van de pagina net iets sneller.
+
+<h1> 3. Beschrijving belangrijkste functies.. </h1>
+<h2> 3.1 diff or print </h2>
+<h2> 3.2 main2html </h2>
+<h2> 3.3 style </h2>
+<h2> 3.4 u2s </h2>
+<h2> 3.5 table - functies  </h2>
+<h3> 3.5.1 .... </h3>
+
+<h1> 4. Datastructuren </h1>
+<h2> 4.1 Idate </h2>
+Datums kunnen worden opgegeven als een integer:
+20060520 is de 20-ste dag van de 5e maand van het jaar 2006.
+<h2> 4.2 Teams </h2>
+Teams is een string van lengte 2, 3 of 5 om een land of club mee weer te geven.
+<br>
+2 hoofdletters is de iso-landcode.
+De iso-code is uitgebreid met 4 codes voor delen van GB:
+G1 = Engeland, G2 = Schotland, G3 = Wales en G4 = Noord-Ierland.
+<br>
+5 characters is club met als eerste 2 de landcode.
+<br>
+3 characters is een Nederlandse club.
+<br>
+- expand functie doet:
+
+<h2> 4.3 Uitslagen, compact </h2>
+voorbeelden:
+<pre>
+['NL','DE',[19880625,2,1],[],1,'stadion']
+</pre>
+<h2> 4.4 Uitslagen, fraai </h2>
+Voorbeelden
+<pre>
+{A =&gt; 'NL',
+ B =&gt; 'DE',
+#goals_home =&gt; 2,
+#goals_away =&gt; 1,
+ refname =&gt; 'NL_DE',
+ verloop =&gt; [
+ [54,0,1, 'Matthaus (p)'],
+ [73,1,1, 'R. Koeman (p)],
+ [88,1,2, 'Van Basten'] ]
+}
+</pre>
+<h2> 4.5 Standen </h2>
+u2s maakt van compacte u een stand.
+

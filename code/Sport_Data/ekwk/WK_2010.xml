@@ -1,0 +1,1546 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<!DOCTYPE names [
+<!ENTITY euml "&#xEB;">
+<!ENTITY Euml "&#203;">
+<!ENTITY iuml "&#xEF;">
+<!ENTITY uuml "&#252;">
+<!ENTITY iacute "&#237;">
+<!ENTITY eacute "&#xE9;">
+<!ENTITY aacute "&#xE1;">
+<!ENTITY Aacute "&#xC1;">
+<!ENTITY uacute "&#xFA;">
+<!ENTITY egrave "&#xE8;">
+<!ENTITY atilde "&#227;">
+<!ENTITY ntilde "&#xF1;">
+<!ENTITY ouml "&#xF6;">
+<!ENTITY Ouml "&#xD6;">
+<!ENTITY auml "&#228;">
+<!ENTITY oslash "&#248;">
+<!ENTITY Oslash "&#216;">
+<!ENTITY acirc "&#xE2;">
+<!ENTITY ccedil "&#xE7;">
+<!ENTITY aelig "&#xE6;">
+<!ENTITY icirc "&#xEE;">
+<!ENTITY oacute "&#xF3;">
+<!ENTITY ocirc "&#xF4;">
+]>
+
+<games>
+<group_phase>
+<groupA>
+<ZA_MX>
+<stats>
+<stadium> Johannesburg </stadium>
+<itdate> 20100611 </itdate> <dow> vrijdag </dow>
+<final_result> Zuid-Afrika - Mexico 1-1 </final_result>
+<chronological>
+ <data min="55"> 1-0 Tshabalala </data>
+ <data min="79"> 1-1 M&aacute;rquez </data>
+</chronological>
+<arbiter> Irmatov (Oez) </arbiter>
+<spectators> 84490 </spectators>
+<yellow_card team="ZA"> Dikgacoi, Masilela </yellow_card>
+<yellow_card team="MX"> Ju&aacute;rez, Torrado </yellow_card>
+<line_up team="ZA">
+Khune, Gaxa, Mokoena,
+Khumalo, Thwala (Masilela/46),
+Tshabalala, Dikgacoi, Pienaar (Parker/83),
+Letsholonyane, Modise, Mphela
+</line_up>
+<line_up team="MX">
+P&eacute;rez, Aguilar (Guardado/55),
+Osorio, Rodr&iacute;guez, Salcido, Ju&aacute;rez,
+M&aacute;rquez, Torrado, Dos Santos, Franco
+(Hern&aacute;ndez/73), Vela (Blanco/69)
+</line_up>
+</stats>
+</ZA_MX>
+<UY_FR>
+<stats>
+<stadium> Kaapstad </stadium>
+<itdate> 20100611 </itdate> <dow> vrijdag </dow>
+<final_result> Uruguay - Frankrijk 0-0 </final_result>
+<chronological>
+ <data min="81"> Rood: Lodeiro (2xg) </data>
+</chronological>
+<arbiter> Nishimura (Jap) </arbiter>
+<spectators> 64100 </spectators>
+Geel: Victorino,    Evra, Rib&eacute;ry,
+Lugano              Toulalan
+<line_up team="UY">
+Muslera, Victorino, Lugano,
+God&iacute;n, A. Pereira, M. Pereira, P&eacute;rez
+(Eguren/88), Ar&eacute;valo, Gonz&aacute;lez (Lodeiro/63),
+Forl&aacute;n, Suarez (Abreu/73)
+</line_up>
+<line_up team="FR">
+Lloris, Sagna, Gallas, Abidal,
+Evra, Gourcuff (Malouda/75), Toulalan,
+Diaby, Govou (Gignac/85), Anelka (Henry/72), Rib&eacute;ry
+</line_up>
+</stats>
+</UY_FR>
+<ZA_UY>
+<stats>
+<stadium> Pretoria </stadium>
+<itdate> 20100616 </itdate> <dow> woensdag </dow>
+<final_result> Zuid-Afrika - Uruguay 0-3 </final_result>
+<chronological>
+ <data min="24"> 0-1 Forl&aacute;n </data>
+ <data min="76"> rood: Khune (ZA)</data>
+ <data min="80"> 0-2 Forl&aacute;n (pen)</data>
+ <data min="90+5"> 0-3 A. Pereira </data>
+</chronological>
+<arbiter> Busacca (Zwi) </arbiter>
+<spectators> 42658 </spectators>
+<yellow_card team="ZA"> Pienaar, Dikgacoi </yellow_card>
+<line_up team="ZA">
+Khune, Gaxa, Mokoena,
+Khumalo, Masilela, Modise, Dikgacoi,
+Pienaar (Joseph/79), Letsholonyane
+(Moriri/57), Tshabalala, Mphela
+</line_up>
+<line_up team="UY">
+Muslera, M. Pereira, Lugano,
+God&iacute;n, Fucile (A. Fern&aacute;ndez/71), P&eacute;rez
+(Gargano/90+1), Ar&eacute;valo, Forl&aacute;n,
+A. Pereira, Suarez, Cavani (S. Fern&aacute;ndez/89)
+</line_up>
+</stats>
+</ZA_UY>
+<FR_MX>
+<stats>
+<stadium> Polokwane </stadium>
+<itdate> 20100617 </itdate> <dow> donderdag </dow>
+<final_result> Frankrijk - Mexico 0-2 </final_result>
+<chronological>
+ <data min="64"> 0-1 Hern&aacute;ndez </data>
+ <data min="79"> 0-2 Blanco (pen) </data>
+</chronological>
+<arbiter> Al Ghamdi (Sau) </arbiter>
+<spectators> 35370 </spectators>
+<yellow_card team="FR"> Toulalan, Abidal </yellow_card>
+<yellow_card team="MX">
+Franco, Ju&aacute;rez, Moreno, Rodr&iacute;guez </yellow_card>
+<line_up team="FR">
+Lloris, Sagna, Gallas, Abidal, Evra, Govou (Valbuena/69), Toulalan,
+Rib&eacute;ry, Diaby, Malouda, Anelka (Gignac/46) </line_up>
+<line_up team="MX">
+P&eacute;rez, Osorio, Rodr&iacute;guez, Moreno, Salcido,
+Ju&aacute;rez (Hern&aacute;ndez/55), M&aacute;rquez, Torrado,
+Dos Santos, Franco (Blanco/62), Vela (Barrera/32) </line_up>
+</stats>
+</FR_MX>
+<MX_UY>
+<stats>
+<stadium> Rustenburg </stadium>
+<itdate> 20100622 (16:00h) </itdate> <dow> dinsdag </dow>
+<final_result> Mexico - Uruguay 0-1 </final_result>
+<chronological>
+ <data min="43"> 0-1 Suarez </data>
+</chronological>
+<arbiter> Kassai (Hon) </arbiter>
+<spectators> 33425 </spectators>
+<yellow_card team="MX"> Hern&aacute;ndez, Castro </yellow_card>
+<yellow_card team="UY"> Fucile </yellow_card>
+<line_up team="MX">
+P&eacute;rez, Osorio, Rodr&iacute;guez, Moreno
+(Castro/57), Salcido, Torrado, M&aacute;rquez,
+Guardado (Barrera/46), Dos Santos,
+Franco, Blanco (Hern&aacute;ndez/63) </line_up>
+<line_up team="UY">
+Muslera, M. Pereira, Lugano, Victorino, Fucile,
+Ar&eacute;valo, P&eacute;rez, Forl&aacute;n, A. Pereira (Scotti/77),
+Suarez (A. Fern&aacute;ndez/85), Cavani </line_up>
+</stats>
+</MX_UY>
+<FR_ZA>
+<stats>
+<stadium> Bloemfontein </stadium>
+<itdate> 20100622 (16:00h) </itdate> <dow> dinsdag </dow>
+<final_result> Frankrijk - Zuid-Afrika 1-2 </final_result>
+<chronological>
+ <data min="20"> 0-1 Khumalo </data>
+ <data min="25"> Rood: Gourcuff (FR) </data>
+ <data min="37"> 0-2 Mphela </data>
+ <data min="70"> 1-2 Malouda </data>
+</chronological>
+<arbiter> Ruiz (Col) </arbiter>
+<spectators> 39415 </spectators>
+<yellow_card team="FR"> Diaby </yellow_card>
+<line_up team="FR">
+Lloris, Sagna, Gallas, Squillaci, Clichy, Gourcuff, A. Diarra
+(Govou/82), Diaby, Gignac (Malouda/46),
+Ciss&eacute; (Henry/55), Rib&eacute;ry </line_up>
+<line_up team="ZA">
+Joseph, Ngcongca (Gaxa/55), Mokoena, Khumalo, Masilela, Parker
+(Nomvethe/68), Khuboni (Modise/78),
+Pienaar, Sibaya, Tshabalala, Mphela </line_up>
+</stats>
+</FR_ZA>
+</groupA>
+<groupB>
+<KR_GR>
+<stats>
+<stadium> Port Elizabeth </stadium>
+<itdate> 20100612 </itdate> <dow> zaterdag </dow>
+<final_result> Zuid-Korea - Griekenland 2-0 </final_result>
+<chronological>
+ <data min="7"> 1-0 Lee Jung-soo </data>
+ <data min="52"> 2-0 Park Ji-sung </data>
+</chronological>
+<arbiter> Hester (NZl) </arbiter>
+<spectators> 31513 </spectators>
+<yellow_card team="GR"> Torosidis </yellow_card>
+<line_up team="KR">
+Jung Sung-ryong, Cha Doo-ri,
+Cho Yong-hyung, Lee Jung-soo,
+Lee Young-pyo, Lee Chung-yong
+(Kim Jae-sung/90+1), Ki Sung-yueng
+(Kim Nam-il/75), Kim Jung-woo,
+Park Ji-sung, Park Chu-young
+(Lee Seung-yeoul/87), Yeom Ki-hun
+</line_up>
+<line_up team="GR">
+Tzorvas, Seitaridis, Vyntra,
+Papadopoulos, Torosidis, Katsouranis,
+Tziolis, Karagounis (Patsatzoglou/46),
+Samaras (Salpingidis/59), Gekas,
+Charisteas (Kapetanos/61)
+</line_up>
+</stats>
+</KR_GR>
+<AR_NG>
+<stats>
+<stadium> Johannesburg </stadium>
+<itdate> 20100612 </itdate> <dow> zaterdag </dow>
+<final_result> Argentini&euml; - Nigeria 1-0 </final_result>
+<chronological>
+ <data min="6"> 1-0 Heinze </data>
+</chronological>
+<arbiter> Stark (Dui) </arbiter>
+<spectators> 55686 </spectators>
+<yellow_card team="AR"> Guti&eacute;rrez </yellow_card>
+<yellow_card team="NG"> Haruna </yellow_card>
+<line_up team="AR">
+Romero, Guti&eacute;rrez,
+Demichelis, Samuel, Heinze, Ver&oacute;n
+(Maxi Rodr&iacute;guez/74), Mascherano, Messi,
+Di Mar&iacute;a (Burdisso/85), T&eacute;vez, Higua&iacute;n
+(D. Milito/79)
+</line_up>
+<line_up team="NG">
+Enyeama, Odiah, Yobo, Shittu,
+Taiwo (Uche/75), Kaita, Etuhu, Haruna,
+Obinna (Martins/52), Yakubu, Obasi
+(Odemwingie/60)
+</line_up>
+</stats>
+</AR_NG>
+<AR_KR>
+<stats>
+<stadium> Johannesburg </stadium>
+<itdate> 20100617 </itdate> <dow> donderdag </dow>
+<final_result> Argentini&euml; - Zuid-Korea 4-1 </final_result>
+<chronological>
+ <data min="16"> 1-0 Park Chu-young (ed) </data>
+ <data min="33"> 2-0 Higua&iacute;n </data>
+ <data min="45+1"> 2-1 Lee Chung-yong </data>
+ <data min="76"> 3-1 Higua&iacute;n </data>
+ <data min="80"> 4-1 Higua&iacute;n </data>
+</chronological>
+<arbiter> De Bleeckere (Bel) </arbiter>
+<spectators> 82174 </spectators>
+<yellow_card team="KR"> Yeom Ki-hun, Lee Chung-yong </yellow_card>
+<yellow_card team="AR"> Guti&eacute;rrez Mascherano, Heinze </yellow_card>
+<line_up team="AR">
+Romero, Guti&eacute;rrez, Demichelis,
+Samuel (Burdisso/24), Heinze, M. Rodr&iacute;guez,
+Mascherano, Messi, Di Mar&iacute;a, Higua&iacute;n,
+(Bolatti/82), T&eacute;vez (Ag&uuml;ero/75)
+</line_up>
+<line_up team="KR">
+Jung Sung-ryong, Oh Beom-seok,
+Cho Yong-hyung, Lee Jung-soo, Lee Young-pyo,
+Lee Chung-yong, Ki Sung-yueng (Kim Nam-il/46),
+Park Ji-sung, Kim Jung-woo,
+Yeom Ki-hun, Park Chu-young (Lee Dong-gook/82)
+</line_up>
+</stats>
+</AR_KR>
+<GR_NG>
+<stats>
+<stadium> Bloemfontein </stadium>
+<itdate> 20100617 </itdate> <dow> donderdag </dow>
+<final_result> Griekenland - Nigeria 2-1 </final_result>
+<chronological>
+ <data min="16"> 0-1 Uche </data>
+ <data min="33"> Rood: Kaita (NG) </data>
+ <data min="44"> 1-1 Salpingidis </data>
+ <data min="71"> 2-1 Torosidis </data>
+</chronological>
+<arbiter> Ruiz (Col) </arbiter>
+<spectators> 31593 </spectators>
+<yellow_card team="ZA"> Papastathopoulos, Tziolis, Samaras </yellow_card>
+<yellow_card team="NG"> Obasi </yellow_card>
+<line_up team="GR">
+Tzorvas, Vyntra,
+Papastathopoulos (Samaras/37),
+Papadopoulos, Kyrgiakos, Tziolis,
+Katsouranis, Karagounis, Torosidis,
+Salpingidis, Gekas (Ninis/79)
+</line_up>
+<line_up team="NG">
+Enyeama, Odiah, Yobo, Shittu,
+Taiwo (Echiejile/55, Afolabi/77), Kaita,
+Etuhu, Haruna, Uche, Odemwingie (Obasi/46),
+Yakubu
+</line_up>
+</stats>
+</GR_NG>
+<NG_KR>
+<stats>
+<stadium> Durban </stadium>
+<dow> dinsdag </dow>
+<final_result> Nigeria - Zuid-Korea 2-2 </final_result>
+<chronological>
+ <data min="12"> 1-0 Uche </data>
+ <data min="38"> 1-1 Lee Jung-soo </data>
+ <data min="49"> 1-2 Park Chu-young </data>
+ <data min="69"> 2-2 Yakubu (pen) </data>
+</chronological>
+<arbiter> Benqueren&ccedil;a (Por) </arbiter>
+<spectators> 60000 </spectators>
+<yellow_card team="NG"> Enyeama, Obasi, Ayila </yellow_card>
+<yellow_card team="KR"> Kim Nam-il </yellow_card>
+<line_up team="NG">
+Enyeama, Odiah, Yobo (Echiejile/46),
+Shittu, Afolabi, Obasi, Ayila, Kanu
+(Martins/57), Etuhu, Uche, Yakubu (Obinna/70) </line_up>
+<line_up team="KR">
+Jung Sung-ryong, Cha Doo-ri, Cho Yong-hyung, Lee Jung-soo,
+Lee Young-pyo, Lee Chung-yong, Ki Sung-yueng (Kim Jae-sung/87),
+Park Ji-sung, Kim Jung-woo, Yeom Ki-hun (Kim Nam-il/64), Park Chu-young
+(Kim Dong-jin/90+3) </line_up>
+</stats>
+</NG_KR>
+<GR_AR>
+<stats>
+<stadium> Polokwane </stadium>
+<dow> dinsdag </dow>
+<final_result> Griekenland - Argentini&euml; 0-2 </final_result>
+<chronological>
+ <data min="77"> 0-1 Demichelis </data>
+ <data min="89"> 0-2 Palermo </data>
+</chronological>
+<arbiter> Irmatov (Oez) </arbiter>
+<spectators> 35000 </spectators>
+<yellow_card team="GR"> Katsouranis </yellow_card>
+<yellow_card team="AR"> Bolatti </yellow_card>
+<line_up team="GR"> Tzorvas, Vyntra, Kyrgiakos,
+Papadopoulos, Torosidis (Patsatzoglou/55), Tziolis, Papastathopoulos,
+Karagounis (Spiropoulos/46), Moras, Katsouranis (Ninis/54), Samaras </line_up>
+<line_up team="AR">
+Romero, Otamendi, Demichelis, Burdisso, C. Rodr&iacute;guez, Maxi Rodr&iacute;guez
+(Di Mar&iacute;a/63), Bolatti, Messi, Ver&oacute;n,
+Ag&uuml;ero (Pastore/77), Milito (Palermo/80) </line_up>
+</stats>
+</GR_AR>
+</groupB>
+<groupC>
+<ENG_US>
+<stats>
+<stadium> Rustenburg </stadium>
+<itdate> 20100612 </itdate> <dow> zaterdag </dow>
+<final_result> Engeland - Verenigde Staten 1-1 </final_result>
+<chronological>
+ <data min="4"> 1-0 Gerrard </data>
+ <data min="40"> 1-1 Dempsey </data>
+</chronological>
+<arbiter> Simon (Bra) </arbiter>
+<spectators> 38646 </spectators>
+<yellow_card team="ENG"> Geel: Milner, Carragher, Gerrard </yellow_card>
+<yellow_card team="US"> Cherundolo, DeMerit, Findley </yellow_card>
+<line_up team="ENG">
+Green, Johnson, King (Carragher/46), Terry, A. Cole, Lennon, Lampard, Gerrard,
+Milner (Wright-Phillips/31), Rooney, Heskey (Crouch/79) </line_up>
+<line_up team="US">
+Howard, Cherundolo, DeMerit, Onyewu, Bocanegra, Donovan, Clark,
+Bradley, Dempsey, Altidore (Holden/86), Findley (Buddle/77) </line_up>
+</stats>
+</ENG_US>
+<DZ_SI>
+<stats>
+<stadium> Polokwane </stadium>
+<itdate> 20100613 </itdate> <dow> zondag </dow>
+<final_result> Algerije - Sloveni&euml; 0-1 </final_result>
+<chronological>
+ <data mio="73"> Rood: Ghezzal (2xg) </data>
+ <data mio="79"> 0-1 Koren </data>
+</chronological>
+<arbiter> Batres (Gua) </arbiter>
+<spectators> 30325 </spectators>
+<yellow_card team="DZ"> Yebda </yellow_card>
+<yellow_card team="SI"> Radosavljevic, Komac </yellow_card>
+<line_up team="DZ">
+Chaouchi, Bougherra, Halliche, Yahia, Belhadj, Kadir (Gu&eacute;dioura/82),
+Lacen, Ziani, Yebda, Djebbour (Ghezzal/58), Matmour (Sa&iuml;fi/80) </line_up>
+<line_up team="SI">
+S. Handanovic, Brecko, Suler, Cesar, Jokic, Kirm, Koren, Radosavljevic
+(Komac/87), Birsa (Pecnik/84), Novakovic, Dedic (Ljubijankic/53) </line_up>
+</stats>
+</DZ_SI>
+<SI_US>
+<stats>
+<stadium> Johannesburg </stadium>
+<itdate> 20100618 </itdate> <dow> vrijdag </dow>
+<final_result> Sloveni&euml; - Verenigde Staten 2-2 </final_result>
+<chronological>
+ <data min="13"> 1-0 Birsa </data>
+ <data min="42"> 2-0 Ljubijankic </data>
+ <data min="48"> 2-1 Donovan  </data>
+ <data min="82"> 2-2 Bradley </data>
+</chronological>
+<arbiter> Coulibaly (Mli) </arbiter>
+<spectators> 45573 </spectators>
+<yellow_card team="SI"> Cesar, Suler, Kirm, Jokic </yellow_card>
+<yellow_card team="US"> Findley </yellow_card>
+<line_up team="SI">
+S. Handanovic, Brecko, Suler, Cesar, Jokic, Birsa (Dedic/87), Koren,
+Radosavljevic, Kirm, Ljubijankic (Pecnik/74, Komac/90+4), Novakovic
+</line_up>
+<line_up team="US">
+Howard, Cherundolo, DeMerit, Onyewu (Gomez/80), Bocanegra,
+Donovan, Torres (Edu/46), Bradley,
+Dempsey, Findley (Feilhaber/46), Altidore </line_up>
+</stats>
+</SI_US>
+<ENG_DZ>
+<stats>
+<stadium> Kaapstad </stadium>
+<itdate> 20100618 </itdate> <dow> vrijdag </dow>
+<final_result> Engeland - Algerije 0-0 </final_result>
+<arbiter> Irmatov (Oez) </arbiter>
+<spectators> 64100 </spectators>
+<yellow_card team="ENG"> Carragher </yellow_card>
+<yellow_card team="DZ"> Lacen </yellow_card>
+<line_up team="ENG">
+James, Johnson, Carragher, Terry, A. Cole, Lennon (Wright-Phillips/63),
+Lampard, Barry (Crouch/84), Gerrard, Rooney, Heskey (Defoe/74)
+</line_up>
+<line_up team="DZ">
+M'Bolhi, Bougherra, Halliche, Yahia, Kadir, Yebda (Mesbah/89), Lacen,
+Belhadj, Boudebouz (Abdoun/74), Matmour, Ziani (Gu&eacute;dioura/81)
+</line_up>
+</stats>
+</ENG_DZ>
+<SI_ENG>
+<stats>
+<stadium> Port Elizabeth </stadium>
+<dow> woensdag </dow>
+<final_result> Sloveni&euml; - Engeland 0-1 </final_result>
+<chronological>
+ <data min="23"> 0-1 Defoe </data>
+</chronological>
+<arbiter> Stark (Dui) </arbiter>
+<spectators> 36893 </spectators>
+<yellow_card team="SI"> Jokic, Birsa, Dedic </yellow_card>
+<yellow_card team="ENG"> Johnson </yellow_card>
+<line_up team="SI">
+S. Handanovic, Brecko, Suler, Cesar, Jokic, Birsa, Koren, Radosavljevic,
+Kirm (Matavz/79), Ljubijankic (Dedic/62), Novakovic </line_up>
+<line_up team="ENG">
+James, Johnson, Terry, Upson, A. Cole, Milner, Barry, Lampard, Gerrard,
+Rooney (J. Cole/72), Defoe (Heskey/86) </line_up>
+</stats>
+</SI_ENG>
+<US_DZ>
+<stats>
+<stadium> Pretoria </stadium>
+<dow> woensdag </dow>
+<final_result> Verenigde Staten - Algerije 1-0 </final_result>
+<chronological>
+ <data min="90+1"> 1-0 Donovan </data>
+ <data min="90+3"> Rood: Yahia (2xg) (DZ) </data>
+</chronological>
+<arbiter> De Bleeckere (Bel) </arbiter>
+<spectators> 35827 </spectators>
+<yellow_card team="US"> Altidore, Beasley </yellow_card>
+<yellow_card team="DZ"> Yebda, Lacen </yellow_card>
+<line_up team="US">
+Howard, Cherundolo, DeMerit, Bocanegra, Bornstein (Beasley/81),
+Dempsey, Bradley, Edu (Buddle/64), Donovan, Gomez (Feilhaber/46), Altidore </line_up>
+<line_up team="DZ">
+M'Bolhi, Bougherra, Halliche, Yahia, Belhadj, Kadir, Yebda, Lacen,
+Djebbour (Ghezzal/66), Matmour (Sa&iuml;fi/85), Ziani (Gu&eacute;dioura/69) </line_up>
+</stats>
+</US_DZ>
+</groupC>
+<groupD>
+<RS_GH>
+<stats>
+<stadium> Pretoria </stadium>
+<itdate> 20100613 </itdate> <dow> zondag </dow>
+<final_result> Servi&euml; - Ghana 0-1 </final_result>
+<chronological>
+ <data min="74"> Rood: Lukovic (2xg) (RS) </data>
+ <data min="84"> Gyan (pen) </data>
+</chronological>
+<arbiter> Baldassi (Arg) </arbiter>
+<spectators> 38833 </spectators>
+<yellow_card team="RS"> Zigic, Kuzmanovic </yellow_card>
+<yellow_card team="GH"> Vorsah, Tagoe </yellow_card>
+<line_up team="RS">
+Stojkovic, Ivanovic, Vidic,
+Lukovic, Kolarov, Krasic, Stankovic,
+Milijas (Kuzmanovic/62), Jovanovic
+(Subotic/76), Pantelic, Zigic (Lazovic/69)
+</line_up>
+<line_up team="GH">
+Kingson, Paintsil, Joh. Mensah,
+Vorsah, Sarpei, Tagoe, Annan, Asamoah
+(Appiah/73), K. Boateng (Addy/90+1),
+A. Ayew, Gyan (Owusu-Abeyie/90+3)
+</line_up>
+</stats>
+</RS_GH>
+<DE_AU>
+<stats>
+<itdate> 20100613 </itdate> <dow> zondag </dow>
+<arbiter> Rodriguez (Mex) </arbiter>
+<spectators> 62660 </spectators>
+<line_up team="DE">
+Neuer, Lahm, Mertesacker,
+Friedrich, Badstuber, M&uuml;ller, Khedira,
+&Ouml;zil (G&oacute;mez/74), Schweinsteiger,
+Podolski (Marin/81), Klose (Cacau/68)
+</line_up>
+<line_up team="AU">
+Schwarzer, Wilkshire, Neill,
+Moore, Chipperfield, Emerton (Jedinak/74),
+Valeri, Grella (Holman/46), Culina,
+Garcia (Roekavytsja/64), Cahill
+</line_up>
+</stats>
+</DE_AU>
+<DE_RS>
+<stats>
+<stadium> Port Elizabeth </stadium>
+<itdate> 20100618 </itdate> <dow> vrijdag </dow>
+<final_result> Duitsland - Servi&euml; 0-1 </final_result>
+<chronological>
+ <data min="37"> rood (2xg): Klose (DE) </data>
+ <data min="38"> 0-1 Jovanovic </data>
+ <data min="60"> Podolski (DE) mist pen. </data>
+</chronological>
+<arbiter> Undiano Mallenco, Sp </arbiter>
+<spectators> 38294 </spectators>
+<yellow_card team="DE"> Khedira, Lahm, Schweinsteiger </yellow_card>
+<yellow_card team="RS"> Ivanovic, Kolarov, Subotic, Vidic </yellow_card>
+<line_up team="DE">
+Neuer, Lahm, Mertesacker,
+Friedrich, Badstuber (G&oacute;mez/77), M&uuml;ller
+(Marin/70), Khedira, &Ouml;zil (Cacau/70),
+Schweinsteiger, Podolski, Klose
+</line_up>
+<line_up team="RS">
+Stojkovic, Ivanovic, Vidic,
+Subotic, Kolarov, Kuzmanovic (Petrovic/75),
+Stankovic, Ninkovic (Kacar/70),
+Krasic, Zigic, Jovanovic (Lazovic/79)
+</line_up>
+</stats>
+</DE_RS>
+<GH_AU>
+<stats>
+WEDSTRIJDDETAILS
+Competitie: WK 2010
+Datum: 19/06/2010 16.00
+Locatie: Royal Bafokeng Stadium (Rustenburg)
+Aantal toeschouwers: 34812
+Arbitrage: Rosetti
+WEDSTRIJDVERLOOP
+  11. Holman  (rebound)
+25. Asamoah Gyan  (strafschop)
+</stats>
+</GH_AU>
+</groupD>
+<groupE>
+<NL_DK>
+<stats>
+<stadium> Johannesburg </stadium>
+<itdate> 20100614 </itdate> <dow> maandag </dow>
+<final_result> Nederland - Denemarken 2-0 </final_result>
+<chronological>
+ <data min="46"> 1-0 Agger (ed) </data>
+ <data min="85"> 2-0 Dirk Kuyt </data>
+</chronological>
+<arbiter> Lannoy (Fra) </arbiter>
+<spectators> 83465 </spectators>
+<yellow_card team="NL"> De Jong, v. Persie </yellow_card>
+<yellow_card team="DK"> Kj&aelig;r </yellow_card>
+<line_up team="NL">
+Stekelenburg, v. d. Wiel, Heitinga, Mathijsen, v. Bronckhorst, Kuijt,
+v. Bommel, Sneijder, De Jong (De Zeeuw/88), v. d. Vaart (Elia/67),
+v. Persie (Afellay/77) </line_up>
+<line_up team="DK">
+T. S&oslash;rensen, Jacobsen, Kj&aelig;r, Agger, S. Poulsen, Kahlenberg
+(Eriksen/73), C. Poulsen, J&oslash;rgensen, Rommedahl, Bendtner
+(Beckmann/62), Enevoldsen (Gr&oslash;nkj&aelig;r/56) </line_up>
+</stats>
+</NL_DK>
+<JP_CM>
+<stats>
+<stadium> Bloemfontein </stadium>
+<itdate> 20100614 </itdate> <dow> maandag </dow>
+<arbiter> Benqueren&ccedil;a (Por) </arbiter>
+<spectators> 30620 </spectators>
+<line_up team="JP">
+Kawashima, Komano, Nakazawa,
+Tanaka, Nagatomo, Matsui (Okazaki/69),
+Abe, Hasebe (Inamoto/88), Endo, Okubo
+(Yano/82), Honda
+</line_up>
+<line_up team="CM">
+Hamidou, M'Bia, N'Koulou,
+Bassong, Assou-Ekotto, Makoun (Njitap/75),
+Matip (Emana/63), Enoh, Eto'o, Web&oacute;,
+Choupo-Moting (Idrissou/75)
+</line_up>
+</stats>
+</JP_CM>
+<NL_JP>
+<stats>
+<stadium> Durban </stadium>
+<itdate> 20100619 (13:30h) </itdate> <dow> zaterdag </dow>
+<final_result> Nederland - Japan 1-0 </final_result>
+<chronological>
+ <data min="53"> 1-0 Wesley Sneijder </data>
+</chronological>
+<arbiter> Baldassi (Arg) </arbiter>
+<spectators> 62010 </spectators>
+<yellow_card team="NL"> v. d. Wiel </yellow_card>
+<line_up team="NL"> Stekelenburg, v. d. Wiel,
+Heitinga, Mathijsen, v. Bronckhorst, Kuijt,
+v. Bommel, Sneijder (Afellay/83), De Jong,
+v. d. Vaart (Elia/72), v. Persie (Huntelaar/88) </line_up>
+<line_up team="JP"> Kawashima, Komano, Nakazawa,
+Tanaka, Nagatomo, Abe, Hasebe (Okazaki/77),
+Endo, Matsui (S. Nakamura/64), Honda, Okubo (Tamada/77) </line_up>
+</stats>
+</NL_JP>
+<CM_DK>
+<stats>
+<stadium> Pretoria </stadium>
+<itdate> 20100619 (20:30h) </itdate> <dow> zaterdag </dow>
+<final_result> Kameroen - Denemarken 1-2 </final_result>
+<chronological>
+<data min="10"> 1-0 Eto'o </data>
+<data min="33"> 1-1 Bendtner </data>
+<data min="61"> 1-2 Rommedahl </data>
+</chronological>
+<arbiter> Larrionda (Uru) </arbiter>
+<spectators> 38074 </spectators>
+<yellow_card team="CM"> Bassong, M'Bia </yellow_card>
+<yellow_card team="DK"> T. S&oslash;rensen, Kj&aelig;r </yellow_card>
+<line_up team="CM">
+Hamidou, M'Bia, N'Koulou, Bassong (Idrissou/73), Assou-Ekotto,
+Njitap, A. Song, Emana, Enoh (Makoun/46),
+Web&oacute; (Aboubakar/79), Eto'o </line_up>
+<line_up team="DK">
+T. S&oslash;rensen, Jacobsen, Kj&aelig;r,
+Agger, S. Poulsen, Gr&oslash;nkj&aelig;r (Kahlenberg/67),
+C. Poulsen, J&oslash;rgensen (Jensen/46),
+Rommedahl, Bendtner, Tomasson (J. Poulsen/86) </line_up>
+</stats>
+</CM_DK>
+<DK_JP>
+<stats>
+<stadium> Rustenburg </stadium>
+<itdate> 20100624 (20:30h) </itdate> <dow> donderdag </dow>
+<final_result>
+Denemarken - Japan 1-3
+</final_result>
+<chronological>
+ <data min="17"> 0-1 Honda </data>
+ <data min="30"> 0-2 Endo </data>
+ <data min="81"> 1-2 Tomasson (rebound pen.) </data>
+ <data min="87"> 1-3 Okazaki </data>
+</chronological>
+<arbiter> Damon (ZAf) </arbiter>
+<spectators> 27967 </spectators>
+<yellow_card team="DK"> Kr&oslash;ldrup, C. Poulsen, Bendtner </yellow_card>
+<yellow_card team="JP"> Endo, Nagatomo </yellow_card>
+<line_up team="DK">
+T. S&oslash;rensen, Jacobsen,
+Kr&oslash;ldrup (Larsen/56), Agger, S. Poulsen,
+J&oslash;rgensen (J. Poulsen/34), C. Poulsen,
+Kahlenberg (Eriksen/63), Rommedahl, Bendtner, Tomasson </line_up>
+<line_up team="JP">
+Kawashima, Komano, Nakazawa, Tanaka, Nagatomo, Abe, Hasebe, Endo
+(Inamoto/90+1), Matsui (Okazaki/74), Honda, Okubo (Konno/88) </line_up>
+</stats>
+</DK_JP>
+<CM_NL>
+<stats>
+<stadium> Kaapstad </stadium>
+<itdate> 20100624 (20:30h) </itdate> <dow> donderdag </dow>
+<final_result> Kameroen - Nederland 1-2 </final_result>
+<chronological>
+ <data min="36"> 0-1 Robin van Persie </data>
+ <data min="65"> 1-1 Eto'o (pen) </data>
+ <data min="83"> 1-2 Klaas-Jan Huntelaar </data>
+</chronological>
+<arbiter> Pozo (Chl) </arbiter>
+<spectators> 63093 </spectators>
+<yellow_card team="CM"> N'Koulou, M'Bia </yellow_card>
+<yellow_card team="NL"> Kuijt, v. d. Vaart, v. Bronckhorst </yellow_card>
+<line_up team="CM">
+Hamidou, Njitap, N'Koulou
+(R. Song/74), M'Bia, Assou-Ekotto, N'Guemo,
+Makoun, Chedjou, Bong (Aboubakar/56),
+Choupo-Moting (Idrissou/72), Eto'o
+</line_up>
+<line_up team="NL">
+Stekelenburg, Boulahrouz,
+Heitinga, Mathijsen, v. Bronckhorst, Kuijt
+(Elia/66), v. Bommel, Sneijder, De Jong,
+v. d. Vaart (Robben/73), v. Persie (Huntelaar/59) </line_up>
+</stats>
+</CM_NL>
+</groupE>
+<groupF>
+<IT_PY>
+<stats>
+<stadium> Kaapstad </stadium>
+<itdate> 20100614 </itdate> <dow> maandag </dow>
+<arbiter> Archundia (Mex) </arbiter>
+<spectators> 65000 </spectators>
+<line_up team="IT">
+Buffon (Marchetti/46),
+Zambrotta, Cannavaro, Chiellini, Criscito,
+Pepe, De Rossi, Marchisio (Camoranesi/59),
+Montolivo, Iaquinta, Gilardino
+(Di Natale/72)
+</line_up>
+<line_up team="PY">
+Villar, Bonet, Da Silva,
+Alcaraz, Morel, Vera, V. Caceres, Riveros,
+Torres (Santana/60), Valdez (Santa Cruz/68),
+Barrios (Cardozo/76)
+</line_up>
+</stats>
+</IT_PY>
+<NZ_SK>
+<stats>
+<itdate> 20100615 </itdate> <dow> dinsdag </dow>
+<arbiter> Damon (ZAf) </arbiter>
+<spectators> 23871 </spectators>
+<line_up team="NZ">
+Paston, Reid, Nelsen,
+Vicelich (Christie/78), Smith, Bertos,
+Elliott, Lochhead, Fallon, Smeltz, Killen
+(Wood/72)
+</line_up>
+<line_up team="SK">
+Mucha, Zabavn&iacute;k, Skrtel,
+Durica, Cech, Weiss (Kucka/90+1), Strba,
+Hams&iacute;k, Jendrisek, Vittek (Stoch/84),
+Sest&aacute;k (Holosko/81)
+</line_up>
+</stats>
+</NZ_SK>
+<SK_PY>
+<stats>
+<stadium> Bloemfontein </stadium>
+<itdate> 20100620 (13:30h) </itdate> <dow> zondag </dow>
+<final_result>
+Slowakije - Paraguay 0-2
+</final_result>
+<chronological>
+ <data min="27"> 0-1 Vera </data>
+ <data min="86"> 0-2 Riveros </data>
+</chronological>
+<arbiter> Maillet (Sey) </arbiter>
+<spectators> 26643 </spectators>
+<yellow_card team="PY"> Vera </yellow_card>
+<yellow_card team="SK"> Durica, Sest&aacute;k, Weiss </yellow_card>
+<line_up team="SK">
+Mucha, Pekar&iacute;k, Skrtel, Sal&aacute;ta
+(Stoch/83), Durica, Weiss, Strba, Hams&iacute;k,
+Koz&aacute;k, Sest&aacute;k (Holosko/70), Vittek </line_up>
+<line_up team="PY">
+Villar, Bonet, Da Silva, Alcaraz, Morel, Vera (E. Barreto/88),
+V. Caceres, Riveros, Santa Cruz, Barrios (Cardozo/82), Valdez (Torres/68)
+</line_up>
+</stats>
+</SK_PY>
+<IT_NZ>
+<stats>
+<stadium> Nelspruit </stadium>
+<itdate> 20100620 (16:00h) </itdate> <dow> zondag </dow>
+<final_result> Itali&euml; - Nieuw-Zeeland 1-1 </final_result>
+<chronological>
+ <data min="7"> 0-1 Smeltz </data>
+ <data min="29"> 1-1 Iaquinta (pen) </data>
+</chronological>
+<arbiter> Batres (Gua) </arbiter>
+<spectators> 38229 </spectators>
+<yellow_card team="NZ"> Fallon, Smith, Nelsen </yellow_card>
+<line_up team="IT">
+Marchetti, Zambrotta, Cannavaro,
+Chiellini, Criscito, Pepe (Camoranesi/46),
+Montolivo, De Rossi, Marchisio (Pazzini/61), Iaquinta,
+Gilardino (Di Natale/46) </line_up>
+<line_up team="NZ">
+Paston, Reid, Nelsen, Vicelich (Christie/81), Smith, Bertos,
+Elliott, Lochhead, Killen (Barron/90+3),
+Smeltz, Fallon (Wood/63) </line_up>
+</stats>
+</IT_NZ>
+<PY_NZ>
+<stats>
+<stadium> Polokwane </stadium>
+<dow> donderdag </dow>
+<final_result> Paraguay - Nieuw-Zeeland 0-0 </final_result>
+<arbiter> Nishimura (Jap) </arbiter>
+<spectators> 34850 </spectators>
+<yellow_card team="PY"> V. Caceres, Santa Cruz </yellow_card>
+<yellow_card team="NZ"> Nelsen </yellow_card>
+<line_up team="PY">
+Villar, Caniza, J. Caceres, Da Silva, Morel, Vera, V. Caceres, Riveros,
+Santa Cruz, Cardozo (Barrios/66), Valdez (Benitez/67) </line_up>
+<line_up team="NZ">
+Paston, Reid, Elliott, Nelsen, Vicelich, Smith, Bertos, Killen
+(Brockie/79), Smeltz, Lochhead, Fallon (Wood/69) </line_up>
+</stats>
+</PY_NZ>
+</groupF>
+<groupG>
+<CI_PT>
+<stats>
+<itdate> 20100615 </itdate> <dow> dinsdag </dow>
+<arbiter> Larrionda (Uru) </arbiter>
+<spectators> 37034 </spectators>
+<line_up team="CI">
+Barry, Demel, K. Tour&eacute;, Zokora,
+Ti&eacute;n&eacute;, Ebou&eacute; (Romaric/89), Y. Tour&eacute;, Tiot&eacute;,
+Dindane, Gervinho (K&eacute;ita/82), Kalou
+(Drogba/66)
+</line_up>
+<line_up team="PT">
+Eduardo, Ferreira, Alves,
+Carvalho, Coentr&atilde;o, Deco (Tiago/62),
+Mendes, Meireles (Amorim/85), Ronaldo,
+Liedson, Danny (Sim&atilde;o/55)
+</line_up>
+</stats>
+</CI_PT>
+<BR_KP>
+<stats>
+<itdate> 20100615 </itdate> <dow> dinsdag </dow>
+<chronological>
+ <data min="55"> 1-0 Maicon </data>
+ <data min="72"> 2-0 Elano </data>
+ <data min="89"> 2-1 Ji Yun-nam </data>
+</chronological>
+<arbiter> Kassai (Hon) </arbiter>
+<spectators> 54331 </spectators>
+<line_up team="BR">
+J&uacute;lio C&eacute;sar, Maicon, L&uacute;cio,
+Juan, Bastos, Elano (Alves/73), G. Silva,
+Kak&aacute; (Nilmar/78), Melo (Ramires/84),
+Robinho, Fabiano
+</line_up>
+<line_up team="KP">
+Ri Myong-guk,
+Cha Jong-hyok, Pak Chol-jin, Ri Jun-il,
+Ri Kwang-chon, Ji Yun-nam, Mun In-guk
+(Kim Kum-il/80), An Yong-hak,
+Pak Nam-chol 1, Hong Young-jo,
+Jong Tae-se
+</line_up>
+</stats>
+</BR_KP>
+<BR_CI>
+<stats>
+<stadium> Johannesburg </stadium>
+<itdate> 20100620 (20:30h) </itdate> <dow> zondag </dow>
+<final_result> Brazili&euml; - Ivoorkust 3-1 </final_result>
+<chronological>
+ <data min="25"> 1-0 Fabiano </data>
+ <data min="50"> 2-0 Fabiano </data>
+ <data min="62"> 3-0 Elano </data>
+ <data min="79"> 3-1 Drogba </data>
+ <data min="88"> 3-1 Rood: Kak&aacute; (BR) (2xg) </data>
+</chronological>
+<arbiter> Lannoy (Fra) </arbiter>
+<spectators> 84455 </spectators>
+<yellow_card team="CI">
+Ti&eacute;n&eacute;, Ke&iuml;ta, Tiot&eacute; </yellow_card>
+<line_up team="BR">
+J&uacute;lio C&eacute;sar, Maicon, L&uacute;cio,
+Juan, Bastos, Elano (Alves/67), G. Silva,
+Kak&aacute;, Melo, Robinho (Ramires/90+3), Fabiano </line_up>
+<line_up team="CI">
+Barry, Demel, K. Tour&eacute;, Zokora,
+Ti&eacute;n&eacute;, Ebou&eacute;
+(Romaric/72), Y. Tour&eacute;, Tiot&eacute;,
+Dindane (Gervinho/54), Drogba, Kalou, (Ke&iuml;ta/68) </line_up>
+</stats>
+</BR_CI>
+<PT_KP>
+<stats>
+<itdate> 20100621 (13:30h) </itdate> <dow> Maandag </dow>
+<stadium> Kaapstad </stadium>
+<final_result> Portugal - Noord-Korea 7-0 </final_result>
+<chronological>
+ <data min="29"> 1-0 Meireles </data>
+ <data min="53"> 2-0 Sim&atilde;o </data>
+ <data min="56"> 3-0 Almeida </data>
+ <data min="60"> 4-0 Tiago </data>
+ <data min="81"> 5-0 Liedson </data>
+ <data min="87"> 6-0 Ronaldo </data>
+ <data min="89"> 7-0 Tiago </data>
+</chronological>
+<arbiter> Pozo (Chl) </arbiter>
+<spectators> 63644 </spectators>
+<yellow_card team="PT"> Mendes, Almeida </yellow_card>
+<yellow_card team="KP"> Pak Chol-jin, Hong Young-jo </yellow_card>
+<line_up team="PT">
+Eduardo, Miguel, Carvalho,
+Alves, Coentr&atilde;o, Tiago, Mendes, Meireles
+(Veloso/70), Sim&atilde;o (Duda/74), Almeida
+(Liedson/77), Ronaldo </line_up>
+<line_up team="KP">
+Ri Myong-guk, Cha Jong-hyok (Nam Song-chol/75), Pak Chol-jin, Ri Jun-il,
+Ri Kwang-chon, Ji Yun-nam, Mun In-guk
+(Kim Yong-jun/58), An Yong-hak, Pak Namchol 1 (Kim Kum-il/58) Hong Young-jo,
+Jong Tae-se </line_up>
+</stats>
+</PT_KP>
+<KP_CI>
+<stats>
+<stadium> Nelspruit </stadium>
+<itdate> 20100626 (16:00h) </itdate> <dow> vrijdag </dow>
+<final_result> Noord-Korea - Ivoorkust 0-3 </final_result>
+<chronological>
+ <data min="14"> 0-1 Y. Tour&eacute; </data>
+ <data min="20"> 0-2 Romaric </data>
+ <data min="82"> 0-3 Kalou </data>
+</chronological>
+<arbiter> Undiano (Spa) </arbiter>
+<spectators> 34763 </spectators>
+<line_up team="KP">
+Ri Myong-guk, Cha Jong-hyok, Pak Chol-jin, Ri Jun-il,
+Ji Yun-nam, Ri Kwang-chon, Hong Young-jo,
+An Yong-hak, Pak Nam-chol 1, Mun In-guk
+(Choe Kum-chol/67), Jong Tae-se </line_up>
+<line_up team="CI">
+Barry, Ebou&eacute;, K. Tour&eacute;, Zokora,
+Boka, Romaric (Doumbia/79), Y. Tour&eacute;,
+Tiot&eacute;, Ke&iuml;ta (Kalou/64), Drogba, Gervinho
+(Dindane/64) </line_up>
+</stats>
+</KP_CI>
+<PT_BR>
+<stats>
+<stadium> Durban </stadium>
+<itdate> 20100625 (16:00h) </itdate> <dow> vrijdag </dow>
+<final_result> Portugal - Brazili&euml; 0-0 </final_result>
+<arbiter> Archundia (Mex) </arbiter>
+<spectators> 62712 </spectators>
+<yellow_card team="PT"> Duda, Tiago, Pepe, Coentr&atilde;o </yellow_card>
+<yellow_card team="BR"> Fabiano, Juan, Melo </yellow_card>
+<line_up team="PT">
+Eduardo, Costa, Carvalho, Alves,
+Coentr&atilde;o, Tiago, Pepe (Mendes/64),
+Meireles (Veloso/84), Danny, Ronaldo,
+Duda (Sim&atilde;o/54) </line_up>
+<line_up team="BR">
+J&uacute;lio C&eacute;sar, Maicon, L&uacute;cio,
+Juan, Bastos, Alves, G. Silva, Baptista
+(Ramires/82), Melo (Josu&eacute;/44), Nilmar,
+Fabiano (Grafite/85) </line_up>
+</stats>
+</PT_BR>
+</groupG>
+<groupH>
+<HN_CL>
+<stats>
+<stadium> Nelspruit </stadium>
+<itdate> 20100616 </itdate> <dow> woensdag </dow>
+<final_result> Honduras - Chili 0-1 </final_result>
+<chronological>
+ <data min="34"> 0-1 Beausejour </data>
+</chronological>
+<arbiter> Maillet (Sey) </arbiter>
+<spectators> 32664 </spectators>
+<yellow_card team="HN"> W. Palacios </yellow_card>
+<yellow_card team="CL"> Carmona, Fern&aacute;ndez </yellow_card>
+<line_up team="HN">
+Valladares, Mendoza, Ch&aacute;vez,
+Figueroa, Izaguirre, &Aacute;lvarez, W. Palacios,
+N&uacute;&ntilde;ez (Mart&iacute;nez/78), Guevara (Thomas/66),
+Espinoza, Pav&oacute;n (Welcome/60)
+</line_up>
+<line_up team="CL">
+Bravo, Isla, Ponce, Medel, Vidal
+(Contreras/81), Millar (Jara/52),
+Carmona, Fern&aacute;ndez, S&aacute;nchez, Vald&iacute;via
+(Gonz&aacute;lez/87), Beausejour
+</line_up>
+</stats>
+</HN_CL>
+<ES_CH>
+<stats>
+<stadium> Durban </stadium>
+<itdate> 20100616 </itdate> <dow> woensdag </dow>
+<final_result> Spanje - Zwitserland 0-1 </final_result>
+<chronological>
+ <data min="52"> 0-1 Fernandes </data>
+</chronological>
+<arbiter> Webb (Eng) </arbiter>
+<spectators> 62453 </spectators>
+<yellow_card team="CH"> Grichting, Ziegler, Benaglio, Yakin </yellow_card>
+<line_up team="ES">
+Casillas, Ramos, Piqu&eacute;, Puyol, Capdevila, Silva (Navas/62),
+Xabi Alonso, Xavi, Busquets (Torres/61), Iniesta
+(Pedro/77), Villa </line_up>
+<line_up team="CH">
+Benaglio, Lichtsteiner, Senderos (v. Bergen/36), Grichting,
+Ziegler, Barnetta (Eggimann/90+2), Inler,
+Huggel, Fernandes, Derdiyok (Yakin/79), N'Kufo </line_up>
+</stats>
+</ES_CH>
+<CL_CH>
+<stats>
+<stadium> Port Elizabeth </stadium>
+<itdate> 20100621 (16:00h) </itdate> <dow> maandag </dow>
+<final_result> Chili - Zwitserland 1-0 </final_result>
+<chronological>
+ <data min="31"> Rood: Behrami (CH) </data>
+ <data min="75"> Gonz&aacute;lez </data>
+</chronological>
+<arbiter> Al Ghamdi (Sau) </arbiter>
+<spectators> 34872 </spectators>
+<yellow_card team="CL">
+Suazo, Carmona, Ponce, Fern&aacute;ndez, Medel, Vald&iacute;via </yellow_card>
+<yellow_card team="CH"> N'Kufo, Barnetta, Inler </yellow_card>
+<line_up team="CL">
+Bravo, Medel, Ponce, Jara, Isla,
+Vidal (Gonz&aacute;lez/46), Carmona, Fern&aacute;ndez
+(Paredes/65), S&aacute;nchez, Suazo (Vald&iacute;via/46), Beausejour </line_up>
+<line_up team="CH">
+Benaglio, Lichtsteiner, v. Bergen, Grichting, Ziegler, Behrami,
+Inler, Huggel, Fernandes (Bunjaku/77), Frei (Barnetta/42), N'Kufo (Derdiyok/68) </line_up>
+</stats>
+</CL_CH>
+<ES_HN>
+<stats>
+<stadium> Johannesburg </stadium>
+<itdate> 20100621 (20:30h) </itdate> <dow> maandag </dow>
+<final_result> Spanje - Honduras 2-0 </final_result>
+<chronological>
+ <data min="17"> 1-0 Villa </data>
+ <data min="51"> 2-0 Villa </data>
+ <data min="62"> Villa (ES) mist pen. </data>
+</chronological>
+<arbiter> Nishimura (Jap) </arbiter>
+<spectators> 54386 </spectators>
+<yellow_card team="HN"> Turcios, Izaguirre </yellow_card>
+<line_up team="ES">
+Casillas, Ramos (Arbeloa/77), Piqu&eacute;, Puyol, Capdevila, Xabi Alonso, Xavi
+(F&aacute;bregas/66), Busquets, Navas, Torres (Mata/70), Villa </line_up>
+<line_up team="HN">
+Valladares, Mendoza, Ch&aacute;vez, Figueroa, Izaguirre,
+Turcios (N&uacute;&ntilde;ez/63), W. Palacios, Mart&iacute;nez, Guevara, Espinoza
+(Welcome/46), Suazo (Je. Palacios/84) </line_up>
+</stats>
+</ES_HN>
+<CL_ES>
+<stats>
+<stadium> Pretoria </stadium>
+<itdate> 20100626 (20:30h) </itdate> <dow> vrijdag </dow>
+<final_result> Chili - Spanje 1-2 </final_result>
+<chronological>
+ <data min="24"> 0-1 Villa </data>
+ <data min="37"> 0-2 Iniesta </data>
+ <data min="37"> Rood: Estrada (CL,2xg) </data>
+ <data min="47"> 1-2 Millar </data>
+</chronological>
+<arbiter> Rodriguez (Mex) </arbiter>
+<spectators> 41958 </spectators>
+<yellow_card team="CL"> Medel, Ponce </yellow_card>
+<line_up team="CL">
+Bravo, Isla, Medel, Ponce, Jara,
+Vidal, Estrada, Vald&iacute;via (Millar/46),
+Gonz&aacute;lez (Paredes/46), S&aacute;nchez
+(Orellana/65), Beausejour </line_up>
+<line_up team="ES">
+Casillas, Ramos, Piqu&eacute;, Puyol,
+Capdevila, Iniesta, Busquets, Xavi,
+Xabi Alonso (Mart&iacute;nez/73), Villa, Torres
+(F&aacute;bregas/55) </line_up>
+</stats>
+</CL_ES>
+<CH_HN>
+<stats>
+<stadium> Bloemfontein </stadium>
+<itdate> 20100626 (20:30h) </itdate> <dow> vrijdag </dow>
+<final_result> Zwitserland - Honduras 0-0 </final_result>
+<arbiter> Baldassi (Arg) </arbiter>
+<spectators> 28042 </spectators>
+<yellow_card team="CH"> Fernandes </yellow_card>
+<yellow_card team="HN"> Thomas, Suazo, Ch&aacute;vez, W. Palacios </yellow_card>
+<line_up team="CH">
+Benaglio, Lichtsteiner, v. Bergen, Grichting, Ziegler, Barnetta,
+Huggel (Shaqiri/78), Inler, Fernandes
+(Yakin/46), Derdiyok, N'Kufo (Frei/69) </line_up>
+<line_up team="HN">
+Valladares, Sabill&oacute;n, Ch&aacute;vez,
+Bern&aacute;rdez, Figueroa, &Aacute;lvarez, W. Palacios,
+Thomas, N&uacute;&ntilde;ez (Mart&iacute;nez/67), Je. Palacios
+(Welcome/78), Suazo (Turcios/87) </line_up>
+</stats>
+</CH_HN>
+</groupH>
+</group_phase>
+<ko>
+<last16>
+<UY_KR>
+<stats>
+<stadium> Port Elizabeth </stadium>
+<itdate> 20100626 (16:00h) </itdate> <dow> zaterdag </dow>
+<final_result> Uruguay - Zuid-Korea 2-1 </final_result>
+<chronological>
+ <data min="8"> 1-0 Suarez </data>
+ <data min="68"> 1-1 Lee Chung-yong </data>
+ <data min="80"> 2-1 Suarez </data>
+</chronological>
+<arbiter> Stark (Dui) </arbiter>
+<spectators> 30597 </spectators>
+<yellow_card team="KR"> Kim Jung-woo, Cha Doo-ri, Cho Yong-hyung </yellow_card>
+<line_up team="UY">
+Muslera, M. Pereira, Lugano, God&iacute;n (Victorino/46), Fucile, P&eacute;rez,
+Ar&eacute;valo, Forl&aacute;n, A. Pereira (Lodeiro/74),
+Cavani, Suarez (A. Fern&aacute;ndez/84) </line_up>
+<line_up team="KR">
+Jung Sung-ryong, Cha Doo-ri, Lee Jung-soo, Cho Yong-hyung,
+Lee Young-pyo, Kim Jae-sung (Lee Dong-gook/61), Kim Jung-woo,
+Ki Sung-yueng (Yeom Ki-hun/85), Lee Chung-yong, Park Chu-young,
+Park Ji-sung </line_up>
+</stats>
+</UY_KR>
+<US_GH>
+<stats>
+<stadium> Rustenburg </stadium>
+<itdate> 20100626 (20:30h) </itdate> <dow> zaterdag </dow>
+<final_result> Verenigde Staten - Ghana 1-2 n.v.  </final_result>
+<chronological>
+ <data min="5"> 0-1 K. Boateng </data>
+ <data min="62"> 1-1 Donovan (pen) </data>
+ <data min="93"> 1-2 Gyan </data>
+</chronological>
+<arbiter> Kassai (Hon) </arbiter>
+<spectators> 34976 </spectators>
+<yellow_card team="US"> Clark, Cherundolo, Bocanegra </yellow_card>
+<yellow_card team="GH"> Jon. Mensah, A. Ayew </yellow_card>
+<line_up team="US">
+Howard, Cherundolo, DeMerit, Bocanegra, Bornstein, Donovan,
+Bradley, Clark (Edu/31), Dempsey,
+Altidore (Gomez/91), Findley (Feilhaber/46) </line_up>
+<line_up team="GH">
+Kingson, Paintsil, Jon. Mensah, Joh. Mensah, Sarpei (Addy/73), Inkoom
+(Muntari/113), Annan, Asamoah, K. Boateng
+(Appiah/78), A. Ayew, Gyan </line_up>
+</stats>
+</US_GH>
+<DE_ENG>
+<stats>
+<stadium> Bloemfontein </stadium>
+<itdate> 20100627 (16:00h) </itdate> <dow> zondag </dow>
+<final_result> Duitsland - Engeland 4-1 </final_result>
+<chronological>
+ <data min="20"> 1-0 Klose </data>
+ <data min="32"> 2-0 Podolski </data>
+ <data min="37"> 2-1 Upson </data>
+ <data min="67"> 3-1 M&uuml;ller </data>
+ <data min="70"> 4-1 M&uuml;ller </data>
+</chronological>
+<arbiter> Larrionda (Uru) </arbiter>
+<spectators> 40510 </spectators>
+<yellow_card team="DE"> Friedrich </yellow_card>
+<yellow_card team="ENG"> Johnson </yellow_card>
+<line_up team="DE">
+Neuer, Lahm, Mertesacker, Friedrich, Boateng,
+M&uuml;ller (Trochowski/72), Khedira, &Ouml;zil (Kiessling/83),
+Schweinsteiger, Podolski, Klose (G&oacute;mez/72) </line_up>
+<line_up team="ENG">
+James, Johnson (Wright-Phillips/87), Terry, Upson,
+A. Cole, Milner (J. Cole/64), Barry,
+Lampard, Gerrard, Rooney, Defoe (Heskey/71) </line_up>
+</stats>
+</DE_ENG>
+<AR_MX>
+<stats>
+<stadium> Johannesburg </stadium>
+<itdate> 20100627 (20:30h) </itdate> <dow> zondag </dow>
+<final_result> Argentini&euml; - Mexico 3-1 </final_result>
+<chronological>
+ <data min="26"> 1-0 T&eacute;vez </data>
+ <data min="33"> 2-0 Higua&iacute;n </data>
+ <data min="52"> 3-0 T&eacute;vez </data>
+ <data min="71"> 3-1 Hern&aacute;ndez </data>
+</chronological>
+<arbiter> Rosetti (Ita) </arbiter>
+<spectators> 84377 </spectators>
+<yellow_card team="MX"> M&aacute;rquez </yellow_card>
+<line_up team="AR">
+Romero, Otamendi, Demichelis, Burdisso, Heinze, Maxi Rodr&iacute;guez
+(Pastore/87), Mascherano, Messi, Di Mar&iacute;a (Guti&eacute;rrez/79),
+T&eacute;vez (Ver&oacute;n/69), Higua&iacute;n </line_up>
+<line_up team="MX">
+P&eacute;rez, Ju&aacute;rez, Osorio, Rodr&iacute;guez, Salcido,
+Dos Santos, M&aacute;rquez, Bautista (Barrera/46),
+Torrado, Guardado (Franco/61), Hern&aacute;ndez </line_up>
+</stats>
+</AR_MX>
+<NL_SK>
+<stats>
+<stadium> Durban </stadium>
+<itdate> 20100628 (16:00h) </itdate> <dow> maandag </dow>
+<final_result>
+Nederland - Slowakije 2-1
+</final_result>
+<chronological>
+ <data min="18"> 1-0 Arjen Robben </data>
+ <data min="84"> 2-0 Wesley Sneijder </data>
+ <data min="90+4"> 2-1 Vittek (pen) </data>
+</chronological>
+<arbiter> Undiano (Spa) </arbiter>
+<spectators> 61962 </spectators>
+<yellow_card team="NL"> Robben, Stekelenburg </yellow_card>
+<yellow_card team="SK"> Kucka, Kop&uacute;nek, Skrtel </yellow_card>
+<line_up team="NL">
+Stekelenburg, v. d. Wiel, Heitinga, Mathijsen, v. Bronckhorst,
+Robben (Elia/71), v. Bommel, Sneijder (Afellay/90+2), De Jong,
+Kuijt, v. Persie (Huntelaar/80) </line_up>
+<line_up team="SK">
+Mucha, Pekar&iacute;k, Skrtel, Durica,
+Zabavn&iacute;k (Jakubko/88), Stoch, Kucka,
+Hams&iacute;k (Sapara/87), Weiss, Jendrisek
+(Kop&uacute;nek/72), Vittek </line_up>
+</stats>
+</NL_SK>
+<BR_CL>
+<stats>
+<stadium> Johannesburg </stadium>
+<itdate> 20100628 (20:30h) </itdate> <dow> maandag </dow>
+<final_result> Brazili&euml; - Chili 3-0 </final_result>
+<chronological>
+ <data min="34"> 1-0 Juan </data>
+ <data min="38"> 2-0 Fabiano </data>
+ <data min="59"> 3-0 Robinho </data>
+</chronological>
+<arbiter> Webb (Eng) </arbiter>
+<spectators> 54096 </spectators>
+<yellow_card team="BR"> Kak&aacute;, Ramires </yellow_card>
+<yellow_card team="CL"> Vidal, Fuentes, Millar </yellow_card>
+<line_up team="BR">
+J&uacute;lio C&eacute;sar, Maicon, L&uacute;cio,
+Juan, Bastos, Alves, G. Silva, Kak&aacute;
+(Kl&eacute;berson/81), Ramires, Robinho
+(Gilberto Melo/85), Fabiano (Nilmar/76) </line_up>
+<line_up team="CL">
+Bravo, Isla (Millar/62), Jara,
+Fuentes, Contreras (Tello/46), Carmona,
+Beausejour, Vidal, S&aacute;nchez, Suazo,
+Gonz&aacute;lez (Vald&iacute;via/46) </line_up>
+</stats>
+</BR_CL>
+<PY_JP>
+<stats>
+<stadium> Pretoria </stadium>
+<itdate> 20100629 (16:00h) </itdate> <dow> dinsdag </dow>
+<final_result>
+Paraguay - Japan 0-0
+ (Paraguay wint na strafschoppen: 5-3)
+</final_result>
+<arbiter> De Bleeckere (Bel) </arbiter>
+<spectators> 36742 </spectators>
+<yellow_card team="PY"> Riveros </yellow_card>
+<yellow_card team="JP"> Matsui, Nagatomo, Honda, Endo </yellow_card>
+<line_up team="PY">
+Villar, Bonet, Da Silva, Alcaraz, Morel, Vera, Ortigoza (E. Barreto/75),
+Riveros, Santa Cruz (Cardozo/94), Barrios, Benitez (Valdez/60) </line_up>
+<line_up team="JP">
+Kawashima, Komano, Nakazawa, Tanaka, Nagatomo, Hasebe, Abe
+(K. Nakamura/81), Endo, Matsui (Okazaki/66), Honda,
+Okubo (Tamada/106) </line_up>
+</stats>
+</PY_JP>
+<ES_PT>
+<stats>
+<stadium> Kaapstad </stadium>
+<itdate> 20100629 (20:30h) </itdate> <dow> dinsdag </dow>
+<final_result> Spanje - Portugal 1-0 </final_result>
+<chronological>
+ <data min="63"> 1-0 Villa </data>
+ <data min="89"> Rood: Costa (PT) </data>
+</chronological>
+<arbiter> Baldassi (Arg) </arbiter>
+<spectators> 62955 </spectators>
+<yellow_card team="ES"> Xabi Alonso </yellow_card>
+<yellow_card team="PT"> Tiago </yellow_card>
+<line_up team="ES">
+Casillas, Ramos, Piqu&eacute;, Puyol, Capdevila, Iniesta, Busquets, Xavi,
+Xabi Alonso (Marchena/90+3), Villa (Pedro/88), Torres (Llorente/59)
+</line_up>
+<line_up team="PT">
+Eduardo, Costa, Carvalho, Alves, Coentr&atilde;o, Tiago, Pepe (Mendes/72),
+Meireles, Ronaldo, Almeida (Danny/59), Sim&atilde;o (Liedson/72)
+</line_up>
+</stats>
+</ES_PT>
+</last16>
+<quarterfinals>
+<NL_BR>
+<stats>
+<stadium> Port Elizabeth </stadium>
+<itdate> 20100702 (16:00h) </itdate> <dow> vrijdag </dow>
+<final_result> Nederland - Brazili&euml; 2-1 </final_result>
+<chronological>
+ <data min="10"> 0-1 Robinho </data>
+ <data min="53"> 1-1 Wesley Sneijder </data>
+ <data min="68"> 2-1 Wesley Sneijder </data>
+ <data min="73"> Rood: Melo </data>
+</chronological>
+<arbiter> Nishimura (Jap) </arbiter>
+<spectators> 40186 </spectators>
+<yellow_card team="NL">
+Heitinga, v. d. Wiel, De Jong, Ooijer </yellow_card>
+<yellow_card team="BR"> Bastos </yellow_card>
+<line_up team="NL">
+Stekelenburg, v. d. Wiel, Heitinga, Ooijer, v. Bronckhorst, Robben,
+v. Bommel, Sneijder, De Jong, Kuijt, v. Persie (Huntelaar/85) </line_up>
+<line_up team="BR">
+J&uacute;lio C&eacute;sar, Maicon, L&uacute;cio, Juan, Bastos
+(Gilberto Melo/62), Alves, G. Silva, Kak&aacute;, Melo,
+Fabiano (Nilmar/77), Robinho </line_up>
+</stats>
+</NL_BR>
+<UY_GH>
+<stats>
+<stadium> Johannesburg </stadium>
+<itdate> 20100702 (20:30h) </itdate> <dow> vrijdag </dow>
+<final_result> Uruguay - Ghana 1-1
+(Uruguay wint strafschoppenserie: 4-2) </final_result>
+<chronological>
+ <data min="45+2"> 0-1 Muntari </data>
+ <data min="55"> 1-1 Forl&aacute;n </data>
+ <data min="120+1"> Rood: Suarez </data>
+ <data min="120+2"> Bijz: Gyan mist pen. </data>
+</chronological>
+<arbiter> Benqueren&ccedil;a (Por) </arbiter>
+<spectators> 84017 </spectators>
+<yellow_card team="UY"> Fucile, Ar&eacute;valo, P&eacute;rez </yellow_card>
+<yellow_card team="GH"> Paintsil, Sarpei, Joh. Mensah </yellow_card>
+<line_up team="UY">
+Muslera, M. Pereira, Lugano (Scotti/38), Victorino, Fucile,
+A. Fern&aacute;ndez (Lodeiro/46), P&eacute;rez, Ar&eacute;valo,
+Cavani (Abreu/76), Suarez, Forl&aacute;n </line_up>
+<line_up team="GH">
+Kingson, Paintsil, Vorsah, Joh. Mensah, Sarpei, Asamoah, Annan,
+K. Boateng, Inkoom (Appiah/74), Gyan, Muntari (Adiyiah/88) </line_up>
+</stats>
+</UY_GH>
+<AR_DE>
+<stats>
+<stadium> Kaapstad </stadium>
+<itdate> 20100703 (16:00h) </itdate> <dow> zaterdag </dow>
+<final_result> Argentini&euml; - Duitsland 0-4 </final_result>
+<chronological>
+<data min="3"> 0-1 M&uuml;ller </data>
+<data min="67"> 0-2 Klose </data>
+<data min="74"> 0-3 Friedrich </data>
+<data min="89"> 0-4 Klose </data>
+</chronological>
+<arbiter> Irmatov (Oez) </arbiter>
+<spectators> 64100 </spectators>
+<yellow_card team="AR"> Otamendi, Mascherano </yellow_card>
+<yellow_card team="DE"> M&uuml;ller </yellow_card>
+<line_up team="AR">
+Romero, Otamendi (Pastore/70), Demichelis, Burdisso, Heinze,
+Maxi Rodr&iacute;guez, Mascherano, Messi, Di Mar&iacute;a
+(Ag&uuml;ero/75), T&eacute;vez, Higua&iacute;n </line_up>
+<line_up team="DE">
+Neuer, Lahm, Mertesacker, Friedrich, Boateng (Jansen/72), M&uuml;ller
+(Trochowski/84), Khedira (Kroos/78),
+&Ouml;zil, Schweinsteiger, Podolski, Klose </line_up>
+</stats>
+</AR_DE>
+<PY_ES>
+<stats>
+<stadium> Johannesburg </stadium>
+<itdate> 20100703 (20:30h) </itdate> <dow> zaterdag </dow>
+<final_result> Paraguay - Spanje 0-1 </final_result>
+<chronological>
+ <data min="59"> Cardozo mist pen. (PY) </data>
+ <data min="61"> Xabi Alonso mist pen. (ES) </data>
+ <data min="83"> 0-1 Villa </data>
+</chronological>
+<arbiter> Batres (Gua) </arbiter>
+<spectators> 55359 </spectators>
+<yellow_card team="PY"> Alcaraz, V. Caceres, Morel, Santana </yellow_card>
+<yellow_card team="ES"> Piqu&eacute;, Busquets </yellow_card>
+<line_up team="PY">
+Villar, Ver&oacute;n, Da Silva, Alcaraz, Morel, E. Barreto (Vera/64),
+V. Caceres (Barrios/84), Riveros, Santana,
+Cardozo, Valdez (Santa Cruz/73) </line_up>
+<line_up team="ES">
+Casillas, Ramos, Piqu&eacute;, Puyol (Marchena/84), Capdevila, Iniesta,
+Busquets, Xavi, Xabi Alonso (Pedro/75),
+Villa, Torres (F&aacute;bregas/56) </line_up>
+</stats>
+</PY_ES>
+</quarterfinals>
+<semifinals>
+<UY_NL>
+<stats>
+<stadium> Kaapstad </stadium>
+<itdate> 20100706 (20:30h) </itdate> <dow> dinsdag </dow>
+<final_result> Uruguay - Nederland 2-3 </final_result>
+<chronological>
+ <data min="18"> 0-1 v. Bronckhorst </data>
+ <data min="41"> 1-1 Forl&aacute;n </data>
+ <data min="70"> 1-2 Wesley Sneijder </data>
+ <data min="73"> 1-3 Arjen Robben </data>
+ <data min="90+2"> 2-3 M. Pereira </data>
+</chronological>
+<arbiter> Irmatov (Oez) </arbiter>
+<spectators> 62479 </spectators>
+<yellow_card team="UY"> M. Pereira, C&aacute;ceres </yellow_card>
+<yellow_card team="NL"> Sneijder, Boulahrouz, v. Bommel </yellow_card>
+<line_up team="UY">
+Muslera, M. Pereira, God&iacute;n, Victorino, C&aacute;ceres,
+P&eacute;rez, Gargano, Ar&eacute;valo, A. Pereira (Abreu/78), Cavani,
+Forl&aacute;n (S. Fern&aacute;ndez/84) </line_up>
+<line_up team="NL">
+Stekelenburg, Boulahrouz, Heitinga, Mathijsen, v. Bronckhorst,
+Robben (Elia/90), v. Bommel, Sneijder, De Zeeuw (v. d. Vaart/46), Kuijt,
+v. Persie </line_up>
+</stats>
+</UY_NL>
+<DE_ES>
+<stats>
+<stadium> Durban </stadium>
+<itdate> 20100707 (20:30h) </itdate> <dow> woensdag </dow>
+<final_result>
+Duitsland - Spanje 0-1
+</final_result>
+<chronological>
+ <data min="73"> 0-1 Puyol </data>
+</chronological>
+<arbiter> Kassai (Hon) </arbiter>
+<spectators> 60960 </spectators>
+<line_up team="DE">
+Neuer, Lahm, Mertesacker, Friedrich, Boateng (Jansen/52), Trochowski (Kroos/62),
+Khedira (G&oacute;mez/81), &Ouml;zil, Schweinsteiger, Podolski, Klose </line_up>
+<line_up team="ES">
+Casillas, Ramos, Piqu&eacute;, Puyol, Capdevila, Iniesta, Busquets, Xavi,
+Xabi Alonso (Marchena/90+3), Pedro (Silva/86), Villa (Torres/81) </line_up>
+</stats>
+</DE_ES>
+</semifinals>
+<bronse>
+<DE_UY>
+<stats>
+<stadium> Port Elizabeth </stadium>
+<itdate> 20100710 (20:30h) </itdate> <dow> zaterdag </dow>
+<final_result> Duitsland - Uruguay 3-2 </final_result>
+<chronological>
+ <data min="19"> 1-0 M&uuml;ller </data>
+ <data min="28"> 1-1 Cavani </data>
+ <data min="51"> 1-2 Forl&aacute;n </data>
+ <data min="56"> 2-2 Jansen </data>
+ <data min="82"> 3-2 Khedira </data>
+</chronological>
+<arbiter> Archundia (Mex) </arbiter>
+<spectators> 36254 </spectators>
+<yellow_card team="UY"> P&eacute;rez </yellow_card>
+<yellow_card team="DE"> Aogo, Cacau, Friedrich </yellow_card>
+<line_up team="UY">
+Muslera, C&aacute;ceres, Lugano, God&iacute;n,
+Fucile, M. Pereira, P&eacute;rez (Gargano/77),
+Forl&aacute;n, Ar&eacute;valo, Cavani (Abreu/89), Suarez </line_up>
+<line_up team="DE">
+Butt, Boateng, Mertesacker, Friedrich, Aogo, M&uuml;ller, Khedira,
+&Ouml;zil (Tasci/90+1), Schweinsteiger, Jansen
+(Kroos/81), Cacau (Kiessling/73) </line_up>
+</stats>
+</DE_UY>
+</bronse>
+<final>
+<ES_NL>
+<stats>
+<stadium> Johannesburg </stadium>
+<itdate> 20100711 (20:30h) </itdate> <dow> zondag </dow>
+<final_result> Spanje - Nederland 1-0 </final_result>
+<chronological>
+ <data min="109"> Rood: Heitinga (2xg) (NL) </data>
+ <data min="116"> 1-0 Iniesta </data>
+</chronological>
+<arbiter> Webb (Eng) </arbiter>
+<spectators> 84490 </spectators>
+<yellow_card team="NL"> v. Persie, v. Bommel, De Jong,
+v. Bronckhorst, Robben, v. d. Wiel, Mathijsen </yellow_card>
+<yellow_card team="ES"> Puyol, Ramos, Xavi, Capdevilla, Iniesta
+</yellow_card>
+<line_up team="NL">
+Stekelenburg, v. d. Wiel, Heitinga, Mathijsen, v. Bronckhorst
+(Braafheid/105), Robben, v. Bommel, Sneijder, De Jong (v. d. Vaart/99),
+Kuijt (Elia/71), v. Persie </line_up>
+<line_up team="ES">
+Casillas, Ramos, Piqu&eacute;, Puyol, Capdevila, Pedro (Navas/60),
+Busquets, Xavi, Xabi Alonso (F&aacute;bregas/87), Iniesta,
+Villa (Torres/106) </line_up>
+</stats>
+</ES_NL>
+</final>
+</ko>
+<coaches>
+ <data> FR: Raymond Domenech </data>
+ <data> MX: Javier Aguirre </data>
+ <data> UY: Oscar Tab&aacute;rez </data>
+ <data> ZA: Carlos Alberto Parreira </data>
+ <data> AR: Diego Maradona </data>
+ <data> GR: Otto Rehhagel </data>
+ <data> NG: Lars Lagerb&auml;ck </data>
+ <data> KR: Huh Jung-moo </data>
+ <data> DZ: Rabah Saadane </data>
+ <data> ENG: Fabio Capello </data>
+ <data> SI: Matjaz Kek </data>
+ <data> US: Bob Bradley </data>
+ <data> AU: Pim Verbeek </data>
+ <data> DE: Joachim L&ouml;w </data>
+ <data> GH: Milovan Rajevac </data>
+ <data> RS: Radomir Antic </data>
+ <data> DK: Morten Olsen </data>
+ <data> JP: Takeshi Okada </data>
+ <data> CM: Paul le Guen </data>
+ <data> NL: Bert van Marwijk </data>
+ <data> IT: Marcello Lippi </data>
+ <data> NZ: Ricki Herbert </data>
+ <data> PY: Gerardo Martino </data>
+ <data> SK: Vladimir Weiss sr. </data>
+ <data> BR: Carlos Dunga </data>
+ <data> CI: Sven-Goran Eriksson </data>
+ <data> KP: Kim Jong-hun </data>
+ <data> PT: Carlos Queiroz </data>
+ <data> CL: Marcelo Bielsa </data>
+ <data> HN: Reinaldo Rueda </data>
+ <data> ES: Vicente del Bosque </data>
+ <data> CH: Ottmar Hitzfeld </data>
+</coaches>
+</games>

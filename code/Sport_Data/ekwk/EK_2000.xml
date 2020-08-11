@@ -1,0 +1,207 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<!DOCTYPE names [
+<!ENTITY euml "&#xEB;">
+<!ENTITY Euml "&#203;">
+<!ENTITY iuml "&#xEF;">
+<!ENTITY uuml "&#252;">
+<!ENTITY iacute "&#237;">
+<!ENTITY eacute "&#xE9;">
+<!ENTITY aacute "&#xE1;">
+<!ENTITY Aacute "&#xC1;">
+<!ENTITY uacute "&#xFA;">
+<!ENTITY egrave "&#xE8;">
+<!ENTITY atilde "&#227;">
+<!ENTITY ntilde "&#xF1;">
+<!ENTITY ouml "&#xF6;">
+<!ENTITY Ouml "&#xD6;">
+<!ENTITY auml "&#228;">
+<!ENTITY oslash "&#248;">
+<!ENTITY Oslash "&#216;">
+<!ENTITY acirc "&#xE2;">
+<!ENTITY ccedil "&#xE7;">
+<!ENTITY aelig "&#xE6;">
+<!ENTITY icirc "&#xEE;">
+<!ENTITY oacute "&#xF3;">
+<!ENTITY ocirc "&#xF4;">
+]>
+
+<games>
+<group_phase>
+<groupA>
+<PT_ENG>
+<stats>
+<stadium> Eindhoven </stadium>
+<chronological>
+<data min= "3"> 0-1 Scholes </data>
+<data min="19"> 0-2 McManaman </data>
+<data min="22"> 1-2 Figo </data>
+<data min="37"> 2-2 Joao Pinto </data>
+<data min="59"> 3-2 Nuno Gomes </data>
+</chronological>
+</stats>
+</PT_ENG>
+</groupA>
+<groupC>
+<YU_SI>
+<stats>
+<stadium> Charleroi </stadium>
+<chronological>
+<data min="23"> 0-1 Zahovic </data>
+<data min="52"> 0-2 Pavlin </data>
+<data min="57"> 0-3 Zahovic </data>
+<data min="60"> Rood: Mihajlovic (YU) </data>
+<data min="67"> 1-3 Milosevic </data>
+<data min="70"> 2-3 Drulovic </data>
+<data min="73"> 3-3 Milosevic </data>
+</chronological>
+</stats>
+</YU_SI>
+<YU_ES>
+<stats>
+<stadium> Brugge </stadium>
+<chronological>
+<data min="30"> 1-0 Milosevic </data>
+<data min="38"> 1-1 Alfonso </data>
+<data min="51"> 2-1 Govedarica </data>
+<data min="51"> 2-2 Munitis </data>
+<data min="63"> Rood (2x geel): Jokanovic (YU) </data>
+<data min="76"> 3-2 Komljenovic </data>
+<data min="90"> 3-3 Medieta (p) </data>
+<data min="90"> 3-4 Alfonso  </data>
+</chronological>
+</stats>
+</YU_ES>
+</groupC>
+<groupD>
+<NL_CZ>
+<stats>
+<stadium> Amsterdam </stadium>
+<chronological>
+<data min="89"> 1-0 fdeboer (p) </data>
+</chronological>
+</stats>
+</NL_CZ>
+<DK_NL>
+<stats>
+<stadium> Rotterdam </stadium>
+<chronological>
+<data min="57"> 0-1 kluivert </data>
+<data min="66"> 0-2 rdeboer </data>
+<data min="77"> 0-3 zenden </data>
+<data min="80"> Schj&ouml;nberg, DK: mist p </data>
+</chronological>
+</stats>
+</DK_NL>
+<FR_NL>
+<stats>
+<stadium> Amsterdam </stadium>
+<chronological>
+<data min= "8"> 1-0 Dugarry </data>
+<data min="14"> 1-1 kluivert </data>
+<data min="31"> 2-1 Trezeguet </data>
+<data min="51"> 2-2 fdeboer </data>
+<data min="59"> 2-3 zenden </data>
+</chronological>
+</stats>
+</FR_NL>
+</groupD>
+</group_phase>
+<ko>
+<last8>
+<TR_PT>
+<stats>
+<stadium> Amsterdam </stadium>
+<chronological>
+<data min="29">Rood: Alpay (TR) </data>
+<data min="44"> 0-1 Nuno Gomes </data>
+<data min="45"> Arif, TR: mist p </data>
+<data min="56"> 0-2 Nuno Gomes </data>
+</chronological>
+</stats>
+</TR_PT>
+<ES_FR>
+<stats>
+<stadium> Brugge </stadium>
+<chronological>
+<data min="32"> 0-1 Zidane </data>
+<data min="38"> 1-1 Mendieta (p) </data>
+<data min="44"> 1-2 Djorkaeff </data>
+<data min="90"> Raul, ES: mist p </data>
+</chronological>
+</stats>
+</ES_FR>
+<IT_RO>
+<stats>
+<stadium> Brussel </stadium>
+<chronological>
+<data min="33"> 1-0 Totti </data>
+<data min="43"> 2-0 Inzaghi </data>
+<data min="59"> Rood (2x geel): Hagi (RO) </data>
+</chronological>
+</stats>
+</IT_RO>
+<YU_NL>
+<stats>
+<stadium> Rotterdam </stadium>
+<chronological>
+<data min="24"> 0-1 kluivert </data>
+<data min="38"> 0-2 kluivert </data>
+<data min="51"> 0-3 Govedarica (eigen doel) </data>
+<data min="54"> 0-4 kluivert </data>
+<data min="78"> 0-5 overmars </data>
+<data min="90"> 0-6 overmars </data>
+<data min="90"> 1-6 Milosevic </data>
+</chronological>
+</stats>
+</YU_NL>
+</last8>
+<last4>
+<FR_PT>
+<stats>
+<stadium> Brussel </stadium>
+<chronological>
+<data min="18"> 0-1 Nuno Gomes </data>
+<data min="51"> 1-1 Henry </data>
+<data min="115"> 2-1 Zidane (p; Golden Goal) </data>
+<data min="115"> Rood: Nuno Gomes (PT) </data>
+</chronological>
+</stats>
+</FR_PT>
+<IT_NL>
+<stats>
+<stadium> Amsterdam </stadium>
+<chronological>
+<data min="33"> Rood (2x geel): Zambrotta (IT) </data>
+<data min="39"> F. de Boer, NL: mist p </data>
+<data min="63"> Kluivert, NL: mist p </data>
+</chronological>
+<wns_short> 3-1 </wns_short>
+<wns_long>
+IT, NL,
+1, Di Biagio,
+0, fdeboer,
+1, Pessotto,
+0, Stam,
+1, Totti, <!-- a la Panenka -->
+1, kluivert,
+0, Maldini,
+0, Bosvelt</wns_long>
+</stats>
+</IT_NL>
+</last4>
+<final>
+<FR_IT>
+<stats>
+<stadium> Rotterdam </stadium>
+<arbiter> Frisk (SE) </arbiter>
+<spectators> 50000 </spectators>
+<chronological>
+<data min="55"> 0-1 Delvecchio </data>
+<data min="90"> 1-1 Wiltord </data>
+<data min="103"> 2-1 Trezeguet (Golden Goal) </data>
+</chronological>
+</stats>
+</FR_IT>
+</final>
+</ko>
+</games>

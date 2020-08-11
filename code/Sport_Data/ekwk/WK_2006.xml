@@ -1,0 +1,195 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<!DOCTYPE names [
+<!ENTITY uuml "&#252;">
+<!ENTITY iacute "&#237;">
+<!ENTITY eacute "&#xE9;">
+<!ENTITY atilde "&#227;">
+<!ENTITY auml "&#228;">
+<!ENTITY aelig "&#xE6;">
+]>
+
+<games>
+<group_phase>
+<groupC>
+<CS_NL>
+<a> CS </a> <b> NL </b>
+<stats>
+<arbiter> Markus Merk (DE) </arbiter>
+<yellow_card team="CS"> Stankovic, Koroman, Dragutinovic, Gavrancic </yellow_card>
+<yellow_card team="NL"> v. Bronckhorst, Heitinga </yellow_card>
+<stadium> Leipzig </stadium>
+<spectators> 37216 </spectators>
+<chronological>
+<data min="18"> 0-1 robben </data>
+</chronological>
+<line_up team="CS">
+Jevric, [N. Djordjevic, Koroman, 43], Gavrancic, Krstajic, Dragutinovic, Nadj,
+Duljaj, Stankovic, P. Djordjevic, [Kezman, Ljuboja, 67], [Milosevic, Zigic, 46]
+</line_up>
+<line_up team="NL">
+v.d. Sar, Heitinga, Ooijer, [Mathijsen, Boulahrouz, 86], v. Bronckhorst,
+[v. Bommel, Landzaat, 60], Sneijder, Cocu, vpersie, [vnistelrooy, kuyt, 69],
+Robben
+</line_up>
+</stats>
+</CS_NL>
+<NL_CI>
+<a> NL </a> <b> CI </b>
+<stats>
+<arbiter> Ruiz (CO) </arbiter>
+<yellow_card team="NL"> Robben, Mathijsen, v. Bommel, Landzaat </yellow_card>
+<yellow_card team="CI"> Zokora, Drogba, Boka </yellow_card>
+<stadium> Stuttgart </stadium>
+<spectators> 52000 </spectators>
+<chronological>
+<data min="23"> 1-0 vpersie </data>
+<data min="27"> 2-0 vnistelrooy </data>
+<data min="38"> 2-1 B. Kon&eacute; </data>
+</chronological>
+<line_up team="NL">
+v.d. Sar, [Heitinga, Boulahrouz, 46], Ooijer, Mathijsen, v. Bronckhorst,
+v. Bommel, [Sneijder, v.d. Vaart, 50], Cocu, vpersie,
+[vnistelrooy, Landzaat, 73], Robben
+</line_up>
+<line_up team="CI">
+Tizie, Ebou&eacute;, K. Tour&eacute;, M&eacute;it&eacute;, Boka,
+[B. Kon&eacute;, Dindane, 62], Zokora, Y. Tour&eacute;,
+[Romaric, Yapi Yapo, 62], [A. Kon&eacute;, Akal&eacute;, 73], Drogba
+</line_up>
+</stats>
+</NL_CI>
+<NL_AR>
+<a> NL </a> <b> AR </b>
+<stats>
+<arbiter> Med. Cantalejo (ES) </arbiter>
+<yellow_card team="NL"> kuyt, Ooijer, De Cler </yellow_card>
+<yellow_card team="AR"> Cambiasso, Mascherano </yellow_card>
+<stadium> Frankfurt </stadium>
+<spectators> 48000 </spectators>
+<chronological>
+</chronological>
+<line_up team="NL">
+v.d. Sar, Jaliens, Boulahrouz, Ooijer, De Cler, v.d. Vaart, [Sneijder, Maduro, 86],
+Cocu, [vpersie, Landzaat, 67], [vnistelrooy, Babel, 56], kuyt
+</line_up>
+<line_up team="AR">
+Abbondanzieri, [Burdisso, Coloccini, 24], Ayala, Milito, Cufr&eacute;, Mascherano,
+Cambiasso, [Riquelme, Aimar, 80], Rodr&iacute;guez, T&eacute;vez, [Messi, Cruz, 70]
+</line_up>
+</stats>
+</NL_AR>
+</groupC>
+</group_phase>
+<ko>
+<last8>
+<PT_NL>
+<stats>
+<arbiter> Ivanov (RU) </arbiter>
+<yellow_card team="PT"> Maniche, Petit, Figo, Ricardo, Valente </yellow_card>
+<yellow_card team="NL"> v. Bommel, Sneijder, v.d. Vaart </yellow_card>
+<stadium> N&uuml;rnberg </stadium>
+<spectators> 41000 </spectators>
+<chronological>
+<data min="23"> 1-0 Maniche </data>
+<data min="45+1"> Rood (2x geel): Costinha (PT)</data>
+<data min="63"> Rood (2x geel): Boulahrouz (NL) </data>
+<data min="78"> Rood (2x geel): Deco (PT) </data>
+<data min="90+5"> Rood (2x geel): v. Bronckhorst (NL) </data>
+</chronological>
+<line_up team="PT">
+Ricardo, Miguel, Meira, Carvalho, Valente, Costinha, Maniche, Deco,
+[Figo, Tiago, 84], [Pauleta, Petit, 46], [Ronaldo, Sim&atilde;o, 34]
+</line_up>
+<line_up team="NL">
+v.d. Sar, Boulahrouz, Ooijer, [Mathijsen, v.d. Vaart, 56], v. Bronckhorst,
+[v. Bommel, Heitinga, 67], Sneijder, [Cocu, Vennegoor, 84], vpersie, kuyt, Robben
+</line_up>
+</stats>
+</PT_NL>
+</last8>
+<last4>
+<DE_IT>
+<stats>
+<arbiter> Archundia (MX) </arbiter>
+<yellow_card team="DE"> Borowski, Metzelder </yellow_card>
+<yellow_card team="IT"> Camoranesi </yellow_card>
+<stadium> Dortmund </stadium>
+<spectators> 65000 </spectators>
+<chronological>
+<data min="119"> 0-1 Grosso</data>
+<data min="120+1"> 0-2 Del Piero</data>
+</chronological>
+<line_up team="DE">
+Lehmann, Friedrich, Mertesacker, Metzelder, Lahm, [Schneider, Odonkor, 83],
+Kehl, Ballack, [Borowski, Schweinsteiger, 73], [Klose, Neuville, 111], Podolski
+</line_up>
+<line_up team="IT">
+Buffon, Zambrotta, Cannavaro, Materazzi, Grosso, [Camoranesi, Iaquinta, 91],
+Gattuso, Pirlo, [Perrotta, Del Piero, 104], Totti, [Toni, Gilardino, 74]
+</line_up>
+</stats>
+</DE_IT>
+<FR_PT>
+<stats>
+<arbiter> Larrionda (UY) </arbiter>
+<yellow_card team="FR"> Saha </yellow_card>
+<yellow_card team="PT"> Carvalho </yellow_card>
+<stadium> M&uuml;nchen </stadium>
+<spectators> 66000 </spectators>
+<chronological>
+<data min="33"> 1-0 Zidane (p) </data>
+</chronological>
+<line_up team="FR">
+Barthez, Sagnol, Thuram, Gallas, Abidal, [Rib&eacute;ry, Govou, 72],
+Mak&eacute;l&eacute;l&eacute;, Zidane, Vieira, [Malouda, Wiltord, 69],
+[Henry, Saha, 85]
+</line_up>
+<line_up team="PT">
+Ricardo, [Miguel, Paulo Ferreira, 62], Meira, Carvalho, Valente,
+[Costinha, H&eacute;lder, 75], Deco, Maniche, Figo, [Pauleta, Sim&atilde;o, 68],
+Ronaldo
+</line_up>
+</stats>
+</FR_PT>
+</last4>
+<final>
+<finale>
+<a> IT </a>
+<b> FR </b>
+<stats>
+<arbiter> Elizondo (AR) </arbiter>
+<yellow_card team="IT"> Zambrotta </yellow_card>
+<yellow_card team="FR"> Sagnol, Mak&eacute;l&eacute;l&eacute;, Malouda </yellow_card>
+<stadium> Berlijn </stadium>
+<spectators> 69000 </spectators>
+<chronological>
+<data min="7"> 0-1 Zidane (p) </data>
+<data min="19"> 1-1 Materazzi </data>
+<data min="110"> Rood: Zidane (FR) </data>
+</chronological>
+<wns_short> 5-3 </wns_short>
+<wns_long>
+IT, FR,
+1, Pirlo,
+1, Wiltord,
+1, Materazzi,
+0, Tr&eacute;z&eacute;guet,
+1, De Rossi,
+1, Abidal,
+1, Del Piero,
+1, Sagnol,
+1, Grosso
+</wns_long>
+<line_up team="IT">
+Buffon, Zambrotta, Cannavaro, Materazzi, Grosso, [Camoranesi, Del Piero, 86],
+Gattuso, Pirlo, [Perrotta, Iaquinta, 61], [Totti, De Rossi, 61], Toni],
+</line_up>
+<line_up team="FR">
+Barthez, Sagnol, Thuram, Gallas, Abidal, [Rib&eacute;ry, Tr&eacute;z&eacute;guet, 100],
+Mak&eacute;l&eacute;l&eacute;, Zidane, [Vieira, Diarra, 56], Malouda, [Henry, Wiltord, 107]
+</line_up>
+</stats>
+</finale>
+</final>
+</ko>
+</games>

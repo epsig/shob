@@ -1,0 +1,202 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<!DOCTYPE names [
+<!ENTITY euml "&#xEB;">
+<!ENTITY Euml "&#203;">
+<!ENTITY iuml "&#xEF;">
+<!ENTITY uuml "&#252;">
+<!ENTITY iacute "&#237;">
+<!ENTITY eacute "&#xE9;">
+<!ENTITY aacute "&#xE1;">
+<!ENTITY Aacute "&#xC1;">
+<!ENTITY uacute "&#xFA;">
+<!ENTITY egrave "&#xE8;">
+<!ENTITY atilde "&#227;">
+<!ENTITY ntilde "&#xF1;">
+<!ENTITY ouml "&#xF6;">
+<!ENTITY Ouml "&#xD6;">
+<!ENTITY auml "&#228;">
+<!ENTITY oslash "&#248;">
+<!ENTITY Oslash "&#216;">
+<!ENTITY acirc "&#xE2;">
+<!ENTITY ccedil "&#xE7;">
+<!ENTITY aelig "&#xE6;">
+<!ENTITY icirc "&#xEE;">
+<!ENTITY oacute "&#xF3;">
+<!ENTITY ocirc "&#xF4;">
+]>
+
+<games>
+<group_phase>
+<groupE>
+<NL_BE>
+<stats>
+<spectators> 75000 </spectators>
+<stadium> St-Denis </stadium>
+<chronological>
+<data min="80"> Rood: kluivert (NL) </data>
+</chronological>
+</stats>
+</NL_BE>
+<NL_KR>
+<stats>
+<spectators> 55000 </spectators>
+<stadium> Marseille </stadium>
+<chronological>
+<data min="37"> 1-0 cocu </data>
+<data min="41"> 2-0 overmars </data>
+<data min="71"> 3-0 bergkamp </data>
+<data min="79"> 4-0 vhooijdonk </data>
+<data min="83"> 5-0 rdeboer </data>
+</chronological>
+</stats>
+</NL_KR>
+<NL_MX>
+<stats>
+<spectators> 30600 </spectators>
+<stadium> St-Etienne </stadium>
+<chronological>
+<data min= "5"> 1-0 cocu </data>
+<data min="19"> 2-0 rdeboer </data>
+<data min="75"> 2-1 Peleaz </data>
+<data min="89"> Rood: Ramirez (MX) </data>
+<data min="90"> 2-2 Hernandez </data>
+</chronological>
+</stats>
+</NL_MX>
+</groupE>
+</group_phase>
+<ko>
+<last16>
+<NL_YU>
+<stats>
+<spectators> 33500 </spectators>
+<stadium> Toulouse </stadium>
+<chronological>
+<data min="38"> 1-0 bergkamp </data>
+<data min="49"> 1-1 Komljenovic </data>
+<data min="90"> 2-1 davids </data>
+</chronological>
+</stats>
+</NL_YU>
+</last16>
+<last8>
+<BR_DK>
+<stats>
+<spectators> 35500 </spectators>
+<stadium> Nantes </stadium>
+<chronological>
+<data min= "2"> 0-1 J&ouml;rgensen </data>
+<data min="11"> 1-1 Bebeto </data>
+<data min="26"> 2-1 Rivaldo </data>
+<data min="50"> 2-2 Brian Laudrup </data>
+<data min="60"> 3-2 Rivaldo </data>
+</chronological>
+</stats>
+</BR_DK>
+<NL_AR>
+<stats>
+<spectators> 55000 </spectators>
+<stadium> Marseille </stadium>
+<chronological>
+<data min="12"> 1-0 kluivert </data>
+<data min="18"> 1-1 Lopez </data>
+<data min="78"> Rood: numan (NL) </data>
+<data min="88"> Rood: Ortega (AR) </data>
+<data min="89"> 2-1 bergkamp </data>
+</chronological>
+</stats>
+</NL_AR>
+<IT_FR>
+<stats>
+<spectators> 77000 </spectators>
+<stadium> St-Denis </stadium>
+<wns_short> 3-4 </wns_short>
+<wns_long>
+FR, IT,
+1, Zidane,
+1, Roberto Baggio,
+0, Lizarazu,
+0, Albertini,
+1, Trezeguet,
+1, Costacurta,
+1, Henry,
+1, Vieri,
+1, Blanc,
+0, Di Biagio</wns_long>
+</stats>
+</IT_FR>
+<DE_HR>
+<stats>
+<spectators> 39100 </spectators>
+<stadium> Lyon </stadium>
+<chronological>
+<data min="43"> Rood: W&ouml;rns (DE) </data>
+<data min="45"> 0-1 Jarni </data>
+<data min="80"> 0-2 Vlaovic </data>
+<data min="85"> 0-3 Suker </data>
+</chronological>
+</stats>
+</DE_HR>
+</last8>
+<last4>
+<BR_NL>
+<stats>
+<spectators> 54000 </spectators>
+<stadium> Marseille </stadium>
+<wns_short> 4-2 </wns_short>
+<wns_long>
+BR, NL,
+1, Ronaldo,
+1, fdboer,
+1, Rivaldo,
+1, bergkamp,
+1, Emerson,
+0, cocu,
+1, Dunga,
+0, rdeboer</wns_long>
+<chronological>
+<data min="46"> 1-0 Ronaldo </data>
+<data min="87"> 1-1 Kluivert </data>
+</chronological>
+</stats>
+</BR_NL>
+<FR_HR>
+<stats>
+<spectators> 76000 </spectators>
+<stadium> St-Denis </stadium>
+<chronological>
+<data min="46"> 0-1 Suker </data>
+<data min="47"> 1-1 Thuram </data>
+<data min="70"> 2-1 Thuram </data>
+<data min="74"> Rood: Blanc (FR) </data>
+</chronological>
+</stats>
+</FR_HR>
+</last4>
+<final>
+<NL_HR>
+<stats>
+<stadium> Parijs </stadium>
+<spectators> 45500 </spectators>
+<chronological>
+<data min="13"> 0-1 Prosinecki </data>
+<data min="21"> 1-1 Zenden </data>
+<data min="36"> 1-2 Suker </data>
+</chronological>
+</stats>
+</NL_HR>
+<BR_FR>
+<stats>
+<spectators> 75000 </spectators>
+<stadium> St-Denis </stadium>
+<chronological>
+<data min="27"> 0-1 Zidane </data>
+<data min="45"> 0-2 Zidane </data>
+<data min="68"> Rood: Desailly (FR) </data>
+<data min="90"> 0-3 Petit </data>
+</chronological>
+</stats>
+</BR_FR>
+</final>
+</ko>
+</games>

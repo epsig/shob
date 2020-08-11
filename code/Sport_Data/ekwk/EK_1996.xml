@@ -1,0 +1,240 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<!DOCTYPE names [
+<!ENTITY euml "&#xEB;">
+<!ENTITY Euml "&#203;">
+<!ENTITY iuml "&#xEF;">
+<!ENTITY uuml "&#252;">
+<!ENTITY iacute "&#237;">
+<!ENTITY eacute "&#xE9;">
+<!ENTITY aacute "&#xE1;">
+<!ENTITY Aacute "&#xC1;">
+<!ENTITY uacute "&#xFA;">
+<!ENTITY egrave "&#xE8;">
+<!ENTITY atilde "&#227;">
+<!ENTITY ntilde "&#xF1;">
+<!ENTITY ouml "&#xF6;">
+<!ENTITY Ouml "&#xD6;">
+<!ENTITY auml "&#228;">
+<!ENTITY oslash "&#248;">
+<!ENTITY Oslash "&#216;">
+<!ENTITY acirc "&#xE2;">
+<!ENTITY ccedil "&#xE7;">
+<!ENTITY aelig "&#xE6;">
+<!ENTITY icirc "&#xEE;">
+<!ENTITY oacute "&#xF3;">
+<!ENTITY ocirc "&#xF4;">
+]>
+
+<games>
+<group_phase>
+<groupA>
+<CH_NL>
+<stats>
+<chronological>
+<data min="64"> 0-1 Jordi </data>
+<data min="79"> 0-2 bergkamp </data>
+</chronological>
+</stats>
+</CH_NL>
+<NL_ENG>
+<stats>
+<chronological>
+<data min="23"> 0-1 Shearer (p) </data>
+<data min="51"> 0-2 Sheringham </data>
+<data min="57"> 0-3 Shearer </data>
+<data min="62"> 0-4 Sheringham </data>
+<data min="79"> 1-4 kluivert </data>
+</chronological>
+</stats>
+</NL_ENG>
+<G1_CH>
+<chronological>
+<data min="23"> 1-0 Shearer </data>
+<data min="83"> 1-1 T&uuml;rkyilmaz (p) </data>
+</chronological>
+</G1_CH>
+<G2_G1>
+<chronological>
+<data min="53"> 0-1 Shearer </data>
+<data min="79"> 0-2 Gascoigne </data>
+</chronological>
+</G2_G1>
+<G2_CH>
+<chronological>
+<data min="36"> 1-0 McCoist </data>
+</chronological>
+</G2_CH>
+</groupA>
+<groupB>
+<ES_BG>
+<chronological>
+<data min="65"> 0-1 Stoitsjkov (p) </data>
+<data min="74"> 1-1 Alfonso </data>
+</chronological>
+</ES_BG>
+<RO_FR>
+<chronological>
+<data min="24"> 0-1 Dugarry </data>
+</chronological>
+</RO_FR>
+<BG_RO>
+<chronological>
+<data min="3"> 1-0 Stoitsjkov </data>
+</chronological>
+</BG_RO>
+<FR_ES>
+<chronological>
+<data min="48"> 1-0 Djorkaeff </data>
+<data min="85"> 1-1 Caminero </data>
+</chronological>
+</FR_ES>
+<FR_BG>
+<chronological>
+<data min="21"> 1-0 Blanc </data>
+<data min="63"> 2-0 Penev (ed) </data>
+<data min="68"> 2-1 Stoitsjkov </data>
+<data min="89"> 3-1 Loko </data>
+</chronological>
+</FR_BG>
+<RO_ES>
+<chronological>
+<data min="10"> 0-1 Manjarin </data>
+<data min="28"> 1-1 Raducioiu </data>
+<data min="85"> 1-2 Amor </data>
+</chronological>
+</RO_ES>
+</groupB>
+<groupC>
+<DE_CZ>
+<chronological>
+<data min="25"> 1-0 Ziege </data>
+<data min="32"> 2-0 M&ouml;ller </data>
+</chronological>
+</DE_CZ>
+<IT_RU>
+<chronological>
+<data min= "5"> 1-0 Casiraghi </data>
+<data min="21"> 1-1 Tsimbalar </data>
+<data min="52"> 2-1 Casiraghi </data>
+</chronological>
+</IT_RU>
+<CZ_IT>
+<chronological>
+<data min= "5"> 1-0 Nedved </data>
+<data min="18"> 1-1 Chiesa </data>
+<data min="35"> 2-1 Bejbl </data>
+</chronological>
+</CZ_IT>
+<RU_DE>
+<chronological>
+<data min="56"> 0-1 Sammer </data>
+<data min="76"> 0-2 Klinsmann </data>
+<data min="89"> 0-3 Klinsmann </data>
+</chronological>
+</RU_DE>
+<RU_CZ>
+<chronological>
+<data min= "6"> 0-1 Suchoparek </data>
+<data min="19"> 0-2 Kuka </data>
+<data min="49"> 1-2 Mostovoj </data>
+<data min="54"> 2-2 Tetradze </data>
+<data min="85"> 3-2 Bestsjastnych </data>
+<data min="89"> 3-3 Smicer </data>
+</chronological>
+</RU_CZ>
+</groupC>
+<groupD>
+<DK_PT>
+<chronological>
+<data min="22"> 1-0 B. Laudrup </data>
+<data min="53"> 1-1 Sa Pinto </data>
+</chronological>
+</DK_PT>
+<TR_HR>
+<chronological>
+<data min="86"> 0-1 Vlaovic </data>
+</chronological>
+</TR_HR>
+<PT_TR>
+<chronological>
+<data min="66"> 1-0 Couto </data>
+</chronological>
+</PT_TR>
+<HR_DK>
+<chronological>
+<data min="53"> 1-0 Suker </data>
+<data min="81"> 2-0 Boban </data>
+<data min="88"> 3-0 Suker (p) </data>
+</chronological>
+</HR_DK>
+<HR_PT>
+<chronological>
+<data min= "4"> 0-1 Figo </data>
+<data min="32"> 0-2 Joao Pinto </data>
+<data min="82"> 0-3 Domingos </data>
+</chronological>
+</HR_PT>
+<TR_DK>
+<chronological>
+<data min="48"> 0-1 B. Laudrup </data>
+<data min="68"> 0-2 Nielsen </data>
+<data min="83"> 0-3 B. Laudrup </data>
+</chronological>
+</TR_DK>
+</groupD>
+</group_phase>
+<ko>
+<last8>
+<ES_G1>
+<wns_short> 2-4 </wns_short>
+<stadium> Londen </stadium>
+</ES_G1>
+<DE_HR>
+<chronological>
+<data min="21"> 1-0 Klinsmann (p) </data>
+<data min="52"> 1-1 Suker </data>
+<data min="59"> 2-1 Sammer </data>
+</chronological>
+<stadium> Manchester </stadium>
+</DE_HR>
+<NL_FR>
+<stats>
+<wns_short> 4-5 </wns_short>
+<stadium> Liverpool </stadium>
+</stats>
+</NL_FR>
+<CZ_PT>
+<chronological>
+<data min="53"> 1-0 Poborsky </data>
+</chronological>
+<stadium> Birmingham </stadium>
+</CZ_PT>
+</last8>
+<last4>
+<G1_DE>
+<chronological>
+<data min= "3"> 0-1 Shearer </data>
+<data min="16"> 1-1 Kuntz </data>
+</chronological>
+<wns_short> 6-5 </wns_short>
+<stadium> Londen </stadium>
+</G1_DE>
+<FR_CZ>
+<wns_short> 5-6 </wns_short>
+<stadium> Manchester </stadium>
+</FR_CZ>
+</last4>
+<final>
+<DE_CZ>
+<stats>
+<chronological>
+<data min="59"> 0-1 Berger (p) </data>
+<data min="73"> 1-1 Bierhoff </data>
+<data min="95"> 2-1 Bierhoff ('Golden Goal') </data>
+</chronological>
+<stadium> Wembly, Londen </stadium>
+</stats>
+</DE_CZ>
+</final>
+</ko>
+</games>
