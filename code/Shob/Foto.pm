@@ -33,7 +33,6 @@ $VERSION = '18.1';
  '&get_foto_mei_06',
  '&get_foto_sep_06',
  '&get_foto_zwemles',
- '&get_index_wilma40',
  #========================================================================
 );
 
@@ -63,58 +62,7 @@ sub menu_bottum_fotos
  $out .= "en\n";
  $out .= ($zonder_link eq 'jun_01' ?
 'juni 2001':'<a href="index_jun01.html">juni 2001</a>').".\n";
- $out .= "<br>\nFoto's van ";
- $out .= $zonder_link eq 'bruiloft' ?
-q(onze bruiloft.):
-q(<a href="index_bruiloft.html">onze bruiloft</a>.);
  return $out;
-}
-
-sub get_index_wilma40
-{# (c) Edwin Spee
- # versie 1.0 25-apr-2006 initiele versie
-
- my @imgs;
-
- $imgs[0] = img_velden("IMG_37.jpg", "Foto nr. 37", 328, 480, 0.4, 2);
- for (my $i=39; $i<=72; $i++)
- {
-  $imgs[$i-38] = img_velden("IMG_$i.jpg", "Foto nr. $i", 328, 480, 0.4, 2);
- }
- for (my $i=74; $i<=76; $i++)
- {
-  $imgs[$i-39] = img_velden("IMG_$i.jpg", "Foto nr. $i", 328, 480, 0.4, 2);
- }
- for (my $i=78; $i<=82; $i++)
- {
-  $imgs[$i-40] = img_velden("IMG_$i.jpg", "Foto nr. $i", 328, 480, 0.4, 2);
- }
- for (my $i=84; $i<100; $i++)
- {
-  $imgs[$i-41] = img_velden("IMG_$i.jpg", "Foto nr. $i", 328, 480, 0.4, 2);
- }
- $imgs[100-41] = img_velden("IMG_100.jpg", "Foto nr. 100", 480, 328, 0.4, 2);
-
- my $out = make_table('border', 4, @imgs);
-
- $out .= << 'EOF';
-<form method="POST" action="/cgi-bin/mail-a-form">
-<input type="hidden" name="to" value="kuijters@tiscali.nl">
-<input type="hidden" name="subject" value="bestelling foto's">
-<input type="hidden" name="nextpage" value="ok.html">
-<p>
-Geef hier de nummers van de foto's die je wilt hebben,
-en je naam als dat niet gelijk uit het e-mailadres is op te maken.
-<textarea name="info" rows="8" cols="80">
-</textarea>
-<p>
-Je E-mail adres: <input type="text" name="from" size="30">
-<input type="submit" value="verstuur/send">
-</form>
-EOF
-
- return maintxt2htmlpage($out, q(Foto's van de surprise-party voor de 40-jarige Wilma), 'title2h1',
-  -1, {type1 => 'no_menu_no_kookie'});
 }
 
 sub get_foto_zwemles

@@ -203,7 +203,6 @@ sub handle_new_style_files($$$)
  do_all_bin_dir($lop, 2, 'all', 0, 'fotoalbum', 'fotoalbum');
 
  do_all_text_dir ($lop, 'fotoalbum', [
-[2,  'rl', sub {&get_index_bruiloft;}, 'index_bruiloft.html'],
 [2,  'rl', sub {&get_index_feb02;}, 'index_feb02.html'],
 [2,  'rl', sub {&get_index_jun01;}, 'index_jun01.html'],
 [2,  'rl', sub {&get_foto_zwemles;}, ['index_oct06.html', 'index.html'] ],
