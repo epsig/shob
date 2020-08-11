@@ -141,7 +141,7 @@ sub init_webdir($)
  }
  elsif ($id eq 'ubuntu')
  {
-  $WebDir  = File::Spec->catdir($ENV{HOME}, 'epsig', 'www.epsig.nl');
+  $WebDir  = File::Spec->catdir($ENV{HOME}, 'epsig', 'github', 'shob', 'pages');
   $WD_His  = File::Spec->catdir($ENV{HOME}, 'epsig', 'web_old');
   $WbDrOld = $WebDir;
  }
@@ -188,7 +188,7 @@ sub init_host_id()
  }
  elsif ($HostId eq 'ubuntu')
  {
-  $www_epsig_nl = "$ENV{HOME}/epsig/www.epsig.nl";
+  $www_epsig_nl = "$ENV{HOME}/epsig/github/shob/pages";
   $www_xs4all_nl_spee = $www_epsig_nl;
  }
  else
