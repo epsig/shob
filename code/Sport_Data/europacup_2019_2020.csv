@@ -15,10 +15,10 @@ CL,gH,FRlll,NLajx,20191127,0,2
 CL,gH,ESval,G1cls,20191127,2,2
 CL,gH,NLajx,ESval,20191210,0,1
 CL,gH,G1cls,FRlll,20191210,2,1
-CL,4f,ITatb,FRpsg,20200812,-1,-1
-CL,4f,DElpz,ESamd,20200813,-1,-1
-CL,4f,ESbcl,DEbmn,20200814,-1,-1
-CL,4f,G1mnc,FRoly,20200815,-1,-1
+CL,4f,ITatb,FRpsg,20200812,-1,-1,-1,Lissabon
+CL,4f,DElpz,ESamd,20200813,-1,-1,-1,Lissabon
+CL,4f,ESbcl,DEbmn,20200814,-1,-1,-1,Lissabon
+CL,4f,G1mnc,FRoly,20200815,-1,-1,-1,Lissabon
 EL,v2,NLaz1,DKhck,20190725,0,0,20190801,0,3,1
 EL,v2,NLutr,BAzrn,20190725,1,1,20190801,2,1,4
 EL,v3,NLfyn,GEdtb,20190808,4,0,20190815,1,1,1
@@ -65,7 +65,10 @@ EL,gL,G1mnc,NLaz1,20191212,4,0
 EL,gL,RSpbg,KZast,20191212,4,1
 EL,16f,ESgtf,NLajx,20200220,2,0,20200227,2,1,1
 EL,16f,NLaz1,ATlnz,20200220,1,1,20200227,2,0,2
-EL,4f,ITiml,DElvk,20200810,2,1,1
-EL,4f,G1mnu,DKfkp,20200810,1,0,3
-EL,4f,UAsdk,CHbsl,20200811,-1,-1
-EL,4f,G1wlv,ESsvl,20200811,-1,-1
+EL,4f,ITiml,DElvk,20200810,2,1,1,D&uuml;sseldorf
+EL,4f,UAsdk,CHbsl,20200811,4,1,1,Gelsenkirchen
+EL,4f,G1wlv,ESsvl,20200811,0,1,2,Duisburg
+EL,4f,G1mnu,DKfkp,20200810,1,0,3,Keulen
+EL,2f,ITiml,UAsdk,20200816,-1,-1,-1,Keulen
+EL,2f,ESsvl,G1mnu,20200817,-1,-1,-1,D&uuml;sseldorf
+EL,f,Sevilla/Man. Utd,Inter/Sj. Donetsk,20200821,-1,-1,-1,Keulen
