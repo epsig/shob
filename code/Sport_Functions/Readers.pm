@@ -163,6 +163,27 @@ sub read_csv($)
  return \@games;
 }
 
+sub read_ec_summary($)
+{
+ my $lang = shift;
+
+ my $retval = '';
+
+ seek(IN, 0, 0);
+ while (my $line = <IN>)
+ {
+  $line =~ s/ *#.*//;
+  if ($line eq '') {next;}
+
+  my @parts = split /,/, $line;
+  if ($parts[0] eq 'summary' and $parts[1] eq $lang)
+  {
+    $retval .= $parts[2];
+  }
+ }
+ return $retval;
+}
+
 sub read_ec_csv($)
 {
  my $filein = shift;
@@ -200,6 +221,9 @@ sub read_ec_csv($)
  final => read_ec_part('EL','f', 'finale E-L'),
  }
 };
+
+ my $summary = read_ec_summary('NL');
+ if ($summary ne '') {$ec->{extra}->{summary} = $summary;}
 
  foreach my $l ('A'..'H')
  {
