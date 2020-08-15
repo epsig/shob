@@ -22,10 +22,12 @@ CL,gH,FRlll,NLajx,20191127,0,2
 CL,gH,ESval,G1cls,20191127,2,2
 CL,gH,NLajx,ESval,20191210,0,1
 CL,gH,G1cls,FRlll,20191210,2,1
-CL,4f,ITatb,FRpsg,20200812,1,2,2,Lissabon
 CL,4f,DElpz,ESamd,20200813,2,1,1,Lissabon
-CL,4f,ESbcl,DEbmn,20200814,-1,-1,-1,Lissabon
+CL,4f,ITatb,FRpsg,20200812,1,2,2,Lissabon
 CL,4f,G1mnc,FRoly,20200815,-1,-1,-1,Lissabon
+CL,4f,ESbcl,DEbmn,20200814,2,8,2,Lissabon
+CL,2f,DElpz,FRpsg,20200818,-1,-1,-1,Lissabon
+CL,2f,Man. City,DEbmn,20200819,-1,-1,-1,Lissabon
 EL,v2,NLaz1,DKhck,20190725,0,0,20190801,0,3,1
 EL,v2,NLutr,BAzrn,20190725,1,1,20190801,2,1,4
 EL,v3,NLfyn,GEdtb,20190808,4,0,20190815,1,1,1
