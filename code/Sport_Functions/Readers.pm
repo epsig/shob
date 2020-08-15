@@ -333,6 +333,7 @@ sub read_ec_part($$$)
    }
    elsif (defined($aa2))
    {
+    chomp($aa2);
     push @games, [$a,$b,[$dd1,$aa1,$bb1],$dd2,$aa2];
    }
    elsif (defined($dd2))
@@ -393,6 +394,7 @@ sub read_ec_part($$$)
   return undef;
  }
 }
+
 sub replace_opm_xml_inner($$$)
 {
  my $pu   = shift;
