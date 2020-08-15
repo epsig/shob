@@ -273,9 +273,11 @@ sub check_and_print
 
 sub diff_print
 {# (c) Edwin Spee
- # versie 1.0 27-apr-2005 initiele versie
 
  my ($old, $new) = @_;
+
+ my $cnt_dd = 0;
+ my $cnt_rest = 0;
 
  my @diff = diff ($old, $new);
  for (my $i=0; $i < scalar @diff; $i++)
@@ -284,10 +286,18 @@ sub diff_print
   for (my $j=0; $j < scalar @$row; $j++)
   {
    my ($pm, $linenr, $line) = @{$row->[$j]};
-   print "$pm $linenr:$line\n";
+   if ($line =~ m/d\.d\./)
+   {
+    $cnt_dd++;
+   }
+   else
+   {
+    $cnt_rest++;
+    print "$pm $linenr:$line\n";
+   }
   }
  }
- return scalar @diff;
+ return $cnt_rest;
 }
 
 sub my_webpage_diff
