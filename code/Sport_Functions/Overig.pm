@@ -454,7 +454,7 @@ sub get_voetbal_list($$)
  my ($type, $comp) = @_;
 
  my $first_year = ($comp eq 'NL' ? 1993 : 1994);
- my $last_year = ($comp eq 'NL' ? 2019 : 2019);
+ my $last_year = ($comp eq 'NL' ? 2019 : 2020);
 
  my $url_comp = ($comp eq 'NL' ? 'nl' : 'europacup');
 

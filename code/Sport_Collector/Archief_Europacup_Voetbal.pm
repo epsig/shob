@@ -2514,7 +2514,9 @@ $u_ec->{'2018-2019'} = read_ec_csv('europacup_2018_2019.csv');
 
 $u_ec->{'2019-2020'} = read_ec_csv('europacup_2019_2020.csv');
 
-$u_ec->{lastyear} = '2019-2020';
+$u_ec->{'2020-2021'} = read_ec_csv('europacup_2020_2021.csv');
+
+$u_ec->{lastyear} = '2020-2021';
 
 sub get_ec_webpage($)
 {# (c) Edwin Spee
@@ -2544,6 +2546,8 @@ sub laatste_speeldatum_ec($)
 
 $u_ec->{'2017-2018'}->{extra}->{dd} = laatste_speeldatum_ec('2017-2018');
 $u_ec->{'2018-2019'}->{extra}->{dd} = laatste_speeldatum_ec('2018-2019');
+$u_ec->{'2019-2020'}->{extra}->{dd} = laatste_speeldatum_ec('2019-2020');
+$u_ec->{'2020-2021'}->{extra}->{dd} = laatste_speeldatum_ec('2020-2021');
 
 sub set_laatste_speeldatum_ec
 {# (c) Edwin Spee
