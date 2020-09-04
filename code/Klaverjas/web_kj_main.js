@@ -1,16 +1,17 @@
 /* Dit programma is geschreven door:
- * Edwin Spee, E-mail: info@epsig.nl
+ * Edwin Spee, E-mail: info@epsig.nl, (c) 2001 - 2020.
  * Dit spel mag onbeperkt vaak gespeeld worden.
  * Alle overige rechten uitdrukkelijk voorbehouden.
  * Dit programma staat alleen legaal op:
- *  URL: http://www.epsig.nl
+ *  URL: https://www.epsig.nl/
  * De Javascript-broncode is versleuteld om oneigenlijk gebruik te voorkomen.
- * Geinteresseerden kunnen de oorspronkelijke broncode onder voorwaarden inzien.
+ * De oorspronkelijke broncode staat op: github.com/epsig/shob .
  */
-var versie = "6.1";
-var dd = "23 dec 2008";
+var versie = "6.2";
+var dd = "04 sep 2020";
 // -----------------------------------------------------------
 // versie overzicht
+// versie 6.2, 04 sep 2020: open source gegaan
 // versie 6.1, 23 dec 2008: computer wint ipv door computer verslagen
 //                          n.a.v. email Andrew Plevier d.d. 10 okt 2008
 // versie 6.02,28 sep 2008: with helemaal eruit; + method OScreenAdmin.SetValueColorStyle;
