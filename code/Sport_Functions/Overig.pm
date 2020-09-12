@@ -78,6 +78,7 @@ return '<hr>' . get_menu ('', $skip, 2, -1, (
 'sport_voetbal_EK_2016.html', 'EK 2016',
 'sport_voetbal_WK_2018.html', 'WK 2018',
 'sport_voetbal_EK_2020_voorronde.html', 'EK 2021',
+'sport_voetbal_WK_2022_voorronde.html', 'WK 2022',
 )).'<hr>';}
 
 sub OSTopMenu($)

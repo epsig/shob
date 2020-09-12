@@ -44,7 +44,9 @@ sub get_sport_index($$$$$)
  <ul>
   <li>Wedstrijden Nederlands Elftal:
    <br>
-     <a href="sport_voetbal_WK_2018.html">WK 2018</a>
+     <a href="sport_voetbal_WK_2022_voorronde.html">WK 2022</a>
+   | <a href="sport_voetbal_EK_2020_voorronde.html">EK 2021</a>
+   | <a href="sport_voetbal_WK_2018.html">WK 2018</a>
    | <a href="sport_voetbal_EK_2016.html">EK 2016</a>
    | <a href="sport_voetbal_WK_2014.html">WK 2014</a>
    | <a href="sport_voetbal_EK_2012.html">EK 2012</a>

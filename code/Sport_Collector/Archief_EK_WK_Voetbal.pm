@@ -34,6 +34,7 @@ $VERSION = '20.0';
 @EXPORT =
 (#========================================================================
  '&set_laatste_speeldatum_ekwk',
+ '&get_wk2022v',
  '&get_ek2020v',
  '&get_wkD2019',
  '&get_wk2018',
@@ -444,12 +445,14 @@ sub get_wkD2019
 # 9 juni 20.45
 # Portugal - Nederland
 #
-sub ReadNatLeague($)
+sub ReadNatLeague($$)
 {
   my $csvFile = shift;
+  my $ster    = shift;
+
   my $NLfile = File::Spec->catfile('Sport_Data', $csvFile);
   my $NLraw = read_csv_file($NLfile);
-  $NLraw->[0] = [ ['Groep A'], [1, 5, '', 1]];
+  $NLraw->[0] = [ ['Groep A'], [1, 5, '', $ster]];
   for(my $i = 1; $i < scalar @$NLraw; $i++)
   {
     my $a = $NLraw->[$i]->[0];
@@ -461,25 +464,40 @@ sub ReadNatLeague($)
     $NLraw->[$i] = $u;
   }
 
-  my $td = get_uitslag($NLraw, {cols => 1, ptitel => [2, 'Uitslagen Nederlands Elftal in Nations League']});
-  my $table = ftable('border', $td);
-  return $table;
+  my $td1 = get_uitslag($NLraw, {cols => 1, ptitel => [2, 'Uitslagen groep A']});
+
+  my $args_u2s = $NLraw->[0][1];
+  my $s_nl = u2s($NLraw,  @$args_u2s);
+  my $td2 = get_stand($s_nl, 2, 0,[2, 'Stand Groep A']);
+  
+  my $table = get2tables($td1, $td2);
+  my $block = qq(<h2>Nations League, groep met Nederland</h2>\n);
+  return $block . $table;
 }
 
-my $ek2020v_u_nl = read_csv(File::Spec->catfile($ekwkDir, 'ek2020v.csv'));
 sub get_ek2020v
 {
+  my $ek2020v_u_nl = read_csv(File::Spec->catfile($ekwkDir, 'ek2020v.csv'));
   $ek2020v_u_nl->[0] = [ ['Groep C'], [1, 5, '', 1]];
   my $kzb = get_oefenduels(20180701, 20200630);
-  my $test = ReadNatLeague('NL_2020_grpA.csv');
+  my $test = ReadNatLeague('NL_2018_grpA.csv', 3);
   my $dd = laatste_speeldatum($ek2020v_u_nl);
   return format_voorronde_ekwk(2021, '12 Europese landen en stadions',
     {u_nl => $ek2020v_u_nl, kzb => $kzb, extra => $test}, $dd);
 }
 
+sub get_wk2022v
+{
+  #$ek2020v_u_nl->[0] = [ ['Groep C'], [1, 5, '', 1]];
+  #my $kzb = get_oefenduels(20200701, 20220630);
+  my $test = ReadNatLeague('NL_2020_grpA.csv', -1);
+  my $dd = 20200913;
+  return format_voorronde_ekwk(2022, 'Qatar', {extra => $test}, $dd);
+}
+
 sub set_laatste_speeldatum_ekwk
 {
- my $dd = 20200711;
+ my $dd = 20200913;
  $dd = max($dd, laatste_speeldatum(get_oefenduels(20160731,20180701)));
 #my $u = $wkD2019->{grp};
 #my $all = combine_puus(@{$u});
@@ -490,7 +508,7 @@ sub set_laatste_speeldatum_ekwk
 # {
 #  $all = combine_puus($all, $wkD2019->{$val});
 #}}
- $dd = max($dd, laatste_speeldatum($ek2020v_u_nl));
+# $dd = max($dd, laatste_speeldatum($ek2020v_u_nl));
  set_datum_fixed($dd);
 }
 
