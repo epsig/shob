@@ -554,8 +554,9 @@ qq(<br>en mag vlak na de WK-finale al weer aan de slag.\n) .
  else
  {
   $dd = laatste_speeldatum($u_nl->{lastyear});
-  my $dd2 = laatste_speeldatum_beker('2019-2020');
+  my $dd2 = laatste_speeldatum_beker('2020-2021');
   $dd = max($dd, $dd2);
+  $dd = max(20200913, $dd);
  }
  my $nc = get_nc($yr+1);
  return format_eindstanden($yr, $opm_ered, $europa_in, $nc, $dd);
@@ -565,6 +566,7 @@ sub set_laatste_speeldatum
 {# (c) Edwin Spee
 
  my $dd = laatste_speeldatum($u_nl->{lastyear});
+ $dd = max(20200913, $dd);
  $u_nl->{laatste_speeldatum} = $dd;
  my $dd2 = laatste_speeldatum_beker('2019-2020');
  my $fixed_dd = max($dd, $dd2);
