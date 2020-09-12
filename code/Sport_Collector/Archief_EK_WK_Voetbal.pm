@@ -444,15 +444,37 @@ sub get_wkD2019
 # 9 juni 20.45
 # Portugal - Nederland
 #
+sub ReadNatLeague($)
+{
+  my $csvFile = shift;
+  my $NLfile = File::Spec->catfile('Sport_Data', $csvFile);
+  my $NLraw = read_csv_file($NLfile);
+  $NLraw->[0] = [ ['Groep A'], [1, 5, '', 1]];
+  for(my $i = 1; $i < scalar @$NLraw; $i++)
+  {
+    my $a = $NLraw->[$i]->[0];
+    my $b = $NLraw->[$i]->[1];
+    my $dd = $NLraw->[$i]->[2];
+    my $result = $NLraw->[$i]->[3];
+    my @results = split('-', $result);
+    my $u = [$a, $b, [$dd, $results[0], $results[1]]];
+    $NLraw->[$i] = $u;
+  }
+
+  my $td = get_uitslag($NLraw, {cols => 1, ptitel => [2, 'Uitslagen Nederlands Elftal in Nations League']});
+  my $table = ftable('border', $td);
+  return $table;
+}
 
 my $ek2020v_u_nl = read_csv(File::Spec->catfile($ekwkDir, 'ek2020v.csv'));
 sub get_ek2020v
 {
- $ek2020v_u_nl->[0] = [ ['Groep C'], [1, 5, '', 1]];
- my $kzb = get_oefenduels(20180701, 20200630);
- my $dd = laatste_speeldatum($ek2020v_u_nl);
- return format_voorronde_ekwk(2021, '12 Europese landen en stadions',
- {u_nl => $ek2020v_u_nl, kzb => $kzb}, $dd);
+  $ek2020v_u_nl->[0] = [ ['Groep C'], [1, 5, '', 1]];
+  my $kzb = get_oefenduels(20180701, 20200630);
+  my $test = ReadNatLeague('NL_2020_grpA.csv');
+  my $dd = laatste_speeldatum($ek2020v_u_nl);
+  return format_voorronde_ekwk(2021, '12 Europese landen en stadions',
+    {u_nl => $ek2020v_u_nl, kzb => $kzb, extra => $test}, $dd);
 }
 
 sub set_laatste_speeldatum_ekwk
