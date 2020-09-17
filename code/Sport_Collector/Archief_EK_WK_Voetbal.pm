@@ -433,17 +433,17 @@ sub get_wkD2019
  return format_ekwk(2019, 'Frankrijk', $wkD2019, $topscorers, $dd);
 }
 
-# Nations League:
+# Nations League Finals in Portugal:
 # 1/2 finale
-# 5 juni Portugal - Zwitserland 3-1
-# 6 juni Nederland - Engeland 3-1 nv
+# 5 juni 2019 Portugal - Zwitserland 3-1
+# 6 juni 2019 Nederland - Engeland 3-1 nv
 #
 # 3/4e plek
-# 9 juni 15.00u
-# Zwitserland - Engeland
+# 9 juni 2019 15.00u
+# Zwitserland - Engeland 0-0 Eng wns
 # finale
-# 9 juni 20.45
-# Portugal - Nederland
+# 9 juni 2019 20.45
+# Portugal - Nederland 1-0
 #
 sub ReadNatLeague($$)
 {
