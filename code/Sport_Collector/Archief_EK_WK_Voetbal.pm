@@ -450,7 +450,7 @@ sub ReadNatLeague($$)
   my $csvFile = shift;
   my $ster    = shift;
 
-  my $NLfile = File::Spec->catfile('Sport_Data', $csvFile);
+  my $NLfile = File::Spec->catfile('Sport_Data', 'nationsLeague', $csvFile);
   my $NLraw = read_csv_file($NLfile);
   $NLraw->[0] = [ ['Groep A'], [1, 5, '', $ster]];
   for(my $i = 1; $i < scalar @$NLraw; $i++)
