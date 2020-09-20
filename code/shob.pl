@@ -183,7 +183,7 @@ sub handle_new_style_files($$$)
   [1, 'all', sub {&get_betaald_voetbal_nl(2019);}, 'sport_voetbal_nl_2019_2020.html'],
   [1, 'all', sub {&get_betaald_voetbal_nl(2020);}, 'sport_voetbal_nl_2020_2021.html'],
   [1, 'all', sub {&officieuze_standen('officieus', 2020);}, 'sport_voetbal_nl_jaarstanden.html'],
-  [1, 'all', sub {&officieuze_standen('uit_thuis', 2019);}, 'sport_voetbal_nl_uit_thuis.html'],
+  [1, 'all', sub {&officieuze_standen('uit_thuis', 2020);}, 'sport_voetbal_nl_uit_thuis.html'],
 
   [1, 'all', sub {&get_stats_eredivisie(2019, 2019, 0);}, 'sport_voetbal_nl_stats.html'],
   [1, '  u', sub {&get_stats_eredivisie(2019, 2019, 2);}, 'sport_voetbal_nl_stats_more.html'],
