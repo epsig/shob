@@ -433,18 +433,6 @@ sub get_wkD2019
  return format_ekwk(2019, 'Frankrijk', $wkD2019, $topscorers, $dd);
 }
 
-# Nations League Finals in Portugal:
-# 1/2 finale
-# 5 juni 2019 Portugal - Zwitserland 3-1
-# 6 juni 2019 Nederland - Engeland 3-1 nv
-#
-# 3/4e plek
-# 9 juni 2019 15.00u
-# Zwitserland - Engeland 0-0 Eng wns
-# finale
-# 9 juni 2019 20.45
-# Portugal - Nederland 1-0
-#
 sub ReadNatLeague($$)
 {
   my $csvFile = shift;
@@ -475,15 +463,54 @@ sub ReadNatLeague($$)
   return $block . $table;
 }
 
+sub ReadNatLeagueFinals($)
+{
+  my $csvFile = shift;
+
+  my $NLfile = File::Spec->catfile('Sport_Data', 'nationsLeague', $csvFile);
+  my $NLraw = read_csv_file($NLfile);
+  my @uf = (['final']); my @uh = (['semi final']); my @f34 = (['bronze']);
+  for(my $i = 1; $i < scalar @$NLraw; $i++)
+  {
+    my $phase = $NLraw->[$i]->[0];
+    my $a = $NLraw->[$i]->[1];
+    my $b = $NLraw->[$i]->[2];
+    my $dd = $NLraw->[$i]->[3];
+    my $result = $NLraw->[$i]->[4];
+    my $ster = $NLraw->[$i]->[5];
+    my @results = split('-', $result);
+    my $u = [$a, $b, [$dd, $results[0], $results[1]], $ster];
+    if ($phase eq '2f')
+    {
+      push @uh, $u;
+    }
+    elsif ($phase eq 'f')
+    {
+      push @uf, $u;
+    }
+    elsif ($phase eq 'f34')
+    {
+      push @f34, $u;
+    }
+  }
+
+  my $pu   = {uh => \@uh, u34 => \@f34, uf => \@uf};
+  my $out  = qq(<h2>Finale Nations League</h2>);
+     $out .= get_last16($pu);
+  return $out;
+}
+
 sub get_ek2020v
 {
   my $ek2020v_u_nl = read_csv(File::Spec->catfile($ekwkDir, 'ek2020v.csv'));
   $ek2020v_u_nl->[0] = [ ['Groep C'], [1, 5, '', 1]];
   my $kzb = get_oefenduels(20180701, 20200630);
   my $test = ReadNatLeague('NL_2018_grpA.csv', 3);
+  my $test2 = ReadNatLeagueFinals('NL_2019.csv');
   my $dd = laatste_speeldatum($ek2020v_u_nl);
+  $dd = max($dd, 20200922);
   return format_voorronde_ekwk(2021, '12 Europese landen en stadions',
-    {u_nl => $ek2020v_u_nl, kzb => $kzb, extra => $test}, $dd);
+    {u_nl => $ek2020v_u_nl, kzb => $kzb, extra => $test . $test2}, $dd);
 }
 
 sub get_wk2022v
