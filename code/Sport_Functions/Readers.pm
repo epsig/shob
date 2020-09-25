@@ -90,6 +90,7 @@ sub read_csv($)
  my $content = read_csv_file($fullname);
  while(my $line = shift(@$content))
  {
+  if ($line->[2] eq 'dd') {next;}
   my @values = @$line;
   my $a  = $values[0];
   my $b  = $values[1];
