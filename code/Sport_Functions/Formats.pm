@@ -18,6 +18,7 @@ use Sport_Functions::Filters;
 use Sport_Functions::Get_Result_Standing;
 use Sport_Functions::Results2Standing;
 use Sport_Functions::Get_Land_Club;
+use Sport_Functions::NatLeagueReaders;
 use Exporter;
 use vars qw($VERSION @ISA @EXPORT);
 @ISA = ('Exporter');
@@ -381,6 +382,16 @@ EOF
  {
   $out .= ftable('tabs',
    expand_list($phu->{geplaatst}, {numbered => 1, opms => 1}));
+ }
+
+ if (defined $phu->{NatL})
+ {
+  $out .= NatLeague2Html($phu->{NatL});
+ }
+
+ if (defined $phu->{NatLFinals})
+ {
+  $out .= NatLeagueFinals2Html($phu->{NatLFinals});
  }
 
  if (defined $phu->{extra})

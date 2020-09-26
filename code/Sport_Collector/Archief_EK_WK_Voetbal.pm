@@ -438,31 +438,30 @@ sub get_ek2020v
 {
   my $ek2020v_u_nl = read_csv(File::Spec->catfile($ekwkDir, 'ek2020v.csv'));
   $ek2020v_u_nl->[0] = [ ['Groep C'], [1, 5, '', 1]];
-  my $kzb = get_oefenduels(20180701, 20200630);
+  my $kzb = get_oefenduels(20180701, 20210630);
   my $uNatL = ReadNatLeague('NL_2018_grpA.csv', 3);
-  my $test = NatLeague2Html($uNatL);
   my $uNatLFinals = ReadNatLeagueFinals('NL_2019.csv');
-  my $test2 = NatLeagueFinals2Html($uNatLFinals);
   my $dd = laatste_speeldatum($ek2020v_u_nl);
+  $dd = max($dd, laatste_speeldatum($kzb));
   $dd = max($dd, 20200922);
   return format_voorronde_ekwk(2021, '12 Europese landen en stadions',
-    {u_nl => $ek2020v_u_nl, kzb => $kzb, extra => $test . $test2}, $dd);
+    {u_nl => $ek2020v_u_nl, kzb => $kzb, NatL => $uNatL, NatLFinals => $uNatLFinals}, $dd);
 }
 
+my $uNatL = ReadNatLeague('NL_2020_grpA.csv', -1);
 sub get_wk2022v
 {
   #$ek2020v_u_nl->[0] = [ ['Groep C'], [1, 5, '', 1]];
   #my $kzb = get_oefenduels(20200701, 20220630);
-  my $uNatL = ReadNatLeague('NL_2020_grpA.csv', -1);
-  my $test = NatLeague2Html($uNatL);
-  my $dd = 20200913;
-  return format_voorronde_ekwk(2022, 'Qatar', {extra => $test}, $dd);
+  my $dd = max(20200913, laatste_speeldatum($uNatL));
+  return format_voorronde_ekwk(2022, 'Qatar', {NatL => $uNatL}, $dd);
 }
 
 sub set_laatste_speeldatum_ekwk
 {
  my $dd = 20200913;
- $dd = max($dd, laatste_speeldatum(get_oefenduels(20160731,20180701)));
+ $dd = max($dd, laatste_speeldatum(get_oefenduels(20180701,99999999)));
+ $dd = max($dd, laatste_speeldatum($uNatL));
 #my $u = $wkD2019->{grp};
 #my $all = combine_puus(@{$u});
 #my @expect = ('u16', 'uk', 'uh', 'uf', 'u34');
