@@ -16,6 +16,7 @@ use Sport_Functions::Get_Land_Club;
 use Sport_Functions::Results2Standing;
 use Sport_Functions::Readers;
 use Sport_Functions::XML;
+use Sport_Functions::NatLeagueReaders;
 use Sport_Collector::Archief_Oefenduels;
 use Shob_Tools::Idate;
 use File::Spec;
@@ -433,80 +434,15 @@ sub get_wkD2019
  return format_ekwk(2019, 'Frankrijk', $wkD2019, $topscorers, $dd);
 }
 
-sub ReadNatLeague($$)
-{
-  my $csvFile = shift;
-  my $ster    = shift;
-
-  my $NLfile = File::Spec->catfile('Sport_Data', 'nationsLeague', $csvFile);
-  my $NLraw = read_csv_file($NLfile);
-  $NLraw->[0] = [ ['Groep A'], [1, 5, '', $ster]];
-  for(my $i = 1; $i < scalar @$NLraw; $i++)
-  {
-    my $a = $NLraw->[$i]->[0];
-    my $b = $NLraw->[$i]->[1];
-    my $dd = $NLraw->[$i]->[2];
-    my $result = $NLraw->[$i]->[3];
-    my @results = split('-', $result);
-    my $u = [$a, $b, [$dd, $results[0], $results[1]]];
-    $NLraw->[$i] = $u;
-  }
-
-  my $td1 = get_uitslag($NLraw, {cols => 1, ptitel => [2, 'Uitslagen groep A']});
-
-  my $args_u2s = $NLraw->[0][1];
-  my $s_nl = u2s($NLraw,  @$args_u2s);
-  my $td2 = get_stand($s_nl, 2, 0,[2, 'Stand Groep A']);
-  
-  my $table = get2tables($td1, $td2);
-  my $block = qq(<h2>Nations League, groep met Nederland</h2>\n);
-  return $block . $table;
-}
-
-sub ReadNatLeagueFinals($)
-{
-  my $csvFile = shift;
-
-  my $NLfile = File::Spec->catfile('Sport_Data', 'nationsLeague', $csvFile);
-  my $NLraw = read_csv_file($NLfile);
-  my @uf = (['final']); my @uh = (['semi final']); my @f34 = (['bronze']);
-  for(my $i = 1; $i < scalar @$NLraw; $i++)
-  {
-    my $phase = $NLraw->[$i]->[0];
-    my $a = $NLraw->[$i]->[1];
-    my $b = $NLraw->[$i]->[2];
-    my $dd = $NLraw->[$i]->[3];
-    my $result = $NLraw->[$i]->[4];
-    my $ster = $NLraw->[$i]->[5];
-    my @results = split('-', $result);
-    my $u = [$a, $b, [$dd, $results[0], $results[1]], $ster];
-    if ($phase eq '2f')
-    {
-      push @uh, $u;
-    }
-    elsif ($phase eq 'f')
-    {
-      push @uf, $u;
-    }
-    elsif ($phase eq 'f34')
-    {
-      push @f34, $u;
-    }
-  }
-
-  my $pu   = {uh => \@uh, u34 => \@f34, uf => \@uf};
-  my $out  = qq(<h2>Finale Nations League</h2>);
-     $out .= get_last16($pu);
-  return $out;
-}
-
 sub get_ek2020v
 {
   my $ek2020v_u_nl = read_csv(File::Spec->catfile($ekwkDir, 'ek2020v.csv'));
   $ek2020v_u_nl->[0] = [ ['Groep C'], [1, 5, '', 1]];
   my $kzb = get_oefenduels(20180701, 20200630);
-  my $test = ReadNatLeague('NL_2018_grpA.csv', 3);
-  my $test2 = ReadNatLeagueFinals('NL_2019.csv');
+  my $uNatL = ReadNatLeague('NL_2018_grpA.csv', 3);
+  my $test = NatLeague2Html($uNatL);
+  my $uNatLFinals = ReadNatLeagueFinals('NL_2019.csv');
+  my $test2 = NatLeagueFinals2Html($uNatLFinals);
   my $dd = laatste_speeldatum($ek2020v_u_nl);
   $dd = max($dd, 20200922);
   return format_voorronde_ekwk(2021, '12 Europese landen en stadions',
@@ -517,7 +453,8 @@ sub get_wk2022v
 {
   #$ek2020v_u_nl->[0] = [ ['Groep C'], [1, 5, '', 1]];
   #my $kzb = get_oefenduels(20200701, 20220630);
-  my $test = ReadNatLeague('NL_2020_grpA.csv', -1);
+  my $uNatL = ReadNatLeague('NL_2020_grpA.csv', -1);
+  my $test = NatLeague2Html($uNatL);
   my $dd = 20200913;
   return format_voorronde_ekwk(2022, 'Qatar', {extra => $test}, $dd);
 }
