@@ -152,7 +152,7 @@ sub handle_new_style_files($$$)
   [2, 'all', sub {&get_ec_webpage('2016-2017');}, 'sport_voetbal_europacup_2016_2017.html'],
   [2, 'all', sub {&get_ec_webpage('2017-2018');}, 'sport_voetbal_europacup_2017_2018.html'],
   [2, 'all', sub {&get_ec_webpage('2018-2019');}, 'sport_voetbal_europacup_2018_2019.html'],
-  [1, 'all', sub {&get_ec_webpage('2019-2020');}, 'sport_voetbal_europacup_2019_2020.html'],
+  [2, 'all', sub {&get_ec_webpage('2019-2020');}, 'sport_voetbal_europacup_2019_2020.html'],
   [1, 'all', sub {&get_ec_webpage('2020-2021');}, 'sport_voetbal_europacup_2020_2021.html'],
 
   [2, 'all', sub {&get_betaald_voetbal_nl(1993);}, 'sport_voetbal_nl_1993_1994.html'],
@@ -181,7 +181,7 @@ sub handle_new_style_files($$$)
   [2, 'all', sub {&get_betaald_voetbal_nl(2016);}, 'sport_voetbal_nl_2016_2017.html'],
   [2, 'all', sub {&get_betaald_voetbal_nl(2017);}, 'sport_voetbal_nl_2017_2018.html'],
   [2, 'all', sub {&get_betaald_voetbal_nl(2018);}, 'sport_voetbal_nl_2018_2019.html'],
-  [1, 'all', sub {&get_betaald_voetbal_nl(2019);}, 'sport_voetbal_nl_2019_2020.html'],
+  [2, 'all', sub {&get_betaald_voetbal_nl(2019);}, 'sport_voetbal_nl_2019_2020.html'],
   [1, 'all', sub {&get_betaald_voetbal_nl(2020);}, 'sport_voetbal_nl_2020_2021.html'],
   [1, 'all', sub {&officieuze_standen('officieus', 2020);}, 'sport_voetbal_nl_jaarstanden.html'],
   [1, 'all', sub {&officieuze_standen('uit_thuis', 2020);}, 'sport_voetbal_nl_uit_thuis.html'],
