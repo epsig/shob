@@ -242,18 +242,22 @@ sub min_max_aantal_toeschouwers($$)
 
  my @imin = (-1);
  my @imax = (-1);
+ my $NoSpectators = 0;
  my ($tmin, $tmax) = (1e34, 0);
 
  for (my $i=1; $i < scalar @$pu; $i++)
- {my $rij = $pu->[$i][2];
+ {
+  my $rij = $pu->[$i][2];
   if ($pu->[$i][1] eq 'straf') {next;}
   if (scalar @$rij > 3)
-  {my $t = $rij->[3];
+  {
+   my $t = $rij->[3];
    if (ref $t eq 'HASH')
    {
     $t = $t->{publiek};
     if (not defined $t) {next;}
    }
+   if ($t == 0) {$NoSpectators++;}
    if ($t > $tmax)
    {
     $tmax = $t;
@@ -286,12 +290,19 @@ sub min_max_aantal_toeschouwers($$)
  $str .= ftdl($games);
  $str .= ftdl(sprintf('%.1f k', $tmax/1E3));
  $games = '';
- for (my $i = 0; $i < scalar @imin; $i++)
+ if ($NoSpectators > 3)
  {
-  my $club_t = expand($pu->[$imin[$i] ][0], 3);
-  my $club_u = expand($pu->[$imin[$i] ][1], 3);
-  if ($i > 0) {$games .= '<br>';}
-  $games .= qq($club_t - $club_u);
+   $games = "Geen publiek bij $NoSpectators duels.";
+ }
+ else
+ {
+  for (my $i = 0; $i < scalar @imin; $i++)
+  {
+   my $club_t = expand($pu->[$imin[$i] ][0], 3);
+   my $club_u = expand($pu->[$imin[$i] ][1], 3);
+   if ($i > 0) {$games .= '<br>';}
+   $games .= qq($club_t - $club_u);
+  }
  }
  $str .= ftdl($games);
  $str .= ftdl(sprintf('%.1f k', $tmin/1E3));
