@@ -311,6 +311,7 @@ sub read_ec_part($$$)
  my $total = 0;
  while(my $line = <IN>)
  {
+  chomp($line);
   $line =~ s/ *#.*//;
   if ($line eq '') {next;}
 
@@ -337,7 +338,7 @@ sub read_ec_part($$$)
     chomp($aa2);
     push @games, [$a,$b,[$dd1,$aa1,$bb1],$dd2,$aa2];
    }
-   elsif (defined($dd2))
+   elsif (defined($dd2) && $dd2 ne '')
    {
     push @games, [$a,$b,[$dd1,$aa1,$bb1],$dd2];
    }

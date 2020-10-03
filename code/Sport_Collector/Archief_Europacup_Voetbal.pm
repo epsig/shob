@@ -31,6 +31,7 @@ $VERSION = '18.1';
  '&laatste_speeldatum_ec',
  '&set_laatste_speeldatum_ec',
  '&get_ec_webpage',
+ '&init_ec',
  #========================================================================
 );
 
@@ -2508,16 +2509,6 @@ final => [['finale EL', 'k-o'],
 ['NLajx','G1mnu',[20170524,0,2],2,'Stockholm'] ]
 }};
 
-$u_ec->{'2017-2018'} = read_ec_csv('europacup_2017_2018.csv');
-
-$u_ec->{'2018-2019'} = read_ec_csv('europacup_2018_2019.csv');
-
-$u_ec->{'2019-2020'} = read_ec_csv('europacup_2019_2020.csv');
-
-$u_ec->{'2020-2021'} = read_ec_csv('europacup_2020_2021.csv');
-
-$u_ec->{lastyear} = '2020-2021';
-
 sub get_ec_webpage($)
 {# (c) Edwin Spee
 
@@ -2544,10 +2535,19 @@ sub laatste_speeldatum_ec($)
  return $dd;
 }
 
-$u_ec->{'2017-2018'}->{extra}->{dd} = laatste_speeldatum_ec('2017-2018');
-$u_ec->{'2018-2019'}->{extra}->{dd} = laatste_speeldatum_ec('2018-2019');
-$u_ec->{'2019-2020'}->{extra}->{dd} = laatste_speeldatum_ec('2019-2020');
-$u_ec->{'2020-2021'}->{extra}->{dd} = laatste_speeldatum_ec('2020-2021');
+sub init_ec
+{ #(c) Edwin Spee
+
+  for (my $yr = 2017; $yr <= 2020; $yr++)
+  {
+    my $szn = yr2szn($yr);
+    my $csv = "europacup_$szn.csv";
+    $csv =~ s/-/_/;
+    $u_ec->{$szn} = read_ec_csv($csv);
+    $u_ec->{$szn}->{extra}->{dd} = laatste_speeldatum_ec($szn);
+  }
+  $u_ec->{lastyear} = '2020-2021';
+}
 
 sub set_laatste_speeldatum_ec
 {# (c) Edwin Spee
