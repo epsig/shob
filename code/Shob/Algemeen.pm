@@ -57,7 +57,7 @@ sub get_hopa()
     <a href="sport_schaatsen_OS_2018.html">2018</a>. </li>
    <li> EK en WK voetbal van
     <a href="sport_voetbal_EK_1996.html">1996</a> t/m
-    <a href="sport_voetbal_EK_2020_voorronde.html">2021</a>. </li>
+    <a href="sport_voetbal_WK_2022_voorronde.html">2022</a>. </li>
    <li> <a href="sport_voetbal_WKD2019.html">WK vrouwen 2019</a>.
    <li> Nederlandse clubs in het Europacup voetbal van
 $voetbal_ec_list
