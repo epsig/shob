@@ -444,7 +444,7 @@ sub get_actueel($)
 ['https://www.bbc.com/news/politics/uk_leaves_the_eu', 'Einde overgangsperiode Brexit',1,13],
 #['http://www.wimbledon.org/','Wimbledon', 6, 7.3],
 ['http://www.letour.fr/','Tour de France', 8.5, 10], #6.8, 8
-#['http://www.ilgiroditalia.nl/', "Giro d'Italia", 5, 6.2], # met 1e week juni
+['http://www.ilgiroditalia.nl/', "Giro d'Italia", 10, 11], # met 1e week juni
 ['http://www.nostour.nl/','Tour de France (NOS)', 8.5, 10], #6.8, 8
 ['http://valentijnsdag.pagina.nl/','14 feb Valentijnsdag', 2.3, 2.8],
 #['https://www.verkiezingen2015.nl/', '18 maart Staten-verkiezingen', 3, 4],
