@@ -44,15 +44,7 @@ sub ReadNatLeague($$)
     my $b = $NLraw->[$i]->[1];
     my $dd = $NLraw->[$i]->[2];
     my $result = $NLraw->[$i]->[3];
-    my @results;
-    if ($result eq '-')
-    {
-      @results = (-1,-1);
-    }
-    else
-    {
-      @results = split('-', $result);
-    }
+    my @results = result2aabb($result);
     my $u = [$a, $b, [$dd, $results[0], $results[1]]];
     $NLraw->[$i] = $u;
   }

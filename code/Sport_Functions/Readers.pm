@@ -27,6 +27,7 @@ $VERSION = '20.0';
  '&read_ec_csv',
  '&read_beker_csv',
  '$csv_dir',
+ '&result2aabb',
  #========================================================================
 );
 
@@ -34,6 +35,8 @@ $VERSION = '20.0';
 
 our $csv_dir = 'Sport_Data';
 
+# reads a csv file and returns it as a list of lists
+# comments (everything after a #) and newlines are removed
 sub read_csv_file($)
 {
  my $fullname = shift;
@@ -51,6 +54,24 @@ sub read_csv_file($)
  }
  close(IN);
  return \@content;
+}
+
+# converts a string like '3-2' into [3,2]
+# and '-' into [-1,-1]
+sub result2aabb($)
+{
+  my $result = shift;
+
+  my @results;
+  if ($result eq '-')
+  {
+    @results = (-1,-1);
+  }
+  else
+  {
+    @results = split('-', $result);
+  }
+  return @results;
 }
 
 sub read_csv_file_szn($$)
@@ -85,16 +106,19 @@ sub read_csv($)
  my @games;
  $games[0] = [''];
  my $content = read_csv_file($fullname);
+
+ my $header = $content->[0];
+ if ($header->[2] eq 'dd')
+ {
+  if ($header->[3] =~ m/result/)
+  {
+   $aabb = 0;
+  }
+  shift(@$content);
+ }
+
  while(my $line = shift(@$content))
  {
-  if ($line->[2] eq 'dd')
-  {
-    if ($line->[3] =~ m/result/)
-    {
-      $aabb = 0;
-    }
-    next;
-  }
   my @values = @$line;
   my $a  = $values[0];
   my $b  = $values[1];
@@ -110,15 +134,7 @@ sub read_csv($)
   else
   {
     my $result = $values[3];
-    my @results;
-    if ($result eq '-')
-    {
-      @results = (-1,-1);
-    }
-    else
-    {
-      @results = split('-', $result);
-    }
+    my @results = result2aabb($result);
     $aa = $results[0];
     $bb = $results[1];
     $sp = $values[4];
