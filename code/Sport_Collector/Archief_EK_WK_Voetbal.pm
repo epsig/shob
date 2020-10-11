@@ -14,6 +14,7 @@ use Sport_Functions::Filters;
 use Sport_Functions::Get_Result_Standing;
 use Sport_Functions::Get_Land_Club;
 use Sport_Functions::Results2Standing;
+use Sport_Functions::EkWkReaders;
 use Sport_Functions::Readers;
 use Sport_Functions::XML;
 use Sport_Functions::NatLeagueReaders;
