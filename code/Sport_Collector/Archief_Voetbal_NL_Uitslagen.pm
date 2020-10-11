@@ -14,35 +14,42 @@ use vars qw($VERSION @ISA @EXPORT);
 #=========================================================================
 # CONTENTS OF THE PACKAGE:
 #=========================================================================
-$VERSION = '18.1';
+$VERSION = '20.0';
 # by Edwin Spee.
 
 @EXPORT =
 (#========================================================================
  '$u_nl',
+ '&initEredivisieResults',
  #========================================================================
 );
 
 # (c) Edwin Spee
 
 our $u_nl;
-our $subdir = 'eredivisie';
 
-my $lastyear;
-for (my $yr = 1992; $yr < 99999; $yr++)
+sub initEredivisieResults()
 {
- my $szn = yr2szn($yr);
- my $csv = "eredivisie_$szn.csv";
- $csv =~ s/-/_/;
- if (-f "$csv_dir/$subdir/$csv")
- {
-  $u_nl->{$szn} = read_csv("$subdir/$csv");
-  $lastyear = $szn;
- }
- else {last;}
+  my $subdir = 'eredivisie';
+
+  my $lastyear;
+  for (my $yr = 1992; $yr < 99999; $yr++)
+  {
+   my $szn = yr2szn($yr);
+   my $csv = "eredivisie_$szn.csv";
+   $csv =~ s/-/_/;
+   if (-f "$csv_dir/$subdir/$csv")
+   {
+    $u_nl->{$szn} = read_csv("$subdir/$csv");
+    $lastyear = $szn;
+   }
+   else
+   {
+    last;
+   }
+  }
+
+  $u_nl->{lastyear} = $u_nl->{$lastyear};
 }
 
-$u_nl->{lastyear} = $u_nl->{$lastyear};
-
 return 1;
-

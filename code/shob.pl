@@ -46,6 +46,7 @@ use Shob::Klaverjas_Funcs;
 use Sport_Collector::Archief_Voetbal_NL;
 use Sport_Collector::Archief_Voetbal_NL_Topscorers;
 use Sport_Collector::Archief_Europacup_Voetbal;
+use Sport_Collector::Archief_Voetbal_NL_Uitslagen;
 use Sport_Collector::OS_Schaatsen;
 use Sport_Collector::OS_Funcs;
 use Sport_Collector::Archief_EK_WK_Voetbal;
@@ -343,6 +344,7 @@ sub doit()
  init_host_id();
  my $hostid = get_host_id();
  init_webdir($hostid);
+ initEredivisieResults();
  set_laatste_speeldatum();
  init_ec();
  set_laatste_speeldatum_ec();

@@ -81,34 +81,63 @@ sub read_csv($)
  my $filein = shift;
  my $fullname = File::Spec->catdir($csv_dir, $filein);
 
+ my $aabb = 1;
  my @games;
  $games[0] = [''];
  my $content = read_csv_file($fullname);
  while(my $line = shift(@$content))
  {
-  if ($line->[2] eq 'dd') {next;}
+  if ($line->[2] eq 'dd')
+  {
+    if ($line->[3] =~ m/result/)
+    {
+      $aabb = 0;
+    }
+    next;
+  }
   my @values = @$line;
   my $a  = $values[0];
   my $b  = $values[1];
   my $dd = $values[2];
-  my $aa = $values[3];
-  my $bb = $values[4];
-  my $sp = $values[5];
-  my $opm = $values[6];
-  my $stadion;
-  if (scalar(@values) > 6)
+  my ($aa, $bb, $sp, $opm);
+  if ($aabb)
   {
-   for (my $i=6; $i<scalar(@values); $i++)
+    $aa = $values[3];
+    $bb = $values[4];
+    $sp = $values[5];
+    $opm = $values[6];
+  }
+  else
+  {
+    my $result = $values[3];
+    my @results;
+    if ($result eq '-')
+    {
+      @results = (-1,-1);
+    }
+    else
+    {
+      @results = split('-', $result);
+    }
+    $aa = $results[0];
+    $bb = $results[1];
+    $sp = $values[4];
+    $opm = $values[5];
+  }
+  my $stadion;
+  if (scalar(@values) > 5+$aabb)
+  {
+   for (my $i=5+$aabb; $i<scalar(@values); $i++)
    {
     if ($values[$i] eq 'dekuip')
     {$stadion = 'Rotterdam, de Kuip';}
     elsif ($values[$i] eq 'arena')
     {$stadion = 'Amsterdam, Arena';}
-    if ($i == 6 and defined($stadion))
+    if ($i == 5+$aabb and defined($stadion))
     {undef($opm);}
   }}
   my $game;
-  if (scalar(@values) >=7)
+  if (scalar(@values) >=6+$aabb)
   {
    if (not defined($opm))
    {
@@ -135,19 +164,26 @@ sub read_csv($)
     $game = [$a, $b, [$dd, $aa, $bb, {publiek=>$sp, opm=>$opm, stadion=>$stadion}]];
    }
   }
-  elsif (scalar(@values) >=6)
+  elsif (scalar(@values) >=5+$aabb)
   {
-   $game = [$a, $b, [$dd, $aa, $bb, $sp]];
+    if ($sp >= 0)
+    {
+      $game = [$a, $b, [$dd, $aa, $bb, $sp]];
+    }
+    else
+    {
+      $game = [$a, $b, [$dd, $aa, $bb]];
+    }
   }
-  elsif (scalar(@values) == 5)
+  elsif (scalar(@values) == 4+$aabb)
   {
    $game = [$a, $b, [$dd, $aa, $bb]];
   }
-  elsif (scalar(@values) == 4 and $b eq 'straf')
+  elsif (scalar(@values) == 3+$aabb and $b eq 'straf')
   {
    $game = [$a, $b, $dd, $aa];
   }
-  elsif (scalar(@values) == 3)
+  elsif (scalar(@values) == 2+$aabb)
   {
    $game = [$a, $b, [$dd]];
   }
