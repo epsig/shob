@@ -356,6 +356,7 @@ sub read_ec_part($$$)
  } else {
   $games[0] = [$title];
  }
+ my $aabb = 1;
  my $total = 0;
  while(my $line = <IN>)
  {
@@ -363,18 +364,36 @@ sub read_ec_part($$$)
   $line =~ s/ *#.*//;
   if ($line eq '') {next;}
 
+  if ($line =~ m/,dd,/)
+  {
+    if ($line =~ m/,result,/)
+    {
+      $aabb = 0;
+    }
+  }
+
   my @parts = split /,/, $line;
   if ($parts[0] eq $cupname and $parts[1] eq $phase)
   {
    my $a  = $parts[2];
    my $b  = $parts[3];
    my $dd1 = $parts[4];
-   my $aa1 = $parts[5];
-   my $bb1 = $parts[6];
-   my $dd2 = $parts[7];
-   my $aa2 = $parts[8];
-   my $bb2 = $parts[9];
-   my $wns = $parts[10];
+   my $aa1; my $bb1;
+   if ($aabb)
+   {
+     $aa1 = $parts[5];
+     $bb1 = $parts[6];
+   }
+   else
+   {
+     my @results = result2aabb($parts[5]);
+     $aa1 = $results[0];
+     $bb1 = $results[1];
+   }
+   my $dd2 = $parts[6+$aabb];
+   my $aa2 = $parts[7+$aabb];
+   my $bb2 = $parts[8+$aabb];
+   my $wns = $parts[9+$aabb];
    if ($aa1 >= 0) {$total++;}
    if (defined($wns))
    {
@@ -400,12 +419,22 @@ sub read_ec_part($$$)
    my $a  = $parts[1];
    my $b  = $parts[2];
    my $dd = $parts[3];
-   my $aa = $parts[4];
-   my $bb = $parts[5];
-   my $wns = $parts[6];
-   my $opm = $parts[7];
-   my $stadium = $parts[8];
-   if (scalar @parts > 9) {
+   my $aa; my $bb;
+   if ($aabb)
+   {
+     $aa = $parts[4];
+     $bb = $parts[5];
+   }
+   else
+   {
+     my @results = result2aabb($parts[4]);
+     $aa = $results[0];
+     $bb = $results[1];
+   }
+   my $wns = $parts[5+$aabb];
+   my $opm = $parts[6+$aabb];
+   my $stadium = $parts[7+$aabb];
+   if (scalar @parts > 8+$aabb) {
     my $dd2 = $parts[6];
     my $aa2 = $parts[7];
     my $bb2 = $parts[8];
