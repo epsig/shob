@@ -7,6 +7,7 @@ use strict; use warnings;
 use Exporter;
 use Sport_Functions::XML;
 use Sport_Functions::Overig;
+use Shob_Tools::Error_Handling;
 use File::Spec;
 use XML::Parser;
 use vars qw($VERSION @ISA @EXPORT);
@@ -101,6 +102,7 @@ sub read_csv($)
  my $fullname = File::Spec->catdir($csv_dir, $filein);
 
  my $aabb = 1;
+ my $dimheader;
  my @games;
  $games[0] = [''];
  my $content = read_csv_file($fullname);
@@ -112,12 +114,20 @@ sub read_csv($)
   {
    $aabb = 0;
   }
+  $dimheader = scalar @$header;
   shift(@$content);
  }
 
  while(my $line = shift(@$content))
  {
   my @values = @$line;
+  if (defined $dimheader)
+  {
+    if (scalar @values != $dimheader)
+    {
+      shob_error('strange_else',["# cols wrong in @values"]);
+    }
+  }
   my $a  = $values[0];
   my $b  = $values[1];
   my $dd = $values[2];

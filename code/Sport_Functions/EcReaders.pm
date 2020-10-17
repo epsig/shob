@@ -7,6 +7,7 @@ use strict; use warnings;
 use Exporter;
 use Sport_Functions::Overig;
 use Sport_Functions::Readers;
+use Shob_Tools::Error_Handling;
 use File::Spec;
 use XML::Parser;
 use vars qw($VERSION @ISA @EXPORT);
@@ -109,6 +110,7 @@ sub read_ec_part($$$)
   }
   my $aabb = 1;
   my $total = 0;
+  my $dimheader;
   while(my $line = <$IN>)
   {
     chomp($line);
@@ -121,9 +123,17 @@ sub read_ec_part($$$)
       {
         $aabb = 0;
       }
+      $dimheader = scalar split(/,/, $line, -1);
     }
 
-    my @parts = split /,/, $line;
+    my @parts = split(/,/, $line, -1);
+    if (defined $dimheader)
+    {
+      if (scalar @parts != $dimheader)
+      {
+        shob_error('strange_else',["# cols wrong in $line"]);
+      }
+    }
     if ($parts[0] eq $cupname and $parts[1] eq $phase)
     {
       my $a  = $parts[2];
