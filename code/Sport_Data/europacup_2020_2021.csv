@@ -2,8 +2,8 @@ league,round,team1,team2,dd,result,star
 supercup,,DEbmn,ESsvl,20200924,2-1,3
 CL,v2,NLaz1,CZvpl,20200826,3-1,3
 CL,v3,UAdkv,NLaz1,20200915,2-0,1
-CL,gA,NLajx,G1lvp,20201021,-,
-CL,gA,DKmdl,ITatb,20201021,-,
+CL,gA,NLajx,G1lvp,20201021,0-1,
+CL,gA,DKmdl,ITatb,20201021,0-4,
 CL,gA,ITatb,NLajx,20201027,-,
 CL,gA,G1lvp,DKmdl,20201027,-,
 CL,gA,DKmdl,NLajx,20201103,-,
@@ -18,8 +18,8 @@ EL,v2,LUndk,NLwl2,20200916,0-5,2
 EL,v3,SInsm,NLpsv,20200924,1-5,2
 EL,v3,NLwl2,G2glr,20200924,0-4,2
 EL,po,NOros,NLpsv,20201001,0-2,2
-EL,gE,NLpsv,ESgrn,20201022,-,
-EL,gE,GRpks,CYomm,20201022,-,
+EL,gE,NLpsv,ESgrn,20201022,1-2,
+EL,gE,GRpks,CYomm,20201022,1-1,
 EL,gE,CYomm,NLpsv,20201029,-,
 EL,gE,ESgrn,GRpks,20201029,-,
 EL,gE,GRpks,NLpsv,20201105,-,
@@ -30,8 +30,8 @@ EL,gE,ESgrn,NLpsv,20201203,-,
 EL,gE,CYomm,GRpks,20201203,-,
 EL,gE,NLpsv,CYomm,20201210,-,
 EL,gE,GRpks,ESgrn,20201210,-,
-EL,gF,ITnpl,NLaz1,20201022,-,
-EL,gF,HRhrk,ESrsc,20201022,-,
+EL,gF,ITnpl,NLaz1,20201022,0-1,
+EL,gF,HRhrk,ESrsc,20201022,0-1,
 EL,gF,NLaz1,HRhrk,20201029,-,
 EL,gF,ESrsc,ITnpl,20201029,-,
 EL,gF,ESrsc,NLaz1,20201105,-,
