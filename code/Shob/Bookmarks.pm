@@ -444,7 +444,7 @@ sub get_actueel($)
 ['https://www.bbc.com/news/politics/uk_leaves_the_eu', 'Einde overgangsperiode Brexit',1,13],
 #['http://www.wimbledon.org/','Wimbledon', 6, 7.3],
 ['http://www.letour.fr/','Tour de France', 8.5, 10], #6.8, 8
-['http://www.ilgiroditalia.nl/', "Giro d'Italia", 10, 11], # met 1e week juni
+['https://www.giroditalia.it/', "Giro d'Italia", 10, 11], # met 1e week juni
 ['http://www.nostour.nl/','Tour de France (NOS)', 8.5, 10], #6.8, 8
 ['http://valentijnsdag.pagina.nl/','14 feb Valentijnsdag', 2.3, 2.8],
 #['https://www.verkiezingen2015.nl/', '18 maart Staten-verkiezingen', 3, 4],
@@ -458,7 +458,7 @@ sub get_actueel($)
 ['http://www.sport.be/binckbanktour/','Ronde van Belgi&euml; en Nederland', 9.5, 10.1],
 ['http://www.usopen.org/','US Open', 8.5, 9.5],
 ['http://prinsjesdag.minfin.nl/','Prinsjesdag', 9.25, 9.9],
-['http://www.lavuelta.com/','Vuelta (Ronde van Spanje)', 10.5, 11.5],
+['https://www.lavuelta.es/','Vuelta (Ronde van Spanje)', 10.5, 11.5],
 #['http://www.koorhemelsbreed.nl/agenda.html', 'Najaarsconcert van oa Hemelsbreed', 11, 12],
 ['http://sinterklaas.pagina.nl/','5 december Sinterklaas', 11.3, 12.3],
 ['http://kerst.pagina.nl/','25-26 december Kerstfeest', 12.5, 13],
