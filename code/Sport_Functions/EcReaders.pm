@@ -111,20 +111,31 @@ sub read_ec_part($$$)
   my $aabb = 1;
   my $total = 0;
   my $dimheader;
+  my @hdrParts;
+
+  # check on new style header
+  my $header = <$IN>;
+  if ($header =~ m/,dd,/)
+  {
+    chomp($header);
+    if ($header =~ m/,result,/)
+    {
+      $aabb = 0;
+    }
+    @hdrParts = split(/,/, $header, -1);
+    $dimheader = scalar @hdrParts;
+  }
+  else
+  {
+    # start again at first line
+    seek($IN, 0, 0);
+  }
+
   while(my $line = <$IN>)
   {
     chomp($line);
     $line =~ s/ *#.*//;
     if ($line eq '') {next;}
-
-    if ($line =~ m/,dd,/)
-    {
-      if ($line =~ m/,result,/)
-      {
-        $aabb = 0;
-      }
-      $dimheader = scalar split(/,/, $line, -1);
-    }
 
     my @parts = split(/,/, $line, -1);
     if (defined $dimheader)
@@ -180,21 +191,30 @@ sub read_ec_part($$$)
       my $a  = $parts[1];
       my $b  = $parts[2];
       my $dd = $parts[3];
-      my $aa; my $bb;
+      my ($aa, $bb, $opm, $stadium);
       if ($aabb)
       {
         $aa = $parts[4];
         $bb = $parts[5];
+        $opm = $parts[7];
+        $stadium = $parts[8];
       }
       else
       {
         my @results = result2aabb($parts[4]);
         $aa = $results[0];
         $bb = $results[1];
+        if ($dimheader > 6 && $hdrParts[6] eq 'stadium')
+        {
+          $stadium = $parts[6];
+        }
+        else
+        {
+          $opm = $parts[6];
+          $stadium = $parts[7];
+        }
       }
       my $wns = $parts[5+$aabb];
-      my $opm = $parts[6+$aabb];
-      my $stadium = $parts[7+$aabb];
       if (scalar @parts > 8+$aabb) {
         my $dd2 = $parts[6];
         my $aa2 = $parts[7];
@@ -202,13 +222,18 @@ sub read_ec_part($$$)
         my $wns = $parts[9];
         chomp($wns);
         push @games, [$a,$b,[$dd,$aa,$bb],[$dd2,$aa2,$bb2],$wns];
-      } elsif (defined($stadium)) {
+      }
+      elsif (defined($stadium) and $stadium ne '')
+      {
         chomp($stadium);
         push @games, [$a,$b,[$dd,$aa,$bb],$wns,$stadium];
       }
-      elsif (defined($opm)) {
+      elsif (defined($opm))
+      {
         push @games, [$a,$b,[$dd,$aa,$bb,opm=>$opm],$wns];
-      } else {
+      }
+      else
+      {
         push @games, [$a,$b,[$dd,$aa,$bb],$wns];
       }
     }

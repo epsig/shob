@@ -21,6 +21,7 @@ $VERSION = '18.1';
 @EXPORT =
 (#========================================================================
  '$knvb_beker',
+ '&init_beker',
  '&laatste_speeldatum_beker',
  #========================================================================
 );
@@ -28,16 +29,22 @@ $VERSION = '18.1';
 our $knvb_beker;
 our $subdir = 'beker';
 
-for (my $yr = 1994; $yr < 99999; $yr++)
+sub init_beker()
 {
- my $szn = yr2szn($yr);
- my $csv = "beker_$szn.csv";
- $csv =~ s/-/_/;
- if (-f "$csv_dir/$subdir/$csv")
- {
-  $knvb_beker->{$szn} = read_beker_csv($csv, $subdir, $yr);
- }
- else {last;}
+  for (my $yr = 1994; $yr < 99999; $yr++)
+  {
+    my $szn = yr2szn($yr);
+    my $csv = "beker_$szn.csv";
+    $csv =~ s/-/_/;
+    if (-f "$csv_dir/$subdir/$csv")
+    {
+      $knvb_beker->{$szn} = read_beker_csv($csv, $subdir, $yr);
+    }
+    else
+    {
+      last;
+    }
+  }
 }
 
 sub laatste_speeldatum_beker($)

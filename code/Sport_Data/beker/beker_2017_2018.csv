@@ -1,16 +1,17 @@
-supercup,fyn,vit,20170805,1,1,5
-8f,twn,ajx,20171220,1,1,5,Een dag later worden trainer Keizer en assistent Bergkamp ontslagen.
-8f,cmb,gvv,20171219,3,0,1
-8f,fst,az1,20171220,2,4,2
-8f,pzw,nec,20171219,2,0,1
-8f,fyn,hrc,20171221,3,1,1
-8f,psv,vvv,20171220,4,1,1
-8f,wl2,rkc,20171219,3,0,1
-8f,vvs,rdj,20171221,0,1,2
-4f,twn,cmb,20180130,3,1,1
-4f,az1,pzw,20180131,4,1,1
-4f,fyn,psv,20180131,2,0,1 # zelf aanwezig
-4f,wl2,rdj,20180201,2,2,5
-2f,az1,twn,20180228,4,0,1 # beide onder zeer koude omstandigheden
-2f,fyn,wl2,20180228,3,0,1
-f,az1,fyn,20180422,0,3,2
+phase,team1,team2,dd,result,star,remark
+supercup,fyn,vit,20170805,1-1,5,
+8f,twn,ajx,20171220,1-1,5,Een dag later worden trainer Keizer en assistent Bergkamp ontslagen.
+8f,cmb,gvv,20171219,3-0,1,
+8f,fst,az1,20171220,2-4,2,
+8f,pzw,nec,20171219,2-0,1,
+8f,fyn,hrc,20171221,3-1,1,
+8f,psv,vvv,20171220,4-1,1,
+8f,wl2,rkc,20171219,3-0,1,
+8f,vvs,rdj,20171221,0-1,2,
+4f,twn,cmb,20180130,3-1,1,
+4f,az1,pzw,20180131,4-1,1,
+4f,fyn,psv,20180131,2-0,1, # zelf aanwezig
+4f,wl2,rdj,20180201,2-2,5,
+2f,az1,twn,20180228,4-0,1, # beide onder zeer koude omstandigheden
+2f,fyn,wl2,20180228,3-0,1,
+f,az1,fyn,20180422,0-3,2,
