@@ -513,8 +513,9 @@ my $tpA = get_topscorers_eredivisie($szn);
 my $tpB = $topscorers_eerstedivisie->{$szn};
 if (not $tpB) {$tpB = [];}
 my $kls = get_klassiekers($szn);
-my $knvb = $knvb_beker->{$szn}{beker};
-my $jc = $knvb_beker->{$szn}{extra}{supercup};
+my $beker_jc = knvb_beker($szn);
+my $knvb = $beker_jc->{beker};
+my $jc = $beker_jc->{extra}{supercup};
 
 my $some_ered = (scalar @$ere or $opm_ered ne '');
 my $some_tpsc = (scalar @$tpA or scalar @$tpB);

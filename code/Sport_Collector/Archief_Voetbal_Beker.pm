@@ -15,55 +15,59 @@ use vars qw($VERSION @ISA @EXPORT);
 #=========================================================================
 # CONTENTS OF THE PACKAGE:
 #=========================================================================
-$VERSION = '18.1';
+$VERSION = '20.0';
 # by Edwin Spee.
 
 @EXPORT =
 (#========================================================================
- '$knvb_beker',
- '&init_beker',
  '&laatste_speeldatum_beker',
+ '&knvb_beker',
  #========================================================================
 );
 
-our $knvb_beker;
-our $subdir = 'beker';
+my $knvb_beker;
+my $subdir = 'beker';
 
-sub init_beker()
+sub knvb_beker($)
 {
-  for (my $yr = 1994; $yr < 99999; $yr++)
+  my $szn = shift;
+
+  if (not defined ($knvb_beker->{$szn}))
   {
-    my $szn = yr2szn($yr);
     my $csv = "beker_$szn.csv";
     $csv =~ s/-/_/;
     if (-f "$csv_dir/$subdir/$csv")
     {
+      my @yrs =  split(/-/, $szn);
+      my $yr = $yrs[0];
       $knvb_beker->{$szn} = read_beker_csv($csv, $subdir, $yr);
     }
-    else
-    {
-      last;
-    }
   }
+
+  return $knvb_beker->{$szn};
 }
 
 sub laatste_speeldatum_beker($)
 {# (c) Edwin Spee
 
- my ($year) = @_;
+  my ($szn) = @_;
 
- my $dd = 20140808;
+  my $dd = 20140808;
 
- while (my ($key1, $value1) = each %{$knvb_beker->{$year}})
- {
-  while (my ($key2, $value2) = each %{$knvb_beker->{$year}{$key1}})
+  my $beker = knvb_beker($szn);
+
+  while (my ($key1, $value1) = each %{$beker})
   {
-   if (ref $value2 eq 'ARRAY')
-   {
-    $dd = max($dd, laatste_speeldatum($value2));
- }}}
+    while (my ($key2, $value2) = each %{$beker->{$key1}})
+    {
+      if (ref $value2 eq 'ARRAY')
+      {
+        $dd = max($dd, laatste_speeldatum($value2));
+      }
+    }
+  }
 
- return $dd;
+  return $dd;
 }
 
 return 1;
