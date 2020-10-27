@@ -39,16 +39,8 @@ my ($counter, $HostId, $WebDir, $WD_His, $WbDrOld, $history, $ask_mkdir) =
 
 # datum gefixeerd om uit git te kunnen reproduceren:
 my $datum_fixed = 20200523;
-# CVS-tag
-my $CVS_tag =
- 'compleet-1-1';
-#  periode: 20050501 - now
-
-#'compleet-1-0';
-#  periode: 20050203 - 20050501:
-#   format OS_Schaatsen
-#   codering klaverjas_palmtop
-#   codering adreslijst
+# version (ending on 0 is not tagged, so update this number before tagging)
+my $CVS_tag = '20.0';
 
 sub get_my_hostname()
 {# (c) Edwin Spee

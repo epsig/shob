@@ -321,14 +321,16 @@ sub handle_vimrc($)
 sub print_version()
 {# (c) Edwin Spee
 
- my ($y, $m, $d) = split_idate(get_datum_fixed());
- my $mon = monthstr($m - 1);
- my $CVS_tag = get_CVS_tag();
+  use Shob_Tools::Idate;
 
- print << "EOF";
+  my ($y, $m, $d) = split_idate(get_datum_fixed());
+  my $mon = monthstr($m - 1);
+  my $CVS_tag = get_CVS_tag();
+
+  print << "EOF";
 
 Version dated : $mon - $y.
-CVS-tag       : $CVS_tag
+Version number: $CVS_tag
 
 EOF
 }
