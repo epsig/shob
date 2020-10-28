@@ -31,12 +31,13 @@ $VERSION = '20.0';
 # (c) Edwin Spee
 
 our $IN;
+my $subdir = 'europacup';
 
 sub read_ec_csv($)
 {
   my $filein = shift;
 
-  open ($IN, "< $csv_dir/$filein") or die "can't open $filein: $!";
+  open ($IN, "< $csv_dir/$subdir/$filein") or die "can't open $filein: $!";
 
   my $sc = read_ec_part('supercup','','Europese Supercup');
   my $cl_v2 = read_ec_part('CL','v2','2e voorronde Champions League');
