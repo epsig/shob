@@ -24,7 +24,6 @@ $VERSION = '20.0';
 (#========================================================================
  '&read_ec_csv',
  '&read_ec_part',
- '$IN',
  #========================================================================
 );
 
@@ -39,14 +38,14 @@ sub read_ec_csv($)
 
   open ($IN, "< $csv_dir/$subdir/$filein") or die "can't open $filein: $!";
 
-  my $sc = read_ec_part('supercup','','Europese Supercup');
-  my $cl_v2 = read_ec_part('CL','v2','2e voorronde Champions League');
-  my $cl_v3 = read_ec_part('CL','v3','3e voorronde Champions League');
-  my $cl_po = read_ec_part('CL','po','play offs Champions League');
+  my $sc = read_ec_part('supercup','','Europese Supercup', $IN);
+  my $cl_v2 = read_ec_part('CL','v2','2e voorronde Champions League', $IN);
+  my $cl_v3 = read_ec_part('CL','v3','3e voorronde Champions League', $IN);
+  my $cl_po = read_ec_part('CL','po','play offs Champions League', $IN);
 
-  my $el_v2 = read_ec_part('EL','v2','2e voorronde Europa League');
-  my $el_v3 = read_ec_part('EL','v3','3e voorronde Europa League');
-  my $el_po = read_ec_part('EL','po','play offs Europa League');
+  my $el_v2 = read_ec_part('EL','v2','2e voorronde Europa League', $IN);
+  my $el_v3 = read_ec_part('EL','v3','3e voorronde Europa League', $IN);
+  my $el_po = read_ec_part('EL','po','play offs Europa League', $IN);
 
   my $ec = {
     extra => { supercup => $sc },
@@ -54,29 +53,29 @@ sub read_ec_csv($)
       qfr_2 => $cl_v2,
       qfr_3 => $cl_v3,
       playoffs => $cl_po,
-      round_of_16 => read_ec_part('CL','8f', '8-ste finale C-L'),
-      quarterfinal => read_ec_part('CL','4f', 'kwart finale C-L'),
-      semifinal => read_ec_part('CL','2f', 'halve finale C-L'),
-      final => read_ec_part('CL','f', 'finale C-L'),
+      round_of_16 => read_ec_part('CL','8f', '8-ste finale C-L', $IN),
+      quarterfinal => read_ec_part('CL','4f', 'kwart finale C-L', $IN),
+      semifinal => read_ec_part('CL','2f', 'halve finale C-L', $IN),
+      final => read_ec_part('CL','f', 'finale C-L', $IN),
     },
     EuropaL => {
       qfr => $el_v2,
       qfr_3 => $el_v3,
       playoffs => $el_po,
-      round2 => read_ec_part('EL','16f', '8-ste finale E-L'),
-      round_of_16 => read_ec_part('EL','8f', '8-ste finale E-L'),
-      quarterfinal => read_ec_part('EL','4f', 'kwart finale E-L'),
-      semifinal => read_ec_part('EL','2f', 'halve finale E-L'),
-      final => read_ec_part('EL','f', 'finale E-L'),
+      round2 => read_ec_part('EL','16f', '8-ste finale E-L', $IN),
+      round_of_16 => read_ec_part('EL','8f', '8-ste finale E-L', $IN),
+      quarterfinal => read_ec_part('EL','4f', 'kwart finale E-L', $IN),
+      semifinal => read_ec_part('EL','2f', 'halve finale E-L', $IN),
+      final => read_ec_part('EL','f', 'finale E-L', $IN),
     }
   };
 
-  my $summary = read_ec_summary('NL');
+  my $summary = read_ec_summary('NL', $IN);
   if ($summary ne '') {$ec->{extra}->{summary} = $summary;}
 
   foreach my $l ('A'..'H')
   {
-    my $g = read_ec_part('CL',"g$l","Champions League, Groep $l");
+    my $g = read_ec_part('CL',"g$l","Champions League, Groep $l", $IN);
     if (defined($g))
     {
       $ec->{CL}{"group$l"} = $g;
@@ -85,7 +84,7 @@ sub read_ec_csv($)
  
   foreach my $l ('A'..'L')
   {
-    my $g = read_ec_part('EL',"g$l","Europa League, Groep $l");
+    my $g = read_ec_part('EL',"g$l","Europa League, Groep $l", $IN);
     if (defined($g))
     {
       $ec->{EuropaL}{"group$l"} = $g;
@@ -96,11 +95,12 @@ sub read_ec_csv($)
   return $ec;
 }
 
-sub read_ec_part($$$)
+sub read_ec_part($$$$)
 {
   my $cupname = shift;
   my $phase   = shift;
   my $title   = shift;
+  my $IN      = shift;
 
   seek($IN, 0, 0);
   my @games;
@@ -261,9 +261,10 @@ sub read_ec_part($$$)
   }
 }
 
-sub read_ec_summary($)
+sub read_ec_summary($$)
 {
   my $lang = shift;
+  my $IN   = shift;
 
   my $retval = '';
 

@@ -35,15 +35,15 @@ sub read_beker_csv($$$)
   my $subdir = shift;
   my $year   = shift;
 
-  open ($IN, "< $csv_dir/$subdir/$filein") or die "can't open $filein: $!";
+  open (my $IN, "< $csv_dir/$subdir/$filein") or die "can't open $filein: $!";
 
-  my $sc = read_ec_part('supercup','',"Johan Cruijff schaal $year");
-  my $r2 = read_ec_part('r2', '', 'Tweede ronde');
-  my $f8 = read_ec_part('8f', '', 'achtste-finales KNVB-beker');
-  my $f4 = read_ec_part('4f', '', 'kwart-finale KNVB-beker');
-  my $f2 = read_ec_part('2f', '', 'halve finale KNVB-beker');
-  my $f = read_ec_part('f', '', 'finale KNVB-beker');
-  my $opm = read_beker_opm();
+  my $sc = read_ec_part('supercup','',"Johan Cruijff schaal $year", $IN);
+  my $r2 = read_ec_part('r2', '', 'Tweede ronde', $IN);
+  my $f8 = read_ec_part('8f', '', 'achtste-finales KNVB-beker', $IN);
+  my $f4 = read_ec_part('4f', '', 'kwart-finale KNVB-beker', $IN);
+  my $f2 = read_ec_part('2f', '', 'halve finale KNVB-beker', $IN);
+  my $f = read_ec_part('f', '', 'finale KNVB-beker', $IN);
+  my $opm = read_beker_opm($IN);
  
   close($IN);
 
@@ -62,8 +62,10 @@ sub read_beker_csv($$$)
   return $beker;
 }
 
-sub read_beker_opm()
+sub read_beker_opm($)
 {
+  my $IN = shift;
+
   seek($IN, 0, 0);
   my $opm = '';
   while (my $line = <$IN>)
