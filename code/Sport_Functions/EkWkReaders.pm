@@ -100,7 +100,9 @@ sub read_wk($$)
  my $u34 = [];
  my $finale = [];
 
- open (IN, "< $csv_dir/$filein") or die "can't open $filein: $!";
+ my $fileWithPath = File::Spec->catfile($csv_dir, $filein);
+
+ open (IN, "< $fileWithPath") or die "can't open $fileWithPath: $!\n";
 
  my $srt_rule = 3; # EK
     $srt_rule = 5; # WK
@@ -170,7 +172,9 @@ sub read_voorronde_standen($$$)
  my $start = shift;
  my $cnt   = shift;
 
- open(IN, "<$csv_dir/$file") or die "can't open file $csv_dir/$file: $!\n";
+ my $fileWithPath = File::Spec->catfile($csv_dir, $file);
+
+ open(IN, "< $fileWithPath") or die "can't open file $fileWithPath: $!\n";
 
  my @s;
  for (my $i = 0; $i < $cnt; $i++)
@@ -191,7 +195,9 @@ sub read_voorronde($$$)
  my $part = shift;
  my $type = shift;
 
- open(IN, "<$csv_dir/$file") or die "can't open file $csv_dir/$file: $!\n";
+ my $fileWithPath = File::Spec->catfile($csv_dir, $file);
+
+ open(IN, "< $fileWithPath") or die "can't open file $fileWithPath: $!\n";
 
  my $retval;
 
@@ -260,7 +266,10 @@ sub read_wk_topscorers($$)
  my $title  = shift;
 
  my @tp = (["Topscorers $title"]);
- open (IN, "< $csv_dir/$filein") or die "can't open $filein: $!";
+
+ my $fileWithPath = File::Spec->catfile($csv_dir, $filein);
+
+ open (IN, "< $fileWithPath") or die "can't open $fileWithPath: $!\n";
  while(my $line = <IN>)
  {
   if ($line =~ m/^tpsc/)

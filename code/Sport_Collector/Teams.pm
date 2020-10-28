@@ -6,6 +6,7 @@ use strict; use warnings;
 # following text starts a package:
 use Sport_Functions::Readers;
 use Shob_Tools::Error_Handling;
+use File::Spec;
 use Exporter;
 use vars qw($VERSION @ISA @EXPORT);
 @ISA = ('Exporter');
@@ -62,7 +63,9 @@ sub read_landcode($)
 {
  my $file = shift;
 
- open(IN, "<$csv_dir/$file") or die "can't open file $file for reading: $!";
+ my $fileWithPath = File::Spec->catfile($csv_dir, $file);
+
+ open(IN, "< $fileWithPath") or die "can't open file $fileWithPath for reading: $!\n";
  while (my $line = <IN>)
  {
   chomp($line);
@@ -81,7 +84,9 @@ sub read_voetballers($)
 {
  my $file = shift;
 
- open(IN, "<$csv_dir/$file") or die "can't open file $file for reading: $!";
+ my $fileWithPath = File::Spec->catfile($csv_dir, $file);
+
+ open(IN, "< $fileWithPath") or die "can't open file $fileWithPath for reading: $!\n";
  while (my $line = <IN>)
  {
   chomp($line);

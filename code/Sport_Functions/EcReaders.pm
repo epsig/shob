@@ -36,7 +36,9 @@ sub read_ec_csv($)
 {
   my $filein = shift;
 
-  open ($IN, "< $csv_dir/$subdir/$filein") or die "can't open $filein: $!";
+  my $fileWithPath = File::Spec->catfile($csv_dir, $subdir, $filein);
+
+  open ($IN, "< $fileWithPath") or die "can't open $$fileWithPath: $!\n";
 
   my $sc = read_ec_part('supercup','','Europese Supercup', $IN);
   my $cl_v2 = read_ec_part('CL','v2','2e voorronde Champions League', $IN);

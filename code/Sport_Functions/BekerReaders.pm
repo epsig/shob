@@ -35,7 +35,9 @@ sub read_beker_csv($$$)
   my $subdir = shift;
   my $year   = shift;
 
-  open (my $IN, "< $csv_dir/$subdir/$filein") or die "can't open $filein: $!";
+  my $fileWithPath = File::Spec->catfile($csv_dir, $subdir, $filein);
+
+  open (my $IN, "< $fileWithPath") or die "can't open $fileWithPath: $!\n";
 
   my $sc = read_ec_part('supercup','',"Johan Cruijff schaal $year", $IN);
   my $r2 = read_ec_part('r2', '', 'Tweede ronde', $IN);
