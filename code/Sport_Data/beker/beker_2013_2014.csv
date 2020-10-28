@@ -1,17 +1,17 @@
-# empty header
-supercup,ajx,az1,20130727,3,2,3,,Amsterdam (de Arena)
-8f,rdj,vit,20131218,3,1,1
-8f,az1,hrv,20131218,2,2,5
-8f,ijs,ajx,20131219,0,3,2
-8f,hrc,fyn,20131218,1,1,6
-8f,exc,pzw,20131217,1,4,2
-8f,jvc,mvv,20131218,2,1,1
-8f,grn,nec,20131219,0,1,2
-8f,cmb,utr,20131218,0,2,2
-4f,rdj,az1,20140121,0,2,2
-4f,ajx,fyn,20140122,3,1,1
-4f,pzw,jvc,20140122,5,1,1
-4f,nec,utr,20140122,1,0,1
-2f,az1,ajx,20140327,0,1,2
-2f,pzw,nec,20140326,2,1,1
-f,pzw,ajx,20140420,5,1,1 
+phase,team1,team2,dd,result,star,stadium
+supercup,ajx,az1,20130727,3-2,3,Amsterdam (de Arena)
+8f,rdj,vit,20131218,3-1,1,
+8f,az1,hrv,20131218,2-2,5,
+8f,ijs,ajx,20131219,0-3,2,
+8f,hrc,fyn,20131218,1-1,6,
+8f,exc,pzw,20131217,1-4,2,
+8f,jvc,mvv,20131218,2-1,1,
+8f,grn,nec,20131219,0-1,2,
+8f,cmb,utr,20131218,0-2,2,
+4f,rdj,az1,20140121,0-2,2,
+4f,ajx,fyn,20140122,3-1,1,
+4f,pzw,jvc,20140122,5-1,1,
+4f,nec,utr,20140122,1-0,1,
+2f,az1,ajx,20140327,0-1,2,
+2f,pzw,nec,20140326,2-1,1,
+f,pzw,ajx,20140420,5-1,1,
