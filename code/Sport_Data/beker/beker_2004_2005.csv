@@ -1,17 +1,17 @@
-# empty header
-supercup,ajx,utr,20040808,2,4,2,,Amsterdam (de Arena)
-8f,gae,wl2,20050125,0,1,2
-8f,drd,dbs,20050125,1,3,2
-8f,adh,twn,20050126,1,1,5
-8f,ajx,hrv,20050127,2,0,1
-8f,az1,fyn,20050126,1,3,2 # 2x rood voor AZ in 24e en 28e minuut (Van Galen en Perez); Feyenoord (Kuijt) mist in 28e minuut strafschop
-8f,nac,utr,20050126,2,1,4
-8f,psv,vol,20050125,4,0,1
-8f,top,rkc,20050126,1,1,5
-4f,wl2,dbs,20050302,3,0,1
-4f,adh,ajx,20050302,0,2,2
-4f,fyn,nac,20050303,4,0,1
-4f,psv,top,20050303,6,1,1
-2f,wl2,ajx,20050421,1,0,1
-2f,fyn,psv,20050420,1,1,6
-f,psv,wl2,20050529,4,0,1
+phase,team1,team2,dd,result,star,stadium,remark
+supercup,ajx,utr,20040808,2-4,2,Amsterdam (de Arena),
+8f,gae,wl2,20050125,0-1,2,,
+8f,drd,dbs,20050125,1-3,2,,
+8f,adh,twn,20050126,1-1,5,,
+8f,ajx,hrv,20050127,2-0,1,,
+8f,az1,fyn,20050126,1-3,2,,# 2x rood voor AZ in 24e en 28e minuut (Van Galen en Perez); Feyenoord (Kuijt) mist in 28e minuut strafschop
+8f,nac,utr,20050126,2-1,4,,
+8f,psv,vol,20050125,4-0,1,,
+8f,top,rkc,20050126,1-1,5,,
+4f,wl2,dbs,20050302,3-0,1,,
+4f,adh,ajx,20050302,0-2,2,,
+4f,fyn,nac,20050303,4-0,1,,
+4f,psv,top,20050303,6-1,1,,
+2f,wl2,ajx,20050421,1-0,1,,
+2f,fyn,psv,20050420,1-1,6,,
+f,psv,wl2,20050529,4-0,1,,

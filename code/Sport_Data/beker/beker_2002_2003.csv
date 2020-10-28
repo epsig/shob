@@ -1,27 +1,27 @@
-# empty header
-supercup,ajx,psv,20020811,3,1,1,,Amsterdam (de Arena)
-r2,vvv,ago,20021203,1,2,2
-r2,exc,spr,20021203,4,2,1
-r2,tls,az1,20021203,1,0,1
-r2,hrl,mvv,20021203,3,2,1
-r2,rbc,nac,20021211,1,3,2
-r2,jou,grn,20021204,2,3,2
-r2,aj2,wl2,20021204,2,1,1
-r2,zwl,grf,20021204,1,4,2
-r2,adh,rkc,20021204,2,1,1
-r2,rdj,nec,20021204,1,0,1
-8f,exc,aj2,20030205,4,2,1
-8f,grf,utr,20030204,2,3,2
-8f,adh,psv,20030205,0,3,2
-8f,tls,hrv,20030204,1,3,2
-8f,fyn,ago,20030205,6,1,1
-8f,vit,nac,20030129,4,2,1
-8f,ajx,rdj,20030205,1,0,1
-8f,grn,hrl,20030205,3,0,1
-4f,exc,utr,20030304,1,3,2
-4f,psv,hrv,20030305,2,1,1
-4f,fyn,vit,20030305,3,1,1
-4f,ajx,grn,20030305,4,1,1
-2f,utr,psv,20030415,2,1,1
-2f,fyn,ajx,20030416,1,0,1
-f,utr,fyn,20030601,4,1,1,,Rotterdam (De Kuip)
+phase,team1,team2,dd,result,star,stadium
+supercup,ajx,psv,20020811,3-1,1,Amsterdam (de Arena)
+r2,vvv,ago,20021203,1-2,2,
+r2,exc,spr,20021203,4-2,1,
+r2,tls,az1,20021203,1-0,1,
+r2,hrl,mvv,20021203,3-2,1,
+r2,rbc,nac,20021211,1-3,2,
+r2,jou,grn,20021204,2-3,2,
+r2,aj2,wl2,20021204,2-1,1,
+r2,zwl,grf,20021204,1-4,2,
+r2,adh,rkc,20021204,2-1,1,
+r2,rdj,nec,20021204,1-0,1,
+8f,exc,aj2,20030205,4-2,1,
+8f,grf,utr,20030204,2-3,2,
+8f,adh,psv,20030205,0-3,2,
+8f,tls,hrv,20030204,1-3,2,
+8f,fyn,ago,20030205,6-1,1,
+8f,vit,nac,20030129,4-2,1,
+8f,ajx,rdj,20030205,1-0,1,
+8f,grn,hrl,20030205,3-0,1,
+4f,exc,utr,20030304,1-3,2,
+4f,psv,hrv,20030305,2-1,1,
+4f,fyn,vit,20030305,3-1,1,
+4f,ajx,grn,20030305,4-1,1,
+2f,utr,psv,20030415,2-1,1,
+2f,fyn,ajx,20030416,1-0,1,
+f,utr,fyn,20030601,4-1,1,Rotterdam (De Kuip)

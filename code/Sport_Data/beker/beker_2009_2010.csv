@@ -1,18 +1,18 @@
-# empty header
-supercup,az1,hrv,20090725,5,1,1,,Amsterdam (de Arena)
-8f,hrv,psv,20100116,1,3,2
-8f,fyn,az1,20091222,1,0,1
-8f,dbr,spr,20091222,0,5,2
-8f,twn,hlm,20091223,3,0,1
-8f,gf2,nac,20091223,0,2,4
-8f,hrc,gae,20091221,0,2,2
-8f,whc,ajx,20091223,1,14,2,6x Louis Suarez
-8f,grn,nec,20091223,0,2,2
-4f,psv,fyn,20100127,0,3,2
-4f,spr,twn,20100127,0,4,2
-4f,nac,gae,20100127,1,2,2
-4f,ajx,nec,20100127,3,2,3
-2f,fyn,twn,20100324,2,1,1
-2f,gae,ajx,20100325,0,6,2
-f,ajx,fyn,20100425,2,0,-1,
-f,fyn,ajx,20100506,1,4,1 
+phase,team1,team2,dd,result,star,stadium,remarks
+supercup,az1,hrv,20090725,5-1,1,Amsterdam (de Arena),
+8f,hrv,psv,20100116,1-3,2,,
+8f,fyn,az1,20091222,1-0,1,,
+8f,dbr,spr,20091222,0-5,2,,
+8f,twn,hlm,20091223,3-0,1,,
+8f,gf2,nac,20091223,0-2,4,,
+8f,hrc,gae,20091221,0-2,2,,
+8f,whc,ajx,20091223,1-14,2,,6x Louis Suarez
+8f,grn,nec,20091223,0-2,2,,
+4f,psv,fyn,20100127,0-3,2,,
+4f,spr,twn,20100127,0-4,2,,
+4f,nac,gae,20100127,1-2,2,,
+4f,ajx,nec,20100127,3-2,3,,
+2f,fyn,twn,20100324,2-1,1,,
+2f,gae,ajx,20100325,0-6,2,,
+f,ajx,fyn,20100425,2-0,-1,,
+f,fyn,ajx,20100506,1-4,1,,

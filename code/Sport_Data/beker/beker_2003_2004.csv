@@ -1,17 +1,17 @@
-# empty header
-supercup,psv,utr,20030810,3,1,1,,Amsterdam (de Arena)
-8f,twn,aj2,20031216,1,0,1
-8f,fyn,vit,20031217,1,0,1
-8f,psv,wl2,20031216,2,0,1
-8f,ajx,nac,20031217,0,1,2
-8f,spr,rbc,20031216,2,0,1
-8f,hrv,nec,20031217,0,1,2
-8f,utr,rkc,20031217,3,1,1
-8f,hrc,hoe,20031216,4,1,1
-4f,twn,fyn,20040204,3,1,3
-4f,psv,nac,20040204,0,1,2
-4f,spr,nec,20040203,0,0,5
-4f,utr,hrc,20040204,3,2,1
-2f,twn,nac,20040316,2,2,5
-2f,spr,utr,20040317,3,3,6
-f,utr,twn,20040523,1,0,1
+phase,team1,team2,dd,result,star,stadium
+supercup,psv,utr,20030810,3-1,1,Amsterdam (de Arena)
+8f,twn,aj2,20031216,1-0,1,
+8f,fyn,vit,20031217,1-0,1,
+8f,psv,wl2,20031216,2-0,1,
+8f,ajx,nac,20031217,0-1,2,
+8f,spr,rbc,20031216,2-0,1,
+8f,hrv,nec,20031217,0-1,2,
+8f,utr,rkc,20031217,3-1,1,
+8f,hrc,hoe,20031216,4-1,1,
+4f,twn,fyn,20040204,3-1,3,
+4f,psv,nac,20040204,0-1,2,
+4f,spr,nec,20040203,0-0,5,
+4f,utr,hrc,20040204,3-2,1,
+2f,twn,nac,20040316,2-2,5,
+2f,spr,utr,20040317,3-3,6,
+f,utr,twn,20040523,1-0,1,

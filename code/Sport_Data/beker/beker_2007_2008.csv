@@ -1,17 +1,17 @@
-# empty header
-supercup,psv,ajx,20070811,0,1,2,,Amsterdam (de Arena)
-8f,drn,fyn,20080115,0,4,2 # spec:4200
-8f,nec,zwl,20080115,0,2,2 # spec:4500
-8f,qbs,hr2,20080116,1,1,5
-8f,nac,ajx,20080116,4,2,1 # spec:17000
-8f,rkc,hrl,20080115,1,1,6 # spec:2000
-8f,hrc,dbs,20080116,1,0,1
-8f,drd,ago,20080115,4,3,3 # spec:1900
-8f,rdj,exc,20080115,3,0,1 # spec:5011
-4f,fyn,zwl,20080228,2,1,1
-4f,qbs,nac,20080227,0,3,2
-4f,hrl,hrc,20080226,1,5,2
-4f,drd,rdj,20080226,1,3,2
-2f,fyn,nac,20080318,2,0,1
-2f,hrc,rdj,20080319,2,2,6
-f,fyn,rdj,20080427,2,0,1,,Rotterdam (De Kuip)
+phase,team1,team2,dd,result,star,stadium,remark
+supercup,psv,ajx,20070811,0-1,2,Amsterdam (de Arena),
+8f,drn,fyn,20080115,0-4,2,, # spec:4200
+8f,nec,zwl,20080115,0-2,2,, # spec:4500
+8f,qbs,hr2,20080116,1-1,5,,
+8f,nac,ajx,20080116,4-2,1,, # spec:17000
+8f,rkc,hrl,20080115,1-1,6,, # spec:2000
+8f,hrc,dbs,20080116,1-0,1,,
+8f,drd,ago,20080115,4-3,3,, # spec:1900
+8f,rdj,exc,20080115,3-0,1,, # spec:5011
+4f,fyn,zwl,20080228,2-1,1,,
+4f,qbs,nac,20080227,0-3,2,,
+4f,hrl,hrc,20080226,1-5,2,,
+4f,drd,rdj,20080226,1-3,2,,
+2f,fyn,nac,20080318,2-0,1,,
+2f,hrc,rdj,20080319,2-2,6,,
+f,fyn,rdj,20080427,2-0,1,Rotterdam (De Kuip),
