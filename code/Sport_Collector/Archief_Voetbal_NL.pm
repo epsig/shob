@@ -324,29 +324,13 @@ sub get_nc($)
  return $nc;
 }
 
-sub ReadOpm($)
-{
- my $seizoen = shift;
-
- my $fullname = File::Spec->catdir($csv_dir, 'eredivisie', 'eredivisie_u2s.csv');
-
- my $content = read_csv_file_szn($fullname, $seizoen);
- my $a = '';
- while(my $line = shift(@$content))
- {
-  my @parts = @$line;
-  if ($parts[0] eq 'opm') {$a .= "$parts[1]\n";}
- }
- return $a;
-}
-
 sub get_betaald_voetbal_nl($)
 {# (c) Edwin Spee
 
  my $yr = shift;
  my $szn = yr2szn($yr);
  
- my $opm_ered = ReadOpm($szn);
+ my $opm_ered = ReadOpm($szn, 'opm');
 
  my $europa_in = '';
  my $dd = 20090722;

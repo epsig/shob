@@ -24,6 +24,7 @@ $VERSION = '20.0';
 (#========================================================================
  '&read_csv_file',
  '&read_csv_file_szn',
+ '&ReadOpm',
  '&read_csv',
  '$csv_dir',
  '&result2aabb',
@@ -94,6 +95,30 @@ sub read_csv_file_szn($$)
   }
  }
  return (\@content_szn);
+}
+
+sub ReadOpm($$)
+{
+  my $seizoen = shift;
+  my $key     = shift;
+
+  my $fullname = File::Spec->catdir($csv_dir, 'eredivisie', 'eredivisie_u2s.csv');
+
+  my $content = read_csv_file_szn($fullname, $seizoen);
+  my $a = '';
+
+  while(my $line = shift(@$content))
+  {
+    my @parts = @$line;
+    if ($parts[0] eq $key)
+    {
+      shift @parts; 
+      my $line = join(', ', @parts);
+      $a .= "$line\n";
+    }
+  }
+
+  return $a;
 }
 
 sub read_csv($)

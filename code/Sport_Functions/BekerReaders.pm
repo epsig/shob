@@ -45,7 +45,8 @@ sub read_beker_csv($$$)
   my $f4 = read_ec_part('4f', '', 'kwart-finale KNVB-beker', $IN);
   my $f2 = read_ec_part('2f', '', 'halve finale KNVB-beker', $IN);
   my $f = read_ec_part('f', '', 'finale KNVB-beker', $IN);
-  my $opm = read_beker_opm($IN);
+
+  my $opm = ReadOpm(yr2szn($year), 'beker_opm');
  
   close($IN);
 
@@ -62,23 +63,6 @@ sub read_beker_csv($$$)
   };
 
   return $beker;
-}
-
-sub read_beker_opm($)
-{
-  my $IN = shift;
-
-  seek($IN, 0, 0);
-  my $opm = '';
-  while (my $line = <$IN>)
-  {
-    my @parts = split /,/, $line,2;
-    if ($parts[0] eq 'beker_opm')
-    {
-      $opm .= $parts[1];
-    }
-  }
-  return $opm;
 }
 
 return 1;
