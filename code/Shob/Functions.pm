@@ -168,18 +168,14 @@ sub subdir_catfile
 
 sub do_all_text_dir
 {# (c) Edwin Spee
- # versie 3.1 05-jan-2005 gebruik van subdir_catfile
- # versie 3.0 27-dec-2004 redesign; renamed web_doit -> do_all_text_dir
- # versie 2.0 20-nov-2004 redesign
- # versie 1.0 02-sep-2003 initiele versie
 
  my ($dl1, $subdir, $commands) = @_;
 
  my $host = get_host_id();
 
- foreach my $i (@$commands)
+ foreach my $command (@$commands)
  {
-  my ($dl2, $hst2, $sub, $filenm_in) = @$i;
+  my ($dl2, $hst2, $sub, $filenm_in) = @$command;
   if (($dl2 <= $dl1) and (check_version($hst2, $host)))
   {
    if (ref $filenm_in eq 'ARRAY')

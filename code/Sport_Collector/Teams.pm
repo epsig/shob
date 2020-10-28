@@ -15,15 +15,19 @@ use vars qw($VERSION @ISA @EXPORT);
 #=========================================================================
 # CONTENTS OF THE PACKAGE:
 #=========================================================================
-$VERSION = '18.1';
+$VERSION = '20.0';
 # by Edwin Spee.
 
 @EXPORT =
 (#========================================================================
- '%clubs', '%short_land_gb', '%landcodes', '&clubs_short',
- '&expand_voetballers',
- '&land_acronym',
- '&find_club',
+  '%clubs',
+  '%short_land_gb',
+  '%landcodes',
+  '&clubs_short',
+  '&expand_voetballers',
+  '&land_acronym',
+  '&find_club',
+  '&initTeams'
  #========================================================================
 );
 
@@ -31,6 +35,13 @@ $VERSION = '18.1';
 
 our %clubs;
 my %clubs_short;
+our %short_land_gb = (
+G1 => 'ENG',
+G2 => 'SCT',
+G3 => 'WLS',
+G4 => 'ULS'); # N-Ierl;
+our %landcodes;
+my %voetballers;
 
 sub read_clubs($)
 {
@@ -49,16 +60,6 @@ sub read_clubs($)
  }
 }
 
-read_clubs('clubs.csv');
-
-our %short_land_gb = (
-G1 => 'ENG',
-G2 => 'SCT',
-G3 => 'WLS',
-G4 => 'ULS'); # N-Ierl;
-
-our %landcodes;
-
 sub read_landcode($)
 {
  my $file = shift;
@@ -74,11 +75,8 @@ sub read_landcode($)
 
   $landcodes{$parts[0]} = $parts[2];
  }
+ close(IN);
 }
-
- read_landcode('landcodes.csv');
-
-my %voetballers;
 
 sub read_voetballers($)
 {
@@ -95,9 +93,8 @@ sub read_voetballers($)
 
   $voetballers{$parts[0]} = [ $parts[1], $parts[2], $parts[3] ];
  }
+ close(IN);
 }
-
-read_voetballers('voetballers.csv');
 
 sub expand_voetballers($$)
 {# (c) Edwin Spee
@@ -189,6 +186,15 @@ sub find_club($)
   {if ($key =~ m/^NL(...)$/iso) {push @retval, $1;}}
  }
  return @retval;
+}
+
+sub initTeams()
+{
+  read_clubs('clubs.csv');
+
+  read_landcode('landcodes.csv');
+
+  read_voetballers('voetballers.csv');
 }
 
 return 1;

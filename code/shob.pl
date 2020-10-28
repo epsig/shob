@@ -339,6 +339,7 @@ sub doit()
 {# (c) Edwin Spee
 
  use Sport_Collector::Archief_Oefenduels;
+ use Sport_Collector::Teams;
 
  my @start_cpu = times;
  my $start_wt = gettimeofday;
@@ -346,6 +347,7 @@ sub doit()
  init_host_id();
  my $hostid = get_host_id();
  init_webdir($hostid);
+ initTeams();
  initEredivisieResults();
  set_laatste_speeldatum();
  init_ec();
