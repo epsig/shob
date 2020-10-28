@@ -15,7 +15,7 @@ use vars qw($VERSION @ISA @EXPORT);
 #=========================================================================
 # CONTENTS OF THE PACKAGE:
 #=========================================================================
-$VERSION = '20.0';
+$VERSION = '20.1';
 # by Edwin Spee.
 
 @EXPORT =
@@ -45,147 +45,172 @@ my %voetballers;
 
 sub read_clubs($)
 {
- my $file = shift;
+  my $file = shift;
 
- my $content = read_csv_file(File::Spec->catdir($csv_dir, $file));
- while (my $line = shift(@$content))
- {
-  my @parts = @$line;
-
-  $clubs{$parts[0]} = $parts[1];
-  if (scalar @parts > 2)
+  my $content = read_csv_file(File::Spec->catdir($csv_dir, $file));
+  while (my $line = shift(@$content))
   {
-   $clubs_short{$parts[0]} = $parts[2];
+    my @parts = @$line;
+
+    $clubs{$parts[0]} = $parts[1];
+    if (scalar @parts > 2)
+    {
+      $clubs_short{$parts[0]} = $parts[2];
+    }
   }
- }
 }
 
 sub read_landcode($)
 {
- my $file = shift;
+  my $file = shift;
 
- my $fileWithPath = File::Spec->catfile($csv_dir, $file);
+  my $fileWithPath = File::Spec->catfile($csv_dir, $file);
 
- open(IN, "< $fileWithPath") or die "can't open file $fileWithPath for reading: $!\n";
- while (my $line = <IN>)
- {
-  chomp($line);
-  $line =~ s/ *#.*//;
-  my @parts = split(',', $line);
+  open(IN, "< $fileWithPath") or die "can't open file $fileWithPath for reading: $!\n";
+  while (my $line = <IN>)
+  {
+    chomp($line);
+    $line =~ s/ *#.*//;
+    my @parts = split(',', $line);
 
-  $landcodes{$parts[0]} = $parts[2];
- }
- close(IN);
+    $landcodes{$parts[0]} = $parts[2];
+  }
+  close(IN);
 }
 
 sub read_voetballers($)
 {
- my $file = shift;
+  my $file = shift;
 
- my $fileWithPath = File::Spec->catfile($csv_dir, $file);
+  my $fileWithPath = File::Spec->catfile($csv_dir, $file);
 
- open(IN, "< $fileWithPath") or die "can't open file $fileWithPath for reading: $!\n";
- while (my $line = <IN>)
- {
-  chomp($line);
-  $line =~ s/ +#.*//;
-  my @parts = split(',', $line);
+  open(IN, "< $fileWithPath") or die "can't open file $fileWithPath for reading: $!\n";
+  while (my $line = <IN>)
+  {
+    chomp($line);
+    $line =~ s/ +#.*//;
+    my @parts = split(',', $line);
 
-  $voetballers{$parts[0]} = [ $parts[1], $parts[2], $parts[3] ];
- }
- close(IN);
+    $voetballers{$parts[0]} = [ $parts[1], $parts[2], $parts[3] ];
+  }
+  close(IN);
 }
 
 sub expand_voetballers($$)
 {# (c) Edwin Spee
  # TODO option wordt genegeerd; waardes: 'short', 'std', 'long'.
 
- my ($speler, $option) = @_;
+  my ($speler, $option) = @_;
 
- if (defined $voetballers{$speler})
- {
-  $speler = join(' ', @{$voetballers{$speler}});
-  $speler =~ s/  / /iso;
- }
- elsif ($speler =~ m/([a-z]*) .p./iso)
- {if (defined $voetballers{$1})
+  if (defined $voetballers{$speler})
   {
-   $speler = join(' ', @{$voetballers{$1}}, '(p)');
-   $speler =~ s/  / /iso;
+    $speler = join(' ', @{$voetballers{$speler}});
+    $speler =~ s/  / /iso;
   }
- }
- return $speler;
+  elsif ($speler =~ m/([a-z]*) .p./iso)
+  {
+    if (defined $voetballers{$1})
+    {
+      $speler = join(' ', @{$voetballers{$1}}, '(p)');
+      $speler =~ s/  / /iso;
+    }
+  }
+  return $speler;
 }
 
 sub clubs_short($)
 {# (c) Edwin Spee
 
- my ($club_code) = @_;
+  my ($club_code) = @_;
 
- my ($long, $short) = ($clubs{$club_code}, $clubs_short{$club_code});
+  my ($long, $short) = ($clubs{$club_code}, $clubs_short{$club_code});
 
- if (defined($short))
- {
-  if ($long =~ m/.. $short/i)
-  {return $short;}
+  if (defined($short))
+  {
+    if ($long =~ m/.. $short/i)
+    {
+      return $short;
+    }
+    else
+    {
+      return qq(<acronym title="$long">$short</acronym>);
+    }
+  }
+  elsif (defined($long))
+  {
+    return $long;
+  }
   else
-  {return qq(<acronym title="$long">$short</acronym>);}
- }
- elsif (defined($long))
- {return $long;}
- else
- {shob_error('strange_else', ["club_code = $club_code"]);}
+  {
+    shob_error('strange_else', ["club_code = $club_code"])
+  }
 }
 
 sub land_acronym($)
 {# (c) Edwin Spee
 
- my ($landcode) = @_;
+  my ($landcode) = @_;
 
- my $lcode = $landcode;
+  my $lcode = $landcode;
 
- # special cases: OAR, G1 - G4:
- if ($lcode eq 'OA')
- {
-  $lcode = 'OAR'; # n.a.v. doping gedoe Sotsji
- }
- elsif ($lcode =~ m/G[1-4]/iso)
- {
-  $lcode = $short_land_gb{$lcode};
- }
+  # special cases: OAR, G1 - G4:
+  if ($lcode eq 'OA')
+  {
+    $lcode = 'OAR'; # n.a.v. doping gedoe Sotsji
+  }
+  elsif ($lcode =~ m/G[1-4]/iso)
+  {
+    $lcode = $short_land_gb{$lcode};
+  }
 
- my $landnaam;
- if (defined $landcodes{$landcode})
- {
-  $landnaam = $landcodes{$landcode};
- }
- else
- {
-  print "onbekende landcode: $landcode.\n";
- }
- return qq(<acronym title="$landnaam">$lcode</acronym>);
+  my $landnaam;
+  if (defined $landcodes{$landcode})
+  {
+    $landnaam = $landcodes{$landcode};
+  }
+  else
+  {
+    print "onbekende landcode: $landcode.\n";
+  }
+  return qq(<acronym title="$landnaam">$lcode</acronym>);
 }
 
 sub find_club($)
 {
- my $c = shift;
- if (defined $clubs{"NL$c"}) {return ($c);}
- elsif ($c =~ m/^NL(...)$/iso) {return ($1);}
+  my $c = shift;
+  if (defined $clubs{"NL$c"})
+  {
+    return ($c);
+  }
+  elsif ($c =~ m/^NL(...)$/iso)
+  {
+    return ($1);
+  }
 
- # reset hash iterator:
- my $i = scalar keys %clubs;
- while (my ($key, $val) = each %clubs)
- {
-  if (uc($c) eq uc($val))
-  {if ($key =~ m/^NL(...)$/iso) {return ($1);}}
- }
- my @retval = ();
- while (my ($key, $val) = each %clubs)
- {
-  if ($val =~ m/$c/is)
-  {if ($key =~ m/^NL(...)$/iso) {push @retval, $1;}}
- }
- return @retval;
+  # reset hash iterator:
+  my $i = scalar keys %clubs;
+  while (my ($key, $val) = each %clubs)
+  {
+    if (uc($c) eq uc($val))
+    {
+      if ($key =~ m/^NL(...)$/iso)
+      {
+        return ($1);
+      }
+    }
+  }
+  my @retval = ();
+  while (my ($key, $val) = each %clubs)
+  {
+    if ($val =~ m/$c/is)
+    {
+      if ($key =~ m/^NL(...)$/iso)
+      {
+        push @retval, $1;
+      }
+    }
+  }
+  return @retval;
 }
 
 sub initTeams()
