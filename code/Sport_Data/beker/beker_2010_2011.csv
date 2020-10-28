@@ -1,17 +1,17 @@
-# empty header
-supercup,twn,ajx,20100731,1,0,1,,Amsterdam (de Arena)
-8f,twn,vit,20101221,5,0,1
-8f,rdj,psv,20101222,1,3,2
-8f,utr,vol,20101222,1,0,1
-8f,gen,grn,20110118,2,3,2
-8f,ajx,az1,20101223,1,0,1
-8f,tlr,nac,20110118,0,1,2
-8f,ach,rkc,20110118,2,2,6
-8f,nyk,nrd,20110118,3,3,6
-4f,twn,psv,20110126,1,1,5
-4f,utr,grn,20110126,3,2,1
-4f,ajx,nac,20110127,4,1,1
-4f,rkc,nrd,20110125,6,0,1
-2f,twn,utr,20110302,1,0,1
-2f,ajx,rkc,20110303,5,1,1
-f,twn,ajx,20110508,3,2,3,,Rotterdam (De Kuip)
+phase,team1,team2,dd,result,star,stadium
+supercup,twn,ajx,20100731,1-0,1,Amsterdam (de Arena)
+8f,twn,vit,20101221,5-0,1,
+8f,rdj,psv,20101222,1-3,2,
+8f,utr,vol,20101222,1-0,1,
+8f,gen,grn,20110118,2-3,2,
+8f,ajx,az1,20101223,1-0,1,
+8f,tlr,nac,20110118,0-1,2,
+8f,ach,rkc,20110118,2-2,6,
+8f,nyk,nrd,20110118,3-3,6,
+4f,twn,psv,20110126,1-1,5,
+4f,utr,grn,20110126,3-2,1,
+4f,ajx,nac,20110127,4-1,1,
+4f,rkc,nrd,20110125,6-0,1,
+2f,twn,utr,20110302,1-0,1,
+2f,ajx,rkc,20110303,5-1,1,
+f,twn,ajx,20110508,3-2,3,Rotterdam (De Kuip)
