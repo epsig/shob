@@ -60,24 +60,26 @@ sub handle_new_style_files($$$)
 
  my ($opt, $lv, $lop) = @_;
 
+ my $fast = 1; # set to 2 during debugging
+
  do_all_text_dir ($lop, 'search', [
   [2, 'all', sub {&file2str(File::Spec->catfile('Shob', 'search_setup.pl'));}, 'search.setup'],
  ]);
 
  my $style = 'epsig.css';
  do_all_text_dir ($lop, '', [
-  [1, 'all', sub {&file2str(File::Spec->catfile('test', $style));}, $style],
+  [$fast, 'all', sub {&file2str(File::Spec->catfile('test', $style));}, $style],
  ]);
 
  do_all_text_dir ($lop, '', [
-  [1, 'all', sub {&get_hopa;}, 'index.html'],
-  [1, 'all', sub {&file2str(File::Spec->catfile('my_scripts', 'countdown.js'));}, 'countdown.js'],
+  [$fast, 'all', sub {&get_hopa;}, 'index.html'],
+  [$fast, 'all', sub {&file2str(File::Spec->catfile('my_scripts', 'countdown.js'));}, 'countdown.js'],
   [2, 'all', sub {&get_epsig;}, 'epsig.html'],
-  [1, 'all', sub {&get_stats;}, 'stats.html'],
+  [$fast, 'all', sub {&get_stats;}, 'stats.html'],
   [2, 'all', sub {&get_tech_doc_kj;}, 'tech_doc_kj.html'],
   [2, 'all', sub {&get_tech_doc_shob;}, 'tech_doc_shob.html'],
   [2, 'all', sub {&get_tech_doc_adressen;}, 'tech_doc_adressen.html'],
-  [1, 'all', sub {&get_sport_index('', '', '', -1, -1);}, 'sport.html'],
+  [$fast, 'all', sub {&get_sport_index('', '', '', -1, -1);}, 'sport.html'],
   [2, 'all', sub {&get_reactie;}, 'reactie.html'],
   [2, 'all', sub {&get_dank();}, 'dank_u_wel.html'],
   [2, 'all', sub {&get_std_search_page;}, 'search.html'],
@@ -88,7 +90,7 @@ sub handle_new_style_files($$$)
   [2, 'all', sub {&get_bkmrks_treinen;}, 'bookmarks_treinen.html'],
   [2, 'all', sub {&get_bkmrks_html;}, 'bookmarks_computers.html'],
   [2, 'all', sub {&get_sport_links;}, 'bookmarks_sport.html'],
-  [1, 'all', sub {&get_bkmrks_media;}, 'bookmarks_media.html'],
+  [$fast, 'all', sub {&get_bkmrks_media;}, 'bookmarks_media.html'],
   [2, 'all', sub {&get_bkmrks_geld;}, 'tmp_bookmarks_geld.html'],
   [2, 'all', sub {&get_bkmrks_science;}, 'tmp_bookmarks_science.html'],
   [2, 'all', sub {&get_bkmrks_overheid;}, 'tmp_bookmarks_overheid.html'],
@@ -124,8 +126,8 @@ sub handle_new_style_files($$$)
   [2, 'all', sub {&get_wk2018v;}, 'sport_voetbal_WK_2018_voorronde.html'],
   [2, 'all', sub {&get_wk2018;}, 'sport_voetbal_WK_2018.html'],
   [2, 'all', sub {&get_wkD2019;}, 'sport_voetbal_WKD2019.html'],
-  [1, 'all', sub {&get_ek2020v;}, 'sport_voetbal_EK_2020_voorronde.html'],
-  [1, 'all', sub {&get_wk2022v;}, 'sport_voetbal_WK_2022_voorronde.html'],
+  [$fast, 'all', sub {&get_ek2020v;}, 'sport_voetbal_EK_2020_voorronde.html'],
+  [$fast, 'all', sub {&get_wk2022v;}, 'sport_voetbal_WK_2022_voorronde.html'],
 
   [2, 'all', sub {&get_ec_webpage('1994-1995');}, 'sport_voetbal_europacup_1994_1995.html'],
   [2, 'all', sub {&get_ec_webpage('1995-1996');}, 'sport_voetbal_europacup_1995_1996.html'],
@@ -153,7 +155,7 @@ sub handle_new_style_files($$$)
   [2, 'all', sub {&get_ec_webpage('2017-2018');}, 'sport_voetbal_europacup_2017_2018.html'],
   [2, 'all', sub {&get_ec_webpage('2018-2019');}, 'sport_voetbal_europacup_2018_2019.html'],
   [2, 'all', sub {&get_ec_webpage('2019-2020');}, 'sport_voetbal_europacup_2019_2020.html'],
-  [1, 'all', sub {&get_ec_webpage('2020-2021');}, 'sport_voetbal_europacup_2020_2021.html'],
+  [$fast, 'all', sub {&get_ec_webpage('2020-2021');}, 'sport_voetbal_europacup_2020_2021.html'],
 
   [2, 'all', sub {&get_betaald_voetbal_nl(1993);}, 'sport_voetbal_nl_1993_1994.html'],
   [2, 'all', sub {&get_betaald_voetbal_nl(1994);}, 'sport_voetbal_nl_1994_1995.html'],
@@ -182,12 +184,12 @@ sub handle_new_style_files($$$)
   [2, 'all', sub {&get_betaald_voetbal_nl(2017);}, 'sport_voetbal_nl_2017_2018.html'],
   [2, 'all', sub {&get_betaald_voetbal_nl(2018);}, 'sport_voetbal_nl_2018_2019.html'],
   [2, 'all', sub {&get_betaald_voetbal_nl(2019);}, 'sport_voetbal_nl_2019_2020.html'],
-  [1, 'all', sub {&get_betaald_voetbal_nl(2020);}, 'sport_voetbal_nl_2020_2021.html'],
-  [1, 'all', sub {&officieuze_standen('officieus', 2020);}, 'sport_voetbal_nl_jaarstanden.html'],
-  [1, 'all', sub {&officieuze_standen('uit_thuis', 2020);}, 'sport_voetbal_nl_uit_thuis.html'],
+  [$fast, 'all', sub {&get_betaald_voetbal_nl(2020);}, 'sport_voetbal_nl_2020_2021.html'],
+  [$fast, 'all', sub {&officieuze_standen('officieus', 2020);}, 'sport_voetbal_nl_jaarstanden.html'],
+  [$fast, 'all', sub {&officieuze_standen('uit_thuis', 2020);}, 'sport_voetbal_nl_uit_thuis.html'],
 
-  [1, 'all', sub {&get_stats_eredivisie(2019, 2020, 0);}, 'sport_voetbal_nl_stats.html'],
-  [1, '  u', sub {&get_stats_eredivisie(2019, 2020, 2);}, 'sport_voetbal_nl_stats_more.html'],
+  [$fast, 'all', sub {&get_stats_eredivisie(2019, 2020, 0);}, 'sport_voetbal_nl_stats.html'],
+  [$fast, '  u', sub {&get_stats_eredivisie(2019, 2020, 2);}, 'sport_voetbal_nl_stats_more.html'],
 
   [2, 'all', sub {&get_OS1994();}, 'sport_schaatsen_OS_1994.html'],
   [2, 'all', sub {&get_OS1998();}, 'sport_schaatsen_OS_1998.html'],
@@ -195,7 +197,7 @@ sub handle_new_style_files($$$)
   [2, 'all', sub {&get_OS2006();}, 'sport_schaatsen_OS_2006.html'],
   [2, 'all', sub {&get_OS2010();}, 'sport_schaatsen_OS_2010.html'],
   [2, 'all', sub {&get_OS2014();}, 'sport_schaatsen_OS_2014.html'],
-  [1, 'all', sub {&get_OS2018();}, 'sport_schaatsen_OS_2018.html'],
+  [2, 'all', sub {&get_OS2018();}, 'sport_schaatsen_OS_2018.html'],
   [2, ' rl', sub {&file2str(File::Spec->catfile('Admin', 'robots.txt'));}, 'robots.txt'],
  ]);
 
