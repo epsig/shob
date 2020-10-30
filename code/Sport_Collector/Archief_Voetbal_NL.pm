@@ -30,7 +30,7 @@ $VERSION = '18.1';
 @EXPORT =
 (#========================================================================
  '&get_betaald_voetbal_nl',
- '&set_laatste_speeldatum',
+ '&set_laatste_speeldatum_u_nl',
  '&get_extremen_aantal_toeschouwers',
  #========================================================================
 );
@@ -546,7 +546,7 @@ qq(<br>en mag vlak na de WK-finale al weer aan de slag.\n) .
  return format_eindstanden($yr, $opm_ered, $europa_in, $nc, $dd);
 }
 
-sub set_laatste_speeldatum
+sub set_laatste_speeldatum_u_nl
 {# (c) Edwin Spee
 
  my $dd = laatste_speeldatum($u_nl->{lastyear});

@@ -44,14 +44,14 @@ use Shob::Politiek;
 use Shob::Foto;
 use Shob::Klaverjas_Funcs;
 use Sport_Collector::Archief_Voetbal_NL;
-use Sport_Collector::Archief_Voetbal_NL_Topscorers;
 use Sport_Collector::Archief_Europacup_Voetbal;
-use Sport_Collector::Archief_Voetbal_NL_Uitslagen;
 use Sport_Collector::OS_Schaatsen;
 use Sport_Collector::OS_Funcs;
 use Sport_Collector::Archief_EK_WK_Voetbal;
 use Sport_Collector::Stats_Eredivisie;
 use Sport_Collector::Bookmarks_Index;
+
+my $withAdresses = ( -f File::Spec->catfile('Admin', 'Adressen_data2html.pm') );
 
 sub handle_new_style_files($$$)
 {# (c) Edwin Spee
@@ -66,9 +66,6 @@ sub handle_new_style_files($$$)
  do_all_text_dir ($lop, '', [
   [1, 'all', sub {&file2str(File::Spec->catfile('test', $style));}, $style],
  ]);
-
- read_schaatsers();
- init_tp_eerste_divisie();
 
  do_all_text_dir ($lop, '', [
   [1, 'all', sub {&get_hopa;}, 'index.html'],
@@ -222,18 +219,23 @@ sub handle_new_style_files($$$)
  {if (-f 'Admin/CV_Edwin_Spee.pm')
   {
    require Admin::CV_Edwin_Spee;
+   Admin::CV_Edwin_Spee->import;
+  
    my $cmds = [
-   [2, 'all', sub {&Admin::CV_Edwin_Spee::get_cv(1, $all_data, 2)}, 'cv.html'],
-   [2,   'l', sub {&Admin::CV_Edwin_Spee::get_cv(0, $all_data, 0)}, 'cv_nolinks.html'],
+   [2, 'all', sub {get_cv(1, $all_data, 2)}, 'cv.html'],
+   [2,   'l', sub {get_cv(0, $all_data, 0)}, 'cv_nolinks.html'],
    ];
    do_all_text_dir ($lop, '', $cmds);
   }
  }
 
- if ($lop >= 4)
+ if ($lop >= 4 && $withAdresses)
  {
   require Admin::Adressen_data2html;
-  eval('Admin::Adressen_data2html::type_pin');
+  Admin::Adressen_data2html->import;
+
+  type_pin();
+
   my $cmds = [
   [4,  'wl', sub {&get_adres_tabel(1, 0, 'html')}, get_filename_adressen(1, 'html', 1)],
   [4,  'wl', sub {&get_adres_tabel(1, 0, 'csv')}, get_filename_adressen(1, 'csv', 1)],
@@ -335,11 +337,30 @@ Version number: $CVS_tag
 EOF
 }
 
-sub doit()
-{# (c) Edwin Spee
+sub sport_init()
+{ # initializations for sport data
 
- use Sport_Collector::Archief_Oefenduels;
- use Sport_Collector::Teams;
+  use Sport_Collector::Archief_Oefenduels;
+  use Sport_Collector::Teams;
+  use Sport_Collector::Archief_Voetbal_NL_Uitslagen;
+  use Sport_Collector::Archief_Voetbal_NL_Topscorers;
+
+  initTeams();
+  initEredivisieResults();
+  init_tp_eerste_divisie();
+  init_ec();
+
+  read_schaatsers();
+
+  set_laatste_speeldatum_u_nl();
+  set_laatste_speeldatum_ec();
+  set_laatste_speeldatum_ekwk();
+  set_laatste_speeldatum_oefenduels();
+  set_laatste_datum_statfiles();
+}
+
+sub shob_main_loop()
+{# (c) Edwin Spee
 
  my @start_cpu = times;
  my $start_wt = gettimeofday;
@@ -347,14 +368,6 @@ sub doit()
  init_host_id();
  my $hostid = get_host_id();
  init_webdir($hostid);
- initTeams();
- initEredivisieResults();
- set_laatste_speeldatum();
- init_ec();
- set_laatste_speeldatum_ec();
- set_laatste_speeldatum_ekwk();
- set_laatste_speeldatum_oefenduels();
- set_laatste_datum_statfiles();
 
  my $is_remote = ($hostid eq 'remote' or $hostid eq 'epsig' or $hostid eq 'wh_epsig');
  my $lv = $is_remote ? 'n' : 'y';
@@ -386,7 +399,7 @@ sub doit()
   my $command = $ARGV[scalar @ARGV - 1];
   if ($command =~ m/-(d.*)/iso)
   {
-   $cmd = $1;
+   $cmd = lc($1);
   }
   if ($command =~ m/-he/iso)
   {
@@ -418,16 +431,23 @@ sub doit()
    print_version();
    exit 0;
   }
-  elsif ($command =~ m/-e/iso)
+  elsif ($command =~ m/-e/iso or $command =~ m/-di/iso)
   {
-   require Admin::Adressen_data2html;
-   eval('Admin::Adressen_data2html::edit_addresses(0)');
-   exit 0;
-  }
-  elsif ($command =~ m/-di/iso)
-  {
-   eval('diff_adres');
-   exit 0;
+    if ($withAdresses)
+    {
+      require Admin::Adressen_data2html;
+      Admin::Adressen_data2html->import;
+
+      if ($command =~ m/-e/iso)
+      {
+        edit_addresses(0);
+      }
+      elsif ($command =~ m/-di/iso)
+      {
+        diff_adres();
+      }
+    }
+    exit 0;
   }
   elsif ($ARGV[scalar @ARGV - 2] =~ m/-s/iso)
   {
@@ -442,28 +462,21 @@ sub doit()
   $cmd = lees_regel;
  }
 
- if ($cmd =~ m/dl/iso)
+ sport_init();
+
+ if ($cmd eq 'd' or $cmd eq 'dl' or $cmd =~ m/^d\d$/iso)
  {
   $defaults = 2;
   $opt = 3;
-  $parts = 1;
- }
- elsif ($cmd =~ m/d4/iso)
- {
-  $defaults = 2;
-  $opt = 3;
-  $parts = 3;
- }
- elsif ($cmd =~ m/d3/iso)
- {
-  $defaults = 2;
-  $opt = 3;
-  $parts = 2;
- }
- elsif ($cmd =~ m/d/iso)
- {
-  $defaults = 2;
-  $opt = 3;
+
+  if ($cmd eq 'dl')
+  {
+   $parts = 1;
+  }
+  elsif ($cmd =~ m/d(\d)/iso)
+  {
+   $parts = $1 - 1;
+  }
  }
  elsif ($cmd =~ m/q/iso or $cmd =~ m/x/iso)
  {
@@ -518,5 +531,5 @@ sub doit()
  printf "aantal keer filter in sort: %i\n", get_counter();
 }
 
-doit();
+shob_main_loop();
 
