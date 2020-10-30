@@ -45,6 +45,7 @@ sub read_beker_csv($$$)
   my $f4 = read_ec_part('4f', '', 1, 'kwart-finale KNVB-beker', $IN);
   my $f2 = read_ec_part('2f', '', 1, 'halve finale KNVB-beker', $IN);
   my $f = read_ec_part('f', '', 1, 'finale KNVB-beker', $IN);
+  my $f34 = read_ec_part('f34', '', 1, 'troost-finale KNVB-beker', $IN);
 
   my $opm = ReadOpm(yr2szn($year), 'beker_opm');
  
@@ -58,6 +59,7 @@ sub read_beker_csv($$$)
       quarterfinal => $f4,
       semifinal => $f2,
       final => $f,
+      u34 => $f34,
       beker_opm => $opm
     }
   };

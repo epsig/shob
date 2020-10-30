@@ -368,7 +368,7 @@ EOF
 EOF
  }
  elsif ($yr == 1997)
- {$dd = 20080210;
+ {$dd = 20201030;
   $europa_in = << 'EOF';
 <a href="sport_voetbal_europacup_1998_1999.html#CL">Champions League:</a> Ajax<br>
 <a href="sport_voetbal_europacup_1998_1999.html#vCL">Voorronde Champions League:</a> PSV<br>

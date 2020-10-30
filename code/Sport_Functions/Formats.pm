@@ -579,7 +579,8 @@ if (defined $knvb)
   my $acht_zestien = (defined $knvb->{round_of_16} ? '16' : 'acht');
   my $title = "KNVB Beker$sponsor: de laatste $acht_zestien";
   $out .= get_last16(
-  {u16 => $knvb->{round_of_16}, uk => $knvb->{quarterfinal}, uh => $knvb->{semifinal}, uf => $knvb->{final}, title => $title});
+  {u16 => $knvb->{round_of_16}, uk => $knvb->{quarterfinal}, uh => $knvb->{semifinal},
+   uf => $knvb->{final}, u34 =>$knvb->{u34}, title => $title});
  }
  if ($all_data and defined $knvb->{round2})
  {$out .= '<p>'. ftable('border', get_uitslag($knvb->{round2}, {opt_expand => 0}));
