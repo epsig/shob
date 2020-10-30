@@ -208,7 +208,12 @@ sub read_ec_part($$$$$)
         my @results = result2aabb($parts[4]);
         $aa = $results[0];
         $bb = $results[1];
-        if ($dimheader > 6 && $hdrParts[6] eq 'stadium')
+        if ($dimheader > 7 && $hdrParts[6] eq 'stadium' && $hdrParts[7] eq 'remark')
+        {
+          $stadium = $parts[6];
+          $opm = $parts[7];
+        }
+        elsif ($dimheader > 6 && $hdrParts[6] eq 'stadium')
         {
           $stadium = $parts[6];
         }
@@ -227,14 +232,31 @@ sub read_ec_part($$$$$)
         chomp($wns);
         push_or_extend(\@games, [$a,$b,[$dd,$aa,$bb],[$dd2,$aa2,$bb2],$wns], $isko);
       }
+      elsif (defined($opm) and defined($stadium) and $opm ne '' and $stadium ne '')
+      {
+        chomp($stadium);
+        if ($opm =~ /\{.*\}/)
+        {
+          my $test;
+          $opm =~ s/;/,/g ;
+          my $cmd = "\$test = $opm;";
+          eval($cmd);
+          $opm = $test;
+        }
+        else
+        {
+          $opm = {opm => $opm};
+        }
+        push_or_extend(\@games, [$a,$b,[$dd,$aa,$bb,$opm],$wns,$stadium], $isko);
+      }
       elsif (defined($stadium) and $stadium ne '')
       {
         chomp($stadium);
         push_or_extend(\@games, [$a,$b,[$dd,$aa,$bb],$wns,$stadium], $isko);
       }
-      elsif (defined($opm))
+      elsif (defined($opm) and $opm ne '')
       {
-        push_or_extend(\@games, [$a,$b,[$dd,$aa,$bb,opm=>$opm],$wns], $isko);
+        push_or_extend(\@games, [$a,$b,[$dd,$aa,$bb,{opm=>$opm}],$wns], $isko);
       }
       else
       {

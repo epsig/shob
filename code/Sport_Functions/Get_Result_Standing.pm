@@ -476,6 +476,7 @@ sub get_last16
    ftdr($ph1u2->{dd_acro}) . ftd({cols => 2}, $ph1u2->{affiche_link}) . ftdl($ph1u2->{u}) . "\n" .
    ftdr($ph1u1->{dd_acro}) . ftd({cols => 2}, $ph1u1->{affiche_link}) . ftdl($ph1u1->{u}) );
   if ($ph1u1->{opm} ne '') {$opm .= ftr(ftd({cols => 7}, $ph1u1->{opm}));}
+  if ($ph1u2->{opm} ne '') {$opm .= ftr(ftd({cols => 7}, $ph1u2->{opm}));}
  }
  elsif (defined($phu->{uf}[1]))
  {

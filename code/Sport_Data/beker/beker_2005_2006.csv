@@ -14,4 +14,4 @@ supercup,psv,ajx,20050805,1-2,2,Amsterdam (de Arena),
 4f,az1,mvv,20060131,4-0,1,,
 2f,ajx,rdj,20060322,4-1,3,,
 2f,psv,az1,20060322,2-0,3,,
-f,ajx,psv,20060507,2-1,1,Rotterdam (de Kuip), {arbiter => 'Vink'; publiek => 30770; rood_a  => ['Galasek'  64 '2x geel']; rood_b  => ['Lamey' 71 '2x geel']; trainer_a => 'Danny Blind'; trainer_b => 'Guus Hiddink'; chronological => [[48 1 0 'huntelaar'];[53 1 1  'Lamey'];['90+2' 2 1 'huntelaar'] ]}
+f,ajx,psv,20060507,2-1,1,Rotterdam (de Kuip), {arbiter => 'Vink'; publiek => 30770; rood_a  => ['Galasek'; 64; '2x geel']; rood_b  => ['Lamey'; 71; '2x geel']; trainer_a => 'Danny Blind'; trainer_b => 'Guus Hiddink'; chronological => [[48; 1; 0; 'huntelaar'];[53; 1; 1;  'Lamey'];['90+2'; 2; 1; 'huntelaar'] ]}

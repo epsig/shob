@@ -14,4 +14,4 @@ supercup,psv,fyn,20080823,2-0,1,Amsterdam (de Arena),
 4f,az1,nac,20090305,1-2,2,,
 2f,vol,hrv,20090422,0-2,2,,
 2f,twn,nac,20090421,3-1,1,,
-f,twn,hrv,20090517,2-2,6,Rotterdam (De Kuip),wnshort = 4-5
+f,twn,hrv,20090517,2-2,6,Rotterdam (De Kuip),{wnshort =>'4-5'}
