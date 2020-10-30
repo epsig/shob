@@ -223,6 +223,27 @@ sub read_ec_part($$$$$)
           $stadium = $parts[7];
         }
       }
+
+      if (defined $opm)
+      {
+        if ($opm =~ /\{.*\}/)
+        {
+          my $test;
+          $opm =~ s/;/,/g ;
+          my $cmd = "\$test = $opm;";
+          eval($cmd);
+          $opm = $test;
+        }
+        elsif ($opm ne '')
+        {
+          $opm = {opm => $opm};
+        }
+        else
+        {
+          $opm = undef;
+        }
+      }
+
       my $wns = $parts[5+$aabb];
       if (scalar @parts > 8+$aabb) {
         my $dd2 = $parts[6];
@@ -232,21 +253,9 @@ sub read_ec_part($$$$$)
         chomp($wns);
         push_or_extend(\@games, [$a,$b,[$dd,$aa,$bb],[$dd2,$aa2,$bb2],$wns], $isko);
       }
-      elsif (defined($opm) and defined($stadium) and $opm ne '' and $stadium ne '')
+      elsif (defined($opm) and defined($stadium) and $stadium ne '')
       {
         chomp($stadium);
-        if ($opm =~ /\{.*\}/)
-        {
-          my $test;
-          $opm =~ s/;/,/g ;
-          my $cmd = "\$test = $opm;";
-          eval($cmd);
-          $opm = $test;
-        }
-        else
-        {
-          $opm = {opm => $opm};
-        }
         push_or_extend(\@games, [$a,$b,[$dd,$aa,$bb,$opm],$wns,$stadium], $isko);
       }
       elsif (defined($stadium) and $stadium ne '')
@@ -254,9 +263,9 @@ sub read_ec_part($$$$$)
         chomp($stadium);
         push_or_extend(\@games, [$a,$b,[$dd,$aa,$bb],$wns,$stadium], $isko);
       }
-      elsif (defined($opm) and $opm ne '')
+      elsif (defined($opm))
       {
-        push_or_extend(\@games, [$a,$b,[$dd,$aa,$bb,{opm=>$opm}],$wns], $isko);
+        push_or_extend(\@games, [$a,$b,[$dd,$aa,$bb,$opm],$wns], $isko);
       }
       else
       {

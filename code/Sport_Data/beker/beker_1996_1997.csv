@@ -1,16 +1,16 @@
-# empty header
-8f,zwl,vol,19970207,2,1,1
-8f,grf,rdj,19970219,0,2,1
-8f,psv,az1,19970212,2,3,2
-8f,wl2,grn,19970212,2,0,1
-8f,hrv,nec,19970208,2,0,1
-8f,fyn,rkc,19970209,1,0,1
-8f,hrc,hlm,19970208,2,4,2
-8f,twn,vit,19970208,0,0,6 # 3-5
-4f,zwl,rdj,19970311,0,5,2
-4f,az1,wl2,19970312,0,2,2
-4f,hrv,fyn,19970312,2,1,1
-4f,hlm,vit,19970312,2,1,1
-2f,rdj,wl2,19970416,1,0,1
-2f,hrv,hlm,19970417,5,0,1
-f,rdj,hrv,19970508,4,2,1,,Rotterdam (De Kuip)
+phase,team1,team2,dd,result,star,stadium,remark
+8f,zwl,vol,19970207,2-1,1,,
+8f,grf,rdj,19970219,0-2,1,,
+8f,psv,az1,19970212,2-3,2,,
+8f,wl2,grn,19970212,2-0,1,,
+8f,hrv,nec,19970208,2-0,1,,
+8f,fyn,rkc,19970209,1-0,1,,
+8f,hrc,hlm,19970208,2-4,2,,
+8f,twn,vit,19970208,0-0,6,,{wnshort =>'3-5'}
+4f,zwl,rdj,19970311,0-5,2,,
+4f,az1,wl2,19970312,0-2,2,,
+4f,hrv,fyn,19970312,2-1,1,,
+4f,hlm,vit,19970312,2-1,1,,
+2f,rdj,wl2,19970416,1-0,1,,
+2f,hrv,hlm,19970417,5-0,1,,
+f,rdj,hrv,19970508,4-2,1,Rotterdam (De Kuip),

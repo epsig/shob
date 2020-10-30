@@ -1,8 +1,8 @@
-# empty header
-4f,hrv,nac,19950224,3,2,3
-4f,ajx,fyn,19950308,1,2,4
-4f,hrc,vol,19950225,0,1,2
-4f,aj2,utr,19950308,1,2,2,,Utrecht
-2f,hrv,fyn,19950322,0,1,2
-2f,utr,vol,19950322,0,1,2
-f,fyn,vol,19950525,2,1,1,,Rotterdam (De Kuip)
+phase,team1,team2,dd,result,star,stadium
+4f,hrv,nac,19950224,3-2,3,
+4f,ajx,fyn,19950308,1-2,4,
+4f,hrc,vol,19950225,0-1,2,
+4f,aj2,utr,19950308,1-2,2,Utrecht
+2f,hrv,fyn,19950322,0-1,2,
+2f,utr,vol,19950322,0-1,2,
+f,fyn,vol,19950525,2-1,1,Rotterdam (De Kuip)

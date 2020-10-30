@@ -1,8 +1,8 @@
-# empty header
-4f,spr,cmb,19960229,1,0,1
-4f,mvv,fyn,19960229,1,2,2
-4f,twn,psv,19960229,1,3,2
-4f,vvv,rdj,19960229,0,2,2
-2f,spr,fyn,19960407,1,0,3
-2f,psv,rdj,19960503,3,1,1
-f,psv,spr,19960516,5,2,1,,Rotterdam (De Kuip)
+phase,team1,team2,dd,result,star,stadium
+4f,spr,cmb,19960229,1-0,1,
+4f,mvv,fyn,19960229,1-2,2,
+4f,twn,psv,19960229,1-3,2,
+4f,vvv,rdj,19960229,0-2,2,
+2f,spr,fyn,19960407,1-0,3,
+2f,psv,rdj,19960503,3-1,1,
+f,psv,spr,19960516,5-2,1,Rotterdam (De Kuip)
