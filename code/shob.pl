@@ -33,6 +33,8 @@ use strict; use warnings;
 =cut
 
 use Time::HiRes qw(gettimeofday);
+use File::Spec;
+use Pod::Usage;
 use Shob_Tools::Html_Stuff;
 use Shob_Tools::Settings;
 use Shob_Tools::General;
@@ -403,9 +405,8 @@ sub shob_main_loop()
     }
     if ($command =~ m/-he/iso)
     {
-      #print_help_page();
-      system('perldoc', 'shob.pl');
-      exit 0;
+      pod2usage(-verbose => 2, -exitval => 0);
+      exit;
     }
     elsif ($command =~ m/-hi/iso)
     {
@@ -417,9 +418,8 @@ sub shob_main_loop()
     elsif ($command =~ m/-h/iso)
     {
       print "-h is ambitious; use -help or -his:\n\n";
-      #print_help_page();
-      system('perldoc', 'shob.pl');
-      exit 0;
+      pod2usage(-verbose => 2, -exitval => 0);
+      exit;
     }
     elsif ($command =~ m/-c/iso)
     {
