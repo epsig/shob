@@ -2404,8 +2404,8 @@ quarterfinal => [['kwart finale E-L', 'k-o'],
 ['ESvlr','CZspr',[20160407,2,1],[20160414,2,4],1],
 ['DEbdm','G1lvp',[20160407,1,1],[20160414,4,3],2] ],
 semifinal => [['halve finale E-L', 'k-o'],
-['UAsdk','ESsvl',[20160428,2,2],[20160505],-1],
-['ESvlr','G1lvp',[20160428,1,0],[20160505],-1] ],
+['UAsdk','ESsvl',[20160428,2,2],[20160505,3,1],2],
+['ESvlr','G1lvp',[20160428,1,0],[20160505,3,0],2] ],
 final => [['finale E-L', 'k-o'],
 ['G1lvp','ESsvl',[20160518,1,3],2,'Basel'] ]
 }};
@@ -2445,6 +2445,7 @@ sub init_ec
     my $csv = "europacup_$szn.csv";
     $csv =~ s/-/_/;
     $u_ec->{$szn} = read_ec_csv($csv, $szn);
+    # liever: git log -1 --pretty="format:%ci" <file>
     $u_ec->{$szn}->{extra}->{dd} = laatste_speeldatum_ec($szn);
   }
   $u_ec->{lastyear} = '2020-2021';

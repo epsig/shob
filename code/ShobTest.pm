@@ -91,7 +91,7 @@ sub test_something()
 
   initTestCode();
 
-  foreach my $yr (2016 .. 2016)
+  foreach my $yr (2015 .. 2015)
   {
     my $szn = yr2szn($yr);
     my $outfile  = "Sport_Data/europacup/europacup_$szn.csv";
