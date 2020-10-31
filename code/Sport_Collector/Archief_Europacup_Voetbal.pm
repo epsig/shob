@@ -32,10 +32,11 @@ $VERSION = '18.1';
  '&set_laatste_speeldatum_ec',
  '&get_ec_webpage',
  '&init_ec',
+ '$u_ec',
  #========================================================================
 );
 
-my $u_ec;
+our $u_ec;
 
 #
 $u_ec->{'1994-1995'} = {
@@ -2412,7 +2413,7 @@ final => [['finale E-L', 'k-o'],
 $u_ec->{'2016-2017'} = {
 extra => {
 dd => 20170820,
-supercup => [['Europese Supercup'],['ESrmd','ESsvl',[20160809,3,2],3,',Trondheim']]
+supercup => [['Europese Supercup'],['ESrmd','ESsvl',[20160809,3,2],3,'Trondheim']]
 },
 CL => {
 qfr_3 => [ ['3e voorronde Champions League'],

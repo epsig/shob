@@ -52,6 +52,7 @@ use Sport_Collector::OS_Funcs;
 use Sport_Collector::Archief_EK_WK_Voetbal;
 use Sport_Collector::Stats_Eredivisie;
 use Sport_Collector::Bookmarks_Index;
+use ShobTest;
 
 my $withAdresses = ( -f File::Spec->catfile('Admin', 'Adressen_data2html.pm') );
 
@@ -361,11 +362,6 @@ sub sport_init()
   set_laatste_speeldatum_ekwk();
   set_laatste_speeldatum_oefenduels();
   set_laatste_datum_statfiles();
-}
-
-sub test_something()
-{
-  print "place holder for tmp/test function.\n";
 }
 
 sub shob_main_loop()
