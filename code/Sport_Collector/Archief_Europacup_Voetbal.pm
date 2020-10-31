@@ -2543,7 +2543,7 @@ sub init_ec
     my $szn = yr2szn($yr);
     my $csv = "europacup_$szn.csv";
     $csv =~ s/-/_/;
-    $u_ec->{$szn} = read_ec_csv($csv);
+    $u_ec->{$szn} = read_ec_csv($csv, $szn);
     $u_ec->{$szn}->{extra}->{dd} = laatste_speeldatum_ec($szn);
   }
   $u_ec->{lastyear} = '2020-2021';

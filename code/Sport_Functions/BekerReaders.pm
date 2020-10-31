@@ -47,7 +47,7 @@ sub read_beker_csv($$$)
   my $f = read_ec_part('f', '', 1, 'finale KNVB-beker', $IN);
   my $f34 = read_ec_part('f34', '', 1, 'troost-finale KNVB-beker', $IN);
 
-  my $opm = ReadOpm(yr2szn($year), 'beker_opm');
+  my $opm = ReadOpm(yr2szn($year), 'beker_opm', 'NL');
  
   close($IN);
 

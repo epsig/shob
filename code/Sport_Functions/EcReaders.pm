@@ -32,9 +32,10 @@ $VERSION = '20.0';
 our $IN;
 my $subdir = 'europacup';
 
-sub read_ec_csv($)
+sub read_ec_csv($$)
 {
   my $filein = shift;
+  my $szn    = shift;
 
   my $fileWithPath = File::Spec->catfile($csv_dir, $subdir, $filein);
 
@@ -72,8 +73,14 @@ sub read_ec_csv($)
     }
   };
 
-  my $summary = read_ec_summary('NL', $IN);
-  if ($summary ne '') {$ec->{extra}->{summary} = $summary;}
+  my $summaryNL = ReadOpm($szn, 'summary_NL', 'EC');
+  my $summaryUK = ReadOpm($szn, 'summary_UK', 'EC');
+
+  if ($summaryNL ne '' or $summaryUK ne '')
+  {
+    $ec->{extra}->{summary} = $summaryNL;
+    $ec->{extra}->{summaryUK} = $summaryUK;
+  }
 
   foreach my $l ('A'..'H')
   {
@@ -323,28 +330,6 @@ sub push_or_extend($$$)
   }
 
   push @$games, $result;
-}
-
-sub read_ec_summary($$)
-{
-  my $lang = shift;
-  my $IN   = shift;
-
-  my $retval = '';
-
-  seek($IN, 0, 0);
-  while (my $line = <$IN>)
-  {
-    $line =~ s/ *#.*//;
-    if ($line eq '') {next;}
-
-    my @parts = split /,/, $line;
-    if ($parts[0] eq 'summary' and $parts[1] eq $lang)
-    {
-      $retval .= $parts[2];
-    }
-  }
-  return $retval;
 }
 
 return 1;

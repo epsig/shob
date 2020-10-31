@@ -97,12 +97,21 @@ sub read_csv_file_szn($$)
  return (\@content_szn);
 }
 
-sub ReadOpm($$)
+sub ReadOpm($$$)
 {
   my $seizoen = shift;
   my $key     = shift;
+  my $type    = shift;
 
-  my $fullname = File::Spec->catdir($csv_dir, 'eredivisie', 'eredivisie_u2s.csv');
+  my $fullname;
+  if ($type eq 'NL')
+  {
+    $fullname = File::Spec->catdir($csv_dir, 'eredivisie', 'eredivisie_u2s.csv');
+  }
+  else
+  {
+    $fullname = File::Spec->catdir($csv_dir, 'europacup', 'europacup_remarks.csv');
+  }
 
   my $content = read_csv_file_szn($fullname, $seizoen);
   my $a = '';
