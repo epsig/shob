@@ -61,22 +61,28 @@ sub u2csv($$$)
   if (not defined $stadium) {$stadium = '';}
   my $result1 = $a1[1] . '-' . $a1[2];
 
+  my $opm = '';
+  if (defined($a1[3]) && ref $a1[3] eq 'HASH')
+  {
+    $opm = $a1[3]->{opm};
+  }
+
   if (defined($a2) && ref $a2 eq 'ARRAY')
   {
-    print OUT join(',', $shortLeague, $shortRound, $u[0], $u[1], $a1[0], $result1, -1, $stadium) , "\n";
+    print OUT join(',', $shortLeague, $shortRound, $u[0], $u[1], $a1[0], $result1, -1, $stadium, $opm) , "\n";
     my @a2 = @$a2;
     my $result2 = $a2[1] . '-' . $a2[2];
-    print OUT join(',', $shortLeague, $shortRound, $u[1], $u[0], $a2[0], $result2, $wns, $stadium) , "\n";
+    print OUT join(',', $shortLeague, $shortRound, $u[1], $u[0], $a2[0], $result2, $wns, $stadium, $opm) , "\n";
   }
   elsif (defined($a2))
   {
     $wns = $a2;
     $stadium = $u[4];
-    print OUT join(',', $shortLeague, $shortRound, $u[0], $u[1], $a1[0], $result1, $wns, $stadium) , "\n";
+    print OUT join(',', $shortLeague, $shortRound, $u[0], $u[1], $a1[0], $result1, $wns, $stadium, $opm) , "\n";
   }
   else
   {
-    print OUT join(',', $shortLeague, $shortRound, $u[0], $u[1], $a1[0], $result1, $wns, $stadium) , "\n";
+    print OUT join(',', $shortLeague, $shortRound, $u[0], $u[1], $a1[0], $result1, $wns, $stadium, $opm) , "\n";
   }
 }
 
@@ -91,14 +97,14 @@ sub test_something()
 
   initTestCode();
 
-  foreach my $yr (2015 .. 2015)
+  foreach my $yr (2014 .. 2014)
   {
     my $szn = yr2szn($yr);
     my $outfile  = "Sport_Data/europacup/europacup_$szn.csv";
        $outfile =~ s/-/_/;
 
     open (OUT, "> $outfile ") or die "can't open $outfile: $!.\n";
-    print OUT "league,round,team1,team2,dd,result,star,stadium\n";
+    print OUT "league,round,team1,team2,dd,result,star,stadium,remark\n";
 
     my $uCur = $u_ec->{$szn};
     foreach my $league (@Leagues)
