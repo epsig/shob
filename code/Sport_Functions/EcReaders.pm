@@ -183,9 +183,9 @@ sub read_ec_part($$$$$)
         push @games, [$a,$b,[$dd1,$aa1,$bb1],[$dd2,$aa2,$bb2],$wns];
         if ($aa2 >= 0) {$total++;}
       }
-      elsif (defined($aa2))
+      elsif (defined($aa2) && $aa2 ne '')
       {
-        chomp($aa2);
+        chomp($aa2); #TODO kan weg ?
         push_or_extend(\@games, [$a,$b,[$dd1,$aa1,$bb1],$dd2,$aa2], $isko);
       }
       elsif (defined($dd2) && $dd2 ne '')

@@ -365,44 +365,7 @@ sub sport_init()
 
 sub test_something()
 {
-  use Sport_Functions::Overig;
-
-  foreach my $yr (2017 .. 2019)
-  {
-    my $szn = yr2szn($yr);
-       $szn =~ s/-/_/;
-    my $filenameOld = "Sport_Data/europacup/europacup_${szn}.csv";
-    my $filenameNew = "Sport_Data/europacup/europacup_${szn}_new.csv";
-  
-    open(IN, " < $filenameOld ") or die "can't open file $filenameOld: $!\n";
-    open(OUT, " > $filenameNew ") or die "can't open file $filenameNew: $!\n";
-  
-    while (my $line = <IN>)
-    {
-      chomp($line);
-      my @parts = split(',', $line);
-      if (scalar @parts >= 8)
-      {
-        my $dd1 = $parts[4];
-        my $dd2 = $parts[7];
-        if ($dd1 =~ m/\d{8}/ and $dd2 =~ m/\d{8}/)
-        {
-          my $line1 = join(',', @parts[0,1,2,3,4,5,6]);
-          $line1 .= ",-1,";
-          my $line2 = join(',', @parts[0,1,3,2,7,8,9,10]);
-          $line2 .= ",";
-          print OUT "$line1\n";
-          print OUT "$line2\n";
-          next;
-        }
-      }
-      print OUT "$line\n";
-    }
-  
-    close(IN);
-    close(OUT) or die "can't close file $filenameNew: $!\n";
-
-  }
+  print "place holder for tmp/test function.\n";
 }
 
 sub shob_main_loop()
