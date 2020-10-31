@@ -2410,106 +2410,6 @@ final => [['finale E-L', 'k-o'],
 ['G1lvp','ESsvl',[20160518,1,3],2,'Basel'] ]
 }};
 
-$u_ec->{'2016-2017'} = {
-extra => {
-dd => 20170820,
-supercup => [['Europese Supercup'],['ESrmd','ESsvl',[20160809,3,2],3,'Trondheim']]
-},
-CL => {
-qfr_3 => [ ['3e voorronde Champions League'],
-['NLajx','GRpks',[20160726,1,1],[20160803,1,2],1]],
-playoffs => [ ['Play-offs CL'],
-['NLajx','RUros',[20160816,1,1],[20160824,4,1],2]],
-groupD => [ ['', [1, 5, 'Groepsfase CL, groep D', 2]],
-['NLpsv','ESamd',[20160913,0,1]],
-['DEbmn','RUros',[20160913,5,0]],
-['ESamd','DEbmn',[20160928,1,0]],
-['RUros','NLpsv',[20160928,2,2]],
-['DEbmn','NLpsv',[20161019,4,1]],
-['RUros','ESamd',[20161019,0,1]],
-['NLpsv','DEbmn',[20161101,1,2]],
-['ESamd','RUros',[20161101,2,1]],
-['RUros','DEbmn',[20161123,3,2]],
-['ESamd','NLpsv',[20161123,2,0]],
-['NLpsv','RUros',[20161206,0,0]],
-['DEbmn','ESamd',[20161206,1,0]],
-],
-quarterfinal => [['kwart finale C-L', 'k-o'],
-['ITjuv','ESbcl',[20170411,3,0],[20170419,0,0],1],
-['DEbdm','FRmnc',[20170412,2,3],[20170419,3,1],2],
-['DEbmn','ESrmd',[20170412,1,2],[20170418,4,2],2],
-['ESamd','G1lcc',[20170412,1,0],[20170418,1,1],1] ],
-semifinal => [['halve finale C-L', 'k-o'],
-['FRmnc','ITjuv',[20170503,0,2],[20170509,2,1],2],
-['ESrmd','ESamd',[20170502,3,0],[20170510,2,1],1], ],
-final => [['finale C-L', 'k-o'],
-['ITjuv','ESrmd',[20170603,1,4],2,'Cardiff']]
-},
-EuropaL => {
-qfr_3 => [['3e voorronde Europa League'],
-['NLhrc','PTarc',[20160728,1,1],[20160804,0,0],2],
-['NLaz1','GRpsg',[20160728,1,0],[20160804,1,2],1]],
-playoffs => [ ['Play-offs E-L'],
-['RSvns','NLaz1',[20160818,0,3],[20160825,0,0],2]],
-groupA => [ ['', [1, 5, 'Groepsfase EL, groep A', 1]],
-['NLfyn','G1mnu',[20160915,1,0]],
-['UAzlg','TRfen',[20160915,1,1]],
-['TRfen','NLfyn',[20160929,1,0]],
-['G1mnu','UAzlg',[20160929,1,0]],
-['NLfyn','UAzlg',[20161020,1,0]],
-['G1mnu','TRfen',[20161020,4,1]],
-['TRfen','G1mnu',[20161103,2,1]],
-['UAzlg','NLfyn',[20161103,1,1]],
-['TRfen','UAzlg',[20161124,2,0]],
-['G1mnu','NLfyn',[20161124,4,0]],
-['UAzlg','G1mnu',[20161208,0,2]],
-['NLfyn','TRfen',[20161208,0,1]],
-],
-groupD => [ ['', [1, 5, 'Groepsfase EL, groep D', 1]],
-['NLaz1','IEdnd',[20160915,1,1]],
-['ILmta','RUzsp',[20160915,3,4]],
-['IEdnd','ILmta',[20160929,1,0]],
-['RUzsp','NLaz1',[20160929,5,0]],
-['NLaz1','ILmta',[20161020,1,2]],
-['IEdnd','RUzsp',[20161020,1,2]],
-['ILmta','NLaz1',[20161103,0,0]],
-['RUzsp','IEdnd',[20161103,2,1]],
-['RUzsp','ILmta',[20161124,2,0]],
-['IEdnd','NLaz1',[20161124,0,1]],
-['ILmta','IEdnd',[20161208,2,1]],
-['NLaz1','RUzsp',[20161208,3,2]],
-],
-groupG => [ ['', [1, 5, 'Groepsfase EL, groep G', 1]],
-['BEslk','EScdv',[20160915,1,1]],
-['GRpnt','NLajx',[20160915,1,2]],
-['NLajx','BEslk',[20160929,1,0]],
-['EScdv','GRpnt',[20160929,2,0]],
-['BEslk','GRpnt',[20161020,2,2]],
-['EScdv','NLajx',[20161020,2,2]],
-['NLajx','EScdv',[20161103,3,2]],
-['GRpnt','BEslk',[20161103,0,3]],
-['NLajx','GRpnt',[20161124,2,0]],
-['EScdv','BEslk',[20161124,1,1]],
-['GRpnt','EScdv',[20161208,0,2]],
-['BEslk','NLajx',[20161208,1,1]],
-],
-round2 => [ ['Tweede ronde Europa League'],
-['NLaz1','FRoly',[20170216,1,4],[20170223,7,1],2],
-['PLlgw','NLajx',[20170216,0,0],[20170223,1,0],2] ],
-round_of_16 => [ ['Derde ronde Europa League'],
-['DKfkp','NLajx',[20170309,2,1],[20170316,2,0],2] ],
-quarterfinal => [['kwart finale E-L', 'k-o'],
-['NLajx','DEs04',[20170413,2,0],[20170420,3,2],3],
-['FRoly','TRbsk',[20170413,2,1],[20170420,2,1],5],
-['EScdv','BErgk',[20170413,3,2],[20170420,1,1],1],
-['BEand','G1mnu',[20170413,0,1],[20170420,2,1],4] ],
-semifinal => [['halve finale E-L', 'k-o'],
-['NLajx','FRoly',[20170503,4,1],[20170511,3,1],1],
-['EScdv','G1mnu',[20170504,0,1],[20170511,1,1],2], ],
-final => [['finale EL', 'k-o'],
-['NLajx','G1mnu',[20170524,0,2],2,'Stockholm'] ]
-}};
-
 sub get_ec_webpage($)
 {# (c) Edwin Spee
 
@@ -2539,7 +2439,7 @@ sub laatste_speeldatum_ec($)
 sub init_ec
 { #(c) Edwin Spee
 
-  for (my $yr = 2017; $yr <= 2020; $yr++)
+  for (my $yr = 2016; $yr <= 2020; $yr++)
   {
     my $szn = yr2szn($yr);
     my $csv = "europacup_$szn.csv";

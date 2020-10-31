@@ -27,7 +27,8 @@ sub initTestCode()
 {
   $shortNames{'qfr_3'} = 'v3';
   $shortNames{'playoffs'} = 'po';
-  $shortNames{'round_of_16'} = '16f';
+  $shortNames{'round2'} = '16f';
+  $shortNames{'round_of_16'} = '8f';
   $shortNames{'quarterfinal'} = '4f';
   $shortNames{'semifinal'} = '2f';
   $shortNames{'final'} = 'f';  
@@ -86,7 +87,7 @@ sub test_something()
   # print "place holder for tmp/test function.\n";
 
   my @Leagues = ('extra', 'CL', 'EuropaL');
-  my @rounds = ('supercup', 'v2', 'qfr_3', 'playoffs', ('groupA'..'groupL'), 'round_of_16', 'quarterfinal', 'semifinal', 'final');
+  my @rounds = ('supercup', 'v2', 'qfr_3', 'playoffs', ('groupA'..'groupL'), 'round2', 'round_of_16', 'quarterfinal', 'semifinal', 'final');
 
   initTestCode();
 
