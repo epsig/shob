@@ -119,7 +119,6 @@ sub read_ec_part($$$$$)
   } else {
     $games[0] = [$title];
   }
-  my $aabb = 1;
   my $total = 0;
   my $dimheader;
   my @hdrParts;
@@ -129,17 +128,12 @@ sub read_ec_part($$$$$)
   if ($header =~ m/,dd,/)
   {
     chomp($header);
-    if ($header =~ m/,result,/)
-    {
-      $aabb = 0;
-    }
     @hdrParts = split(/,/, $header, -1);
     $dimheader = scalar @hdrParts;
   }
   else
   {
-    # start again at first line
-    seek($IN, 0, 0);
+    die("Found old style header: $header\n");
   }
 
   while(my $line = <$IN>)
@@ -161,31 +155,14 @@ sub read_ec_part($$$$$)
       my $a  = $parts[2];
       my $b  = $parts[3];
       my $dd1 = $parts[4];
-      my $aa1; my $bb1;
-      if ($aabb)
-      {
-        $aa1 = $parts[5];
-        $bb1 = $parts[6];
-      }
-      else
-      {
-        my @results = result2aabb($parts[5]);
-        $aa1 = $results[0];
-        $bb1 = $results[1];
-      }
-      my $dd2 = $parts[6+$aabb];
-      my $aa2 = $parts[7+$aabb];
-      my $bb2 = $parts[8+$aabb];
-      my $wns = $parts[9+$aabb];
+      my @results = result2aabb($parts[5]);
+      my $aa1 = $results[0];
+      my $bb1 = $results[1];
+      my $dd2 = $parts[6];
+      my $aa2 = $parts[7];
       if ($aa1 >= 0) {$total++;}
-      if (defined($wns))
+      if (defined($aa2) && $aa2 ne '')
       {
-        push @games, [$a,$b,[$dd1,$aa1,$bb1],[$dd2,$aa2,$bb2],$wns];
-        if ($aa2 >= 0) {$total++;}
-      }
-      elsif (defined($aa2) && $aa2 ne '')
-      {
-        chomp($aa2); #TODO kan weg ?
         push_or_extend(\@games, [$a,$b,[$dd1,$aa1,$bb1],$dd2,$aa2], $isko);
       }
       elsif (defined($dd2) && $dd2 ne '')
@@ -203,32 +180,22 @@ sub read_ec_part($$$$$)
       my $b  = $parts[2];
       my $dd = $parts[3];
       my ($aa, $bb, $opm, $stadium);
-      if ($aabb)
+      my @results = result2aabb($parts[4]);
+      $aa = $results[0];
+      $bb = $results[1];
+      if ($dimheader > 7 && $hdrParts[6] eq 'stadium' && $hdrParts[7] eq 'remark')
       {
-        $aa = $parts[4];
-        $bb = $parts[5];
+        $stadium = $parts[6];
         $opm = $parts[7];
-        $stadium = $parts[8];
+      }
+      elsif ($dimheader > 6 && $hdrParts[6] eq 'stadium')
+      {
+        $stadium = $parts[6];
       }
       else
       {
-        my @results = result2aabb($parts[4]);
-        $aa = $results[0];
-        $bb = $results[1];
-        if ($dimheader > 7 && $hdrParts[6] eq 'stadium' && $hdrParts[7] eq 'remark')
-        {
-          $stadium = $parts[6];
-          $opm = $parts[7];
-        }
-        elsif ($dimheader > 6 && $hdrParts[6] eq 'stadium')
-        {
-          $stadium = $parts[6];
-        }
-        else
-        {
-          $opm = $parts[6];
-          $stadium = $parts[7];
-        }
+        $opm = $parts[6];
+        $stadium = $parts[7];
       }
 
       if (defined $opm)
@@ -247,20 +214,12 @@ sub read_ec_part($$$$$)
         }
         else
         {
-          $opm = undef;
+          undef $opm;
         }
       }
 
-      my $wns = $parts[5+$aabb];
-      if (scalar @parts > 8+$aabb) {
-        my $dd2 = $parts[6];
-        my $aa2 = $parts[7];
-        my $bb2 = $parts[8];
-        my $wns = $parts[9];
-        chomp($wns);
-        push_or_extend(\@games, [$a,$b,[$dd,$aa,$bb],[$dd2,$aa2,$bb2],$wns], $isko);
-      }
-      elsif (defined($opm) and defined($stadium) and $stadium ne '')
+      my $wns = $parts[5];
+      if (defined($opm) and defined($stadium) and $stadium ne '')
       {
         chomp($stadium);
         push_or_extend(\@games, [$a,$b,[$dd,$aa,$bb,$opm],$wns,$stadium], $isko);
