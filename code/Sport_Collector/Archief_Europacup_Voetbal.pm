@@ -2308,108 +2308,6 @@ final => [['finale'],
 ['UAdjn','ESsvl',[20150527,2,3],2,'Warschau'] ]
 }};
 
-$u_ec->{'2015-2016'} = {
-extra => {
-dd => 20160814,
-supercup => [['Europese Supercup'],['ESbcl','ESsvl',[20150811,5,4],3,'Tbilisi']]
-},
-CL => {
-qfr_3 => [ ['3e voorronde Champions League'],
-['ATrwn','NLajx',[20150729,2,2],[20150804,2,3],1]],
-groupB => [ ['', [1, 5, 'Groep B Champions League', 2]],
-['NLpsv','G1mnu',[20150915,2,1]],
-['DEvwl','RUcmk',[20150915,1,0]],
-['RUcmk','NLpsv',[20150929,3,2]],
-['G1mnu','DEvwl',[20150929,2,1]],
-['DEvwl','NLpsv',[20151021,2,0]],
-['RUcmk','G1mnu',[20151021,1,1]],
-['NLpsv','DEvwl',[20151103,2,0]],
-['G1mnu','RUcmk',[20151103,1,0]],
-['G1mnu','NLpsv',[20151125,0,0]],
-['RUcmk','DEvwl',[20151125,0,2]],
-['NLpsv','RUcmk',[20151208,2,1]],
-['DEvwl','G1mnu',[20151208,3,2]],
-],
-round_of_16 => [['8-ste finale C-L', 'k-o'],
-['BEaag','DEvwl',[20160217,2,3],[20160308,1,0],2],
-['ITasr','ESrmd',[20160217,0,2],[20160308,2,0],2],
-['FRpsg','G1cls',[20160216,2,1],[20160309,1,2],1],
-['G1ars','ESbcl',[20160223,0,2],[20160316,3,1],2],
-['ITjuv','DEbmn',[20160223,2,2],[20160316,4,2],2],
-['NLpsv','ESamd',[20160224,0,0],[20160315,0,0],6],
-['PTbnf','RUzsp',[20160216,1,0],[20160309,1,2],1],
-['UAdkv','G1mnc',[20160224,1,3],[20160315,0,0],2] ],
-quarterfinal => [['kwart finale C-L', 'k-o'],
-['FRpsg','G1mnc',[20160406,2,2],[20160412,1,0],2],
-['DEvwl','ESrmd',[20160406,2,0],[20160412,3,0],2],
-['ESbcl','ESamd',[20160405,2,1],[20160413,2,0],2],
-['DEbmn','PTbnf',[20160405,1,0],[20160413,2,2],1] ],
-semifinal => [['halve final C-L', 'k-o'],
-['G1mnc','ESrmd',[20160426,0,0],[20160504,1,0],2],
-['ESamd','DEbmn',[20160427,1,0],[20160503,2,1],1] ],
-final => [['finale C-L', 'k-o'],
-['ESrmd','ESamd',[20160528,1,1],5,'Milaan'] ]
-},
-EuropaL => {
-qfr_3 => [['3e voorronde Europa League'],
-['NLaz1','TRbkh',[20150730,2,0],[20150806,1,2],1],
-['G1sth','NLvit',[20150730,3,0],[20150806,0,2],1]],
-playoffs => [ ['Play-offs (4e voorronde) EL'],
-['NLajx','CZjbl',[20150820,1,0],[20150827,0,0],1],
-['ROast','NLaz1',[20150820,3,2],[20150827,2,0],2]],
-groupA => [ ['', [1, 5, 'Groepsfase EL, groep A', 1]],
-['NLajx','G2clt',[20150917,2,2]],
-['TRfen','NOmld',[20150917,1,3]],
-['NOmld','NLajx',[20151001,1,1]],
-['G2clt','TRfen',[20151001,2,2]],
-['TRfen','NLajx',[20151022,1,0]],
-['NOmld','G2clt',[20151022,3,1]],
-['NLajx','TRfen',[20151105,0,0]],
-['G2clt','NOmld',[20151105,1,2]],
-['G2clt','NLajx',[20151126,1,2]],
-['NOmld','TRfen',[20151126,0,2]],
-['NLajx','NOmld',[20151210,1,1]],
-['TRfen','G2clt',[20151210,1,1]],
-],
-groupF => [ ['', [1, 5, 'Groepsfase EL, groep F', 1]],
-['NLgrn','FRomr',[20150917,0,3]],
-['CZsll','PTbrg',[20150917,0,1]],
-['PTbrg','NLgrn',[20151001,1,0]],
-['FRomr','CZsll',[20151001,0,1]],
-['CZsll','NLgrn',[20151022,1,1]],
-['PTbrg','FRomr',[20151022,3,2]],
-['NLgrn','CZsll',[20151105,0,1]],
-['FRomr','PTbrg',[20151105,1,0]],
-['FRomr','NLgrn',[20151126,2,1]],
-['PTbrg','CZsll',[20151126,2,1]],
-['NLgrn','PTbrg',[20151210,0,0]],
-['CZsll','FRomr',[20151210,2,4]]
-],
-groupL => [ ['', [1, 5, 'Groepsfase EL, groep L', 1]],
-['ESbil','DEabg',[20150917,3,2]],
-['RSpbg','NLaz1',[20150917,3,2]],
-['NLaz1','ESbil',[20151001,2,1]],
-['DEabg','RSpbg',[20151001,1,3]],
-['NLaz1','DEabg',[20151022,0,1]],
-['RSpbg','ESbil',[20151022,0,2]],
-['ESbil','RSpbg',[20151105,5,1]],
-['DEabg','NLaz1',[20151105,4,1]],
-['NLaz1','RSpbg',[20151126,1,2]],
-['DEabg','ESbil',[20151126,2,3]],
-['ESbil','NLaz1',[20151210,2,2]],
-['RSpbg','DEabg',[20151210,1,3]] ],
-quarterfinal => [['kwart finale E-L', 'k-o'],
-['PTbrg','UAsdk',[20160407,1,2],[20160414,4,0],2],
-['ESbil','ESsvl',[20160407,1,2],[20160414,1,2],6],
-['ESvlr','CZspr',[20160407,2,1],[20160414,2,4],1],
-['DEbdm','G1lvp',[20160407,1,1],[20160414,4,3],2] ],
-semifinal => [['halve finale E-L', 'k-o'],
-['UAsdk','ESsvl',[20160428,2,2],[20160505,3,1],2],
-['ESvlr','G1lvp',[20160428,1,0],[20160505,3,0],2] ],
-final => [['finale E-L', 'k-o'],
-['G1lvp','ESsvl',[20160518,1,3],2,'Basel'] ]
-}};
-
 sub get_ec_webpage($)
 {# (c) Edwin Spee
 
@@ -2439,14 +2337,14 @@ sub laatste_speeldatum_ec($)
 sub init_ec
 { #(c) Edwin Spee
 
-  for (my $yr = 2016; $yr <= 2020; $yr++)
+  for (my $yr = 2015; $yr <= 2020; $yr++)
   {
     my $szn = yr2szn($yr);
     my $csv = "europacup_$szn.csv";
     $csv =~ s/-/_/;
     $u_ec->{$szn} = read_ec_csv($csv, $szn);
-    # liever: git log -1 --pretty="format:%ci" <file>
-    $u_ec->{$szn}->{extra}->{dd} = laatste_speeldatum_ec($szn);
+    $u_ec->{$szn}->{extra}->{dd} =
+      max(laatste_speeldatum_ec($szn), $u_ec->{$szn}->{extra}->{dd});
   }
   $u_ec->{lastyear} = '2020-2021';
 }

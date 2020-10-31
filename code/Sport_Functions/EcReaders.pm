@@ -39,6 +39,10 @@ sub read_ec_csv($$)
 
   my $fileWithPath = File::Spec->catfile($csv_dir, $subdir, $filein);
 
+  my $dateTimeLog = qx/git log -1 --pretty="format:%ci" $fileWithPath/;
+  my $date = substr($dateTimeLog, 0, 10);
+     $date =~ s/-//g;
+
   open ($IN, "< $fileWithPath") or die "can't open $$fileWithPath: $!\n";
 
   my $sc = read_ec_part('supercup', '', 1, 'Europese Supercup', $IN);
@@ -51,7 +55,10 @@ sub read_ec_csv($$)
   my $el_po = read_ec_part('EL', 'po', 1, 'play offs Europa League', $IN);
 
   my $ec = {
-    extra => { supercup => $sc },
+    extra => {
+       dd => $date,
+       supercup => $sc,
+       },
     CL => {
       qfr_2 => $cl_v2,
       qfr_3 => $cl_v3,
