@@ -26,6 +26,7 @@ my $withOpm = 0;
 
 sub initTestCode()
 {
+  $shortNames{'qfr_1'} = 'v1';
   $shortNames{'qfr'} = 'v2';
   $shortNames{'qfr_3'} = 'v3';
   $shortNames{'playoffs'} = 'po';
@@ -67,6 +68,7 @@ sub u2csv($$$)
   if (defined($a1[3]) && ref $a1[3] eq 'HASH')
   {
     $opm = $a1[3]->{opm};
+    $opm =~ s/,/;/g;
     if (not $withOpm)
     {
       die("Toch met opm.\n");
@@ -93,6 +95,8 @@ sub u2csv($$$)
     @base1 = ($shortLeague, $shortRound, $u[0], $u[1], $a1[0], $result1, $wns);
   }
 
+  $stadium =~ s/,/;/g;
+
   push @base1, $stadium;
   if ($withOpm)
   {
@@ -118,11 +122,11 @@ sub test_something()
   # print "place holder for tmp/test function.\n";
 
   my @Leagues = ('extra', 'CL', 'EuropaL');
-  my @rounds = ('supercup', 'v2', 'qfr', 'qfr_3', 'playoffs', ('groupA'..'groupL'), 'round2', 'round_of_16', 'quarterfinal', 'semifinal', 'final');
+  my @rounds = ('supercup', 'v2', 'qfr_1', 'qfr', 'qfr_3', 'playoffs', ('groupA'..'groupL'), 'round2', 'round_of_16', 'quarterfinal', 'semifinal', 'final');
 
   initTestCode();
 
-  foreach my $yr (2013 .. 2013)
+  foreach my $yr (2012 .. 2012)
   {
     my $szn = yr2szn($yr);
     my $outfile  = "Sport_Data/europacup/europacup_$szn.csv";

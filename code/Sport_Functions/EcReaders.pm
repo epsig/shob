@@ -64,6 +64,7 @@ sub read_ec_csv($$)
   my $cl_v3 = read_ec_part('CL', 'v3', 1, '3e voorronde Champions League', $sort_rule, $IN);
   my $cl_po = read_ec_part('CL', 'po', 1, 'play offs Champions League', $sort_rule, $IN);
 
+  my $el_v1 = read_ec_part('EL', 'v1', 1, '1e voorronde Europa League', $sort_rule, $IN);
   my $el_v2 = read_ec_part('EL', 'v2', 1, '2e voorronde Europa League', $sort_rule, $IN);
   my $el_v3 = read_ec_part('EL', 'v3', 1, '3e voorronde Europa League', $sort_rule, $IN);
   my $el_po = read_ec_part('EL', 'po', 1, 'play offs Europa League', $sort_rule, $IN);
@@ -83,6 +84,7 @@ sub read_ec_csv($$)
       final => read_ec_part('CL', 'f', 1, 'finale C-L', $sort_rule, $IN),
     },
     EuropaL => {
+      qfr_1 => $el_v1,
       qfr => $el_v2,
       qfr_3 => $el_v3,
       playoffs => $el_po,
