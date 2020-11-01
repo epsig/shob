@@ -168,6 +168,14 @@ sub read_ec_part($$$$$)
       my $dd2 = $parts[6];
       my $aa2 = $parts[7];
       if ($aa1 >= 0) {$total++;}
+      my $opm = '';
+      for (my $i=0; $i<$dimheader;$i++)
+      {
+        if ($hdrParts[$i] eq 'remark')
+        {
+          $opm = $parts[$i];
+        }
+      }
       if (defined($aa2) && $aa2 ne '')
       {
         push_or_extend(\@games, [$a,$b,[$dd1,$aa1,$bb1],$dd2,$aa2], $isko);
@@ -175,6 +183,10 @@ sub read_ec_part($$$$$)
       elsif (defined($dd2) && $dd2 ne '')
       {
         push_or_extend(\@games, [$a,$b,[$dd1,$aa1,$bb1],$dd2], $isko);
+      }
+      elsif (defined($bb1) and $opm ne '')
+      {
+        push_or_extend(\@games, [$a,$b,[$dd1,$aa1,$bb1,{opm=>$opm}]], $isko);
       }
       elsif (defined($bb1))
       {

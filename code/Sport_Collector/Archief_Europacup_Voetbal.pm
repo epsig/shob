@@ -2210,104 +2210,6 @@ final => [ [''],
 ['ESsvl','PTbnf',[20140514,0,0],5,'Turijn'] ]
 }};
 
-$u_ec->{'2014-2015'} = {
-extra => {
-dd => 20140812,
-supercup => [['Europese Supercup'],['ESrmd','ESsvl',[20140812,2,0],1,'Cardiff']]
-},
-CL => {
-qfr_3 => [ ['3e voorronde Champions League'],
-['NLfyn','TRbsk',[20140730,1,2],[20140806,3,1],2]],
-groupF => [ ['', [1, 5, 'Eerste ronde CL, Poule F', 2]],
-['NLajx','FRpsg',[20140917,1,1]],
-['ESbcl','CYapl',[20140917,1,0]],
-['CYapl','NLajx',[20140930,1,1]],
-['FRpsg','ESbcl',[20140930,3,2]],
-['ESbcl','NLajx',[20141021,3,1]],
-['CYapl','FRpsg',[20141021,0,1]],
-['NLajx','ESbcl',[20141105,0,2]],
-['FRpsg','CYapl',[20141105,1,0]],
-['FRpsg','NLajx',[20141125,3,1]],
-['CYapl','ESbcl',[20141125,0,4]],
-['NLajx','CYapl',[20141210,4,0]],
-['ESbcl','FRpsg',[20141210,3,1]] ],
-round_of_16 => [['8-ste finale C-L', 'k-o'],
-['FRpsg','G1cls',[20150217,1,1],[20150311,2,2],1],
-['UAsdk','DEbmn',[20150217,0,0],[20150311,7,0],2],
-['DEs04','ESrmd',[20150218,0,2],[20150310,3,4],2],
-['CHbsl','PTpor',[20150218,1,1],[20150310,4,0],2],
-['G1mnu','ESbcl',[20150224,1,2],[20150318,1,0],2],
-['ITjuv','DEbdm',[20150224,2,1],[20150318,0,3],1],
-['G1ars','FRmnc',[20150225,1,3],[20150317,0,2],2],
-['DElvk','ESamd',[20150225,1,0],[20150317,1,0],2] ],
-quarterfinal => [['kwartfinale'],
-['FRpsg','ESbcl',[20150415,1,3],[20150421,2,0],2],
-['PTpor','DEbmn',[20150415,3,1],[20150421,6,1],2],
-['ESamd','ESrmd',[20150414,0,0],[20150422,1,0],2],
-['ITjuv','FRmnc',[20150414,1,0],[20150422,0,0],1] ],
-semifinal => [['halve finale'],
-['ESbcl','DEbmn',[20150506,3,0],[20150512,3,2],1],
-['ITjuv','ESrmd',[20150505,2,1],[20150513,1,1],1]],
-final => [['finale'],
-['ITjuv','ESbcl',[20150606,1,3],2,'Berlijn'] ]
-},
-EuropaL => {
-qfr => [ ['2e voorronde Europa League'],
-['G2abd','NLgrn',[20140717,0,0],[20140724,1,2],1] ],
-qfr_3 => [['3e voorronde Europa League'],
-['NLpsv','ATspl',[20140731,1,0],[20140807,2,3],1]],
-playoffs => [ ['Play-offs (4e voorronde) EL'],
-['AZkrb','NLtwn',[20140821,0,0],[20140828,1,1],1],
-['NLpsv','BYslg',[20140821,1,0],[20140828,0,2],1],
-['NLpzw','CZspr',[20140821,1,1],[20140828,3,1],2],
-['UAzlg','NLfyn',[20140821,1,1],[20140828,4,3],2] ],
-groupE => [ ['', [1, 5, 'Eerste ronde EL, Poule E', 1]],
-['NLpsv','PTest',[20140918,1,0]],
-['GRpnt','RUdmk',[20140918,1,2]],
-['RUdmk','NLpsv',[20141002,1,0]],
-['PTest','GRpnt',[20141002,2,0]],
-['NLpsv','GRpnt',[20141023,1,1]],
-['PTest','RUdmk',[20141023,1,2]],
-['GRpnt','NLpsv',[20141106,2,3]],
-['RUdmk','PTest',[20141106,1,0]],
-['RUdmk','GRpnt',[20141127,2,1]],
-['PTest','NLpsv',[20141128,3,3,
-{opm => '28 nov. gestaakt bij 3-2 wegens regen; 29 nov uitgespeeld.'}]],
-['NLpsv','RUdmk',[20141211,0,1]],
-['GRpnt','PTest',[20141211,1,1]],
-],
-groupG => [ ['', [1, 5, 'Eerste ronde EL, Poule G', 1]],
-['BEslk','HRhrk',[20140918,2,0]],
-['ESsvl','NLfyn',[20140918,2,0]],
-['NLfyn','BEslk',[20141002,2,1]],
-['HRhrk','ESsvl',[20141002,2,2]],
-['HRhrk','NLfyn',[20141023,3,1]],
-['BEslk','ESsvl',[20141023,0,0]],
-['NLfyn','HRhrk',[20141106,2,0]],
-['ESsvl','BEslk',[20141106,3,1]],
-['NLfyn','ESsvl',[20141127,2,0]],
-['HRhrk','BEslk',[20141127,2,0]],
-['BEslk','NLfyn',[20141211,0,3]],
-['ESsvl','HRhrk',[20141211,1,0]],
-],
-round2 => [ ['Tweede ronde Europa League'],
-['NLajx','PLlgw',[20150219,1,0],[20150226,0,3],1],
-['ITasr','NLfyn',[20150219,1,1],[20150226,1,2],1],
-['NLpsv','RUzsp',[20150219,0,1],[20150226,3,0],2] ],
-round_of_16 => [ ['Derde ronde UEFA-cup'],
-['UAdjn','NLajx',[20150312,1,0],[20150319,2,1],3] ],
-quarterfinal => [['kwartfinale'],
-['ESsvl','RUzsp',[20150416,2,1],[20150423,2,2],1],
-['UAdkv','ITfrt',[20150416,1,1],[20150423,2,0],2],
-['DEvwl','ITnpl',[20150416,1,4],[20150423,2,2],2],
-['BEcbr','UAdjn',[20150416,0,0],[20150423,1,0],2] ],
-semifinal => [['halve finale'],
-['ESsvl','ITfrt',[20150507,3,0],[20150514,0,2],1],
-['ITnpl','UAdjn',[20150507,1,1],[20150514,1,0],2] ],
-final => [['finale'],
-['UAdjn','ESsvl',[20150527,2,3],2,'Warschau'] ]
-}};
-
 sub get_ec_webpage($)
 {# (c) Edwin Spee
 
@@ -2337,7 +2239,7 @@ sub laatste_speeldatum_ec($)
 sub init_ec
 { #(c) Edwin Spee
 
-  for (my $yr = 2015; $yr <= 2020; $yr++)
+  for (my $yr = 2014; $yr <= 2020; $yr++)
   {
     my $szn = yr2szn($yr);
     my $csv = "europacup_$szn.csv";
