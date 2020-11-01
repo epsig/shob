@@ -22,7 +22,7 @@ $VERSION = '20.0';
 );
 
 my %shortNames;
-my $withOpm = 0;
+my $withOpm = 1;
 
 sub initTestCode()
 {
@@ -59,21 +59,31 @@ sub u2csv($$$)
   my @a1 = @$a1;
   my $a2 = $u[3];
   my $wns = $u[4];
-  my $stadium = $u[5];
+  my $stadium1 = $u[5];
   if (not defined $wns) {$wns = '';}
-  if (not defined $stadium) {$stadium = '';}
+  if (not defined $stadium1) {$stadium1 = '';}
   my $result1 = $a1[1] . '-' . $a1[2];
 
-  my $opm = '';
+  my $opm1 = '';
   if (defined($a1[3]) && ref $a1[3] eq 'HASH')
   {
-    $opm = $a1[3]->{opm};
-    $opm =~ s/,/;/g;
-    if (not $withOpm)
+    $opm1 = $a1[3]->{opm};
+    if (defined $opm1)
     {
-      die("Toch met opm.\n");
+      $opm1 =~ s/,/;/g;
+      if (not $withOpm)
+      {
+        die("Toch met opm.\n");
+      }
+    }
+    if (defined $a1[3]->{stadium})
+    {
+      $stadium1 = $a1[3]->{stadium};
     }
   }
+
+  my $opm2 = ''; my $stadium2 = '';
+
 
   my @base1 = ();
   my @base2 = ();
@@ -83,11 +93,28 @@ sub u2csv($$$)
     my @a2 = @$a2;
     my $result2 = $a2[1] . '-' . $a2[2];
     @base2 = ($shortLeague, $shortRound, $u[1], $u[0], $a2[0], $result2, $wns);
+
+    if (defined($a2[3]) && ref $a2[3] eq 'HASH')
+    {
+      $opm2 = $a2[3]->{opm};
+      if (defined $opm2)
+      {
+        $opm2 =~ s/,/;/g;
+        if (not $withOpm)
+        {
+          die("Toch met opm.\n");
+        }
+      }
+      if (defined $a2[3]->{stadium})
+      {
+        $stadium2 = $a2[3]->{stadium};
+      }
+    }
   }
   elsif (defined($a2))
   {
     $wns = $a2;
-    $stadium = (scalar @u > 4 ? $u[4] : '');
+    $stadium1 = (scalar @u > 4 ? $u[4] : '');
     @base1 = ($shortLeague, $shortRound, $u[0], $u[1], $a1[0], $result1, $wns);
   }
   else
@@ -95,21 +122,22 @@ sub u2csv($$$)
     @base1 = ($shortLeague, $shortRound, $u[0], $u[1], $a1[0], $result1, $wns);
   }
 
-  $stadium =~ s/,/;/g;
+  $stadium1 =~ s/,/;/g;
+  $stadium2 =~ s/,/;/g;
 
-  push @base1, $stadium;
+  push @base1, $stadium1;
   if ($withOpm)
   {
-    push @base1, $opm;
+    push @base1, $opm1;
   }
   print OUT join(',', @base1), "\n";
 
   if (@base2)
   {
-    push @base2, $stadium;
+    push @base2, $stadium2;
     if ($withOpm)
     {
-      push @base2, $opm;
+      push @base2, $opm2;
     }
     print OUT join(',', @base2), "\n";
   }
@@ -126,7 +154,7 @@ sub test_something()
 
   initTestCode();
 
-  foreach my $yr (2012 .. 2012)
+  foreach my $yr (2011 .. 2011)
   {
     my $szn = yr2szn($yr);
     my $outfile  = "Sport_Data/europacup/europacup_$szn.csv";
