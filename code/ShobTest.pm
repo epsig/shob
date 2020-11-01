@@ -154,7 +154,7 @@ sub test_something()
 
   initTestCode();
 
-  foreach my $yr (2011 .. 2011)
+  foreach my $yr (2010 .. 2010)
   {
     my $szn = yr2szn($yr);
     my $outfile  = "Sport_Data/europacup/europacup_$szn.csv";
@@ -188,6 +188,13 @@ sub test_something()
           }
         }
       }
+    }
+
+    if (defined $uCur->{extra}{summary})
+    {
+      print "Found overall summary:\n";
+      print $uCur->{extra}{summary};
+      print "\n";
     }
 
     close(OUT) or die "can't close $outfile: $!.\n";
