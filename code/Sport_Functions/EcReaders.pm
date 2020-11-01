@@ -8,6 +8,7 @@ use Exporter;
 use Sport_Functions::Overig;
 use Sport_Functions::Readers;
 use Shob_Tools::Error_Handling;
+use Shob_Tools::Idate;
 use File::Spec;
 use XML::Parser;
 use vars qw($VERSION @ISA @EXPORT);
@@ -40,19 +41,32 @@ sub read_ec_csv($$)
   my $fileWithPath = File::Spec->catfile($csv_dir, $subdir, $filein);
 
   my $dateTimeLog = qx/git log -1 --pretty="format:%ci" $fileWithPath/;
-  my $date = substr($dateTimeLog, 0, 10);
-     $date =~ s/-//g;
+  
+  my $date;
+  if (length($dateTimeLog) > 0)
+  {
+    $date = substr($dateTimeLog, 0, 10);
+    $date =~ s/-//g;
+  }
+  else
+  { # apparently file is not added yet, so very new:
+    my $today = todaystr();
+    $date = str2itdate($today);
+  }
 
   open ($IN, "< $fileWithPath") or die "can't open $$fileWithPath: $!\n";
 
-  my $sc = read_ec_part('supercup', '', 1, 'Europese Supercup', $IN);
-  my $cl_v2 = read_ec_part('CL', 'v2', 1, '2e voorronde Champions League', $IN);
-  my $cl_v3 = read_ec_part('CL', 'v3', 1, '3e voorronde Champions League', $IN);
-  my $cl_po = read_ec_part('CL', 'po', 1, 'play offs Champions League', $IN);
+  my $sort_rule = ReadOpm($szn, 'sort_rule', 'EC');
+  if (not $sort_rule) {$sort_rule = 5;} # default value
 
-  my $el_v2 = read_ec_part('EL', 'v2', 1, '2e voorronde Europa League', $IN);
-  my $el_v3 = read_ec_part('EL', 'v3', 1, '3e voorronde Europa League', $IN);
-  my $el_po = read_ec_part('EL', 'po', 1, 'play offs Europa League', $IN);
+  my $sc = read_ec_part('supercup', '', 1, 'Europese Supercup', $sort_rule, $IN);
+  my $cl_v2 = read_ec_part('CL', 'v2', 1, '2e voorronde Champions League', $sort_rule, $IN);
+  my $cl_v3 = read_ec_part('CL', 'v3', 1, '3e voorronde Champions League', $sort_rule, $IN);
+  my $cl_po = read_ec_part('CL', 'po', 1, 'play offs Champions League', $sort_rule, $IN);
+
+  my $el_v2 = read_ec_part('EL', 'v2', 1, '2e voorronde Europa League', $sort_rule, $IN);
+  my $el_v3 = read_ec_part('EL', 'v3', 1, '3e voorronde Europa League', $sort_rule, $IN);
+  my $el_po = read_ec_part('EL', 'po', 1, 'play offs Europa League', $sort_rule, $IN);
 
   my $ec = {
     extra => {
@@ -63,20 +77,20 @@ sub read_ec_csv($$)
       qfr_2 => $cl_v2,
       qfr_3 => $cl_v3,
       playoffs => $cl_po,
-      round_of_16 => read_ec_part('CL', '8f', 1, '8-ste finale C-L', $IN),
-      quarterfinal => read_ec_part('CL', '4f', 1, 'kwart finale C-L', $IN),
-      semifinal => read_ec_part('CL', '2f', 1, 'halve finale C-L', $IN),
-      final => read_ec_part('CL', 'f', 1, 'finale C-L', $IN),
+      round_of_16 => read_ec_part('CL', '8f', 1, '8-ste finale C-L', $sort_rule, $IN),
+      quarterfinal => read_ec_part('CL', '4f', 1, 'kwart finale C-L', $sort_rule, $IN),
+      semifinal => read_ec_part('CL', '2f', 1, 'halve finale C-L', $sort_rule, $IN),
+      final => read_ec_part('CL', 'f', 1, 'finale C-L', $sort_rule, $IN),
     },
     EuropaL => {
       qfr => $el_v2,
       qfr_3 => $el_v3,
       playoffs => $el_po,
-      round2 => read_ec_part('EL', '16f', 1, '8-ste finale E-L', $IN),
-      round_of_16 => read_ec_part('EL', '8f', 1, '8-ste finale E-L', $IN),
-      quarterfinal => read_ec_part('EL', '4f', 1, 'kwart finale E-L', $IN),
-      semifinal => read_ec_part('EL', '2f', 1, 'halve finale E-L', $IN),
-      final => read_ec_part('EL', 'f', 1, 'finale E-L', $IN),
+      round2 => read_ec_part('EL', '16f', 1, '8-ste finale E-L', $sort_rule, $IN),
+      round_of_16 => read_ec_part('EL', '8f', 1, '8-ste finale E-L', $sort_rule, $IN),
+      quarterfinal => read_ec_part('EL', '4f', 1, 'kwart finale E-L', $sort_rule, $IN),
+      semifinal => read_ec_part('EL', '2f', 1, 'halve finale E-L', $sort_rule, $IN),
+      final => read_ec_part('EL', 'f', 1, 'finale E-L', $sort_rule, $IN),
     }
   };
 
@@ -91,7 +105,7 @@ sub read_ec_csv($$)
 
   foreach my $l ('A'..'H')
   {
-    my $g = read_ec_part('CL', "g$l", 0, "Champions League, Groep $l", $IN);
+    my $g = read_ec_part('CL', "g$l", 0, "Champions League, Groep $l", $sort_rule, $IN);
     if (defined($g))
     {
       $ec->{CL}{"group$l"} = $g;
@@ -100,7 +114,7 @@ sub read_ec_csv($$)
  
   foreach my $l ('A'..'L')
   {
-    my $g = read_ec_part('EL', "g$l", 0, "Europa League, Groep $l", $IN);
+    my $g = read_ec_part('EL', "g$l", 0, "Europa League, Groep $l", $sort_rule, $IN);
     if (defined($g))
     {
       $ec->{EuropaL}{"group$l"} = $g;
@@ -111,18 +125,19 @@ sub read_ec_csv($$)
   return $ec;
 }
 
-sub read_ec_part($$$$$)
+sub read_ec_part($$$$$$)
 {
-  my $cupname = shift;
-  my $phase   = shift;
-  my $isko    = shift;
-  my $title   = shift;
-  my $IN      = shift;
+  my $cupname   = shift;
+  my $phase     = shift;
+  my $isko      = shift;
+  my $title     = shift;
+  my $sort_rule = shift;
+  my $IN        = shift;
 
   seek($IN, 0, 0);
   my @games;
   if ($phase =~ m/^g/iso) {
-    $games[0] = ['', [1, 5, $title, -1]];
+    $games[0] = ['', [1, $sort_rule, $title, -1]];
   } else {
     $games[0] = [$title];
   }
@@ -264,11 +279,11 @@ sub read_ec_part($$$$$)
   {
     if ($cupname eq 'CL')
     {
-      $games[0] = ['', [1, 5, $title, 2]];
+      $games[0] = ['', [1, $sort_rule, $title, 2]];
     }
     else
     {
-      $games[0] = ['', [1, 5, $title, 1]];
+      $games[0] = ['', [1, $sort_rule, $title, 1]];
     }
   }
  

@@ -39,13 +39,13 @@ sub read_beker_csv($$$)
 
   open (my $IN, "< $fileWithPath") or die "can't open $fileWithPath: $!\n";
 
-  my $sc = read_ec_part('supercup', '', 1, "Johan Cruijff schaal $year", $IN);
-  my $r2 = read_ec_part('r2', '', 1, 'Tweede ronde', $IN);
-  my $f8 = read_ec_part('8f', '', 1, 'achtste-finales KNVB-beker', $IN);
-  my $f4 = read_ec_part('4f', '', 1, 'kwart-finale KNVB-beker', $IN);
-  my $f2 = read_ec_part('2f', '', 1, 'halve finale KNVB-beker', $IN);
-  my $f = read_ec_part('f', '', 1, 'finale KNVB-beker', $IN);
-  my $f34 = read_ec_part('f34', '', 1, 'troost-finale KNVB-beker', $IN);
+  my $sc = read_ec_part('supercup', '', 1, "Johan Cruijff schaal $year", 5, $IN);
+  my $r2 = read_ec_part('r2', '', 1, 'Tweede ronde', 5, $IN);
+  my $f8 = read_ec_part('8f', '', 1, 'achtste-finales KNVB-beker', 5, $IN);
+  my $f4 = read_ec_part('4f', '', 1, 'kwart-finale KNVB-beker', 5, $IN);
+  my $f2 = read_ec_part('2f', '', 1, 'halve finale KNVB-beker', 5, $IN);
+  my $f = read_ec_part('f', '', 1, 'finale KNVB-beker', 5, $IN);
+  my $f34 = read_ec_part('f34', '', 1, 'troost-finale KNVB-beker', 5, $IN);
 
   my $opm = ReadOpm(yr2szn($year), 'beker_opm', 'NL');
  

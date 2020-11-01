@@ -22,6 +22,7 @@ $VERSION = '20.0';
 );
 
 my %shortNames;
+my $withOpm = 0;
 
 sub initTestCode()
 {
@@ -66,24 +67,47 @@ sub u2csv($$$)
   if (defined($a1[3]) && ref $a1[3] eq 'HASH')
   {
     $opm = $a1[3]->{opm};
+    if (not $withOpm)
+    {
+      die("Toch met opm.\n");
+    }
   }
 
+  my @base1 = ();
+  my @base2 = ();
   if (defined($a2) && ref $a2 eq 'ARRAY')
   {
-    print OUT join(',', $shortLeague, $shortRound, $u[0], $u[1], $a1[0], $result1, -1, $stadium, $opm) , "\n";
+    @base1 = ($shortLeague, $shortRound, $u[0], $u[1], $a1[0], $result1, -1);
     my @a2 = @$a2;
     my $result2 = $a2[1] . '-' . $a2[2];
-    print OUT join(',', $shortLeague, $shortRound, $u[1], $u[0], $a2[0], $result2, $wns, $stadium, $opm) , "\n";
+    @base2 = ($shortLeague, $shortRound, $u[1], $u[0], $a2[0], $result2, $wns);
   }
   elsif (defined($a2))
   {
     $wns = $a2;
-    $stadium = $u[4];
-    print OUT join(',', $shortLeague, $shortRound, $u[0], $u[1], $a1[0], $result1, $wns, $stadium, $opm) , "\n";
+    $stadium = (scalar @u > 4 ? $u[4] : '');
+    @base1 = ($shortLeague, $shortRound, $u[0], $u[1], $a1[0], $result1, $wns);
   }
   else
   {
-    print OUT join(',', $shortLeague, $shortRound, $u[0], $u[1], $a1[0], $result1, $wns, $stadium, $opm) , "\n";
+    @base1 = ($shortLeague, $shortRound, $u[0], $u[1], $a1[0], $result1, $wns);
+  }
+
+  push @base1, $stadium;
+  if ($withOpm)
+  {
+    push @base1, $opm;
+  }
+  print OUT join(',', @base1), "\n";
+
+  if (@base2)
+  {
+    push @base2, $stadium;
+    if ($withOpm)
+    {
+      push @base2, $opm;
+    }
+    print OUT join(',', @base2), "\n";
   }
 }
 
@@ -98,14 +122,19 @@ sub test_something()
 
   initTestCode();
 
-  foreach my $yr (2014 .. 2014)
+  foreach my $yr (2013 .. 2013)
   {
     my $szn = yr2szn($yr);
     my $outfile  = "Sport_Data/europacup/europacup_$szn.csv";
        $outfile =~ s/-/_/;
 
     open (OUT, "> $outfile ") or die "can't open $outfile: $!.\n";
-    print OUT "league,round,team1,team2,dd,result,star,stadium,remark\n";
+    print OUT "league,round,team1,team2,dd,result,star,stadium";
+    if ($withOpm)
+    {
+      print OUT ",remark";
+    }
+    print OUT "\n";
 
     my $uCur = $u_ec->{$szn};
     foreach my $league (@Leagues)

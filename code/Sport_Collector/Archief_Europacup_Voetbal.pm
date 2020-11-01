@@ -2124,92 +2124,6 @@ final => [ [''],
 ['PTbnf','G1cls',[20130515,1,2],2,'Amsterdam ArenA'] ],
 }};
 
-$u_ec->{'2013-2014'} = {
-extra => {
-dd => 20130728,
-supercup => [['Europese Supercup'],['DEbmn','G1cls',[20130830,1,1],5]]
-},
-CL => {
-qfr_3 => [ ['3e voorronde Champions League'],
-['NLpsv','BEzwr',[20130730,2,0],[20130807,0,3],1]],
-playoffs => [ ['Play-offs CL'],
-['NLpsv','ITmln',[20130820,1,1],[20130828,3,0],2] ],
-groupH => [ ['', [1, 3, 'Eerste ronde CL, Poule H', 2]],
-['ITmln','G2clt',[20130918,2,0]],
-['ESbcl','NLajx',[20130918,4,0]],
-['NLajx','ITmln',[20131001,1,1]],
-['G2clt','ESbcl',[20131001,0,1]],
-['G2clt','NLajx',[20131022,2,1]],
-['ITmln','ESbcl',[20131022,1,1]],
-['NLajx','G2clt',[20131106,1,0]],
-['ESbcl','ITmln',[20131106,3,1]],
-['NLajx','ESbcl',[20131126,2,1]],
-['G2clt','ITmln',[20131126,0,3]],
-['ITmln','NLajx',[20131211,0,0]],
-['ESbcl','G2clt',[20131211,6,1]] ],
-quarterfinal => [['kwartfinale'],
-['ESrmd','DEbdm',[20140402,3,0],[20140408,2,0],1],
-['G1mnu','DEbmn',[20140401,1,1],[20140409,3,1],2],
-['ESbcl','ESamd',[20140401,1,1],[20140409,1,0],2],
-['FRpsg','G1cls',[20140402,3,1],[20140408,2,0],2] ],
-semifinal => [[''],
-['ESrmd','DEbmn',[20140423,1,0],[20140429,0,4],1],
-['ESamd','G1cls',[20140422,0,0],[20140430,1,3],1] ],
-final => [[''],
-['ESrmd','ESamd',[20140524,4,1],3, 'Lissabon' ] ],
-},
-EuropaL => {
-qfr => [['2e voorronde Europa League'],
-['LUdff','NLutr',[20130718,2,1],[20130725,3,3],1]],
-qfr_3 => [['3e voorronde Europa League'],
-['ROpll','NLvit',[20130801,1,1],[20130808,1,2],1]],
-playoffs => [ ['Play-offs (4e voorronde) EL'],
-['RUkkr','NLfyn',[20130822,1,0],[20130829,1,2],1],
-['GRatr','NLaz1',[20130822,1,3],[20130829,0,2],2] ],
-groupB => [ ['', [1, 3, 'Eerste ronde EL, Poule B', 1]],
-['NLpsv','BGldg',[20130919,0,2]],
-['HRdzg','UAcod',[20130919,1,2]],
-['UAcod','NLpsv',[20131003,0,2]],
-['BGldg','HRdzg',[20131003,3,0]],
-['HRdzg','NLpsv',[20131024,0,0]],
-['UAcod','BGldg',[20131024,0,1]],
-['NLpsv','HRdzg',[20131107,2,0]],
-['BGldg','UAcod',[20131107,1,1]],
-['BGldg','NLpsv',[20131128,2,0]],
-['UAcod','HRdzg',[20131128,2,1]],
-['NLpsv','UAcod',[20131212,0,1]],
-['HRdzg','BGldg',[20131212,1,2]],
-],
-groupL => [ ['', [1, 3, 'Eerste ronde EL, Poule L', 1]],
-['ILmhf','NLaz1',[20130919,0,1]],
-['GRpks','KZskr',[20130919,2,1]],
-['NLaz1','GRpks',[20131003,1,1]],
-['KZskr','ILmhf',[20131003,2,2]],
-['KZskr','NLaz1',[20131024,1,1]],
-['GRpks','ILmhf',[20131024,3,2]],
-['NLaz1','KZskr',[20131107,1,0]],
-['ILmhf','GRpks',[20131107,0,0]],
-['NLaz1','ILmhf',[20131128,2,0]],
-['KZskr','GRpks',[20131128,0,2]],
-['ILmhf','KZskr',[20131212,2,1]],
-['GRpks','NLaz1',[20131212,2,2]] ],
-round2 => [ ['Tweede ronde Europa League'],
-['NLajx','ATrbs',[20140220,0,3],[20140227,3,1],2],
-['CZsll','NLaz1',[20140220,0,1],[20140227,1,1],1] ],
-round_of_16 => [ ['Achtste finale UEFA-cup'],
-['NLaz1','RUamk',[20140313,1,0],[20140320,0,0],1] ],
-quarterfinal => [ [''],
-['PTpor','ESsvl',[20140403,1,0],[20140410,4,1],2],
-['CHbsl','ESval',[20140403,3,0],[20140410,5,0],2],
-['NLaz1','PTbnf',[20140403,0,1],[20140410,2,0],2],
-['FRoly','ITjuv',[20140403,0,1],[20140410,2,1],2] ],
-semifinal => [ [''],
-['ESsvl','ESval',[20140424,2,0],[20140501,3,1],1],
-['PTbnf','ITjuv',[20140424,2,1],[20140501,0,0],1] ],
-final => [ [''],
-['ESsvl','PTbnf',[20140514,0,0],5,'Turijn'] ]
-}};
-
 sub get_ec_webpage($)
 {# (c) Edwin Spee
 
@@ -2239,7 +2153,7 @@ sub laatste_speeldatum_ec($)
 sub init_ec
 { #(c) Edwin Spee
 
-  for (my $yr = 2014; $yr <= 2020; $yr++)
+  for (my $yr = 2013; $yr <= 2020; $yr++)
   {
     my $szn = yr2szn($yr);
     my $csv = "europacup_$szn.csv";
