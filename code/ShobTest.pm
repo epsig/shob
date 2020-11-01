@@ -23,6 +23,7 @@ $VERSION = '20.0';
 
 my %shortNames;
 my $withOpm = 1;
+my $yr = 2009;
 
 sub initTestCode()
 {
@@ -76,9 +77,9 @@ sub u2csv($$$)
         die("Toch met opm.\n");
       }
     }
-    if (defined $a1[3]->{stadium})
+    if (defined $a1[3]->{stadion})
     {
-      $stadium1 = $a1[3]->{stadium};
+      $stadium1 = $a1[3]->{stadion};
     }
   }
 
@@ -114,7 +115,10 @@ sub u2csv($$$)
   elsif (defined($a2))
   {
     $wns = $a2;
-    $stadium1 = (scalar @u > 4 ? $u[4] : '');
+    if ($stadium1 eq '')
+    {
+      $stadium1 = (scalar @u > 4 ? $u[4] : '');
+    }
     @base1 = ($shortLeague, $shortRound, $u[0], $u[1], $a1[0], $result1, $wns);
   }
   else
@@ -154,7 +158,7 @@ sub test_something()
 
   initTestCode();
 
-  foreach my $yr (2010 .. 2010)
+  foreach my $yr ($yr .. $yr)
   {
     my $szn = yr2szn($yr);
     my $outfile  = "Sport_Data/europacup/europacup_$szn.csv";

@@ -193,6 +193,10 @@ sub read_ec_part($$$$$$)
           $opm = $parts[$i];
         }
       }
+      if (defined($aa2) && $aa2 ne '' && $opm ne '')
+      {
+        push_or_extend(\@games, [$a,$b,[$dd1,$aa1,$bb1,{opm=>$opm}],$dd2,$aa2], $isko);
+      }
       if (defined($aa2) && $aa2 ne '')
       {
         push_or_extend(\@games, [$a,$b,[$dd1,$aa1,$bb1],$dd2,$aa2], $isko);
