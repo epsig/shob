@@ -23,16 +23,16 @@ use vars qw($VERSION @ISA @EXPORT);
 #=========================================================================
 # CONTENTS OF THE PACKAGE:
 #=========================================================================
-$VERSION = '18.1';
+$VERSION = '20.0';
 # by Edwin Spee.
 
 @EXPORT =
 (#========================================================================
- '&laatste_speeldatum_ec',
- '&set_laatste_speeldatum_ec',
- '&get_ec_webpage',
- '&init_ec',
- '$u_ec',
+  '&laatste_speeldatum_ec',
+  '&set_laatste_speeldatum_ec',
+  '&get_ec_webpage',
+  '&init_ec',
+  '&get_u_ec',
  #========================================================================
 );
 
@@ -2037,23 +2037,40 @@ final => [ [''],
 ['ESamd','ESbil',[20120509,3,0],1,'Boekarest'] ]
 }};
 
+sub get_u_ec($)
+{
+  my $szn = shift;
+
+  if (not defined($u_ec->{$szn}))
+  {
+    my $csv = "europacup_$szn.csv";
+    $csv =~ s/-/_/;
+    $u_ec->{$szn} = read_ec_csv($csv, $szn);
+    $u_ec->{$szn}->{extra}->{dd} =
+      max(laatste_speeldatum_ec($szn), $u_ec->{$szn}->{extra}->{dd});
+  }
+  return $u_ec->{$szn};
+}
+
 sub get_ec_webpage($)
 {# (c) Edwin Spee
 
  my $szn = shift;
- return format_europacup($szn, $u_ec->{$szn});
+ my $u   = get_u_ec($szn);
+ return format_europacup($szn, $u);
 }
 
 sub laatste_speeldatum_ec($)
 {# (c) Edwin Spee
 
- my ($year) = @_;
+ my ($szn) = @_;
 
  my $dd = 20120723;
 
- while (my ($key1, $value1) = each %{$u_ec->{$year}})
+ my $u = get_u_ec($szn);
+ while (my ($key1, $value1) = each %{$u})
  {
-  while (my ($key2, $value2) = each %{$u_ec->{$year}{$key1}})
+  while (my ($key2, $value2) = each %{$u->{$key1}})
   {
    if (ref $value2 eq 'ARRAY')
    {
@@ -2065,17 +2082,24 @@ sub laatste_speeldatum_ec($)
 
 sub init_ec
 { #(c) Edwin Spee
+  use File::Glob;
 
-  for (my $yr = 2012; $yr <= 2020; $yr++)
+  my @files = <Sport_Data/europacup/europacup_????_????.csv>;
+  my $lastYr = -999;
+  my $lastSzn;
+  foreach my $file (@files)
   {
-    my $szn = yr2szn($yr);
-    my $csv = "europacup_$szn.csv";
-    $csv =~ s/-/_/;
-    $u_ec->{$szn} = read_ec_csv($csv, $szn);
-    $u_ec->{$szn}->{extra}->{dd} =
-      max(laatste_speeldatum_ec($szn), $u_ec->{$szn}->{extra}->{dd});
+    if ($file =~ m/(\d{4})_(\d{4})/)
+    {
+      my ($yr1, $yr2) = ($1, $2);
+      if ($yr1 > $lastYr)
+      {
+        $lastYr = $yr1;
+        $lastSzn = "$yr1-$yr2";
+      }
+    }
   }
-  $u_ec->{lastyear} = '2020-2021';
+  $u_ec->{lastyear} = $lastSzn;
 }
 
 sub set_laatste_speeldatum_ec
@@ -2083,11 +2107,14 @@ sub set_laatste_speeldatum_ec
 
  my $szn = $u_ec->{lastyear};
  my $dd = max(laatste_speeldatum_ec($szn));
- if (defined($u_ec->{szn}{extra}))
+
+ my $u = get_u_ec($szn);
+
+ if (defined($u->{extra}))
  {
-  $dd = max($dd, $u_ec->{$szn}{extra}{dd});
+  $dd = max($dd, $u->{extra}{dd});
  }
- $u_ec->{$szn}{extra}{dd} = $dd;
+ $u->{extra}{dd} = $dd;
  set_datum_fixed($dd);
 }
 

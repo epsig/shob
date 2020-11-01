@@ -140,7 +140,7 @@ sub test_something()
     }
     print OUT "\n";
 
-    my $uCur = $u_ec->{$szn};
+    my $uCur = get_u_ec($szn);
     foreach my $league (@Leagues)
     {
       if (defined($uCur->{$league}))
