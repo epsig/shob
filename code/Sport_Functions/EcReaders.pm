@@ -60,41 +60,52 @@ sub read_ec_csv($$)
   if (not $sort_rule) {$sort_rule = 5;} # default value
 
   my $sc = read_ec_part('supercup', '', 1, 'Europese Supercup', $sort_rule, $IN);
-  my $cl_v2 = read_ec_part('CL', 'v2', 1, '2e voorronde Champions League', $sort_rule, $IN);
-  my $cl_v3 = read_ec_part('CL', 'v3', 1, '3e voorronde Champions League', $sort_rule, $IN);
-  my $cl_po = read_ec_part('CL', 'po', 1, 'play offs Champions League', $sort_rule, $IN);
-
-  my $el_v1 = read_ec_part('EL', 'v1', 1, '1e voorronde Europa League', $sort_rule, $IN);
-  my $el_v2 = read_ec_part('EL', 'v2', 1, '2e voorronde Europa League', $sort_rule, $IN);
-  my $el_v3 = read_ec_part('EL', 'v3', 1, '3e voorronde Europa League', $sort_rule, $IN);
-  my $el_po = read_ec_part('EL', 'po', 1, 'play offs Europa League', $sort_rule, $IN);
 
   my $ec = {
     extra => {
        dd => $date,
        supercup => $sc,
-       },
-    CL => {
-      qfr_2 => $cl_v2,
-      qfr_3 => $cl_v3,
-      playoffs => $cl_po,
-      round_of_16 => read_ec_part('CL', '8f', 1, '8-ste finale C-L', $sort_rule, $IN),
-      quarterfinal => read_ec_part('CL', '4f', 1, 'kwart finale C-L', $sort_rule, $IN),
-      semifinal => read_ec_part('CL', '2f', 1, 'halve finale C-L', $sort_rule, $IN),
-      final => read_ec_part('CL', 'f', 1, 'finale C-L', $sort_rule, $IN),
-    },
-    EuropaL => {
-      qfr_1 => $el_v1,
-      qfr => $el_v2,
-      qfr_3 => $el_v3,
-      playoffs => $el_po,
-      round2 => read_ec_part('EL', '16f', 1, '2e ronde E-L', $sort_rule, $IN),
-      round_of_16 => read_ec_part('EL', '8f', 1, '8-ste finale E-L', $sort_rule, $IN),
-      quarterfinal => read_ec_part('EL', '4f', 1, 'kwart finale E-L', $sort_rule, $IN),
-      semifinal => read_ec_part('EL', '2f', 1, 'halve finale E-L', $sort_rule, $IN),
-      final => read_ec_part('EL', 'f', 1, 'finale E-L', $sort_rule, $IN),
+       }
+    };
+
+  my @leagues     = ('CL', 'EL');
+  my %long_names  = ('CL' => 'Champions League', 'EL' => 'Europa League');
+  my %short_names = ('CL' => 'C-L', 'EL' => 'E-L');
+  my %keys        = ('CL' => 'CL', 'EL' => 'EuropaL');
+
+  foreach my $league (@leagues)
+  {
+    my $longname  = $long_names{$league};
+    my $shortname = $short_names{$league};
+    my $key       = $keys{$league};
+
+    $ec->{$key} = {
+        playoffs     => read_ec_part($league,  'po', 1, "play offs $longname", $sort_rule, $IN),
+        round2       => read_ec_part($league, '16f', 1, "2e ronde $shortname", $sort_rule, $IN),
+        round_of_16  => read_ec_part($league,  '8f', 1, "8-ste finale $shortname", $sort_rule, $IN),
+        quarterfinal => read_ec_part($league,  '4f', 1, "kwart finale $shortname", $sort_rule, $IN),
+        semifinal    => read_ec_part($league,  '2f', 1, "halve finale $shortname", $sort_rule, $IN),
+        final        => read_ec_part($league,   'f', 1, "finale $shortname", $sort_rule, $IN),
+      };
+
+    foreach my $l (1 .. 3)
+    {
+      my $voorr = read_ec_part($league,  "v$l", 1, "${l}e voorronde $longname", $sort_rule, $IN);
+      if (defined($voorr))
+      {
+        $ec->{$key}{"qfr_$l"} = $voorr;
+      }
+    };
+
+    foreach my $l ('A'..'L')
+    {
+      my $g = read_ec_part($league, "g$l", 0, "$longname, Groep $l", $sort_rule, $IN);
+      if (defined($g))
+      {
+        $ec->{$key}{"group$l"} = $g;
+      }
     }
-  };
+  }
 
   my $summaryNL = ReadOpm($szn, 'summary_NL', 'EC');
   my $summaryUK = ReadOpm($szn, 'summary_UK', 'EC');
@@ -105,24 +116,6 @@ sub read_ec_csv($$)
     $ec->{extra}->{summaryUK} = $summaryUK;
   }
 
-  foreach my $l ('A'..'H')
-  {
-    my $g = read_ec_part('CL', "g$l", 0, "Champions League, Groep $l", $sort_rule, $IN);
-    if (defined($g))
-    {
-      $ec->{CL}{"group$l"} = $g;
-    }
-  }
- 
-  foreach my $l ('A'..'L')
-  {
-    my $g = read_ec_part('EL', "g$l", 0, "Europa League, Groep $l", $sort_rule, $IN);
-    if (defined($g))
-    {
-      $ec->{EuropaL}{"group$l"} = $g;
-    }
-  }
- 
   close($IN);
   return $ec;
 }
