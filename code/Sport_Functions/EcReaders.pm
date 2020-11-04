@@ -88,7 +88,7 @@ sub read_ec_csv($$)
       qfr => $el_v2,
       qfr_3 => $el_v3,
       playoffs => $el_po,
-      round2 => read_ec_part('EL', '16f', 1, '8-ste finale E-L', $sort_rule, $IN),
+      round2 => read_ec_part('EL', '16f', 1, '2e ronde E-L', $sort_rule, $IN),
       round_of_16 => read_ec_part('EL', '8f', 1, '8-ste finale E-L', $sort_rule, $IN),
       quarterfinal => read_ec_part('EL', '4f', 1, 'kwart finale E-L', $sort_rule, $IN),
       semifinal => read_ec_part('EL', '2f', 1, 'halve finale E-L', $sort_rule, $IN),
