@@ -29,6 +29,27 @@ $VERSION = '20.0';
 
 # (c) Edwin Spee
 
+sub read_beker_part($$$$$)
+{
+  my $phase     = shift;
+  my $isko      = shift;
+  my $title     = shift;
+  my $sort_rule = shift;
+  my $content   = shift;
+
+  my @games = ([$title]);
+
+  foreach my $struct (@$content)
+  {
+    if ($struct->{phase} eq $phase)
+    {
+      add_one_line(\@games, $struct, $isko);
+    }
+  }
+
+  return (scalar @games > 1 ? \@games : undef);
+}
+
 sub read_beker_csv($$$)
 {
   my $filein = shift;
@@ -37,19 +58,17 @@ sub read_beker_csv($$$)
 
   my $fileWithPath = File::Spec->catfile($csv_dir, $subdir, $filein);
 
-  open (my $IN, "< $fileWithPath") or die "can't open $fileWithPath: $!\n";
+  my $content = read_csv_with_header($fileWithPath);
 
-  my $sc = read_ec_part('supercup', '', 1, "Johan Cruijff schaal $year", 5, $IN);
-  my $r2 = read_ec_part('r2', '', 1, 'Tweede ronde', 5, $IN);
-  my $f8 = read_ec_part('8f', '', 1, 'achtste-finales KNVB-beker', 5, $IN);
-  my $f4 = read_ec_part('4f', '', 1, 'kwart-finale KNVB-beker', 5, $IN);
-  my $f2 = read_ec_part('2f', '', 1, 'halve finale KNVB-beker', 5, $IN);
-  my $f = read_ec_part('f', '', 1, 'finale KNVB-beker', 5, $IN);
-  my $f34 = read_ec_part('f34', '', 1, 'troost-finale KNVB-beker', 5, $IN);
+  my $sc = read_beker_part('supercup', 1, "Johan Cruijff schaal $year", 5, $content);
+  my $r2 = read_beker_part('r2', 1, 'Tweede ronde', 5, $content);
+  my $f8 = read_beker_part('8f', 1, 'achtste-finales KNVB-beker', 5, $content);
+  my $f4 = read_beker_part('4f', 1, 'kwart-finale KNVB-beker', 5, $content);
+  my $f2 = read_beker_part('2f', 1, 'halve finale KNVB-beker', 5, $content);
+  my $f = read_beker_part('f', 1, 'finale KNVB-beker', 5, $content);
+  my $f34 = read_beker_part('f34', 1, 'troost-finale KNVB-beker', 5, $content);
 
   my $opm = ReadOpm(yr2szn($year), 'beker_opm', 'NL');
- 
-  close($IN);
 
   my $beker = {
     extra => { supercup => $sc },

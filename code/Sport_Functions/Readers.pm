@@ -24,6 +24,7 @@ $VERSION = '20.0';
 (#========================================================================
  '&read_csv_file',
  '&read_csv_file_szn',
+ '&read_csv_with_header',
  '&ReadOpm',
  '&read_csv',
  '$csv_dir',
@@ -54,6 +55,39 @@ sub read_csv_file($)
  }
  close(IN);
  return \@content;
+}
+
+sub read_csv_with_header($)
+{
+  my $fullname = shift;
+  my @content;
+
+  open(IN, "<$fullname") or die "can't open file $fullname for reading: $!";
+  my $header = <IN>;
+  chomp($header);
+  my @header_parts = split(',', $header, -1);
+
+  while(my $line = <IN>)
+  {
+    chomp($line);
+    $line =~ s/ *#.*//;
+    my @parts = split(' *, *', $line, -1);
+    if (scalar @parts != scalar @header_parts)
+    {
+      shob_error('strange_else',["# cols wrong in $line"]);
+    }
+    my %struct;
+    for (my $i=0; $i < scalar @header_parts; $i++)
+    {
+      if ($parts[$i] ne '')
+      {
+        $struct{$header_parts[$i]} = $parts[$i];
+      }
+    }
+    push @content, \%struct;
+  }
+  close(IN);
+  return \@content;
 }
 
 # converts a string like '3-2' into [3,2]
