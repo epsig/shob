@@ -22,8 +22,8 @@ $VERSION = '20.0';
 );
 
 my %shortNames;
-my $withOpm = 0;
-my $yr = 2007;
+my $withOpm = 1;
+my $yr = 2006;
 
 sub initTestCode()
 {
@@ -67,6 +67,7 @@ sub u2csv($$$)
   if (not defined $wns) {$wns = '';}
   if (not defined $stadium1) {$stadium1 = '';}
   my $result1 = $a1[1] . '-' . $a1[2];
+  if ($a1[1] == -1 && $a1[2] == -1) {$result1 = '-';}
 
   my $opm1 = '';
   if (defined($a1[3]) && ref $a1[3] eq 'HASH')
