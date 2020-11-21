@@ -33,6 +33,21 @@ $VERSION = '20.0';
 
 my $subdir = 'europacup';
 
+sub leagueIsActive($$)
+{
+  my $content = shift;
+  my $league  = shift;
+
+  foreach my $struct (@$content)
+  {
+    if ($struct->{league} eq $league)
+    {
+      return 1;
+    }
+  }
+  return 0;
+}
+
 sub read_ec_csv($$)
 {
   my $filein = shift;
@@ -68,10 +83,10 @@ sub read_ec_csv($$)
        }
     };
 
-  my @leagues     = ('CL', 'EL');
-  my %long_names  = ('CL' => 'Champions League', 'EL' => 'Europa League');
-  my %short_names = ('CL' => 'C-L', 'EL' => 'E-L');
-  my %keys        = ('CL' => 'CL', 'EL' => 'EuropaL');
+  my @leagues     = ('CL', 'EL', 'UEFAcup');
+  my %long_names  = ('CL' => 'Champions League', 'EL' => 'Europa League', 'UEFAcup' => 'UEFA cup');
+  my %short_names = ('CL' => 'C-L', 'EL' => 'E-L', 'UEFAcup' => 'UEFA-cup');
+  my %keys        = ('CL' => 'CL', 'EL' => 'EuropaL', 'UEFAcup' => 'UEFAcup');
 
   foreach my $league (@leagues)
   {
@@ -79,9 +94,13 @@ sub read_ec_csv($$)
     my $shortname = $short_names{$league};
     my $key       = $keys{$league};
 
+    if ( ! leagueIsActive($content, $league)) {next;}
+
     $ec->{$key} = {
         playoffs     => read_ec_part($league,  'po', 1, "play offs $longname", $sort_rule, $content),
+        round1       => read_ec_part($league, 'round1', 1, "1e ronde $shortname", $sort_rule, $content),
         round2       => read_ec_part($league, '16f', 1, "2e ronde $shortname", $sort_rule, $content),
+        round3       => read_ec_part($league, 'round3', 1, "3e ronde $shortname", $sort_rule, $content),
         round_of_16  => read_ec_part($league,  '8f', 1, "8-ste finale $shortname", $sort_rule, $content),
         quarterfinal => read_ec_part($league,  '4f', 1, "kwart finale $shortname", $sort_rule, $content),
         semifinal    => read_ec_part($league,  '2f', 1, "halve finale $shortname", $sort_rule, $content),
@@ -99,7 +118,8 @@ sub read_ec_csv($$)
 
     foreach my $l ('A'..'L')
     {
-      my $g = read_ec_part($league, "g$l", 0, "$longname, Groep $l", $sort_rule, $content);
+      my $title = ($league eq 'UEFAcup' ? "Groepsfase UEFA-cup, Poule $l": "$longname, Groep $l");
+      my $g = read_ec_part($league, "g$l", 0, $title, $sort_rule, $content);
       if (defined($g))
       {
         $ec->{$key}{"group$l"} = $g;
@@ -143,6 +163,10 @@ sub read_ec_part($$$$$$)
   if ($total == 12)
   {
     $games[0][1][3] = ($cupname eq 'CL' ? 2 : 1);
+  }
+  elsif ($total == 10 && $cupname eq 'UEFAcup' && $phase =~ m/^g/iso)
+  {
+    $games[0][1][3] = 5;
   }
 
   return (scalar @games > 1 ? \@games : undef);
