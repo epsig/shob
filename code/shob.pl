@@ -144,7 +144,7 @@ sub handle_new_style_files($$$)
   [2, 'all', sub {&get_ec_webpage('2005-2006');}, 'sport_voetbal_europacup_2005_2006.html'],
   [2, 'all', sub {&get_ec_webpage('2006-2007');}, 'sport_voetbal_europacup_2006_2007.html'],
   [2, 'all', sub {&get_ec_webpage('2007-2008');}, 'sport_voetbal_europacup_2007_2008.html'],
-  [1, 'all', sub {&get_ec_webpage('2008-2009');}, 'sport_voetbal_europacup_2008_2009.html'],
+  [2, 'all', sub {&get_ec_webpage('2008-2009');}, 'sport_voetbal_europacup_2008_2009.html'],
   [2, 'all', sub {&get_ec_webpage('2009-2010');}, 'sport_voetbal_europacup_2009_2010.html'],
   [2, 'all', sub {&get_ec_webpage('2010-2011');}, 'sport_voetbal_europacup_2010_2011.html'],
   [2, 'all', sub {&get_ec_webpage('2011-2012');}, 'sport_voetbal_europacup_2011_2012.html'],
