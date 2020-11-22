@@ -23,7 +23,7 @@ $VERSION = '20.0';
 
 my %shortNames;
 my $withOpm = 0;
-my $yr = 2002;
+my $yr = 2001;
 
 sub initTestCode()
 {
@@ -80,7 +80,8 @@ sub u2csv($$$)
       $opm1 =~ s/,/;/g;
       if (not $withOpm)
       {
-        die("Toch met opm.\n");
+        warn("Toch met opm.\n");
+        $withOpm = 1;
       }
     }
     if (defined $a1[3]->{stadion})
@@ -109,7 +110,8 @@ sub u2csv($$$)
         $opm2 =~ s/,/;/g;
         if (not $withOpm)
         {
-          die("Toch met opm.\n");
+          warn("Toch met opm.\n");
+          $withOpm = 1;
         }
       }
       if (defined $a2[3]->{stadium})
@@ -170,34 +172,39 @@ sub test_something()
     my $outfile  = "Sport_Data/europacup/europacup_$szn.csv";
        $outfile =~ s/-/_/;
 
-    open (OUT, "> $outfile ") or die "can't open $outfile: $!.\n";
-    print OUT "league,round,team1,team2,dd,result,star,stadium";
-    if ($withOpm)
-    {
-      print OUT ",remark";
-    }
-    print OUT "\n";
-
     my $uCur = get_u_ec($szn);
-    foreach my $league (@Leagues)
-    {
-      if (defined($uCur->{$league}))
+    for my $ii (1 .. 2)
+    { # with without remarks; 2nd time correct with remarks if necessary
+      open (OUT, "> $outfile ") or die "can't open $outfile: $!.\n";
+      print OUT "league,round,team1,team2,dd,result,star,stadium";
+      if ($withOpm)
       {
-        my $uLeague = $uCur->{$league};
-        foreach my $round (@rounds)
+        print OUT ",remark";
+      }
+      print OUT "\n";
+
+      foreach my $league (@Leagues)
+      {
+        if (defined($uCur->{$league}))
         {
-          if (defined($uLeague->{$round}))
+          my $uLeague = $uCur->{$league};
+          foreach my $round (@rounds)
           {
-            print "Found $league $round.\n";
-            my $comp = $uLeague->{$round};
-            for (my $i=1; $i<scalar @$comp; $i++ )
+            if (defined($uLeague->{$round}))
             {
-              my $u = $comp->[$i];
-              u2csv($league, $round, $u);
+              print "Found $league $round.\n";
+              my $comp = $uLeague->{$round};
+              for (my $i=1; $i<scalar @$comp; $i++ )
+              {
+                my $u = $comp->[$i];
+                u2csv($league, $round, $u);
+              }
             }
           }
         }
       }
+      close(OUT) or die "can't close $outfile: $!.\n";
+      if ($withOpm == 0) {last;}
     }
 
     if (defined $uCur->{extra}{summary})
@@ -207,7 +214,7 @@ sub test_something()
       print "\n";
     }
 
-    close(OUT) or die "can't close $outfile: $!.\n";
+
   }
 }
 
