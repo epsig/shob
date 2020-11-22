@@ -133,7 +133,19 @@ sub read_ec_csv($$)
 
       if (defined($g))
       {
-        $g->[0][1][3] = $wnsCL if ($wnsCL);
+        if ($wnsCL)
+        {
+          my $pos = index($wnsCL, $l);
+          if (length($wnsCL) == 1)
+          {
+            $g->[0][1][3] = $wnsCL;
+          }
+          elsif ( $pos >= 0)
+          {
+            my $wns = substr($wnsCL, 2+$pos, 1);
+            $g->[0][1][3] = $wns;
+          }
+        }
         $ec->{$key}{"group$l"} = $g;
       }
     }

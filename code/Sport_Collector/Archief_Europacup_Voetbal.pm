@@ -334,7 +334,7 @@ semifinal => [ [''],
 final => [ [''],
 ['DEs04','ITiml',[19970507,1,0],[19970521,1,0],5] ]}};
 #
-$u_ec->{'1997-1998'} = {
+$u_ec->{'1997-1998.oud'} = {
 extra => {
 dd => 20090614,
 summary => << 'EOF'},
@@ -410,10 +410,10 @@ semifinal => [ [''],
 final => [ [''],
 ['ESrmd','ITjuv',[19980520,1,0, {stadion => 'Amsterdam (de Arena)',
 opm =>
- "De finale komt even in gevaar omdat Schiphol te weinig\n".
- "<br>start- en landingsrechten heeft om de bezoekers van de finale te verwerken.\n".
- "<br>De halve finale wedstrijd Real Madrid - Borussia Dortmund begint\n".
- "<br>75 minuten te laat door een omgetrokken doel.\n"}],1]]},
+ "De finale komt even in gevaar omdat Schiphol te weinig".
+ "<br>start- en landingsrechten heeft om de bezoekers van de finale te verwerken.".
+ "<br>De halve finale wedstrijd Real Madrid - Borussia Dortmund begint".
+ "<br>75 minuten te laat door een omgetrokken doel."}],1]]},
 
 CWC => {
 round1 => [ ['Eerste ronde EC-II'],

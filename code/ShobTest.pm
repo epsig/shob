@@ -22,7 +22,7 @@ $VERSION = '20.0';
 );
 
 my %shortNames;
-my $yr = 1998;
+my $yr = 1997;
 my $withOpm = 0;
 
 sub initTestCode()
