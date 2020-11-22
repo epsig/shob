@@ -97,6 +97,7 @@ sub read_ec_csv($$)
     if ( ! leagueIsActive($content, $league)) {next;}
 
     $ec->{$key} = {
+        intertoto    => read_ec_part($league,  'intertoto', 1, "Finale Intertoto (winnaars naar UEFA-cup)", $sort_rule, $content),
         playoffs     => read_ec_part($league,  'po', 1, "play offs $longname", $sort_rule, $content),
         round1       => read_ec_part($league, 'round1', 1, "1e ronde $shortname", $sort_rule, $content),
         round2       => read_ec_part($league, '16f', 1, "2e ronde $shortname", $sort_rule, $content),
