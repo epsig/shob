@@ -22,8 +22,8 @@ $VERSION = '20.0';
 );
 
 my %shortNames;
+my $yr = 2000;
 my $withOpm = 0;
-my $yr = 2001;
 
 sub initTestCode()
 {
@@ -91,7 +91,6 @@ sub u2csv($$$)
   }
 
   my $opm2 = ''; my $stadium2 = '';
-
 
   my @base1 = ();
   my @base2 = ();
