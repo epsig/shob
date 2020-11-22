@@ -534,7 +534,7 @@ round1 => [ ['Eerste ronde EC-II'],
 round2 => [ ['Tweede ronde EC-II'],
 ['NLhrv','HRvrv',[19981022,2,1],[19981105,4,2],4] ],
 quarterfinal => [ [''],
-['GRpan','ITlzr',[19990304,4,4],[19990318,3,0],2], # 0-4 ??
+['GRpan','ITlzr',[19990304,0,4],[19990318,3,0],2],
 ['RUlkm','ILmhf',[19990304,3,0],[19990318,0,1],1],
 ['HRvrv','ESmlr',[19990304,0,0],[19990318,3,1],2],
 ['G1cls','NOvli',[19990304,3,0],[19990318,2,3],1] ],
@@ -543,8 +543,8 @@ semifinal => [ [''],
 ['G1cls','ESmlr',[19990408,1,1],[19990422,1,0],2] ],
 final => [ [''],
 ['ITlzr','ESmlr',[19990519,2,1, {opm =>
- "Lazio Roma is de laatste winnaar van de Europacup II.<br>\n".
-'Vanaf volgend seizoen zijn meeste bekerwinnaars in de UEFA cup terug te vinden.'}],1,
+ "Lazio Roma is de laatste winnaar van de Europacup II.<br>".
+'Vanaf volgend seizoen zijn meeste bekerwinnaars in de UEFA-cup terug te vinden.'}],1,
 'Birmingham (Villa Park)'] ]},
 
 UEFAcup => {
