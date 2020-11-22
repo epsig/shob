@@ -22,7 +22,7 @@ $VERSION = '20.0';
 );
 
 my %shortNames;
-my $yr = 1999;
+my $yr = 1998;
 my $withOpm = 0;
 
 sub initTestCode()
@@ -44,6 +44,7 @@ sub initTestCode()
   $shortNames{'CL'} = 'CL';
   $shortNames{'EuropaL'} = 'EL';
   $shortNames{'UEFAcup'} = 'UEFAcup';
+  $shortNames{'CWC'} = 'EC2';
   foreach my $c ('A' .. 'L')
   {
     $shortNames{"group$c"} = "g$c";
@@ -91,7 +92,8 @@ sub u2csv($$$)
     }
   }
 
-  my $opm2 = ''; my $stadium2 = '';
+  my $opm2 = '';
+  my $stadium2 = '';
 
   my @base1 = ();
   my @base2 = ();
@@ -161,7 +163,7 @@ sub test_something()
 
   # print "place holder for tmp/test function.\n";
 
-  my @Leagues = ('extra', 'CL', 'EuropaL', 'UEFAcup');
+  my @Leagues = ('extra', 'CL', 'CWC', 'EuropaL', 'UEFAcup');
   my @rounds = ('supercup', 'intertoto', 'v2', 'qfr_1', 'qfr', 'qfr_3', 'playoffs',
   'round1', ('groupA'..'groupL'), 'group2B', 'group2D', 'round2', 'round3', 'round_of_16',
   'quarterfinal', 'semifinal', 'final');

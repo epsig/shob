@@ -73,7 +73,11 @@ sub read_ec_csv($$)
 
   my $sort_rule = ReadOpm($szn, 'sort_rule', 'EC');
   if (not $sort_rule) {$sort_rule = 5;} # default value
+  
+  my $wnsCL = ReadOpm($szn, 'wns_CL', 'EC');
 
+  my $voorr_CL_voorronde = ReadOpm($szn, 'voorr_CL_voorronde', 'EC');
+  
   my $sc = read_ec_part('supercup', '', 1, 'Europese Supercup', $sort_rule, $content);
 
   my $ec = {
@@ -83,10 +87,10 @@ sub read_ec_csv($$)
        }
     };
 
-  my @leagues     = ('CL', 'EL', 'UEFAcup');
-  my %long_names  = ('CL' => 'Champions League', 'EL' => 'Europa League', 'UEFAcup' => 'UEFA cup');
-  my %short_names = ('CL' => 'C-L', 'EL' => 'E-L', 'UEFAcup' => 'UEFA-cup');
-  my %keys        = ('CL' => 'CL', 'EL' => 'EuropaL', 'UEFAcup' => 'UEFAcup');
+  my @leagues     = ('CL', 'EC2', 'EL', 'UEFAcup');
+  my %long_names  = ('CL' => 'Champions League', 'EL' => 'Europa League', 'UEFAcup' => 'UEFA cup', 'EC2' => 'EC-II');
+  my %short_names = ('CL' => 'C-L', 'EL' => 'E-L', 'UEFAcup' => 'UEFA-cup', 'EC2' => 'EC-II');
+  my %keys        = ('CL' => 'CL', 'EL' => 'EuropaL', 'UEFAcup' => 'UEFAcup', 'EC2' => 'CWC');
 
   foreach my $league (@leagues)
   {
@@ -112,7 +116,10 @@ sub read_ec_csv($$)
 
     foreach my $l (1 .. 3)
     {
-      my $voorr = read_ec_part($league,  "v$l", 1, "${l}e voorronde $longname", $sort_rule, $content);
+      my $title = "${l}e voorronde $longname";
+      $title = $voorr_CL_voorronde if ($voorr_CL_voorronde);
+      chomp($title);
+      my $voorr = read_ec_part($league,  "v$l", 1, $title, $sort_rule, $content);
       if (defined($voorr))
       {
         $ec->{$key}{"qfr_$l"} = $voorr;
@@ -123,8 +130,10 @@ sub read_ec_csv($$)
     {
       my $title = ($league eq 'UEFAcup' ? "Groepsfase UEFA-cup, Poule $l": "$longname, Groep $l");
       my $g = read_ec_part($league, "g$l", 0, $title, $sort_rule, $content);
+
       if (defined($g))
       {
+        $g->[0][1][3] = $wnsCL if ($wnsCL);
         $ec->{$key}{"group$l"} = $g;
       }
     }
