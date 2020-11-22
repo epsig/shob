@@ -23,7 +23,7 @@ $VERSION = '20.0';
 
 my %shortNames;
 my $withOpm = 0;
-my $yr = 2003;
+my $yr = 2002;
 
 sub initTestCode()
 {
@@ -35,6 +35,7 @@ sub initTestCode()
   $shortNames{'round1'} = 'round1';
   $shortNames{'round2'} = '16f';
   $shortNames{'round3'} = 'round3';
+  $shortNames{'group2B'} = 'group2B';
   $shortNames{'round_of_16'} = '8f';
   $shortNames{'quarterfinal'} = '4f';
   $shortNames{'semifinal'} = '2f';
@@ -159,7 +160,7 @@ sub test_something()
   # print "place holder for tmp/test function.\n";
 
   my @Leagues = ('extra', 'CL', 'EuropaL', 'UEFAcup');
-  my @rounds = ('supercup', 'intertoto', 'v2', 'qfr_1', 'qfr', 'qfr_3', 'playoffs', 'round1', ('groupA'..'groupL'), 'round2', 'round3', 'round_of_16', 'quarterfinal', 'semifinal', 'final');
+  my @rounds = ('supercup', 'intertoto', 'v2', 'qfr_1', 'qfr', 'qfr_3', 'playoffs', 'round1', ('groupA'..'groupL'), 'group2B', 'round2', 'round3', 'round_of_16', 'quarterfinal', 'semifinal', 'final');
 
   initTestCode();
 

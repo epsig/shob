@@ -102,6 +102,7 @@ sub read_ec_csv($$)
         round1       => read_ec_part($league, 'round1', 1, "1e ronde $shortname", $sort_rule, $content),
         round2       => read_ec_part($league, '16f', 1, "2e ronde $shortname", $sort_rule, $content),
         round3       => read_ec_part($league, 'round3', 1, "3e ronde $shortname", $sort_rule, $content),
+        group2B      => read_ec_part($league, 'group2B', 0, "Tweede ronde, Poule B", $sort_rule, $content),
         round_of_16  => read_ec_part($league,  '8f', 1, "8-ste finale $shortname", $sort_rule, $content),
         quarterfinal => read_ec_part($league,  '4f', 1, "kwart finale $shortname", $sort_rule, $content),
         semifinal    => read_ec_part($league,  '2f', 1, "halve finale $shortname", $sort_rule, $content),
@@ -163,7 +164,7 @@ sub read_ec_part($$$$$$)
 
   if ($total == 12)
   {
-    $games[0][1][3] = ($cupname eq 'CL' ? 2 : 1);
+    $games[0][1][3] = ($cupname eq 'CL' && $phase ne 'group2B' ? 2 : 1);
   }
   elsif ($total == 10 && $cupname eq 'UEFAcup' && $phase =~ m/^g/iso)
   {
