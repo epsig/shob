@@ -85,6 +85,11 @@ sub ko_or_comp($$$)
    {
     $found_stand_l = 1;
     $stand = u2s($row, @$type);
+    if (scalar @$type > 4)
+    {
+      # copy extra remark from games to standing
+      $stand->[0][1] = $type->[4];
+    }
    }
    if (defined $stand)
    {

@@ -38,6 +38,13 @@ $VERSION = '20.0';
 
 our $u_ec;
 
+my $opm19941014 =
+"14 oktober 1994: AC Milan krijgt 2 winstpunten in mindering als straf\n".
+"<br>voor het 'flesjes'-incident. In het duel tegen Casino Salzburg moest\n".
+"<br>de keeper van de Oostenrijkers het veld verlaten,\n".
+"<br>nadat hij geraakt was door een vanaf de tribunes gegooide plastic fles.\n".
+"<br>Verder moeten de laatste twee groepswedstrijden buiten Milaan worden gespeeld.";
+
 #
 $u_ec->{'1994-1995'} = {
 extra => {
@@ -54,18 +61,8 @@ maar Twente stelt zwaar teleur tegen het onbekende Kispest Honved.
 EOF
 
 CL => {
-groupD => [ ['', 0,
-#TODO is work-a-round voor ontbreken jury uitspraken
-[ ['Champions League: 1-D',
-"14 oktober 1994: AC Milan krijgt 2 winstpunten in mindering als straf\n".
-"<br>voor het 'flesjes'-incident. In het duel tegen Casino Salzburg moest\n".
-"<br>de keeper van de Oostenrijkers het veld verlaten,\n".
-"<br>nadat hij geraakt was door een vanaf de tribunes gegooide plastic fles.\n".
-"<br>Verder moeten de laatste twee groepswedstrijden buiten Milaan worden gespeeld."],
-['NLajx',6,[4,2,0],10,[9,2],['+']],
-['ITmln',6,[3,1,2],5,[6,5],['+']],
-['ATcsb',6,[1,3,2],5,[4,6]],
-['GRaek',6,[0,2,4],2,[3,9]] ]],
+groupD => [ ['', [2, 3, 'Champions League: 1-D', 1, $opm19941014]],
+['ITmln','straf','pnt',2],
 ['NLajx','ITmln',[19940914,2,0]],
 ['ATcsb','GRaek',[19940914,0,0]],
 ['GRaek','NLajx',[19940928,1,2]],
