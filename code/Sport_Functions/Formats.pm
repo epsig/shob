@@ -76,12 +76,7 @@ sub ko_or_comp($$$)
   {
    my $stand;
    my $type = $row->[0][1];
-   if (scalar @{$row->[0]} > 2)
-   {
-    $found_stand_l = 1;
-    $stand = $row->[0][2];
-   }
-   elsif (ref $type eq 'ARRAY')
+   if (ref $type eq 'ARRAY')
    {
     $found_stand_l = 1;
     $stand = u2s($row, @$type);
