@@ -22,11 +22,12 @@ $VERSION = '20.0';
 );
 
 my %shortNames;
-my $yr = 1996;
+my $yr = 1995;
 my $withOpm = 0;
 
 sub initTestCode()
 {
+  $shortNames{'itoto'} = 'itoto';
   $shortNames{'intertoto'} = 'intertoto';
   $shortNames{'qfr_1'} = 'v1';
   $shortNames{'qfr'} = 'v2';
@@ -164,7 +165,7 @@ sub test_something()
   # print "place holder for tmp/test function.\n";
 
   my @Leagues = ('extra', 'CL', 'CWC', 'EuropaL', 'UEFAcup');
-  my @rounds = ('supercup', 'intertoto', 'v2', 'qfr_1', 'qfr', 'qfr_3', 'playoffs',
+  my @rounds = ('supercup', 'itoto', 'intertoto', 'v2', 'qfr_1', 'qfr', 'qfr_3', 'playoffs',
   'round1', ('groupA'..'groupL'), 'group2B', 'group2D', 'round2', 'round3', 'round_of_16',
   'quarterfinal', 'semifinal', 'final');
 

@@ -138,115 +138,6 @@ semifinal => [ [''],
 ['DElvk','ITprm',[19950404,1,2],[19950418,3,0],2] ],
 final => [ [''],
 ['ITprm','ITjuv',[19950503,1,0],[19950517,1,1],1] ]}};
-#
-$u_ec->{'1995-1996'} = {
-extra => {
-dd => 20090614,
-summary => << 'EOF'},
-Ajax staat opnieuw in de finale van de Champions League,
-maar moet na strafschoppen de beker aan Juventus laten.
-<p>In de EC-II bereikt Feyenoord de halve finale,
-en is dan in Wenen kansloos tegen Rapid Wien.
-<p>In de UEFA-cup heeft PSV in de kwartfinale veel pech tegen Barcelona.
-Roda JC komt niet verder dan de tweede ronde.
-EOF
-
-CL => {
-groupD => [ ['', [1, 3, 'Champions League: 1-D', 1]],
-['NLajx','ESrmd',[19950913,1,0]],
-['CHgrs','HUfrv',[19950913,0,3]],
-['HUfrv','NLajx',[19950927,1,5]],
-['ESrmd','CHgrs',[19950927,2,0]],
-['NLajx','CHgrs',[19951018,3,0]],
-['ESrmd','HUfrv',[19951018,6,1]],
-['CHgrs','NLajx',[19951101,0,0]],
-['HUfrv','ESrmd',[19951101,1,1]],
-['ESrmd','NLajx',[19951122,0,2]],
-['HUfrv','CHgrs',[19951122,3,3]],
-['NLajx','HUfrv',[19951206,4,0]],
-['CHgrs','ESrmd',[19951206,0,2]] ],
-#Eerste ronde: poule A
-#Panathinaikos * (Gri);6;3;2;1;11;7-3
-#FC Nantes * (Fra);6;2;3;1;9;8-6
-#FC Porto (Por);6;1;4;1;7;6-5
-#Aalborg (Den) ;6;1;1;4;4;5-12
-#<td colspan=7> 21-23 sep 95
-#Dinamo Kiev is schuldig bevonden aan omkoping van de scheidsrechter.<br>
-#Straf: uitsluiting + 3 jaar schorsing. Het Deense Aalberg wordt de vervanger.
-#Eerste ronde: poule B
-#Spartak Moskou * (Rus);6;6;0;0;18;15-4
-#Legia Warschau * (Pol);6;2;1;3;7;5-8
-#Rosenborg Trondheim (Noo);6;2;0;4;6;11-16
-#Blackburn Rovers (Eng);6;1;1;4;4;5-8
-#Eerste ronde: poule C
-#Juventus * (Ita);6;4;1;1;13;15-4
-#Borussia Dortmund * (Dui);6;2;3;1;9;8-8
-#Steaua Boekarest (Roe);6;1;3;2;6;2-5
-#Glasgow Rangers (Sch);6;0;3;3;3;6-14
-quarterfinal => [ [''],
-['FRnnt','RUsmk',[19960306,2,0],[19960320,2,2],1],
-['ESrmd','ITjuv',[19960306,1,0],[19960320,2,0],2],
-['PLlgw','GRpnt',[19960306,0,0],[19960320,3,0],2],
-['DEbdm','NLajx',[19960306,0,2],[19960320,1,0],2] ],
-semifinal => [ [''],
-['ITjuv','FRnnt',[19960403,2,0],[19960416,3,2],1],
-['NLajx','GRpnt',[19960403,0,1],[19960416,0,3],1] ],
-final => [ [''],
-['ITjuv','NLajx',[19960522,1,1],5,'Rome'] ]},
-
-CWC => {
-round1 => [ ['Eerste ronde EC-II'],
-['LVdlp','NLfyn',[19950914,0,7],[19950928,6,0],2] ],
-round2 => [ ['Tweede ronde EC-II'],
-['G1evr','NLfyn',[19951019,0,0],[19951102,1,0],2] ],
-quarterfinal => [ [''],
-['ITprm','FRpsg',[19960307,1,0],[19960321,3,1],2],
-['ESdlc','ESrzg',[19960307,1,0],[19960321,1,1],1],
-['RUdmk','ATrwn',[19960307,0,1],[19960321,3,0],2],
-['DEbmg','NLfyn',[19960307,2,2],[19960321,1,0],2] ],
-semifinal => [ [''],
-['ESdlc','FRpsg',[19960404,0,1],[19960416,1,0],2],
-['NLfyn','ATrwn',[19960404,1,1],[19960416,3,0],2] ],
-final => [ [''],
-['FRpsg','ATrwn',[19960508,1,0],1,'Brussel'] ]},
-
-UEFAcup => {
-#Intertoto: de laatste zestien ; Achtste finales:
-#29/30 jul 95 SC Heerenveen * - Farul Constanta (Roe) <td> 4-0
-#29/30 jul 95 1. FC K&ouml;ln * (Dui) - Tirol Innsbruck (Oos) <td> 1-3
-#29/30 jul 95 Bordeaux * (Fra) - Eintracht Frankfurt (Dui) <td> 3-0
-#29/30 jul 95 Bayer Leverkusen * (Dui) - Odense BK (Den) <td> 5-2
-#29/30 jul 95 Bursaspor * (Tur) - OFI Kreta (???) <td> 2-1
-#29/30 jul 95 FC Aarau (Zwi) - Karlsruher SC * (Dui) <td> 1-2 (n.v.)
-#29/30 jul 95 Piatra Neamt (???) - FC Metz * (Fra) <td> 0-2
-#29/30 jul 95 RC Strasbourg * (Fra) - Vorw&auml;rts Steyr (Oos) <td> 4-0
-#Kwart finales
-#2 aug 95 Bordeaux * - SC Heerenveen <td> 2-0
-#2 aug 95 Bursaspor - Karlsruher SC * <td> 3-3 Karlsruher w.n.s.
-#2 aug 95 Tirol Innsbruck * - Bayer Leverkusen <td> 2-2 Innsbruck w.n.s.
-#2 aug 95 FC Metz - RC Strasbourg * <td> 0-2
-itoto => [ ['Intertoto: laatste zestien'],
-['NLhrv','ROfrc',["29/30 jul '95",4,0],1] ],
-intertoto => [ ['Intertoto: laatste acht (winnaars naar UEFA-cup)'],
-['FRgbr','NLhrv',[19950802,2,0],1] ],
-round1 => [ ['Eerste ronde UEFA-cup'],
-['FImyp','NLpsv',[19950912,1,1],[19950926,7,1],2],
-['NLrdj','SIolj',[19950912,5,0],[19950926,2,0],1] ],
-round2 => [ ['Tweede ronde UEFA-cup'],
-['PTbnf','NLrdj',[19951017,1,0],[19951031,2,2],1],
-['G1lds','NLpsv',[19951017,3,5],[19951031,3,0],2] ],
-round3 => [ ['Derde ronde UEFA-cup'],
-['NLpsv','DEwbr',[19951121,2,1],[19951205,0,0],1] ],
-quarterfinal => [ [''],
-['ITmln','FRgbr',[19960305,2,0],[19960319,3,0],2],
-['CZslp','ITasr',[19960305,2,0],[19960319,3,1],1],
-['ESbcl','NLpsv',[19960305,2,2],[19960319,2,3],1],
-['DEbmn','G1ntf',[19960305,2,1],[19960319,1,5],1] ],
-semifinal => [ [''],
-['CZslp','FRgbr',[19960402,0,1],[19960416,1,0],2],
-['DEbmn','ESbcl',[19960402,2,2],[19960416,1,2],1] ],
-final => [ [''],
-['DEbmn','FRgbr',[19960501,2,0],[19960515,1,3],1] ]}};
 
 sub get_u_ec($)
 {
@@ -257,8 +148,13 @@ sub get_u_ec($)
     my $csv = "europacup_$szn.csv";
     $csv =~ s/-/_/;
     $u_ec->{$szn} = read_ec_csv($csv, $szn);
-    $u_ec->{$szn}->{extra}->{dd} =
-      max(laatste_speeldatum_ec($szn), $u_ec->{$szn}->{extra}->{dd});
+
+    my $ddExtra = $u_ec->{$szn}->{extra}->{dd};
+    my $yr2 = substr($szn, 5, 4);
+    if ($yr2 > $ddExtra * 1E-4 - 1)
+    { # TODO: can it be removed ?
+      $u_ec->{$szn}->{extra}->{dd} = max(laatste_speeldatum_ec($szn), $ddExtra);
+    }
   }
   return $u_ec->{$szn};
 }
