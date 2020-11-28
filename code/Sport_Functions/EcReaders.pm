@@ -135,6 +135,7 @@ sub read_ec_csv($$)
       {
         if ($wnsCL)
         {
+          chomp($wnsCL);
           my $pos = index($wnsCL, $l);
           if (length($wnsCL) == 1)
           {
