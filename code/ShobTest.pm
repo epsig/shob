@@ -22,7 +22,7 @@ $VERSION = '20.0';
 );
 
 my %shortNames;
-my $yr = 1995;
+my $yr = 1994;
 my $withOpm = 0;
 
 sub initTestCode()
@@ -65,6 +65,11 @@ sub u2csv($$$)
 
   my @u = @$u;
   my $a1 = $u[2];
+  if ($a1 eq 'pnt')
+  {
+    print OUT join(',', ($shortLeague, $shortRound, @u)), "\n";
+    return;
+  }
   my @a1 = @$a1;
   my $a2 = $u[3];
   my $wns = $u[4];

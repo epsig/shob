@@ -149,19 +149,21 @@ sub ReadOpm($$$)
 
   my $content = read_csv_file_szn($fullname, $seizoen);
   my $a = '';
+  my $keyFound = '';
 
   while(my $line = shift(@$content))
   {
     my @parts = @$line;
-    if ($parts[0] eq $key)
+    if ($parts[0] =~ m/^$key/)
     {
+      if ($parts[0] ne $key) {$keyFound = $parts[0];}
       shift @parts; 
       my $line = join(', ', @parts);
       $a .= "$line\n";
     }
   }
 
-  return $a;
+  return ($keyFound ne '' ? {$keyFound => $a} : $a);
 }
 
 sub read_csv($)
