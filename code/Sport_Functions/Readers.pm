@@ -131,11 +131,13 @@ sub read_csv_file_szn($$)
  return (\@content_szn);
 }
 
-sub ReadOpm($$$)
+sub ReadOpm($$$$)
 {
-  my $seizoen = shift;
-  my $key     = shift;
-  my $type    = shift;
+  my $seizoen   = shift;
+  my $key       = shift;
+  my $type      = shift;
+  my $multiLine = shift;
+  # 0= no line breaks added; 1= line breaks added; 2= line breaks added, but not after the last
 
   my $fullname;
   if ($type eq 'NL')
@@ -156,10 +158,12 @@ sub ReadOpm($$$)
     my @parts = @$line;
     if ($parts[0] =~ m/^$key/)
     {
+      if ($multiLine == 2 && $a ne '') {$a .= "\n";}
       if ($parts[0] ne $key) {$keyFound = $parts[0];}
       shift @parts; 
       my $line = join(', ', @parts);
-      $a .= "$line\n";
+      $a .= $line;
+      if ($multiLine == 1) {$a .= "\n";}
     }
   }
 

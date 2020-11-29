@@ -330,7 +330,7 @@ sub get_betaald_voetbal_nl($)
  my $yr = shift;
  my $szn = yr2szn($yr);
  
- my $opm_ered = ReadOpm($szn, 'opm', 'NL');
+ my $opm_ered = ReadOpm($szn, 'opm', 'NL', 1);
 
  my $europa_in = '';
  my $dd = 20090722;

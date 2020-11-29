@@ -70,15 +70,15 @@ sub read_ec_csv($$)
     $date = str2itdate($today);
   }
 
-  my $sort_rule = ReadOpm($szn, 'sort_rule', 'EC');
+  my $sort_rule = ReadOpm($szn, 'sort_rule', 'EC', 0);
   if (not $sort_rule) {$sort_rule = 5;} # default value
   my $pnt_telling = ($szn le '1994-1995' ? 2 : 1);
   
-  my $wnsCL = ReadOpm($szn, 'wns_CL', 'EC');
+  my $wnsCL = ReadOpm($szn, 'wns_CL', 'EC', 0);
 
-  my $voorr_CL_voorronde = ReadOpm($szn, 'voorr_CL_voorronde', 'EC');
+  my $voorr_CL_voorronde = ReadOpm($szn, 'voorr_CL_voorronde', 'EC', 0);
   
-  my $remark_extra = ReadOpm($szn, 'remark', 'EC');
+  my $remark_extra = ReadOpm($szn, 'remark', 'EC', 2);
   
   my $sc = read_ec_part('supercup', '', 1, 'Europese Supercup', $sort_rule, $content);
 
@@ -121,7 +121,6 @@ sub read_ec_csv($$)
     {
       my $title = "${l}e voorronde $longname";
       $title = $voorr_CL_voorronde if ($voorr_CL_voorronde);
-      chomp($title);
       my $voorr = read_ec_part($league,  "v$l", 1, $title, $sort_rule, $content, $pnt_telling);
       if (defined($voorr))
       {
@@ -138,7 +137,6 @@ sub read_ec_csv($$)
       {
         if ($wnsCL)
         {
-          chomp($wnsCL);
           my $pos = index($wnsCL, $l);
           if (length($wnsCL) == 1)
           {
@@ -155,7 +153,6 @@ sub read_ec_csv($$)
           if (defined $remark_extra->{"remark_CL_g$l"})
           {
             $g->[0][1][4] = $remark_extra->{"remark_CL_g$l"};
-            chomp($g->[0][1][4]);
           }
         }
         $ec->{$key}{"group$l"} = $g;
@@ -163,12 +160,15 @@ sub read_ec_csv($$)
     }
   }
 
-  my $summaryNL = ReadOpm($szn, 'summary_NL', 'EC');
-  my $summaryUK = ReadOpm($szn, 'summary_UK', 'EC');
+  my $summaryNL = ReadOpm($szn, 'summary_NL', 'EC', 1);
+  my $summaryUK = ReadOpm($szn, 'summary_UK', 'EC', 1);
 
-  if ($summaryNL ne '' or $summaryUK ne '')
+  if ($summaryNL ne '')
   {
     $ec->{extra}->{summary} = $summaryNL;
+  }
+  if ($summaryUK ne '')
+  {
     $ec->{extra}->{summaryUK} = $summaryUK;
   }
 
