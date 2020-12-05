@@ -7,6 +7,7 @@ use strict; use warnings;
 use Shob_Tools::Html_Head_Bottum;
 use Sport_Collector::OS_Funcs;
 use Sport_Functions::Overig;
+use Sport_Functions::Readers;
 use Exporter;
 use vars qw($VERSION @ISA @EXPORT);
 @ISA = ('Exporter');
@@ -1254,200 +1255,60 @@ sub get_OS2014
   20150912, {type1 => 'std_menu'});
 }
 
+sub get_one_distance($$$)
+{
+  my $DH       = shift;
+  my $distance = shift;
+  my $allData  = shift;
+
+  my @data = ([]);
+  foreach my $line (@$allData)
+  {
+    if ($line->{DH} eq $DH && $line->{distance} eq $distance)
+    {
+      my $result = $line->{result};
+      if (defined($line->{remark}))
+      {
+        $result = [$result, $line->{remark}];
+      }
+      my $name = $line->{name};
+      if (defined ($line->{team}))
+      {
+        $line->{team} =~ s/; /, /g;
+        $name = [$name, $line->{team}];
+      }
+      push(@data, [$line->{ranking}, $name, $result]);
+    }
+  }
+  return \@data;
+}
+
 sub get_OS2018
 {
- my $D3km_2018 = [ [],
-[ 1, 'NLach', 3*60 + 59.21],
-[ 2, 'NLwst', 3*60 + 59.29],
-[ 3, 'NLadj', 4*60 +  0.02],
-[ 4, 'CZsbl', 4*60 +  0.54],
-[ 5, 'JPtkg', 4*60 +  1.35],
-[ 6, 'CAbln', 4*60 +  4.14],
-[ 7, 'CAwdm', 4*60 +  4.26],
-[ 8, 'JPast', 4*60 +  4.35],
-[ 9, 'DEpch', 4*60 +  4.49],
-[10, 'OAvrn', 4*60 +  5.85],
-[11, 'BYzjv', 4*60 +  5.96],
-[12, 'NOnjt', 4*60 +  6.67] ];
+  my $cvsFile = File::Spec->catdir($csv_dir, 'schaatsen', 'OS_2018.csv');
+  my $allResults = read_csv_with_header($cvsFile);
 
- my $H5km_2018 = [ [],
-[ 1, 'NLkrm', [6*60 +  9.76, 'OR']],
-[ 2, 'CAblm', 6*60 + 11.616],
-[ 3, 'NOpdr', 6*60 + 11.618],
-[ 4, 'NZmch', 6*60 + 14.07],
-[ 5, 'KRshn', 6*60 + 14.15],
-[ 6, 'BEswn', 6*60 + 14.57],
-[ 7, 'NLblk', 6*60 + 14.75],
-[ 8, 'ITtml', 6*60 + 15.48],
-[ 9, 'JPich', 6*60 + 16.55],
-[10, 'DEpbk', 6*60 + 17.91],
-[11, 'FRcnt', 6*60 + 18.13],
-[12, 'DEgsr', 6*60 + 18.34],
-[15, 'NLbvr', 6*60 + 22.26] ];
+  my $H500m = get_one_distance('H', '500m', $allResults);
+  my $H1000m = get_one_distance('H', '1000m', $allResults);
+  my $H1500m = get_one_distance('H', '1500m', $allResults);
+  my $H5km = get_one_distance('H', '5km', $allResults);
+  my $H10km = get_one_distance('H', '10km', $allResults);
 
- my $D1500m_2018 = [ [],
-[ 1, 'NLwst', 60 + 54.35],
-[ 2, 'JPtkg', 60 + 54.55],
-[ 3, 'NLlns', 60 + 55.26],
-[ 4, 'NLvbk', 60 + 55.27],
-[ 5, 'USbbw', 60 + 55.54],
-[ 6, 'JPkdr', 60 + 56.11],
-[ 7, 'USrch', 60 + 56.74],
-[ 8, 'NOnjt', 60 + 56.46],
-[ 9, 'PLczw', 60 + 57.85],
-[10, 'ITlll', 60 + 57.94],
-[11, 'CZzdl', 60 + 58.03],
-[12, 'DEhbc', 60 + 58.24] ];
+  my $D500m = get_one_distance('D', '500m', $allResults);
+  my $D1000m = get_one_distance('D', '1000m', $allResults);
+  my $D1500m = get_one_distance('D', '1500m', $allResults);
+  my $D5km = get_one_distance('D', '5km', $allResults);
+  my $D3km = get_one_distance('D', '3km', $allResults);
 
- my $H1500m_2018 = [ [],
-[ 1, 'NLkns', [60 + 44.01,'BR']],
-[ 2, 'NLrst',  60 + 44.86],
-[ 3, 'KRmsk',  60 + 44.93],
-[ 4, 'LVslv',  60 + 45.24],
-[ 5, 'JPoda',  60 + 45.44],
-[ 6, 'BEswn',  60 + 45.49],
-[ 7, 'NOhrk',  60 + 45.64],
-[ 8, 'USmnt',  60 + 45.86],
-[ 9, 'NOpdr',  60 + 46.12],
-[10, 'JPwll',  60 + 46.21],
-[11, 'NLvrw',  60 + 46.26],
-[12, 'PLbrd',  60 + 46.31],
-];
-
- my $D1000m_2018 = [ [],
-[ 1, 'NLjtm', [60 + 13.56,'BR']],
-[ 2, 'JPkdr',  60 + 13.82],
-[ 3, 'JPtkg',  60 + 13.98],
-[ 4, 'USbbw',  60 + 14.36],
-[ 5, 'AThzg',  60 + 14.47],
-[ 6, 'NLlns',  60 + 14.85],
-[ 7, 'CZerb',  60 + 14.95],
-[ 8, 'USrch',  60 + 15.15],
-[ 9, 'NLwst',  60 + 15.32],
-[10, 'NOnjt',  60 + 15.43],
-[11, 'CNzhh',  60 + 15.67],
-[12, 'PLczw',  60 + 15.77],
-];
-
- my $H10km_2018 = [ [],
-[ 1, 'CAblm', [12*60 + 39.77, 'OS']],
-[ 2, 'NLbrg',  12*60 + 41.98],
-[ 3, 'ITtml',  12*60 + 54.32],
-[ 4, 'KRshn',  12*60 + 55.54],
-[ 5, 'CAblc',  12*60 + 59.51],
-[ 6, 'NLkrm',  13*60 +  1.02],
-[ 7, 'DEpbk',  13*60 +  1.94],
-[ 8, 'BEswn',  13*60 +  3.53],
-[ 9, 'DEgsr',  13*60 +  6.35],
-[10, 'JPosh',  13*60 + 10.31],
-[11, 'NObok',  13*60 + 17.47],
-[12, 'ITdgh',  13*60 + 27.09] ];
-
- my $D5km_2018 = [ [],
-[ 1, 'NLvss', [6*60 + 50.23, 'BR']],
-[ 2, 'CZsbl',  6*60 + 51.85],
-[ 3, 'OAvrn',  6*60 + 53.98],
-[ 4, 'NLawd',  6*60 + 54.17],
-[ 5, 'CAbln',  6*60 + 59.38],
-[ 6, 'CAwdm',  6*60 + 59.88],
-[ 7, 'BYzjv',  7*60 +  4.41],
-[ 8, 'DEpch',  7*60 +  5.43],
-[ 9, 'JPosh',  7*60 +  7.71],
-[10, 'BEjpt',  7*60 + 10.26],
-[11, 'UScst',  7*60 + 13.28],
-[12, 'JPntk',  7*60 + 17.45] ];
-
- my $D500m_2018 = [ [],
-[ 1, 'JPnkd', [36.94, 'BR']],
-[ 2, 'KRshl',  37.33],
-[ 3, 'CZerb',  37.34],
-[ 4, 'AThzg',  37.51],
-[ 5, 'USbbw',  37.53],
-[ 6, 'NLjtm',  37.53],
-[ 7, 'OAglk',  37.62],
-[ 8, 'JPago',  37.67],
-[ 9, 'CNjng',  37.81],
-[10, 'CNhdy',  37.88],
-[19, 'NLads',  38.75],
-[23, 'NLvbk',  39.18] ];
-
-#schaatsen, 500 meter heren, maandag, 20180219:
- my $H500m_2018 = [ [],
-[ 1, 'NOhlr', [34.41, 'BR']],
-[ 2, 'KRmky',  34.42],
-[ 3, 'CNtgy',  34.65],
-[ 4, 'FIptl',  34.68],
-[ 5, 'JPymk',  34.78],
-[ 6, 'JPkat',  34.83],
-[ 7, 'NLmld',  34.83],
-[ 8, 'DEnih',  34.89],
-[ 9, 'NLvrb',  34.90],
-[10, 'NLsmk',  34.93],
-[11, 'CAbsv',  34.93],
-[12, 'KRjnh',  35.01] ];
-
- my $Hteampursuit_2018 = [ [],
-[ 1, ['NO', 'Bokko, Nilsen, Pedersen'], 3*60+37.31],
-[ 2, ['KR', 'Chung, Kim, Lee'], 3*60+38.52],
-[ 3, ['NL', 'Blokhuijsen, Kramer, Roest'], 3*60+38.40],
-[ 4, ['NZ', 'Dobbin, Kay, Michael'], 3*60+43.54],
-[ 5, ['IT', 'Bugari, Giovannini, Tumolero'], 3*60+41.05],
-[ 6, ['JP', 'Ichinohe, Tsuchiya, Williamson'], 3*60+41.61],
-[ 7, ['CA', 'Bloemen, Donnelly, Morrison'], 3*60+42.16],
-[ 8, ['US', 'Garcia, Hansen, Lehman'], 3*60+50.77],
-];
-
- my $Dteampursuit_2018 = [ [],
-[ 1, ['JP', 'Sato, Takagi, Takagi'], 2*60+53.89],
-[ 2, ['NL', 'De Jong, Leenstra, W&uuml;st'], [2*60+55.47, 'NR']],
-[ 3, ['US', 'Bergsma, Bowe, Manganello'], 2*60+59.26],
-[ 4, ['CA', 'Blondin, Morrison, Weidemann'], 2*60+59.70],
-[ 5, ['CN', 'Hao, Han, Li'], 3*60 +0.04],
-[ 6, ['DE', 'Dufter, Hirschbichler, Pechstein'], 3*60+4.66],
-[ 7, ['PL', 'Bosiek, Czerwonka, Zlotkowska'], 3*60+3.11],
-[ 8, ['KR', 'Kim, Noh, Park'], 3*60+7.30],
-];
-
- my $H1000m_2018 = [ [],
-[ 1, 'NLkns', [60 + 7.95, 'BR']],
-[ 2, 'NOhlr',  60 + 7.99],
-[ 3, 'KRtyn',  60 + 8.22],
-[ 4, 'USmnt',  60 + 8.56],
-[ 5, 'JPoda',  60 + 8.56],
-[ 6, 'NLvrb',  60 + 8.61],
-[ 7, 'USdvs',  60 + 8.78],
-[ 8, 'DEnih',  60 + 8.93],
-[ 9, 'NLvrw',  60 + 9.14],
-[10, 'USwht',  60 + 9.17],
-[11, 'CAstj',  60 + 9.24],
-[12, 'KRmky',  60 + 9.27] ];
-
- my $DmassaStart2018 = [ [],
-[ 1, 'JPntk', 60],
-[ 2, 'KRbrm', 40],
-[ 3, 'NLstn', 20],
-[ 4, 'EEsal', 15],
-[ 5, 'CNldn',  6],
-[ 6, 'BYzjv',  3],
-[ 7, 'ITlll',  1],
-[ 8, 'CZzdl',  1],
-[ 9, 'PLlzl',  1],
-];
-
- my $HmassaStart2018 = [ [],
-[ 1, 'KRshn', 60],
-[ 2, 'BEswn', 40],
-[ 3, 'NLvrw', 20],
-[ 4, 'CHlwn', 11],
-[ 5, 'DKvth',  8],
-[ 6, 'ATlhd',  6],
-[ 7, 'BYvmc',  1],
-[ 8, 'KRcjw',  1] ];
-
- $OS =
-  [$H500m_2018, $H1000m_2018, $H1500m_2018, $H5km_2018, $H10km_2018,
-   $D500m_2018, $D1000m_2018, $D1500m_2018, $D3km_2018, $D5km_2018,
-   $Hteampursuit_2018, $Dteampursuit_2018, $HmassaStart2018, $DmassaStart2018];
+  my $Hteampursuit = get_one_distance('H', 'teampursuit', $allResults);
+  my $Dteampursuit = get_one_distance('D', 'teampursuit', $allResults);
+  my $HmassaStart = get_one_distance('H', 'massaStart', $allResults);
+  my $DmassaStart = get_one_distance('D', 'massaStart', $allResults);
+ 
+  my $OS =
+  [$H500m, $H1000m, $H1500m, $H5km, $H10km,
+   $D500m, $D1000m, $D1500m, $D3km, $D5km,
+   $Hteampursuit, $Dteampursuit, $HmassaStart, $DmassaStart];
  my $out = format_os($OS);
 
  my $title = 'Schaatsen OS 2018 PyeongChang (Zuid-Korea)';
