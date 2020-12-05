@@ -1096,165 +1096,6 @@ sub get_OS2010
   20100302, {type1 => 'std_menu'});
 }
 
-sub get_OS2014
-{
- my $H5km_2014 = [ [],
-[ 1, 'NLkrm',[6*60 + 10.76, 'BR/OS']],
-[ 2, 'NLblk', 6*60 + 15.71],
-[ 3, 'NLbrg', 6*60 + 16.66],
-[ 4, 'BEswn', 6*60 + 17.79],
-[ 5, 'NOpdr', 6*60 + 18.84],
-[ 6, 'RUjsk', 6*60 + 19.51],
-[ 7, 'RUskb', 6*60 + 19.83],
-[ 8, 'DEbcp', 6*60 + 21.18],
-[ 9, 'NObok', 6*60 + 22.83],
-[10, 'DEgsr', 6*60+24.79],
-[11, 'RUrmj', 6*60+24.93],
-[12, 'KRlsh', 6*60+25.61],
-];
-
- my $D3km_2014 = [ [],
-[ 1, 'NLwst', [4*60+ 0.34, 'BR']],
-[ 2, 'CZsbl', 4*60+ 1.95],
-[ 3, 'RUgrf', 4*60 + 3.47],
-[ 4, 'DEpch', 4*60 + 5.26],
-[ 5, 'NLawd', 4*60 + 5.75],
-[ 6, 'NOinj', 4*60 +  6.73],
-[ 7, 'NLadj', 4*60 +  6.77],
-[ 8, 'RUjsv', 4*60 +  9.36],
-[ 9, 'JPizw', 4*60 +  9.39],
-[10, 'USrkr', 4*60 + 10.02],
-[11, 'DEkrs', 4*60 + 10.17],
-[12, 'BEjpt', 4*60 + 10.87] ];
-
- my $H500m_2014 = [ [],
-[ 1, 'NLmmd', 34.63, 34.67],
-[ 2, 'NLsmk', 34.59, 34.72],
-[ 3, 'NLmld', 34.96, 34.49],
-[ 4, 'KRtbm', 34.84, 34.85],
-[ 5, 'JPkat', 34.96, 34.77],
-[ 6, 'JPngs', 34.79, 35.25],
-[ 7, 'KZrkr', 35.04, 35.00],
-[ 8, 'DEnih', 34.99, 35.11],
-[ 9, 'PLaws', 35.01, 35.19],
-[10, 'CAgjn', 35.15, 35.09],
-[11, 'CAgrg', 35.17, 35.10],
-[12, 'NOehv', 35.20, 35.21],
-];
-
- my $D500m_2014 = [ [],
-[ 1, 'KRshl', 37.42, 37.28],
-[ 2, 'RUftk', 37.57, 37.49],
-[ 3, 'NLbor', 37.77, 37.71],
-[ 4, 'CNzhh', 37.58, 37.99],
-[ 5, 'JPnkd', 37.88, 37.72],
-[ 6, 'DEwlf', 37.93, 37.73],
-[ 7, 'CNwbx', 37.82, 37.86],
-[ 8, 'USrch', 37.73, 38.02],
-[ 9, 'JPmts', 38.40, 38.44],
-[10, 'CZerb', 38.23, 38.62],
-[11, 'NLvrs', 38.64, 38.35],
-[16, 'NLvbk', 38.67, 38.73],
-[19, 'NLlns', 39.03, 38.70],
-];
-
- my $H1000m_2014 = [ [],
-[ 1, 'NLgrt', [68.39, 'BR']],
-[ 2, 'CAmor',  68.43],
-[ 3, 'NLmmd',  68.74],
-[ 4, 'DEnih',  68.86],
-[ 5, 'DEssc',  68.89],
-[ 6, 'NLvrw',  69.09],
-[ 7, 'KZkzn',  69.10],
-[ 8, 'USdvs',  69.12],
-[ 9, 'UShns',  69.21],
-[10, 'NLtrt',  69.29],
-[11, 'NOhlr',  69.33],
-[12, 'KRtbm',  69.37],
-];
-
- my $D1000m_2014 = [ [],
-[ 1, 'CNzhh', [74.02, 'BR']],
-[ 2, 'NLwst',  74.69],
-[ 3, 'NLbor',  74.90],
-[ 4, 'RUftk',  75.08],
-[ 5, 'NLvbk',  75.10],
-[ 6, 'NLlns',  75.15],
-[ 7, 'USrch',  75.23],
-[ 8, 'USbbw',  75.47],
-[ 9, 'CAnbt',  75.62],
-[10, 'CZerb',  75.74],
-[11, 'DEjhs',  75.84],
-[12, 'KRshl',  75.94],
-];
-
- my $H1500m_2014 = [ [],
-[ 1, 'PLbrd', [60+45.00, 'BR']],
-[ 2, 'NLvrw',  60+45.00], # verschil 3 duizendste s
-[ 3, 'CAmor',  60+45.22],
-[ 4, 'RUjsk',  60+45.37],
-[ 5, 'NLtrt',  60+45.42],
-[ 6, 'NObok',  60+45.48],
-[ 7, 'UShns',  60+45.59],
-[ 8, 'NOpdr',  60+45.66],
-[ 9, 'KZkzn',  60+45.69],
-[10, 'BEswn',  60+45.95],
-[11, 'USdvs',  60+45.98],
-[12, 'NLgrt',  60+46.08],
-[13, 'NLblk',  60+46.50] ];
-
- my $D1500m_2014 = [ [],
-[ 1, 'NLjtm', [60+53.51, 'BR']],
-[ 2, 'NLwst',  60+54.09],
-[ 3, 'NLvbk',  60+54.54],
-[ 4, 'NLlns',  60+56.40],
-[ 5, 'RUjsv',  60+56.45],
-[ 6, 'PLkbc',  60+57.18],
-[ 7, 'USrch',  60+57.60],
-[ 8, 'RUlbs',  60+57.70],
-[ 9, 'RUftk',  60+57.88],
-[10, 'RUsjc',  60+58.09],
-[11, 'PLlzl',  60+58.18],
-[12, 'NOinj',  60+58.21] ];
-
- my $H10km_2014 = [ [],
-[ 1, 'NLbrg', [ 12*60 + 44.45, 'BR']],
-[ 2, 'NLkrm',   12*60 + 49.02],
-[ 2, 'NLdjg',   13*60 +  7.19],
-[ 4, 'KRlsh',   13*60 + 11.68],
-[ 5, 'BEswn',   13*60 + 13.99],
-[ 6, 'DEbcp',   13*60 + 14.26],
-[ 7, 'NZdbb',   13*60 + 16.42],
-[ 8, 'DEgsr',   13*60 + 20.26],
-[ 9, 'RUsrj',   13*60 + 28.61],
-[10, 'USlhm',   13*60 + 28.67],
-[11, 'USmek',   13*60 + 28.72],
-[12, 'KZbbk',   13*60 + 33.18] ];
-
- my $D5km_2014 = [ [],
-[ 1, 'CZsbl',  [6*60 + 51.54, 'BR']],
-[ 2, 'NLwst',   6*60 + 54.28],
-[ 3, 'NLklb',   6*60 + 55.66],
-[ 4, 'RUgrf',   6*60 + 55.77],
-[ 5, 'DEpch',   6*60 + 58.39],
-[ 6, 'NLnat',   7*60 +  1.76],
-[ 7, 'NOhmm',   7*60 +  4.45],
-[ 8, 'DEbck',   7*60 +  7.79],
-[ 9, 'RUtsj',   7*60 +  8.71],
-[10, 'JPfmr',   7*60 +  9.65],
-[11, 'DEkrs',   7*60 + 10.65],
-[12, 'JPizw',   7*60 + 11.54] ];
-
- $OS = [$H500m_2014, $H1000m_2014, $H1500m_2014, $H5km_2014, $H10km_2014,
-        $D500m_2014, $D1000m_2014, $D1500m_2014, $D3km_2014, $D5km_2014];
-
- my $out = format_os($OS);
-
- my $title = 'Schaatsen OS 2014 Sotsji (Sochi; Rusland)';
- return maintxt2htmlpage(OSTopMenu(2014) . $out, $title, 'title2h1',
-  20150912, {type1 => 'std_menu'});
-}
-
 sub get_one_distance($$$)
 {
   my $DH       = shift;
@@ -1267,25 +1108,34 @@ sub get_one_distance($$$)
     if ($line->{DH} eq $DH && $line->{distance} eq $distance)
     {
       my $result = $line->{result};
-      if (defined($line->{remark}))
+      if ($result =~ m/;/)
       {
-        $result = [$result, $line->{remark}];
+        my @parts = split(';', $result);
+        push(@data, [$line->{ranking}, $line->{name}, @parts]);
       }
-      my $name = $line->{name};
-      if (defined ($line->{team}))
+      else
       {
-        $line->{team} =~ s/; /, /g;
-        $name = [$name, $line->{team}];
+        if (defined($line->{remark}))
+        {
+          $result = [$result, $line->{remark}];
+        }
+        my $name = $line->{name};
+        if (defined ($line->{team}))
+        {
+          $line->{team} =~ s/; /, /g;
+          $name = [$name, $line->{team}];
+        }
+        push(@data, [$line->{ranking}, $name, $result]);
       }
-      push(@data, [$line->{ranking}, $name, $result]);
     }
   }
-  return \@data;
+  return (scalar @data > 1 ? \@data : []);
 }
 
-sub get_OS2018
+sub get_all_distances($)
 {
-  my $cvsFile = File::Spec->catdir($csv_dir, 'schaatsen', 'OS_2018.csv');
+  my $cvsFile = shift;
+
   my $allResults = read_csv_with_header($cvsFile);
 
   my $H500m = get_one_distance('H', '500m', $allResults);
@@ -1305,15 +1155,37 @@ sub get_OS2018
   my $HmassaStart = get_one_distance('H', 'massaStart', $allResults);
   my $DmassaStart = get_one_distance('D', 'massaStart', $allResults);
  
-  my $OS =
-  [$H500m, $H1000m, $H1500m, $H5km, $H10km,
-   $D500m, $D1000m, $D1500m, $D3km, $D5km,
-   $Hteampursuit, $Dteampursuit, $HmassaStart, $DmassaStart];
- my $out = format_os($OS);
+  my @games = ($H500m, $H1000m, $H1500m, $H5km, $H10km,
+           $D500m, $D1000m, $D1500m, $D3km, $D5km);
 
- my $title = 'Schaatsen OS 2018 PyeongChang (Zuid-Korea)';
- return maintxt2htmlpage(OSTopMenu(2018) . $out, $title, 'title2h1',
-  20180318, {type1 => 'std_menu'});
+  if (scalar @$Hteampursuit) {push @games, $Hteampursuit;}
+  if (scalar @$Dteampursuit) {push @games, $Dteampursuit;}
+  if (scalar @$HmassaStart) {push @games, $HmassaStart;}
+  if (scalar @$DmassaStart) {push @games, $DmassaStart;}
+
+  return \@games;
+}
+
+sub get_OS2014
+{
+  my $cvsFile = File::Spec->catdir($csv_dir, 'schaatsen', 'OS_2014.csv');
+  my $OS2014 = get_all_distances($cvsFile);
+  my $out = format_os($OS2014);
+
+  my $title = 'Schaatsen OS 2014 Sotsji (Sochi; Rusland)';
+  return maintxt2htmlpage(OSTopMenu(2014) . $out, $title, 'title2h1',
+    20150912, {type1 => 'std_menu'});
+}
+
+sub get_OS2018
+{
+  my $cvsFile = File::Spec->catdir($csv_dir, 'schaatsen', 'OS_2018.csv');
+  my $OS2018 = get_all_distances($cvsFile);
+  my $out = format_os($OS2018);
+
+  my $title = 'Schaatsen OS 2018 PyeongChang (Zuid-Korea)';
+  return maintxt2htmlpage(OSTopMenu(2018) . $out, $title, 'title2h1',
+    20180318, {type1 => 'std_menu'});
 }
 
 return 1;
