@@ -33,7 +33,9 @@ sub dumpOS2csv($)
    '500m', '1000m', '1500m', '3km', '5km',
    'teampursuit', 'teampursuit', 'massaStart', 'massaStart');
 
-  open (OUT, ">Sport_Data/OS_$yr.csv") or die "can't open OS_$yr: $!.\n";
+  open (OUT, ">Sport_Data/schaatsen/OS_$yr.csv") or die "can't open OS_$yr: $!.\n";
+
+  print OUT "DH,distance,ranking,name,team,result,remark\n";
 
   my @OSarr = @$OS;
   my $ii = -1;
@@ -45,19 +47,26 @@ sub dumpOS2csv($)
     {
       if (scalar @$result == 0) {next;}
       print OUT $sxs[$ii], ',', $distances[$ii], ',';
+      my $jj = -1;
       foreach my $field (@$result)
       {
+        $jj++;
         if (ref $field eq 'ARRAY')
         {
+          my $kk = -1;
           foreach my $subfield (@$field)
           {
+            $kk++;
+            if ($kk > 0) {print OUT ',';}
             $subfield =~ s/,/;/g;
-            print OUT $subfield, ',';
+            print OUT "$subfield";
+            if ($jj == 1) {print OUT ',';}
           }
         }
         else
         {
           print OUT "$field,";
+          if ($jj == 1) {print OUT ',';}
         }
       }
       print OUT "\n";
