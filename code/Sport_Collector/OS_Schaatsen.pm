@@ -27,8 +27,11 @@ $VERSION = '18.1';
  '&get_OS2010',
  '&get_OS2014',
  '&get_OS2018',
+ '$OS',
  #========================================================================
 );
+
+our $OS;
 
 sub get_OS1994()
 {# (c) Edwin Spee
@@ -1441,10 +1444,11 @@ sub get_OS2018
 [ 7, 'BYvmc',  1],
 [ 8, 'KRcjw',  1] ];
 
- my $out = format_os(
+ $OS =
   [$H500m_2018, $H1000m_2018, $H1500m_2018, $H5km_2018, $H10km_2018,
    $D500m_2018, $D1000m_2018, $D1500m_2018, $D3km_2018, $D5km_2018,
-   $Hteampursuit_2018, $Dteampursuit_2018, $HmassaStart2018, $DmassaStart2018]);
+   $Hteampursuit_2018, $Dteampursuit_2018, $HmassaStart2018, $DmassaStart2018];
+ my $out = format_os($OS);
 
  my $title = 'Schaatsen OS 2018 PyeongChang (Zuid-Korea)';
  return maintxt2htmlpage(OSTopMenu(2018) . $out, $title, 'title2h1',
