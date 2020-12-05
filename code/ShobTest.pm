@@ -21,7 +21,7 @@ $VERSION = '20.1';
  #========================================================================
 );
 
-my $yr = 2018;
+my $yr = 2014;
 
 sub dumpOS2csv($)
 {
@@ -65,7 +65,9 @@ sub dumpOS2csv($)
         }
         else
         {
-          print OUT "$field,";
+          my $char = ',';
+          $char = ';' if (scalar @$result == 4 && $jj == 2); # 500m: 2x
+          print OUT $field,$char;
           if ($jj == 1) {print OUT ',';}
         }
       }
@@ -86,7 +88,7 @@ sub test_something()
   initTeams();
   read_schaatsers();
 
-  my $txt = get_OS2018();
+  my $txt = get_OS2014();
 
   dumpOS2csv($OS);
 }

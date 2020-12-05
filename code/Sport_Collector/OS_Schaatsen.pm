@@ -1245,10 +1245,10 @@ sub get_OS2014
 [11, 'DEkrs',   7*60 + 10.65],
 [12, 'JPizw',   7*60 + 11.54] ];
 
- my $out = format_os(
-  [$H500m_2014, $H1000m_2014, $H1500m_2014, $H5km_2014, $H10km_2014,
-   $D500m_2014, $D1000m_2014, $D1500m_2014, $D3km_2014, $D5km_2014,
-   ]);
+ $OS = [$H500m_2014, $H1000m_2014, $H1500m_2014, $H5km_2014, $H10km_2014,
+        $D500m_2014, $D1000m_2014, $D1500m_2014, $D3km_2014, $D5km_2014];
+
+ my $out = format_os($OS);
 
  my $title = 'Schaatsen OS 2014 Sotsji (Sochi; Rusland)';
  return maintxt2htmlpage(OSTopMenu(2014) . $out, $title, 'title2h1',
