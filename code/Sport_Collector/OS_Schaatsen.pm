@@ -1058,38 +1058,11 @@ sub get_OS2010
 #Wereldrecord: Canada            2.55,79
 #Neder.record: Van Deutekom, De Vries, Wust        2.57,36
 
-# Medaille-spiegel:
-# 1. Canada           14          7          5         26
-# 2. Duitsland        10         13          7         30
-# 3. Verenigde Staten  9         15         13         37
-# 4. Noorwegen         9          8          6         23
-# 5. Zuid-Korea        6          6          2         14
-# 6. Zwitserland       6          0          3          9
-# 7. China             5          2          4         11
-# 8. Zweden            5          2          4         11
-# 9. Oostenrijk        4          6          6         16
-#10. Nederland         4          1          3          8
-#11. Rusland           3          5          7         15
-#12. Frankrijk         2          3          6         11
-#13. Australie         2          1          0          3
-#14. Tsjechie          2          0          4          6
-#15. Polen             1          3          2          6
-#16. Italie            1          1          3          5
-#17. Wit-Rusland       1          1          1          3
-#18. Slowakije         1          1          1          3
-#19. Groot-Brittannie  1          0          0          1
-#20. Japan             0          3          2          5
-#21. Kroatie           0          2          1          3
-#22. Slovenie          0          2          1          3
-#23. Letland           0          2          0          2
-#24. Finland           0          1          4          5
-#25. Estland           0          1          0          1
-#26. Kazachstan        0          1          0          1
+ $OS = [$H500m_2010, $H1000m_2010, $H1500m_2010, $H5km_2010, $H10km_2010,
+        $D500m_2010, $D1000m_2010, $D1500m_2010, $D3km_2010, $D5km_2010,
+        $Hteampursuit_2010, $Dteampursuit_2010];
 
- my $out = format_os(
-  [$H500m_2010, $H1000m_2010, $H1500m_2010, $H5km_2010, $H10km_2010,
-   $D500m_2010, $D1000m_2010, $D1500m_2010, $D3km_2010, $D5km_2010,
-   $Hteampursuit_2010, $Dteampursuit_2010]);
+ my $out = format_os($OS);
 
  my $title = 'Schaatsen OS 2010 Vancouver';
  return maintxt2htmlpage(OSTopMenu(2010) . $out, $title, 'title2h1',

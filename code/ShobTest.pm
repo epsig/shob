@@ -21,7 +21,7 @@ $VERSION = '20.1';
  #========================================================================
 );
 
-my $yr = 2014;
+my $yr = 2010;
 
 sub dumpOS2csv($)
 {
@@ -57,10 +57,17 @@ sub dumpOS2csv($)
           foreach my $subfield (@$field)
           {
             $kk++;
-            if ($kk > 0) {print OUT ',';}
-            $subfield =~ s/,/;/g;
-            print OUT "$subfield";
-            if ($jj == 1) {print OUT ',';}
+            if (scalar @$result == 4 && $kk == 1)
+            {
+              print OUT " ($subfield);";
+            }
+            else
+            {
+              if ($kk > 0) {print OUT ',';}
+              $subfield =~ s/,/;/g;
+              print OUT "$subfield";
+              if ($jj == 1) {print OUT ',';}
+            }
           }
         }
         else
@@ -88,7 +95,7 @@ sub test_something()
   initTeams();
   read_schaatsers();
 
-  my $txt = get_OS2014();
+  my $txt = eval("get_OS$yr()");
 
   dumpOS2csv($OS);
 }
