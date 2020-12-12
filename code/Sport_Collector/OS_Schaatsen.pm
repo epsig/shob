@@ -142,12 +142,12 @@ sub get_OS2002()
   my $cvsFile = File::Spec->catdir($csv_dir, 'schaatsen', 'OS_2002.csv');
   my $OS2002 = get_all_distances($cvsFile);
 
-  my $out = qq(<a href="http://www.slc2002.org/">Offici&euml;le site</a>\n<hr>) . format_os($OS2002);
+  my $out = format_os($OS2002);
 
   my $title = 'Schaatsen OS 2002 Salt Lake City';
 
   return maintxt2htmlpage(OSTopMenu(2002) . $out, $title, 'title2h1',
-    20050312, {type1 => 'std_menu'});
+    20201212, {type1 => 'std_menu'});
 }
 
 sub get_OS2006()
@@ -159,8 +159,9 @@ sub get_OS2006()
   my $out = format_os($OS2006);
 
   my $title = 'Schaatsen OS 2006 Turijn';
-    return maintxt2htmlpage(OSTopMenu(2006) . $out,$title, 'title2h1',
-      20100302, {type1 => 'std_menu'});
+
+  return maintxt2htmlpage(OSTopMenu(2006) . $out, $title, 'title2h1',
+    20100302, {type1 => 'std_menu'});
 }
 
 sub get_OS2010
