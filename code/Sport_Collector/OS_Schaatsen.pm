@@ -588,227 +588,6 @@ return maintxt2htmlpage(OSTopMenu(2002) . $out, $title, 'title2h1',
  20050312, {type1 => 'std_menu'});
 }
 
-sub get_OS2006()
-{# (c) Edwin Spee
-
- my $H500m_2006 = [ [],
-[ 1, 'USchk', [34.82, 'BR'], 34.94],
-[ 2, 'RUdrf', 35.24, 35.17],
-[ 3, 'KRksl', 35.34, 35.09],
-[ 4, 'JPokw', 35.35, 35.21],
-[ 5, 'CNfty', 35.39, 35.23],
-[ 6, 'JPkat', 70.78 - 35.19, 35.19],
-[ 7, 'CAirl', 70.88 - 35.29, 35.29],
-# 8. Jae-Bong Choi (ZKo) 71.04
-[ 9, 'CAwsp', 35.37, 35.68],
-[10, 'FIksk', 35.58, 71.09 - 35.58],
-[11, 'NLbos', 35.68, 35.43],
-[12, 'USfrd', 35.78, 35.34],
-#13. Keiichiro Nagashima (Jap) 71.14
-[14, 'RUlbk', 35.55, 71.17 - 35.55],
-[16, 'NLwnn', 35.46, 35.84],
-[23, 'NLkpr', 36.10, 35.74],
-[35, 'NLnnh', 48.84, 35.71],
-#[99, 'FIhnn', 35.58],
-];
-#Wereldrecord: Joji Kato           34,30
-#Neder.record: Gerard van Velde    34,59
-#Baanrecord  : Fengtong Yu         35,19
-
- my $H1000m_2006 = [ [],
-[ 1, 'USdvs', [60+ 8.89, 'BR']],
-[ 2, 'USchk', 60+ 9.16],
-[ 3, 'NLwnn', 60+ 9.32],
-[ 4, 'KRkhl', 60+ 9.37],
-[ 5, 'NLbos', 60+ 9.42],
-[ 6, 'UShdr', 60+ 9.45],
-[ 7, 'RUllk', 60+ 9.46],
-[ 8, 'NLgrt', 60+ 9.57],
-[ 9, 'USfrd', 60+ 9.59],
-[10, 'RUdrf', 60+ 9.74],
-[11, 'CAwsp', 60+ 9.76],
-[12, 'NLnnh', 60+ 9.85] ];
-#Wereldrecord: Shani Davis       1.07,03
-#Neder.record: Gerard van Velde  1.07,18
-#Baanrecord  : Simon Kuipers     1.09,92
-
- my $H1500m_2006 = [ [],
-[ 1, 'ITfbr', [60+45.97, 'BR']],
-[ 2, 'USdvs', 60+46.13],
-[ 3, 'UShdr', 60+46.22],
-[ 4, 'NLkpr', 60+46.58],
-[ 5, 'NLwnn', 60+46.71],
-[ 6, 'RUskb', 60+46.91],
-[ 7, 'NOand', 60+47.15],
-[ 8, 'NOfll', 60+47.28],
-[ 9, 'USchk', 60+47.52],
-[10, 'NOwtt', 60+47.78],
-[15, 'NLkrm', 60+48.36],
-[20, 'NLbos', 60+48.61] ];
-# Wereldrecord: Chad Hedrick      1.42,78
-# Neder.record: Erben Wennemars   1.43,51
-# Baanrecord  : Enrico Fabris     1.46,46
-
- my $H5km_2006 = [ [],
-[ 1, 'UShdr', [6*60+14.68, 'BR']],
-[ 2, 'NLkrm', 6*60+16.40],
-[ 3, 'ITfbr', 6*60+18.25],
-[ 4, 'NLvrh', 6*60+18.84],
-[ 5, 'CAdnk', 6*60+21.26],
-[ 6, 'NLdjg', 6*60+22.12],
-[ 7, 'USdvs', 6*60+23.08],
-[ 8, 'NOgrd', 6*60+24.21],
-[ 9, 'NOstr', 6*60+25.15],
-[10, 'NOerv', 6*60+26.91],
-[11, 'RUskb', 6*60+27.02],
-[13, 'BEvld', 6*60+32.02],
-];
-
- my $h5km = << 'EOF';
-******5.000 m heren, zaterdag:
- Wereldrecord: Sven Kramer       6.08,78
- Neder.record: Sven Kramer       6.08,78
- Baanrecord  : Chad Hedrick      6.20,29
-EOF
-
- my $H10km_2006 = [ [],
-[ 1, 'NLdjg', [13*60+ 1.57, 'BR']],
-[ 2, 'UShdr', 13*60+ 5.40],
-[ 3, 'NLvrh', 13*60+ 8.80],
-[ 4, 'NOgrd', 13*60+12.58],
-[ 5, 'NOstr', 13*60+12.93],
-[ 6, 'RUskb', 13*60+17.54],
-[ 7, 'NLkrm', 13*60+18.14],
-[ 8, 'ITfbr', 13*60+21.54],
-[ 9, 'CAdnk', 13*60+23.55],
-[10, 'SErjl', 13*60+29.50],
-[11, 'NOerv', 13*60+37.62],
-[12, 'ITsnf', 13*60+41.91],
-[14, 'BEvld', 13*60+48.12] ];
-# Winnaar 2002: Jochem Uytdehaage
-# Wereldrecord: Chad Hedrick     12.55,11
-# Neder.record: Carl Verheijen   12.57,92
-
- my $D500m_2006 = [ [],
-[ 1, 'RUzjr', [38.23, 'BR'], 38.34],
-[ 2, 'CNmwg', 38.31, 38.47],
-[ 3, 'CNhrn', 38.60, 38.27],
-[ 4, 'JPokz', 38.46, 38.46],
-[ 5, 'KRshl', 38.69, 38.35],
-[ 6, 'DEwlf', 38.70, 38.55],
-[ 7, 'CNbwg', 38.71, 38.56],
-[ 8, 'JPosg', 38.74, 38.65],
-[ 9, 'JPysh', 38.68, 77.43-38.68],
-[10, 'ITsmn', 77.68-38.66, 38.66],
-[11, 'USrdr', 77.70-38.73, 38.73],
-[12, 'NLagt', 39.12, 38.97],
-#13. Aihua Xing (Chi) 78.350
-[14, 'NLsta', 39.26, 39.33],
-#15. Yukari Watanabe (Jap) 78.590
-#16. Shannon Rempel (Can) 78.650
-];
-
-# Marianne Timmer gediskwalificeerd in 1e 500m
-# Wereldrecord: Catriona LeMay-Doan 37,22
-# Neder.record: Andrea Nuyt         37,54
-# Baanrecord  : Manli Wang          38,25
-
- my $D1000m_2006 = [ [],
-[ 1, 'NLtmm', [60+16.05, 'BR']],
-[ 2, 'CAkls', 60+16.09],
-[ 3, 'DEfrs', 60+16.11],
-[ 4, 'NLwst', 60+16.39],
-[ 5, 'CAgrv', 60+16.54],
-[ 6, 'NLdlr', 60+16.73],
-[ 7, 'RUzjr', 60+17.13],
-[ 8, 'PLwjc', 60+17.28],
-[ 9, 'RUabr', 60+17.33],
-[10, 'USrdr', 60+17.47],
-[13, 'ITsmn', 60+17.53],
-[23, 'NLagt', 60+18.33],
-[27, 'USwtt', 60+18.70] ];
-#Wereldrecord: Chris Witty       1.13,83
-#Neder.record: Marianne Timmer   1.14,45
-#Baanrecord  : Anni Friesinger   1.16,30
-
- my $D1500m_2006 = [ [],
-[ 1, 'CAkls', [60+55.27, 'BR']],
-[ 2, 'CAgrv', 60+56.74],
-[ 3, 'NLwst', 60+56.90],
-[ 4, 'DEfrs', 60+57.31],
-[ 5, 'ITsmn', 60+58.76],
-[ 6, 'RUlbs', 60+58.87],
-[ 7, 'CAnbt', 60+59.15],
-[ 8, 'USrdr', 60+59.30],
-[ 9, 'NLgrn', 60+59.33],
-[10, 'DEans', 60+59.74],
-[13, 'NLdtk', 120.15],
-[14, 'NLtmm', 120.45] ];
-# Wereldrecord: Cindy Klassen     1.51,79
-# Neder.record: Ireen Wust        1.54,93
-# Baanrecord  : Anni Friesinger   1.57,32
-
- my $D3km_2006 = [ [],
-[ 1, 'NLwst', 4*60+ 2.43],
-[ 2, 'NLgrn', 4*60+ 3.48],
-[ 3, 'CAkls', 4*60+ 4.37],
-[ 4, 'DEfrs', 4*60+ 4.59],
-[ 5, 'DEpch', 4*60+ 5.54],
-[ 6, 'DEans', 4*60+ 6.89],
-[ 7, 'CZsbl', 4*60+ 8.42],
-[ 8, 'CAgrv', 4*60+ 9.03],
-[ 9, 'CAhgh', 4*60+ 9.17],
-[10, 'PLwjc', 4*60+ 9.61],
-[11, 'USrny', 4*60+10.44],
-[12, 'CNfwg', 4*60+10.55],
-[17, 'NLkln', 4*60+13.81],
-];
-
-# 13 Eriko Ishino JAP 4:11.21
-# 14 Maki Tabata JAP 4:12.38
-# 15 Maren Haugli NOO 4:12.50
-# 16 Anna Rokita OOS 4:12.87
-# 18 Svetlana Vysokova RUS 4:13.94
-# 19 Seon-Yeong Noh ZKO 4:15.68
-# 20 Adelia Marra ITA 4:16.27
-# 20 Eriko Seo JAP 4:16.27
-# 22 Margaret Crowley USA 4:17.37
-# 23 Annette Bjelkevik NOO 4:17.57
-# 24 Valentina Yakshina RUS 4:19.43
-# 25 Jia Ji CHN 4:21.06
-# 26 Daniela Oltean ROE 4:23.34
-# 27 Kristine Holzer USA 4:26.60
-# 28 Natalya Rybakova KAZ 4:38.76
-
- my $D5km_2006 = [ [],
-[ 1, 'CAhgh', [6*60+59.07, 'BR']],
-[ 2, 'DEpch', 7*60+ 0.08],
-[ 3, 'CAkls', 7*60+ 0.57],
-[ 4, 'CZsbl', 7*60+ 1.38],
-[ 5, 'DEans', 7*60+ 2.82],
-[ 6, 'CAgrv', 7*60+ 3.95],
-[ 7, 'USrny', 7*60+ 4.91],
-[ 8, 'NOmhg', 7*60+ 6.08],
-[ 9, 'NLgrn', 7*60+11.32],
-[10, 'NLklb', 7*60+12.18],
-[11, 'JPish', 7*60+12.48],
-[12, 'ATrkt', 7*60+16.75],
-[13, 'JPtbt', 7*60+18.05],
-];
-
-# Wereldrecord: Claudia Pechstein 6.46,91
-# Neder.record: Gretha Smit       6.49,22
-
- $OS = [$H500m_2006, $H1000m_2006, $H1500m_2006, $H5km_2006, $H10km_2006,
-        $D500m_2006, $D1000m_2006, $D1500m_2006, $D3km_2006, $D5km_2006];
-
- my $out = format_os($OS);
-
- my $title = 'Schaatsen OS 2006 Turijn';
- return maintxt2htmlpage(OSTopMenu(2006) . $out,$title, 'title2h1',
-  20100302, {type1 => 'std_menu'});
-}
-
 sub get_one_distance($$$)
 {
   my $DH       = shift;
@@ -885,6 +664,19 @@ sub get_all_distances($)
   if (scalar @$DmassaStart) {push @games, $DmassaStart;}
 
   return \@games;
+}
+
+sub get_OS2006()
+{# (c) Edwin Spee
+
+  my $cvsFile = File::Spec->catdir($csv_dir, 'schaatsen', 'OS_2006.csv');
+  my $OS2006 = get_all_distances($cvsFile);
+
+  my $out = format_os($OS2006);
+
+  my $title = 'Schaatsen OS 2006 Turijn';
+    return maintxt2htmlpage(OSTopMenu(2006) . $out,$title, 'title2h1',
+      20100302, {type1 => 'std_menu'});
 }
 
 sub get_OS2010
