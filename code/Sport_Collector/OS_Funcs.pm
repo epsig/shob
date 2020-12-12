@@ -31,17 +31,17 @@ $VERSION = '18.1';
 
 our $schaatsers;
 sub read_schaatsers()
-{
- foreach my $s ('D', 'H')
- {
- my $fullname = File::Spec->catdir($csv_dir, "schaatsers${s}.csv");
- my $content = read_csv_file($fullname);
- while(my $line = shift(@$content))
- {
-  my @parts = @$line;
-  $schaatsers->{$parts[0]} = $parts[1];
- }
-}
+{# (c) Edwin Spee
+  foreach my $s ('D', 'H')
+  {
+    my $fullname = File::Spec->catdir($csv_dir, 'schaatsen', "schaatsers${s}.csv");
+    my $content = read_csv_file($fullname);
+    while(my $line = shift(@$content))
+    {
+      my @parts = @$line;
+      $schaatsers->{$parts[0]} = $parts[1];
+    }
+  }
 }
 
 our $maxwarn = 5; our $totalwarn = 0;
