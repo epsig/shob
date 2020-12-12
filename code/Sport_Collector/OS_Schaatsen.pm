@@ -217,184 +217,6 @@ sub get_OS1994()
   20050319, {type1 => 'std_menu'});
 }
 
-sub get_OS1998()
-{# (c) Edwin Spee
- # versie 2.0 12-mrt-2005 redesign
- # versie 1.0 31-aug-2003 initiele versie
-
- my $H500m_1998 = [ [],
-[ 1, 'JPsmz', 35.76, [35.59, 'OR']],
-[ 2, 'CAwsp', 36.04, 35.80],
-[ 3, 'CAovl', 35.78, 36.08],
-[ 4, 'CAsbc', 35.90, 36.10],
-[ 5, 'CApbc', 35.96, 36.09],
-[ 6, 'USfrd', 35.81, 36.39],
-[12, 'NLbos', 36.66, 36.11],
-[21, 'NLlwg', 36.69, 36.54],
-[38, 'NLpst', 78.68, 37.81],
-[-1, 'NLwnn', 'gevallen', 'opgave'],
-];
-
- my $H1000m_1998 = [ [],
-[ 1, 'NLpst', [70.64, 'OR']],
-[ 2, 'NLbos', 70.71],
-[ 3, 'JPsmz', 71.00],
-[ 4, 'NLlwg', 71.26],
-[ 5, 'CAsbc', 71.29],
-[ 6, 'CAwsp', 71.39],
-[ 7, 'USfrd', 71.64],
-[ 8, 'USkcb', 71.75],
-[ 9, 'DEadb', 71.90],
-[10, 'CAovl', 71.90],
-[11, 'JPima', 71.96],
-[12, 'NLhrs', 72.00],
-# oude OR: Dan Jansen (VS)     1.12'43"
-# WR: Jeremy Wotherspoon (Can) 1.10'16"
-# NR: Jan Bos                  1.10'48"
-];
-
- my $H1500m_1998 = [ [],
-[ 1, 'NOsnd', [60+47.87, 'WR']],
-[ 2, 'NLpst', [60+48.13, 'NR']],
-[ 3, 'NLrts', 60+48.52],
-[ 4, 'NLbos', 60+49.75],
-[ 5, 'USkcb', 60+50.04],
-[ 6, 'NLhrs', 60+50.31],
-[ 7, 'JPnok', 60+50.49],
-[ 8, 'JPayn', 60+50.68],
-[ 9, 'DEbrr', 60+50.96],
-[10, 'RUanf', 60+50.99],
-[11, 'BEvld', 60+51.73],
-[12, 'ATtkn', 60+51.94],
-# oude OR: Johann Olav Koss (Noo) 1.51'29"
-# oude WR: Rintje Ritsma          1.48'88"
-# oude NR: Rintje Ritsma          1.48'88"
-];
-
- my $H5km_1998 = [ [],
-[1, 'NLrmm', [6*60+22.20, 'WR']],
-[2, 'NLrts', 6*60+28.24],
-[3, 'BEvld', 6*60+28.31],
-[4, 'NLdjg', 6*60+31.37],
-[5, 'DEdtt', 6*60+32.17],
-[6, 'DEtbr', 6*60+35.21],
-# oude WR voor OS: Romme, 6.30'63"
-];
-
- my $H10km_1998 = [ [],
-[ 1, 'NLrmm', [13*60+15.33, 'WR']],
-[ 2, 'NLdjg', 13*60+25.76],
-[ 3, 'NLrts', 13*60+28.19],
-[ 4, 'BEvld', 13*60+29.69],
-[ 5, 'NOstl', 13*60+35.95],
-[ 6, 'DEdtt', 13*60+36.58],
-[ 7, 'NOstr', 13*60+42.94],
-[ 8, 'USkcb', 13*60+44.03],
-[ 9, 'ITsgh', 13*60+46.85],
-[10, 'DEbmg', 13*60+48.44],
-[12, 'ATtkn', 13*60+52.30],
-# Oude OR+WR: Johann-Olav Koss 13.30'55"
-];
-
- my $D500m_1998 = [ [],
-[ 1, 'CAlmy', 38.39, [38.21, 'OR']],
-[ 2, 'CAach', 38.42, 38.51],
-[ 3, 'JPokz', 38.55, 38.55],
-[ 4, 'DEsch', 38.88, 38.57],
-[ 5, 'JPshm', 38.75, 38.93],
-[ 6, 'NLtmm', 39.12, [39.03, 'NR']],
-[ 7, 'DEvlk', 39.19, 39.00],
-[17, 'NLzwl', 39.98, 39.88],
-[24, 'NLwsm', 40.22, 40.57],
-[37, 'NLnuy', 39.62, 78.32],
-];
-
- my $D1000m_1998 = [ [],
-[ 1, 'NLtmm', [60+16.51, 'OR + NR']],
-[ 2, 'USwtt', 60+16.79],
-[ 3, 'CAlmy', 60+17.37],
-[ 4, 'DEvlk', 60+17.54],
-[ 5, 'NLthm', 60+17.95],
-[ 6, 'USsns', 60+18.23],
-[ 7, 'JPokz', 60+18.27],
-[ 8, 'JPsnm', 60+18.36],
-[ 9, 'USdan', 60+18.38],
-[10, 'DEgbr', 60+18.76],
-[11, 'JPksn', 60+18.82],
-[12, 'RUzjr', 60+19.04],
-[15, 'NLzwl', 60+19.29],
-[20, 'NLwsm', 60+20.02],
-# oude OR: Chr.Rothenburger(Dui) 1.17'65"
-# WR: Christine Witty (VS)       1.15'43"
-# oude NR: Marianne Timmer       1.17'24"
-];
-
- my $D1500m_1998 = [ [],
-[ 1, 'NLtmm', [60+57.58, 'WR']],
-[ 2, 'DEnmn', 60+58.66],
-[ 3, 'USwtt', 60+58.97],
-[ 4, 'AThnd', 60+59.19],
-[ 5, 'DEfrs', 60+59.20],
-[ 6, 'NLthm', 60+59.29],
-[ 7, 'DEpch', 60+59.46],
-[ 8, 'USrdr', 2*60+0.97],
-[ 9, 'RUbsj', 2*60+1.54],
-[10, 'RUplt', 2*60+1.56],
-[11, 'KZprk', 2*60+1.65],
-[12, 'USsns', 2*60+1.81],
-[18, 'NLtdj', 2*60+3.19],
-[22, 'NLdlr', 2*60+4.05],
-];
-
- my $D3km_1998 = [ [],
-[ 1, 'DEnmn', [4*60+7.29, 'OS']],
-[ 2, 'DEpch', 4*60+ 8.47],
-[ 3, 'DEfrs', 4*60+ 9.44],
-[ 4, 'USrdr', 4*60+11.64],
-[ 5, 'AThnd', 4*60+12.01],
-[ 6, 'UShlm', 4*60+12.24],
-[ 7, 'KZprk', 4*60+14.23],
-[ 8, 'NLthm', 4*60+14.38],
-[ 9, 'NLzls', 4*60+16.43],
-[10, 'RUbsj', 4*60+16.45],
-[11, 'ITblc', 4*60+16.62],
-[12, 'RUvsk', 4*60+17.70],
-[16, 'NLtdj', 4*60+19.54],
-# Oude OR: Yvonne van Gennip  4.11'94"
-# WR: Claudia Pechstein (Dui) 4.07'13"
-# NR: Tonny de Jong           4.10'90"
-];
-
- my $D5km_1998 = [ [],
-[ 1, 'DEpch', [6*60+59.61, 'WR']],
-[ 2, 'DEnmn', 6*60+59.65],
-[ 3, 'KZprk', 7*60+11.14],
-[ 4, 'NLdlr', 7*60+11.81],
-[ 5, 'NLtdj', 7*60+12.77],
-[ 6, 'NLzls', 7*60+12.89],
-[ 7, 'UShlm', 7*60+14.20],
-[ 8, 'AThnd', 7*60+15.23],
-[ 9, 'ITblc', 7*60+15.58],
-[10, 'USrdr', 7*60+16.78],
-[11, 'JPuhr', 7*60+21.72],
-[12, 'RUvsk', 7*60+22.18],
-[13, 'NOtns', 7*60+28.39],
-[14, 'DEwrn', 7*60+30.83],
-[15, 'JPnmt', 7*60+36.77],
-# Oude OR: Yvonne van Gennip   7.14'13"
-# Oude WR: Gunda Niemann (Dui) 7.03'26"
-# NR: Carla Zijlstra           7.07'93"
-];
-
- my $out = format_os(
-  [$H500m_1998, $H1000m_1998, $H1500m_1998, $H5km_1998, $H10km_1998,
-   $D500m_1998, $D1000m_1998, $D1500m_1998, $D3km_1998, $D5km_1998]);
-
- my $title = 'Schaatsen OS 1998 Nagano';
- return maintxt2htmlpage(OSTopMenu(1998) . $out, $title, 'title2h1',
-  20050319, {type1 => 'std_menu'});
-}
-
 sub get_one_distance($$$)
 {
   my $DH       = shift;
@@ -471,6 +293,19 @@ sub get_all_distances($)
   if (scalar @$DmassaStart) {push @games, $DmassaStart;}
 
   return \@games;
+}
+
+sub get_OS1998()
+{# (c) Edwin Spee
+
+  my $cvsFile = File::Spec->catdir($csv_dir, 'schaatsen', 'OS_1998.csv');
+  my $OS1998 = get_all_distances($cvsFile);
+
+  my $out = format_os($OS1998);
+
+  my $title = 'Schaatsen OS 1998 Nagano';
+  return maintxt2htmlpage(OSTopMenu(1998) . $out, $title, 'title2h1',
+    20050319, {type1 => 'std_menu'});
 }
 
 sub get_OS2002()
