@@ -799,62 +799,10 @@ EOF
 # Wereldrecord: Claudia Pechstein 6.46,91
 # Neder.record: Gretha Smit       6.49,22
 
- my $rest = << 'EOF';
-medaillespiegel, eindstand, na 84 onderdelen:
-                          G   Z   B   T
+ $OS = [$H500m_2006, $H1000m_2006, $H1500m_2006, $H5km_2006, $H10km_2006,
+        $D500m_2006, $D1000m_2006, $D1500m_2006, $D3km_2006, $D5km_2006];
 
- 1. Duitsland            11  12   6  29
- 2. Verenigde Staten      9   9   7  25
- 3. Oostenrijk            9   7   7  23
- 4. Rusland               8   6   8  22
- 5. Canada                7  10   7  24
- 6. Zweden                7   2   5  14
- 7. Zuid-Korea            6   3   2  11
- 8. Zwitserland           5   4   5  14
- 9. Italie                5   0   6  11
-10. Frankrijk             3   2   4   9
-    NEDERLAND             3   2   4   9
-12. Estland               3   0   0   3
-13. Noorwegen             2   8   9  19
-14. China                 2   4   5  11
-15. Tsjechie              1   2   1   4
-16. Kroatie               1   2   0   3
-17. Australie             1   0   1   2
-18. Japan                 1   0   0   1
-19. Finland               0   6   3   9
-20. Polen                 0   1   1   2
-21. Bulgarije             0   1   0   1
-    Groot-Brittannie      0   1   0   1
-    Slowakije             0   1   0   1
-    Wit-Rusland           0   1   0   1
-25. Oekraine              0   0   2   2
-26. Letland               0   0   1   1
-
-Schaatsmedailles:     G   Z   B   T
-
-1. Verenigde Staten   3   3   1   7
-2. NEDERLAND          3   2   4   9
-3. Canada             2   4   2   8
-4. Italie             2   0   1   3
-5. Duitsland          1   1   1   3
-   Rusland            1   1   1   3
-7. China              0   1   1   2
-8. Zuid-Korea         0   0   1   1
-
-Schaatsen, achtervolging heren:
-1. Italie
-2. Canada
-3. NEDERLAND
-
-Schaatsen, achtervolging dames:
-1. Duitsland
-2. Canada
-3. Rusland
-EOF
-
- my $out = format_os(
-  [$H500m_2006, $H1000m_2006, $H1500m_2006, $H5km_2006, $H10km_2006,
-   $D500m_2006, $D1000m_2006, $D1500m_2006, $D3km_2006, $D5km_2006]);
+ my $out = format_os($OS);
 
  my $title = 'Schaatsen OS 2006 Turijn';
  return maintxt2htmlpage(OSTopMenu(2006) . $out,$title, 'title2h1',
