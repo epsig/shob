@@ -395,199 +395,6 @@ sub get_OS1998()
   20050319, {type1 => 'std_menu'});
 }
 
-sub get_OS2002()
-{# (c) Edwin Spee
-
- my $H500m_2002 = [ [],
-[ 1, 'USfrd', [34.42, 'OR'], 34.81],
-[ 2, 'JPsmz', 34.61, 34.65],
-[ 3, 'UScpt', 34.68, 34.79],
-[ 4, 'NLvld', [34.72, 'NR'], 34.77],
-[ 5, 'KRkhl', 34.74, 34.85],
-[ 6, 'USchk', 34.78, 34.82],
-[ 7, 'CAirl', 34.77, 34.83],
-[ 8, 'JPtkd', 35.00, 34.81],
-[ 9, 'NLbos', 35.14, [34.72, 'NR']],
-[10, 'NLwnn', 35.00, 34.89],
-[11, 'RUlbk', 35.09, 35.01],
-[27, 'NLpst', 36.41, 36.08],
-[-1, 'CAwsp', 'gevallen', 34.63],
-# Winnaar 1998: Hiroyasu Shimizu OR:35,59
-# Wereldrecord: Hiroyas.Shimizu, Jap 34,32
-# Neder.record: Jan Bos             34,87
-# Baanrecord: Hiroyas.Shimizu, Jap 34,32
-];
-
-my $H1000m_2002 = [ [],
-[ 1, 'NLvld', [67.18, 'WR']],
-[ 2, 'NLbos', 67.53],
-[ 3, 'USchk', 67.61],
-[ 4, 'UScpt', 67.89],
-[ 5, 'NLwnn', 67.95],
-[ 6, 'USprs', 67.97],
-[ 7, 'USfrd', 68.15],
-[ 8, 'KRkhl', 68.37],
-[11, 'NOsnd', 68.64],
-[13, 'CAwsp', 68.82],
-[14, 'CAirl', 68.88],
-[17, 'NLpst', 69.15],
-# Wereldrecord: J.Wotherspoon, Can 1.07,72
-# Neder.record: Erben Wennemars   1.07,88
-# Baanrecord: J.Wotherspoon, Can 1.07,72
-];
-
-my $H1500m_2002 = [ [],
-[ 1, 'USprr', [103.95, 'WR']],
-[ 2, 'NLuyt', [104.57, 'NR']],
-[ 3, 'NOsnd', 105.26],
-[ 4, 'USchk', 105.34],
-[ 5, 'NLpst', 105.41],
-[ 6, 'USprs', 105.51],
-[ 7, 'NLbos', 105.63],
-[ 8, 'KRkhl', 105.82],
-[ 9, 'NLrts', 105.86],
-[10, 'RUllk', 105.97],
-[11, 'RUsjp', 105.98],
-[12, 'CAmlk', 106.00],
-# Wereldrecord: Kyu-hyuk Lee, ZKo 1.45,20
-#Neder.record: Jakko J.Leeuwangh 1.45,56
-#Baanrecord: Joey Cheek (VS) 1.46,22
-];
-
-my $H5km_2002 = [ [],
-[ 1, 'NLuyt', [6*60+14.66, 'WR']],
-[ 2, 'USprr', 6*60+17.98],
-[ 3, 'DEbdn', 6*60+21.73],
-[ 4, 'RUsjp', 6*60+21.85],
-[ 5, 'USkcb', 6*60+22.97],
-[ 6, 'NLvrh', 6*60+24.71],
-[ 7, 'ITsgh', 6*60+25.11],
-[ 8, 'BEvld', 6*60+25.88],
-[ 9, 'DEdtt', 6*60+25.89],
-[10, 'NOstr', 6*60+25.92],
-[11, 'CAmlk', 6*60+26.29],
-[30, 'NLdjg', 6*60+43.97],
-# Wereldrecord: Gianni Romme 6.18,72
-# Baanrecord: Bob de Jong 6.19,58
-];
-
-my $H10km_2002 = [ [],
-[ 1, 'NLuyt', [12*60+58.92, 'WR']],
-[ 2, 'NLrmm', 13*60+10.03],
-[ 3, 'NOstr', 13*60+16.92],
-[ 4, 'JPshr', 13*60+20.40],
-[ 5, 'DEbdn', 13*60+23.43],
-[ 6, 'RUsjp', 13*60+23.83],
-[ 7, 'ITsgh', 13*60+26.19],
-[ 8, 'NOstl', 13*60+27.24],
-[ 9, 'BEvld', 13*60+27.48],
-[10, 'DEdtt', 13*60+28.73],
-[13, 'USprr', 13*60+33.44],
-[14, 'PLzgm', 13*60+35.50],
-[15, 'NLdjg', 13*60+48.93],
-# Wereldrecord: Gianni Romme 13.03,40
-];
-
-my $D500m_2002 = [ [],
-[ 1, 'CAlmy', 37.30, 37.45],
-[ 2, 'DEgbr', 37.34, 37.60],
-[ 3, 'DEvlk', 37.62, 37.57],
-[ 4, 'NLnuy', 37.54, 37.83],
-[ 5, 'BYktj', 37.73, 37.66],
-[ 6, 'JPokz', 37.77, 37.87],
-[ 7, 'RUzjr', 37.55, 38.09],
-[ 8, 'NLtmm', 38.30, 37.87],
-[ 9, 'JPwtn', 37.98, 38.22],
-[10, 'RUkkn', 38.05, 38.26],
-[11, 'JPsnm', 38.25, 38.12],
-[18, 'NLwsm', 38.31, 38.79],
-# Wereldrecord: Catriona LeMay, Can 37,22
-# Neder.record: Andrea Nuyt 37,54
-# Baanrecord: Catriona LeMay, Can 37,30
-];
-
-my $D1000m_2002 = [ [],
-[ 1, 'USwtt', [73.83, 'WR']],
-[ 2, 'DEvlk', 73.96],
-[ 3, 'USrdr', 74.24],
-[ 4, 'NLtmm', [74.45, 'NR']],
-[ 5, 'DEfrs', 74.47],
-[ 6, 'DEgbr', 74.60],
-[ 7, 'JPtnk', 74.64],
-[ 8, 'NLnuy', 74.65],
-[ 9, 'CAlmy', 74.72],
-[10, 'ITsmn', 74.86],
-[15, 'NLthm', 75.20],
-[18, 'NLwsm', 76.48],
-# Wereldrecord: Sabine V&ouml;lker, Dui 1.14,06
-# Neder.record: Marianne Timmer 1.15,36
-# Baanrecord: Sabine V&ouml;lker, Dui 1.14,06
-];
-
-my $D1500m_2002 = [ [],
-[ 1, 'DEfrs', [60+54.02, 'WR']],
-[ 2, 'DEvlk', 60+54.97],
-[ 3, 'USrdr', 60+55.32],
-[ 4, 'CAkls', 60+55.59],
-[ 5, 'USwtt', 60+55.71],
-[ 6, 'DEpch', 60+55.93],
-[ 7, 'NLtdj', 60+56.02],
-[ 8, 'USsnn', 60+56.29],
-[ 9, 'JPtbt', 60+56.35],
-[11, 'NLthm', 60+56.45],
-[21, 'NLtmm', 60+59.60],
-[-1, 'NLgrn', 'gevallen'],
-# Wereldrecord: Anni Friesinger, Dui 1.54,38
-# Neder.record: Annamarie Thomas 1.55,50
-# Baanrecord: Maki Tabata (Jap) 1.54,76
-];
-
-my $D3km_2002 = [ [],
-[ 1, 'DEpch', [3*60+57.70, 'WR']],
-[ 2, 'NLgrn', [3*60+58.94, 'NR']],
-[ 3, 'CAkls', 3*60+58.97],
-[ 4, 'DEfrs', 3*60+59.39],
-[ 5, 'NLtdj', 4*60+ 0.49],
-[ 6, 'JPtbt', 4*60+ 3.63],
-[ 7, 'USrdr', 4*60+ 4.99],
-[ 8, 'CAgrv', 4*60+ 6.44],
-[ 9, 'AThnd', 4*60+ 6.55],
-[10, 'CAhgh', 4*60+ 6.57],
-[11, 'NLgsm', 4*60+ 7.41],
-[12, 'DEans', 4*60+ 7.55],
-# Wereldrecord: Claudia Pechstein, Dui 3.59,26
-# Neder.record: Barbara de Loor 4.04,56
-# Baanrecord: Anni Friesinger, Dui 4.01,98
-];
-
-my $D5km_2002 = [ [],
-[ 1, 'DEpch', [6*60+46.91, 'WR']],
-[ 2, 'NLgsm', [6*60+49.22, 'NR']],
-[ 3, 'CAhgh', 6*60+53.53],
-[ 4, 'CAkls', 6*60+55.89],
-[ 5, 'RUbrs', 6*60+56.97],
-[ 6, 'DEfrs', 6*60+58.39],
-[ 7, 'NLtdj', 7*60+ 1.17],
-[ 8, 'JPtbt', 7*60+ 6.32],
-[ 9, 'USrny', 7*60+ 6.89],
-[10, 'CAgrv', 7*60+ 7.16],
-[11, 'RUjks', 7*60+ 8.42],
-[12, 'DEans', 7*60+10.17],
-[13, 'NLvis', 7*60+19.08],
-# Wereldrecord: Gunda Niemann, Dui 6.52,44
-# Neder.record: Gretha Smit 7.03,47
-];
-
-my $out = qq(<a href="http://www.slc2002.org/">Offici&euml;le site</a>\n<hr>) .
- format_os(
-  [$H500m_2002, $H1000m_2002, $H1500m_2002, $H5km_2002, $H10km_2002,
-   $D500m_2002, $D1000m_2002, $D1500m_2002, $D3km_2002, $D5km_2002]);
-
-my $title = 'Schaatsen OS 2002 Salt Lake City';
-return maintxt2htmlpage(OSTopMenu(2002) . $out, $title, 'title2h1',
- 20050312, {type1 => 'std_menu'});
-}
-
 sub get_one_distance($$$)
 {
   my $DH       = shift;
@@ -664,6 +471,20 @@ sub get_all_distances($)
   if (scalar @$DmassaStart) {push @games, $DmassaStart;}
 
   return \@games;
+}
+
+sub get_OS2002()
+{# (c) Edwin Spee
+
+  my $cvsFile = File::Spec->catdir($csv_dir, 'schaatsen', 'OS_2002.csv');
+  my $OS2002 = get_all_distances($cvsFile);
+
+  my $out = qq(<a href="http://www.slc2002.org/">Offici&euml;le site</a>\n<hr>) . format_os($OS2002);
+
+  my $title = 'Schaatsen OS 2002 Salt Lake City';
+
+  return maintxt2htmlpage(OSTopMenu(2002) . $out, $title, 'title2h1',
+    20050312, {type1 => 'std_menu'});
 }
 
 sub get_OS2006()

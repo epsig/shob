@@ -21,7 +21,7 @@ $VERSION = '20.1';
  #========================================================================
 );
 
-my $yr = 2006;
+my $yr = 2002;
 
 sub dumpOS2csv($)
 {
@@ -59,7 +59,7 @@ sub dumpOS2csv($)
             $kk++;
             if (scalar @$result == 4 && $kk == 1)
             {
-              print OUT " ($subfield);";
+              print OUT " $subfield;";
             }
             else
             {
