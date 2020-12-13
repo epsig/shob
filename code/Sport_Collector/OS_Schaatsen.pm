@@ -81,30 +81,31 @@ sub get_all_distances($)
 
   my $allResults = read_csv_with_header($cvsFile);
 
-  my $H500m = get_one_distance('H', '500m', $allResults);
-  my $H1000m = get_one_distance('H', '1000m', $allResults);
-  my $H1500m = get_one_distance('H', '1500m', $allResults);
-  my $H5km = get_one_distance('H', '5km', $allResults);
-  my $H10km = get_one_distance('H', '10km', $allResults);
+  my $distances;
+  $distances->{H} = ['500m', '1000m', '1500m', '5km', '10km'];
+  $distances->{D} = ['500m', '1000m', '1500m', '3km', '5km'];
+  my @extras      = ('teampursuit', 'massaStart');
 
-  my $D500m = get_one_distance('D', '500m', $allResults);
-  my $D1000m = get_one_distance('D', '1000m', $allResults);
-  my $D1500m = get_one_distance('D', '1500m', $allResults);
-  my $D5km = get_one_distance('D', '5km', $allResults);
-  my $D3km = get_one_distance('D', '3km', $allResults);
-
-  my $Hteampursuit = get_one_distance('H', 'teampursuit', $allResults);
-  my $Dteampursuit = get_one_distance('D', 'teampursuit', $allResults);
-  my $HmassaStart = get_one_distance('H', 'massaStart', $allResults);
-  my $DmassaStart = get_one_distance('D', 'massaStart', $allResults);
+  my @games = ();
+  foreach my $DH ('H', 'D')
+  {
+    foreach my $distance (@{$distances->{$DH}})
+    {
+      push @games, get_one_distance($DH, $distance, $allResults);
+    }
+  }
  
-  my @games = ($H500m, $H1000m, $H1500m, $H5km, $H10km,
-           $D500m, $D1000m, $D1500m, $D3km, $D5km);
-
-  if (scalar @$Hteampursuit) {push @games, $Hteampursuit;}
-  if (scalar @$Dteampursuit) {push @games, $Dteampursuit;}
-  if (scalar @$HmassaStart) {push @games, $HmassaStart;}
-  if (scalar @$DmassaStart) {push @games, $DmassaStart;}
+  foreach my $distance (@extras)
+  {
+    foreach my $DH ('H', 'D')
+    {
+      my $extra = get_one_distance($DH, $distance, $allResults);
+      if (scalar @$extra)
+      {
+        push @games, $extra;
+      }
+    }
+  }
 
   return \@games;
 }
