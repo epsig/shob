@@ -21,25 +21,19 @@ use vars qw($VERSION @ISA @EXPORT);
 #=========================================================================
 # CONTENTS OF THE PACKAGE:
 #=========================================================================
-$VERSION = '18.1';
+$VERSION = '20.1';
 # by Edwin Spee.
 
 @EXPORT =
 (#========================================================================
- '&read_schaatsers',
- '&get_OS1994',
- '&get_OS1998',
- '&get_OS2002',
- '&get_OS2006',
- '&get_OS2010',
- '&get_OS2014',
- '&get_OS2018',
+  '&get_OS',
  #========================================================================
 );
 
 my $schaatsers;
 my $maxwarn = 5;
 my $totalwarn = 0;
+my $OS_remarks;
 
 sub read_schaatsers()
 { # (c) Edwin Spee
@@ -54,6 +48,30 @@ sub read_schaatsers()
       $schaatsers->{$parts[0]} = $parts[1];
     }
   }
+}
+
+sub read_OS_remarks()
+{ # (c) Edwin Spee
+
+  my $fullname = File::Spec->catdir($csv_dir, 'schaatsen', "OS_remarks.csv");
+
+  $OS_remarks = read_csv_with_header($fullname);
+}
+
+sub get_OS_remarks($$)
+{ # (c) Edwin Spee
+
+  my $year = shift;
+  my $key  = shift;
+
+  foreach my $record (@$OS_remarks)
+  {
+    if ($record->{year} == $year && $record->{key} eq $key)
+    {
+      return $record->{value};
+    }
+  }
+  return -1;
 }
 
 sub min_sec($$)
@@ -283,7 +301,9 @@ sub get_one_distance($$$)
 sub get_all_distances($)
 { # (c) Edwin Spee
 
-  my $cvsFile = shift;
+  my $year = shift;
+
+  my $cvsFile = File::Spec->catdir($csv_dir, 'schaatsen', "OS_$year.csv");
 
   my $allResults = read_csv_with_header($cvsFile);
 
@@ -316,95 +336,25 @@ sub get_all_distances($)
   return \@games;
 }
 
-sub get_OS1994()
-{ # (c) Edwin Spee
+sub get_OS($)
+{
+  my $year = shift;
 
-  my $cvsFile = File::Spec->catdir($csv_dir, 'schaatsen', 'OS_1994.csv');
-  my $OS1994 = get_all_distances($cvsFile);
+  if (not defined $schaatsers)
+  {
+    read_schaatsers();
+    read_OS_remarks();
+  }
 
-  my $out = format_os($OS1994);
+  my $OSyr = get_all_distances($year);
 
-  my $title = 'Schaatsen OS 1994 Lillehammer; Vikingskip, Hamar';
+  my $out  = OSTopMenu($year);
+     $out .= format_os($OSyr);
 
-  return maintxt2htmlpage(OSTopMenu(1994) . $out, $title, 'title2h1',
-    20050319, {type1 => 'std_menu'});
-}
+  my $title = get_OS_remarks($year, 'title');
+  my $dd    = get_OS_remarks($year, 'dd');
 
-sub get_OS1998()
-{ # (c) Edwin Spee
-
-  my $cvsFile = File::Spec->catdir($csv_dir, 'schaatsen', 'OS_1998.csv');
-  my $OS1998 = get_all_distances($cvsFile);
-
-  my $out = format_os($OS1998);
-
-  my $title = 'Schaatsen OS 1998 Nagano';
-  return maintxt2htmlpage(OSTopMenu(1998) . $out, $title, 'title2h1',
-    20050319, {type1 => 'std_menu'});
-}
-
-sub get_OS2002()
-{# (c) Edwin Spee
-
-  my $cvsFile = File::Spec->catdir($csv_dir, 'schaatsen', 'OS_2002.csv');
-  my $OS2002 = get_all_distances($cvsFile);
-
-  my $out = format_os($OS2002);
-
-  my $title = 'Schaatsen OS 2002 Salt Lake City';
-
-  return maintxt2htmlpage(OSTopMenu(2002) . $out, $title, 'title2h1',
-    20201212, {type1 => 'std_menu'});
-}
-
-sub get_OS2006()
-{ # (c) Edwin Spee
-
-  my $cvsFile = File::Spec->catdir($csv_dir, 'schaatsen', 'OS_2006.csv');
-  my $OS2006 = get_all_distances($cvsFile);
-
-  my $out = format_os($OS2006);
-
-  my $title = 'Schaatsen OS 2006 Turijn';
-
-  return maintxt2htmlpage(OSTopMenu(2006) . $out, $title, 'title2h1',
-    20100302, {type1 => 'std_menu'});
-}
-
-sub get_OS2010
-{ # (c) Edwin Spee
-
-  my $cvsFile = File::Spec->catdir($csv_dir, 'schaatsen', 'OS_2010.csv');
-  my $OS2010 = get_all_distances($cvsFile);
-  my $out = format_os($OS2010);
-
-  my $title = 'Schaatsen OS 2010 Vancouver';
-  return maintxt2htmlpage(OSTopMenu(2010) . $out, $title, 'title2h1',
-    20201206, {type1 => 'std_menu'});
-}
-
-sub get_OS2014
-{ # (c) Edwin Spee
-
-  my $cvsFile = File::Spec->catdir($csv_dir, 'schaatsen', 'OS_2014.csv');
-  my $OS2014 = get_all_distances($cvsFile);
-  my $out = format_os($OS2014);
-
-  my $title = 'Schaatsen OS 2014 Sotsji (Sochi; Rusland)';
-  return maintxt2htmlpage(OSTopMenu(2014) . $out, $title, 'title2h1',
-    20150912, {type1 => 'std_menu'});
-}
-
-sub get_OS2018
-{ # (c) Edwin Spee
-
-  my $cvsFile = File::Spec->catdir($csv_dir, 'schaatsen', 'OS_2018.csv');
-  my $OS2018 = get_all_distances($cvsFile);
-  my $out = format_os($OS2018);
-
-  my $title = 'Schaatsen OS 2018 PyeongChang (Zuid-Korea)';
-  return maintxt2htmlpage(OSTopMenu(2018) . $out, $title, 'title2h1',
-    20180318, {type1 => 'std_menu'});
+  return maintxt2htmlpage( $out, $title, 'title2h1', $dd, {type1 => 'std_menu'});
 }
 
 return 1;
