@@ -48,7 +48,6 @@ use Shob::Klaverjas_Funcs;
 use Sport_Collector::Archief_Voetbal_NL;
 use Sport_Collector::Archief_Europacup_Voetbal;
 use Sport_Collector::OS_Schaatsen;
-use Sport_Collector::OS_Funcs;
 use Sport_Collector::Archief_EK_WK_Voetbal;
 use Sport_Collector::Stats_Eredivisie;
 use Sport_Collector::Bookmarks_Index;
