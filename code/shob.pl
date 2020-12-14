@@ -48,7 +48,6 @@ use Shob::Klaverjas_Funcs;
 use Sport_Collector::Archief_Voetbal_NL;
 use Sport_Collector::Archief_Europacup_Voetbal;
 use Sport_Collector::OS_Schaatsen;
-use Sport_Collector::OS_Funcs;
 use Sport_Collector::Archief_EK_WK_Voetbal;
 use Sport_Collector::Stats_Eredivisie;
 use Sport_Collector::Bookmarks_Index;
@@ -192,13 +191,13 @@ sub handle_new_style_files($$$)
   [$fast, 'all', sub {&get_stats_eredivisie(2019, 2020, 0);}, 'sport_voetbal_nl_stats.html'],
   [$fast, '  u', sub {&get_stats_eredivisie(2019, 2020, 2);}, 'sport_voetbal_nl_stats_more.html'],
 
-  [2, 'all', sub {&get_OS1994();}, 'sport_schaatsen_OS_1994.html'],
-  [2, 'all', sub {&get_OS1998();}, 'sport_schaatsen_OS_1998.html'],
-  [2, 'all', sub {&get_OS2002();}, 'sport_schaatsen_OS_2002.html'],
-  [2, 'all', sub {&get_OS2006();}, 'sport_schaatsen_OS_2006.html'],
-  [2, 'all', sub {&get_OS2010();}, 'sport_schaatsen_OS_2010.html'],
-  [2, 'all', sub {&get_OS2014();}, 'sport_schaatsen_OS_2014.html'],
-  [2, 'all', sub {&get_OS2018();}, 'sport_schaatsen_OS_2018.html'],
+  [2, 'all', sub {&get_OS(1994);}, 'sport_schaatsen_OS_1994.html'],
+  [2, 'all', sub {&get_OS(1998);}, 'sport_schaatsen_OS_1998.html'],
+  [2, 'all', sub {&get_OS(2002);}, 'sport_schaatsen_OS_2002.html'],
+  [2, 'all', sub {&get_OS(2006);}, 'sport_schaatsen_OS_2006.html'],
+  [2, 'all', sub {&get_OS(2010);}, 'sport_schaatsen_OS_2010.html'],
+  [2, 'all', sub {&get_OS(2014);}, 'sport_schaatsen_OS_2014.html'],
+  [2, 'all', sub {&get_OS(2018);}, 'sport_schaatsen_OS_2018.html'],
   [2, ' rl', sub {&file2str(File::Spec->catfile('Admin', 'robots.txt'));}, 'robots.txt'],
  ]);
 
@@ -354,8 +353,6 @@ sub sport_init()
   initEredivisieResults();
   init_tp_eerste_divisie();
   init_ec();
-
-  read_schaatsers();
 
   set_laatste_speeldatum_u_nl();
   set_laatste_speeldatum_ec();
