@@ -137,7 +137,12 @@ sub init_webdir($)
   $WD_His  = File::Spec->catdir($ENV{HOME}, 'epsig', 'web_old');
   $WbDrOld = $WebDir;
  }
- else  {die "onbekende id $id voor sub webdir('init', id).\n";}
+ else  
+ {
+  $WebDir  = File::Spec->catdir('..', 'pages');
+  $WD_His  = File::Spec->catdir('..', 'web_old');
+  $WbDrOld = $WebDir;
+ }
 }
 
 sub get_webdir()
@@ -153,7 +158,6 @@ sub init_host_id()
  my $id = get_my_hostname();
 
  if    ($id =~ m/wh.*shell/iso)         {$HostId = 'wh_epsig';}
- elsif ($id =~ m/(kzdla)|(gwdcar)/iso) {$HostId = 'werk'    ;}
  elsif ($id =~ m/pcthuis/iso)          {$HostId = 'local'   ;}
  elsif ($id =~ m/laptop/iso)           {$HostId = 'local'   ;}
  elsif ($id =~ m/spee-aspire-5630/iso) {$HostId = 'ubuntu'  ;}
@@ -166,7 +170,7 @@ sub init_host_id()
   {die "unknown username $username.\n";}
   print "HostId, username = $HostId, $username.\n";
  }
- else  {die "onbekende id $id voor sub host_id('init', id).\n";}
+ else  {$HostId = 'git';}
 
  if ($HostId eq 'remote' or $HostId eq 'wh_epsig')
  {
@@ -185,8 +189,8 @@ sub init_host_id()
  }
  else
  {
-  $www_epsig_nl = 'file:///p:/prive/web';
-  $www_xs4all_nl_spee = 'file:///p:/prive/web'
+  $www_epsig_nl = '../pages/';
+  $www_xs4all_nl_spee = $www_epsig_nl;
  }
 }
 
