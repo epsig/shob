@@ -460,9 +460,9 @@ sub get_actueel($)
 ['http://prinsjesdag.minfin.nl/','Prinsjesdag', 9.25, 9.9],
 ['https://www.lavuelta.es/','Vuelta (Ronde van Spanje)', 10.5, 11.5],
 #['http://www.koorhemelsbreed.nl/agenda.html', 'Najaarsconcert van oa Hemelsbreed', 11, 12],
-['http://sinterklaas.pagina.nl/','5 december Sinterklaas', 11.3, 12.3],
-['http://kerst.pagina.nl/','25-26 december Kerstfeest', 12.5, 13],
-['http://kerst.pagina.nl/','25-26 december Kerstfeest', 0, 0.3]]; #TODO op een regel kunnen opgeven
+['','5 december Sinterklaas', 11.3, 12.3],
+['','25-26 december Kerstfeest', 12.5, 13],
+['','25-26 december Kerstfeest', 0, 0.3]]; #TODO op een regel kunnen opgeven
 
 # datum gefixeerd om uit CVS te kunnen reproduceren:
  my $datum_fixed = get_datum_fixed();
@@ -505,7 +505,14 @@ sub get_actueel($)
   {
    $totaal++;
    my ($url, $descr, undef, undef) = @$rij;
-   $actueel .= qq(<li><a href="$url">$descr</a>\n);
+   if ($url ne '')
+   {
+     $actueel .= qq(<li><a href="$url">$descr</a>\n);
+   }
+   else
+   {
+     $actueel .= qq(<li>$descr\n);
+   }
    if ($descr =~ m/brexit/iso)
    {$actueel .= qq(over (onder voorbehoud): <div id="brexit"> </div>\n);}
   }
