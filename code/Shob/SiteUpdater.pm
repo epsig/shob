@@ -4,9 +4,6 @@ use strict; use warnings;
 # DECLARATION OF THE PACKAGE
 #=========================================================================
 # following text starts a package:
-use Exporter;
-use vars qw($VERSION @ISA @EXPORT);
-use Time::HiRes qw(gettimeofday);
 use File::Spec;
 use Shob_Tools::Html_Stuff;
 use Shob_Tools::Settings;
@@ -24,6 +21,8 @@ use Sport_Collector::OS_Schaatsen;
 use Sport_Collector::Archief_EK_WK_Voetbal;
 use Sport_Collector::Stats_Eredivisie;
 use Sport_Collector::Bookmarks_Index;
+use Exporter;
+use vars qw($VERSION @ISA @EXPORT);
 @ISA = ('Exporter');
 #=========================================================================
 

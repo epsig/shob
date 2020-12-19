@@ -33,24 +33,10 @@ use strict; use warnings;
 =cut
 
 use Time::HiRes qw(gettimeofday);
-use File::Spec;
 use Pod::Usage;
 use Shob_Tools::Html_Stuff;
 use Shob_Tools::Settings;
 use Shob_Tools::General;
-use Shob::Algemeen;
-use Shob::Stats_Website;
-use Shob::Bookmarks;
-use Shob::Functions;
-use Shob::Politiek;
-use Shob::Foto;
-use Shob::Klaverjas_Funcs;
-use Sport_Collector::Archief_Voetbal_NL;
-use Sport_Collector::Archief_Europacup_Voetbal;
-use Sport_Collector::OS_Schaatsen;
-use Sport_Collector::Archief_EK_WK_Voetbal;
-use Sport_Collector::Stats_Eredivisie;
-use Sport_Collector::Bookmarks_Index;
 use ShobTest;
 use Shob::SiteUpdater;
 
@@ -76,8 +62,12 @@ sub sport_init()
 
   use Sport_Collector::Archief_Oefenduels;
   use Sport_Collector::Teams;
+  use Sport_Collector::Archief_Voetbal_NL;
   use Sport_Collector::Archief_Voetbal_NL_Uitslagen;
   use Sport_Collector::Archief_Voetbal_NL_Topscorers;
+  use Sport_Collector::Archief_Europacup_Voetbal;
+  use Sport_Collector::Archief_EK_WK_Voetbal;
+  use Shob::Stats_Website;
 
   initTeams();
   initEredivisieResults();
