@@ -67,7 +67,7 @@ $VERSION = '20.0';
 );
 
 my $ekwkDir = 'ekwk';
-my $xmlDir = File::Spec->catfile('Sport_Data', $ekwkDir);
+my $xmlDir = File::Spec->catfile('..', 'data', 'sport', $ekwkDir);
 
 sub get_ek1996()
 {# (c) Edwin Spee

@@ -34,7 +34,7 @@ $VERSION = '20.0';
 
 # (c) Edwin Spee
 
-our $csv_dir = 'Sport_Data';
+our $csv_dir = '../data/sport';
 
 # reads a csv file and returns it as a list of lists
 # comments (everything after a #) and newlines are removed

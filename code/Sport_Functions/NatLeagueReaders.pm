@@ -35,7 +35,7 @@ sub ReadNatLeague($$)
   my $csvFile = shift;
   my $ster    = shift;
 
-  my $NLfile = File::Spec->catfile('Sport_Data', 'nationsLeague', $csvFile);
+  my $NLfile = File::Spec->catfile('..', 'data', 'sport', 'nationsLeague', $csvFile);
   my $NLraw = read_csv_file($NLfile);
   $NLraw->[0] = [ ['Groep A'], [1, 5, '', $ster]];
   for(my $i = 1; $i < scalar @$NLraw; $i++)
@@ -71,7 +71,7 @@ sub ReadNatLeagueFinals($)
 {
   my $csvFile = shift;
 
-  my $NLfile = File::Spec->catfile('Sport_Data', 'nationsLeague', $csvFile);
+  my $NLfile = File::Spec->catfile('..', 'data', 'sport', 'nationsLeague', $csvFile);
   my $NLraw = read_csv_file($NLfile);
   my @uf = (['final']); my @uh = (['semi final']); my @f34 = (['bronze']);
   for(my $i = 1; $i < scalar @$NLraw; $i++)

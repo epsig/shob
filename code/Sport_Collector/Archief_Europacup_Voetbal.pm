@@ -55,7 +55,7 @@ sub init_ec
 { #(c) Edwin Spee
   use File::Glob;
 
-  my @files = <Sport_Data/europacup/europacup_????_????.csv>;
+  my @files = <../data/sport/europacup/europacup_????_????.csv>;
   my $lastYr = -999;
   my $lastSzn;
   foreach my $file (@files)
