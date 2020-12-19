@@ -21,6 +21,7 @@ use Sport_Collector::OS_Schaatsen;
 use Sport_Collector::Archief_EK_WK_Voetbal;
 use Sport_Collector::Stats_Eredivisie;
 use Sport_Collector::Bookmarks_Index;
+use Sport_Functions::Overig;
 use Exporter;
 use vars qw($VERSION @ISA @EXPORT);
 @ISA = ('Exporter');
@@ -84,9 +85,10 @@ sub handle_new_style_files($$$)
   [2, 'all', sub {&get_bkmrks('werk');}, 'tmp_bookmarks_werk.html'],
   [2, 'all', sub {&get_bkmrks('prive');}, 'tmp_bookmarks_prive.html'],
   [2, 'all', sub {&get_bkmrks('index');}, 'bookmarks.html'],
-  [2, 'all', sub {&get_klaverjas_faq;}, 'klaverjas_faq.html'],
+  [2, 'all', sub {&get_klaverjas_faq;}, 'klaverjas_faq.html']]);
 # [1, ' rl', sub {&get_klaverjas_beta_versies;}, 'kj_beta_versies.html'],
 
+ do_all_text_dir ($lop, '', [
   [2, 'all', sub {&get_ek1996v;}, 'sport_voetbal_EK_1996_voorronde.html'],
   [2, 'all', sub {&get_ek1996;}, 'sport_voetbal_EK_1996.html'],
   [2, 'all', sub {&get_wk1998v;}, 'sport_voetbal_WK_1998_voorronde.html'],
@@ -113,79 +115,42 @@ sub handle_new_style_files($$$)
   [2, 'all', sub {&get_wk2018;}, 'sport_voetbal_WK_2018.html'],
   [2, 'all', sub {&get_wkD2019;}, 'sport_voetbal_WKD2019.html'],
   [$fast, 'all', sub {&get_ek2020v;}, 'sport_voetbal_EK_2020_voorronde.html'],
-  [$fast, 'all', sub {&get_wk2022v;}, 'sport_voetbal_WK_2022_voorronde.html'],
+  [$fast, 'all', sub {&get_wk2022v;}, 'sport_voetbal_WK_2022_voorronde.html']]);
 
-  [2, 'all', sub {&get_ec_webpage('1994-1995');}, 'sport_voetbal_europacup_1994_1995.html'],
-  [2, 'all', sub {&get_ec_webpage('1995-1996');}, 'sport_voetbal_europacup_1995_1996.html'],
-  [2, 'all', sub {&get_ec_webpage('1996-1997');}, 'sport_voetbal_europacup_1996_1997.html'],
-  [2, 'all', sub {&get_ec_webpage('1997-1998');}, 'sport_voetbal_europacup_1997_1998.html'],
-  [2, 'all', sub {&get_ec_webpage('1998-1999');}, 'sport_voetbal_europacup_1998_1999.html'],
-  [2, 'all', sub {&get_ec_webpage('1999-2000');}, 'sport_voetbal_europacup_1999_2000.html'],
-  [2, 'all', sub {&get_ec_webpage('2000-2001');}, 'sport_voetbal_europacup_2000_2001.html'],
-  [2, 'all', sub {&get_ec_webpage('2001-2002');}, 'sport_voetbal_europacup_2001_2002.html'],
-  [2, 'all', sub {&get_ec_webpage('2002-2003');}, 'sport_voetbal_europacup_2002_2003.html'],
-  [2, 'all', sub {&get_ec_webpage('2003-2004');}, 'sport_voetbal_europacup_2003_2004.html'],
-  [2, 'all', sub {&get_ec_webpage('2004-2005');}, 'sport_voetbal_europacup_2004_2005.html'],
-  [2, 'all', sub {&get_ec_webpage('2005-2006');}, 'sport_voetbal_europacup_2005_2006.html'],
-  [2, 'all', sub {&get_ec_webpage('2006-2007');}, 'sport_voetbal_europacup_2006_2007.html'],
-  [2, 'all', sub {&get_ec_webpage('2007-2008');}, 'sport_voetbal_europacup_2007_2008.html'],
-  [2, 'all', sub {&get_ec_webpage('2008-2009');}, 'sport_voetbal_europacup_2008_2009.html'],
-  [2, 'all', sub {&get_ec_webpage('2009-2010');}, 'sport_voetbal_europacup_2009_2010.html'],
-  [2, 'all', sub {&get_ec_webpage('2010-2011');}, 'sport_voetbal_europacup_2010_2011.html'],
-  [2, 'all', sub {&get_ec_webpage('2011-2012');}, 'sport_voetbal_europacup_2011_2012.html'],
-  [2, 'all', sub {&get_ec_webpage('2012-2013');}, 'sport_voetbal_europacup_2012_2013.html'],
-  [2, 'all', sub {&get_ec_webpage('2013-2014');}, 'sport_voetbal_europacup_2013_2014.html'],
-  [2, 'all', sub {&get_ec_webpage('2014-2015');}, 'sport_voetbal_europacup_2014_2015.html'],
-  [2, 'all', sub {&get_ec_webpage('2015-2016');}, 'sport_voetbal_europacup_2015_2016.html'],
-  [2, 'all', sub {&get_ec_webpage('2016-2017');}, 'sport_voetbal_europacup_2016_2017.html'],
-  [2, 'all', sub {&get_ec_webpage('2017-2018');}, 'sport_voetbal_europacup_2017_2018.html'],
-  [2, 'all', sub {&get_ec_webpage('2018-2019');}, 'sport_voetbal_europacup_2018_2019.html'],
-  [2, 'all', sub {&get_ec_webpage('2019-2020');}, 'sport_voetbal_europacup_2019_2020.html'],
-  [$fast, 'all', sub {&get_ec_webpage('2020-2021');}, 'sport_voetbal_europacup_2020_2021.html'],
+  my $curYr = 2020;
 
-  [2, 'all', sub {&get_betaald_voetbal_nl(1993);}, 'sport_voetbal_nl_1993_1994.html'],
-  [2, 'all', sub {&get_betaald_voetbal_nl(1994);}, 'sport_voetbal_nl_1994_1995.html'],
-  [2, 'all', sub {&get_betaald_voetbal_nl(1995);}, 'sport_voetbal_nl_1995_1996.html'],
-  [2, 'all', sub {&get_betaald_voetbal_nl(1996);}, 'sport_voetbal_nl_1996_1997.html'],
-  [2, 'all', sub {&get_betaald_voetbal_nl(1997);}, 'sport_voetbal_nl_1997_1998.html'],
-  [2, 'all', sub {&get_betaald_voetbal_nl(1998);}, 'sport_voetbal_nl_1998_1999.html'],
-  [2, 'all', sub {&get_betaald_voetbal_nl(1999);}, 'sport_voetbal_nl_1999_2000.html'],
-  [2, 'all', sub {&get_betaald_voetbal_nl(2000);}, 'sport_voetbal_nl_2000_2001.html'],
-  [2, 'all', sub {&get_betaald_voetbal_nl(2001);}, 'sport_voetbal_nl_2001_2002.html'],
-  [2, 'all', sub {&get_betaald_voetbal_nl(2002);}, 'sport_voetbal_nl_2002_2003.html'],
-  [2, 'all', sub {&get_betaald_voetbal_nl(2003);}, 'sport_voetbal_nl_2003_2004.html'],
-  [2, 'all', sub {&get_betaald_voetbal_nl(2004);}, 'sport_voetbal_nl_2004_2005.html'],
-  [2, 'all', sub {&get_betaald_voetbal_nl(2005);}, 'sport_voetbal_nl_2005_2006.html'],
-  [2, 'all', sub {&get_betaald_voetbal_nl(2006);}, 'sport_voetbal_nl_2006_2007.html'],
-  [2, 'all', sub {&get_betaald_voetbal_nl(2007);}, 'sport_voetbal_nl_2007_2008.html'],
-  [2, 'all', sub {&get_betaald_voetbal_nl(2008);}, 'sport_voetbal_nl_2008_2009.html'],
-  [2, 'all', sub {&get_betaald_voetbal_nl(2009);}, 'sport_voetbal_nl_2009_2010.html'],
-  [2, 'all', sub {&get_betaald_voetbal_nl(2010);}, 'sport_voetbal_nl_2010_2011.html'],
-  [2, 'all', sub {&get_betaald_voetbal_nl(2011);}, 'sport_voetbal_nl_2011_2012.html'],
-  [2, 'all', sub {&get_betaald_voetbal_nl(2012);}, 'sport_voetbal_nl_2012_2013.html'],
-  [2, 'all', sub {&get_betaald_voetbal_nl(2013);}, 'sport_voetbal_nl_2013_2014.html'],
-  [2, 'all', sub {&get_betaald_voetbal_nl(2014);}, 'sport_voetbal_nl_2014_2015.html'],
-  [2, 'all', sub {&get_betaald_voetbal_nl(2015);}, 'sport_voetbal_nl_2015_2016.html'],
-  [2, 'all', sub {&get_betaald_voetbal_nl(2016);}, 'sport_voetbal_nl_2016_2017.html'],
-  [2, 'all', sub {&get_betaald_voetbal_nl(2017);}, 'sport_voetbal_nl_2017_2018.html'],
-  [2, 'all', sub {&get_betaald_voetbal_nl(2018);}, 'sport_voetbal_nl_2018_2019.html'],
-  [2, 'all', sub {&get_betaald_voetbal_nl(2019);}, 'sport_voetbal_nl_2019_2020.html'],
-  [$fast, 'all', sub {&get_betaald_voetbal_nl(2020);}, 'sport_voetbal_nl_2020_2021.html'],
+  my @pages = ();
+  foreach my $yr (1993 .. $curYr)
+  {
+    my $szn1 = yr2szn($yr);
+    my $szn2 = $szn1;
+       $szn2 =~ s/-/_/;
+
+    my $dl = ($yr == $curYr ? $fast : 2);
+    if ($yr >= 1994)
+    {
+      push @pages, [$dl, 'all', sub {&get_ec_webpage($szn1);}, "sport_voetbal_europacup_$szn2.html"];
+    }
+    push @pages, [$dl, 'all', sub {&get_betaald_voetbal_nl($yr);}, "sport_voetbal_nl_$szn2.html"];
+    if ($yr % 4 == 2)
+    {
+      push @pages, [$dl, 'all', sub {&get_OS($yr);}, "sport_schaatsen_OS_$yr.html"],
+    }
+  }
+  do_all_text_dir ($lop, '', \@pages);
+
+  do_all_text_dir ($lop, '', [
   [$fast, 'all', sub {&officieuze_standen('officieus', 2020);}, 'sport_voetbal_nl_jaarstanden.html'],
   [$fast, 'all', sub {&officieuze_standen('uit_thuis', 2020);}, 'sport_voetbal_nl_uit_thuis.html'],
 
   [$fast, 'all', sub {&get_stats_eredivisie(2019, 2020, 0);}, 'sport_voetbal_nl_stats.html'],
-  [$fast, '  u', sub {&get_stats_eredivisie(2019, 2020, 2);}, 'sport_voetbal_nl_stats_more.html'],
+  [$fast, '  u', sub {&get_stats_eredivisie(2019, 2020, 2);}, 'sport_voetbal_nl_stats_more.html']]);
 
-  [2, 'all', sub {&get_OS(1994);}, 'sport_schaatsen_OS_1994.html'],
-  [2, 'all', sub {&get_OS(1998);}, 'sport_schaatsen_OS_1998.html'],
-  [2, 'all', sub {&get_OS(2002);}, 'sport_schaatsen_OS_2002.html'],
-  [2, 'all', sub {&get_OS(2006);}, 'sport_schaatsen_OS_2006.html'],
-  [2, 'all', sub {&get_OS(2010);}, 'sport_schaatsen_OS_2010.html'],
-  [2, 'all', sub {&get_OS(2014);}, 'sport_schaatsen_OS_2014.html'],
-  [2, 'all', sub {&get_OS(2018);}, 'sport_schaatsen_OS_2018.html'],
-  [2, ' rl', sub {&file2str(File::Spec->catfile('Admin', 'robots.txt'));}, 'robots.txt'],
- ]);
+  my $robots = File::Spec->catfile('Admin', 'robots.txt');
+  if (-f $robots)
+  {
+    do_all_text_dir ($lop, '', [[2, ' rl', sub {&file2str($robots);}, 'robots.txt']]);
+  }
 
  handle_kj($lop, 1);
  do_all_bin_dir($lop, 2, 'all', 0, 'Shob', '.');
