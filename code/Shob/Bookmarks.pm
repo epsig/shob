@@ -461,6 +461,8 @@ sub get_actueel($)
 ['https://www.lavuelta.es/','Vuelta (Ronde van Spanje)', 10.5, 11.5],
 #['http://www.koorhemelsbreed.nl/agenda.html', 'Najaarsconcert van oa Hemelsbreed', 11, 12],
 ['','5 december Sinterklaas', 11.3, 12.3],
+['https://www.nporadio2.nl/top2000','Top 2000', 12.5, 13],
+['https://www.nporadio2.nl/top2000','Top 2000', 0, 0.3],
 ['','25-26 december Kerstfeest', 12.5, 13],
 ['','25-26 december Kerstfeest', 0, 0.3]]; #TODO op een regel kunnen opgeven
 
