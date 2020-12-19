@@ -33,7 +33,7 @@ sub collect_stats_files($$)
 
  my $regexp1 = '(http\S*)\s+(\d+)\s*\((\d+.\d)Kb\)';
 
- my $statsdir = 'Data_stats_website';
+ my $statsdir = '../data/Data_stats_website';
 
  my $out = '';
  my $datum = -1;
