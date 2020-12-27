@@ -135,6 +135,8 @@ sub read_csv_file_szn($$)
  return (\@content_szn);
 }
 
+my $allRemarks = {};
+
 sub ReadOpm($$$$)
 {
   my $seizoen   = shift;
@@ -143,22 +145,26 @@ sub ReadOpm($$$$)
   my $multiLine = shift;
   # 0= no line breaks added; 1= line breaks added; 2= line breaks added, but not after the last
 
-  my $fullname;
-  if ($type eq 'NL')
+  if (not defined $allRemarks->{$type})
   {
-    $fullname = File::Spec->catdir($csv_dir, 'eredivisie', 'eredivisie_remarks.csv');
+    my $fullname;
+    if ($type eq 'NL')
+    {
+      $fullname = File::Spec->catdir($csv_dir, 'eredivisie', 'eredivisie_remarks.csv');
+    }
+    else
+    {
+      $fullname = File::Spec->catdir($csv_dir, 'europacup', 'europacup_remarks.csv');
+    }
+    $allRemarks->{$type} = read_csv_with_header($fullname);
   }
-  else
-  {
-    $fullname = File::Spec->catdir($csv_dir, 'europacup', 'europacup_remarks.csv');
-  }
-  
-  my $content = read_csv_with_header($fullname);
-  
+
+  my $content = $allRemarks->{$type};
+
   my $a = '';
   my $keyFound = '';
 
-  while(my $record = shift(@$content))
+  foreach my $record (@$content)
   {
     if ($record->{season} eq $seizoen)
     {
