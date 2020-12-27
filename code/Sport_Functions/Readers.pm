@@ -72,6 +72,11 @@ sub read_csv_with_header($)
     chomp($line);
     $line =~ s/ *#.*//;
     my @parts = split(' *, *', $line, -1);
+    my @parts2 = split('"', $line, -1);
+    if (scalar @parts2 == 3)
+    {
+      @parts = ($parts[0], $parts[1], $parts2[1]);
+    }
     if (scalar @parts != scalar @header_parts)
     {
       shob_error('strange_else',["# cols wrong in $line"]);
