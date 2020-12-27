@@ -115,13 +115,12 @@ sub result2aabb($)
 
 sub read_csv_file_szn($$)
 {
- my $fullname = shift;
+ my $content = shift;
  my $seizoen = shift;
 
- my $content = read_csv_file($fullname);
  my $active = 0;
  my @content_szn;
- while(my $line = shift(@$content))
+ foreach my $line (@$content)
  {
   my @parts = @$line;
   if ($parts[0] =~ m/:$/)
@@ -156,7 +155,6 @@ sub ReadOpm($$$$)
   
   my $content = read_csv_with_header($fullname);
   
-  #my $content = read_csv_file_szn($fullname, $seizoen);
   my $a = '';
   my $keyFound = '';
 

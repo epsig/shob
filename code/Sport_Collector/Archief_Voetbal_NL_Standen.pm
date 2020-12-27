@@ -34,6 +34,8 @@ $VERSION = '18.1';
  #========================================================================
 );
 
+my $contentFileU2s;
+
 sub read_stand($)
 {
  my $filename = shift;
@@ -64,9 +66,12 @@ sub read_stand($)
 sub read_u2s($)
 {
  my $seizoen = shift;
- my $fullname = File::Spec->catdir($csv_dir, 'eredivisie', 'eredivisie_u2s.csv');
-
- my $content = read_csv_file_szn($fullname, $seizoen);
+ if (not defined $contentFileU2s)
+ {
+  my $fullname = File::Spec->catdir($csv_dir, 'eredivisie', 'eredivisie_u2s.csv');
+  $contentFileU2s = read_csv_file($fullname);
+ }
+ my $content = read_csv_file_szn($contentFileU2s, $seizoen);
  my $a; my @b;
  while(my $line = shift(@$content))
  {
