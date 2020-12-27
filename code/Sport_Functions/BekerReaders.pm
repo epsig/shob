@@ -68,7 +68,7 @@ sub read_beker_csv($$$)
   my $f = read_beker_part('f', 1, 'finale KNVB-beker', 5, $content);
   my $f34 = read_beker_part('f34', 1, 'troost-finale KNVB-beker', 5, $content);
 
-  my $opm = ReadOpm(yr2szn($year), 'beker_opm', 'NL', 1);
+  my $opm = ReadOpm(yr2szn($year), 'beker_opm', 'eredivisie', 1);
 
   my $beker = {
     extra => { supercup => $sc },

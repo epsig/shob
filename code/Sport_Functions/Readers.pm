@@ -141,21 +141,13 @@ sub ReadOpm($$$$)
 {
   my $seizoen   = shift;
   my $key       = shift;
-  my $type      = shift;
+  my $type      = shift; # data is in $type/$type_remarks.csv
   my $multiLine = shift;
   # 0= no line breaks added; 1= line breaks added; 2= line breaks added, but not after the last
 
   if (not defined $allRemarks->{$type})
   {
-    my $fullname;
-    if ($type eq 'NL')
-    {
-      $fullname = File::Spec->catdir($csv_dir, 'eredivisie', 'eredivisie_remarks.csv');
-    }
-    else
-    {
-      $fullname = File::Spec->catdir($csv_dir, 'europacup', 'europacup_remarks.csv');
-    }
+    my $fullname = File::Spec->catdir($csv_dir, $type, "${type}_remarks.csv");
     $allRemarks->{$type} = read_csv_with_header($fullname);
   }
 

@@ -70,15 +70,16 @@ sub read_ec_csv($$)
     $date = str2itdate($today);
   }
 
-  my $sort_rule = ReadOpm($szn, 'sort_rule', 'EC', 0);
+  my $EC = 'europacup';
+  my $sort_rule = ReadOpm($szn, 'sort_rule', $EC, 0);
   if (not $sort_rule) {$sort_rule = 5;} # default value
   my $pnt_telling = ($szn le '1994-1995' ? 2 : 1);
   
-  my $wnsCL = ReadOpm($szn, 'wns_CL', 'EC', 0);
+  my $wnsCL = ReadOpm($szn, 'wns_CL', $EC, 0);
 
-  my $voorr_CL_voorronde = ReadOpm($szn, 'voorr_CL_voorronde', 'EC', 0);
+  my $voorr_CL_voorronde = ReadOpm($szn, 'voorr_CL_voorronde', $EC, 0);
   
-  my $remark_extra = ReadOpm($szn, 'remark', 'EC', 2);
+  my $remark_extra = ReadOpm($szn, 'remark', $EC, 2);
   
   my $sc = read_ec_part('supercup', '', 1, 'Europese Supercup', $sort_rule, $content);
 
@@ -160,8 +161,8 @@ sub read_ec_csv($$)
     }
   }
 
-  my $summaryNL = ReadOpm($szn, 'summary_NL', 'EC', 1);
-  my $summaryUK = ReadOpm($szn, 'summary_UK', 'EC', 1);
+  my $summaryNL = ReadOpm($szn, 'summary_NL', $EC, 1);
+  my $summaryUK = ReadOpm($szn, 'summary_UK', $EC, 1);
 
   if ($summaryNL ne '')
   {
