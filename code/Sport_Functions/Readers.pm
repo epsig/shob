@@ -147,28 +147,31 @@ sub ReadOpm($$$$)
   my $fullname;
   if ($type eq 'NL')
   {
-    $fullname = File::Spec->catdir($csv_dir, 'eredivisie', 'eredivisie_u2s.csv');
+    $fullname = File::Spec->catdir($csv_dir, 'eredivisie', 'eredivisie_remarks.csv');
   }
   else
   {
     $fullname = File::Spec->catdir($csv_dir, 'europacup', 'europacup_remarks.csv');
   }
-
-  my $content = read_csv_file_szn($fullname, $seizoen);
+  
+  my $content = read_csv_with_header($fullname);
+  
+  #my $content = read_csv_file_szn($fullname, $seizoen);
   my $a = '';
   my $keyFound = '';
 
-  while(my $line = shift(@$content))
+  while(my $record = shift(@$content))
   {
-    my @parts = @$line;
-    if ($parts[0] =~ m/^$key/)
+    if ($record->{season} eq $seizoen)
     {
-      if ($multiLine == 2 && $a ne '') {$a .= "\n";}
-      if ($parts[0] ne $key) {$keyFound = $parts[0];}
-      shift @parts; 
-      my $line = join(', ', @parts);
-      $a .= $line;
-      if ($multiLine == 1) {$a .= "\n";}
+      if ($record->{key} =~ m/^$key/)
+      {
+        if ($multiLine == 2 && $a ne '') {$a .= "\n";}
+        if ($record->{key} ne $key) {$keyFound = $record->{key};}
+        my $line = $record->{value};
+        $a .= $line;
+        if ($multiLine == 1) {$a .= "\n";}
+      }
     }
   }
 
