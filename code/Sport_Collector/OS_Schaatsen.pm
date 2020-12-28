@@ -30,7 +30,7 @@ $VERSION = '20.1';
  #========================================================================
 );
 
-my $schaatsers;
+my $schaatsers = {};
 my $maxwarn = 5;
 my $totalwarn = 0;
 
@@ -44,7 +44,7 @@ sub read_schaatsers()
     while(my $line = shift(@$content))
     {
       my @parts = @$line;
-      $schaatsers->{$parts[0]} = $parts[1];
+      $schaatsers->{$s}{$parts[0]} = $parts[1];
     }
   }
 }
@@ -91,10 +91,10 @@ sub min_sec_record($$)
   }
 }
 
-sub schaats_dtb2html($$$)
+sub schaats_dtb2html($$$$)
 { # (c) Edwin Spee
 
-  my ($all, $data, $isMs) = @_;
+  my ($all, $data, $isMs, $DH) = @_;
   my $total;
   my $maxi = $all ? (scalar @$data) : 2;
   my $outtxt = '';
@@ -118,9 +118,9 @@ sub schaats_dtb2html($$$)
       $schaatser_id = $tmp->[0];
       $naam_plus_land = expand($schaatser_id, 0) . ' (' . $tmp->[1] . ')';
     }
-    elsif (defined $schaatsers->{$schaatser_id})
+    elsif (defined $schaatsers->{$DH}{$schaatser_id})
     {
-      $naam_plus_land = $schaatsers->{$schaatser_id} . ' (' . land_acronym($landcode) . ')';
+      $naam_plus_land = $schaatsers->{$DH}{$schaatser_id} . ' (' . land_acronym($landcode) . ')';
     }
     else
     {
@@ -214,14 +214,16 @@ sub format_os($)
   my $samenv = '';
   for (my $i = 0; $i < scalar @links; $i++)
   {
-    $samenv .= ftr(ftdl($links[$i]) . schaats_dtb2html(0, $results->[$i], $i >= 12));
+    my $DH = ($links[$i] =~ m/D/ ? 'D' : 'H');
+    $samenv .= ftr(ftdl($links[$i]) . schaats_dtb2html(0, $results->[$i], $i >= 12, $DH));
   }
 
   my $compleet = '';
   for (my $i = 0; $i < scalar @names; $i++)
   {
+    my $DH = ($links[$i] =~ m/D/ ? 'D' : 'H');
     $compleet .= ftr(fth({cols => 5, class => 'h'}, $names[$i])) .
-                   schaats_dtb2html(1, $results->[$i], $i >= 12);
+                   schaats_dtb2html(1, $results->[$i], $i >= 12, $DH);
   }
 
    my $outtxt = ftable('border', $samenv) . "<hr>\n" . ftable('border', $compleet);
@@ -315,7 +317,7 @@ sub get_OS($)
 {
   my $year = shift;
 
-  if (not defined $schaatsers)
+  if (not %$schaatsers)
   {
     read_schaatsers();
   }

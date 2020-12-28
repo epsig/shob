@@ -7,7 +7,6 @@ BEvld, Bart Veldkamp
 BYvmc, Vitali Michajlov
 CAblc, Jordan Belchos
 CAblm, Ted-Jan Bloemen, # TJ Flowers ;-)
-CAbln, Ivanie Blondin
 CAbsv, Alex Boisvert-Lacroix
 CAdnk, Arne Dankers
 CAgrg, Jamie Gregg
@@ -27,9 +26,7 @@ CHlwn, Livio Wenger
 CNhbl, Hung-Bo Liu
 CNfty, Fengtong Yu
 CNtgy, Gao Tingyu
-CNwbx, Wang Beixing
 CNzhg, Zhang Zhongqi
-CNzhh, Zhang Hong
 DEadb, Peter Adeberg
 DEbdn, Jens Boden
 DEbmg, Alexander Baumg&auml;rtel
@@ -38,6 +35,7 @@ DEdtt, Frank Dittrich
 DEgsr, Moritz Geisreiter
 DEnih, Nico Ihle
 DEpbk, Patrick Beckert
+DEbcp, Patrick Beckert
 DEssc, Samuel Schwarz
 DEtbr, Taubenrauch
 DEwbr, Marco Weber
@@ -51,9 +49,7 @@ ITfbr, Enrico Fabris
 ITsgh, Roberto Sighel
 ITsnf, Ippolito Sanfratello
 ITtml, Nicola Tumolero
-JPast, Ayano Sato
 JPayn, Toru Aoyanagi
-JPfmr, Shoko Fujimora
 JPhor, Manabu Horii
 JPima, Yusuke Imai
 JPich, Seitaro Ichinohe
@@ -61,13 +57,10 @@ JPino, Junichi Inoue
 JPitk, Toshihiko Itokawa
 JPkat, Joji Kato
 JPmyb, Yasunori Miyabe
-JPmts, Maki Tsuji
 JPnok, Hiroyuki Noake
-JPnkd, Nao Kodaira
 JPngs, Keiichiro Nagashima
 JPoda, Takuro Oda
 JPokw, Yuya Oikawa
-JPosh, Misaki Oshigiri
 JPrts, Ryosuke Tsuchiya
 JPtkd, Toyoki Takeda
 JPshr, Keiji Shirahata
@@ -80,6 +73,7 @@ KRcjw, Chung Jae-won
 KRjnh, Kim Jun-ho
 KRkhl, Kyu-hyuk Lee
 KRksl, Kang-Seok Lee
+KRlsh, Lee Seung-Hoon
 KRmky, Cha Min-kyu
 KRmsk, Kim Min-seok
 KRshn, Lee Seung-Hoon
@@ -115,7 +109,6 @@ NLstr, Jeroen Straathof
 NLuyt, Jochem Uytdehaage
 NLbvl, Bart Veldkamp
 NLtrt, Mark Tuitert
-NLvbk, Lotte van Beek
 NLvld, Gerard van Velde
 NLvls, Nico van der Vlies
 NLvrb, Kai Verbij
@@ -133,8 +126,6 @@ NOgrd, Oystein Gr&oslash;dum
 NOhgl, Sverre Haugli
 NOhlr, Havard Lorentzen
 NOhrk, Sindre Henriksen
-NOhmm, Mari Hemmer
-NOinj, Ida Njatun
 NOkss, Johann-Olav Koss
 NOnjs, Grunde Njos
 NOpdr, Sverre Pedersen
@@ -153,7 +144,6 @@ RUanf, Andrej Anoefrijenko
 RUdrf, Dmitry Dorofejev
 RUglb, Aleksandr Goloebev
 RUjsk, Denis Joeskov
-RUjsv, Joelija Skokova
 RUklv, Sergej Klevtsjenja
 RUlbk, Dmitri Lobkov
 RUllk, Jevgeni Lalenkov
