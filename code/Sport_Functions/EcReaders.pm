@@ -70,7 +70,6 @@ sub read_ec_csv($$)
     $date = str2itdate($today);
   }
 
-  my $EC = 'europacup';
   my $sort_rule = $ec_remarks->get($szn, 'sort_rule');
   if (not $sort_rule) {$sort_rule = 5;} # default value
   my $pnt_telling = ($szn le '1994-1995' ? 2 : 1);
