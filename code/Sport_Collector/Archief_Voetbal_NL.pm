@@ -8,6 +8,7 @@ use Shob_Tools::General;
 use Shob_Tools::Settings;
 use Shob_Tools::Html_Stuff;
 use Sport_Functions::Readers;
+use Sport_Functions::RemarkReaders;
 use Sport_Functions::Overig;
 use Sport_Functions::Formats;
 use Sport_Functions::Filters;
@@ -34,6 +35,8 @@ $VERSION = '18.1';
  '&get_extremen_aantal_toeschouwers',
  #========================================================================
 );
+
+my $remarks;
 
 my $toeschouwers_eredivisie_per_club_per_seizoen = [
 ['adh', 1, '2003-2004',  7208],
@@ -330,7 +333,11 @@ sub get_betaald_voetbal_nl($)
  my $yr = shift;
  my $szn = yr2szn($yr);
  
- my $opm_ered = ReadOpm($szn, 'opm', 'eredivisie', 1);
+ if (not defined $remarks)
+ {
+   $remarks = Sport_Functions::RemarkReaders->new({type => 'eredivisie'});
+ }
+ my $opm_ered = $remarks->get_ml($szn, 'opm', 1);
 
  my $europa_in = '';
  my $dd = 20090722;

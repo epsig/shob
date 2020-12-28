@@ -11,6 +11,7 @@ use Shob_Tools::Html_Stuff;
 use Shob_Tools::Html_Head_Bottum;
 use Sport_Functions::Get_Land_Club;
 use Sport_Functions::Readers;
+use Sport_Functions::RemarkReaders;
 use Sport_Collector::Teams;
 use Sport_Functions::Overig;
 use Exporter;
@@ -31,6 +32,7 @@ $VERSION = '20.1';
 );
 
 my $schaatsers = {};
+my $remarks;
 my $maxwarn = 5;
 my $totalwarn = 0;
 
@@ -328,6 +330,7 @@ sub get_OS($)
   if (not %$schaatsers)
   {
     read_schaatsers();
+    $remarks = Sport_Functions::RemarkReaders->new({type => 'schaatsen'});
   }
 
   my $OSyr = get_all_distances($year);
@@ -335,8 +338,8 @@ sub get_OS($)
   my $out  = OSTopMenu($year);
      $out .= format_os($OSyr);
 
-  my $title = ReadOpm($year, 'title', 'schaatsen', 0);
-  my $dd    = ReadOpm($year, 'dd',    'schaatsen', 0);
+  my $title = $remarks->get($year, 'title');
+  my $dd    = $remarks->get($year, 'dd');
 
   return maintxt2htmlpage( $out, $title, 'title2h1', $dd, {type1 => 'std_menu'});
 }

@@ -25,7 +25,6 @@ $VERSION = '20.0';
  '&read_csv_file',
  '&read_csv_file_szn',
  '&read_csv_with_header',
- '&ReadOpm',
  '&read_csv',
  '$csv_dir',
  '&result2aabb',
@@ -133,47 +132,6 @@ sub read_csv_file_szn($$)
   }
  }
  return (\@content_szn);
-}
-
-my $allRemarks = {};
-
-sub ReadOpm($$$$)
-{
-  my $seizoen   = shift;
-  my $key       = shift;
-  my $type      = shift; # data is in $type/$type_remarks.csv
-  my $multiLine = shift;
-  # 0= no line breaks added; 1= line breaks added; 2= line breaks added, but not after the last
-
-  if (not defined $allRemarks->{$type})
-  {
-    my $fullname = File::Spec->catdir($csv_dir, $type, "${type}_remarks.csv");
-    $allRemarks->{$type} = read_csv_with_header($fullname);
-  }
-
-  my $content = $allRemarks->{$type};
-
-  my $a = '';
-  my $keyFound = '';
-
-  my $period = ($seizoen =~ m/-/ ? 'season' : 'year');
-
-  foreach my $record (@$content)
-  {
-    if ($record->{$period} eq $seizoen)
-    {
-      if ($record->{key} =~ m/^$key/)
-      {
-        if ($multiLine == 2 && $a ne '') {$a .= "\n";}
-        if ($record->{key} ne $key) {$keyFound = $record->{key};}
-        my $line = $record->{value};
-        $a .= $line;
-        if ($multiLine == 1) {$a .= "\n";}
-      }
-    }
-  }
-
-  return ($keyFound ne '' ? {$keyFound => $a} : $a);
 }
 
 sub read_csv($)
