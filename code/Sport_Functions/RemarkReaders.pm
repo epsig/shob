@@ -42,10 +42,53 @@ sub get
 {
   my ($self, $year_season, $key) = @_;
 
-  return $self->get_ml($year_season, $key, 0);
+  my $a;
+
+  my $period = ($year_season =~ m/-/ ? 'season' : 'year');
+
+  foreach my $record (@{$self->{content}})
+  {
+    if ($record->{$period} eq $year_season)
+    {
+      if ($record->{key} eq $key)
+      {
+        $a = $record->{value};
+        last;
+      }
+    }
+  }
+
+  return $a;
 }
 
 sub get_ml
+{
+  my ($self, $year_season, $key, $multiLine) = @_;
+
+  # $multiLine : 0= no line breaks added; 1= line breaks added; 2= line breaks added, but not after the last
+
+  my $a = '';
+
+  my $period = ($year_season =~ m/-/ ? 'season' : 'year');
+
+  foreach my $record (@{$self->{content}})
+  {
+    if ($record->{$period} eq $year_season)
+    {
+      if ($record->{key} eq $key)
+      {
+        if ($multiLine == 2 && $a ne '') {$a .= "\n";}
+        my $line = $record->{value};
+        $a .= $line;
+        if ($multiLine == 1) {$a .= "\n";}
+      }
+    }
+  }
+
+  return $a;
+}
+
+sub get_ml_keyStartsWith
 {
   my ($self, $year_season, $key, $multiLine) = @_;
 
@@ -71,7 +114,7 @@ sub get_ml
     }
   }
 
-  return ($keyFound ne '' ? {$keyFound => $a} : $a);
+  return {$keyFound => $a};
 }
 
 return 1;

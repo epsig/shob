@@ -81,7 +81,7 @@ sub read_ec_csv($$)
 
   my $voorr_CL_voorronde = $remarks->get($szn, 'voorr_CL_voorronde');
   
-  my $remark_extra = $remarks->get_ml($szn, 'remark', 2);
+  my $remark_extra = $remarks->get_ml_keyStartsWith($szn, 'remark', 2);
   
   my $sc = read_ec_part('supercup', '', 1, 'Europese Supercup', $sort_rule, $content);
 
