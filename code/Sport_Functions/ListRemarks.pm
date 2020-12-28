@@ -1,19 +1,13 @@
-package Sport_Functions::InitSport;
+package Sport_Functions::ListRemarks;
 use strict; use warnings;
 #=========================================================================
 # DECLARATION OF THE PACKAGE
 #=========================================================================
 # following text starts a package:
-use Sport_Collector::Archief_Oefenduels;
-use Sport_Collector::Teams;
-use Sport_Collector::Archief_Voetbal_NL;
-use Sport_Collector::Archief_Voetbal_NL_Uitslagen;
-use Sport_Collector::Archief_Voetbal_NL_Topscorers;
-use Sport_Collector::Archief_Europacup_Voetbal;
-use Sport_Collector::Archief_EK_WK_Voetbal;
-use Sport_Functions::ListRemarks qw(&init_remarks);
-use Shob::Stats_Website;
 use Exporter;
+use Sport_Functions::RemarkReaders;
+use Sport_Functions::Readers qw($csv_dir);
+use File::Spec;
 use vars qw($VERSION @ISA @EXPORT);
 @ISA = ('Exporter');
 #=========================================================================
@@ -26,26 +20,29 @@ $VERSION = '20.1';
 
 @EXPORT =
 (#========================================================================
- '&sport_init',
+ '&init_remarks',
+ '$os_remarks',
+ '$ec_remarks',
+ '$eredivisie_remarks',
  #========================================================================
 );
 
-sub sport_init()
-{ # (c) Edwin Spee
-  # initializations for sport data
+# (c) Edwin Spee
 
-  initTeams();
-  initEredivisieResults();
-  init_tp_eerste_divisie();
-  init_ec();
+our $os_remarks;
+our $ec_remarks;
+our $eredivisie_remarks;
 
-  init_remarks();
+sub init_remarks()
+{
+  my $file1 = File::Spec->catdir($csv_dir, 'eredivisie', 'eredivisie_remarks.csv');
+  $eredivisie_remarks = new Sport_Functions::RemarkReaders($file1);
 
-  set_laatste_speeldatum_u_nl();
-  set_laatste_speeldatum_ec();
-  set_laatste_speeldatum_ekwk();
-  set_laatste_speeldatum_oefenduels();
-  set_laatste_datum_statfiles();
+  my $file2 = File::Spec->catdir($csv_dir, 'schaatsen', 'schaatsen_remarks.csv');
+  $os_remarks = new Sport_Functions::RemarkReaders ($file2);
+
+  my $file3 = File::Spec->catdir($csv_dir, 'europacup', 'europacup_remarks.csv');
+  $ec_remarks = new Sport_Functions::RemarkReaders ($file3);
 }
 
 return 1;

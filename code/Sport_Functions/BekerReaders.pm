@@ -6,11 +6,10 @@ use strict; use warnings;
 # following text starts a package:
 use Exporter;
 use Sport_Functions::Overig;
-use Sport_Functions::EcReaders;
+use Sport_Functions::EcReaders qw(&add_one_line);
 use Sport_Functions::Readers;
-use Sport_Functions::RemarkReaders;
+use Sport_Functions::ListRemarks qw($eredivisie_remarks);
 use File::Spec;
-use XML::Parser;
 use vars qw($VERSION @ISA @EXPORT);
 @ISA = ('Exporter');
 #=========================================================================
@@ -69,8 +68,7 @@ sub read_beker_csv($$$)
   my $f = read_beker_part('f', 1, 'finale KNVB-beker', 5, $content);
   my $f34 = read_beker_part('f34', 1, 'troost-finale KNVB-beker', 5, $content);
 
-  my $remarks = Sport_Functions::RemarkReaders->new({type => 'eredivisie'});
-  my $opm = $remarks->get_ml(yr2szn($year), 'beker_opm', 1);
+  my $opm = $eredivisie_remarks->get_ml(yr2szn($year), 'beker_opm', 1);
 
   my $beker = {
     extra => { supercup => $sc },

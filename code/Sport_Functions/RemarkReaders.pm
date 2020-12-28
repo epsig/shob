@@ -5,8 +5,7 @@ use strict; use warnings;
 #=========================================================================
 # following text starts a package:
 use Exporter;
-use Sport_Functions::Readers;
-use File::Spec;
+use Sport_Functions::Readers qw(&read_csv_with_header);
 use vars qw($VERSION @ISA);
 @ISA = ('Exporter');
 #=========================================================================
@@ -17,27 +16,21 @@ use vars qw($VERSION @ISA);
 $VERSION = '20.1';
 # by Edwin Spee.
 
-my $allRemarks = {};
-
+# Constructor for class Sport_Functions::RemarkReaders
+# remarks are found in a csv file with 3 colomns:
+# year or season, key, value
 sub new
 {
-  my ($class, $args) = @_;
+  my ($class, $fullname) = @_;
 
-  my $type = $args->{type};
+  my $content = read_csv_with_header($fullname);
 
-  my $self = bless { type => $type}, $class;
-
-  if (not defined $allRemarks->{$type})
-  {
-    my $fullname = File::Spec->catdir($csv_dir, $type, "${type}_remarks.csv");
-    $allRemarks->{$type} = read_csv_with_header($fullname);
-  }
-
-  $self->{content} = $allRemarks->{$type};
+  my $self = bless { content => $content}, $class;
 
   return $self;
 }
 
+# Basic getter for a key in a year/season
 sub get
 {
   my ($self, $year_season, $key) = @_;

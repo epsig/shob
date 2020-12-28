@@ -7,11 +7,10 @@ use strict; use warnings;
 use Exporter;
 use Sport_Functions::Overig;
 use Sport_Functions::Readers;
-use Sport_Functions::RemarkReaders;
+use Sport_Functions::ListRemarks qw($ec_remarks);
 use Shob_Tools::Error_Handling;
 use Shob_Tools::Idate;
 use File::Spec;
-use XML::Parser;
 use vars qw($VERSION @ISA @EXPORT);
 @ISA = ('Exporter');
 #=========================================================================
@@ -72,16 +71,15 @@ sub read_ec_csv($$)
   }
 
   my $EC = 'europacup';
-  my $remarks = Sport_Functions::RemarkReaders->new({type => $EC});
-  my $sort_rule = $remarks->get($szn, 'sort_rule');
+  my $sort_rule = $ec_remarks->get($szn, 'sort_rule');
   if (not $sort_rule) {$sort_rule = 5;} # default value
   my $pnt_telling = ($szn le '1994-1995' ? 2 : 1);
   
-  my $wnsCL = $remarks->get($szn, 'wns_CL');
+  my $wnsCL = $ec_remarks->get($szn, 'wns_CL');
 
-  my $voorr_CL_voorronde = $remarks->get($szn, 'voorr_CL_voorronde');
+  my $voorr_CL_voorronde = $ec_remarks->get($szn, 'voorr_CL_voorronde');
   
-  my $remark_extra = $remarks->get_ml_keyStartsWith($szn, 'remark', 2);
+  my $remark_extra = $ec_remarks->get_ml_keyStartsWith($szn, 'remark', 2);
   
   my $sc = read_ec_part('supercup', '', 1, 'Europese Supercup', $sort_rule, $content);
 
@@ -163,8 +161,8 @@ sub read_ec_csv($$)
     }
   }
 
-  my $summaryNL = $remarks->get_ml($szn, 'summary_NL', 1);
-  my $summaryUK = $remarks->get_ml($szn, 'summary_UK', 1);
+  my $summaryNL = $ec_remarks->get_ml($szn, 'summary_NL', 1);
+  my $summaryUK = $ec_remarks->get_ml($szn, 'summary_UK', 1);
 
   if ($summaryNL ne '')
   {
