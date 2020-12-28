@@ -156,9 +156,11 @@ sub ReadOpm($$$$)
   my $a = '';
   my $keyFound = '';
 
+  my $period = ($seizoen =~ m/-/ ? 'season' : 'year');
+
   foreach my $record (@$content)
   {
-    if ($record->{season} eq $seizoen)
+    if ($record->{$period} eq $seizoen)
     {
       if ($record->{key} =~ m/^$key/)
       {

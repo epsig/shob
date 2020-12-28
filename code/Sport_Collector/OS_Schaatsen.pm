@@ -33,7 +33,6 @@ $VERSION = '20.1';
 my $schaatsers;
 my $maxwarn = 5;
 my $totalwarn = 0;
-my $OS_remarks;
 
 sub read_schaatsers()
 { # (c) Edwin Spee
@@ -48,30 +47,6 @@ sub read_schaatsers()
       $schaatsers->{$parts[0]} = $parts[1];
     }
   }
-}
-
-sub read_OS_remarks()
-{ # (c) Edwin Spee
-
-  my $fullname = File::Spec->catdir($csv_dir, 'schaatsen', "OS_remarks.csv");
-
-  $OS_remarks = read_csv_with_header($fullname);
-}
-
-sub get_OS_remarks($$)
-{ # (c) Edwin Spee
-
-  my $year = shift;
-  my $key  = shift;
-
-  foreach my $record (@$OS_remarks)
-  {
-    if ($record->{year} == $year && $record->{key} eq $key)
-    {
-      return $record->{value};
-    }
-  }
-  return -1;
 }
 
 sub min_sec($$)
@@ -343,7 +318,6 @@ sub get_OS($)
   if (not defined $schaatsers)
   {
     read_schaatsers();
-    read_OS_remarks();
   }
 
   my $OSyr = get_all_distances($year);
@@ -351,8 +325,8 @@ sub get_OS($)
   my $out  = OSTopMenu($year);
      $out .= format_os($OSyr);
 
-  my $title = get_OS_remarks($year, 'title');
-  my $dd    = get_OS_remarks($year, 'dd');
+  my $title = ReadOpm($year, 'title', 'schaatsen', 0);
+  my $dd    = ReadOpm($year, 'dd',    'schaatsen', 0);
 
   return maintxt2htmlpage( $out, $title, 'title2h1', $dd, {type1 => 'std_menu'});
 }
