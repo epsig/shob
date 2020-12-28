@@ -95,6 +95,9 @@ sub schaats_dtb2html($$$$)
 { # (c) Edwin Spee
 
   my ($all, $data, $isMs, $DH) = @_;
+
+  my $schaatsersDH = $schaatsers->{$DH};
+
   my $total;
   my $maxi = $all ? (scalar @$data) : 2;
   my $outtxt = '';
@@ -112,21 +115,26 @@ sub schaats_dtb2html($$$$)
     my $schaatser_id = $row_uitsl->[1];
     my $landcode = substr($schaatser_id, 0, 2);
     my $naam_plus_land;
+
     if (ref $schaatser_id eq 'ARRAY')
     {
-      my $tmp = $schaatser_id;
-      $schaatser_id = $tmp->[0];
-      $naam_plus_land = expand($schaatser_id, 0) . ' (' . $tmp->[1] . ')';
+      my $land = $schaatser_id->[0];
+      $naam_plus_land = expand($land, 0) . ' (' . $schaatser_id->[1] . ')';
     }
-    elsif (defined $schaatsers->{$DH}{$schaatser_id})
+    elsif (defined $schaatsersDH->{$schaatser_id})
     {
-      $naam_plus_land = $schaatsers->{$DH}{$schaatser_id} . ' (' . land_acronym($landcode) . ')';
+      $naam_plus_land = $schaatsersDH->{$schaatser_id} . ' (' . land_acronym($landcode) . ')';
+    }
+    elsif ($totalwarn++ < $maxwarn)
+    {
+      warn "onbekend id $schaatser_id\n";
+      $naam_plus_land = $schaatser_id;
     }
     else
     {
-      if ($totalwarn++ < $maxwarn) { warn "onbekend id $schaatser_id\n"; }
-      $naam_plus_land = $schaatser_id;
+      shob_error('unknownid',  ["onbekend id $schaatser_id"]);
     }
+
     my ($tijd1, $min_sec1, $record1) = min_sec_record($row_uitsl->[2], $is500m);
     my ($tijd2, $min_sec2, $record2) =
       ($is500m ? min_sec_record($row_uitsl->[3], $is500m) : (0, '', ''));

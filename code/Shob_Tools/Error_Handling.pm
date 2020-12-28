@@ -46,6 +46,7 @@ not_yet_impl => ['fatal',    'Not (yet) implemented'],
 undef_retval => ['fatal',    'Return value not defined'],
 undef_arg    => ['fatal',    'Input argument not defined'],
 notvaliddate => ['fatal',    'Not a valid date'],
+unknownid    => ['fatal',    'Unknown id'],
 tst_filename => ['warning',  ''],
 );
 
