@@ -35,6 +35,23 @@ $VERSION = '20.0';
 
 our $csv_dir = '../data/sport';
 
+sub my_split_with_quotes_at_end($)
+{
+  my $line = shift;
+
+  my @parts = split(' *, *', $line);
+  my $char = '"';
+  if (index($line, $char) != -1)
+  {
+    my @parts2 = split('"', $line, -1);
+    my $str1 = pop @parts;
+    my $str2 = pop @parts;
+    push @parts, $parts2[1];
+  }
+
+  return @parts;
+}
+
 # reads a csv file and returns it as a list of lists
 # comments (everything after a #) and newlines are removed
 sub read_csv_file($)
@@ -49,7 +66,7 @@ sub read_csv_file($)
   $line =~ s/ *#.*//;
   if ($line eq '') {next;}
   $line =~ s/^ +//;
-  my @parts = split(' *, *', $line);
+  my @parts = my_split_with_quotes_at_end($line);
   push @content, \@parts;
  }
  close(IN);
@@ -74,7 +91,17 @@ sub read_csv_with_header($)
     my @parts2 = split('"', $line, -1);
     if (scalar @parts2 == 3)
     {
-      @parts = ($parts[0], $parts[1], $parts2[1]);
+      my @parts3 = split(',', $parts2[1]);
+      if (scalar @parts3 > 2)
+      {
+        @parts = ($parts[0], $parts[1], $parts2[1]);
+      }
+      else
+      {
+        my $str1 = pop @parts;
+        my $str2 = pop @parts;
+        push @parts, $parts2[1];
+      }
     }
     if (scalar @parts != scalar @header_parts)
     {
@@ -161,7 +188,7 @@ sub read_csv($)
   my @values = @$line;
   if (defined $dimheader)
   {
-    if (scalar @values != $dimheader)
+    if (scalar @values > $dimheader)
     {
       shob_error('strange_else',["# cols wrong in @values"]);
     }
@@ -170,7 +197,7 @@ sub read_csv($)
   my $b  = $values[1];
   my $dd = $values[2];
   my ($aa, $bb, $sp, $opm);
-  if ($aabb)
+  if ($aabb || $b eq 'straf')
   {
     $aa = $values[3];
     $bb = $values[4];
@@ -237,13 +264,13 @@ sub read_csv($)
       $game = [$a, $b, [$dd, $aa, $bb]];
     }
   }
+  elsif (scalar(@values) == 4 and $b eq 'straf')
+  {
+   $game = [$a, $b, $dd, $aa];
+  }
   elsif (scalar(@values) == 4+$aabb)
   {
    $game = [$a, $b, [$dd, $aa, $bb]];
-  }
-  elsif (scalar(@values) == 3+$aabb and $b eq 'straf')
-  {
-   $game = [$a, $b, $dd, $aa];
   }
   elsif (scalar(@values) == 2+$aabb)
   {
