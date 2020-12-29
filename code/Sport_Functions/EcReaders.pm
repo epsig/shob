@@ -215,13 +215,6 @@ sub add_one_line($$$)
   my $struct = shift;
   my $isko   = shift;
 
-  if ($struct->{team2} eq 'straf')
-  {
-    push_or_extend($games, [$struct->{team1}, 'straf', $struct->{dd}, $struct->{result}], $isko);
-    return 0;
-  }
-
-  my ($aa, $bb)= result2aabb($struct->{result});
   my ($a, $b);
   if (defined($struct->{club1})) {$a = $struct->{club1};}
   if (defined($struct->{club2})) {$b = $struct->{club2};}
@@ -229,22 +222,44 @@ sub add_one_line($$$)
   if (defined($struct->{team2})) {$b = $struct->{team2};}
   my $dd = $struct->{dd};
 
+  if ($b eq 'straf')
+  {
+    push_or_extend($games, [$a, 'straf', $dd, $struct->{result}], $isko);
+    return 0;
+  }
+
+  my ($aa, $bb)= result2aabb($struct->{result});
+
   my @match_result = ($dd, $aa, $bb);
 
-  if (defined($struct->{remark}))
+  if (defined $struct->{spectators} && defined($struct->{remark}))
   {
-    my $opm = $struct->{remark};
-    if ($opm =~ /\{.*\}/)
+    push @match_result, {opm=>$struct->{remark},publiek=>$struct->{spectators}};
+  }
+  else
+  {
+    if (defined $struct->{spectators})
     {
-      my $test;
-      $opm =~ s/;/,/g ;
-      my $cmd = "\$test = $opm;";
-      eval($cmd);
-      push @match_result, $test;
+      if ($struct->{spectators} >= 0)
+      {
+        push @match_result, $struct->{spectators};
+      }
     }
-    else
+    if (defined($struct->{remark}))
     {
-      push @match_result, {opm =>$opm};
+      my $opm = $struct->{remark};
+      if ($opm =~ /\{.*\}/)
+      {
+        my $test;
+        $opm =~ s/;/,/g ;
+        my $cmd = "\$test = $opm;";
+        eval($cmd);
+        push @match_result, $test;
+      }
+      else
+      {
+        push @match_result, {opm =>$opm};
+      }
     }
   }
   my @result = ($a, $b, \@match_result);

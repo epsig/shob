@@ -6,6 +6,7 @@ use strict; use warnings;
 # following text starts a package:
 use Sport_Functions::Readers;
 use Sport_Functions::Overig;
+use Sport_Functions::EcReaders qw(add_one_line);
 use Exporter;
 use vars qw($VERSION @ISA @EXPORT);
 @ISA = ('Exporter');
@@ -32,6 +33,8 @@ sub initEredivisieResults()
 {
   my $subdir = 'eredivisie';
 
+  my $new = 1;
+
   my $lastyear;
   for (my $yr = 1992; $yr < 99999; $yr++)
   {
@@ -40,7 +43,20 @@ sub initEredivisieResults()
    $csv =~ s/-/_/;
    if (-f "$csv_dir/$subdir/$csv")
    {
-    $u_nl->{$szn} = read_csv("$subdir/$csv");
+    if ($new)
+    { # TODO in a subroutine
+      my $gamesFromFile = read_csv_with_header("$csv_dir/$subdir/$csv");
+      my @games = (['']);
+      foreach my $game (@$gamesFromFile)
+      {
+        add_one_line(\@games, $game, 0);
+      }
+      $u_nl->{$szn} = \@games;
+    }
+    else
+    {
+      $u_nl->{$szn} = read_csv("$subdir/$csv");
+    }
     $lastyear = $szn;
    }
    else

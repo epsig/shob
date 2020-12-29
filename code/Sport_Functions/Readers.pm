@@ -42,7 +42,7 @@ sub my_split_with_quotes_at_end($)
   my @parts = split(' *, *', $line);
   my $char = '"';
   if (index($line, $char) != -1)
-  {
+  { #TODO works only for one comma between quotes
     my @parts2 = split('"', $line, -1);
     my $str1 = pop @parts;
     my $str2 = pop @parts;
@@ -93,11 +93,11 @@ sub read_csv_with_header($)
     {
       my @parts3 = split(',', $parts2[1]);
       if (scalar @parts3 > 2)
-      {
+      { #TODO ugly quick fix
         @parts = ($parts[0], $parts[1], $parts2[1]);
       }
       else
-      {
+      { #TODO works only for one comma between quotes
         my $str1 = pop @parts;
         my $str2 = pop @parts;
         push @parts, $parts2[1];
