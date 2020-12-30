@@ -44,26 +44,26 @@ sub read_stand($$)
 
   my $fullname = File::Spec->catdir($csv_dir, $filename);
 
-  if (not -f $fullname) {return [];}
+  if (not -f $fullname)
+  {
+    return [];
+  }
 
-  my $content = read_csv_file($fullname);
+  my $test = read_csv_with_header($fullname);
 
   my @u = [$title];
-  shift @$content;
 
-  foreach my $line (@$content)
+  foreach my $line (@$test)
   {
-    my @parts = @$line;
-
-    if (scalar @parts >= 8)
+    my %h =%$line;
+    my $details = [$h{wins}, $h{draws}, $h{losses}];
+    my $goal_diff = [$h{'goals scored'}, $h{'goals against'}];
+    my @current = ($h{'club id'}, $h{matches}, $details, $h{points}, $goal_diff);
+    if (defined $h{remark})
     {
-      my $u = [$parts[0],$parts[1],[$parts[2], $parts[3], $parts[4]],$parts[5],[$parts[6],$parts[7]]];
-      if (scalar @parts > 8)
-      {
-        push @$u, [$parts[8]];
-      }
-      push @u, $u;
+      push @current, [$h{remark}];
     }
+    push @u, \@current;
   }
   return \@u;
 }

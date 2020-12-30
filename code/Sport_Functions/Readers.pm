@@ -104,7 +104,7 @@ sub read_csv_with_header($)
     }
     if (scalar @parts != scalar @header_parts)
     {
-      shob_error('strange_else',["# cols wrong in $line"]);
+      shob_error('strange_else',["# cols wrong in $line of file $fullname"]);
     }
     my %struct;
     for (my $i=0; $i < scalar @header_parts; $i++)
