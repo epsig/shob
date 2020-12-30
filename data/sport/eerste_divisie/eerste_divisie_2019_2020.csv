@@ -1,22 +1,21 @@
-# empty header
-title,Eindstand Eerste Divisie (Keuken Kampioen Divisie)
-SC Cambuur,29,21, 3, 5, 66, 68,25
-Graafschap,29,17,11, 1, 62, 63,28
-Volendam,29,16, 7, 6, 55, 57,42
-Jong Ajax,29,16, 6, 7, 54, 72,47
-NAC Breda,29,14, 8, 7, 50, 48,30
-Go Ahead,29,12,12, 5, 48, 49,41
-Excelsior,29,13, 8, 8, 47, 65,55
-nec,29,12, 9, 8, 45, 51,37
-Almere City,29,13, 5,11, 44, 44,42
-Telstar,29,12, 8, 9, 44, 47,48
-Den Bosch -3,29,10,11, 8, 38, 56,49
-Jong Utrecht,29,10, 8,11, 38, 48,47
-FC Eindhoven,29, 9, 7,13, 34, 46,59
-Jong AZ,29, 7, 7,15, 28, 45,61
-MVV Maastricht, 29, 7, 6,16, 27, 37,53
-TOP Oss,29, 6, 7,16, 25, 28,53
-Roda JC -3,29, 5,10,14, 22, 36,52
-Jong PSV,29, 5, 7,17, 22, 34,56
-FC Dordrecht,29, 4, 8,17, 20, 34,66
-Helmond Sport, 29, 3, 8,18, 17, 25,62
+club id,matches,wins,draws,losses,points,goals scored,goals against,remark
+SC Cambuur,29,21, 3, 5, 66, 68,25,
+Graafschap,29,17,11, 1, 62, 63,28,
+Volendam,29,16, 7, 6, 55, 57,42,
+Jong Ajax,29,16, 6, 7, 54, 72,47,
+NAC Breda,29,14, 8, 7, 50, 48,30,
+Go Ahead,29,12,12, 5, 48, 49,41,
+Excelsior,29,13, 8, 8, 47, 65,55,
+nec,29,12, 9, 8, 45, 51,37,
+Almere City,29,13, 5,11, 44, 44,42,
+Telstar,29,12, 8, 9, 44, 47,48,
+Den Bosch ,29,10,11, 8, 38, 56,49, -3
+Jong Utrecht,29,10, 8,11, 38, 48,47,
+FC Eindhoven,29, 9, 7,13, 34, 46,59,
+Jong AZ,29, 7, 7,15, 28, 45,61,
+MVV Maastricht, 29, 7, 6,16, 27, 37,53,
+TOP Oss,29, 6, 7,16, 25, 28,53,
+Roda JC ,29, 5,10,14, 22, 36,52, -3
+Jong PSV,29, 5, 7,17, 22, 34,56,
+FC Dordrecht,29, 4, 8,17, 20, 34,66,
+Helmond Sport, 29, 3, 8,18, 17, 25,62,

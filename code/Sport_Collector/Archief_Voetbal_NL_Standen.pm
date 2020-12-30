@@ -13,6 +13,7 @@ use Sport_Functions::Overig;
 use Sport_Functions::Filters;
 use Sport_Functions::Results2Standing;
 use Sport_Collector::Archief_Voetbal_NL_Uitslagen;
+use Sport_Functions::ListRemarks qw($eerste_divisie_remarks);
 use Exporter;
 use vars qw($VERSION @ISA @EXPORT);
 @ISA = ('Exporter');
@@ -21,7 +22,7 @@ use vars qw($VERSION @ISA @EXPORT);
 #=========================================================================
 # CONTENTS OF THE PACKAGE:
 #=========================================================================
-$VERSION = '18.1';
+$VERSION = '20.0';
 # by Edwin Spee.
 
 @EXPORT =
@@ -36,36 +37,35 @@ $VERSION = '18.1';
 
 my $contentFileU2s;
 
-sub read_stand($)
+sub read_stand($$)
 {
- my $filename = shift;
- my $fullname = File::Spec->catdir($csv_dir, $filename);
+  my $filename = shift;
+  my $title    = shift;
 
- if (not -f $fullname) {return [];}
+  my $fullname = File::Spec->catdir($csv_dir, $filename);
 
- my @u;
- my $content = read_csv_file($fullname);
+  if (not -f $fullname) {return [];}
 
- my $withHeader = ($content->[0][0] eq 'club id');
- @u = ['empty title'] if ($withHeader);
- shift @$content if ($withHeader);
+  my $content = read_csv_file($fullname);
 
- while(my $line = shift(@$content))
- {
-  my @parts = @$line;
+  my @u = [$title];
+  shift @$content;
 
-  if ($parts[0] eq 'title')
+  foreach my $line (@$content)
   {
-   push @u, [$parts[1]];
+    my @parts = @$line;
+
+    if (scalar @parts >= 8)
+    {
+      my $u = [$parts[0],$parts[1],[$parts[2], $parts[3], $parts[4]],$parts[5],[$parts[6],$parts[7]]];
+      if (scalar @parts > 8)
+      {
+        push @$u, [$parts[8]];
+      }
+      push @u, $u;
+    }
   }
-  elsif (scalar @parts >= 8)
-  {
-   my $u = [$parts[0],$parts[1],[$parts[2], $parts[3], $parts[4]],$parts[5],[$parts[6],$parts[7]]];
-   if (scalar @parts > 8) { push @$u, [$parts[8]]; }
-   push @u, $u;
-  }
- }
- return \@u;
+  return \@u;
 }
 
 sub read_u2s($)
@@ -130,7 +130,7 @@ sub standen_eredivisie($)
  {
   my $sz = $seizoen;
      $sz =~ s/-/_/;
-  return read_stand("eredivisie/eindstand_eredivisie_$sz.csv");
+  return read_stand("eredivisie/eindstand_eredivisie_$sz.csv", 'Eindstand Eredivisie');
  }
  else
  {
@@ -146,13 +146,14 @@ sub standen_eredivisie($)
 }
 
 sub standen_eerstedivisie($)
-{# (c) Edwin Spee
+{ # (c) Edwin Spee
 
-my ($seizoen) = @_;
+  my ($seizoen) = @_;
 
-my $sz = $seizoen;
-   $sz =~ s/-/_/;
-return read_stand("eerste_divisie/eerste_divisie_$sz.csv");
+  my $sz = $seizoen;
+     $sz =~ s/-/_/;
+  my $title = $eerste_divisie_remarks->get($seizoen, 'title');
+  return read_stand("eerste_divisie/eerste_divisie_$sz.csv", $title);
 }
 
 sub get_klassiekers($)

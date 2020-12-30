@@ -24,6 +24,7 @@ $VERSION = '20.1';
  '$os_remarks',
  '$ec_remarks',
  '$eredivisie_remarks',
+ '$eerste_divisie_remarks',
  #========================================================================
 );
 
@@ -32,6 +33,7 @@ $VERSION = '20.1';
 our $os_remarks;
 our $ec_remarks;
 our $eredivisie_remarks;
+our $eerste_divisie_remarks;
 
 sub init_remarks()
 {
@@ -43,6 +45,9 @@ sub init_remarks()
 
   my $file3 = File::Spec->catdir($csv_dir, 'europacup', 'europacup_remarks.csv');
   $ec_remarks = new Sport_Functions::RemarkReaders ($file3);
+
+  my $file4 = File::Spec->catdir($csv_dir, 'eerste_divisie', 'eerste_divisie_remarks.csv');
+  $eerste_divisie_remarks = new Sport_Functions::RemarkReaders($file4);
 }
 
 return 1;

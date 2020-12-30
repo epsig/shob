@@ -1,5 +1,4 @@
-# empty header
-title,Eindstand Eerste Divisie (Jupiler League)
+club id,matches,wins,draws,losses,points,goals scored,goals against,remark
 nec,38,33, 2, 3,101,100,32,K;RP
 Eindhoven,38,26, 2,10, 80, 70,39,PD
 Roda JC,38,21, 6,11, 69, 69,58,PDP
@@ -7,16 +6,16 @@ FC Emmen,38,19,10, 9, 67, 88,57,PD
 Volendam,38,18, 8,12, 62, 83,68,PD
 De Graafschap,38,18, 7,13, 61, 73,49,PDP
 VVV-Venlo,38,16,12,10, 60, 48,43,PD
-Sparta R.,38,16,10,12, 58, 72,46
+Sparta R.,38,16,10,12, 58, 72,46,
 FC Oss,38,17, 5,16, 56, 73,67,PD
 Almere,38,13, 9,16, 48, 64,63,PD
-MVV Maastricht,38,14, 6,18, 48, 51,70
-Jong Ajax,38,12,11,15, 47, 64,67
-Jong Twente,38,12,11,15, 47, 49,64
-Jong PSV,38,11,13,14, 46, 50,56
-Telstar,38,12, 6,20, 42, 53,68
-FC Den Bosch,38,10, 9,19, 39, 46,61
-Helmond Sport,38,10, 8,20, 38, 52,85
-Achilles'29,38, 8, 9,21, 33, 44,71
-Fortuna Sit.,38, 7, 8,23, 29, 30,72
-RKC Waalwijk,38, 7, 8,23, 29, 39,82
+MVV Maastricht,38,14, 6,18, 48, 51,70,
+Jong Ajax,38,12,11,15, 47, 64,67,
+Jong Twente,38,12,11,15, 47, 49,64,
+Jong PSV,38,11,13,14, 46, 50,56,
+Telstar,38,12, 6,20, 42, 53,68,
+FC Den Bosch,38,10, 9,19, 39, 46,61,
+Helmond Sport,38,10, 8,20, 38, 52,85,
+Achilles'29,38, 8, 9,21, 33, 44,71,
+Fortuna Sit.,38, 7, 8,23, 29, 30,72,
+RKC Waalwijk,38, 7, 8,23, 29, 39,82,

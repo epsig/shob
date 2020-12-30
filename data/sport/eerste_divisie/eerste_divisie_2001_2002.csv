@@ -1,5 +1,4 @@
-# empty header
-title,Eindstand Eerste Divisie (Gouden Gids Divisie)
+club id,matches,wins,draws,losses,points,goals scored,goals against,remark
 zwl,34,22, 7, 5,73,65,36,K;RP;P3
 exc,34,21, 7, 6,70,73,31,PDP;P1
 rbc,34,21, 5, 8,68,76,40,PDP
@@ -17,4 +16,4 @@ mvv,34,10, 7,17,37,49,61,
 hlm,34, 8,13,13,37,34,51,
 gae,34, 9, 9,16,36,48,62,
 end,34, 8, 7,19,31,52,77,
-top,34, 3, 5,26,14,25,100
+top,34, 3, 5,26,14,25,100,
