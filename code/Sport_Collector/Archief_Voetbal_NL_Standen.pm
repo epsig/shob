@@ -22,16 +22,16 @@ use vars qw($VERSION @ISA @EXPORT);
 #=========================================================================
 # CONTENTS OF THE PACKAGE:
 #=========================================================================
-$VERSION = '20.0';
+$VERSION = '20.1';
 # by Edwin Spee.
 
 @EXPORT =
 (#========================================================================
- '&get_klassiekers',
- '&standen_eerstedivisie',
- '&standen_eredivisie',
- '&first_year',
- '&standen',
+  '&get_klassiekers',
+  '&standen_eerstedivisie',
+  '&standen_eredivisie',
+  '&first_year',
+  '&standen',
  #========================================================================
 );
 
@@ -70,79 +70,89 @@ sub read_stand($$)
 
 sub read_u2s($)
 {
- my $seizoen = shift;
- if (not defined $contentFileU2s)
- {
-  my $fullname = File::Spec->catdir($csv_dir, 'eredivisie', 'eredivisie_u2s.csv');
-  $contentFileU2s = read_csv_file($fullname);
- }
- my $content = read_csv_file_szn($contentFileU2s, $seizoen);
- my $title;
- my @pster;
- while(my $line = shift(@$content))
- {
-  my @parts = @$line;
-  if ($parts[0] eq 'title')
+  my $seizoen = shift;
+  if (not defined $contentFileU2s)
   {
-    $title = $parts[1];
-  }
-  else
+    my $fullname = File::Spec->catdir($csv_dir, 'eredivisie', 'eredivisie_u2s.csv');
+    $contentFileU2s = read_csv_file($fullname);
+   }
+  my $content = read_csv_file_szn($contentFileU2s, $seizoen);
+  my $title;
+  my @pster;
+  while(my $line = shift(@$content))
   {
-   my $clubs = $parts[0];
-      $clubs =~ s/;/,/g;
-   push @pster, $clubs;
-   push @pster, $parts[1];
+    my @parts = @$line;
+    if ($parts[0] eq 'title')
+    {
+      $title = $parts[1];
+    }
+    else
+    {
+     my $clubs = $parts[0];
+        $clubs =~ s/;/,/g;
+     push @pster, $clubs;
+     push @pster, $parts[1];
+    }
   }
- }
- return ($title, \@pster);
+  return ($title, \@pster);
 }
 
 sub standen($$)
 {# (c) Edwin Spee
 
-my ($seizoen, $divisie) = @_;
+  my ($seizoen, $divisie) = @_;
 
-if ($divisie eq 'eredivisie')
-{return standen_eredivisie($seizoen);}
-elsif ($divisie eq '1st')
-{return standen_eerstedivisie ($seizoen);}
-else {return [];}
+  if ($divisie eq 'eredivisie')
+  {
+    return standen_eredivisie($seizoen);
+  }
+  elsif ($divisie eq '1st')
+  {
+    return standen_eerstedivisie ($seizoen);
+  }
+  else
+  {
+    return [];
+  }
 }
 
 sub first_year()
 {
- return 1956;
+  return 1956;
 }
 
 sub standen_eredivisie($)
-{# (c) Edwin Spee
+{ # (c) Edwin Spee
 
- # aantal duels = 18 * 34 / 2 = 306
- # Note: From 1962-63 to 1965-66 30 games were played, otherwise 34
+  # aantal duels = 18 * 34 / 2 = 306
+  # Note: From 1962-63 to 1965-66 30 games were played, otherwise 34
 
- my ($seizoen) = @_;
+  my ($seizoen) = @_;
 
- my $uszn = $u_nl->{$seizoen};
- my $size = 9999;
- if (defined($uszn)) {$size = scalar @{$uszn};}
-
- if ($seizoen le '1991-1992')
- {
-  my $sz = $seizoen;
-     $sz =~ s/-/_/;
-  return read_stand("eredivisie/eindstand_eredivisie_$sz.csv", 'Eindstand Eredivisie');
- }
- else
- {
-  my ($title, $pster) = read_u2s($seizoen);
-  my $dd = getidate(laatste_speeldatum($uszn), 0);
-  my $pnt_telling = ($seizoen le '1994-1995' ? 2 : 1);
-  if ($dd ne '' and ($size < 1 + 17 * 18))
+  my $uszn = $u_nl->{$seizoen};
+  my $size = 9999;
+  if (defined($uszn))
   {
-   $title .= " (per $dd)";
+    $size = scalar @{$uszn};
   }
-  return u2s($uszn, $pnt_telling, 1, $title, 0, $pster);
- }
+
+  if ($seizoen le '1991-1992')
+  {
+    my $sz = $seizoen;
+       $sz =~ s/-/_/;
+    return read_stand("eredivisie/eindstand_eredivisie_$sz.csv", 'Eindstand Eredivisie');
+  }
+  else
+  {
+    my ($title, $pster) = read_u2s($seizoen);
+    my $dd = getidate(laatste_speeldatum($uszn), 0);
+    my $pnt_telling = ($seizoen le '1994-1995' ? 2 : 1);
+    if ($dd ne '' and ($size < 1 + 17 * 18))
+    {
+      $title .= " (per $dd)";
+    }
+    return u2s($uszn, $pnt_telling, 1, $title, 0, $pster);
+  }
 }
 
 sub standen_eerstedivisie($)
@@ -157,18 +167,24 @@ sub standen_eerstedivisie($)
 }
 
 sub get_klassiekers($)
-{# (c) Edwin Spee
+{ # (c) Edwin Spee
 
- my ($seizoen) = @_;
- my $opv = $u_nl->{$seizoen};
- if (not defined $opv)
- {return [];}
- elsif (scalar @$opv < 7)
- {return [];}
- else
- {my $klass = filter_team (['ajx','psv','fyn'], 2, $opv);
-  $klass->[0][0] = 'De traditionele toppers';
-  return $klass;
-}}
+  my ($seizoen) = @_;
+  my $opv = $u_nl->{$seizoen};
+  if (not defined $opv)
+  {
+    return [];
+  }
+  elsif (scalar @$opv < 7)
+  {
+    return [];
+  }
+  else
+  {
+    my $klass = filter_team (['ajx','psv','fyn'], 2, $opv);
+    $klass->[0][0] = 'De traditionele toppers';
+    return $klass;
+  }
+}
 
 return 1;
