@@ -8,6 +8,7 @@ use Exporter;
 use Sport_Functions::Readers;
 use Sport_Functions::Get_Result_Standing;
 use Sport_Functions::Results2Standing;
+use Sport_Functions::AddMatch qw(&result2aabb);
 use Shob_Tools::Html_Stuff;
 use File::Spec;
 use vars qw($VERSION @ISA @EXPORT);

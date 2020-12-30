@@ -6,7 +6,7 @@ use strict; use warnings;
 # following text starts a package:
 use Sport_Functions::Readers;
 use Sport_Functions::Overig;
-use Sport_Functions::EcReaders qw(add_one_line);
+use Sport_Functions::AddMatch qw(add_one_line);
 use Exporter;
 use vars qw($VERSION @ISA @EXPORT);
 @ISA = ('Exporter');

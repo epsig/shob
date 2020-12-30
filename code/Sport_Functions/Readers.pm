@@ -27,7 +27,6 @@ $VERSION = '20.0';
  '&read_csv_with_header',
  '&read_csv',
  '$csv_dir',
- '&result2aabb',
  #========================================================================
 );
 
@@ -119,24 +118,6 @@ sub read_csv_with_header($)
   }
   close(IN);
   return \@content;
-}
-
-# converts a string like '3-2' into [3,2]
-# and '-' into [-1,-1]
-sub result2aabb($)
-{
-  my $result = shift;
-
-  my @results;
-  if ($result eq '-')
-  {
-    @results = (-1,-1);
-  }
-  else
-  {
-    @results = split('-', $result);
-  }
-  return @results;
 }
 
 sub read_csv_file_szn($$)

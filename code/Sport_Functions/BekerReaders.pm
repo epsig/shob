@@ -5,11 +5,11 @@ use strict; use warnings;
 #=========================================================================
 # following text starts a package:
 use Exporter;
-use Sport_Functions::Overig;
-use Sport_Functions::EcReaders qw(&add_one_line);
-use Sport_Functions::Readers;
+use Sport_Functions::Overig qw(yr2szn);
+use Sport_Functions::AddMatch qw(&add_one_line);
+use Sport_Functions::Readers qw(&read_csv_with_header $csv_dir);
 use Sport_Functions::ListRemarks qw($eredivisie_remarks);
-use File::Spec;
+use File::Spec qw(&catfile);
 use vars qw($VERSION @ISA @EXPORT);
 @ISA = ('Exporter');
 #=========================================================================
@@ -17,7 +17,7 @@ use vars qw($VERSION @ISA @EXPORT);
 #=========================================================================
 # CONTENTS OF THE PACKAGE:
 #=========================================================================
-$VERSION = '20.0';
+$VERSION = '20.1';
 # by Edwin Spee.
 
 @EXPORT =
