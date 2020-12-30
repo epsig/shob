@@ -1,5 +1,4 @@
-# empty header
-title,Eindstand Eredivisie
+club id,matches,wins,draws,losses,points,goals scored,goals against
 ajx,34,30, 3, 1,63,104,20
 fyn,34,26, 3, 5,55,73,24
 twn,34,17,14, 3,48,50,13

@@ -1,5 +1,4 @@
-# empty header
-title,Eindstand Eredivisie
+club id,matches,wins,draws,losses,points,goals scored,goals against
 fyn,30,21, 3, 6,45,77,30
 dws,30,15,10, 5,40,55,28
 ado,30,13, 7,10,33,37,32

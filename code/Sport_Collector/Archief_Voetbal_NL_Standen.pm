@@ -45,6 +45,11 @@ sub read_stand($)
 
  my @u;
  my $content = read_csv_file($fullname);
+
+ my $withHeader = ($content->[0][0] eq 'club id');
+ @u = ['empty title'] if ($withHeader);
+ shift @$content if ($withHeader);
+
  while(my $line = shift(@$content))
  {
   my @parts = @$line;
