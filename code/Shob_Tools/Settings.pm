@@ -38,7 +38,7 @@ my ($counter, $HostId, $WebDir, $WD_His, $WbDrOld, $history, $ask_mkdir) =
     (0, '', '', '', '', 0, 1);
 
 # datum gefixeerd om uit git te kunnen reproduceren:
-my $datum_fixed = 20200523;
+my $datum_fixed = 20210101;
 # version (ending on 0 is not tagged, so update this number before tagging)
 my $CVS_tag = '20.0';
 

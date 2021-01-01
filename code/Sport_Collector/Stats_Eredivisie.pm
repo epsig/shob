@@ -452,7 +452,7 @@ sub get_stats_eredivisie($$$)
  $out .= "<p>\n";
  $out .= get_tabel_ruimste_zege(1993, $yr2, 0);
  if ($all_data)
- {$out .= "<p>\n" . get_gele_rode_kaarten_tabel(1993, $yr1, 0);}
+ {$out .= "<p>\n" . get_gele_rode_kaarten_tabel(1993, 2004, 0);}
  $out .= "<p>\n";
  $out .= get_toeschouwers_tabel(1993, $yr2, 0);
  $out .= "<p>\n";
