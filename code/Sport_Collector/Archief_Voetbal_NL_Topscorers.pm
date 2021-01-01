@@ -27,6 +27,36 @@ $VERSION = '20.1';
 
 my $contentAllFiles = {};
 
+sub read_topscorers_new($$)
+{
+  my $seizoen = shift;
+  my $divisie = shift;
+
+  my $found_season = 0;
+
+  if (not defined $contentAllFiles->{$divisie})
+  {
+    my $fullname = File::Spec->catdir($csv_dir, $divisie, "topscorers_$divisie.csv");
+    $contentAllFiles->{$divisie} = read_csv_with_header($fullname);
+  }
+
+  my $content = $contentAllFiles->{$divisie};
+
+  my @tp_list = (['Topscorers ' . ucfirst($divisie)]);
+
+  foreach my $line (@$content)
+  {
+    if ($line->{season} eq $seizoen)
+    {
+      push @tp_list, [$line->{rank}, $line->{name}, $line->{club}, $line->{total}];
+      $found_season = 1;
+    }
+  }
+
+  return (\@tp_list) if $found_season;
+  return ([]);
+}
+
 sub read_topscorers($$)
 {
   my $seizoen = shift;
@@ -77,7 +107,7 @@ sub get_topscorers_eredivisie($)
 
   my ($seizoen) = @_;
 
-  return read_topscorers($seizoen, 'eredivisie');
+  return read_topscorers_new($seizoen, 'eredivisie');
 }
 
 return 1;
