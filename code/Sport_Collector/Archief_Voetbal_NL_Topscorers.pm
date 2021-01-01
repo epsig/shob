@@ -14,7 +14,7 @@ use vars qw($VERSION @ISA @EXPORT);
 #=========================================================================
 # CONTENTS OF THE PACKAGE:
 #=========================================================================
-$VERSION = '20.1';
+$VERSION = '21.0';
 # by Edwin Spee.
 
 @EXPORT =
@@ -27,7 +27,7 @@ $VERSION = '20.1';
 
 my $contentAllFiles = {};
 
-sub read_topscorers_new($$)
+sub read_topscorers($$)
 {
   my $seizoen = shift;
   my $divisie = shift;
@@ -42,7 +42,15 @@ sub read_topscorers_new($$)
 
   my $content = $contentAllFiles->{$divisie};
 
-  my @tp_list = (['Topscorers ' . ucfirst($divisie)]);
+  my @parts = split('_', $divisie);
+  my $name = '';
+  foreach my $part (@parts)
+  {
+    $name .= ' ' if ($name ne '');
+    $name .= ucfirst($part);
+  }
+
+  my @tp_list = (['Topscorers ' . $name ]);
 
   foreach my $line (@$content)
   {
@@ -55,34 +63,6 @@ sub read_topscorers_new($$)
 
   return (\@tp_list) if $found_season;
   return ([]);
-}
-
-sub read_topscorers($$)
-{
-  my $seizoen = shift;
-  my $divisie = shift;
-
-  if (not defined $contentAllFiles->{$divisie})
-  {
-    my $fullname = File::Spec->catdir($csv_dir, $divisie, "topscorers_$divisie.csv");
-    $contentAllFiles->{$divisie} = read_csv_file($fullname);
-  }
-
-  my $content = read_csv_file_szn($contentAllFiles->{$divisie}, $seizoen);
-  my @tp_list;
-  while(my $line = shift(@$content))
-  {
-    my @parts = @$line;
-    if ($parts[0] eq 'title')
-    {
-      push @tp_list, [$parts[1]];
-    }
-    else
-    {
-      push @tp_list, $line;
-    }
-  }
-  return (\@tp_list);
 }
 
 sub init_tp_eerste_divisie()
@@ -107,7 +87,7 @@ sub get_topscorers_eredivisie($)
 
   my ($seizoen) = @_;
 
-  return read_topscorers_new($seizoen, 'eredivisie');
+  return read_topscorers($seizoen, 'eredivisie');
 }
 
 return 1;
