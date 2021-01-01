@@ -71,17 +71,6 @@ gH,ster,1
 2f,DE,ES,20100707,2030,0,1,-1,2,Durban,ref=DE_ES
 f34,DE,UY,20100710,2030,3,2,-1,1,Port Elizabeth,ref=DE_UY
 f,ES,NL,20100711,2030,1,0,-1,3,Johannesburg,ref=ES_NL
-tpsc,1,Thomas M&uuml;ller,DE,5, # * meeste assists
-tpsc,2,Wesley Sneijder,NL,5
-tpsc,2,David Villa,ES,5
-tpsc,2,Diego Forl&aacute;n,UY,5
-tpsc,5,Gonzalo Higua&iacute;n,AR,4
-tpsc,5,Miroslav Klose,DE,4
-tpsc,5,Robert Vittek,SK,4
-tpsc,8,Luis Fabiano,BR,3
-tpsc,8,Asamoah Gyan,GH,3
-tpsc,8,Luis Suarez,UY,3
-tpsc,8,Landon Donovan,US,3
 xml,group_phase,groupG,PT_KP
 xml,group_phase,groupE,NL_DK
 xml,group_phase,groupE,NL_JP

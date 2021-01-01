@@ -34,11 +34,6 @@ gD,ster,1
 2f,DE,TR,20080625,2045,3,2,-1,1,Basel,ref=DE_TR
 2f,RU,ES,20080626,2045,0,3,-1,2,Wenen,ref=RU_ES
 f,ES,DE,20080629,2045,1,0,-1,1,Wenen,ref=finale
-tpsc,1,Villa,ES,4
-tpsc,2,Podolski,DE,3
-tpsc,2,Pavljoetsjenko,RU,3
-tpsc,2,Semih,TR,3
-tpsc,2,Yakin,CH,3
 xml,group_phase,groupA,TR_CZ
 xml,group_phase,groupC,NL_IT
 xml,group_phase,groupC,NL_FR

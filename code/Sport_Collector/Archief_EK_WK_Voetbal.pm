@@ -141,7 +141,7 @@ sub get_wk1998()
  my $wk1998 = read_wk($csvfile, File::Spec->catfile($xmlDir, 'WK_1998.xml'));
  $wk1998->{sort_rule} = 2;
 
- my $topscorers = read_wk_topscorers($csvfile, 'WK-1998');
+ my $topscorers = read_wk_topscorers('wk1998', 'WK-1998');
 
  return format_ekwk(1998, 'Frankrijk', $wk1998, $topscorers, 20200715);
 }
@@ -222,7 +222,7 @@ sub get_ek2004()
  $ek2004->{sort_rule} = 2;
  $ek2004->{u16} = undef; # TODO
 
- my $topscorers = read_wk_topscorers($csvfile, 'EK-2004');
+ my $topscorers = read_wk_topscorers('ek2004', 'EK-2004');
 
  return format_ekwk(2004, 'Portugal', $ek2004, $topscorers, 20070209);
 }
@@ -236,7 +236,7 @@ sub get_wk2006()
  # eigenlijk nwe srt_rule: pnt, wedstr, doelsaldo, onderling resultaat
  $wk2006->{sort_rule} = 2;
 
- my $topscorers = read_wk_topscorers($csvfile, 'WK-2006');
+ my $topscorers = read_wk_topscorers('wk2006', 'WK-2006');
 
  return format_ekwk(2006, 'Duitsland', $wk2006, $topscorers, 20200701);
 }
@@ -287,7 +287,7 @@ sub get_ek2008()
  $ek2008->{sort_rule} = 4;
  $ek2008->{u16} = undef; # TODO
 
- my $topscorers = read_wk_topscorers($csvfile, 'EK-2008');
+ my $topscorers = read_wk_topscorers('ek2008', 'EK-2008');
 
  return format_ekwk(2008, 'Oostenrijk/Zwitserland', $ek2008, $topscorers, 20200623);
 }
@@ -315,7 +315,7 @@ sub get_wk2010()
  my $wk2010 = read_wk($csvfile, File::Spec->catfile($xmlDir, 'WK_2010.xml'));
  $wk2010->{sort_rule} = 5;
  
- my $topscorers = read_wk_topscorers($csvfile, 'WK-2010');
+ my $topscorers = read_wk_topscorers('wk2010', 'WK-2010');
 
  return format_ekwk(2010, 'Zuid-Afrika', $wk2010, $topscorers, 20200620);
 }
@@ -345,7 +345,7 @@ sub get_ek2012
 
  $csv2012->{u16} = undef; # TODO
 
- my $topscorers = read_wk_topscorers($csvfile, 'EK-2012');
+ my $topscorers = read_wk_topscorers('ek2012', 'EK-2012');
 
  return format_ekwk(2012, 'Polen/Oekra&iuml;ne', $csv2012, $topscorers, 20200615);
 }
@@ -372,7 +372,7 @@ sub get_wk2014
 
  $csv2014->{sort_rule} = 5;
 
- my $topscorers = read_wk_topscorers($csvfile, 'WK-2014');
+ my $topscorers = read_wk_topscorers('wk2014', 'WK-2014');
 
  my $dd = 20140720;
  return format_ekwk(2014, 'Brazili&euml;', $csv2014, $topscorers, $dd);
@@ -400,7 +400,7 @@ sub get_ek2016
  $csv2016->{sort_rule} =  3;
  $csv2016->{ster}      = -1;
 
- my $topscorers = read_wk_topscorers($csvfile, 'EK-2016');
+ my $topscorers = read_wk_topscorers('ek2016', 'EK-2016');
 
  my $dd = 20200606;
  return format_ekwk(2016, 'Frankrijk', $csv2016, $topscorers, $dd);
@@ -422,7 +422,7 @@ sub get_wk2018
  my $dd = 20180722;
  my $csvFile = File::Spec->catfile($ekwkDir, 'wk2018.csv');
  my $wk2018 = read_wk($csvFile, '');
- my $topscorers = read_wk_topscorers($csvFile, 'WK-2018');
+ my $topscorers = read_wk_topscorers('wk2018', 'WK-2018');
  return format_ekwk(2018, 'Rusland', $wk2018, $topscorers, $dd);
 }
 
@@ -431,7 +431,7 @@ sub get_wkD2019
  my $dd = 20190723;
  my $csvFile = File::Spec->catfile($ekwkDir, 'wkD2019.csv');
  my $wkD2019 = read_wk($csvFile, '');
- my $topscorers = read_wk_topscorers($csvFile, 'WK vrouwen 2019');
+ my $topscorers = read_wk_topscorers('wkD2019', 'WK vrouwen 2019');
  return format_ekwk(2019, 'Frankrijk', $wkD2019, $topscorers, $dd);
 }
 

@@ -55,13 +55,6 @@ gF,ster,5
 2f,PT,G3,20160706,2100,2,0,-1,1,Lyon,ref=PT_WALES
 2f,DE,FR,20160707,2100,0,2,-1,2,Marseille,ref=DE_FR
 f,PT,FR,20160710,2100,1,0,-1,3,St. Denis,ref=PT_FR
-tpsc,1,Griezmann,FR,6
-tpsc,2,Giroud,FR,3
-tpsc,2,Payet,FR,3
-tpsc,2,Nani,PT,3
-tpsc,2,Ronaldo,PT,3
-tpsc,2,Morata,ES,3
-tpsc,2,Bale,G3,3
 xml,group_phase,groupF,HU_PT
 xml,ko,last16,HU_BE
 xml,ko,last8,FR_IS

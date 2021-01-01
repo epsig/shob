@@ -71,16 +71,6 @@ gH,ster,1
 2f,NL,AR,20140709,2200,0,0,-1,6,Sao Paulo,ref=NL_AR
 f34,BR,NL,20140712,2200,0,3,-1,2,Brasilia,ref=BR_NL
 f,DE,AR,20140713,2100,1,0,-1,3,Rio,ref=DE_AR
-tpsc,1,James Rodr&iacute;guez,CO,6,# spreek uit: Games
-tpsc,2,Thomas M&uuml;ller,DE,5,
-tpsc,3,Neymar,BR,4,
-tpsc,3,Lionel Messi,AR,4,
-tpsc,3,Robin van Persie,NL,4,
-tpsc,6,Arjen Robben,NL,3,
-tpsc,6,Karim Benzema,FR,3,
-tpsc,6,Enner Valencia,EC,3,
-tpsc,6,Xherdan Shaqiri,CH,3,
-tpsc,6,Andr&eacute; Sch&uuml;rrle,DE,3
 xml,group_phase,groupB,ES_NL
 xml,group_phase,groupG,DE_PT
 xml,group_phase,groupB,AU_NL

@@ -260,28 +260,30 @@ sub read_voorronde($$$)
  return $retval;
 }
 
+my $all_tp;
+
 sub read_wk_topscorers($$)
 {
- my $filein = shift;
- my $title  = shift;
+  my $key   = shift;
+  my $title = shift;
 
- my @tp = (["Topscorers $title"]);
+  my @tp = (["Topscorers $title"]);
 
- my $fileWithPath = File::Spec->catfile($csv_dir, $filein);
-
- open (IN, "< $fileWithPath") or die "can't open $fileWithPath: $!\n";
- while(my $line = <IN>)
- {
-  if ($line =~ m/^tpsc/)
+  if (not defined $all_tp)
   {
-   chomp($line);
-   my @parts = split /,/, $line;
-   push @tp, [$parts[1], $parts[2], $parts[3], $parts[4]];
-  }
+    my $fileWithPath = File::Spec->catfile($csv_dir, 'ekwk/topscorers_ekwk.csv');
+    $all_tp = read_csv_with_header($fileWithPath);
  }
 
- close (IN);
- return \@tp;
+  foreach my $line (@$all_tp)
+  {
+    if ($line->{tournement} eq $key)
+    {
+      push @tp, [$line->{rank}, $line->{name}, $line->{country}, $line->{total}];
+    }
+  }
+
+  return \@tp;
 }
 
 sub read_ekwk_xml()
