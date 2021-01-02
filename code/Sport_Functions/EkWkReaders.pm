@@ -279,7 +279,7 @@ sub read_wk_topscorers($$)
   {
     if ($line->{tournement} eq $key)
     {
-      push @tp, [$line->{rank}, $line->{name}, $line->{country}, $line->{total}];
+      push @tp, $line;
     }
   }
 

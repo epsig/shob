@@ -266,14 +266,25 @@ sub get_tabel_extremen_doelpunten($$$$)
 }
 
 sub get_namen_topscorers($)
-{# (c) Edwin Spee
+{ # (c) Edwin Spee
 
- my $tp = $_[0];
- if ($tp->[1][3] > $tp->[2][3])
- {return expand_voetballers($tp->[1][1], 'std') . ' (' . expand($tp->[1][2],0) . ')';}
- else
- {return expand_voetballers($tp->[1][1], 'std') . ' (' . expand($tp->[1][2],0) . ')<br>' .
-         expand_voetballers($tp->[2][1], 'std') . ' (' . expand($tp->[2][2],0) . ')';}
+  my $tp = shift;
+
+  my $names = '';
+  for my $i (1 .. scalar(@$tp)-1)
+  {
+    my $line = $tp->[$i];
+    if ($line->{rank} == 1)
+    {
+      $names .= '<br>' if ($names ne '');
+      $names .= expand_voetballers($line->{name}, 'std') . ' (' . expand($line->{club}, 0) . ')';
+    }
+    else
+    {
+      last;
+    }
+  }
+  return $names;
 }
 
 sub get_penalties($)
@@ -315,7 +326,7 @@ sub get_tabel_doelpunten($$$$$$)
          . ftdr($rij_e->[7])
          . ftdl(sprintf('%.2f', $rij_e->[8]))
          . ftdl(get_namen_topscorers($rij_t))
-         . ftdl($rij_t->[1][3]);
+         . ftdl($rij_t->[1]{total});
    if ($with_penalties)
    {my $penalties = get_penalties($szn);
     $tmp_out .= ftdl(no_missing_values($penalties->[0])) .
@@ -406,23 +417,30 @@ EOF
  return $out;
 }
 
-sub tpsc_new($)
+sub tpsc_all_seasons($$)
 {# (c) Edwin Spee
 
- my $l = $_[0];
- my @ls = sort {$b->[1][1][3] <=> $a->[1][1][3]} @{$l};
+  my $ltp    = shift;
+  my $maxcnt = shift;
 
- my $out = '';
- for (my $i=0; $i < 20; $i++)
- {
-  my $seizoen = $ls[$i]->[0];
-  my $speler  = $ls[$i]->[1][1];
-  $out .= ftr(ftdl($seizoen)
-  . ftdl(expand_voetballers($speler->[1], 'std') . ' (' . expand($speler->[2],0) . ')')
-  . ftdl($speler->[3]));
- }
+  my @ls = sort {$b->[1][1]{total} <=> $a->[1][1]{total}} @{$ltp};
 
- return ftable('border', $out);
+  my $totalMax = $ls[$maxcnt]->[1][1]{total};
+
+  my $out = '';
+  for (my $i=0; $i < scalar @ls; $i++)
+  {
+    my $seizoen = $ls[$i]->[0];
+    my $speler  = $ls[$i]->[1][1];
+    if ($speler->{total} >= $totalMax)
+    {
+      $out .= ftr(ftdl($seizoen)
+           . ftdl(expand_voetballers($speler->{name}, 'std') . ' (' . expand($speler->{club},0) . ')')
+           . ftdl($speler->{total}));
+    }
+  }
+
+  return ftable('border', $out);
 }
 
 sub get_stats_eredivisie($$$)
@@ -444,7 +462,10 @@ sub get_stats_eredivisie($$$)
    qq(| <a href="#tot_goals">totaal goals/topscorers</a>\n) .
    qq(| <a href="#extr_uitsl">opvallende uitslagen</a>\n);
  if ($all_data)
- {$out .= qq(| <a href="#geel_rood">gele, rode kaarten</a>\n);}
+ {
+   $out .= qq(| <a href="#geel_rood">gele, rode kaarten</a>\n);
+   $out .= qq(| <a href="#allTimeTpsc">all time topscorers</a>\n);
+ }
  $out .= qq(| <a href="#toesch">toeschouwersaantallen</a> |<hr>\n);
  $out .= get_tabel_extremen_doelpunten($l_extremen, $yrA, $yr2, 0);
  $out .= "<p>\n";
@@ -460,9 +481,12 @@ sub get_stats_eredivisie($$$)
  $out .= "<p>\n";
 
  if ($all_data > 1)
- {$out .= tpsc_new ( get_lijst_topscorers( first_year(),  $yr1) );}
+ {
+   $out .= qq(<a name="allTimeTpsc"> All time Topscorers.<p>\n);
+   $out .= tpsc_all_seasons ( get_lijst_topscorers( first_year(),  $yr1), 20 );
+ }
 
- my $dd =max(20090307, $u_nl->{laatste_speeldatum});
+ my $dd =max(20210102, $u_nl->{laatste_speeldatum});
 return maintxt2htmlpage($out, 'Statistieken eredivisie', 'title2h1',
  $dd, {type1 => 'std_menu'});
 }

@@ -47,7 +47,7 @@ sub get_topscorers_competitie($$$)
   {
     if ($line->{season} eq $seizoen)
     {
-      push @tp_list, [$line->{rank}, $line->{name}, $line->{club}, $line->{total}];
+      push @tp_list, $line;
       $found_season = 1;
     }
   }

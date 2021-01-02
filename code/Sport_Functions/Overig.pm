@@ -100,24 +100,25 @@ get_menu ('', $os_volgnr, 2, -1, (
 }
 
 sub get_tpsc($$$)
-{# (c) Edwin Spee
+{ # (c) Edwin Spee
 
- my ($maxnr, $plijst, $style) = @_;
- my $outtxt = ftr(fth({cols => 4, class => ($style ? 'h' : '')}, $plijst->[0][0]));
- for (my $i = 0; $i < scalar @$plijst -1; $i++)
- {
-  my $rij = $plijst->[$i+1];
-  my $nr = $rij->[0];
-  last if ($nr > $maxnr);
-  my @bold = ('','');
-  if ($nr == 1)
+  my ($maxnr, $plijst, $style) = @_;
+
+  my $outtxt = ftr(fth({cols => 4, class => ($style ? 'h' : '')}, $plijst->[0][0]));
+  for (my $i = 0; $i < scalar @$plijst -1; $i++)
   {
-   @bold = ('<b>','</b>');
-  }
-  $outtxt .= ftr(ftdr($i+1==$nr ? $nr : $nbsp) .
-  ftdl($bold[0] . expand_voetballers($rij->[1], 'std') . $bold[1]) .
-  ftdl(expand($rij->[2],0)) .
-  ftdr($rij->[3]));
+    my $rij = $plijst->[$i+1];
+
+    my $nr        = $rij->{rank};
+    last if ($nr > $maxnr);
+    my $name      = $rij->{name};
+    my $club_land = (defined ($rij->{club}) ? $rij->{club} : $rij->{country});
+    my $total     = $rij->{total};
+    my @bold = ($nr == 1 ? ('<b>','</b>') : ('',''));
+    $outtxt .= ftr(ftdr($i+1==$nr ? $nr : $nbsp) .
+      ftdl($bold[0] . expand_voetballers($name, 'std') . $bold[1]) .
+      ftdl(expand($club_land, 0)) .
+      ftdr($total));
  }
  return $outtxt;
 }
