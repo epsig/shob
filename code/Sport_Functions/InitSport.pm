@@ -8,7 +8,6 @@ use Sport_Collector::Archief_Oefenduels;
 use Sport_Collector::Teams;
 use Sport_Collector::Archief_Voetbal_NL;
 use Sport_Collector::Archief_Voetbal_NL_Uitslagen;
-use Sport_Collector::Archief_Voetbal_NL_Topscorers;
 use Sport_Collector::Archief_Europacup_Voetbal;
 use Sport_Collector::Archief_EK_WK_Voetbal;
 use Sport_Functions::ListRemarks qw(&init_remarks);
@@ -21,7 +20,7 @@ use vars qw($VERSION @ISA @EXPORT);
 #=========================================================================
 # CONTENTS OF THE PACKAGE:
 #=========================================================================
-$VERSION = '20.1';
+$VERSION = '21.0';
 # by Edwin Spee.
 
 @EXPORT =
@@ -36,7 +35,6 @@ sub sport_init()
 
   initTeams();
   initEredivisieResults();
-  init_tp_eerste_divisie();
   init_ec();
 
   init_remarks();

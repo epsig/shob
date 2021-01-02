@@ -18,7 +18,7 @@ use Sport_Functions::Get_Result_Standing; # voor officieus
 use Sport_Collector::Archief_Voetbal_NL;
 use Sport_Collector::Archief_Voetbal_NL_Uitslagen;
 use Sport_Collector::Archief_Voetbal_NL_Standen;
-use Sport_Collector::Archief_Voetbal_NL_Topscorers;
+use Sport_Collector::Archief_Voetbal_NL_Topscorers qw(&get_topscorers_competitie);
 use Sport_Collector::Teams;
 use Sport_Collector::Geel_Rood;
 use Exporter;
@@ -29,7 +29,7 @@ use vars qw($VERSION @ISA @EXPORT);
 #=========================================================================
 # CONTENTS OF THE PACKAGE:
 #=========================================================================
-$VERSION = '18.1';
+$VERSION = '20.0';
 # by Edwin Spee.
 
 @EXPORT =
@@ -40,17 +40,17 @@ $VERSION = '18.1';
 );
 
 sub get_lijst_topscorers($$)
-{# (c) Edwin Spee
+{ # (c) Edwin Spee
 
- my ($yrA, $yrB) = @_;
- my @lijst = ();
- for (my $year = $yrA; $year <= $yrB; $year++)
- {my $seizoen = yr2szn($year);
-  my $tpsc = get_topscorers_eredivisie($seizoen);
-# print "$seizoen $tpsc->[1][1] $tpsc->[1][3]\n";
-  push @lijst, [$seizoen,$tpsc];
- }
-return \@lijst;
+  my ($yrA, $yrB) = @_;
+  my @lijst = ();
+  for (my $year = $yrA; $year <= $yrB; $year++)
+  {
+    my $seizoen = yr2szn($year);
+    my $tpsc = get_topscorers_competitie($seizoen, 'eredivisie', 'Eredivisie');
+    push @lijst, [$seizoen,$tpsc];
+  }
+  return \@lijst;
 }
 
 sub get_lijst_extremen_uit_standen($$)

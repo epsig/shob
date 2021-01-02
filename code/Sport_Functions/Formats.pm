@@ -12,7 +12,7 @@ use Shob_Tools::General;
 use Shob_Tools::Idate;
 use Sport_Collector::Archief_Voetbal_Beker;
 use Sport_Collector::Archief_Voetbal_NL_Standen;
-use Sport_Collector::Archief_Voetbal_NL_Topscorers;
+use Sport_Collector::Archief_Voetbal_NL_Topscorers qw(&get_topscorers_competitie);
 use Sport_Functions::Overig;
 use Sport_Functions::Filters;
 use Sport_Functions::Get_Result_Standing;
@@ -27,7 +27,7 @@ use vars qw($VERSION @ISA @EXPORT);
 #=========================================================================
 # CONTENTS OF THE PACKAGE:
 #=========================================================================
-$VERSION = '18.1';
+$VERSION = '21.0';
 # by Edwin Spee.
 
 @EXPORT =
@@ -509,9 +509,8 @@ my $szn = yr2szn($yr);
 my $title = "Overzicht betaald voetbal in Nederland, seizoen $szn";
 my $ere = standen_eredivisie($szn);
 my $div1 = standen_eerstedivisie($szn);
-my $tpA = get_topscorers_eredivisie($szn);
-my $tpB = $topscorers_eerstedivisie->{$szn};
-if (not $tpB) {$tpB = [];}
+my $tpA = get_topscorers_competitie($szn, 'eredivisie', 'Eredivisie');
+my $tpB = get_topscorers_competitie($szn, 'eerste_divisie', 'Eerste Divisie');
 my $kls = get_klassiekers($szn);
 my $beker_jc = knvb_beker($szn);
 my $knvb = $beker_jc->{beker};

@@ -1,7 +1,7 @@
 package Sport_Collector::Archief_Voetbal_NL_Topscorers;
 use strict; use warnings;
-use Sport_Functions::Readers;
-use Sport_Functions::Overig;
+use Sport_Functions::Readers qw($csv_dir &read_csv_with_header);
+use File::Spec;
 #=========================================================================
 # DECLARATION OF THE PACKAGE
 #=========================================================================
@@ -14,43 +14,34 @@ use vars qw($VERSION @ISA @EXPORT);
 #=========================================================================
 # CONTENTS OF THE PACKAGE:
 #=========================================================================
-$VERSION = '21.0';
+$VERSION = '21.1';
 # by Edwin Spee.
 
 @EXPORT =
 (#========================================================================
- '&get_topscorers_eredivisie',
- '&init_tp_eerste_divisie',
- '$topscorers_eerstedivisie',
+ '&get_topscorers_competitie',
  #========================================================================
 );
 
 my $contentAllFiles = {};
 
-sub read_topscorers($$)
+sub get_topscorers_competitie($$$)
 {
-  my $seizoen = shift;
-  my $divisie = shift;
+  my $seizoen      = shift;
+  my $divisie_key = shift;
+  my $divisie_name = shift;
 
   my $found_season = 0;
 
-  if (not defined $contentAllFiles->{$divisie})
+  if (not defined $contentAllFiles->{$divisie_key})
   {
-    my $fullname = File::Spec->catdir($csv_dir, $divisie, "topscorers_$divisie.csv");
-    $contentAllFiles->{$divisie} = read_csv_with_header($fullname);
+    my $fullname = File::Spec->catdir($csv_dir, $divisie_key, "topscorers_$divisie_key.csv");
+    $contentAllFiles->{$divisie_key} = read_csv_with_header($fullname);
   }
 
-  my $content = $contentAllFiles->{$divisie};
+  my $content = $contentAllFiles->{$divisie_key};
 
-  my @parts = split('_', $divisie);
-  my $name = '';
-  foreach my $part (@parts)
-  {
-    $name .= ' ' if ($name ne '');
-    $name .= ucfirst($part);
-  }
-
-  my @tp_list = (['Topscorers ' . $name ]);
+  my @tp_list = (['Topscorers ' . $divisie_name ]);
 
   foreach my $line (@$content)
   {
@@ -63,31 +54,6 @@ sub read_topscorers($$)
 
   return (\@tp_list) if $found_season;
   return ([]);
-}
-
-sub init_tp_eerste_divisie()
-{
-  for(my $year=2000; $year<=2019; $year++)
-  {
-    my $szn = yr2szn($year);
-    our $topscorers_eerstedivisie->{$szn} = read_topscorers($szn, 'eerste_divisie');
-  };
-}
-
-sub get_topscorers_eredivisie($)
-{ # (c) Edwin Spee
-  # (vrijwel) dezelfde versie als standen_eredivisie
-
-  #Most times top goal scorer:
-  #1 Geels              5
-  #2 Van Basten         4
-  #3 Kindvall           3
-  #  Van der Kuijlen    3
-  #  Romario            3
-
-  my ($seizoen) = @_;
-
-  return read_topscorers($seizoen, 'eredivisie');
 }
 
 return 1;
