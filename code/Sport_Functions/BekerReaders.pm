@@ -8,7 +8,7 @@ use Exporter;
 use Sport_Functions::Overig qw(yr2szn);
 use Sport_Functions::AddMatch qw(&add_one_line);
 use Sport_Functions::Readers qw(&read_csv_with_header $csv_dir);
-use Sport_Functions::ListRemarks qw($eredivisie_remarks);
+use Sport_Functions::ListRemarks qw($all_remarks);
 use File::Spec qw(&catfile);
 use vars qw($VERSION @ISA @EXPORT);
 @ISA = ('Exporter');
@@ -68,7 +68,7 @@ sub read_beker_csv($$$)
   my $f = read_beker_part('f', 1, 'finale KNVB-beker', 5, $content);
   my $f34 = read_beker_part('f34', 1, 'troost-finale KNVB-beker', 5, $content);
 
-  my $opm = $eredivisie_remarks->get_ml(yr2szn($year), 'beker_opm', 1);
+  my $opm = $all_remarks->{eredivisie}->get_ml(yr2szn($year), 'beker_opm', 1);
 
   my $beker = {
     extra => { supercup => $sc },

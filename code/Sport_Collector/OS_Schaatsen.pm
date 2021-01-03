@@ -11,7 +11,7 @@ use Shob_Tools::Html_Stuff;
 use Shob_Tools::Html_Head_Bottum;
 use Sport_Functions::Get_Land_Club;
 use Sport_Functions::Readers;
-use Sport_Functions::ListRemarks qw($os_remarks);
+use Sport_Functions::ListRemarks qw($all_remarks);
 use Sport_Collector::Teams;
 use Sport_Functions::Overig;
 use Exporter;
@@ -22,7 +22,7 @@ use vars qw($VERSION @ISA @EXPORT);
 #=========================================================================
 # CONTENTS OF THE PACKAGE:
 #=========================================================================
-$VERSION = '20.1';
+$VERSION = '21.0';
 # by Edwin Spee.
 
 @EXPORT =
@@ -337,8 +337,8 @@ sub get_OS($)
   my $out  = OSTopMenu($year);
      $out .= format_os($OSyr);
 
-  my $title = $os_remarks->get($year, 'title');
-  my $dd    = $os_remarks->get($year, 'dd');
+  my $title = $all_remarks->{schaatsen}->get($year, 'title');
+  my $dd    = $all_remarks->{schaatsen}->get($year, 'dd');
 
   return maintxt2htmlpage( $out, $title, 'title2h1', $dd, {type1 => 'std_menu'});
 }

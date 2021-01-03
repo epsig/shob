@@ -7,7 +7,7 @@ use strict; use warnings;
 use Exporter;
 use Sport_Functions::Overig;
 use Sport_Functions::Readers;
-use Sport_Functions::ListRemarks qw($ec_remarks);
+use Sport_Functions::ListRemarks qw($all_remarks);
 use Sport_Functions::AddMatch qw(&add_one_line);
 use Shob_Tools::Error_Handling;
 use Shob_Tools::Idate;
@@ -69,6 +69,8 @@ sub read_ec_csv($$)
     my $today = todaystr();
     $date = str2itdate($today);
   }
+
+  my $ec_remarks = $all_remarks->{europacup};
 
   my $sort_rule = $ec_remarks->get($szn, 'sort_rule');
   if (not $sort_rule) {$sort_rule = 5;} # default value

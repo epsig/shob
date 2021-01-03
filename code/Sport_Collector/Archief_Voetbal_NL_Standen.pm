@@ -13,7 +13,7 @@ use Sport_Functions::Overig;
 use Sport_Functions::Filters;
 use Sport_Functions::Results2Standing;
 use Sport_Collector::Archief_Voetbal_NL_Uitslagen;
-use Sport_Functions::ListRemarks qw($eerste_divisie_remarks);
+use Sport_Functions::ListRemarks qw($all_remarks);
 use Exporter;
 use vars qw($VERSION @ISA @EXPORT);
 @ISA = ('Exporter');
@@ -162,7 +162,7 @@ sub standen_eerstedivisie($)
 
   my $sz = $seizoen;
      $sz =~ s/-/_/;
-  my $title = $eerste_divisie_remarks->get($seizoen, 'title');
+  my $title = $all_remarks->{eerste_divisie}->get($seizoen, 'title');
   return read_stand("eerste_divisie/eerste_divisie_$sz.csv", $title);
 }
 

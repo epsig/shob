@@ -8,7 +8,7 @@ use Shob_Tools::General;
 use Shob_Tools::Settings;
 use Shob_Tools::Html_Stuff;
 use Sport_Functions::Readers;
-use Sport_Functions::ListRemarks qw($eredivisie_remarks);
+use Sport_Functions::ListRemarks qw($all_remarks);
 use Sport_Functions::Overig;
 use Sport_Functions::Formats;
 use Sport_Functions::Filters;
@@ -95,7 +95,7 @@ sub get_betaald_voetbal_nl($)
  my $yr = shift;
  my $szn = yr2szn($yr);
  
- my $opm_ered = $eredivisie_remarks->get_ml($szn, 'opm', 1);
+ my $opm_ered = $all_remarks->{eredivisie}->get_ml($szn, 'opm', 1);
 
  my $europa_in = '';
  my $dd = 20090722;
