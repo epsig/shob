@@ -434,9 +434,8 @@ sub tpsc_all_seasons($$)
     my $speler  = $ls[$i]->[1][1];
     if ($speler->{total} >= $totalMax)
     {
-      $out .= ftr(ftdl($seizoen)
-           . ftdl(expand_voetballers($speler->{name}, 'std') . ' (' . expand($speler->{club},0) . ')')
-           . ftdl($speler->{total}));
+      my $names_tp = get_namen_topscorers($ls[$i]->[1]);
+      $out .= ftr(ftdl($seizoen) . ftdl($names_tp) . ftdl($speler->{total}));
     }
   }
 
