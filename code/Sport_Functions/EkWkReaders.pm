@@ -17,13 +17,12 @@ use vars qw($VERSION @ISA @EXPORT);
 #=========================================================================
 # CONTENTS OF THE PACKAGE:
 #=========================================================================
-$VERSION = '20.0';
+$VERSION = '21.0';
 # by Edwin Spee.
 
 @EXPORT =
 (#========================================================================
  '&read_wk',
- '&read_wk_topscorers',
  '&read_voorronde',
  '&read_voorronde_standen',
  #========================================================================
@@ -258,32 +257,6 @@ sub read_voorronde($$$)
  }
  close (IN);
  return $retval;
-}
-
-my $all_tp;
-
-sub read_wk_topscorers($$)
-{
-  my $key   = shift;
-  my $title = shift;
-
-  my @tp = (["Topscorers $title"]);
-
-  if (not defined $all_tp)
-  {
-    my $fileWithPath = File::Spec->catfile($csv_dir, 'ekwk/topscorers_ekwk.csv');
-    $all_tp = read_csv_with_header($fileWithPath);
- }
-
-  foreach my $line (@$all_tp)
-  {
-    if ($line->{tournement} eq $key)
-    {
-      push @tp, $line;
-    }
-  }
-
-  return \@tp;
 }
 
 sub read_ekwk_xml()

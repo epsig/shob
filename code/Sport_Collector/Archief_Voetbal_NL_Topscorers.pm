@@ -28,10 +28,8 @@ my $contentAllFiles = {};
 sub get_topscorers_competitie($$$)
 {
   my $seizoen      = shift;
-  my $divisie_key = shift;
+  my $divisie_key  = shift;
   my $divisie_name = shift;
-
-  my $found_season = 0;
 
   if (not defined $contentAllFiles->{$divisie_key})
   {
@@ -41,19 +39,23 @@ sub get_topscorers_competitie($$$)
 
   my $content = $contentAllFiles->{$divisie_key};
 
-  my @tp_list = (['Topscorers ' . $divisie_name ]);
+  my @tp_list = ();
+
+  my $key = ($divisie_key eq 'ekwk' ? 'tournement' : 'season');
 
   foreach my $line (@$content)
   {
-    if ($line->{season} eq $seizoen)
+    if ($line->{$key} eq $seizoen)
     {
+      if (not scalar @tp_list)
+      {
+        @tp_list = (['Topscorers ' . $divisie_name ]);
+      }
       push @tp_list, $line;
-      $found_season = 1;
     }
   }
 
-  return (\@tp_list) if $found_season;
-  return ([]);
+  return \@tp_list;
 }
 
 return 1;
