@@ -8,6 +8,7 @@ use Exporter;
 use Sport_Functions::XML;
 use Sport_Functions::Overig;
 use Sport_Functions::Readers;
+use Sport_Functions::ListRemarks qw($all_remarks);
 use File::Spec;
 use XML::Parser;
 use vars qw($VERSION @ISA @EXPORT);
@@ -92,6 +93,12 @@ sub read_wk($$)
  my $filein = shift;
  my $xmlfile = shift;
 
+ my $tournement = $filein;
+    $tournement =~ s/ekwk.//;
+    $tournement =~ s/.csv//;
+
+ my $remarks = $all_remarks->{ekwk}->get($tournement, 'allgroups');
+
  my @u;
  my $u16 = [];
  my $u8 = [];
@@ -106,16 +113,23 @@ sub read_wk($$)
  my $srt_rule = 3; # EK
     $srt_rule = 5; # WK
 
+ my $ster;
+ if (defined $remarks)
+ {
+   my @ster = split('=', $remarks);
+   $ster = $ster[1];
+ }
+
  for(my $i=0; $i<8; $i++)
  {
   my $a = chr(ord('A') + $i);
-  $u[$i] = read_wk_part("g$a", "Groep $a", $srt_rule);
+  $u[$i] = read_wk_part("g$a", "Groep $a", $srt_rule, $ster);
  }
- $u16 = read_wk_part('8f', '8-ste finale', -1);
- $u8 = read_wk_part('4f', 'kwart finale', -1);
- $u4 = read_wk_part('2f', 'halve finale', -1);
- $u34 = read_wk_part('f34','brons', -1);
- $finale = read_wk_part('f','finale', -1);
+ $u16 = read_wk_part('8f', '8-ste finale', -1, undef);
+ $u8 = read_wk_part('4f', 'kwart finale', -1, undef);
+ $u4 = read_wk_part('2f', 'halve finale', -1, undef);
+ $u34 = read_wk_part('f34','brons', -1, undef);
+ $finale = read_wk_part('f','finale', -1, undef);
  
  my $wk2018 = {grp => \@u, sort_rule => $srt_rule, u16 => $u16, uk => $u8, uh => $u4,
                            u34 => $u34, uf => $finale};
@@ -278,15 +292,21 @@ sub read_ekwk_xml()
  return \@xml;
 }
 
-sub read_wk_part($$$)
+sub read_wk_part($$$$)
 {
- my $group = shift;
- my $title = shift;
+ my $group    = shift;
+ my $title    = shift;
  my $srt_rule = shift;
+ my $ster     = shift;
 
  seek(IN, 0, 0);
- my @games;
- $games[0] = [$title, [1, $srt_rule, '', -1]];
+ my @games = ();
+
+ my $ster_ = -1;
+    $ster_ = $ster if (defined($ster));
+
+ $games[0] = [$title, [1, $srt_rule, '', $ster_]];
+
  while(my $line = <IN>)
  {
   chomp($line);
