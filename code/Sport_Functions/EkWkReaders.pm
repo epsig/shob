@@ -125,11 +125,10 @@ sub read_wk($$)
   my $p1 = XML::Parser->new(Style => 'Tree');
   my $tree = $p1->parsefile($xmlfile);
   my $xml = read_ekwk_xml();
-  my $games = search($tree, 'games');
-  foreach my $line (@$xml)
+  my $games = search_general($tree, 'games');
+  foreach my $id (@$xml)
   {
-   my $id = $line->[0];
-   my $game = search_level2($games, $id);
+   my $game = search_general($games, $id);
    my $details = fill_from_xml($game, $id);
    replace_opm_xml($wk2018, $id, $details);
   }
@@ -272,7 +271,7 @@ sub read_ekwk_xml()
   {
    chomp($line);
    my @parts = split /ref=/, $line;
-   push @xml, [$parts[1]];
+   push @xml, $parts[1];
   }
  }
 

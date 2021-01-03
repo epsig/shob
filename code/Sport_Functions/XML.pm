@@ -22,35 +22,32 @@ $VERSION = '21.0';
  '&fill_from_xml',
  '&chronological',
  '&get_xml_val',
- '&search_level2',
- '&search',
+ '&search_general',
  #========================================================================
 );
 
-sub search_level2
+sub search_general
 {
   my ($tree, $key) = @_;
 
-  my $t = $tree;
+  # first check for key at current level
+  my $found = 0;
+  foreach my $val (@$tree)
+  {
+    if ($found) {return $val;}
+    if ($val eq $key) {$found = 1;}
+  }
 
+  # second: recurse into tree
   foreach my $val (@$tree)
   {
     if (ref $val eq 'ARRAY')
     {
-      foreach my $val2 (@$val)
-      {
-        if (ref $val2 eq 'ARRAY')
-        {
-          my $found = 0;
-          foreach my $val3 (@$val2)
-          {
-            if ($found) {return $val3;}
-            if ($val3 eq $key) {$found = 1;}
-          }
-        }
-      }
+      my $result = search_general($val, $key);
+      if (ref $result eq 'ARRAY') {return $result;}
     }
   }
+
   return -1;
 }
 
@@ -185,7 +182,6 @@ sub fill_from_xml
 
  if ($gameId eq 'finale')
  {
-  #my $ta = search($t, 'games', @keys);
   $out->{a} = get_xml_val($t, 'a');
   $out->{b} = get_xml_val($t, 'b');
  }
