@@ -71,15 +71,3 @@ gH,ster,1
 2f,FR,HR,19980708,2100,2,1,-1,1,St-Denis,ref=FR_HR
 f34,NL,HR,19980711,2100,1,2,-1,2,Parijs,ref=NL_HR
 f,BR,FR,19980712,2100,0,3,-1,2,St-Denis,ref=BR_FR
-xml,group_phase,groupE,NL_BE
-xml,group_phase,groupE,NL_KR
-xml,group_phase,groupE,NL_MX
-xml,ko,last16,NL_YU
-xml,ko,last8,BR_DK
-xml,ko,last8,NL_AR
-xml,ko,last8,IT_FR
-xml,ko,last8,DE_HR
-xml,ko,last4,BR_NL
-xml,ko,last4,FR_HR
-xml,ko,final,NL_HR
-xml,ko,final,BR_FR

@@ -71,13 +71,3 @@ gH,ster,1
 2f,DE,ES,20100707,2030,0,1,-1,2,Durban,ref=DE_ES
 f34,DE,UY,20100710,2030,3,2,-1,1,Port Elizabeth,ref=DE_UY
 f,ES,NL,20100711,2030,1,0,-1,3,Johannesburg,ref=ES_NL
-xml,group_phase,groupG,PT_KP
-xml,group_phase,groupE,NL_DK
-xml,group_phase,groupE,NL_JP
-xml,group_phase,groupE,CM_NL
-xml,ko,last16,NL_SK
-xml,ko,quarterfinals,NL_BR
-xml,ko,semifinals,UY_NL
-xml,ko,semifinals,DE_ES
-xml,ko,bronse,DE_UY
-xml,ko,final,ES_NL

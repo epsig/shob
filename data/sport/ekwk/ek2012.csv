@@ -30,7 +30,3 @@ gD,SE,FR,20120619,2045,2,0,63010,Kiev
 2f,PT,ES,20120627,2045,0,0,48000,6,Donetsj
 2f,DE,IT,20120628,2045,1,2,55540,2,Warschau
 f,ES,IT,20120701,2045,4,0,-1,1,Kiev,ref=finale
-xml,group_phase,groupB,NL_DK
-xml,group_phase,groupB,NL_DE
-xml,group_phase,groupB,PT_NL
-xml,ko,final,finale

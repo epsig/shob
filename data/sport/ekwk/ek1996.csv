@@ -34,6 +34,3 @@ gD,ster,1
 2f,G1,DE,19960626,2030,1,1,-1,6,Londen
 2f,FR,CZ,19960626,1700,1,1,-1,6,Manchester
 f,DE,CZ,19960630,2000,2,1,-1,3,Wembly (Londen),ref=DE_CZ
-xml,group_phase,groupA,CH_NL
-xml,group_phase,groupA,NL_ENG
-xml,ko,final,DE_CZ

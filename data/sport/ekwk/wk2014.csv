@@ -71,14 +71,3 @@ gH,ster,1
 2f,NL,AR,20140709,2200,0,0,-1,6,Sao Paulo,ref=NL_AR
 f34,BR,NL,20140712,2200,0,3,-1,2,Brasilia,ref=BR_NL
 f,DE,AR,20140713,2100,1,0,-1,3,Rio,ref=DE_AR
-xml,group_phase,groupB,ES_NL
-xml,group_phase,groupG,DE_PT
-xml,group_phase,groupB,AU_NL
-xml,group_phase,groupE,CH_FR
-xml,group_phase,groupB,NL_CL
-xml,ko,last16,NL_MX
-xml,ko,last8,NL_CR
-xml,ko,semifinals,BR_DE
-xml,ko,semifinals,NL_AR
-xml,ko,bronse,BR_NL
-xml,ko,final,DE_AR

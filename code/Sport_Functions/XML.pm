@@ -14,7 +14,7 @@ use vars qw($VERSION @ISA @EXPORT);
 #=========================================================================
 # CONTENTS OF THE PACKAGE:
 #=========================================================================
-$VERSION = '18.1';
+$VERSION = '21.0';
 # by Edwin Spee.
 
 @EXPORT =
@@ -22,8 +22,37 @@ $VERSION = '18.1';
  '&fill_from_xml',
  '&chronological',
  '&get_xml_val',
+ '&search_level2',
+ '&search',
  #========================================================================
 );
+
+sub search_level2
+{
+  my ($tree, $key) = @_;
+
+  my $t = $tree;
+
+  foreach my $val (@$tree)
+  {
+    if (ref $val eq 'ARRAY')
+    {
+      foreach my $val2 (@$val)
+      {
+        if (ref $val2 eq 'ARRAY')
+        {
+          my $found = 0;
+          foreach my $val3 (@$val2)
+          {
+            if ($found) {return $val3;}
+            if ($val3 eq $key) {$found = 1;}
+          }
+        }
+      }
+    }
+  }
+  return -1;
+}
 
 sub search
 {
@@ -148,25 +177,24 @@ sub get_xml_val
 
 sub fill_from_xml
 {
- my ($t, @keys) = @_;
+ my ($t, $gameId) = @_;
 
  my $out = {};
 
- my $stats = search($t, 'games', @keys, 'stats');
+ my $stats = search($t, 'stats');
 
- my $refname = $keys[-1];
- if ($refname eq 'finale')
+ if ($gameId eq 'finale')
  {
-  my $ta = search($t, 'games', @keys);
-  $out->{a} = get_xml_val($ta, 'a');
-  $out->{b} = get_xml_val($ta, 'b');
+  #my $ta = search($t, 'games', @keys);
+  $out->{a} = get_xml_val($t, 'a');
+  $out->{b} = get_xml_val($t, 'b');
  }
  else
  {
-  $out->{a} = substr($refname, 0, 2);
-  $out->{b} = substr($refname, 3, 2);
+  $out->{a} = substr($gameId, 0, 2);
+  $out->{b} = substr($gameId, 3, 2);
  }
- $out->{refname} = $refname;
+ $out->{refname} = $gameId;
  my $tree = search($stats, 'chronological');
  $out->{chronological} = chronological($tree);
  $out->{rood_a} = chronological_rood($tree, $out->{a});

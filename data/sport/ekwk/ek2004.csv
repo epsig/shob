@@ -34,9 +34,3 @@ gD,ster,1
 2f,PT,NL,20040630,2045,2,1,-1,1,Lissabon,ref=PT_NL
 2f,GR,CZ,20040701,2045,1,0,42499,3,Porto
 f,GR,PT,20040704,2045,1,0,-1,1,Lissabon,ref=GR_PT
-xml,group_phase,groupD,DE_NL
-xml,group_phase,groupD,NL_CZ
-xml,group_phase,groupD,NL_LV
-xml,ko,last8,SE_NL
-xml,ko,last4,PT_NL
-xml,ko,final,GR_PT

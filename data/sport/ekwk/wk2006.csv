@@ -71,10 +71,3 @@ gH,ster,1
 2f,FR,PT,20060705,2100,1,0,-1,1,M&uuml;nchen,ref=FR_PT
 f34,DE,PT,20060708,2100,3,1,52000,1,Stuttgart
 f,IT,FR,20060709,2000,1,1,-1,5,Berlijn,ref=finale
-xml,group_phase,groupC,CS_NL
-xml,group_phase,groupC,NL_CI
-xml,group_phase,groupC,NL_AR
-xml,ko,last8,PT_NL
-xml,ko,last4,DE_IT
-xml,ko,last4,FR_PT
-xml,ko,final,finale
