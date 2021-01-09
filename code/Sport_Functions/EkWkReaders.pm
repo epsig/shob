@@ -9,6 +9,7 @@ use Sport_Functions::XML;
 use Sport_Functions::Overig;
 use Sport_Functions::Readers;
 use Sport_Functions::ListRemarks qw($all_remarks);
+use File::Basename;
 use File::Spec;
 use XML::Parser;
 use vars qw($VERSION @ISA @EXPORT);
@@ -248,7 +249,16 @@ sub read_voorronde($$$)
 
  if ($type eq 'u')
  {
-  $retval = read_wk_part($part, '', 3);
+  my $tournement = basename($file);
+     $tournement =~ s/u.csv//;
+  my $remarks = $all_remarks->{ekwk_qf}->get($tournement, $part);
+  my $ster;
+  if (defined $remarks)
+  {
+    my @ster = split('=', $remarks);
+    $ster = $ster[1];
+  }
+  $retval = read_wk_part($part, '', 3, $ster);
  }
  elsif ($type eq 'qf')
  {

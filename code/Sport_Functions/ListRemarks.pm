@@ -31,7 +31,7 @@ our $all_remarks;
 
 sub init_remarks()
 {
-  my @remarks = ('eredivisie', 'schaatsen', 'europacup', 'eerste_divisie', 'ekwk');
+  my @remarks = ('eredivisie', 'schaatsen', 'europacup', 'eerste_divisie', 'ekwk', 'ekwk_qf');
 
   foreach my $remark (@remarks)
   {
