@@ -88,6 +88,25 @@ sub replace_opm_xml($$$)
 
 }
 
+sub read_number_of_groups()
+{
+  my $last = 'A';
+  while(my $line = <IN>)
+  {
+    if ($line =~ m/^g.,/)
+    {
+      my $group = substr($line, 1, 1);
+      if ($group gt $last)
+      {
+        $last = $group;
+      }
+    }
+  }
+  my $number = 1 + ord($last) - ord('A');
+
+  return $number;
+}
+
 sub read_wk($$)
 {
  my $filein = shift;
@@ -120,7 +139,9 @@ sub read_wk($$)
    $ster = $ster[1];
  }
 
- for(my $i=0; $i<8; $i++)
+ my $number_of_groups = read_number_of_groups();
+
+ for(my $i=0; $i<$number_of_groups; $i++)
  {
   my $a = chr(ord('A') + $i);
   $u[$i] = read_wk_part("g$a", "Groep $a", $srt_rule, $ster);
@@ -131,7 +152,7 @@ sub read_wk($$)
  $u34 = read_wk_part('f34','brons', -1, undef);
  $finale = read_wk_part('f','finale', -1, undef);
  
- my $wk2018 = {grp => \@u, sort_rule => $srt_rule, u16 => $u16, uk => $u8, uh => $u4,
+ my $ekwk = {grp => \@u, sort_rule => $srt_rule, u16 => $u16, uk => $u8, uh => $u4,
                            u34 => $u34, uf => $finale};
  
  if (-f $xmlfile)
@@ -144,11 +165,11 @@ sub read_wk($$)
   {
    my $game = search_general($games, $id);
    my $details = fill_from_xml($game, $id);
-   replace_opm_xml($wk2018, $id, $details);
+   replace_opm_xml($ekwk, $id, $details);
   }
  }
 
- return $wk2018;
+ return $ekwk;
 
  close (IN);
 }
