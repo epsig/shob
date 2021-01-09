@@ -68,6 +68,7 @@ $VERSION = '21.0';
 );
 
 my $ekwkDir = 'ekwk';
+my $ekwkQfDir = 'ekwk_qf';
 my $xmlDir = File::Spec->catfile('..', 'data', 'sport', $ekwkDir);
 
 sub get_ek1996()
@@ -85,7 +86,7 @@ sub get_ek1996()
 sub get_ek1996v()
 {# (c) Edwin Spee
 
- my $csvfile = File::Spec->catfile($ekwkDir, 'ek1996v.csv');
+ my $csvfile = File::Spec->catfile($ekwkQfDir, 'ek1996v.csv');
 
  my $u_nl = read_voorronde($csvfile, 'gNL', 'u');
  $u_nl->[0] = ['Groepswedstrijden Nederland', [1, 3, '', 4]];
@@ -118,7 +119,7 @@ sub get_ek2000()
 sub get_ek2000v()
 {# (c) Edwin Spee
 
- my $csvfile = File::Spec->catfile($ekwkDir, 'ek2000v.csv');
+ my $csvfile = File::Spec->catfile($ekwkQfDir, 'ek2000v.csv');
 
  my $po = read_voorronde($csvfile, 'po', 'po');
 
@@ -150,7 +151,7 @@ sub get_wk1998()
 sub get_wk1998v()
 {# (c) Edwin Spee
 
- my $csvfile = File::Spec->catfile($ekwkDir, 'wk1998v.csv');
+ my $csvfile = File::Spec->catfile($ekwkQfDir, 'wk1998v.csv');
  my $u_nl = read_voorronde($csvfile, 'gNL', 'u');
 
  my $po = read_voorronde($csvfile, 'po', 'po');
@@ -178,7 +179,7 @@ sub get_wk2002()
 sub get_wk2002v()
 {# (c) Edwin Spee
 
- my $csvfile = File::Spec->catfile($ekwkDir, 'wk2002v.csv');
+ my $csvfile = File::Spec->catfile($ekwkQfDir, 'wk2002v.csv');
  my $uitslagen_2 = read_voorronde($csvfile, 'g2', 'u');
 
  my $uitslagen_po = read_voorronde($csvfile, 'po', 'po');
@@ -198,7 +199,7 @@ sub get_wk2002v()
 sub get_ek2004v()
 {# (c) Edwin Spee
 
- my $csvfile = File::Spec->catfile($ekwkDir, 'ek2004v.csv');
+ my $csvfile = File::Spec->catfile($ekwkQfDir, 'ek2004v.csv');
  my $u3 = read_voorronde($csvfile, 'g3', 'u');
 
  my $grp_euro = read_voorronde_standen($csvfile, '1', 10);
@@ -245,7 +246,7 @@ sub get_wk2006()
 sub get_wk2006v()
 {# (c) Edwin Spee
 
- my $csvfile = File::Spec->catfile($ekwkDir, 'wk2006v.csv');
+ my $csvfile = File::Spec->catfile($ekwkQfDir, 'wk2006v.csv');
  my $u_nl = read_voorronde($csvfile, 'g1', 'u');
 
  my $grp_euro = read_voorronde_standen($csvfile, '1', 8);
@@ -266,7 +267,7 @@ sub get_wk2006v()
 sub get_ek2008v()
 {# (c) Edwin Spee
 
- my $csvfile = File::Spec->catfile($ekwkDir, 'ek2008v.csv');
+ my $csvfile = File::Spec->catfile($ekwkQfDir, 'ek2008v.csv');
  my $u_nl = read_voorronde($csvfile, 'gG', 'u');
 
  my $kzb = get_oefenduels(20060800, 20080731);
@@ -296,7 +297,7 @@ sub get_ek2008()
 sub get_wk2010v()
 {# (c) Edwin Spee
 
- my $csvfile = File::Spec->catfile($ekwkDir, 'wk2010v.csv');
+ my $csvfile = File::Spec->catfile($ekwkQfDir, 'wk2010v.csv');
  my $u_nl = read_voorronde($csvfile, 'g9', 'u');
  my $list_geplaatst = read_voorronde($csvfile, 'qf', 'qf');
  my $po = read_voorronde($csvfile, 'po', 'po');
@@ -323,7 +324,7 @@ sub get_wk2010()
 
 sub get_ek2012v
 {
- my $csvfile = File::Spec->catfile($ekwkDir, 'ek2012v.csv');
+ my $csvfile = File::Spec->catfile($ekwkQfDir, 'ek2012v.csv');
  my $ek2012v_u_nl = read_voorronde($csvfile, 'gE', 'u');
  my $list_geplaatst = read_voorronde($csvfile, 'qf', 'qf');
  my $po = read_voorronde($csvfile, 'po', 'po');
@@ -353,7 +354,7 @@ sub get_ek2012
 
 sub get_wk2014v
 {
- my $csvfile = File::Spec->catfile($ekwkDir, 'wk2014v.csv');
+ my $csvfile = File::Spec->catfile($ekwkQfDir, 'wk2014v.csv');
  my $wk2014v_u_nl = read_voorronde($csvfile, 'gNL', 'u');
 
  my $po_wk2014 = read_voorronde($csvfile, 'po', 'po');
@@ -381,7 +382,7 @@ sub get_wk2014
 
 sub get_ek2016v
 {
- my $ek2016v_u_nl = read_csv(File::Spec->catfile($ekwkDir, 'ek2016v.csv'));
+ my $ek2016v_u_nl = read_csv(File::Spec->catfile($ekwkQfDir, 'ek2016v.csv'));
  $ek2016v_u_nl->[0] = [ [''], [1, 3, '', 5]];
  
  my $kzb = get_oefenduels(20140701, 20160630);
@@ -409,7 +410,7 @@ sub get_ek2016
 
 sub get_wk2018v
 {
- my $wk2018v_u_nl = read_csv(File::Spec->catfile($ekwkDir, 'wk2018v.csv'));
+ my $wk2018v_u_nl = read_csv(File::Spec->catfile($ekwkQfDir, 'wk2018v.csv'));
  $wk2018v_u_nl->[0] = [ ['Groep A'], [1, 2, '', 4]];
  my $kzb = get_oefenduels(20160701, 20180630);
 
@@ -438,7 +439,7 @@ sub get_wkD2019
 
 sub get_ek2020v
 {
-  my $ek2020v_u_nl = read_csv(File::Spec->catfile($ekwkDir, 'ek2020v.csv'));
+  my $ek2020v_u_nl = read_csv(File::Spec->catfile($ekwkQfDir, 'ek2020v.csv'));
   $ek2020v_u_nl->[0] = [ ['Groep C'], [1, 5, '', 1]];
   my $kzb = get_oefenduels(20180701, 20210630);
   my $uNatL = ReadNatLeague('NL_2018_grpA.csv', 3);
