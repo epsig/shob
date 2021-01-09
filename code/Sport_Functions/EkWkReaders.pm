@@ -109,69 +109,79 @@ sub read_number_of_groups()
 
 sub read_wk($$)
 {
- my $filein = shift;
- my $xmlfile = shift;
+  my $filein = shift;
+  my $xmlfile = shift;
 
- my $tournement = $filein;
-    $tournement =~ s/ekwk.//;
-    $tournement =~ s/.csv//;
+  my $tournement = $filein;
+     $tournement =~ s/ekwk.//;
+     $tournement =~ s/.csv//;
 
- my $remarks = $all_remarks->{ekwk}->get($tournement, 'allgroups');
+  my $remarks = $all_remarks->{ekwk}->get($tournement, 'allgroups');
 
- my @u;
- my $u16 = [];
- my $u8 = [];
- my $u4 = [];
- my $u34 = [];
- my $finale = [];
+  my @u;
+  my $u16 = [];
+  my $u8 = [];
+  my $u4 = [];
+  my $u34 = [];
+  my $finale = [];
 
- my $fileWithPath = File::Spec->catfile($csv_dir, $filein);
+  my $fileWithPath = File::Spec->catfile($csv_dir, $filein);
 
- open (IN, "< $fileWithPath") or die "can't open $fileWithPath: $!\n";
+  open (IN, "< $fileWithPath") or die "can't open $fileWithPath: $!\n";
 
- my $srt_rule = 3; # EK
-    $srt_rule = 5; # WK
+  my $srt_rule = 3; # EK
+     $srt_rule = 5; # WK
 
- my $ster;
- if (defined $remarks)
- {
-   my @ster = split('=', $remarks);
-   $ster = $ster[1];
- }
-
- my $number_of_groups = read_number_of_groups();
-
- for(my $i=0; $i<$number_of_groups; $i++)
- {
-  my $a = chr(ord('A') + $i);
-  $u[$i] = read_wk_part("g$a", "Groep $a", $srt_rule, $ster);
- }
- $u16 = read_wk_part('8f', '8-ste finale', -1, undef);
- $u8 = read_wk_part('4f', 'kwart finale', -1, undef);
- $u4 = read_wk_part('2f', 'halve finale', -1, undef);
- $u34 = read_wk_part('f34','brons', -1, undef);
- $finale = read_wk_part('f','finale', -1, undef);
- 
- my $ekwk = {grp => \@u, sort_rule => $srt_rule, u16 => $u16, uk => $u8, uh => $u4,
-                           u34 => $u34, uf => $finale};
- 
- if (-f $xmlfile)
- {
-  my $p1 = XML::Parser->new(Style => 'Tree');
-  my $tree = $p1->parsefile($xmlfile);
-  my $xml = read_ekwk_xml();
-  my $games = search_general($tree, 'games');
-  foreach my $id (@$xml)
+  my $number_of_groups = read_number_of_groups();
+  if (defined $remarks)
   {
-   my $game = search_general($games, $id);
-   my $details = fill_from_xml($game, $id);
-   replace_opm_xml($ekwk, $id, $details);
+    my @ster = split('=', $remarks);
+    my $ster = $ster[1];
+    for(my $i = 0; $i < $number_of_groups; $i++)
+    {
+      my $a = chr(ord('A') + $i);
+      $u[$i] = read_wk_part("g$a", "Groep $a", $srt_rule, $ster);
+    }
   }
- }
+  else
+  {
+    for(my $i = 0; $i < $number_of_groups; $i++)
+    {
+      my $a = chr(ord('A') + $i);
+      my $group = "g$a";
+      my $remarks_group = $all_remarks->{ekwk}->get($tournement, $group);
+      my @ster = split('=', $remarks_group);
+      my $ster = $ster[1];
+      $u[$i] = read_wk_part($group, "Groep $a", $srt_rule, $ster);
+    }
+  }
 
- return $ekwk;
+  $u16 = read_wk_part('8f', '8-ste finale', -1, undef);
+  $u8 = read_wk_part('4f', 'kwart finale', -1, undef);
+  $u4 = read_wk_part('2f', 'halve finale', -1, undef);
+  $u34 = read_wk_part('f34','brons', -1, undef);
+  $finale = read_wk_part('f','finale', -1, undef);
+ 
+  my $ekwk = {grp => \@u, sort_rule => $srt_rule, u16 => $u16, uk => $u8, uh => $u4,
+                            u34 => $u34, uf => $finale};
+ 
+  if (-f $xmlfile)
+  {
+    my $p1 = XML::Parser->new(Style => 'Tree');
+    my $tree = $p1->parsefile($xmlfile);
+    my $xml = read_ekwk_xml();
+    my $games = search_general($tree, 'games');
+    foreach my $id (@$xml)
+    {
+      my $game = search_general($games, $id);
+      my $details = fill_from_xml($game, $id);
+      replace_opm_xml($ekwk, $id, $details);
+    }
+  }
 
- close (IN);
+  return $ekwk;
+
+  close (IN);
 }
 
 sub read_voorronde_standen_inner($)
