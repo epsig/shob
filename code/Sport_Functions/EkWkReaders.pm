@@ -144,7 +144,7 @@ sub read_wk($$)
     for(my $i = 0; $i < $number_of_groups; $i++)
     {
       my $a = chr(ord('A') + $i);
-      $u[$i] = read_wk_part_new($ekwkLines, "g$a", "Groep $a", $srt_rule, $ster);
+      $u[$i] = read_wk_part($ekwkLines, "g$a", "Groep $a", $srt_rule, $ster);
     }
   }
   else
@@ -156,15 +156,15 @@ sub read_wk($$)
       my $remarks_group = $all_remarks->{ekwk}->get($tournement, $group);
       my @ster = split('=', $remarks_group);
       my $ster = $ster[1];
-      $u[$i] = read_wk_part_new($ekwkLines, $group, "Groep $a", $srt_rule, $ster);
+      $u[$i] = read_wk_part($ekwkLines, $group, "Groep $a", $srt_rule, $ster);
     }
   }
 
-  $u16 = read_wk_part_new($ekwkLines, '8f', '8-ste finale', -1, undef);
-  $u8 = read_wk_part_new($ekwkLines, '4f', 'kwart finale', -1, undef);
-  $u4 = read_wk_part_new($ekwkLines, '2f', 'halve finale', -1, undef);
-  $u34 = read_wk_part_new($ekwkLines, 'f34','brons', -1, undef);
-  $finale = read_wk_part_new($ekwkLines, 'f','finale', -1, undef);
+  $u16 = read_wk_part($ekwkLines, '8f', '8-ste finale', -1, undef);
+  $u8 = read_wk_part($ekwkLines, '4f', 'kwart finale', -1, undef);
+  $u4 = read_wk_part($ekwkLines, '2f', 'halve finale', -1, undef);
+  $u34 = read_wk_part($ekwkLines, 'f34','brons', -1, undef);
+  $finale = read_wk_part($ekwkLines, 'f','finale', -1, undef);
  
   my $ekwk = {grp => \@u, sort_rule => $srt_rule, u16 => $u16, uk => $u8, uh => $u4,
                             u34 => $u34, uf => $finale};
@@ -236,84 +236,114 @@ sub read_voorronde_standen($$$)
  return \@s;
 }
 
-sub read_voorronde($$$)
+sub read_voorronde_part_u($$$)
 {
- my $file = shift;
- my $part = shift;
- my $type = shift;
+  my $fileWithPath = shift;
+  my $file         = shift;
+  my $part         = shift;
 
- my $fileWithPath = File::Spec->catfile($csv_dir, $file);
-
- open(IN, "< $fileWithPath") or die "can't open file $fileWithPath: $!\n";
-
- my $retval;
-
- if ($type eq 'u')
- {
+  my $qfLines = read_csv_with_header($fileWithPath);
   my $tournement = basename($file);
      $tournement =~ s/u.csv//;
-  my $remarks = $all_remarks->{ekwk_qf}->get($tournement, $part);
+  my $remarks = $all_remarks->{ekwk_qf}->get_ml($tournement, $part, 1);
   my $ster;
+  my $sortrule = 3;
   if (defined $remarks)
   {
-    my @ster = split('=', $remarks);
-    $ster = $ster[1];
-  }
-  $retval = read_wk_part($part, '', 3, $ster);
- }
- elsif ($type eq 'qf')
- {
-  my @qf = ();
-  while (my $line = <IN>)
-  {
-   if ($line =~ m/^$part/)
-   {
-    chomp($line);
-    my @parts = split /,/, $line;
-    push @qf, [$parts[1], $parts[2]];
-   }
-  }
-  $retval = \@qf;
- }
- elsif ($type eq 'po')
- {
-  my @po = ([]);
-  while (my $line = <IN>)
-  {
-   if ($line =~ m/^$part/)
-   {
-    chomp($line);
-    my @parts = split /,/, $line;
-    my (undef, $a, $b, $dd, $aa, $bb, $dd2, $aa2, $bb2, $wns, $opm) = @parts;
-    if ($aa2 =~ m/[a-z]/)
-    { # apparently only one match
-     my (undef, $a, $b, $dd, $aa, $bb, $wns, $stadium, $opm) = @parts;
-     push @po, [$a,$b,[$dd,$aa,$bb,{opm=>$opm, stadion=>$stadium}],$wns];
-    }
-    else
+    my @lines = split("\n", $remarks);
+    foreach my $line (@lines)
     {
-     push @po, [$a,$b,[$dd,$aa,$bb],[$dd2,$aa2,$bb2,{opm=>$opm}],$wns];
+      my @parts = split('=', $line);
+      if ($parts[0] eq 'star')
+      {
+        $ster     = $parts[1];
+      }
+      elsif ($parts[0] eq 'sort_rule')
+      {
+        $sortrule = $parts[1];
+      }
     }
-   }
   }
-  $retval = \@po;
- }
- elsif ($type eq 'extra')
- {
-  my $extra = '';
-  while (my $line = <IN>)
+  my $retval = read_wk_part($qfLines, $part, '', $sortrule, $ster);
+  return $retval;
+}
+
+sub read_voorronde($$$)
+{
+  my $file = shift;
+  my $part = shift;
+  my $type = shift;
+
+  my $fileWithPath = File::Spec->catfile($csv_dir, $file);
+
+  if ($type ne 'u')
   {
-   if ($line =~ m/^$part/)
-   {
-    # intentionally no chomp
-    $line =~ s/^$part,//;
-    $extra .= $line;
-   }
+    open(IN, "< $fileWithPath") or die "can't open file $fileWithPath: $!\n";
   }
-  $retval = $extra;
- }
- close (IN);
- return $retval;
+
+  my $retval;
+
+  if ($type eq 'u')
+  {
+    $retval = read_voorronde_part_u($fileWithPath, $file, $part);
+  }
+  elsif ($type eq 'qf')
+  {
+    my @qf = ();
+    while (my $line = <IN>)
+    {
+      if ($line =~ m/^$part/)
+      {
+        chomp($line);
+        my @parts = split /,/, $line;
+        push @qf, [$parts[1], $parts[2]];
+      }
+    }
+    $retval = \@qf;
+  }
+  elsif ($type eq 'po')
+  {
+    my @po = ([]);
+    while (my $line = <IN>)
+    {
+      if ($line =~ m/^$part/)
+      {
+        chomp($line);
+        my @parts = split /,/, $line;
+        my (undef, $a, $b, $dd, $aa, $bb, $dd2, $aa2, $bb2, $wns, $opm) = @parts;
+        if ($aa2 =~ m/[a-z]/)
+        { # apparently only one match
+          my (undef, $a, $b, $dd, $aa, $bb, $wns, $stadium, $opm) = @parts;
+          push @po, [$a,$b,[$dd,$aa,$bb,{opm=>$opm, stadion=>$stadium}],$wns];
+        }
+        else
+        {
+          push @po, [$a,$b,[$dd,$aa,$bb],[$dd2,$aa2,$bb2,{opm=>$opm}],$wns];
+        }
+      }
+    }
+    $retval = \@po;
+  }
+  elsif ($type eq 'extra')
+  {
+    my $extra = '';
+    while (my $line = <IN>)
+    {
+      if ($line =~ m/^$part/)
+      {
+        # intentionally no chomp
+        $line =~ s/^$part,//;
+        $extra .= $line;
+      }
+    }
+    $retval = $extra;
+  }
+
+  if ($type ne 'u')
+  {
+    close (IN);
+  }
+  return $retval;
 }
 
 sub read_ekwk_xml($)
@@ -336,7 +366,7 @@ sub read_ekwk_xml($)
   return \@xml;
 }
 
-sub read_wk_part_new($$$$$)
+sub read_wk_part($$$$$)
 {
   my $content  = shift;
   my $group    = shift;
@@ -359,88 +389,6 @@ sub read_wk_part_new($$$$$)
     }
   }
   return \@games;
-}
-
-sub read_wk_part($$$$)
-{
- my $group    = shift;
- my $title    = shift;
- my $srt_rule = shift;
- my $ster     = shift;
-
- seek(IN, 0, 0);
- my @games = ();
-
- my $ster_ = -1;
-    $ster_ = $ster if (defined($ster));
-
- $games[0] = [$title, [1, $srt_rule, '', $ster_]];
-
- while(my $line = <IN>)
- {
-  chomp($line);
-  $line =~ s/, *#.*//;
-  my @parts = split /,/, $line;
-  if ($parts[0] eq $group)
-  {
-   my $a    = $parts[1];
-   my $b    = $parts[2];
-   my $dd   = $parts[3];
-   my $time = $parts[4];
-   my $aa   = $parts[5];
-   my $bb   = $parts[6];
-   if (scalar @parts == 3 and $a eq 'ster')
-   {
-    $games[0] = [$title, [1, $srt_rule, '', $b]];
-   }
-   elsif (scalar @parts == 6)
-   {
-    $aa   = $parts[4];
-    $bb   = $parts[5];
-    push @games, [$a,$b,[$dd,$aa,$bb]];
-   }
-   elsif (scalar @parts == 7)
-   {
-    $aa   = $parts[4];
-    $bb   = $parts[5];
-    my $cc   = $parts[6];
-    push @games, [$a,$b,[$dd,$aa,$bb],$cc];
-   }
-   elsif (scalar @parts == 8)
-   {
-    my $city = $parts[7];
-    push @games, [$a,$b,[[$dd,$time],$aa,$bb],$city];
-   }
-   elsif (scalar @parts >= 10)
-   {
-    my $wns   = $parts[8];
-    my $spect = $parts[7];
-    my $city  = $parts[9];
-    my $opm   = $parts[10];
-    if (defined($opm))
-    {
-     chomp($opm);
-     push @games, [$a,$b,[[$dd,$time],$aa,$bb,{opm=>$opm,publiek=>$spect}],$wns,$city];
-    }
-    else
-    {
-     push @games, [$a,$b,[[$dd,$time],$aa,$bb,{publiek=>$spect}],$wns,$city];
-    }
-   }
-   elsif (scalar @parts > 8 and $parts[7] =~ m/[a-z]/iso)
-   {
-    my $city = $parts[7];
-    push @games, [$a,$b,[[$dd,$time],$aa,$bb],$city];
-   }
-   else
-   {
-    my $spect = $parts[7];
-    my $city  = $parts[8];
-    push @games, [$a,$b,[[$dd,$time],$aa,$bb,$spect],$city];
-   }
-  }
- }
- return \@games;
 }
 
 return 1;

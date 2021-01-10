@@ -64,6 +64,7 @@ sub get_ml
   my $a = '';
 
   my $period = ($year_season =~ m/-/ ? 'season' : 'year');
+  $period = 'tournement' if ($year_season =~ m/[ew]kD?\d{4}/);
 
   foreach my $record (@{$self->{content}})
   {
