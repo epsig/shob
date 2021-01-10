@@ -47,7 +47,7 @@ sub handle_new_style_files($$$)
 
  my ($opt, $lv, $lop) = @_;
 
- my $fast = 1; # set to 2 during debugging
+ my $fast = 2; # set to 2 during debugging
 
  do_all_text_dir ($lop, 'search', [
   [2, 'all', sub {&file2str(File::Spec->catfile('Shob', 'search_setup.pl'));}, 'search.setup'],
@@ -115,7 +115,7 @@ sub handle_new_style_files($$$)
   [2, 'all', sub {&get_wk2018;}, 'sport_voetbal_WK_2018.html'],
   [2, 'all', sub {&get_wkD2019;}, 'sport_voetbal_WKD2019.html'],
   [$fast, 'all', sub {&get_ek2020v;}, 'sport_voetbal_EK_2020_voorronde.html'],
-  [$fast, 'all', sub {&get_wk2022v;}, 'sport_voetbal_WK_2022_voorronde.html']]);
+  [1, 'all', sub {&get_wk2022v;}, 'sport_voetbal_WK_2022_voorronde.html']]);
 
   my $curYr = 2020;
 
@@ -140,7 +140,7 @@ sub handle_new_style_files($$$)
   do_all_text_dir ($lop, '', \@pages);
 
   do_all_text_dir ($lop, '', [
-  [$fast, 'all', sub {&officieuze_standen('officieus', 2020);}, 'sport_voetbal_nl_jaarstanden.html'],
+  [$fast, 'all', sub {&officieuze_standen('officieus', 2021);}, 'sport_voetbal_nl_jaarstanden.html'],
   [$fast, 'all', sub {&officieuze_standen('uit_thuis', 2020);}, 'sport_voetbal_nl_uit_thuis.html'],
 
   [$fast, 'all', sub {&get_stats_eredivisie(2019, 2020, 0);}, 'sport_voetbal_nl_stats.html'],
