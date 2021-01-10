@@ -4,6 +4,7 @@ use strict; use warnings;
 # DECLARATION OF THE PACKAGE
 #=========================================================================
 # following text starts a package:
+use Shob_Tools::Error_Handling qw(&shob_error);
 use Exporter;
 use vars qw($VERSION @ISA @EXPORT);
 @ISA = ('Exporter');
@@ -42,17 +43,52 @@ sub result2aabb($)
   return @results;
 }
 
+sub fill_club_team_land($)
+{
+  my $struct = shift;
+
+  my ($a, $b);
+
+  if (defined($struct->{club1}))
+  {
+    if (defined($struct->{club2}))
+    {
+      $a = $struct->{club1};
+      $b = $struct->{club2};
+    }
+  }
+  elsif (defined($struct->{team1}))
+  {
+    if (defined($struct->{team2})) 
+    {
+      $a = $struct->{team1};
+      $b = $struct->{team2};
+    }
+  }
+  elsif (defined($struct->{land1}))
+  {
+    if (defined($struct->{land2})) 
+    {
+      $a = $struct->{land1};
+      $b = $struct->{land2};
+    }
+  }
+
+  if (not defined ($a))
+  {
+    shob_error('strange_else', ['club/team/land not found']);
+  }
+
+  return ($a, $b);
+}
 sub add_one_line($$$)
 {
   my $games  = shift;
   my $struct = shift;
   my $isko   = shift;
 
-  my ($a, $b);
-  if (defined($struct->{club1})) {$a = $struct->{club1};}
-  if (defined($struct->{club2})) {$b = $struct->{club2};}
-  if (defined($struct->{team1})) {$a = $struct->{team1};}
-  if (defined($struct->{team2})) {$b = $struct->{team2};}
+  my ($a, $b) = fill_club_team_land($struct);
+
   my $dd = $struct->{dd};
 
   if ($b eq 'straf')
@@ -104,6 +140,10 @@ sub add_one_line($$$)
     {
       push @result, $struct->{stadium};
     }
+  }
+  elsif (defined($struct->{stadium}))
+  {
+    push @result, (-1, $struct->{stadium});
   }
 
   push_or_extend($games, \@result, $isko);

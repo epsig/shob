@@ -9,6 +9,7 @@ use Sport_Functions::XML;
 use Sport_Functions::Overig;
 use Sport_Functions::Readers;
 use Sport_Functions::ListRemarks qw($all_remarks);
+use Sport_Functions::AddMatch qw(&add_one_line);
 use File::Basename;
 use File::Spec;
 use XML::Parser;
@@ -89,14 +90,16 @@ sub replace_opm_xml($$$)
 
 }
 
-sub read_number_of_groups()
+sub read_number_of_groups($)
 {
+  my $lines = shift;
+
   my $last = 'A';
-  while(my $line = <IN>)
+  foreach my $line (@$lines)
   {
-    if ($line =~ m/^g.,/)
+    if ($line->{round} =~ m/^g.$/)
     {
-      my $group = substr($line, 1, 1);
+      my $group = substr($line->{round}, 1, 1);
       if ($group gt $last)
       {
         $last = $group;
@@ -128,12 +131,12 @@ sub read_wk($$)
 
   my $fileWithPath = File::Spec->catfile($csv_dir, $filein);
 
-  open (IN, "< $fileWithPath") or die "can't open $fileWithPath: $!\n";
+  my $ekwkLines = read_csv_with_header($fileWithPath);
 
   my $srt_rule = 3; # EK
      $srt_rule = 5; # WK
 
-  my $number_of_groups = read_number_of_groups();
+  my $number_of_groups = read_number_of_groups($ekwkLines);
   if (defined $remarks)
   {
     my @ster = split('=', $remarks);
@@ -141,7 +144,7 @@ sub read_wk($$)
     for(my $i = 0; $i < $number_of_groups; $i++)
     {
       my $a = chr(ord('A') + $i);
-      $u[$i] = read_wk_part("g$a", "Groep $a", $srt_rule, $ster);
+      $u[$i] = read_wk_part_new($ekwkLines, "g$a", "Groep $a", $srt_rule, $ster);
     }
   }
   else
@@ -153,15 +156,15 @@ sub read_wk($$)
       my $remarks_group = $all_remarks->{ekwk}->get($tournement, $group);
       my @ster = split('=', $remarks_group);
       my $ster = $ster[1];
-      $u[$i] = read_wk_part($group, "Groep $a", $srt_rule, $ster);
+      $u[$i] = read_wk_part_new($ekwkLines, $group, "Groep $a", $srt_rule, $ster);
     }
   }
 
-  $u16 = read_wk_part('8f', '8-ste finale', -1, undef);
-  $u8 = read_wk_part('4f', 'kwart finale', -1, undef);
-  $u4 = read_wk_part('2f', 'halve finale', -1, undef);
-  $u34 = read_wk_part('f34','brons', -1, undef);
-  $finale = read_wk_part('f','finale', -1, undef);
+  $u16 = read_wk_part_new($ekwkLines, '8f', '8-ste finale', -1, undef);
+  $u8 = read_wk_part_new($ekwkLines, '4f', 'kwart finale', -1, undef);
+  $u4 = read_wk_part_new($ekwkLines, '2f', 'halve finale', -1, undef);
+  $u34 = read_wk_part_new($ekwkLines, 'f34','brons', -1, undef);
+  $finale = read_wk_part_new($ekwkLines, 'f','finale', -1, undef);
  
   my $ekwk = {grp => \@u, sort_rule => $srt_rule, u16 => $u16, uk => $u8, uh => $u4,
                             u34 => $u34, uf => $finale};
@@ -170,7 +173,7 @@ sub read_wk($$)
   {
     my $p1 = XML::Parser->new(Style => 'Tree');
     my $tree = $p1->parsefile($xmlfile);
-    my $xml = read_ekwk_xml();
+    my $xml = read_ekwk_xml($ekwkLines);
     my $games = search_general($tree, 'games');
     foreach my $id (@$xml)
     {
@@ -181,8 +184,6 @@ sub read_wk($$)
   }
 
   return $ekwk;
-
-  close (IN);
 }
 
 sub read_voorronde_standen_inner($)
@@ -315,22 +316,49 @@ sub read_voorronde($$$)
  return $retval;
 }
 
-sub read_ekwk_xml()
+sub read_ekwk_xml($)
 {
- seek(IN, 0, 0);
+  my $content = shift;
 
- my @xml = ();
- while(my $line = <IN>)
- {
-  if ($line =~ m/ref=/)
+  my @xml = ();
+  foreach my $line (@$content)
   {
-   chomp($line);
-   my @parts = split /ref=/, $line;
-   push @xml, $parts[1];
+    if (defined ($line->{remark}))
+    {
+      if ($line->{remark} =~ m/ref=/)
+      {
+        my @parts = split /ref=/, $line->{remark};
+        push @xml, $parts[1];
+      }
+    }
   }
- }
 
- return \@xml;
+  return \@xml;
+}
+
+sub read_wk_part_new($$$$$)
+{
+  my $content  = shift;
+  my $group    = shift;
+  my $title    = shift;
+  my $srt_rule = shift;
+  my $ster     = shift;
+
+  my $ster_ = -1;
+     $ster_ = $ster if (defined($ster));
+
+  my $isko = ($srt_rule < 1);
+
+  my @games = ([$title, [1, $srt_rule, '', $ster_]]);
+
+  foreach my $struct (@$content)
+  {
+    if ($struct->{round} eq $group)
+    {
+      add_one_line(\@games, $struct, $isko);
+    }
+  }
+  return \@games;
 }
 
 sub read_wk_part($$$$)
