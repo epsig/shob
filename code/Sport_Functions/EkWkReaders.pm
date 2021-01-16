@@ -111,6 +111,21 @@ sub read_number_of_groups($)
   return $number;
 }
 
+sub has_phase($$)
+{
+  my $lines = shift;
+  my $phase = shift;
+
+  foreach my $line (@$lines)
+  {
+    if ($line->{round} eq $phase)
+    {
+      return 1;
+    }
+  }
+  return 0;
+}
+
 sub read_wk($$)
 {
   my $filein = shift;
@@ -123,11 +138,6 @@ sub read_wk($$)
   my $remarks = $all_remarks->{ekwk}->get($tournement, 'allgroups');
 
   my @u;
-  my $u16 = [];
-  my $u8 = [];
-  my $u4 = [];
-  my $u34 = [];
-  my $finale = [];
 
   my $fileWithPath = File::Spec->catfile($csv_dir, $filein);
 
@@ -160,11 +170,15 @@ sub read_wk($$)
     }
   }
 
-  $u16 = read_wk_part($ekwkLines, '8f', '8-ste finale', -1, undef);
-  $u8 = read_wk_part($ekwkLines, '4f', 'kwart finale', -1, undef);
-  $u4 = read_wk_part($ekwkLines, '2f', 'halve finale', -1, undef);
-  $u34 = read_wk_part($ekwkLines, 'f34','brons', -1, undef);
-  $finale = read_wk_part($ekwkLines, 'f','finale', -1, undef);
+  my $u16 = undef;
+  if (has_phase($ekwkLines, '8f'))
+  {
+    $u16 = read_wk_part($ekwkLines, '8f', '8-ste finale', -1, undef);
+  }
+  my $u8 = read_wk_part($ekwkLines, '4f', 'kwart finale', -1, undef);
+  my $u4 = read_wk_part($ekwkLines, '2f', 'halve finale', -1, undef);
+  my $u34 = read_wk_part($ekwkLines, 'f34','brons', -1, undef);
+  my $finale = read_wk_part($ekwkLines, 'f','finale', -1, undef);
  
   my $ekwk = {grp => \@u, sort_rule => $srt_rule, u16 => $u16, uk => $u8, uh => $u4,
                             u34 => $u34, uf => $finale};

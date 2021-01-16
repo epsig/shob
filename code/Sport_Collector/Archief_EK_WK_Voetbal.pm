@@ -78,7 +78,6 @@ sub get_ek1996()
 
  my $ek1996 = read_wk($csvfile, File::Spec->catfile($xmlDir, 'EK_1996.xml'));
  $ek1996->{sort_rule} = 4;
- $ek1996->{u16} = undef; # TODO
 
  return format_ekwk(1996, 'Engeland', $ek1996, [], 20200725);
 }
@@ -112,7 +111,6 @@ sub get_ek2000()
 
  my $ek2000 = read_wk($csvfile, File::Spec->catfile($xmlDir, 'EK_2000.xml'));
  $ek2000->{sort_rule} = 2;
- $ek2000->{u16} = undef; # TODO
 
  return format_ekwk(2000, 'Nederland en Belgi&euml;', $ek2000, [], 20200711);
 }
@@ -229,7 +227,6 @@ sub get_ek2004()
 
  my $ek2004 = read_wk($csvfile, File::Spec->catfile($xmlDir, 'EK_2004.xml'));
  $ek2004->{sort_rule} = 2;
- $ek2004->{u16} = undef; # TODO
 
  my $topscorers = get_topscorers_competitie('ek2004', 'ekwk', 'EK-2004');
 
@@ -298,7 +295,6 @@ sub get_ek2008()
  my $csvfile = File::Spec->catfile($ekwkDir, 'ek2008.csv');
  my $ek2008 = read_wk($csvfile, File::Spec->catfile($xmlDir, 'EK_2008.xml'));
  $ek2008->{sort_rule} = 4;
- $ek2008->{u16} = undef; # TODO
 
  my $topscorers = get_topscorers_competitie('ek2008', 'ekwk', 'EK-2008');
 
@@ -359,8 +355,6 @@ sub get_ek2012
 
  $csv2012->{sort_rule} = 4;
  $csv2012->{ster} = -1;
-
- $csv2012->{u16} = undef; # TODO
 
  my $topscorers = get_topscorers_competitie('ek2012', 'ekwk', 'EK-2012');
 
