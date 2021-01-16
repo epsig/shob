@@ -39,8 +39,6 @@ $VERSION = '21.0';
  '&set_laatste_speeldatum_ekwk',
  '&get_wk2022v',
  '&get_ek2020v',
- '&get_wkD2019',
- '&get_wk2018',
  '&get_wk2018v',
  '&get_ek2016',
  '&get_ek2016v',
@@ -64,12 +62,33 @@ $VERSION = '21.0';
  '&get_ek2000',
  '&get_ek1996v',
  '&get_ek1996',
+ '&get_ekwk_gen',
  #========================================================================
 );
 
 my $ekwkDir = 'ekwk';
 my $ekwkQfDir = 'ekwk_qf';
 my $xmlDir = File::Spec->catfile('..', 'data', 'sport', $ekwkDir);
+
+sub get_ekwk_gen($)
+{
+  use Sport_Functions::ListRemarks qw($all_remarks);
+
+  my $id = shift;
+
+  my $year = $id;
+     $year =~ s/[ew]kD?//;
+
+  my $dd                 = $all_remarks->{ekwk}->get($id, 'dd');
+  my $organising_country = $all_remarks->{ekwk}->get($id, 'organising_country');
+  my $title              = $all_remarks->{ekwk}->get($id, 'title');
+
+  my $csv_file = File::Spec->catfile($ekwkDir, "$id.csv");
+  my $all_results = read_wk($csv_file, '');
+  my $topscorers = get_topscorers_competitie($id, 'ekwk', $title);
+  my $html = format_ekwk($year, $organising_country, $all_results, $topscorers, $dd);
+  return $html;
+}
 
 sub get_ek1996()
 {# (c) Edwin Spee
@@ -427,24 +446,6 @@ sub get_wk2018v
 
   my $dd = 20200523;
   return format_voorronde_ekwk(2018, 'Rusland', {u_nl => $wk2018v_u_nl, kzb => $kzb}, $dd);
-}
-
-sub get_wk2018
-{
- my $dd = 20180722;
- my $csvFile = File::Spec->catfile($ekwkDir, 'wk2018.csv');
- my $wk2018 = read_wk($csvFile, '');
- my $topscorers = get_topscorers_competitie('wk2018', 'ekwk', 'WK-2018');
- return format_ekwk(2018, 'Rusland', $wk2018, $topscorers, $dd);
-}
-
-sub get_wkD2019
-{
- my $dd = 20190723;
- my $csvFile = File::Spec->catfile($ekwkDir, 'wkD2019.csv');
- my $wkD2019 = read_wk($csvFile, '');
- my $topscorers = get_topscorers_competitie('wkD2019', 'ekwk', 'WK vrouwen 2019');
- return format_ekwk(2019, 'Frankrijk', $wkD2019, $topscorers, $dd);
 }
 
 sub get_ek2020v

@@ -112,8 +112,8 @@ sub handle_new_style_files($$$)
   [2, 'all', sub {&get_ek2016v;}, 'sport_voetbal_EK_2016_voorronde.html'],
   [2, 'all', sub {&get_ek2016;}, 'sport_voetbal_EK_2016.html'],
   [2, 'all', sub {&get_wk2018v;}, 'sport_voetbal_WK_2018_voorronde.html'],
-  [2, 'all', sub {&get_wk2018;}, 'sport_voetbal_WK_2018.html'],
-  [2, 'all', sub {&get_wkD2019;}, 'sport_voetbal_WKD2019.html'],
+  [2, 'all', sub {&get_ekwk_gen('wk2018');}, 'sport_voetbal_WK_2018.html'],
+  [2, 'all', sub {&get_ekwk_gen('wkD2019');}, 'sport_voetbal_WKD2019.html'],
   [$fast, 'all', sub {&get_ek2020v;}, 'sport_voetbal_EK_2020_voorronde.html'],
   [$fast, 'all', sub {&get_wk2022v;}, 'sport_voetbal_WK_2022_voorronde.html']]);
 
