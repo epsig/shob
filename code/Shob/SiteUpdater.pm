@@ -90,29 +90,17 @@ sub handle_new_style_files($$$)
 
  do_all_text_dir ($lop, '', [
   [2, 'all', sub {&get_ek1996v;}, 'sport_voetbal_EK_1996_voorronde.html'],
-  [2, 'all', sub {&get_ek1996;}, 'sport_voetbal_EK_1996.html'],
   [2, 'all', sub {&get_wk1998v;}, 'sport_voetbal_WK_1998_voorronde.html'],
-  [2, 'all', sub {&get_wk1998;}, 'sport_voetbal_WK_1998.html'],
   [2, 'all', sub {&get_ek2000v;}, 'sport_voetbal_EK_2000_voorronde.html'],
-  [2, 'all', sub {&get_ek2000;}, 'sport_voetbal_EK_2000.html'],
   [2, 'all', sub {&get_wk2002v;}, 'sport_voetbal_WK_2002_voorronde.html'],
-  [2, 'all', sub {&get_wk2002;}, 'sport_voetbal_WK_2002.html'],
   [2, 'all', sub {&get_ek2004v;}, 'sport_voetbal_EK_2004_voorronde.html'],
-  [2, 'all', sub {&get_ek2004;}, 'sport_voetbal_EK_2004.html'],
   [2, 'all', sub {&get_wk2006v;}, 'sport_voetbal_WK_2006_voorronde.html'],
-  [2, 'all', sub {&get_wk2006;}, 'sport_voetbal_WK_2006.html'],
   [2, 'all', sub {&get_ek2008v;}, 'sport_voetbal_EK_2008_voorronde.html'],
-  [2, 'all', sub {&get_ek2008;}, 'sport_voetbal_EK_2008.html'],
   [2, 'all', sub {&get_wk2010v;}, 'sport_voetbal_WK_2010_voorronde.html'],
-  [2, 'all', sub {&get_wk2010;}, 'sport_voetbal_WK_2010.html'],
   [2, 'all', sub {&get_ek2012v;}, 'sport_voetbal_EK_2012_voorronde.html'],
-  [2, 'all', sub {&get_ek2012;}, 'sport_voetbal_EK_2012.html'],
   [2, 'all', sub {&get_wk2014v;}, 'sport_voetbal_WK_2014_voorronde.html'],
-  [2, 'all', sub {&get_wk2014;}, 'sport_voetbal_WK_2014.html'],
   [2, 'all', sub {&get_ek2016v;}, 'sport_voetbal_EK_2016_voorronde.html'],
-  [2, 'all', sub {&get_ek2016;}, 'sport_voetbal_EK_2016.html'],
   [2, 'all', sub {&get_wk2018v;}, 'sport_voetbal_WK_2018_voorronde.html'],
-  [2, 'all', sub {&get_ekwk_gen('wk2018');}, 'sport_voetbal_WK_2018.html'],
   [2, 'all', sub {&get_ekwk_gen('wkD2019');}, 'sport_voetbal_WKD2019.html'],
   [$fast, 'all', sub {&get_ek2020v;}, 'sport_voetbal_EK_2020_voorronde.html'],
   [$fast, 'all', sub {&get_wk2022v;}, 'sport_voetbal_WK_2022_voorronde.html']]);
@@ -134,7 +122,13 @@ sub handle_new_style_files($$$)
     push @pages, [$dl, 'all', sub {&get_betaald_voetbal_nl($yr);}, "sport_voetbal_nl_$szn2.html"];
     if ($yr % 4 == 2)
     {
-      push @pages, [$dl, 'all', sub {&get_OS($yr);}, "sport_schaatsen_OS_$yr.html"],
+      push @pages, [$dl, 'all', sub {&get_OS($yr);}, "sport_schaatsen_OS_$yr.html"];
+    }
+    if ($yr % 2 == 0 && $yr >= 1996 && $yr <= 2018)
+    {
+      my $ekwk = ($yr % 4 == 0 ? 'ek' : 'wk');
+      my $page_name = "sport_voetbal_" . uc($ekwk) . "_$yr.html";
+      push @pages, [$dl, 'all', sub {&get_ekwk_gen($ekwk . $yr);}, $page_name];
     }
   }
   do_all_text_dir ($lop, '', \@pages);

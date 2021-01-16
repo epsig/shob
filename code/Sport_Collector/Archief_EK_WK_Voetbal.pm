@@ -36,33 +36,22 @@ $VERSION = '21.0';
 
 @EXPORT =
 (#========================================================================
- '&set_laatste_speeldatum_ekwk',
- '&get_wk2022v',
- '&get_ek2020v',
- '&get_wk2018v',
- '&get_ek2016',
- '&get_ek2016v',
- '&get_wk2014',
- '&get_wk2014v',
- '&get_ek2012',
- '&get_ek2012v',
- '&get_wk2010',
- '&get_wk2010v',
- '&get_ek2008',
- '&get_ek2008v',
- '&get_wk2006',
- '&get_wk2006v',
- '&get_ek2004',
- '&get_ek2004v',
- '&get_wk2002v',
- '&get_wk2002',
- '&get_wk1998v',
- '&get_wk1998',
- '&get_ek2000v',
- '&get_ek2000',
- '&get_ek1996v',
- '&get_ek1996',
- '&get_ekwk_gen',
+  '&set_laatste_speeldatum_ekwk',
+  '&get_ekwk_gen',
+  '&get_wk2022v',
+  '&get_ek2020v',
+  '&get_wk2018v',
+  '&get_ek2016v',
+  '&get_wk2014v',
+  '&get_ek2012v',
+  '&get_wk2010v',
+  '&get_ek2008v',
+  '&get_wk2006v',
+  '&get_ek2004v',
+  '&get_wk2002v',
+  '&get_wk1998v',
+  '&get_ek2000v',
+  '&get_ek1996v',
  #========================================================================
 );
 
@@ -71,7 +60,8 @@ my $ekwkQfDir = 'ekwk_qf';
 my $xmlDir = File::Spec->catfile('..', 'data', 'sport', $ekwkDir);
 
 sub get_ekwk_gen($)
-{
+{ # (c) Edwin Spee
+
   use Sport_Functions::ListRemarks qw($all_remarks);
 
   my $id = shift;
@@ -79,26 +69,29 @@ sub get_ekwk_gen($)
   my $year = $id;
      $year =~ s/[ew]kD?//;
 
+  my $ekwk = substr($id, 0, 2);
+
   my $dd                 = $all_remarks->{ekwk}->get($id, 'dd');
   my $organising_country = $all_remarks->{ekwk}->get($id, 'organising_country');
+  my $sort_rule          = $all_remarks->{ekwk}->get($id, 'sort_rule');
   my $title              = $all_remarks->{ekwk}->get($id, 'title');
+  if (not defined($title))
+  {
+    $title = uc($ekwk) . '-' . $year;
+  }
 
   my $csv_file = File::Spec->catfile($ekwkDir, "$id.csv");
-  my $all_results = read_wk($csv_file, '');
+  my $xml_file = File::Spec->catfile($xmlDir, uc($ekwk) . "_$year.xml");
+
+  my $all_results = read_wk($csv_file, $xml_file);
+  if (defined($sort_rule))
+  {
+    $all_results->{sort_rule} = $sort_rule;
+  }
+
   my $topscorers = get_topscorers_competitie($id, 'ekwk', $title);
   my $html = format_ekwk($year, $organising_country, $all_results, $topscorers, $dd);
   return $html;
-}
-
-sub get_ek1996()
-{# (c) Edwin Spee
-
- my $csvfile = File::Spec->catfile($ekwkDir, 'ek1996.csv');
-
- my $ek1996 = read_wk($csvfile, File::Spec->catfile($xmlDir, 'EK_1996.xml'));
- $ek1996->{sort_rule} = 4;
-
- return format_ekwk(1996, 'Engeland', $ek1996, [], 20200725);
 }
 
 sub get_ek1996v()
@@ -123,17 +116,6 @@ sub get_ek1996v()
    play_offs => $po, nrs2 => $nrs2, geplaatst => $list_geplaatst}, 20070114);
 }
 
-sub get_ek2000()
-{# (c) Edwin Spee
-
- my $csvfile = File::Spec->catfile($ekwkDir, 'ek2000.csv');
-
- my $ek2000 = read_wk($csvfile, File::Spec->catfile($xmlDir, 'EK_2000.xml'));
- $ek2000->{sort_rule} = 2;
-
- return format_ekwk(2000, 'Nederland en Belgi&euml;', $ek2000, [], 20200711);
-}
-
 sub get_ek2000v()
 {# (c) Edwin Spee
 
@@ -153,19 +135,6 @@ sub get_ek2000v()
   20200712);
 }
 
-sub get_wk1998()
-{# (c) Edwin Spee
-
- my $csvfile = File::Spec->catfile($ekwkDir, 'wk1998.csv');
-
- my $wk1998 = read_wk($csvfile, File::Spec->catfile($xmlDir, 'WK_1998.xml'));
- $wk1998->{sort_rule} = 2;
-
- my $topscorers = get_topscorers_competitie('wk1998', 'ekwk', 'WK-1998');
-
- return format_ekwk(1998, 'Frankrijk', $wk1998, $topscorers, 20200715);
-}
-
 sub get_wk1998v()
 {# (c) Edwin Spee
 
@@ -183,17 +152,6 @@ sub get_wk1998v()
   kzb => get_oefenduels(19960901, 19980630),
   play_offs => $po, geplaatst => $list_geplaatst},
  20200718);
-}
-
-sub get_wk2002()
-{# (c) Edwin Spee
-
- my $csvfile = File::Spec->catfile($ekwkDir, 'wk2002.csv');
-
- my $wk2002 = read_wk($csvfile, File::Spec->catfile($xmlDir, 'WK_2002.xml'));
- $wk2002->{sort_rule} = 2;
-
- return format_ekwk(2002, 'Japan en Zuid-Korea', $wk2002, [], 20070106);
 }
 
 sub get_wk2002v()
@@ -239,33 +197,6 @@ sub get_ek2004v()
   20200705);
 }
 
-sub get_ek2004()
-{# (c) Edwin Spee
-
- my $csvfile = File::Spec->catfile($ekwkDir, 'ek2004.csv');
-
- my $ek2004 = read_wk($csvfile, File::Spec->catfile($xmlDir, 'EK_2004.xml'));
- $ek2004->{sort_rule} = 2;
-
- my $topscorers = get_topscorers_competitie('ek2004', 'ekwk', 'EK-2004');
-
- return format_ekwk(2004, 'Portugal', $ek2004, $topscorers, 20070209);
-}
-
-sub get_wk2006()
-{# (c) Edwin Spee
-
- my $csvfile = File::Spec->catfile($ekwkDir, 'wk2006.csv');
- my $wk2006 = read_wk($csvfile, File::Spec->catfile($xmlDir, 'WK_2006.xml'));
-
- # eigenlijk nwe srt_rule: pnt, wedstr, doelsaldo, onderling resultaat
- $wk2006->{sort_rule} = 2;
-
- my $topscorers = get_topscorers_competitie('wk2006', 'ekwk', 'WK-2006');
-
- return format_ekwk(2006, 'Duitsland', $wk2006, $topscorers, 20200701);
-}
-
 sub get_wk2006v()
 {# (c) Edwin Spee
 
@@ -308,18 +239,6 @@ sub get_ek2008v()
  {u_nl => $u_nl, kzb => $kzb, grp_euro => $grp_euro, geplaatst => $list_geplaatst}, 20140622);
 }
 
-sub get_ek2008()
-{# (c) Edwin Spee
-
- my $csvfile = File::Spec->catfile($ekwkDir, 'ek2008.csv');
- my $ek2008 = read_wk($csvfile, File::Spec->catfile($xmlDir, 'EK_2008.xml'));
- $ek2008->{sort_rule} = 4;
-
- my $topscorers = get_topscorers_competitie('ek2008', 'ekwk', 'EK-2008');
-
- return format_ekwk(2008, 'Oostenrijk/Zwitserland', $ek2008, $topscorers, 20200623);
-}
-
 sub get_wk2010v()
 {# (c) Edwin Spee
 
@@ -339,17 +258,6 @@ sub get_wk2010v()
  20100605);
 }
 
-sub get_wk2010()
-{# (c) Edwin Spee
- my $csvfile = File::Spec->catfile($ekwkDir, 'wk2010.csv');
- my $wk2010 = read_wk($csvfile, File::Spec->catfile($xmlDir, 'WK_2010.xml'));
- $wk2010->{sort_rule} = 5;
- 
- my $topscorers = get_topscorers_competitie('wk2010', 'ekwk', 'WK-2010');
-
- return format_ekwk(2010, 'Zuid-Afrika', $wk2010, $topscorers, 20200620);
-}
-
 sub get_ek2012v
 {
  my $csvfile = File::Spec->catfile($ekwkQfDir, 'ek2012v.csv');
@@ -365,19 +273,6 @@ sub get_ek2012v
  return format_voorronde_ekwk(2012, 'Polen/Oekra&iuml;ne',
  {u_nl => $ek2012v_u_nl, kzb => $kzb, geplaatst => $list_geplaatst,
   play_offs => $po}, $dd);
-}
-
-sub get_ek2012
-{
- my $csvfile = File::Spec->catfile($ekwkDir, 'ek2012.csv');
- my $csv2012 = read_wk($csvfile, File::Spec->catfile($xmlDir, 'EK_2012.xml'));
-
- $csv2012->{sort_rule} = 4;
- $csv2012->{ster} = -1;
-
- my $topscorers = get_topscorers_competitie('ek2012', 'ekwk', 'EK-2012');
-
- return format_ekwk(2012, 'Polen/Oekra&iuml;ne', $csv2012, $topscorers, 20200615);
 }
 
 sub get_wk2014v
@@ -397,19 +292,6 @@ sub get_wk2014v
  {u_nl => $wk2014v_u_nl, kzb => $kzb, play_offs => $po_wk2014},$dd);
 }
 
-sub get_wk2014
-{
- my $csvfile = File::Spec->catfile($ekwkDir, 'wk2014.csv');
- my $csv2014 = read_wk($csvfile, File::Spec->catfile($xmlDir, 'WK_2014.xml'));
-
- $csv2014->{sort_rule} = 5;
-
- my $topscorers = get_topscorers_competitie('wk2014', 'ekwk', 'WK-2014');
-
- my $dd = 20140720;
- return format_ekwk(2014, 'Brazili&euml;', $csv2014, $topscorers, $dd);
-}
-
 sub get_ek2016v
 {
   my $csvfile_u = File::Spec->catfile($ekwkQfDir, 'ek2016u.csv');
@@ -421,20 +303,6 @@ sub get_ek2016v
   my $dd2 = laatste_speeldatum($kzb);
   my $dd = max($dd1, $dd2);
   return format_voorronde_ekwk(2016, 'Frankrijk', {u_nl => $ek2016v_u_nl, kzb => $kzb}, $dd);
-}
-
-sub get_ek2016
-{
- my $csvfile = File::Spec->catfile($ekwkDir, 'ek2016.csv');
- my $csv2016 = read_wk($csvfile, File::Spec->catfile($xmlDir, 'EK_2016.xml'));
- 
- $csv2016->{sort_rule} =  3;
- $csv2016->{ster}      = -1;
-
- my $topscorers = get_topscorers_competitie('ek2016', 'ekwk', 'EK-2016');
-
- my $dd = 20200606;
- return format_ekwk(2016, 'Frankrijk', $csv2016, $topscorers, $dd);
 }
 
 sub get_wk2018v
