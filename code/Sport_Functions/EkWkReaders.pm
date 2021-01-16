@@ -25,7 +25,7 @@ $VERSION = '21.0';
 
 @EXPORT =
 (#========================================================================
- '&read_wk',
+ '&read_ekwk',
  '&read_voorronde',
  '&read_voorronde_standen',
  #========================================================================
@@ -126,25 +126,17 @@ sub has_phase($$)
   return 0;
 }
 
-sub read_wk($$)
+sub read_ekwk($$$$)
 {
-  my $filein = shift;
-  my $xmlfile = shift;
+  my ($tournement, $filein, $xmlfile, $srt_rule) = @_;
 
-  my $tournement = $filein;
-     $tournement =~ s/ekwk.//;
-     $tournement =~ s/.csv//;
+  my $ekwk = {sort_rule => $srt_rule};
 
   my $remarks = $all_remarks->{ekwk}->get($tournement, 'allgroups');
-
-  my @u;
 
   my $fileWithPath = File::Spec->catfile($csv_dir, $filein);
 
   my $ekwkLines = read_csv_with_header($fileWithPath);
-
-  my $srt_rule = 3; # EK
-     $srt_rule = 5; # WK
 
   my $number_of_groups = read_number_of_groups($ekwkLines);
   if (defined $remarks)
@@ -154,7 +146,7 @@ sub read_wk($$)
     for(my $i = 0; $i < $number_of_groups; $i++)
     {
       my $a = chr(ord('A') + $i);
-      $u[$i] = read_wk_part($ekwkLines, "g$a", "Groep $a", $srt_rule, $ster);
+      $ekwk->{grp}->[$i] = read_wk_part($ekwkLines, "g$a", "Groep $a", $srt_rule, $ster);
     }
   }
   else
@@ -166,22 +158,18 @@ sub read_wk($$)
       my $remarks_group = $all_remarks->{ekwk}->get($tournement, $group);
       my @ster = split('=', $remarks_group);
       my $ster = $ster[1];
-      $u[$i] = read_wk_part($ekwkLines, $group, "Groep $a", $srt_rule, $ster);
+      $ekwk->{grp}->[$i] = read_wk_part($ekwkLines, $group, "Groep $a", $srt_rule, $ster);
     }
   }
 
-  my $u16 = undef;
   if (has_phase($ekwkLines, '8f'))
   {
-    $u16 = read_wk_part($ekwkLines, '8f', '8-ste finale', -1, undef);
+    $ekwk->{u16} = read_wk_part($ekwkLines, '8f', '8-ste finale', -1, undef);
   }
-  my $u8 = read_wk_part($ekwkLines, '4f', 'kwart finale', -1, undef);
-  my $u4 = read_wk_part($ekwkLines, '2f', 'halve finale', -1, undef);
-  my $u34 = read_wk_part($ekwkLines, 'f34','brons', -1, undef);
-  my $finale = read_wk_part($ekwkLines, 'f','finale', -1, undef);
- 
-  my $ekwk = {grp => \@u, sort_rule => $srt_rule, u16 => $u16, uk => $u8, uh => $u4,
-                            u34 => $u34, uf => $finale};
+  $ekwk->{uk} = read_wk_part($ekwkLines, '4f', 'kwart finale', -1, undef);
+  $ekwk->{uh} = read_wk_part($ekwkLines, '2f', 'halve finale', -1, undef);
+  $ekwk->{u34} = read_wk_part($ekwkLines, 'f34','brons', -1, undef);
+  $ekwk->{uf} = read_wk_part($ekwkLines, 'f','finale', -1, undef);
  
   if (-f $xmlfile)
   {

@@ -13,7 +13,7 @@ use vars qw($VERSION @ISA);
 #=========================================================================
 # CONTENTS OF THE PACKAGE:
 #=========================================================================
-$VERSION = '20.1';
+$VERSION = '21.0';
 # by Edwin Spee.
 
 # Constructor for class Sport_Functions::RemarkReaders
@@ -25,20 +25,28 @@ sub new
 
   my $content = read_csv_with_header($fullname);
 
-  my $self = bless { content => $content}, $class;
+  my @keys = keys(%{$content->[0]});
+  my $period;
+  foreach my $key (@keys)
+  {
+    if ($key ne 'key' && $key ne 'value')
+    {
+      $period = $key;
+    }
+  }
+
+  my $self = bless { content => $content, period => $period}, $class;
 
   return $self;
 }
 
 # Basic getter for a key in a year/season
+# $retval is optional default value
 sub get
 {
-  my ($self, $year_season, $key) = @_;
+  my ($self, $year_season, $key, $retval) = @_;
 
-  my $a;
-
-  my $period = ($year_season =~ m/-/ ? 'season' : 'year');
-  $period = 'tournement' if ($year_season =~ m/[ew]kD?\d{4}/);
+  my $period = $self->{period};
 
   foreach my $record (@{$self->{content}})
   {
@@ -46,25 +54,24 @@ sub get
     {
       if ($record->{key} eq $key)
       {
-        $a = $record->{value};
+        $retval = $record->{value};
         last;
       }
     }
   }
 
-  return $a;
+  return $retval;
 }
 
+# Additional getter for a key in a year/season with multiline output
+# $multiLine : 0= no line breaks added; 1= line breaks added; 2= line breaks added, but not after the last
 sub get_ml
 {
   my ($self, $year_season, $key, $multiLine) = @_;
 
-  # $multiLine : 0= no line breaks added; 1= line breaks added; 2= line breaks added, but not after the last
-
   my $a = '';
 
-  my $period = ($year_season =~ m/-/ ? 'season' : 'year');
-  $period = 'tournement' if ($year_season =~ m/[ew]kD?\d{4}/);
+  my $period = $self->{period};
 
   foreach my $record (@{$self->{content}})
   {
@@ -83,16 +90,16 @@ sub get_ml
   return $a;
 }
 
+# Additional getter where only the first part of the key is given, and multiline output may occur
+# $multiLine : 0= no line breaks added; 1= line breaks added; 2= line breaks added, but not after the last
 sub get_ml_keyStartsWith
 {
   my ($self, $year_season, $key, $multiLine) = @_;
 
-  # $multiLine : 0= no line breaks added; 1= line breaks added; 2= line breaks added, but not after the last
-
   my $a = '';
   my $keyFound = '';
 
-  my $period = ($year_season =~ m/-/ ? 'season' : 'year');
+  my $period = $self->{period};
 
   foreach my $record (@{$self->{content}})
   {

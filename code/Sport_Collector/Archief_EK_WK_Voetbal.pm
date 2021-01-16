@@ -18,6 +18,7 @@ use Sport_Functions::EkWkReaders;
 use Sport_Functions::Readers;
 use Sport_Functions::XML;
 use Sport_Functions::NatLeagueReaders;
+use Sport_Functions::ListRemarks qw($all_remarks);
 use Sport_Collector::Archief_Oefenduels;
 use Sport_Collector::Archief_Voetbal_NL_Topscorers qw(&get_topscorers_competitie);
 use Shob_Tools::Idate;
@@ -62,8 +63,6 @@ my $xmlDir = File::Spec->catfile('..', 'data', 'sport', $ekwkDir);
 sub get_ekwk_gen($)
 { # (c) Edwin Spee
 
-  use Sport_Functions::ListRemarks qw($all_remarks);
-
   my $id = shift;
 
   my $year = $id;
@@ -73,21 +72,13 @@ sub get_ekwk_gen($)
 
   my $dd                 = $all_remarks->{ekwk}->get($id, 'dd');
   my $organising_country = $all_remarks->{ekwk}->get($id, 'organising_country');
-  my $sort_rule          = $all_remarks->{ekwk}->get($id, 'sort_rule');
-  my $title              = $all_remarks->{ekwk}->get($id, 'title');
-  if (not defined($title))
-  {
-    $title = uc($ekwk) . '-' . $year;
-  }
+  my $sort_rule          = $all_remarks->{ekwk}->get($id, 'sort_rule', 5);
+  my $title              = $all_remarks->{ekwk}->get($id, 'title', uc($ekwk) . '-' . $year);
 
   my $csv_file = File::Spec->catfile($ekwkDir, "$id.csv");
   my $xml_file = File::Spec->catfile($xmlDir, uc($ekwk) . "_$year.xml");
 
-  my $all_results = read_wk($csv_file, $xml_file);
-  if (defined($sort_rule))
-  {
-    $all_results->{sort_rule} = $sort_rule;
-  }
+  my $all_results = read_ekwk($id, $csv_file, $xml_file, $sort_rule);
 
   my $topscorers = get_topscorers_competitie($id, 'ekwk', $title);
   my $html = format_ekwk($year, $organising_country, $all_results, $topscorers, $dd);
