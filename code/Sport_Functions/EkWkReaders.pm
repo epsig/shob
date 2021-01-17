@@ -278,14 +278,14 @@ sub read_voorronde($$$)
 
   my $fileWithPath = File::Spec->catfile($csv_dir, $file);
 
-  if ($type ne 'u')
+  if ($type ne 'u' && $type ne 'po_new')
   {
     open(IN, "< $fileWithPath") or die "can't open file $fileWithPath: $!\n";
   }
 
   my $retval;
 
-  if ($type eq 'u')
+  if ($type eq 'u' || $type eq 'po_new')
   {
     $retval = read_voorronde_part_u($fileWithPath, $file, $part);
   }
@@ -341,7 +341,7 @@ sub read_voorronde($$$)
     $retval = $extra;
   }
 
-  if ($type ne 'u')
+  if ($type ne 'u' && $type ne 'po_new')
   {
     close (IN);
   }
