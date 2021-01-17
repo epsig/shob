@@ -93,8 +93,9 @@ sub get_ekwk_voorr_gen($)
   my $year = $id;
      $year =~ s/[ew]kD?//;
 
-  my $csvfile = File::Spec->catfile($ekwkQfDir, "${id}v.csv");
+  my $csvfile_q = File::Spec->catfile($ekwkQfDir, "${id}q.csv");
   my $csvfile_u = File::Spec->catfile($ekwkQfDir, "${id}u.csv");
+  my $csvfile_s = File::Spec->catfile($ekwkQfDir, "${id}s.csv");
 
   my $organising_country = $all_remarks->{ekwk}->get($id, 'organising_country');
   my $dd                 = $all_remarks->{ekwk_qf}->get($id, 'dd');
@@ -102,11 +103,11 @@ sub get_ekwk_voorr_gen($)
   my $u_nl = read_voorronde($csvfile_u, 'gNL', 'u');
   $u_nl->[0] = ['Groepswedstrijden Nederland', [1, 3, '', 4]];
 
-  my $u = read_voorronde_standen($csvfile, '2', 1);
+  my $u = read_voorronde_standen($csvfile_s, '2', 1);
   my $nrs2 = $u->[1];
   $nrs2->[0] = ['beste nummers 2'];
 
-  my $list_geplaatst = read_voorronde($csvfile, 'qf', 'qf');
+  my $list_geplaatst = read_voorronde($csvfile_q, 'qf', 'qf');
 
   my $po = read_voorronde($csvfile_u, 'po', 'po_new');
 
