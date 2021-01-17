@@ -441,7 +441,6 @@ sub get_actueel($)
 
  my $links = [
 ['https://www.google.com/search?q=corona', 'Corona',1,13],
-['https://www.bbc.com/news/politics/uk_leaves_the_eu', 'Einde overgangsperiode Brexit',1,13],
 #['http://www.wimbledon.org/','Wimbledon', 6, 7.3],
 ['http://www.letour.fr/','Tour de France', 8.5, 10], #6.8, 8
 ['https://www.giroditalia.it/', "Giro d'Italia", 10, 11], # met 1e week juni
@@ -450,7 +449,7 @@ sub get_actueel($)
 #['https://www.verkiezingen2015.nl/', '18 maart Staten-verkiezingen', 3, 4],
 ['http://www.knsb.nl/', 'Schaatsen: EK/WK sprint/all-round', 1, 3.9], # tot half maart
 #[ ttlink(434,'', 'tekst'), 'Toertochten op NOS Teletekst', 1, 2.9],
-['http://www.ausopen.org/','Australian Open', 1, 2],
+['http://www.ausopen.org/','Australian Open', 2, 3], # 1,2
 ['http://www.4en5mei.nl/','vier en vijf mei', 4.7, 5.5],
 #['http://www.examenblad.nl/','Eindexamens', 5.5, 6.3],
 ['http://www.rolandgarros.org/','Roland Garros', 9.5, 10.5],
