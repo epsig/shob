@@ -30,6 +30,12 @@ wk2006,start,1
 wk2006,dd,20070110
 wk2006,star_grp_euro,1
 ek2008,gG,star=1
+ek2008,grpNL,gG
+ek2008,dd,20140622
+ek2008,cnt,6
+ek2008,start,A
+ek2008,star_grp_euro,1
+wk2006,grpNL,gG
 wk2010,g9,star=3
 ek2012,gE,star=1
 wk2014,gNL,star=4

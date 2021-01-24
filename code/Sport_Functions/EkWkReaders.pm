@@ -200,6 +200,7 @@ sub read_voorronde_standen_inner($)
   if ($line =~ m/^$part\b/)
   {
    chomp($line);
+   $line =~ s/#.*//;
    my @parts = split /\s*,\s*/, $line;
    my (undef, $land, $g, $w, $d, $l, $p, $a, $b, $ster) = @parts;
    if (defined $ster)
@@ -292,6 +293,7 @@ sub read_voorronde($$$)
   if ($type eq 'u' || $type eq 'po_new')
   {
     $retval = read_voorronde_part_u($fileWithPath, $file, $part);
+    if (not scalar @$retval) {undef $retval;}
   }
   elsif ($type eq 'qf')
   {
@@ -386,7 +388,7 @@ sub read_wk_part($$$$$)
 
   my $isko = ($srt_rule < 1);
 
-  my @games = ([$title, [1, $srt_rule, '', $ster_]]);
+  my @games = ();
 
   foreach my $struct (@$content)
   {
@@ -394,6 +396,10 @@ sub read_wk_part($$$$$)
     {
       add_one_line(\@games, $struct, $isko);
     }
+  }
+  if (scalar @games)
+  {
+    unshift @games, [$title, [1, $srt_rule, '', $ster_]];
   }
   return \@games;
 }

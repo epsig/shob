@@ -131,12 +131,14 @@ sub get_ekwk_voorr_gen($)
     else
     {
       $ekwk_qf->{grp_euro} = $u;
-      if ($gNL =~ m/(\d)/)
+      if ($gNL =~ m/g(.)$/)
       {
         my $grp = $1;
+        my $grpNr = $grp;
+        if ($start eq 'A') {$grpNr = 1 + ord($grpNr) - ord('A');}
         my $star_grp_euro = -1;
         $star_grp_euro = $all_remarks->{ekwk_qf}->get($id, 'star_grp_euro', $star_grp_euro);
-        $ekwk_qf->{grp_euro}->[$grp] = u2s($u_nl, 1, 3, "Groep $grp", $star_grp_euro);
+        $ekwk_qf->{grp_euro}->[$grpNr] = u2s($u_nl, 1, 3, "Groep $grp", $star_grp_euro);
       }
     }
   }
@@ -201,20 +203,7 @@ sub get_wk2006v()
 sub get_ek2008v()
 {# (c) Edwin Spee
 
- my $csvfile = File::Spec->catfile($ekwkQfDir, 'ek2008v.csv');
- my $csvfile_u = File::Spec->catfile($ekwkQfDir, 'ek2008u.csv');
-
- my $u_nl = read_voorronde($csvfile_u, 'gG', 'u');
-
- my $kzb = get_oefenduels(20060800, 20080731);
-
- my $list_geplaatst = read_voorronde($csvfile, 'qf', 'qf');
-
- my $grp_euro = read_voorronde_standen($csvfile, 'A', 6);
- $grp_euro->[7] = u2s($u_nl, 1, 3, 'Groep G', 1);
-
- return format_voorronde_ekwk(2008, 'Oostenrijk/Zwitserland',
- {u_nl => $u_nl, kzb => $kzb, grp_euro => $grp_euro, geplaatst => $list_geplaatst}, 20140622);
+  return get_ekwk_voorr_gen('ek2008');
 }
 
 sub get_wk2010v()
