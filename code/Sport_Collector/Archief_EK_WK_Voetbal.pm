@@ -95,54 +95,65 @@ sub get_ekwk_voorr_gen($)
 
   my $csvfile_q = File::Spec->catfile($ekwkQfDir, "${id}q.csv");
   my $csvfile_u = File::Spec->catfile($ekwkQfDir, "${id}u.csv");
+  my $csvfile_v = File::Spec->catfile($ekwkQfDir, "${id}v.csv");
   my $csvfile_s = File::Spec->catfile($ekwkQfDir, "${id}s.csv");
 
-  my $organising_country = $all_remarks->{ekwk}->get($id, 'organising_country');
+  my $organising_country = $all_remarks->{ekwk_qf}->get($id, 'organising_country');
+  if (not defined $organising_country)
+  {
+    $organising_country = $all_remarks->{ekwk}->get($id, 'organising_country');
+  }
   my $dd                 = $all_remarks->{ekwk_qf}->get($id, 'dd');
 
+  my $ekwk_qf = {};
   my $u_nl = read_voorronde($csvfile_u, 'gNL', 'u');
-  $u_nl->[0] = ['Groepswedstrijden Nederland', [1, 3, '', 4]];
+  if (defined $u_nl)
+  {
+    if (scalar @{$u_nl} > 1)
+    {
+      $u_nl->[0] = ['Groepswedstrijden Nederland', [1, 3, '', 4]];
+      $ekwk_qf = {u_nl => $u_nl};
+    }
+  }
 
-  my $u = read_voorronde_standen($csvfile_s, '2', 1);
-  my $nrs2 = $u->[1];
-  $nrs2->[0] = ['beste nummers 2'];
+  my $start = $all_remarks->{ekwk_qf}->get($id, 'start');
+  my $cnt = $all_remarks->{ekwk_qf}->get($id, 'cnt');
+  my $u = read_voorronde_standen($csvfile_s, $start, $cnt);
 
-  my $list_geplaatst = read_voorronde($csvfile_q, 'qf', 'qf');
+  if ($cnt == 1)
+  {
+    my $nrs2 = $u->[1];
+    $nrs2->[0] = ['beste nummers 2'];
+    $ekwk_qf->{nrs2} = $nrs2;
+  }
+  else
+  {
+    $ekwk_qf->{grp_euro} = $u;
+  }
 
-  my $po = read_voorronde($csvfile_u, 'po', 'po_new');
+  $ekwk_qf->{geplaatst} = read_voorronde($csvfile_q, 'qf', 'qf');
 
-  my $dd1kzb = 1e4 * ($year - 1);
-  my $dd2kzb = 1e4 * $year + 630;
-  my $kzb    = get_oefenduels($dd1kzb, $dd2kzb);
+  $ekwk_qf->{play_offs} = read_voorronde($csvfile_u, 'po', 'po_new');
 
-  my $ekwk_qf = {u_nl => $u_nl, kzb => $kzb, play_offs => $po, nrs2 => $nrs2, geplaatst => $list_geplaatst};
+  my $dd1kzb = 1e4 * ($year - 2) + 815; # 815: aug, 15
+  my $dd2kzb = 1e4 *  $year      + 630; # 630: june, 30
+  $ekwk_qf->{kzb} = get_oefenduels($dd1kzb, $dd2kzb);
+
+  $ekwk_qf->{extra} = read_voorronde($csvfile_v, 'extra', 'extra');
 
   my $html = format_voorronde_ekwk($year, $organising_country, $ekwk_qf, $dd);
 }
 
 sub get_ek1996v()
-{# (c) Edwin Spee
+{ # (c) Edwin Spee
 
   return get_ekwk_voorr_gen('ek1996');
 }
 
 sub get_ek2000v()
-{# (c) Edwin Spee
+{ # (c) Edwin Spee
 
- my $csvfile = File::Spec->catfile($ekwkQfDir, 'ek2000v.csv');
-
- my $po = read_voorronde($csvfile, 'po', 'po');
-
- my $grp_euro = read_voorronde_standen($csvfile, '1', 9);
-
- my $list_geplaatst = read_voorronde($csvfile, 'qf', 'qf');
-
- my $extra = read_voorronde($csvfile, 'extra', 'extra');
-
- return format_voorronde_ekwk(2000, 'Belgi&euml; en Nederland',
-  {kzb => get_oefenduels(19980801,20000630), extra => $extra,
-   grp_euro => $grp_euro, play_offs => $po, geplaatst => $list_geplaatst},
-  20200712);
+  return get_ekwk_voorr_gen('ek2000');
 }
 
 sub get_wk1998v()

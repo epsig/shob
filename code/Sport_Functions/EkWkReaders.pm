@@ -278,6 +278,8 @@ sub read_voorronde($$$)
 
   my $fileWithPath = File::Spec->catfile($csv_dir, $file);
 
+  if (not -f $fileWithPath) {return undef;}
+
   if ($type ne 'u' && $type ne 'po_new')
   {
     open(IN, "< $fileWithPath") or die "can't open file $fileWithPath: $!\n";
@@ -335,6 +337,7 @@ sub read_voorronde($$$)
       {
         # intentionally no chomp
         $line =~ s/^$part,//;
+        $line =~ s/"//g;
         $extra .= $line;
       }
     }
