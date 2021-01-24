@@ -134,7 +134,9 @@ sub get_ekwk_voorr_gen($)
       if ($gNL =~ m/(\d)/)
       {
         my $grp = $1;
-        $ekwk_qf->{grp_euro}->[$grp] = u2s($u_nl, 1, 3, "Groep $grp", -1);
+        my $star_grp_euro = -1;
+        $star_grp_euro = $all_remarks->{ekwk_qf}->get($id, 'star_grp_euro', $star_grp_euro);
+        $ekwk_qf->{grp_euro}->[$grp] = u2s($u_nl, 1, 3, "Groep $grp", $star_grp_euro);
       }
     }
   }
@@ -145,6 +147,7 @@ sub get_ekwk_voorr_gen($)
 
   my $dd1kzb = 1e4 * ($year - 2) + 815; # 815: aug, 15
   my $dd2kzb = 1e4 *  $year      + 630; # 630: june, 30
+     $dd1kzb = $all_remarks->{ekwk_qf}->get($id, 'dd1kzb', $dd1kzb);
   $ekwk_qf->{kzb} = get_oefenduels($dd1kzb, $dd2kzb);
 
   $ekwk_qf->{extra} = read_voorronde($csvfile_v, 'extra', 'extra');
@@ -184,24 +187,9 @@ sub get_wk2002v()
 }
 
 sub get_ek2004v()
-{# (c) Edwin Spee
+{ # (c) Edwin Spee
 
- my $csvfile = File::Spec->catfile($ekwkQfDir, 'ek2004v.csv');
- my $csvfile_u = File::Spec->catfile($ekwkQfDir, 'ek2004u.csv');
-
- my $u3 = read_voorronde($csvfile_u, 'g3', 'u');
-
- my $grp_euro = read_voorronde_standen($csvfile, '1', 10);
- $grp_euro->[3] = u2s($u3, 1, 3, 'Groep 3',1);
-
- my $po = read_voorronde($csvfile, 'po', 'po');
-
- my $list_geplaatst = read_voorronde($csvfile, 'qf', 'qf');
-
- return format_voorronde_ekwk(2004, 'Portugal',
-  {u_nl => $u3, kzb => get_oefenduels(20011101, 20040630),
-   grp_euro => $grp_euro, play_offs => $po, geplaatst => $list_geplaatst},
-  20200705);
+  return get_ekwk_voorr_gen('ek2004');
 }
 
 sub get_wk2006v()
