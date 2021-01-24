@@ -193,26 +193,9 @@ sub get_ek2004v()
 }
 
 sub get_wk2006v()
-{# (c) Edwin Spee
+{ # (c) Edwin Spee
 
- my $csvfile = File::Spec->catfile($ekwkQfDir, 'wk2006v.csv');
- my $csvfile_u = File::Spec->catfile($ekwkQfDir, 'wk2006u.csv');
-
- my $u_nl = read_voorronde($csvfile_u, 'g1', 'u');
-
- my $grp_euro = read_voorronde_standen($csvfile, '1', 8);
-
- my $kzb = get_oefenduels(20040800, 20060630);
-
- $grp_euro->[1] = u2s($u_nl, 1, 3, 'Groep 1', 1);
-
- my $po = read_voorronde($csvfile, 'po', 'po');
-
- my $list_geplaatst = read_voorronde($csvfile, 'qf', 'qf');
-
- return format_voorronde_ekwk(2006, 'Duitsland',
-  {u_nl => $u_nl, kzb => $kzb, grp_euro => $grp_euro, play_offs => $po, geplaatst => $list_geplaatst},
-  20070110);
+  return get_ekwk_voorr_gen('wk2006');
 }
 
 sub get_ek2008v()

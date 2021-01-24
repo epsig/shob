@@ -24,6 +24,11 @@ ek2004,dd,20200705
 ek2004,dd1kzb,20011101
 ek2004,star_grp_euro,1
 wk2006,g1,star=1
+wk2006,grpNL,g1
+wk2006,cnt,8
+wk2006,start,1
+wk2006,dd,20070110
+wk2006,star_grp_euro,1
 ek2008,gG,star=1
 wk2010,g9,star=3
 ek2012,gE,star=1
