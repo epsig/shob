@@ -43,6 +43,8 @@ wk2010,cnt,8
 wk2010,star_grp_euro,3
 wk2010,dd,20100605
 ek2012,gE,star=1
+ek2012,dd,auto
+ek2012,grpNL,gE
 wk2014,gNL,star=4
 ek2016,gNL,star=5
 wk2018,gNL,star=4

@@ -1,3 +1,4 @@
+phase,land,remark
 qf,PL,gastland
 qf,UA,gastland
 qf,DE,winnaar groep A
@@ -14,7 +15,3 @@ qf,HR,winnaar play-offs
 qf,IE,winnaar play-offs
 qf,CZ,winnaar play-offs
 qf,PT,winnaar play-offs
-po,TR,HR,20111111,0,3,20111115,0,0,2
-po,EE,IE,20111111,0,4,20111115,1,1,2
-po,CZ,ME,20111111,2,0,20111115,0,1,1
-po,BA,PT,20111111,0,0,20111115,6,2,2

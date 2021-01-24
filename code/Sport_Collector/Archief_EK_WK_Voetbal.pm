@@ -147,7 +147,7 @@ sub get_ekwk_voorr_gen($)
 
   $ekwk_qf->{play_offs} = read_voorronde($csvfile_u, 'po', 'po_new');
 
-  my $dd1kzb = 1e4 * ($year - 2) + 815; # 815: aug, 15
+  my $dd1kzb = 1e4 * ($year - 2) + 810; # 810: aug, 10
   my $dd2kzb = 1e4 *  $year      + 630; # 630: june, 30
      $dd1kzb = $all_remarks->{ekwk_qf}->get($id, 'dd1kzb', $dd1kzb);
   $ekwk_qf->{kzb} = get_oefenduels($dd1kzb, $dd2kzb);
@@ -159,6 +159,12 @@ sub get_ekwk_voorr_gen($)
   {
     my @countries = split(/;/, $beslissend);
     $ekwk_qf->{beslissend} = \@countries;
+  }
+
+  if ($dd eq 'auto')
+  {
+    $dd = laatste_speeldatum($ekwk_qf->{kzb});
+    $dd = max($dd, laatste_speeldatum($u_nl));
   }
 
   my $html = format_voorronde_ekwk($year, $organising_country, $ekwk_qf, $dd);
@@ -214,19 +220,7 @@ sub get_wk2010v()
 
 sub get_ek2012v
 {
- my $csvfile = File::Spec->catfile($ekwkQfDir, 'ek2012v.csv');
- my $csvfile_u = File::Spec->catfile($ekwkQfDir, 'ek2012u.csv');
-
- my $ek2012v_u_nl = read_voorronde($csvfile_u, 'gE', 'u');
- my $list_geplaatst = read_voorronde($csvfile, 'qf', 'qf');
- my $po = read_voorronde($csvfile, 'po', 'po');
-
- my $kzb = get_oefenduels(20100701,20120630);
- my $dd  = laatste_speeldatum($kzb);
-
- return format_voorronde_ekwk(2012, 'Polen/Oekra&iuml;ne',
- {u_nl => $ek2012v_u_nl, kzb => $kzb, geplaatst => $list_geplaatst,
-  play_offs => $po}, $dd);
+  return get_ekwk_voorr_gen('ek2012');
 }
 
 sub get_wk2014v
