@@ -235,13 +235,7 @@ sub get_ek2016v
 
 sub get_wk2018v
 {
-  my $csvfile_u = File::Spec->catfile($ekwkQfDir, 'wk2018u.csv');
-  my $wk2018v_u_nl = read_voorronde($csvfile_u, 'gNL', 'u');
-
-  my $kzb = get_oefenduels(20160701, 20180630);
-
-  my $dd = 20200523;
-  return format_voorronde_ekwk(2018, 'Rusland', {u_nl => $wk2018v_u_nl, kzb => $kzb}, $dd);
+  return get_ekwk_voorr_gen('wk2018');
 }
 
 sub get_ek2020v
