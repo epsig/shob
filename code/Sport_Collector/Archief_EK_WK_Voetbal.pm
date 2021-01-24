@@ -230,15 +230,7 @@ sub get_wk2014v
 
 sub get_ek2016v
 {
-  my $csvfile_u = File::Spec->catfile($ekwkQfDir, 'ek2016u.csv');
-  my $ek2016v_u_nl = read_voorronde($csvfile_u, 'gNL', 'u');
-
-  my $kzb = get_oefenduels(20140701, 20160630);
-
-  my $dd1 = laatste_speeldatum($ek2016v_u_nl);
-  my $dd2 = laatste_speeldatum($kzb);
-  my $dd = max($dd1, $dd2);
-  return format_voorronde_ekwk(2016, 'Frankrijk', {u_nl => $ek2016v_u_nl, kzb => $kzb}, $dd);
+  return get_ekwk_voorr_gen('ek2016');
 }
 
 sub get_wk2018v
