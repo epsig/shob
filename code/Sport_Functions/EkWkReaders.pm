@@ -223,6 +223,8 @@ sub read_voorronde_standen($$$)
 
  my $fileWithPath = File::Spec->catfile($csv_dir, $file);
 
+ if (not -f $fileWithPath) {return undef;}
+
  open(IN, "< $fileWithPath") or die "can't open file $fileWithPath: $!\n";
 
  my @s;

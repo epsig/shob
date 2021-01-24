@@ -1,8 +1,4 @@
-# EKWK voorronde format
-po,HR,UA,19971029,2,0,15/16 nov '97,1,1,1
-po,RU,IT,19971029,1,1,15/16 nov '97,1,0,2
-po,IE,BE,19971029,1,1,15/16 nov '97,2,1,2
-po,HU,YU,19971029,1,7,15/16 nov '97,5,0,2
+phase,land,remark
 qf,BR,titelverdediger
 qf,FR,gastland
 qf,BG,Europa: groepswinnaar
