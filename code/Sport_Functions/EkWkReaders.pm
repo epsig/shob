@@ -248,7 +248,7 @@ sub read_voorronde_part_u($$$)
 
   my $qfLines = read_csv_with_header($fileWithPath);
   my $tournement = basename($file);
-     $tournement =~ s/u.csv//;
+     $tournement =~ s/[uv].csv//;
   my $remarks = $all_remarks->{ekwk_qf}->get_ml($tournement, $part, 1);
   my $ster;
   my $sortrule = 3;

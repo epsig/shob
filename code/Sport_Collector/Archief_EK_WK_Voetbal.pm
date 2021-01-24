@@ -104,14 +104,14 @@ sub get_ekwk_voorr_gen($)
     $organising_country = $all_remarks->{ekwk}->get($id, 'organising_country');
   }
   my $dd                 = $all_remarks->{ekwk_qf}->get($id, 'dd');
+  my $gNL                = $all_remarks->{ekwk_qf}->get($id, 'grpNL', 'gNL');
 
   my $ekwk_qf = {};
-  my $u_nl = read_voorronde($csvfile_u, 'gNL', 'u');
+  my $u_nl = read_voorronde($csvfile_u, $gNL, 'u');
   if (defined $u_nl)
   {
     if (scalar @{$u_nl} > 1)
     {
-      $u_nl->[0] = ['Groepswedstrijden Nederland', [1, 3, '', 4]];
       $ekwk_qf = {u_nl => $u_nl};
     }
   }
@@ -131,6 +131,11 @@ sub get_ekwk_voorr_gen($)
     else
     {
       $ekwk_qf->{grp_euro} = $u;
+      if ($gNL =~ m/(\d)/)
+      {
+        my $grp = $1;
+        $ekwk_qf->{grp_euro}->[$grp] = u2s($u_nl, 1, 3, "Groep $grp", -1);
+      }
     }
   }
 
@@ -143,6 +148,13 @@ sub get_ekwk_voorr_gen($)
   $ekwk_qf->{kzb} = get_oefenduels($dd1kzb, $dd2kzb);
 
   $ekwk_qf->{extra} = read_voorronde($csvfile_v, 'extra', 'extra');
+
+  my $beslissend = $all_remarks->{ekwk_qf}->get($id, 'beslissend');
+  if (defined $beslissend)
+  {
+    my @countries = split(/;/, $beslissend);
+    $ekwk_qf->{beslissend} = \@countries;
+  }
 
   my $html = format_voorronde_ekwk($year, $organising_country, $ekwk_qf, $dd);
 }
@@ -168,23 +180,7 @@ sub get_wk1998v()
 sub get_wk2002v()
 {# (c) Edwin Spee
 
- my $csvfile = File::Spec->catfile($ekwkQfDir, 'wk2002v.csv');
- my $csvfile_u = File::Spec->catfile($ekwkQfDir, 'wk2002u.csv');
-
- my $uitslagen_2 = read_voorronde($csvfile_u, 'g2', 'u');
-
- my $uitslagen_po = read_voorronde($csvfile, 'po', 'po');
-
- my $grp_euro = read_voorronde_standen($csvfile, '1', 9);
- $grp_euro->[2] = u2s($uitslagen_2, 1, 3, 'Groep 2',-1);
-
- my $list_geplaatst = read_voorronde($csvfile, 'qf', 'qf');
-
- return format_voorronde_ekwk(2002, 'Japan/Zuid-Korea',
-  {u_nl => $uitslagen_2, beslissend => ['NL','IE','PT'],
-   kzb => get_oefenduels(20000801, 20020531),
-   grp_euro => $grp_euro, play_offs => $uitslagen_po, geplaatst => $list_geplaatst},
-  20200711);
+  return get_ekwk_voorr_gen('wk2002');
 }
 
 sub get_ek2004v()
