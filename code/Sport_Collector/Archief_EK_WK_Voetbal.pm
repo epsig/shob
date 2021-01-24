@@ -225,19 +225,7 @@ sub get_ek2012v
 
 sub get_wk2014v
 {
- my $csvfile = File::Spec->catfile($ekwkQfDir, 'wk2014v.csv');
- my $csvfile_u = File::Spec->catfile($ekwkQfDir, 'wk2014u.csv');
-
- my $wk2014v_u_nl = read_voorronde($csvfile_u, 'gNL', 'u');
-
- my $po_wk2014 = read_voorronde($csvfile, 'po', 'po');
-
- my $kzb = get_oefenduels(20120701, 20140630);
-
- my $dd = laatste_speeldatum($kzb);
-
- return format_voorronde_ekwk(2014, 'Brazili&euml;',
- {u_nl => $wk2014v_u_nl, kzb => $kzb, play_offs => $po_wk2014},$dd);
+  return get_ekwk_voorr_gen('wk2014');
 }
 
 sub get_ek2016v

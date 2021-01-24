@@ -46,6 +46,7 @@ ek2012,gE,star=1
 ek2012,dd,auto
 ek2012,grpNL,gE
 wk2014,gNL,star=4
+wk2014,dd,auto
 ek2016,gNL,star=5
 wk2018,gNL,star=4
 wk2018,gNL,sort_rule=2
