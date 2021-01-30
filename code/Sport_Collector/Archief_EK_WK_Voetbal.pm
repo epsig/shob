@@ -150,6 +150,7 @@ sub get_ekwk_voorr_gen($)
   my $dd1kzb = 1e4 * ($year - 2) + 810; # 810: aug, 10
   my $dd2kzb = 1e4 *  $year      + 630; # 630: june, 30
      $dd1kzb = $all_remarks->{ekwk_qf}->get($id, 'dd1kzb', $dd1kzb);
+     $dd2kzb = $all_remarks->{ekwk_qf}->get($id, 'dd2kzb', $dd2kzb);
   $ekwk_qf->{kzb} = get_oefenduels($dd1kzb, $dd2kzb);
 
   $ekwk_qf->{extra} = read_voorronde($csvfile_v, 'extra', 'extra');
@@ -161,12 +162,24 @@ sub get_ekwk_voorr_gen($)
     $ekwk_qf->{beslissend} = \@countries;
   }
 
+  my $uNatLFile = $all_remarks->{ekwk_qf}->get($id, 'NatLeagueGroup');
+  if (defined $uNatLFile)
+  {
+    $ekwk_qf->{NatL} = ReadNatLeague($uNatLFile, 3);
+  }
+  my $uNatLFinalsFile = $all_remarks->{ekwk_qf}->get($id, 'NatLeagueFinals');
+  if (defined $uNatLFinalsFile)
+  {
+    $ekwk_qf->{NatLFinals} = ReadNatLeagueFinals($uNatLFinalsFile);
+  }
+
   if ($dd eq 'auto')
   {
     $dd = laatste_speeldatum($ekwk_qf->{kzb});
     $dd = max($dd, laatste_speeldatum($u_nl));
   }
 
+  $year = $all_remarks->{ekwk_qf}->get($id, 'year', $year);
   my $html = format_voorronde_ekwk($year, $organising_country, $ekwk_qf, $dd);
 }
 
@@ -240,17 +253,7 @@ sub get_wk2018v
 
 sub get_ek2020v
 {
-  my $csvfile_u = File::Spec->catfile($ekwkQfDir, 'ek2020u.csv');
-  my $ek2020v_u_nl = read_voorronde($csvfile_u, 'gNL', 'u');
-
-  my $kzb = get_oefenduels(20180701, 20210630);
-  my $uNatL = ReadNatLeague('NL_2018_grpA.csv', 3);
-  my $uNatLFinals = ReadNatLeagueFinals('NL_2019.csv');
-  my $dd = laatste_speeldatum($ek2020v_u_nl);
-  $dd = max($dd, laatste_speeldatum($kzb));
-  $dd = max($dd, 20200922);
-  return format_voorronde_ekwk(2021, '12 Europese landen en stadions',
-    {u_nl => $ek2020v_u_nl, kzb => $kzb, NatL => $uNatL, NatLFinals => $uNatLFinals}, $dd);
+  return get_ekwk_voorr_gen('ek2020');
 }
 
 my $uNatL = ReadNatLeague('NL_2020_grpA.csv', -1);
