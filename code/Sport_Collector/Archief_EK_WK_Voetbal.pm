@@ -60,10 +60,11 @@ my $ekwkDir = 'ekwk';
 my $ekwkQfDir = 'ekwk_qf';
 my $xmlDir = File::Spec->catfile('..', 'data', 'sport', $ekwkDir);
 
-sub get_ekwk_gen($)
+sub get_ekwk_gen($;$)
 { # (c) Edwin Spee
 
-  my $id = shift;
+  my $id      = shift;
+  my $outtype = shift;
 
   my $year = $id;
      $year =~ s/[ew]kD?//;
@@ -71,6 +72,11 @@ sub get_ekwk_gen($)
   my $ekwk = substr($id, 0, 2);
 
   my $dd                 = $all_remarks->{ekwk}->get($id, 'dd');
+  if (defined $outtype && $outtype eq 'dd')
+  {
+    return $dd;
+  }
+
   my $organising_country = $all_remarks->{ekwk}->get($id, 'organising_country');
   my $sort_rule          = $all_remarks->{ekwk}->get($id, 'sort_rule', 5);
   my $title              = $all_remarks->{ekwk}->get($id, 'title', uc($ekwk) . '-' . $year);
@@ -85,10 +91,11 @@ sub get_ekwk_gen($)
   return $html;
 }
 
-sub get_ekwk_voorr_gen($)
+sub get_ekwk_voorr_gen($;$)
 { # (c) Edwin Spee
 
-  my $id = shift;
+  my $id      = shift;
+  my $outtype = shift;
 
   my $year = $id;
      $year =~ s/[ew]kD?//;
@@ -192,6 +199,11 @@ sub get_ekwk_voorr_gen($)
     }
   }
 
+  if (defined $outtype && $outtype eq 'dd')
+  {
+    return $dd;
+  }
+
   $year = $all_remarks->{ekwk_qf}->get($id, 'year', $year);
   my $html = format_voorronde_ekwk($year, $organising_country, $ekwk_qf, $dd);
 }
@@ -276,21 +288,25 @@ sub get_wk2022v
 
 sub set_laatste_speeldatum_ekwk
 {
- my $uNatL = ReadNatLeague('NL_2020_grpA.csv', -1);
- my $dd = 20200913;
- $dd = max($dd, laatste_speeldatum(get_oefenduels(20180701,99999999)));
- $dd = max($dd, laatste_speeldatum($uNatL));
-#my $u = $wkD2019->{grp};
-#my $all = combine_puus(@{$u});
-#my @expect = ('u16', 'uk', 'uh', 'uf', 'u34');
-#foreach my $val (@expect)
-#{
-# if (defined $wkD2019->{$val})
-# {
-#  $all = combine_puus($all, $wkD2019->{$val});
-#}}
-# $dd = max($dd, laatste_speeldatum($ek2020v_u_nl));
- set_datum_fixed($dd);
+  my $dd = 0;
+
+  my @subs = (\&get_ekwk_voorr_gen, \&get_ekwk_gen);
+  my @names = ('ekwk_qf', 'ekwk');
+
+  for(my $i = 0; $i < 2; $i++)
+  {
+    my $comps = $all_remarks->{$names[$i]}->get('all', 'dd');
+    if (defined $comps)
+    {
+      my @comps = split(/;/, $comps);
+      foreach my $comp (@comps)
+      {
+        $dd = max($dd, $subs[$i]($comp, 'dd'));
+      }
+    }
+  }
+
+  set_datum_fixed($dd);
 }
 
 return 1;
