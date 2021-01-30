@@ -39,20 +39,7 @@ $VERSION = '21.0';
 (#========================================================================
   '&set_laatste_speeldatum_ekwk',
   '&get_ekwk_gen',
-  '&get_wk2022v',
-  '&get_ek2020v',
-  '&get_wk2018v',
-  '&get_ek2016v',
-  '&get_wk2014v',
-  '&get_ek2012v',
-  '&get_wk2010v',
-  '&get_ek2008v',
-  '&get_wk2006v',
-  '&get_ek2004v',
-  '&get_wk2002v',
-  '&get_wk1998v',
-  '&get_ek2000v',
-  '&get_ek1996v',
+  '&get_ekwk_voorr_gen',
  #========================================================================
 );
 
@@ -206,84 +193,6 @@ sub get_ekwk_voorr_gen($;$)
 
   $year = $all_remarks->{ekwk_qf}->get($id, 'year', $year);
   my $html = format_voorronde_ekwk($year, $organising_country, $ekwk_qf, $dd);
-}
-
-sub get_ek1996v()
-{ # (c) Edwin Spee
-
-  return get_ekwk_voorr_gen('ek1996');
-}
-
-sub get_ek2000v()
-{ # (c) Edwin Spee
-
-  return get_ekwk_voorr_gen('ek2000');
-}
-
-sub get_wk1998v()
-{# (c) Edwin Spee
-
-  return get_ekwk_voorr_gen('wk1998');
-}
-
-sub get_wk2002v()
-{# (c) Edwin Spee
-
-  return get_ekwk_voorr_gen('wk2002');
-}
-
-sub get_ek2004v()
-{ # (c) Edwin Spee
-
-  return get_ekwk_voorr_gen('ek2004');
-}
-
-sub get_wk2006v()
-{ # (c) Edwin Spee
-
-  return get_ekwk_voorr_gen('wk2006');
-}
-
-sub get_ek2008v()
-{# (c) Edwin Spee
-
-  return get_ekwk_voorr_gen('ek2008');
-}
-
-sub get_wk2010v()
-{ # (c) Edwin Spee
-
-  return get_ekwk_voorr_gen('wk2010');
-}
-
-sub get_ek2012v
-{
-  return get_ekwk_voorr_gen('ek2012');
-}
-
-sub get_wk2014v
-{
-  return get_ekwk_voorr_gen('wk2014');
-}
-
-sub get_ek2016v
-{
-  return get_ekwk_voorr_gen('ek2016');
-}
-
-sub get_wk2018v
-{
-  return get_ekwk_voorr_gen('wk2018');
-}
-
-sub get_ek2020v
-{
-  return get_ekwk_voorr_gen('ek2020');
-}
-
-sub get_wk2022v
-{
-  return get_ekwk_voorr_gen('wk2022');
 }
 
 sub set_laatste_speeldatum_ekwk

@@ -89,21 +89,8 @@ sub handle_new_style_files($$$)
 # [1, ' rl', sub {&get_klaverjas_beta_versies;}, 'kj_beta_versies.html'],
 
  do_all_text_dir ($lop, '', [
-  [2, 'all', sub {&get_ek1996v;}, 'sport_voetbal_EK_1996_voorronde.html'],
-  [2, 'all', sub {&get_wk1998v;}, 'sport_voetbal_WK_1998_voorronde.html'],
-  [2, 'all', sub {&get_ek2000v;}, 'sport_voetbal_EK_2000_voorronde.html'],
-  [2, 'all', sub {&get_wk2002v;}, 'sport_voetbal_WK_2002_voorronde.html'],
-  [2, 'all', sub {&get_ek2004v;}, 'sport_voetbal_EK_2004_voorronde.html'],
-  [2, 'all', sub {&get_wk2006v;}, 'sport_voetbal_WK_2006_voorronde.html'],
-  [2, 'all', sub {&get_ek2008v;}, 'sport_voetbal_EK_2008_voorronde.html'],
-  [2, 'all', sub {&get_wk2010v;}, 'sport_voetbal_WK_2010_voorronde.html'],
-  [2, 'all', sub {&get_ek2012v;}, 'sport_voetbal_EK_2012_voorronde.html'],
-  [2, 'all', sub {&get_wk2014v;}, 'sport_voetbal_WK_2014_voorronde.html'],
-  [2, 'all', sub {&get_ek2016v;}, 'sport_voetbal_EK_2016_voorronde.html'],
-  [2, 'all', sub {&get_wk2018v;}, 'sport_voetbal_WK_2018_voorronde.html'],
   [2, 'all', sub {&get_ekwk_gen('wkD2019');}, 'sport_voetbal_WKD2019.html'],
-  [$fast, 'all', sub {&get_ek2020v;}, 'sport_voetbal_EK_2020_voorronde.html'],
-  [$fast, 'all', sub {&get_wk2022v;}, 'sport_voetbal_WK_2022_voorronde.html']]);
+  [$fast, 'all', sub {&get_ekwk_voorr_gen('wk2022');}, 'sport_voetbal_WK_2022_voorronde.html']]);
 
   my $curYr = 2020;
 
@@ -124,11 +111,17 @@ sub handle_new_style_files($$$)
     {
       push @pages, [$dl, 'all', sub {&get_OS($yr);}, "sport_schaatsen_OS_$yr.html"];
     }
-    if ($yr % 2 == 0 && $yr >= 1996 && $yr <= 2018)
+    if ($yr % 2 == 0 && $yr >= 1996)
     {
       my $ekwk = ($yr % 4 == 0 ? 'ek' : 'wk');
       my $page_name = "sport_voetbal_" . uc($ekwk) . "_$yr.html";
-      push @pages, [$dl, 'all', sub {&get_ekwk_gen($ekwk . $yr);}, $page_name];
+      if ($yr <= 2018)
+      {
+        push @pages, [$dl, 'all', sub {&get_ekwk_gen($ekwk . $yr);}, $page_name];
+      }
+
+      $page_name = "sport_voetbal_" . uc($ekwk) . "_${yr}_voorronde.html";
+      push @pages, [$dl, 'all', sub {&get_ekwk_voorr_gen($ekwk . $yr);}, $page_name];
     }
   }
   do_all_text_dir ($lop, '', \@pages);
