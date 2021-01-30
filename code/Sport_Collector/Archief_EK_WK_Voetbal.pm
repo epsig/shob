@@ -143,7 +143,7 @@ sub get_ekwk_voorr_data($)
 
   $ekwk_qf->{geplaatst} = read_voorronde($csvfile_q, 'qf', 'qf');
 
-  $ekwk_qf->{play_offs} = read_voorronde($csvfile_u, 'po', 'po_new');
+  $ekwk_qf->{play_offs} = read_voorronde($csvfile_u, 'po', 'po');
 
   my $dd1kzb = 1e4 * ($year - 2) + 810; # 810: aug, 10
   my $dd2kzb = 1e4 *  $year      + 630; # 630: june, 30

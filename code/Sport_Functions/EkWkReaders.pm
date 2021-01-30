@@ -283,14 +283,14 @@ sub read_voorronde($$$)
 
   if (not -f $fileWithPath) {return undef;}
 
-  if ($type ne 'u' && $type ne 'po_new')
+  if ($type ne 'u' && $type ne 'po')
   {
     open(IN, "< $fileWithPath") or die "can't open file $fileWithPath: $!\n";
   }
 
   my $retval;
 
-  if ($type eq 'u' || $type eq 'po_new')
+  if ($type eq 'u' || $type eq 'po')
   {
     $retval = read_voorronde_part_u($fileWithPath, $file, $part);
     if (not scalar @$retval) {undef $retval;}
@@ -309,29 +309,6 @@ sub read_voorronde($$$)
     }
     $retval = \@qf;
   }
-  elsif ($type eq 'po')
-  {
-    my @po = ([]);
-    while (my $line = <IN>)
-    {
-      if ($line =~ m/^$part/)
-      {
-        chomp($line);
-        my @parts = split /,/, $line;
-        my (undef, $a, $b, $dd, $aa, $bb, $dd2, $aa2, $bb2, $wns, $opm) = @parts;
-        if ($aa2 =~ m/[a-z]/)
-        { # apparently only one match
-          my (undef, $a, $b, $dd, $aa, $bb, $wns, $stadium, $opm) = @parts;
-          push @po, [$a,$b,[$dd,$aa,$bb,{opm=>$opm, stadion=>$stadium}],$wns];
-        }
-        else
-        {
-          push @po, [$a,$b,[$dd,$aa,$bb],[$dd2,$aa2,$bb2,{opm=>$opm}],$wns];
-        }
-      }
-    }
-    $retval = \@po;
-  }
   elsif ($type eq 'extra')
   {
     my $extra = '';
@@ -348,7 +325,7 @@ sub read_voorronde($$$)
     $retval = $extra;
   }
 
-  if ($type ne 'u' && $type ne 'po_new')
+  if ($type ne 'u' && $type ne 'po')
   {
     close (IN);
   }
