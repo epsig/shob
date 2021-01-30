@@ -59,3 +59,7 @@ ek2020,NatLeagueGroup,NL_2018_grpA.csv
 ek2020,NatLeagueFinals,NL_2019.csv
 ek2020,dd2kzb,20210630
 ek2020,year,2021
+wk2022,dd1kzb,20210815
+wk2022,NatLeagueGroup,NL_2020_grpA.csv
+wk2022,dd,auto
+wk2022,NatLeagueGroupSter,-1

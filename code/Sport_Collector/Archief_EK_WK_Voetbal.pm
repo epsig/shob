@@ -151,7 +151,11 @@ sub get_ekwk_voorr_gen($)
   my $dd2kzb = 1e4 *  $year      + 630; # 630: june, 30
      $dd1kzb = $all_remarks->{ekwk_qf}->get($id, 'dd1kzb', $dd1kzb);
      $dd2kzb = $all_remarks->{ekwk_qf}->get($id, 'dd2kzb', $dd2kzb);
-  $ekwk_qf->{kzb} = get_oefenduels($dd1kzb, $dd2kzb);
+  my $kzb = get_oefenduels($dd1kzb, $dd2kzb);
+  if (scalar @$kzb > 1)
+  {
+    $ekwk_qf->{kzb} = $kzb;
+  }
 
   $ekwk_qf->{extra} = read_voorronde($csvfile_v, 'extra', 'extra');
 
@@ -165,7 +169,9 @@ sub get_ekwk_voorr_gen($)
   my $uNatLFile = $all_remarks->{ekwk_qf}->get($id, 'NatLeagueGroup');
   if (defined $uNatLFile)
   {
-    $ekwk_qf->{NatL} = ReadNatLeague($uNatLFile, 3);
+    my $NatLster = 3;
+    $NatLster = $all_remarks->{ekwk_qf}->get($id, 'NatLeagueGroupSter', $NatLster);
+    $ekwk_qf->{NatL} = ReadNatLeague($uNatLFile, $NatLster);
   }
   my $uNatLFinalsFile = $all_remarks->{ekwk_qf}->get($id, 'NatLeagueFinals');
   if (defined $uNatLFinalsFile)
@@ -175,8 +181,15 @@ sub get_ekwk_voorr_gen($)
 
   if ($dd eq 'auto')
   {
-    $dd = laatste_speeldatum($ekwk_qf->{kzb});
-    $dd = max($dd, laatste_speeldatum($u_nl));
+    $dd = 0;
+    my @comps = ($ekwk_qf->{kzb}, $u_nl, $ekwk_qf->{NatL});
+    foreach my $comp (@comps)
+    {
+      if (defined $comp)
+      {
+        $dd = max($dd, laatste_speeldatum($comp));
+      }
+    }
   }
 
   $year = $all_remarks->{ekwk_qf}->get($id, 'year', $year);
@@ -256,19 +269,14 @@ sub get_ek2020v
   return get_ekwk_voorr_gen('ek2020');
 }
 
-my $uNatL = ReadNatLeague('NL_2020_grpA.csv', -1);
 sub get_wk2022v
 {
-  my $csvfile_u = File::Spec->catfile($ekwkQfDir, 'wk2022u.csv');
-  my $wk2022v_u_nl = read_voorronde($csvfile_u, 'gNL', 'u');
-
-  #my $kzb = get_oefenduels(20200701, 20220630);
-  my $dd = max(20210110, laatste_speeldatum($uNatL));
-  return format_voorronde_ekwk(2022, 'Qatar', {u_nl => $wk2022v_u_nl,NatL => $uNatL}, $dd);
+  return get_ekwk_voorr_gen('wk2022');
 }
 
 sub set_laatste_speeldatum_ekwk
 {
+ my $uNatL = ReadNatLeague('NL_2020_grpA.csv', -1);
  my $dd = 20200913;
  $dd = max($dd, laatste_speeldatum(get_oefenduels(20180701,99999999)));
  $dd = max($dd, laatste_speeldatum($uNatL));
