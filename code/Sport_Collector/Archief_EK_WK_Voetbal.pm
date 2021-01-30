@@ -59,11 +59,6 @@ sub get_ekwk_gen($;$)
   my $ekwk = substr($id, 0, 2);
 
   my $dd                 = $all_remarks->{ekwk}->get($id, 'dd');
-  if (defined $outtype && $outtype eq 'dd')
-  {
-    return $dd;
-  }
-
   my $organising_country = $all_remarks->{ekwk}->get($id, 'organising_country');
   my $sort_rule          = $all_remarks->{ekwk}->get($id, 'sort_rule', 5);
   my $title              = $all_remarks->{ekwk}->get($id, 'title', uc($ekwk) . '-' . $year);
@@ -74,6 +69,25 @@ sub get_ekwk_gen($;$)
   my $all_results = read_ekwk($id, $csv_file, $xml_file, $sort_rule);
 
   my $topscorers = get_topscorers_competitie($id, 'ekwk', $title);
+
+  my $all = combine_puus(@{$all_results->{grp}});
+  my @expect = ('u16', 'uk', 'uh', 'uf', 'u34');
+  foreach my $val (@expect)
+  {
+    if (defined $all_results->{$val})
+    {
+      $all = combine_puus($all, $all_results->{$val});
+    }
+  }
+  $all_results->{all} = $all;
+  my $ddu = laatste_speeldatum($all);
+  $dd = (defined $dd ? max($dd, $ddu) : $ddu);
+
+  if (defined $outtype && $outtype eq 'dd')
+  {
+    return $dd;
+  }
+
   my $html = format_ekwk($year, $organising_country, $all_results, $topscorers, $dd);
   return $html;
 }

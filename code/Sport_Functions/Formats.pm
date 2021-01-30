@@ -189,15 +189,7 @@ sub format_ekwk($$$$$)
   }
  }
 
- my $all = combine_puus(@{$u});
- my @expect = ('u16', 'uk', 'uh', 'uf', 'u34');
- foreach my $val (@expect)
- {
-  if (defined $phu->{$val})
-  {
-   $all = combine_puus($all, $phu->{$val});
- }}
-
+ my $all = $phu->{all};
  my $details = more_details($all);
  my $stats   = ekwk_stats($all);
 
@@ -260,8 +252,6 @@ EOF
   $topscorers->[0][0] = qq(<a name="topscorers">$topscorers->[0][0]</a>);
   $out .= ftable('tabs', get_tpsc(10, $topscorers, 0));
  }
-
- $dd = max($dd, laatste_speeldatum($all));
 
  my $dames = ($DH ? '(vrouwen) ' : '');
  my $title = "$EK_WK_str voetbal ${dames}te $organisatie in $year";
