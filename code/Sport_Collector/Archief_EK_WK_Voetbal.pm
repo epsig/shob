@@ -78,11 +78,15 @@ sub get_ekwk_gen($;$)
   return $html;
 }
 
-sub get_ekwk_voorr_gen($;$)
-{ # (c) Edwin Spee
+my $all_ekwk_qf = {};
 
+sub get_ekwk_voorr_data($)
+{
   my $id      = shift;
-  my $outtype = shift;
+  if (defined $all_ekwk_qf->{$id})
+  {
+    return $all_ekwk_qf->{$id};
+  }
 
   my $year = $id;
      $year =~ s/[ew]kD?//;
@@ -100,13 +104,13 @@ sub get_ekwk_voorr_gen($;$)
   my $dd                 = $all_remarks->{ekwk_qf}->get($id, 'dd');
   my $gNL                = $all_remarks->{ekwk_qf}->get($id, 'grpNL', 'gNL');
 
-  my $ekwk_qf = {};
+  my $ekwk_qf = {organising_country => $organising_country};
   my $u_nl = read_voorronde($csvfile_u, $gNL, 'u');
   if (defined $u_nl)
   {
     if (scalar @{$u_nl} > 1)
     {
-      $ekwk_qf = {u_nl => $u_nl};
+      $ekwk_qf->{u_nl} = $u_nl;
     }
   }
 
@@ -185,14 +189,30 @@ sub get_ekwk_voorr_gen($;$)
       }
     }
   }
+  $ekwk_qf->{dd} = $dd;
+
+  $all_ekwk_qf->{$id} = $ekwk_qf;
+
+  return $ekwk_qf;
+}
+
+sub get_ekwk_voorr_gen($;$)
+{ # (c) Edwin Spee
+
+  my $id      = shift;
+  my $outtype = shift;
+
+  my $ekwk_qf = get_ekwk_voorr_data($id);
 
   if (defined $outtype && $outtype eq 'dd')
   {
-    return $dd;
+    return $ekwk_qf->{dd};
   }
 
+  my $year = $id;
+     $year =~ s/[ew]kD?//;
   $year = $all_remarks->{ekwk_qf}->get($id, 'year', $year);
-  my $html = format_voorronde_ekwk($year, $organising_country, $ekwk_qf, $dd);
+  my $html = format_voorronde_ekwk($year, $ekwk_qf->{organising_country}, $ekwk_qf, $ekwk_qf->{dd});
 }
 
 sub set_laatste_speeldatum_ekwk
