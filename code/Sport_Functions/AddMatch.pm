@@ -125,6 +125,10 @@ sub add_one_line($$$)
         eval($cmd);
         push @match_result, $test;
       }
+      elsif ($struct->{remark} eq 'afgelast')
+      {
+        push @match_result, {afgelast => 1};
+      }
       else
       {
         push @match_result, {opm =>$opm};

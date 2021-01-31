@@ -1,140 +1,140 @@
-# empty header
-NL,FR,19950118,0,1
-NL,PT,19950222,0,1
-NL,BE,19960214,-1,-1,-1,afgelast
-NL,DE,19960424,0,1
-NL,NLdhc,19960521,7,1
-NL,NLdbr,19960524,7,1
-NL,CN,19960529,2,0,-1,stadion=Tilburg
-NL,NLzsl,19960601,7,0,-1,stadion=Vlissingen
-NL,IE,19960604,3,1,-1,dekuip
-NL,BR,19960930,2,2
-FR,NL,19970226,2,1
-ZA,NL,19970604,0,2
-US,NL,19980221,0,2,-1,stadion=Miami
-MX,NL,19980224,2,3
-CHrgl,NL,19980524,1,4
-NL,CM,19980527,0,0,-1,stadion=Arnhem
-NL,PY,19980601,5,1,-1,dekuip
-NL,NG,19980605,5,1,-1,arena
-NL,PE,19981010,2,0,-1,debuut van Frank Rijkaard als bondscoach
-NL,GH,19981013,0,0
-DE,NL,19981118,1,1
-NL,PT,19990210,0,0
-NL,AR,19990331,1,1
-NL,MA,19990428,1,2
-BR,NL,19990605,2,2
-BR,NL,19990608,3,1
-DK,NL,19990818,0,0
-NL,BE,19990904,5,5
-NL,BR,19991009,2,2
-NL,CZ,19991113,1,1
-NL,DE,20000223,2,1
-BE,NL,20000329,2,2
-NL,G2,20000426,0,0
-NL,RO,20000527,2,1
-CHser,NL,20000531,0,4
-NL,PL,20000604,3,1,-1,stadion=Lausanne (Zwi.)
-NLago,NL,20000816,0,9,-1,debuut van Louis van Gaal als bondscoach
-ES,NL,20001115,1,2
-NL,TR,20010228,0,0
-G1,NL,20010815,0,2
-DK,NL,20011110,1,1, # eigenlijk al voorbereiding EK-2004
-NL,G1,20020213,1,1,-1,rentree/debuut van Dick Advocaat en Wim van Hanegem als bondscoach
-NL,ES,20020327,1,1
-US,NL,20020519,0,2
-NO,NL,20020821,0,1
-DE,NL,20021120,1,3
-NL,AR,20030212,1,0
-NL,PT,20030330,1,1,-1,Patrick Kluivert scoort zijn 37-ste goal voor Oranje; evenaart Dennis Bergkamp.
-BE,NL,20030820,1,1
-NL,US,20040218,1,0
-NL,FR,20040331,0,0
-NL,GR,20040428,4,0
-NL,BE,20040529,0,1
-NL,FO,20040601,3,0,-1,stadion=Lausanne (Zwi.)
-NL,IE,20040605,0,1
-SE,NL,20040818,2,2,-1,debuut van Marco van Basten en John van 't Schip als bondscoach
-NL,LI,20040903,3,0
-G1,NL,20050209,0,0
-NL,DE,20050817,2,2
-NL,IT,20051112,1,3,-1,eerste nederlaag van bondscoach Marco van Basten
-NL,EC,20060301,1,0
-NL,CM,20060527,1,0
-NL,MX,20060601,2,1
-NL,AU,20060604,1,1
-IE,NL,20060816,0,4,-1,Debuut Klaas-Jan Huntelaar met twee goals
-NL,G1,20061115,1,1
-NL,RU,20070207,4,1
-KR,NL,20070602,0,2
-TH,NL,20070606,1,3
-CH,NL,20070822,2,1
-HR,NL,20080206,0,3
-AT,NL,20080326,3,4,-1,na 3-0 tussenstand
-NL,UA,20080524,3,0,-1,dekuip
-NL,DK,20080529,1,1,-1,stadion=Eindhoven
-NL,G3,20080601,2,0,-1,dekuip
-RU,NL,20080820,1,1
-NL,AU,20080906,1,2,-1,stadion=Eindhoven
-NL,SE,20081119,3,1,-1,arena
-TN,NL,20090211,1,1
-NL,G1,20090812,2,2,-1,arena
-NL,JP,20090905,3,0,-1,stadion=Enschede
-AU,NL,20091010,0,0,-1,stadion=Sydney Football Stadium
-IT,NL,20091114,0,0,-1,stadion=Pescara
-NL,PY,20091118,0,0,-1,stadion=Heerenveen (Abe Lenstra Stadion)
-NL,US,20100303,2,1,-1,arena
-NL,MX,20100526,2,1,-1,stadion=Freiburg
-NL,GH,20100601,4,1,-1,dekuip
-NL,HU,20100605,6,1,-1,arena
-UY,NL,20100811,1,1
-NL,TR,20101117,1,0,-1,arena
-NL,AT,20110209,3,1,-1,stadion=Eindhoven
-BR,NL,20110604,0,0
-UY,NL,20110608,1,1,-1,wns=5
-G1,NL,20110810,-1,-1,-1,afgelast
-NL,CH,20111111,0,0,-1,arena
-DE,NL,20111115,3,0,-1,stadion=Hamburg
-G1,NL,20120229,2,3,-1,stadion=Wembly
-DEbmn,NL,20120522,3,2,-1,stadion=M&uuml;nchen (Allianz Arena)
-NL,BG,20120526,1,2,-1,arena
-NL,SK,20120530,2,0,-1,dekuip
-NL,G4,20120602,6,0,-1,arena
-BE,NL,20120815,4,2,-1,stadion=Brussel
-NL,DE,20121114,0,0,-1,arena
-NL,IT,20130206,1,1,-1,arena
-ID,NL,20130607,0,3
-CN,NL,20130611,0,2
-PT,NL,20130814,1,1
-JP,NL,20131116,2,2,-1,stadion=Genk
-NL,CO,20131119,0,0,-1,arena
-FR,NL,20140305,2,0
-NL,EC,20140517,1,1,-1,arena
-NL,GH,20140531,1,0,-1,dekuip
-NL,G3,20140604,2,0,-1,arena
-IT,NL,20140904,2,0
-NL,MX,20141112,2,3,-1,arena
-NL,ES,20150331,2,0,-1,arena
-NL,US,20150605,3,4,-1,arena
-G3,NL,20151113,2,3
-DE,NL,20151117,-1,-1,-1,afgelast
-NL,FR,20160325,2,3,-1,arena,  # daags na overlijden Johan Cruijff
-G1,NL,20160329,1,2,-1,stadion=Wembly
-IE,NL,20160527,1,1
-PL,NL,20160601,1,2
-AT,NL,20160604,0,2
-NL,GR,20160901,1,2,-1,stadion=Eindhoven
-NL,BE,20161109,1,1,-1,arena
-NL,IT,20170328,1,2,-1,met interim bondscoach Fred Grim
-MA,NL,20170531,1,2
-NL,CI,20170604,5,0
-G2,NL,20171109,0,1
-RO,NL,20171114,0,3
-NL,G1,20180323,0,1,-1,debuut bondscoach Ronald Koeman,arena
-PT,NL,20180326,0,3,-1,stadion=Geneve
-SK,NL,20180521,1,1
-IT,NL,20180604,1,1
-NL,PE,20180906,2,1,-1,afscheidswedstrijd Wesley Sneijder,arena
-BE,NL,20181016,1,1
-NL,MX,20201007,0,1,-1,debuut bondscoach Frank de Boer,leeg arena
-NL,ES,20201111,1,1
+team1,team2,dd,result,stadium,star,remark
+NL,FR,19950118,0-1,,,
+NL,PT,19950222,0-1,,,
+NL,BE,19960214,-,,,afgelast
+NL,DE,19960424,0-1,,,
+NL,NLdhc,19960521,7-1,,,
+NL,NLdbr,19960524,7-1,,,
+NL,CN,19960529,2-0,Tilburg,,
+NL,NLzsl,19960601,7-0,Vlissingen,,
+NL,IE,19960604,3-1,dekuip,,
+NL,BR,19960930,2-2,,,
+FR,NL,19970226,2-1,,,
+ZA,NL,19970604,0-2,,,
+US,NL,19980221,0-2,Miami,,
+MX,NL,19980224,2-3,,,
+CHrgl,NL,19980524,1-4,,,
+NL,CM,19980527,0-0,Arnhem,,
+NL,PY,19980601,5-1,dekuip,,
+NL,NG,19980605,5-1,arena,,
+NL,PE,19981010,2-0,,,debuut van Frank Rijkaard als bondscoach
+NL,GH,19981013,0-0,,,
+DE,NL,19981118,1-1,,,
+NL,PT,19990210,0-0,,,
+NL,AR,19990331,1-1,,,
+NL,MA,19990428,1-2,,,
+BR,NL,19990605,2-2,,,
+BR,NL,19990608,3-1,,,
+DK,NL,19990818,0-0,,,
+NL,BE,19990904,5-5,,,
+NL,BR,19991009,2-2,,,
+NL,CZ,19991113,1-1,,,
+NL,DE,20000223,2-1,,,
+BE,NL,20000329,2-2,,,
+NL,G2,20000426,0-0,,,
+NL,RO,20000527,2-1,,,
+CHser,NL,20000531,0-4,,,
+NL,PL,20000604,3-1,Lausanne (Zwi.),,
+NLago,NL,20000816,0-9,,,debuut van Louis van Gaal als bondscoach
+ES,NL,20001115,1-2,,,
+NL,TR,20010228,0-0,,,
+G1,NL,20010815,0-2,,,
+DK,NL,20011110,1-1,,,#eigenlijk al voorbereiding EK-2004
+NL,G1,20020213,1-1,,,rentree/debuut van Dick Advocaat en Wim van Hanegem als bondscoach
+NL,ES,20020327,1-1,,,
+US,NL,20020519,0-2,,,
+NO,NL,20020821,0-1,,,
+DE,NL,20021120,1-3,,,
+NL,AR,20030212,1-0,,,
+NL,PT,20030330,1-1,,,Patrick Kluivert scoort zijn 37-ste goal voor Oranje; evenaart Dennis Bergkamp.
+BE,NL,20030820,1-1,,,
+NL,US,20040218,1-0,,,
+NL,FR,20040331,0-0,,,
+NL,GR,20040428,4-0,,,
+NL,BE,20040529,0-1,,,
+NL,FO,20040601,3-0,Lausanne (Zwi.),,
+NL,IE,20040605,0-1,,,
+SE,NL,20040818,2-2,,,debuut van Marco van Basten en John van 't Schip als bondscoach
+NL,LI,20040903,3-0,,,
+G1,NL,20050209,0-0,,,
+NL,DE,20050817,2-2,,,
+NL,IT,20051112,1-3,,,eerste nederlaag van bondscoach Marco van Basten
+NL,EC,20060301,1-0,,,
+NL,CM,20060527,1-0,,,
+NL,MX,20060601,2-1,,,
+NL,AU,20060604,1-1,,,
+IE,NL,20060816,0-4,,,Debuut Klaas-Jan Huntelaar met twee goals
+NL,G1,20061115,1-1,,,
+NL,RU,20070207,4-1,,,
+KR,NL,20070602,0-2,,,
+TH,NL,20070606,1-3,,,
+CH,NL,20070822,2-1,,,
+HR,NL,20080206,0-3,,,
+AT,NL,20080326,3-4,,,na 3-0 tussenstand
+NL,UA,20080524,3-0,dekuip,,
+NL,DK,20080529,1-1,Eindhoven,,
+NL,G3,20080601,2-0,dekuip,,
+RU,NL,20080820,1-1,,,
+NL,AU,20080906,1-2,Eindhoven,,
+NL,SE,20081119,3-1,arena,,
+TN,NL,20090211,1-1,,,
+NL,G1,20090812,2-2,arena,,
+NL,JP,20090905,3-0,Enschede,,
+AU,NL,20091010,0-0,Sydney Football Stadium,,
+IT,NL,20091114,0-0,Pescara,,
+NL,PY,20091118,0-0,Heerenveen (Abe Lenstra Stadion),,
+NL,US,20100303,2-1,arena,,
+NL,MX,20100526,2-1,Freiburg,,
+NL,GH,20100601,4-1,dekuip,,
+NL,HU,20100605,6-1,arena,,
+UY,NL,20100811,1-1,,,
+NL,TR,20101117,1-0,arena,,
+NL,AT,20110209,3-1,Eindhoven,,
+BR,NL,20110604,0-0,,,
+UY,NL,20110608,1-1,,5,
+G1,NL,20110810,-,,,afgelast
+NL,CH,20111111,0-0,arena,,
+DE,NL,20111115,3-0,Hamburg,,
+G1,NL,20120229,2-3,Wembly,,
+DEbmn,NL,20120522,3-2,M&uuml;nchen (Allianz Arena),,
+NL,BG,20120526,1-2,arena,,
+NL,SK,20120530,2-0,dekuip,,
+NL,G4,20120602,6-0,arena,,
+BE,NL,20120815,4-2,Brussel,,
+NL,DE,20121114,0-0,arena,,
+NL,IT,20130206,1-1,arena,,
+ID,NL,20130607,0-3,,,
+CN,NL,20130611,0-2,,,
+PT,NL,20130814,1-1,,,
+JP,NL,20131116,2-2,Genk,,
+NL,CO,20131119,0-0,arena,,
+FR,NL,20140305,2-0,,,
+NL,EC,20140517,1-1,arena,,
+NL,GH,20140531,1-0,dekuip,,
+NL,G3,20140604,2-0,arena,,
+IT,NL,20140904,2-0,,,
+NL,MX,20141112,2-3,arena,,
+NL,ES,20150331,2-0,arena,,
+NL,US,20150605,3-4,arena,,
+G3,NL,20151113,2-3,,,
+DE,NL,20151117,-,,,afgelast
+NL,FR,20160325,2-3,arena,,#daags na overlijden Johan Cruijff
+G1,NL,20160329,1-2,Wembly,,
+IE,NL,20160527,1-1,,,
+PL,NL,20160601,1-2,,,
+AT,NL,20160604,0-2,,,
+NL,GR,20160901,1-2,Eindhoven,,
+NL,BE,20161109,1-1,arena,,
+NL,IT,20170328,1-2,,,met interim bondscoach Fred Grim
+MA,NL,20170531,1-2,,,
+NL,CI,20170604,5-0,,,
+G2,NL,20171109,0-1,,,
+RO,NL,20171114,0-3,,,
+NL,G1,20180323,0-1,arena,,debuut bondscoach Ronald Koeman
+PT,NL,20180326,0-3,Geneve,,
+SK,NL,20180521,1-1,,,
+IT,NL,20180604,1-1,,,
+NL,PE,20180906,2-1,arena,,afscheidswedstrijd Wesley Sneijder
+BE,NL,20181016,1-1,,,
+NL,MX,20201007,0-1,,,debuut bondscoach Frank de Boer #leeg arena
+NL,ES,20201111,1-1,,,

@@ -7,6 +7,7 @@ use strict; use warnings;
 use Exporter;
 use Sport_Functions::XML;
 use Sport_Functions::Overig;
+use Sport_Functions::AddMatch qw(&result2aabb);
 use Shob_Tools::Error_Handling;
 use File::Spec;
 use XML::Parser;
