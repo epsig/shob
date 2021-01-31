@@ -8,7 +8,7 @@ use Exporter;
 use Sport_Functions::Readers;
 use Sport_Functions::Get_Result_Standing;
 use Sport_Functions::Results2Standing;
-use Sport_Functions::AddMatch qw(&result2aabb);
+use Sport_Functions::AddMatch qw(&result2aabb &add_one_line);
 use Shob_Tools::Html_Stuff;
 use File::Spec;
 use vars qw($VERSION @ISA @EXPORT);
@@ -18,7 +18,7 @@ use vars qw($VERSION @ISA @EXPORT);
 #=========================================================================
 # CONTENTS OF THE PACKAGE:
 #=========================================================================
-$VERSION = '20.1';
+$VERSION = '21.0';
 # by Edwin Spee.
 
 @EXPORT =
@@ -37,20 +37,14 @@ sub ReadNatLeague($$)
   my $ster    = shift;
 
   my $NLfile = File::Spec->catfile('..', 'data', 'sport', 'nationsLeague', $csvFile);
-  my $NLraw = read_csv_file($NLfile);
-  $NLraw->[0] = [ ['Groep A'], [1, 5, '', $ster]];
-  for(my $i = 1; $i < scalar @$NLraw; $i++)
+  my $NLraw = read_csv_with_header($NLfile);
+  my @games = ([['Groep A'], [1, 5, '', $ster]]);
+  foreach my $game (@$NLraw)
   {
-    my $a = $NLraw->[$i]->[0];
-    my $b = $NLraw->[$i]->[1];
-    my $dd = $NLraw->[$i]->[2];
-    my $result = $NLraw->[$i]->[3];
-    my @results = result2aabb($result);
-    my $u = [$a, $b, [$dd, $results[0], $results[1]]];
-    $NLraw->[$i] = $u;
+    add_one_line(\@games, $game, 0);
   }
 
-  return $NLraw;
+  return \@games;
 }
 
 sub NatLeague2Html($)
@@ -73,29 +67,21 @@ sub ReadNatLeagueFinals($)
   my $csvFile = shift;
 
   my $NLfile = File::Spec->catfile('..', 'data', 'sport', 'nationsLeague', $csvFile);
-  my $NLraw = read_csv_file($NLfile);
+  my $NLraw = read_csv_with_header($NLfile);
   my @uf = (['final']); my @uh = (['semi final']); my @f34 = (['bronze']);
-  for(my $i = 1; $i < scalar @$NLraw; $i++)
+  foreach my $game (@$NLraw)
   {
-    my $phase = $NLraw->[$i]->[0];
-    my $a = $NLraw->[$i]->[1];
-    my $b = $NLraw->[$i]->[2];
-    my $dd = $NLraw->[$i]->[3];
-    my $result = $NLraw->[$i]->[4];
-    my $ster = $NLraw->[$i]->[5];
-    my @results = split('-', $result);
-    my $u = [$a, $b, [$dd, $results[0], $results[1]], $ster];
-    if ($phase eq '2f')
+    if ($game->{phase} eq '2f')
     {
-      push @uh, $u;
+      add_one_line(\@uh, $game, 1);
     }
-    elsif ($phase eq 'f')
+    elsif ($game->{phase} eq 'f')
     {
-      push @uf, $u;
+      add_one_line(\@uf, $game, 1);
     }
-    elsif ($phase eq 'f34')
+    elsif ($game->{phase} eq 'f34')
     {
-      push @f34, $u;
+      add_one_line(\@f34, $game, 1);
     }
   }
 
@@ -111,3 +97,5 @@ sub NatLeagueFinals2Html($)
      $out .= get_last16($pu);
   return $out;
 }
+
+return 1;
