@@ -5,12 +5,8 @@ use strict; use warnings;
 #=========================================================================
 # following text starts a package:
 use Exporter;
-use Sport_Functions::XML;
-use Sport_Functions::Overig;
-use Sport_Functions::AddMatch qw(&result2aabb);
 use Shob_Tools::Error_Handling;
 use File::Spec;
-use XML::Parser;
 use vars qw($VERSION @ISA @EXPORT);
 @ISA = ('Exporter');
 #=========================================================================
@@ -31,23 +27,6 @@ $VERSION = '21.0';
 # (c) Edwin Spee
 
 our $csv_dir = '../data/sport';
-
-sub my_split_with_quotes_at_end($)
-{
-  my $line = shift;
-
-  my @parts = split(' *, *', $line);
-  my $char = '"';
-  if (index($line, $char) != -1)
-  { #TODO works only for one comma between quotes
-    my @parts2 = split('"', $line, -1);
-    my $str1 = pop @parts;
-    my $str2 = pop @parts;
-    push @parts, $parts2[1];
-  }
-
-  return @parts;
-}
 
 sub read_csv_with_header($)
 {
