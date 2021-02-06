@@ -42,11 +42,10 @@ sub read_schaatsers()
   foreach my $s ('D', 'H')
   {
     my $fullname = File::Spec->catdir($csv_dir, 'schaatsen', "schaatsers${s}.csv");
-    my $content = read_csv_file($fullname);
-    while(my $line = shift(@$content))
+    my $content = read_csv_with_header($fullname);
+    foreach my $line (@$content)
     {
-      my @parts = @$line;
-      $schaatsers->{$s}{$parts[0]} = $parts[1];
+      $schaatsers->{$s}{$line->{id}} = $line->{'full name'};
     }
   }
 }
