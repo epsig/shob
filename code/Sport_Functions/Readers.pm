@@ -85,7 +85,7 @@ sub read_csv_with_header($)
   while(my $line = <IN>)
   {
     chomp($line);
-    $line =~ s/ *#.*//;
+    $line =~ s/ *#.*// if ($line !~ m/&/);
     my @parts = split(' *, *', $line, -1);
     my @parts2 = split('"', $line, -1);
     if (scalar @parts2 == 3)

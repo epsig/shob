@@ -15,7 +15,7 @@ use vars qw($VERSION @ISA @EXPORT);
 #=========================================================================
 # CONTENTS OF THE PACKAGE:
 #=========================================================================
-$VERSION = '20.1';
+$VERSION = '21.1';
 # by Edwin Spee.
 
 @EXPORT =
@@ -47,15 +47,13 @@ sub read_clubs($)
 {
   my $file = shift;
 
-  my $content = read_csv_file(File::Spec->catdir($csv_dir, $file));
-  while (my $line = shift(@$content))
+  my $content = read_csv_with_header(File::Spec->catdir($csv_dir, $file));
+  foreach my $line (@$content)
   {
-    my @parts = @$line;
-
-    $clubs{$parts[0]} = $parts[1];
-    if (scalar @parts > 2)
+    $clubs{$line->{id}} = $line->{'long name'};
+    if (defined $line->{'short name'})
     {
-      $clubs_short{$parts[0]} = $parts[2];
+      $clubs_short{$line->{id}} = $line->{'short name'};
     }
   }
 }
@@ -66,16 +64,12 @@ sub read_landcode($)
 
   my $fileWithPath = File::Spec->catfile($csv_dir, $file);
 
-  open(IN, "< $fileWithPath") or die "can't open file $fileWithPath for reading: $!\n";
-  while (my $line = <IN>)
-  {
-    chomp($line);
-    $line =~ s/ *#.*//;
-    my @parts = split(',', $line);
+  my $content = read_csv_with_header(File::Spec->catdir($csv_dir, $file));
 
-    $landcodes{$parts[0]} = $parts[2];
+  foreach my $line (@$content)
+  {
+    $landcodes{$line->{code2}} = $line->{'dutch name'};
   }
-  close(IN);
 }
 
 sub read_voetballers($)
@@ -84,16 +78,18 @@ sub read_voetballers($)
 
   my $fileWithPath = File::Spec->catfile($csv_dir, $file);
 
-  open(IN, "< $fileWithPath") or die "can't open file $fileWithPath for reading: $!\n";
-  while (my $line = <IN>)
-  {
-    chomp($line);
-    $line =~ s/ +#.*//;
-    my @parts = split(',', $line);
+  my $content = read_csv_with_header(File::Spec->catdir($csv_dir, $file));
 
-    $voetballers{$parts[0]} = [ $parts[1], $parts[2], $parts[3] ];
+  foreach my $line (@$content)
+  {
+    my $insertion = $line->{insertion};
+    $insertion = '' if  not defined $insertion;
+
+    my $firstName = $line->{'first name'};
+    $firstName = '' if not defined $firstName;
+
+    $voetballers{$line->{id}} = [ $firstName, $insertion, $line->{'last name'} ];
   }
-  close(IN);
 }
 
 sub expand_voetballers($$)
