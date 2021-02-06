@@ -77,24 +77,16 @@ sub read_u2s($)
     $contentFileU2s = read_csv_file($fullname);
    }
   my $content = read_csv_file_szn($contentFileU2s, $seizoen);
-  my $title;
   my @pster;
   while(my $line = shift(@$content))
   {
     my @parts = @$line;
-    if ($parts[0] eq 'title')
-    {
-      $title = $parts[1];
-    }
-    else
-    {
-     my $clubs = $parts[0];
-        $clubs =~ s/;/,/g;
-     push @pster, $clubs;
-     push @pster, $parts[1];
-    }
+    my $clubs = $parts[0];
+       $clubs =~ s/;/,/g;
+    push @pster, $clubs;
+    push @pster, $parts[1];
   }
-  return ($title, \@pster);
+  return \@pster;
 }
 
 sub standen($$)
@@ -144,7 +136,8 @@ sub standen_eredivisie($)
   }
   else
   {
-    my ($title, $pster) = read_u2s($seizoen);
+    my $title = $all_remarks->{eredivisie}->get($seizoen, 'title');
+    my $pster = read_u2s($seizoen);
     my $dd = getidate(laatste_speeldatum($uszn), 0);
     my $pnt_telling = ($seizoen le '1994-1995' ? 2 : 1);
     if ($dd ne '' and ($size < 1 + 17 * 18))
