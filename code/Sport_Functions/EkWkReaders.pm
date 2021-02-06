@@ -273,11 +273,6 @@ sub read_voorronde($$$)
 
   if (not -f $fileWithPath) {return undef;}
 
-  if ($type ne 'u' && $type ne 'po')
-  {
-    open(IN, "< $fileWithPath") or die "can't open file $fileWithPath: $!\n";
-  }
-
   my $retval;
 
   if ($type eq 'u' || $type eq 'po')
@@ -288,13 +283,12 @@ sub read_voorronde($$$)
   elsif ($type eq 'qf')
   {
     my @qf = ();
-    while (my $line = <IN>)
+    my $content = read_csv_with_header($fileWithPath);
+    foreach my $line (@$content)
     {
-      if ($line =~ m/^$part/)
+      if ($line->{phase} eq $part)
       {
-        chomp($line);
-        my @parts = split /,/, $line;
-        push @qf, [$parts[1], $parts[2]];
+        push @qf, [$line->{land}, $line->{remark}];
       }
     }
     $retval = \@qf;
@@ -302,23 +296,19 @@ sub read_voorronde($$$)
   elsif ($type eq 'extra')
   {
     my $extra = '';
-    while (my $line = <IN>)
+    my $content = read_csv_with_header($fileWithPath);
+    foreach my $line (@$content)
     {
-      if ($line =~ m/^$part/)
+      if ($line->{key} eq $part)
       {
-        # intentionally no chomp
-        $line =~ s/^$part,//;
-        $line =~ s/"//g;
-        $extra .= $line;
+        my $val = $line->{value};
+        $val =~ s/"//g;
+        $extra .= $val . "\n";
       }
     }
     $retval = $extra;
   }
 
-  if ($type ne 'u' && $type ne 'po')
-  {
-    close (IN);
-  }
   return $retval;
 }
 
