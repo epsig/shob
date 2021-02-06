@@ -7,9 +7,8 @@ use strict; use warnings;
 use Exporter;
 use Sport_Functions::Overig qw(yr2szn);
 use Sport_Functions::AddMatch qw(&add_one_line);
-use Sport_Functions::Readers qw(&read_csv_with_header $csv_dir);
+use Sport_Functions::Readers qw(&read_csv_with_header);
 use Sport_Functions::ListRemarks qw($all_remarks);
-use File::Spec qw(&catfile);
 use vars qw($VERSION @ISA @EXPORT);
 @ISA = ('Exporter');
 #=========================================================================
@@ -17,13 +16,12 @@ use vars qw($VERSION @ISA @EXPORT);
 #=========================================================================
 # CONTENTS OF THE PACKAGE:
 #=========================================================================
-$VERSION = '20.1';
+$VERSION = '21.1';
 # by Edwin Spee.
 
 @EXPORT =
 (#========================================================================
  '&read_beker_csv',
- '$csv_dir',
  #========================================================================
 );
 
@@ -56,9 +54,7 @@ sub read_beker_csv($$$)
   my $subdir = shift;
   my $year   = shift;
 
-  my $fileWithPath = File::Spec->catfile($csv_dir, $subdir, $filein);
-
-  my $content = read_csv_with_header($fileWithPath);
+  my $content = read_csv_with_header($filein, $subdir);
 
   my $sc = read_beker_part('supercup', 1, "Johan Cruijff schaal $year", 5, $content);
   my $r2 = read_beker_part('r2', 1, 'Tweede ronde', 5, $content);

@@ -5,12 +5,11 @@ use strict; use warnings;
 #=========================================================================
 # following text starts a package:
 use Exporter;
-use Sport_Functions::Readers;
+use Sport_Functions::Readers qw(&read_csv_with_header);
 use Sport_Functions::Get_Result_Standing;
 use Sport_Functions::Results2Standing;
 use Sport_Functions::AddMatch qw(&result2aabb &add_one_line);
 use Shob_Tools::Html_Stuff;
-use File::Spec;
 use vars qw($VERSION @ISA @EXPORT);
 @ISA = ('Exporter');
 #=========================================================================
@@ -36,8 +35,7 @@ sub ReadNatLeague($$)
   my $csvFile = shift;
   my $ster    = shift;
 
-  my $NLfile = File::Spec->catfile('..', 'data', 'sport', 'nationsLeague', $csvFile);
-  my $NLraw = read_csv_with_header($NLfile);
+  my $NLraw = read_csv_with_header($csvFile, 'nationsLeague');
   my @games = ([['Groep A'], [1, 5, '', $ster]]);
   foreach my $game (@$NLraw)
   {
@@ -66,8 +64,7 @@ sub ReadNatLeagueFinals($)
 {
   my $csvFile = shift;
 
-  my $NLfile = File::Spec->catfile('..', 'data', 'sport', 'nationsLeague', $csvFile);
-  my $NLraw = read_csv_with_header($NLfile);
+  my $NLraw = read_csv_with_header($csvFile, 'nationsLeague');
   my @uf = (['final']); my @uh = (['semi final']); my @f34 = (['bronze']);
   foreach my $game (@$NLraw)
   {

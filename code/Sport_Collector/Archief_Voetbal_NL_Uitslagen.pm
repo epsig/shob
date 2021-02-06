@@ -39,10 +39,11 @@ sub initEredivisieResults()
    my $szn = yr2szn($yr);
    my $csv = "eredivisie_$szn.csv";
    $csv =~ s/-/_/;
-   if (-f "$csv_dir/$subdir/$csv")
+   my $fullname = "$csv_dir/$subdir/$csv";
+   if (-f $fullname)
    {
     # TODO in a subroutine
-    my $gamesFromFile = read_csv_with_header("$csv_dir/$subdir/$csv");
+    my $gamesFromFile = read_csv_with_header($fullname);
     my @games = (['']);
     foreach my $game (@$gamesFromFile)
     {

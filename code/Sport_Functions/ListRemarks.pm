@@ -6,8 +6,6 @@ use strict; use warnings;
 # following text starts a package:
 use Exporter;
 use Sport_Functions::RemarkReaders;
-use Sport_Functions::Readers qw($csv_dir);
-use File::Spec;
 use vars qw($VERSION @ISA @EXPORT);
 @ISA = ('Exporter');
 #=========================================================================
@@ -35,8 +33,7 @@ sub init_remarks()
 
   foreach my $remark (@remarks)
   {
-    my $file = File::Spec->catdir($csv_dir, $remark, "${remark}_remarks.csv");
-    $all_remarks->{$remark} = new Sport_Functions::RemarkReaders($file);
+    $all_remarks->{$remark} = new Sport_Functions::RemarkReaders("${remark}_remarks.csv", $remark);
   }
 }
 

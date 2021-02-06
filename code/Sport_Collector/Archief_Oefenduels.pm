@@ -41,8 +41,7 @@ sub set_laatste_speeldatum_oefenduels
   use Sport_Functions::Overig;
   use Shob_Tools::Settings;
 
-  my $file = File::Spec->catdir($csv_dir, 'oefenduels.csv');
-  my $oefenduels_new = read_csv_with_header($file);
+  my $oefenduels_new = read_csv_with_header('oefenduels.csv');
 
   my @games = (['Oefenduels Oranje']);
   foreach my $game (@$oefenduels_new)

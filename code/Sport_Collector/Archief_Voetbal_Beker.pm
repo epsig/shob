@@ -5,6 +5,7 @@ use strict; use warnings;
 #=========================================================================
 # following text starts a package:
 use Shob_Tools::General;
+use Sport_Functions::Readers qw($csv_dir);
 use Sport_Functions::BekerReaders;
 use Sport_Functions::Overig;
 use Exporter;
@@ -15,7 +16,7 @@ use vars qw($VERSION @ISA @EXPORT);
 #=========================================================================
 # CONTENTS OF THE PACKAGE:
 #=========================================================================
-$VERSION = '20.0';
+$VERSION = '21.0';
 # by Edwin Spee.
 
 @EXPORT =

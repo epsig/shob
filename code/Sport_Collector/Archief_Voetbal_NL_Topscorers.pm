@@ -1,7 +1,6 @@
 package Sport_Collector::Archief_Voetbal_NL_Topscorers;
 use strict; use warnings;
-use Sport_Functions::Readers qw($csv_dir &read_csv_with_header);
-use File::Spec;
+use Sport_Functions::Readers qw(&read_csv_with_header);
 #=========================================================================
 # DECLARATION OF THE PACKAGE
 #=========================================================================
@@ -33,8 +32,7 @@ sub get_topscorers_competitie($$$)
 
   if (not defined $contentAllFiles->{$divisie_key})
   {
-    my $fullname = File::Spec->catdir($csv_dir, $divisie_key, "topscorers_$divisie_key.csv");
-    $contentAllFiles->{$divisie_key} = read_csv_with_header($fullname);
+    $contentAllFiles->{$divisie_key} = read_csv_with_header("topscorers_$divisie_key.csv", $divisie_key);
   }
 
   my $content = $contentAllFiles->{$divisie_key};

@@ -28,10 +28,17 @@ $VERSION = '21.0';
 
 our $csv_dir = '../data/sport';
 
-sub read_csv_with_header($)
+sub read_csv_with_header($;$)
 {
-  my $fullname = shift;
+  my $filename = shift;
+  my $subdir   = shift;
   my @content;
+
+  my $fullname = $filename;
+  $fullname = File::Spec->catfile($subdir, $filename)  if (defined $subdir);
+  $fullname = File::Spec->catfile($csv_dir, $fullname) if ($fullname !~ m/$csv_dir/);
+
+  if ( ! -f $fullname) {return [];}
 
   open(IN, "<$fullname") or die "can't open file $fullname for reading: $!";
   my $header = <IN>;

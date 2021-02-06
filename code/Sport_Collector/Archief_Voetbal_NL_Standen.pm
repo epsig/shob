@@ -4,7 +4,6 @@ use strict; use warnings;
 # DECLARATION OF THE PACKAGE
 #=========================================================================
 # following text starts a package:
-#use Shob_Tools::Error_Handling;
 use File::Spec;
 use Shob_Tools::Idate;
 use Shob_Tools::General;
@@ -22,7 +21,7 @@ use vars qw($VERSION @ISA @EXPORT);
 #=========================================================================
 # CONTENTS OF THE PACKAGE:
 #=========================================================================
-$VERSION = '20.1';
+$VERSION = '21.1';
 # by Edwin Spee.
 
 @EXPORT =
@@ -42,14 +41,12 @@ sub read_stand($$)
   my $filename = shift;
   my $title    = shift;
 
-  my $fullname = File::Spec->catdir($csv_dir, $filename);
+  my $test = read_csv_with_header($filename);
 
-  if (not -f $fullname)
+  if (not scalar @$test)
   {
     return [];
   }
-
-  my $test = read_csv_with_header($fullname);
 
   my @u = [$title];
 
@@ -73,8 +70,7 @@ sub read_u2s($)
   my $seizoen = shift;
   if (not defined $contentFileU2s)
   {
-    my $fullname = File::Spec->catdir($csv_dir, 'eredivisie', 'eredivisie_u2s.csv');
-    $contentFileU2s = read_csv_with_header($fullname);
+    $contentFileU2s = read_csv_with_header('eredivisie_u2s.csv', 'eredivisie');
   }
 
   my @pster;

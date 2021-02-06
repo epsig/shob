@@ -4,9 +4,8 @@ use strict; use warnings;
 # DECLARATION OF THE PACKAGE
 #=========================================================================
 # following text starts a package:
-use Sport_Functions::Readers;
+use Sport_Functions::Readers qw(&read_csv_with_header);
 use Shob_Tools::Error_Handling;
-use File::Spec;
 use Exporter;
 use vars qw($VERSION @ISA @EXPORT);
 @ISA = ('Exporter');
@@ -47,7 +46,7 @@ sub read_clubs($)
 {
   my $file = shift;
 
-  my $content = read_csv_with_header(File::Spec->catdir($csv_dir, $file));
+  my $content = read_csv_with_header($file);
   foreach my $line (@$content)
   {
     $clubs{$line->{id}} = $line->{'long name'};
@@ -62,9 +61,7 @@ sub read_landcode($)
 {
   my $file = shift;
 
-  my $fileWithPath = File::Spec->catfile($csv_dir, $file);
-
-  my $content = read_csv_with_header(File::Spec->catdir($csv_dir, $file));
+  my $content = read_csv_with_header($file);
 
   foreach my $line (@$content)
   {
@@ -76,9 +73,7 @@ sub read_voetballers($)
 {
   my $file = shift;
 
-  my $fileWithPath = File::Spec->catfile($csv_dir, $file);
-
-  my $content = read_csv_with_header(File::Spec->catdir($csv_dir, $file));
+  my $content = read_csv_with_header($file);
 
   foreach my $line (@$content)
   {

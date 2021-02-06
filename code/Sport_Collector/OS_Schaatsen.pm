@@ -10,7 +10,7 @@ use Shob_Tools::Error_Handling;
 use Shob_Tools::Html_Stuff;
 use Shob_Tools::Html_Head_Bottum;
 use Sport_Functions::Get_Land_Club;
-use Sport_Functions::Readers;
+use Sport_Functions::Readers qw(&read_csv_with_header);
 use Sport_Functions::ListRemarks qw($all_remarks);
 use Sport_Collector::Teams;
 use Sport_Functions::Overig;
@@ -41,8 +41,7 @@ sub read_schaatsers()
 
   foreach my $s ('D', 'H')
   {
-    my $fullname = File::Spec->catdir($csv_dir, 'schaatsen', "schaatsers${s}.csv");
-    my $content = read_csv_with_header($fullname);
+    my $content = read_csv_with_header("schaatsers${s}.csv", 'schaatsen');
     foreach my $line (@$content)
     {
       $schaatsers->{$s}{$line->{id}} = $line->{'full name'};
@@ -289,9 +288,7 @@ sub get_all_distances($)
 
   my $year = shift;
 
-  my $cvsFile = File::Spec->catdir($csv_dir, 'schaatsen', "OS_$year.csv");
-
-  my $allResults = read_csv_with_header($cvsFile);
+  my $allResults = read_csv_with_header("OS_$year.csv", 'schaatsen');
 
   my $distances;
   $distances->{H} = ['500m', '1000m', '1500m', '5km', '10km'];

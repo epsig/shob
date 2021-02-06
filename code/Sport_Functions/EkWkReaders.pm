@@ -7,11 +7,10 @@ use strict; use warnings;
 use Exporter;
 use Sport_Functions::XML;
 use Sport_Functions::Overig;
-use Sport_Functions::Readers;
+use Sport_Functions::Readers qw($csv_dir &read_csv_with_header);
 use Sport_Functions::ListRemarks qw($all_remarks);
 use Sport_Functions::AddMatch qw(&add_one_line);
 use File::Basename;
-use File::Spec;
 use XML::Parser;
 use vars qw($VERSION @ISA @EXPORT);
 @ISA = ('Exporter');
@@ -134,9 +133,7 @@ sub read_ekwk($$$$)
 
   my $remarks = $all_remarks->{ekwk}->get($tournement, 'allgroups');
 
-  my $fileWithPath = File::Spec->catfile($csv_dir, $filein);
-
-  my $ekwkLines = read_csv_with_header($fileWithPath);
+  my $ekwkLines = read_csv_with_header($filein);
 
   my $number_of_groups = read_number_of_groups($ekwkLines);
   if (defined $remarks)
@@ -217,11 +214,9 @@ sub read_voorronde_standen($$$)
   my $start = shift;
   my $cnt   = shift;
 
-  my $fileWithPath = File::Spec->catfile($csv_dir, $file);
+  my $allStandings = read_csv_with_header($file);
 
-  if (not -f $fileWithPath) {return undef;}
-
-  my $allStandings = read_csv_with_header($fileWithPath);
+  if ( not scalar @$allStandings) {return undef;}
 
   my @s;
   for (my $i = 0; $i < $cnt; $i++)

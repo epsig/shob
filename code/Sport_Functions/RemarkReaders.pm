@@ -21,9 +21,9 @@ $VERSION = '21.0';
 # year or season, key, value
 sub new
 {
-  my ($class, $fullname) = @_;
+  my ($class, $filename, $subdir) = @_;
 
-  my $content = read_csv_with_header($fullname);
+  my $content = read_csv_with_header($filename, $subdir);
 
   my @keys = keys(%{$content->[0]});
   my $period;
