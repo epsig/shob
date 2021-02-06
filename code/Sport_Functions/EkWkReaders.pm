@@ -188,57 +188,52 @@ sub read_ekwk($$$$)
   return $ekwk;
 }
 
-sub read_voorronde_standen_inner($)
+sub read_voorronde_standen_inner($$)
 {
- my $part = shift;
+  my $allStandings = shift;
+  my $part         = shift;
 
- seek(IN, 0, 0);
-
- my @s = ([]);
- while (my $line = <IN>)
- {
-  if ($line =~ m/^$part\b/)
+  my @s = ([]);
+  foreach my $line (@$allStandings)
   {
-   chomp($line);
-   $line =~ s/#.*//;
-   my @parts = split /\s*,\s*/, $line;
-   my (undef, $land, $g, $w, $d, $l, $p, $a, $b, $ster) = @parts;
-   if (defined $ster)
-   {
-    push @s, [$land, $g,[$w,$d,$l],$p,[$a, $b],[$ster]];
-   }
-   else
-   {
-    push @s, [$land, $g,[$w,$d,$l],$p,[$a, $b]];
-   }
+    if ($line->{group} eq $part)
+    {
+      my $details = [$line->{wins}, $line->{draws}, $line->{losses}];
+      my $goals   = [$line->{'goals scored'}, $line->{'goals against'}];
+      my @standing = ($line->{land}, $line->{matches}, $details, $line->{points}, $goals);
+      if (defined $line->{remark})
+      {
+        push @standing, [$line->{remark}];
+      }
+      push @s, \@standing;
+    }
   }
- }
- return \@s;
+  return \@s;
 }
 
 sub read_voorronde_standen($$$)
 {
- my $file = shift;
- my $start = shift;
- my $cnt   = shift;
+  my $file = shift;
+  my $start = shift;
+  my $cnt   = shift;
 
- my $fileWithPath = File::Spec->catfile($csv_dir, $file);
+  my $fileWithPath = File::Spec->catfile($csv_dir, $file);
 
- if (not -f $fileWithPath) {return undef;}
+  if (not -f $fileWithPath) {return undef;}
 
- open(IN, "< $fileWithPath") or die "can't open file $fileWithPath: $!\n";
+  my $allStandings = read_csv_with_header($fileWithPath);
 
- my @s;
- for (my $i = 0; $i < $cnt; $i++)
- {
-  my $a = chr(ord($start) + $i);
-  if ($a eq ':') {$a = '10';}
-  my $standA = read_voorronde_standen_inner("s$a");
-  $standA->[0] = ["Groep $a"];
-  $s[$i+1] = $standA;
- }
- close(IN);
- return \@s;
+  my @s;
+  for (my $i = 0; $i < $cnt; $i++)
+  {
+    my $a = chr(ord($start) + $i);
+    if ($a eq ':') {$a = '10';}
+    my $standA = read_voorronde_standen_inner($allStandings, "s$a");
+    $standA->[0] = ["Groep $a"];
+    $s[$i+1] = $standA;
+  }
+
+  return \@s;
 }
 
 sub read_voorronde_part_u($$$)
