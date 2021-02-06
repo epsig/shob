@@ -23,8 +23,6 @@ $VERSION = '21.0';
 
 @EXPORT =
 (#========================================================================
- '&read_csv_file',
- '&read_csv_file_szn',
  '&read_csv_with_header',
  '$csv_dir',
  #========================================================================
@@ -49,27 +47,6 @@ sub my_split_with_quotes_at_end($)
   }
 
   return @parts;
-}
-
-# reads a csv file and returns it as a list of lists
-# comments (everything after a #) and newlines are removed
-sub read_csv_file($)
-{
- my $fullname = shift;
- my @content;
-
- open(IN, "<$fullname") or die "can't open file $fullname for reading: $!";
- while(my $line = <IN>)
- {
-  chomp($line);
-  $line =~ s/ *#.*//;
-  if ($line eq '') {next;}
-  $line =~ s/^ +//;
-  my @parts = my_split_with_quotes_at_end($line);
-  push @content, \@parts;
- }
- close(IN);
- return \@content;
 }
 
 sub read_csv_with_header($)
@@ -118,28 +95,6 @@ sub read_csv_with_header($)
   }
   close(IN);
   return \@content;
-}
-
-sub read_csv_file_szn($$)
-{
- my $content = shift;
- my $seizoen = shift;
-
- my $active = 0;
- my @content_szn;
- foreach my $line (@$content)
- {
-  my @parts = @$line;
-  if ($parts[0] =~ m/:$/)
-  {
-   $active = ($parts[0] =~ m/$seizoen/ ? 1 : 0);
-  }
-  elsif ($active)
-  {
-   push @content_szn, $line;
-  }
- }
- return (\@content_szn);
 }
 
 return 1;

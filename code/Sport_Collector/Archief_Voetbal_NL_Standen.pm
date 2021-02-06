@@ -74,17 +74,19 @@ sub read_u2s($)
   if (not defined $contentFileU2s)
   {
     my $fullname = File::Spec->catdir($csv_dir, 'eredivisie', 'eredivisie_u2s.csv');
-    $contentFileU2s = read_csv_file($fullname);
-   }
-  my $content = read_csv_file_szn($contentFileU2s, $seizoen);
+    $contentFileU2s = read_csv_with_header($fullname);
+  }
+
   my @pster;
-  while(my $line = shift(@$content))
+  foreach my $line (@$contentFileU2s)
   {
-    my @parts = @$line;
-    my $clubs = $parts[0];
-       $clubs =~ s/;/,/g;
-    push @pster, $clubs;
-    push @pster, $parts[1];
+    if ($line->{season} eq $seizoen)
+    {
+      my $clubs = $line->{clubs};
+         $clubs =~ s/;/,/g;
+      push @pster, $clubs;
+      push @pster, $line->{u2s};
+    }
   }
   return \@pster;
 }
