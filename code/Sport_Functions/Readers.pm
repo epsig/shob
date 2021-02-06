@@ -26,13 +26,12 @@ $VERSION = '21.0';
 
 # (c) Edwin Spee
 
-our $csv_dir = '../data/sport';
+our $csv_dir = File::Spec->catfile(File::Spec->updir(), 'data', 'sport');
 
 sub read_csv_with_header($;$)
 {
   my $filename = shift;
   my $subdir   = shift;
-  my @content;
 
   my $fullname = $filename;
   $fullname = File::Spec->catfile($subdir, $filename)  if (defined $subdir);
@@ -45,6 +44,7 @@ sub read_csv_with_header($;$)
   chomp($header);
   my @header_parts = split(',', $header, -1);
 
+  my @content;
   while(my $line = <IN>)
   {
     chomp($line);

@@ -10,7 +10,6 @@ use Sport_Functions::Overig;
 use Sport_Functions::Readers qw($csv_dir &read_csv_with_header);
 use Sport_Functions::ListRemarks qw($all_remarks);
 use Sport_Functions::AddMatch qw(&add_one_line);
-use File::Basename;
 use XML::Parser;
 use vars qw($VERSION @ISA @EXPORT);
 @ISA = ('Exporter');
@@ -233,13 +232,12 @@ sub read_voorronde_standen($$$)
 
 sub read_voorronde_part_u($$$)
 {
-  my $fileWithPath = shift;
   my $file         = shift;
   my $part         = shift;
+  my $tournement   = shift;
 
-  my $qfLines = read_csv_with_header($fileWithPath);
-  my $tournement = basename($file);
-     $tournement =~ s/[uv].csv//;
+  my $qfLines = read_csv_with_header($file);
+  $tournement =~ s/[uv].csv//;
   my $remarks = $all_remarks->{ekwk_qf}->get_ml($tournement, $part, 1);
   my $ster;
   my $sortrule = 3;
@@ -263,11 +261,12 @@ sub read_voorronde_part_u($$$)
   return $retval;
 }
 
-sub read_voorronde($$$)
+sub read_voorronde($$$$)
 {
   my $file = shift;
   my $part = shift;
   my $type = shift;
+  my $id   = shift;
 
   my $fileWithPath = File::Spec->catfile($csv_dir, $file);
 
@@ -277,7 +276,7 @@ sub read_voorronde($$$)
 
   if ($type eq 'u' || $type eq 'po')
   {
-    $retval = read_voorronde_part_u($fileWithPath, $file, $part);
+    $retval = read_voorronde_part_u($file, $part, $id);
     if (not scalar @$retval) {undef $retval;}
   }
   elsif ($type eq 'qf')

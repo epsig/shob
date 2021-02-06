@@ -15,7 +15,7 @@ use Sport_Functions::Get_Result_Standing;
 use Sport_Functions::Get_Land_Club;
 use Sport_Functions::Results2Standing;
 use Sport_Functions::EkWkReaders;
-use Sport_Functions::Readers;
+use Sport_Functions::Readers qw($csv_dir);
 use Sport_Functions::XML;
 use Sport_Functions::NatLeagueReaders;
 use Sport_Functions::ListRemarks qw($all_remarks);
@@ -45,7 +45,7 @@ $VERSION = '21.0';
 
 my $ekwkDir = 'ekwk';
 my $ekwkQfDir = 'ekwk_qf';
-my $xmlDir = File::Spec->catfile('..', 'data', 'sport', $ekwkDir);
+my $xmlDir = File::Spec->catfile($csv_dir, $ekwkDir);
 
 sub get_ekwk_gen($;$)
 { # (c) Edwin Spee
@@ -119,7 +119,7 @@ sub get_ekwk_voorr_data($)
   my $gNL                = $all_remarks->{ekwk_qf}->get($id, 'grpNL', 'gNL');
 
   my $ekwk_qf = {organising_country => $organising_country};
-  my $u_nl = read_voorronde($csvfile_u, $gNL, 'u');
+  my $u_nl = read_voorronde($csvfile_u, $gNL, 'u', $id);
   if (defined $u_nl)
   {
     if (scalar @{$u_nl} > 1)
@@ -155,9 +155,9 @@ sub get_ekwk_voorr_data($)
     }
   }
 
-  $ekwk_qf->{geplaatst} = read_voorronde($csvfile_q, 'qf', 'qf');
+  $ekwk_qf->{geplaatst} = read_voorronde($csvfile_q, 'qf', 'qf', $id);
 
-  $ekwk_qf->{play_offs} = read_voorronde($csvfile_u, 'po', 'po');
+  $ekwk_qf->{play_offs} = read_voorronde($csvfile_u, 'po', 'po', $id);
 
   my $dd1kzb = 1e4 * ($year - 2) + 810; # 810: aug, 10
   my $dd2kzb = 1e4 *  $year      + 630; # 630: june, 30
@@ -169,7 +169,7 @@ sub get_ekwk_voorr_data($)
     $ekwk_qf->{kzb} = $kzb;
   }
 
-  $ekwk_qf->{extra} = read_voorronde($csvfile_v, 'extra', 'extra');
+  $ekwk_qf->{extra} = read_voorronde($csvfile_v, 'extra', 'extra', $id);
 
   my $beslissend = $all_remarks->{ekwk_qf}->get($id, 'beslissend');
   if (defined $beslissend)
