@@ -1,4 +1,4 @@
-club id,matches,wins,draws,losses,points,goals scored,goals against,remark
+club_id,matches,wins,draws,losses,points,goals_scored,goals_against,remark
 dbs,36,22, 8, 6,74,85,48,K;P1;RP
 exc,36,22, 8, 6,74,70,39,PD
 spr,36,21, 6, 9,69,76,43,PD

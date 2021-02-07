@@ -1,4 +1,4 @@
-club id,matches,wins,draws,losses,points,goals scored,goals against,remark
+club_id,matches,wins,draws,losses,points,goals_scored,goals_against,remark
 twn,38,25, 5, 8,80,72,39,K
 spr,38,19,12, 7,69,78,47,PDP
 ps2,38,18, 9,11,63,77,59,

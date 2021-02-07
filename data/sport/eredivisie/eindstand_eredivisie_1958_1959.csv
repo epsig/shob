@@ -1,4 +1,4 @@
-club id,matches,wins,draws,losses,points,goals scored,goals against
+club_id,matches,wins,draws,losses,points,goals_scored,goals_against
 spr,34,20,11, 3,51,83,30
 rpj,34,20, 8, 6,48,64,34
 f54,34,17,10, 7,44,56,47

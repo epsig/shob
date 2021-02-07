@@ -1,4 +1,4 @@
-club id,matches,wins,draws,losses,points,goals scored,goals against,remark
+club_id,matches,wins,draws,losses,points,goals_scored,goals_against,remark
 az1,34,21,10, 3,73,64,26,K;RP
 emm,34,18,13, 3,67,71,39,PD
 dbs,34,15,13, 6,58,51,36,PD

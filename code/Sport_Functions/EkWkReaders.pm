@@ -195,7 +195,7 @@ sub read_voorronde_standen_inner($$)
     if ($line->{group} eq $part)
     {
       my $details = [$line->{wins}, $line->{draws}, $line->{losses}];
-      my $goals   = [$line->{'goals scored'}, $line->{'goals against'}];
+      my $goals   = [$line->{goals_scored}, $line->{goals_against}];
       my @standing = ($line->{land}, $line->{matches}, $details, $line->{points}, $goals);
       if (defined $line->{remark})
       {

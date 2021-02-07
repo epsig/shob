@@ -1,4 +1,4 @@
-club id,matches,wins,draws,losses,points,goals scored,goals against
+club_id,matches,wins,draws,losses,points,goals_scored,goals_against
 fyn,34,25, 6, 3,56,96,28
 twn,34,23, 8, 3,54,65,27
 ajx,34,21, 9, 4,51,88,30

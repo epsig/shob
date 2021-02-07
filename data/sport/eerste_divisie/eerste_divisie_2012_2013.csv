@@ -1,4 +1,4 @@
-club id,matches,wins,draws,losses,points,goals scored,goals against,remark
+club_id,matches,wins,draws,losses,points,goals_scored,goals_against,remark
 cmb,30,19, 4, 7,61,59,33,K;RP
 vol,30,19, 3, 8,60,70,43,
 spr,30,16, 7, 7,55,59,36,

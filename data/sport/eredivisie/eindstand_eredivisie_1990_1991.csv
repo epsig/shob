@@ -1,4 +1,4 @@
-club id,matches,wins,draws,losses,points,goals scored,goals against
+club_id,matches,wins,draws,losses,points,goals_scored,goals_against
 psv,34,23, 7, 4,53,84,28
 ajx,34,22, 9, 3,53,75,21
 grn,34,18,10, 6,46,62,38

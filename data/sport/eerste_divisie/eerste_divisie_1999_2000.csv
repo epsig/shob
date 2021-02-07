@@ -1,4 +1,4 @@
-club id,matches,wins,draws,losses,points,goals scored,goals against,remark
+club_id,matches,wins,draws,losses,points,goals_scored,goals_against,remark
 nac,34,27, 1, 6,82,84,36,K;RP
 zwl,34,22, 8, 4,74,90,41,PD
 grn,34,23, 5, 6,74,81,33,PDP

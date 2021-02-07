@@ -1,4 +1,4 @@
-club id,matches,wins,draws,losses,points,goals scored,goals against,remark
+club_id,matches,wins,draws,losses,points,goals_scored,goals_against,remark
 nec,38,33, 2, 3,101,100,32,K;RP
 end,38,26, 2,10, 80, 70,39,PD
 rdj,38,21, 6,11, 69, 69,58,PDP

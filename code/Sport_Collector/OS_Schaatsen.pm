@@ -44,7 +44,7 @@ sub read_schaatsers()
     my $content = read_csv_with_header("schaatsers${s}.csv", 'schaatsen');
     foreach my $line (@$content)
     {
-      $schaatsers->{$s}{$line->{id}} = $line->{'full name'};
+      $schaatsers->{$s}{$line->{id}} = $line->{full_name};
     }
   }
 }

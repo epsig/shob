@@ -49,10 +49,10 @@ sub read_clubs($)
   my $content = read_csv_with_header($file);
   foreach my $line (@$content)
   {
-    $clubs{$line->{id}} = $line->{'long name'};
-    if (defined $line->{'short name'})
+    $clubs{$line->{id}} = $line->{long_name};
+    if (defined $line->{short_name})
     {
-      $clubs_short{$line->{id}} = $line->{'short name'};
+      $clubs_short{$line->{id}} = $line->{short_name};
     }
   }
 }
@@ -65,7 +65,7 @@ sub read_landcode($)
 
   foreach my $line (@$content)
   {
-    $landcodes{$line->{code2}} = $line->{'dutch name'};
+    $landcodes{$line->{code2}} = $line->{dutch_name};
   }
 }
 
@@ -80,10 +80,10 @@ sub read_voetballers($)
     my $insertion = $line->{insertion};
     $insertion = '' if  not defined $insertion;
 
-    my $firstName = $line->{'first name'};
+    my $firstName = $line->{first_name};
     $firstName = '' if not defined $firstName;
 
-    $voetballers{$line->{id}} = [ $firstName, $insertion, $line->{'last name'} ];
+    $voetballers{$line->{id}} = [ $firstName, $insertion, $line->{last_name} ];
   }
 }
 

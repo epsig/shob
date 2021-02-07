@@ -1,4 +1,4 @@
-group,land,matches,wins,draws,losses,points,goals scored,goals against,remark
+group,land,matches,wins,draws,losses,points,goals_scored,goals_against,remark
 s2,UA,12,7,4,1,25,18,7,+
 s2,TR,12,6,5,1,23,23,9,
 s2,DK,12,6,4,2,22,24,12,

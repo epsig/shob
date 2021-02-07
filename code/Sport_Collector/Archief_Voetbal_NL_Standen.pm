@@ -54,8 +54,8 @@ sub read_stand($$)
   {
     my %h =%$line;
     my $details = [$h{wins}, $h{draws}, $h{losses}];
-    my $goal_diff = [$h{'goals scored'}, $h{'goals against'}];
-    my @current = ($h{'club id'}, $h{matches}, $details, $h{points}, $goal_diff);
+    my $goal_diff = [$h{'goals_scored'}, $h{'goals_against'}];
+    my @current = ($h{club_id}, $h{matches}, $details, $h{points}, $goal_diff);
     if (defined $h{remark})
     {
       push @current, [$h{remark}];

@@ -1,4 +1,4 @@
-club id,matches,wins,draws,losses,points,goals scored,goals against,remark
+club_id,matches,wins,draws,losses,points,goals_scored,goals_against,remark
 mvv,34,20,10, 4,70,62,30,K;RP
 cmb,34,20, 7, 7,67,65,33,PD
 emm,34,18, 9, 7,63,58,36,PD
