@@ -56,7 +56,7 @@ sub NatLeague2Html($)
   my $td2 = get_stand($s_nl, 2, 0,[2, 'Stand Groep A']);
   
   my $table = get2tables($td1, $td2);
-  my $block = qq(<h2>Nations League, groep met Nederland</h2>\n);
+  my $block = qq(<a name="natleague"><h2>Nations League, groep met Nederland</h2></a>\n);
   return $block . $table;
 }
 
@@ -90,7 +90,7 @@ sub NatLeagueFinals2Html($)
 {
   my $pu = shift;  
 
-  my $out  = qq(<h2>Finale Nations League</h2>);
+  my $out  = qq(<a name="natleaguefinals"><h2>Finale Nations League</h2></a>);
      $out .= get_last16($pu);
   return $out;
 }

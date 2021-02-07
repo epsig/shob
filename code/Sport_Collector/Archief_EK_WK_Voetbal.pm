@@ -225,8 +225,10 @@ sub get_ekwk_voorr_gen($;$)
 
   my $year = $id;
      $year =~ s/[ew]kD?//;
-  $year = $all_remarks->{ekwk_qf}->get($id, 'year', $year);
-  my $html = format_voorronde_ekwk($year, $ekwk_qf->{organising_country}, $ekwk_qf, $ekwk_qf->{dd});
+
+  $ekwk_qf->{yearTitle} = $all_remarks->{ekwk_qf}->get($id, 'year', $year);
+
+  my $html = format_voorronde_ekwk($year, $ekwk_qf);
 }
 
 sub set_laatste_speeldatum_ekwk

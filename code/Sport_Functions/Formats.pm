@@ -262,7 +262,10 @@ EOF
 sub format_voorronde_ekwk
 {# (c) Edwin Spee
 
- my ($year, $organisatie, $phu, $dd) = @_;
+ my ($year, $phu) = @_;
+
+ my $organisatie = $phu->{organising_country};
+ my $yearTitle   = $phu->{yearTitle};
 
  my $EK_WK = $year % 4;
  my $EK_WK_str = ($EK_WK >= 2 ? 'WK' : 'EK');
@@ -270,7 +273,7 @@ sub format_voorronde_ekwk
  my $out = "<ul>\n";
  if ($year > 1995 and $year <= 2018) #TODO eindjaar automatiseren
  {$out .=
-qq(<li> <a href="sport_voetbal_${EK_WK_str}_$year.html">Eindronde $year in $organisatie.</a>\n);}
+qq(<li> <a href="sport_voetbal_${EK_WK_str}_$yearTitle.html">Eindronde $year in $organisatie.</a>\n);}
  if (defined $phu->{u_nl})
  {$out .= qq(<li> <a href="#groepNL"> Stand en uitslagen groep van Nederland</a>\n);}
  my $t = ($EK_WK ? 'Europese' : 'alle');
@@ -280,8 +283,13 @@ qq(<li> <a href="sport_voetbal_${EK_WK_str}_$year.html">Eindronde $year in $orga
  {$out .= qq(<li> <a href="#playoff"> Naar de play-offs </a>\n);}
  if (defined $phu->{geplaatst} or defined $phu->{geplaatst_html} or defined $phu->{nrs2})
  {$out .= qq(<li> <a href="#deelnemers"> Overzicht deelnemende landen $EK_WK_str-$year </a>\n);}
+ if (defined $phu->{NatL})
+ {$out .= qq(<li> <a href="#natleague">Nations League</a>.\n);}
+ if (defined $phu->{NatLFinals})
+ {$out .= qq(<li> <a href="#natleaguefinals">Nations League Finals</a>.\n);}
  if (defined $phu->{kzb})
  {$out .= qq(<li> <a href="#keizersbaard">Oefenduels</a> van Oranje.\n);}
+
  $out .= "</ul><hr>\n";
 
  if (defined $phu->{u_nl})
@@ -391,14 +399,13 @@ EOF
 
  if (defined $phu->{kzb})
  {
-  # TODO titel is dubbel-op
   $out .= qq(<a name="keizersbaard"> <h2> Oefenduels Oranje </h2> </a>\n);
-  $out .= ftable('border', get_uitslag($phu->{kzb}, {}));
+  $out .= ftable('border', get_uitslag($phu->{kzb}, {ptitel => [0]}));
  }
 
- my $title = "Voorronde $EK_WK_str Voetbal $year te $organisatie";
+ my $title = "Voorronde $EK_WK_str Voetbal $yearTitle te $organisatie";
  return maintxt2htmlpage(EkWkTopMenu($year) . $out, $title, 'title2h1',
-  $dd, {type1 => 'std_menu'});
+  $phu->{dd}, {type1 => 'std_menu'});
 }
 
 sub format_one_ec_cup($$)
