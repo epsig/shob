@@ -1,13 +1,13 @@
-phase,team1,team2,dd,result,star
-8f,az1,ajx,20210120,0-1,2
-8f,vol,psv,20210119,0-2,2
-8f,emm,hrv,20210120,1-2,2
-8f,fyn,hrc,20210120,3-2,1
-8f,mvv,exc,20210119,2-2,6
-8f,vit,adh,20210119,2-1,1
-8f,nec,fst,20210121,3-2,3
-8f,vvv,gae,20210121,1-0,1
-4f,ajx,psv,9-11 feb,-,
-4f,hrv,fyn,9-11 feb,-,
-4f,exc,vit,9-11 feb,-,
-4f,nec,vvv,9-11 feb,-,
+phase,team1,team2,dd,result,star,remark
+8f,az1,ajx,20210120,0-1,2,
+8f,vol,psv,20210119,0-2,2,
+8f,emm,hrv,20210120,1-2,2,
+8f,fyn,hrc,20210120,3-2,1,
+8f,mvv,exc,20210119,2-2,6,
+8f,vit,adh,20210119,2-1,1,
+8f,nec,fst,20210121,3-2,3,
+8f,vvv,gae,20210121,1-0,1,
+4f,ajx,psv,20210210,-,,
+4f,hrv,fyn,20210211,-,,
+4f,exc,vit,20210209,-,,
+4f,nec,vvv,20210210,-,,afgelast
