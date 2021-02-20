@@ -30,24 +30,30 @@ use vars qw($VERSION @ISA @EXPORT);
 #=========================================================================
 # CONTENTS OF THE PACKAGE:
 #=========================================================================
-$VERSION = '20.1';
+$VERSION = '21.0';
 # by Edwin Spee.
 
 @EXPORT =
 (#========================================================================
  '$withAdresses',
- '&handle_new_style_files',
+ '&handle_all_files',
  #========================================================================
 );
 
 our $withAdresses = ( -f File::Spec->catfile('Admin', 'Adressen_data2html.pm') );
 
-sub handle_new_style_files($$$)
+my $fast = 1; # set to 2 during debugging
+
+sub handle_all_files($$$)
+{
+  handle_gen_files(@_);
+  handle_sport_files(@_);
+}
+
+sub handle_gen_files($$$)
 {# (c) Edwin Spee
 
  my ($opt, $lv, $lop) = @_;
-
- my $fast = 1; # set to 2 during debugging
 
  do_all_text_dir ($lop, 'search', [
   [2, 'all', sub {&file2str(File::Spec->catfile('Shob', 'search_setup.pl'));}, 'search.setup'],
@@ -87,51 +93,6 @@ sub handle_new_style_files($$$)
   [2, 'all', sub {&get_bkmrks('index');}, 'bookmarks.html'],
   [2, 'all', sub {&get_klaverjas_faq;}, 'klaverjas_faq.html']]);
 # [1, ' rl', sub {&get_klaverjas_beta_versies;}, 'kj_beta_versies.html'],
-
- do_all_text_dir ($lop, '', [
-  [2, 'all', sub {&get_ekwk_gen('wkD2019');}, 'sport_voetbal_WKD2019.html'],
-  [$fast, 'all', sub {&get_ekwk_voorr_gen('wk2022');}, 'sport_voetbal_WK_2022_voorronde.html']]);
-
-  my $curYr = 2020;
-
-  my @pages = ();
-  foreach my $yr (1993 .. $curYr)
-  {
-    my $szn1 = yr2szn($yr);
-    my $szn2 = $szn1;
-       $szn2 =~ s/-/_/;
-
-    my $dl = ($yr == $curYr ? $fast : 2);
-    if ($yr >= 1994)
-    {
-      push @pages, [$dl, 'all', sub {&get_ec_webpage($szn1);}, "sport_voetbal_europacup_$szn2.html"];
-    }
-    push @pages, [$dl, 'all', sub {&get_betaald_voetbal_nl($yr);}, "sport_voetbal_nl_$szn2.html"];
-    if ($yr % 4 == 2)
-    {
-      push @pages, [$dl, 'all', sub {&get_OS($yr);}, "sport_schaatsen_OS_$yr.html"];
-    }
-    if ($yr % 2 == 0 && $yr >= 1996)
-    {
-      my $ekwk = ($yr % 4 == 0 ? 'ek' : 'wk');
-      my $page_name = "sport_voetbal_" . uc($ekwk) . "_$yr.html";
-      if ($yr <= 2018)
-      {
-        push @pages, [$dl, 'all', sub {&get_ekwk_gen($ekwk . $yr);}, $page_name];
-      }
-
-      $page_name = "sport_voetbal_" . uc($ekwk) . "_${yr}_voorronde.html";
-      push @pages, [$dl, 'all', sub {&get_ekwk_voorr_gen($ekwk . $yr);}, $page_name];
-    }
-  }
-  do_all_text_dir ($lop, '', \@pages);
-
-  do_all_text_dir ($lop, '', [
-  [$fast, 'all', sub {&officieuze_standen('officieus', 2021);}, 'sport_voetbal_nl_jaarstanden.html'],
-  [$fast, 'all', sub {&officieuze_standen('uit_thuis', 2020);}, 'sport_voetbal_nl_uit_thuis.html'],
-
-  [$fast, 'all', sub {&get_stats_eredivisie(2019, 2020, 0);}, 'sport_voetbal_nl_stats.html'],
-  [$fast, '  u', sub {&get_stats_eredivisie(2019, 2020, 2);}, 'sport_voetbal_nl_stats_more.html']]);
 
   my $robots = File::Spec->catfile('Admin', 'robots.txt');
   if (-f $robots)
@@ -260,6 +221,56 @@ sub handle_vimrc($)
    [2, ' rw', sub {&file2str($fortran_plugin)},
    File::Spec->catfile($vim_dir2, 'ftplugin', 'fortran.vim')] ]);
  }
+}
+
+sub handle_sport_files($$$)
+{
+ my ($opt, $lv, $lop) = @_;
+
+ do_all_text_dir ($lop, '', [
+  [2, 'all', sub {&get_ekwk_gen('wkD2019');}, 'sport_voetbal_WKD2019.html'],
+  [$fast, 'all', sub {&get_ekwk_voorr_gen('wk2022');}, 'sport_voetbal_WK_2022_voorronde.html']]);
+
+  my $curYr = 2020;
+
+  my @pages = ();
+  foreach my $yr (1993 .. $curYr)
+  {
+    my $szn1 = yr2szn($yr);
+    my $szn2 = $szn1;
+       $szn2 =~ s/-/_/;
+
+    my $dl = ($yr == $curYr ? $fast : 2);
+    if ($yr >= 1994)
+    {
+      push @pages, [$dl, 'all', sub {&get_ec_webpage($szn1);}, "sport_voetbal_europacup_$szn2.html"];
+    }
+    push @pages, [$dl, 'all', sub {&get_betaald_voetbal_nl($yr);}, "sport_voetbal_nl_$szn2.html"];
+    if ($yr % 4 == 2)
+    {
+      push @pages, [$dl, 'all', sub {&get_OS($yr);}, "sport_schaatsen_OS_$yr.html"];
+    }
+    if ($yr % 2 == 0 && $yr >= 1996)
+    {
+      my $ekwk = ($yr % 4 == 0 ? 'ek' : 'wk');
+      my $page_name = "sport_voetbal_" . uc($ekwk) . "_$yr.html";
+      if ($yr <= 2018)
+      {
+        push @pages, [$dl, 'all', sub {&get_ekwk_gen($ekwk . $yr);}, $page_name];
+      }
+
+      $page_name = "sport_voetbal_" . uc($ekwk) . "_${yr}_voorronde.html";
+      push @pages, [$dl, 'all', sub {&get_ekwk_voorr_gen($ekwk . $yr);}, $page_name];
+    }
+  }
+  do_all_text_dir ($lop, '', \@pages);
+
+  do_all_text_dir ($lop, '', [
+  [$fast, 'all', sub {&officieuze_standen('officieus', 2021);}, 'sport_voetbal_nl_jaarstanden.html'],
+  [$fast, 'all', sub {&officieuze_standen('uit_thuis', 2020);}, 'sport_voetbal_nl_uit_thuis.html'],
+
+  [$fast, 'all', sub {&get_stats_eredivisie(2019, 2020, 0);}, 'sport_voetbal_nl_stats.html'],
+  [$fast, '  u', sub {&get_stats_eredivisie(2019, 2020, 2);}, 'sport_voetbal_nl_stats_more.html']]);
 }
 
 return 1;

@@ -213,7 +213,7 @@ sub shob_main_loop()
   init_settings($nh, $opt, 0, $lv);
   init_web_index($lv =~ m/n/iso ? 0 : 1);
   my $parts2 = ($parts < 2 ? 2 - $parts : $parts+1);
-  handle_new_style_files($opt, $lv, $parts2);
+  handle_all_files($opt, $lv, $parts2);
 
   my @stop_cpu = times;
   my $stop_wt = gettimeofday;
