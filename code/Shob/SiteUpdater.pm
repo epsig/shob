@@ -22,6 +22,7 @@ use Sport_Collector::Archief_EK_WK_Voetbal;
 use Sport_Collector::Stats_Eredivisie;
 use Sport_Collector::Bookmarks_Index;
 use Sport_Functions::Overig;
+use Sport_Functions::Readers qw($csv_dir);
 use Exporter;
 use vars qw($VERSION @ISA @EXPORT);
 @ISA = ('Exporter');
@@ -225,52 +226,105 @@ sub handle_vimrc($)
 
 sub handle_sport_files($$$)
 {
- my ($opt, $lv, $lop) = @_;
+  my ($opt, $lv, $lop) = @_;
 
- do_all_text_dir ($lop, '', [
-  [2, 'all', sub {&get_ekwk_gen('wkD2019');}, 'sport_voetbal_WKD2019.html'],
-  [$fast, 'all', sub {&get_ekwk_voorr_gen('wk2022');}, 'sport_voetbal_WK_2022_voorronde.html']]);
+  my $ranges = get_sport_range();
 
-  my $curYr = 2020;
+  my $datum_fixed = get_datum_fixed();
+  my $curYr = int($datum_fixed * 1E-4 - (7.3/12.0));
 
-  my @pages = ();
-  foreach my $yr (1993 .. $curYr)
+  my @pages = ([2, 'all', sub {&get_ekwk_gen('wkD2019');}, 'sport_voetbal_WKD2019.html']);
+
+  foreach my $yr (1993 .. $curYr + 2)
   {
     my $szn1 = yr2szn($yr);
     my $szn2 = $szn1;
        $szn2 =~ s/-/_/;
 
-    my $dl = ($yr == $curYr ? $fast : 2);
-    if ($yr >= 1994)
+    my $dl = ($yr >= $curYr ? $fast : 2);
+
+    if ($szn1 ge $ranges->{europacup}[0] && $szn1 le $ranges->{europacup}[1])
     {
       push @pages, [$dl, 'all', sub {&get_ec_webpage($szn1);}, "sport_voetbal_europacup_$szn2.html"];
     }
-    push @pages, [$dl, 'all', sub {&get_betaald_voetbal_nl($yr);}, "sport_voetbal_nl_$szn2.html"];
-    if ($yr % 4 == 2)
+
+    if ($szn1 ge $ranges->{eredivisie}[0] && $szn1 le $ranges->{eredivisie}[1])
+    {
+      push @pages, [$dl, 'all', sub {&get_betaald_voetbal_nl($yr);}, "sport_voetbal_nl_$szn2.html"];
+    }
+
+    if ($yr % 4 == 2 && $yr >= $ranges->{schaatsen}[0] && $yr <= $ranges->{schaatsen}[1])
     {
       push @pages, [$dl, 'all', sub {&get_OS($yr);}, "sport_schaatsen_OS_$yr.html"];
     }
-    if ($yr % 2 == 0 && $yr >= 1996)
+
+    if ($yr % 2 == 0)
     {
       my $ekwk = ($yr % 4 == 0 ? 'ek' : 'wk');
-      my $page_name = "sport_voetbal_" . uc($ekwk) . "_$yr.html";
-      if ($yr <= 2018)
+      if ($yr >= $ranges->{ekwk}[0] && $yr <= $ranges->{ekwk}[1])
       {
+        my $page_name = "sport_voetbal_" . uc($ekwk) . "_$yr.html";
         push @pages, [$dl, 'all', sub {&get_ekwk_gen($ekwk . $yr);}, $page_name];
       }
 
-      $page_name = "sport_voetbal_" . uc($ekwk) . "_${yr}_voorronde.html";
-      push @pages, [$dl, 'all', sub {&get_ekwk_voorr_gen($ekwk . $yr);}, $page_name];
+      if ($yr >= $ranges->{ekwk_qf}[0] && $yr <= $ranges->{ekwk_qf}[1])
+      {
+        my $page_name = "sport_voetbal_" . uc($ekwk) . "_${yr}_voorronde.html";
+        push @pages, [$dl, 'all', sub {&get_ekwk_voorr_gen($ekwk . $yr);}, $page_name];
+      }
     }
   }
+
+  my $curYrA = int($datum_fixed * 1E-4);
+  my $curYrB = int($datum_fixed * 1E-4 - 0.5);
+
+  push @pages, [$fast, 'all', sub {&officieuze_standen('officieus', $curYrA);}, 'sport_voetbal_nl_jaarstanden.html'];
+  push @pages, [$fast, 'all', sub {&officieuze_standen('uit_thuis', $curYrB);}, 'sport_voetbal_nl_uit_thuis.html'];
+
+  push @pages, [$fast, 'all', sub {&get_stats_eredivisie($curYr-1, $curYr, 0);}, 'sport_voetbal_nl_stats.html'];
+  push @pages, [$fast, '  u', sub {&get_stats_eredivisie($curYr-1, $curYr, 2);}, 'sport_voetbal_nl_stats_more.html'];
+
   do_all_text_dir ($lop, '', \@pages);
+}
 
-  do_all_text_dir ($lop, '', [
-  [$fast, 'all', sub {&officieuze_standen('officieus', 2021);}, 'sport_voetbal_nl_jaarstanden.html'],
-  [$fast, 'all', sub {&officieuze_standen('uit_thuis', 2020);}, 'sport_voetbal_nl_uit_thuis.html'],
+sub get_sub_range($$;$)
+{
+  my ($dir, $pattern, $pattern2) = @_;
 
-  [$fast, 'all', sub {&get_stats_eredivisie(2019, 2020, 0);}, 'sport_voetbal_nl_stats.html'],
-  [$fast, '  u', sub {&get_stats_eredivisie(2019, 2020, 2);}, 'sport_voetbal_nl_stats_more.html']]);
+  $pattern2 = $pattern if not defined $pattern2;
+
+  my $some_dir = File::Spec->catfile($csv_dir, $dir);
+
+  my @list = ();
+  opendir(my $dh, $some_dir) || die "Can't opendir $some_dir: $!";
+  while (my $filename = readdir $dh)
+  {
+    if ($filename =~ m/$pattern2/ && $filename =~ m/\d{4}/)
+    {
+      $filename =~ s/$pattern//;
+      $filename =~ s/[a-z]?.csv//;
+      $filename =~ s/_/-/;
+      push @list, $filename;
+    }
+  }
+  closedir $dh;
+
+  @list = sort @list;
+  my $first = $list[0];
+  my $last  = $list[-1];
+  return [$first, $last];
+}
+
+sub get_sport_range()
+{
+  my %ranges = ();
+  #my @list_erediv1 = get_sub_range('eredivisie', 'eindstand_eredivisie_');
+  $ranges{eredivisie} = get_sub_range('eredivisie', '^eredivisie_');
+  $ranges{europacup}  = get_sub_range('europacup', 'europacup_');
+  $ranges{ekwk_qf}    = get_sub_range('ekwk_qf', '[ew]k');
+  $ranges{ekwk}       = get_sub_range('ekwk', '[ew]k', '[ew]k\d{4}');
+  $ranges{schaatsen}  = get_sub_range('schaatsen', 'OS_');
+  return \%ranges;
 }
 
 return 1;
