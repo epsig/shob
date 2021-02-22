@@ -445,10 +445,16 @@ sub tpsc_all_seasons($$)
 sub get_stats_eredivisie($$$)
 {# (c) Edwin Spee
 
- my ($yr1, $yr2, $all_data) = @_;
+ my ($szn1, $szn2, $all_data) = @_;
 # $all_data = 0: nieuwe optie voor epsig.nl
 # $all_data = 1: optie voor xs4all/~spee: wel met geel/rood
 # $all_data = 2: optie voor stats...more
+
+ my @parts1 = split(/-/, $szn1);
+ my @parts2 = split(/-/, $szn2);
+
+ my $yr1 = $parts1[0];
+ my $yr2 = $parts2[0];
 
  my $yrA = ($all_data == 2 ? first_year() : 1993);
 
@@ -528,6 +534,11 @@ sub officieuze_standen($$)
  }
  else
  {
+  if (scalar @{$u_nl->{$sz2}} < 2*9+1)
+  { # if less than 2 rounds are played, fall back on previous season:
+    $sz2 = $sz1;
+    $yr--;
+  }
   my $s_total = u2s($u_nl->{$sz2},   1, 1, "uit + thuis $sz2", -1);
   my $s_home  = u2s($u_nl->{$sz2}, 101, 1, "thuis $sz2", -1);
   my $s_away  = u2s($u_nl->{$sz2}, 201, 1, "uit $sz2", -1);

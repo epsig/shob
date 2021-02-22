@@ -15,6 +15,7 @@ use Shob::Functions;
 use Shob::Politiek;
 use Shob::Foto;
 use Shob::Klaverjas_Funcs;
+use Shob_Tools::Idate qw(&split_idate);
 use Sport_Collector::Archief_Voetbal_NL;
 use Sport_Collector::Archief_Europacup_Voetbal;
 use Sport_Collector::OS_Schaatsen;
@@ -23,6 +24,7 @@ use Sport_Collector::Stats_Eredivisie;
 use Sport_Collector::Bookmarks_Index;
 use Sport_Functions::Overig;
 use Sport_Functions::Readers qw($csv_dir);
+use Sport_Collector::Archief_Voetbal_NL_Topscorers qw(&get_topscorers_competitie);
 use Exporter;
 use vars qw($VERSION @ISA @EXPORT);
 @ISA = ('Exporter');
@@ -31,7 +33,7 @@ use vars qw($VERSION @ISA @EXPORT);
 #=========================================================================
 # CONTENTS OF THE PACKAGE:
 #=========================================================================
-$VERSION = '21.0';
+$VERSION = '21.1';
 # by Edwin Spee.
 
 @EXPORT =
@@ -231,17 +233,22 @@ sub handle_sport_files($$$)
   my $ranges = get_sport_range();
 
   my $datum_fixed = get_datum_fixed();
-  my $curYr = int($datum_fixed * 1E-4 - (7.3/12.0));
+
+  my $szn1 = $ranges->{topscorers_eredivisie}[1];
+  my $szn2 = $ranges->{eredivisie}[1];
+  my $curYrA = int($datum_fixed * 1E-4); # current calender year
+  my @parts  = split(/-/, $szn2);
+  my $curYrB = $parts[0];                # year current season started
 
   my @pages = ([2, 'all', sub {&get_ekwk_gen('wkD2019');}, 'sport_voetbal_WKD2019.html']);
 
-  foreach my $yr (1993 .. $curYr + 2)
+  foreach my $yr (1993 .. $curYrB + 2)
   {
     my $szn1 = yr2szn($yr);
     my $szn2 = $szn1;
        $szn2 =~ s/-/_/;
 
-    my $dl = ($yr >= $curYr ? $fast : 2);
+    my $dl = ($yr >= $curYrB ? $fast : 2);
 
     if ($szn1 ge $ranges->{europacup}[0] && $szn1 le $ranges->{europacup}[1])
     {
@@ -275,14 +282,11 @@ sub handle_sport_files($$$)
     }
   }
 
-  my $curYrA = int($datum_fixed * 1E-4);
-  my $curYrB = int($datum_fixed * 1E-4 - 0.5);
-
   push @pages, [$fast, 'all', sub {&officieuze_standen('officieus', $curYrA);}, 'sport_voetbal_nl_jaarstanden.html'];
   push @pages, [$fast, 'all', sub {&officieuze_standen('uit_thuis', $curYrB);}, 'sport_voetbal_nl_uit_thuis.html'];
 
-  push @pages, [$fast, 'all', sub {&get_stats_eredivisie($curYr-1, $curYr, 0);}, 'sport_voetbal_nl_stats.html'];
-  push @pages, [$fast, '  u', sub {&get_stats_eredivisie($curYr-1, $curYr, 2);}, 'sport_voetbal_nl_stats_more.html'];
+  push @pages, [$fast, 'all', sub {&get_stats_eredivisie($szn1, $szn2, 0);}, 'sport_voetbal_nl_stats.html'];
+  push @pages, [$fast, '  u', sub {&get_stats_eredivisie($szn1, $szn2, 2);}, 'sport_voetbal_nl_stats_more.html'];
 
   do_all_text_dir ($lop, '', \@pages);
 }
@@ -324,6 +328,18 @@ sub get_sport_range()
   $ranges{ekwk_qf}    = get_sub_range('ekwk_qf', '[ew]k');
   $ranges{ekwk}       = get_sub_range('ekwk', '[ew]k', '[ew]k\d{4}');
   $ranges{schaatsen}  = get_sub_range('schaatsen', 'OS_');
+
+  my $szn1 = $ranges{eredivisie}[1];
+  my $tpsc = get_topscorers_competitie($szn1, 'eredivisie', 'Eredivisie');
+  if (not scalar @$tpsc)
+  {
+    my @parts = split /-/, $szn1;
+    $parts[0]--;
+    $parts[1]--;
+    $szn1 = "$parts[0]-$parts[1]";
+  }
+  $ranges{topscorers_eredivisie}[1] = $szn1;
+
   return \%ranges;
 }
 
