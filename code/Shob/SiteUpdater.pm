@@ -234,14 +234,14 @@ sub handle_sport_files($$$)
   my $datum_fixed = get_datum_fixed();
 
   my $szn1 = $ranges->{topscorers_eredivisie}[1];
-  my $szn2 = $ranges->{eredivisie}[1];
+  my $szn2 = $ranges->{voetbal_nl}[1];
   my $curYrA = int($datum_fixed * 1E-4); # current calender year
   my @parts  = split(/-/, $szn2);
   my $curYrB = $parts[0];                # year current season started
 
   my @pages = ([2, 'all', sub {&get_ekwk_gen('wkD2019');}, 'sport_voetbal_WKD2019.html']);
 
-  foreach my $yr (1993 .. $curYrB + 2)
+  foreach my $yr ($ranges->{global_first_year} .. $curYrB + 2)
   {
     my $szn1 = yr2szn($yr);
     my $szn2 = $szn1;
@@ -254,7 +254,7 @@ sub handle_sport_files($$$)
       push @pages, [$dl, 'all', sub {&get_ec_webpage($szn1);}, "sport_voetbal_europacup_$szn2.html"];
     }
 
-    if ($szn1 ge $ranges->{eredivisie}[0] && $szn1 le $ranges->{eredivisie}[1])
+    if ($szn1 ge $ranges->{voetbal_nl}[0] && $szn1 le $ranges->{voetbal_nl}[1])
     {
       push @pages, [$dl, 'all', sub {&get_betaald_voetbal_nl($yr);}, "sport_voetbal_nl_$szn2.html"];
     }

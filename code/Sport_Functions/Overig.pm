@@ -13,6 +13,7 @@ use Shob_Tools::Idate;
 use Sport_Functions::Get_Land_Club;
 use Sport_Functions::Get_Result_Standing;
 use Sport_Functions::Filters;
+use Sport_Functions::Range_Available_Seasons;
 use Sport_Collector::Teams;
 use Data::Dumper qw(Dumper);
 use Exporter;
@@ -23,7 +24,7 @@ use vars qw($VERSION @ISA @EXPORT);
 #=========================================================================
 # CONTENTS OF THE PACKAGE:
 #=========================================================================
-$VERSION = '18.1';
+$VERSION = '21.0';
 # by Edwin Spee.
 
 @EXPORT =
@@ -54,9 +55,9 @@ $VERSION = '18.1';
 #  [idem return], wns, 'stadion','opm'],
 # [volgende regel] ]
 
-our $link_stats_eredivisie = q(<a href="sport_voetbal_nl_stats.html">Statistieken Eredivisie vanaf 1993</a>);
-our $link_jaarstanden      = q(<a href="sport_voetbal_nl_jaarstanden.html">Winterkampioen en jaarstanden vanaf 1993</a>);
-our $link_uit_thuis        = q(<a href="sport_voetbal_nl_uit_thuis.html">uit- en thuis standen vanaf 1993</a>);
+our $link_stats_eredivisie = qq(<a href="sport_voetbal_nl_stats.html">Statistieken Eredivisie vanaf $global_first_year</a>);
+our $link_jaarstanden      = qq(<a href="sport_voetbal_nl_jaarstanden.html">Winterkampioen en jaarstanden vanaf $global_first_year</a>);
+our $link_uit_thuis        = qq(<a href="sport_voetbal_nl_uit_thuis.html">uit- en thuis standen vanaf $global_first_year</a>);
 
 sub EkWkTopMenu($)
 {# (c) Edwin Spee
@@ -466,8 +467,12 @@ sub get_voetbal_list($$)
 
  my ($type, $comp) = @_;
 
- my $first_year = ($comp eq 'NL' ? 1993 : 1994);
- my $last_year = ($comp eq 'NL' ? 2020 : 2020);
+ my $ranges = get_sport_range();
+ my $key    = ($comp eq 'NL' ? 'voetbal_nl' : 'europacup');
+ my @parts_first = split(/-/, $ranges->{$key}[0]);
+ my @parts_last  = split(/-/, $ranges->{$key}[1]);
+ my $first_year = $parts_first[0];
+ my $last_year = $parts_last[0];
 
  my $url_comp = ($comp eq 'NL' ? 'nl' : 'europacup');
 

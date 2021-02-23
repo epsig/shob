@@ -19,6 +19,7 @@ use Sport_Functions::Get_Result_Standing;
 use Sport_Functions::Results2Standing;
 use Sport_Functions::Get_Land_Club;
 use Sport_Functions::NatLeagueReaders;
+use Sport_Functions::Range_Available_Seasons qw($global_first_year);
 use Exporter;
 use vars qw($VERSION @ISA @EXPORT);
 @ISA = ('Exporter');
@@ -516,7 +517,7 @@ my $jc = $beker_jc->{extra}{supercup};
 my $some_ered = (scalar @$ere or $opm_ered ne '');
 my $some_tpsc = (scalar @$tpA or scalar @$tpB);
 
-my $skip = $yr - 1993;
+my $skip = $yr - $global_first_year;
 
 my $menu = get_voetbal_list('menu_format', 'NL');
 my $out = '<hr> andere seizoenen: ' . get_menu ('', $skip, 2, -1, @{$menu});

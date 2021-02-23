@@ -10,6 +10,7 @@ use Shob_Tools::Html_Head_Bottum;
 use Shob::Functions;
 use Sport_Functions::Overig;
 use Sport_Collector::Archief_Voetbal_NL_Uitslagen;
+use Sport_Functions::Range_Available_Seasons qw(&get_sport_range);
 use Exporter;
 use vars qw($VERSION @ISA @EXPORT);
 @ISA = ('Exporter');
@@ -18,7 +19,7 @@ use vars qw($VERSION @ISA @EXPORT);
 #=========================================================================
 # CONTENTS OF THE PACKAGE:
 #=========================================================================
-$VERSION = '18.1';
+$VERSION = '21.0';
 # by Edwin Spee.
 
 @EXPORT =
@@ -37,9 +38,12 @@ sub get_sport_index($$$$$)
  if ($dd1 < 0) {$dd1 = 20010101;}
  if ($dd2 < 0) {$dd2 = $dd;}
 
+ my $ranges = get_sport_range();
+ my $first_eredivisie_season = $ranges->{eredivisie}[0];
+
  my $nl_list = get_voetbal_list('overzicht', 'NL');
  my $ec_list = get_voetbal_list('overzicht', 'EC');
- my $host = (get_host_id() eq 'local' ? 'http://www.epsig.nl' : '');
+ my $host = (get_host_id() eq 'local' ? 'https://www.epsig.nl' : '');
  my $out = << "EOF";
  <ul>
   <li>Wedstrijden Nederlands Elftal:
@@ -76,7 +80,7 @@ $nl_list
   <a href="sport_schaatsen_OS_1998.html">OS 1998</a>,
   <a href="sport_schaatsen_OS_1994.html">OS 1994</a>
   <li>Zie verder: <a href="bookmarks_sport.html">sport links</a>
-  <li> Zoek Eredivisie uitslagen (vanaf seizoen 1992-1993):
+  <li> Zoek Eredivisie uitslagen (vanaf seizoen $first_eredivisie_season):
 <form action=$host/cgi-bin/shob/sport_search.pl method=get>
 <p> clubs: <input type=text name=c1 size=15 value="$c1"> <input type=text name=c2 size=15 value="$c2">
 <p> start-datum: <input type=text name=dd1 size=9 value="$dd1">

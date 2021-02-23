@@ -21,8 +21,14 @@ $VERSION = '21.1';
 @EXPORT =
 (#========================================================================
  '&get_sport_range',
+ '$global_first_year',
  #========================================================================
 );
+
+my %ranges = ();
+
+my  $global_first_season = '1993-1994';
+our $global_first_year   =  1993;
 
 sub get_sub_range($$;$)
 {
@@ -52,11 +58,26 @@ sub get_sub_range($$;$)
   return [$first, $last];
 }
 
+sub max_szn($$)
+{
+  my ($szn1, $szn2) = @_;
+
+  return ($szn1 gt $szn2 ? $szn1 : $szn2);
+}
+
 sub get_sport_range()
 {
-  my %ranges = ();
-  #my @list_erediv1 = get_sub_range('eredivisie', 'eindstand_eredivisie_');
+  if (scalar %ranges)
+  {
+    return \%ranges;
+  }
+
   $ranges{eredivisie} = get_sub_range('eredivisie', '^eredivisie_');
+  $ranges{beker}      = get_sub_range('beker', 'beker_');
+
+  $ranges{voetbal_nl}[0] = $global_first_season;
+  $ranges{voetbal_nl}[1] = max_szn($ranges{eredivisie}[1], $ranges{beker}[1]);
+
   $ranges{europacup}  = get_sub_range('europacup', 'europacup_');
   $ranges{ekwk_qf}    = get_sub_range('ekwk_qf', '[ew]k');
   $ranges{ekwk}       = get_sub_range('ekwk', '[ew]k', '[ew]k\d{4}');
@@ -72,6 +93,8 @@ sub get_sport_range()
     $szn1 = "$parts[0]-$parts[1]";
   }
   $ranges{topscorers_eredivisie}[1] = $szn1;
+
+  $ranges{global_first_year} = $global_first_year;
 
   return \%ranges;
 }
