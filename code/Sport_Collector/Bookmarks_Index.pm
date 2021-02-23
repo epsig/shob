@@ -11,6 +11,7 @@ use Shob::Functions;
 use Sport_Functions::List_Available_Pages;
 use Sport_Collector::Archief_Voetbal_NL_Uitslagen;
 use Sport_Functions::Range_Available_Seasons qw(&get_sport_range);
+use Sport_Functions::List_Available_Pages qw(&EkWkList);
 use Exporter;
 use vars qw($VERSION @ISA @EXPORT);
 @ISA = ('Exporter');
@@ -43,25 +44,13 @@ sub get_sport_index($$$$$)
 
  my $nl_list = get_voetbal_list('overzicht', 'NL');
  my $ec_list = get_voetbal_list('overzicht', 'EC');
+ my $ekwk_list = EkWkList();
  my $host = (get_host_id() eq 'local' ? 'https://www.epsig.nl' : '');
  my $out = << "EOF";
  <ul>
   <li>Wedstrijden Nederlands Elftal:
    <br>
-     <a href="sport_voetbal_WK_2022_voorronde.html">WK 2022</a>
-   | <a href="sport_voetbal_EK_2020_voorronde.html">EK 2021</a>
-   | <a href="sport_voetbal_WK_2018.html">WK 2018</a>
-   | <a href="sport_voetbal_EK_2016.html">EK 2016</a>
-   | <a href="sport_voetbal_WK_2014.html">WK 2014</a>
-   | <a href="sport_voetbal_EK_2012.html">EK 2012</a>
-   | <a href="sport_voetbal_WK_2010.html">WK 2010</a>
-   | <a href="sport_voetbal_EK_2008.html">EK 2008</a>
-   | <a href="sport_voetbal_WK_2006.html">WK 2006</a>
-   | <a href="sport_voetbal_EK_2004.html">EK 2004</a>
-   | <a href="sport_voetbal_WK_2002.html">WK 2002</a>
-   | <a href="sport_voetbal_EK_2000.html">EK 2000</a>
-   | <a href="sport_voetbal_WK_1998.html">WK 1998</a>
-   | <a href="sport_voetbal_EK_1996.html">EK 1996</a>
+$ekwk_list
   <li>Nederlandse clubteams in de Europacup voetbal;
    <br>seizoen:
 $ec_list

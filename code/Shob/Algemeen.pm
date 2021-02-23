@@ -20,7 +20,7 @@ use vars qw($VERSION @ISA @EXPORT);
 #=========================================================================
 # CONTENTS OF THE PACKAGE:
 #=========================================================================
-$VERSION = '18.1';
+$VERSION = '21.0';
 # by Edwin Spee.
 
 @EXPORT =
@@ -45,6 +45,7 @@ sub get_hopa()
 
  my $voetbal_nl_list = get_voetbal_list('hopa', 'NL');
  my $voetbal_ec_list = get_voetbal_list('hopa', 'EC');
+ my $last_ekwk       = get_last_ekwk_page();
  my $sport = [
 'Sport en spel',
 << "EOF"
@@ -57,7 +58,7 @@ sub get_hopa()
     <a href="sport_schaatsen_OS_2018.html">2018</a>. </li>
    <li> EK en WK voetbal van
     <a href="sport_voetbal_EK_1996.html">1996</a> t/m
-    <a href="sport_voetbal_WK_2022_voorronde.html">2022</a>. </li>
+    $last_ekwk. </li>
    <li> <a href="sport_voetbal_WKD2019.html">WK vrouwen 2019</a>.
    <li> Nederlandse clubs in het Europacup voetbal van
 $voetbal_ec_list

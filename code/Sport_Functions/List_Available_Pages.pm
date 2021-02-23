@@ -26,6 +26,8 @@ $VERSION = '21.0';
   '&EkWkTopMenu',
   '&OSTopMenu',
   '&get_voetbal_list',
+  '&EkWkList',
+  '&get_last_ekwk_page',
   '$link_stats_eredivisie',
   '$link_jaarstanden',
   '$link_uit_thuis',
@@ -36,28 +38,63 @@ our $link_stats_eredivisie = qq(<a href="sport_voetbal_nl_stats.html">Statistiek
 our $link_jaarstanden      = qq(<a href="sport_voetbal_nl_jaarstanden.html">Winterkampioen en jaarstanden vanaf $global_first_year</a>);
 our $link_uit_thuis        = qq(<a href="sport_voetbal_nl_uit_thuis.html">uit- en thuis standen vanaf $global_first_year</a>);
 
+sub EkWkPlainList()
+{
+  my $ranges = get_sport_range();
+
+  my $first_yr = min($ranges->{ekwk}[0], $ranges->{ekwk_qf}[0]);
+  my $last_yr  = max($ranges->{ekwk}[1], $ranges->{ekwk_qf}[1]);
+
+  my @out = ();
+
+  for (my $yr = $first_yr; $yr <= $last_yr; $yr += 2)
+  {
+    my $year = ($yr == 2020 ? 2021 : $yr); # postponed due to Corona
+    my $ekwk = ($yr % 4 == 0 ? 'EK' : 'WK');
+    my $voorronde = ($yr >= $ranges->{ekwk}[0] && $yr <= $ranges->{ekwk}[1] ? '' : '_voorronde');
+    push @out, ("sport_voetbal_${ekwk}_${yr}${voorronde}.html", "${ekwk} ${year}");
+  }
+  return @out;
+}
+
+sub EkWkList()
+{
+  my @ekwk_pages = EkWkPlainList();
+
+  my $out = '';
+  for (my $i = scalar @ekwk_pages -1 ; $i > 0; $i -= 2)
+  {
+    my $prepend = ($out eq '' ? '     ' : '   | ');
+    my $link = $ekwk_pages[$i-1];
+    my $name = $ekwk_pages[$i];
+    $out .= qq($prepend<a href="$link">$name</a>\n);
+  }
+
+  return $out;
+}
+
 sub EkWkTopMenu($)
 {
   my ($year) = @_;
 
-  my $skip = ($year == -1 ? -1 : ($year - 1996) / 2);
+  my $ranges = get_sport_range();
+  my $first_yr = min($ranges->{ekwk}[0], $ranges->{ekwk_qf}[0]);
 
-  return '<hr>' . get_menu ('', $skip, 2, -1, (
-'sport_voetbal_EK_1996.html', 'EK 1996',
-'sport_voetbal_WK_1998.html', 'WK 1998',
-'sport_voetbal_EK_2000.html', 'EK 2000',
-'sport_voetbal_WK_2002.html', 'WK 2002',
-'sport_voetbal_EK_2004.html', 'EK 2004',
-'sport_voetbal_WK_2006.html', 'WK 2006',
-'sport_voetbal_EK_2008.html', 'EK 2008',
-'sport_voetbal_WK_2010.html', 'WK 2010',
-'sport_voetbal_EK_2012.html', 'EK 2012',
-'sport_voetbal_WK_2014.html', 'WK 2014',
-'sport_voetbal_EK_2016.html', 'EK 2016',
-'sport_voetbal_WK_2018.html', 'WK 2018',
-'sport_voetbal_EK_2020_voorronde.html', 'EK 2021',
-'sport_voetbal_WK_2022_voorronde.html', 'WK 2022',
-)).'<hr>';
+  my $skip = ($year == -1 ? -1 : ($year - $first_yr) / 2);
+
+  my @ekwk_pages = EkWkPlainList();
+
+  return '<hr>' . get_menu ('', $skip, 2, -1, @ekwk_pages).'<hr>';
+}
+
+sub get_last_ekwk_page()
+{
+  my @ekwk_pages = EkWkPlainList();
+  my $link = $ekwk_pages[-2];
+  my $year = $ekwk_pages[-1];
+     $year =~ s/[EW]K //;
+
+  return qq(<a href="$link">$year</a>);
 }
 
 sub OSTopMenu($)
