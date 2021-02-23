@@ -27,7 +27,8 @@ $VERSION = '21.0';
   '&OSTopMenu',
   '&get_voetbal_list',
   '&EkWkList',
-  '&get_last_ekwk_page',
+  '&OSlist',
+  '&get_first_and_last_page',
   '$link_stats_eredivisie',
   '$link_jaarstanden',
   '$link_uit_thuis',
@@ -87,32 +88,69 @@ sub EkWkTopMenu($)
   return '<hr>' . get_menu ('', $skip, 2, -1, @ekwk_pages).'<hr>';
 }
 
-sub get_last_ekwk_page()
+sub get_first_and_last_page($)
 {
-  my @ekwk_pages = EkWkPlainList();
-  my $link = $ekwk_pages[-2];
-  my $year = $ekwk_pages[-1];
-     $year =~ s/[EW]K //;
+  my $type = shift;
 
-  return qq(<a href="$link">$year</a>);
+  my @pages = ($type eq 'ekwk' ? EkWkPlainList() : getOSplainList());
+
+  my @out = ();
+  for my $i (0 .. 1)
+  {
+    my $offset = ($i == 0 ? 0 : -2);
+    my $link = $pages[$offset];
+    my $year = $pages[$offset+1];
+       $year =~ s/.. //;
+    push @out, qq(<a href="$link">$year</a>);
+  }
+  return @out;
+}
+
+sub getOSplainList()
+{
+  my $ranges = get_sport_range();
+
+  my $first_yr = $ranges->{schaatsen}[0];
+  my $last_yr  = $ranges->{schaatsen}[1];
+
+  my @out = ();
+
+  for (my $yr = $first_yr; $yr <= $last_yr; $yr += 4)
+  {
+    push @out, ("sport_schaatsen_OS_${yr}.html", "OS ${yr}");
+  }
+  return @out;
+}
+
+sub OSlist()
+{
+  my @os_pages = getOSplainList();
+
+  my $out = '';
+  for (my $i = scalar @os_pages -1 ; $i > 0; $i -= 2)
+  {
+    if ($out ne '') {$out .= ",\n";}
+    my $link = $os_pages[$i-1];
+    my $name = $os_pages[$i];
+    $out .= qq(<a href="$link">$name</a>);
+  }
+  $out .= "\n";
+
+  return $out;
 }
 
 sub OSTopMenu($)
 {
   my ($jaar) = @_;
 
-  my $os_volgnr = ($jaar - 1994) / 4;
+  my @OSlist = getOSplainList();
 
-  return join('', '<hr> andere winterspelen: ',
-get_menu ('', $os_volgnr, 2, -1, (
-'sport_schaatsen_OS_1994.html', 'OS 1994',
-'sport_schaatsen_OS_1998.html', 'OS 1998',
-'sport_schaatsen_OS_2002.html', 'OS 2002',
-'sport_schaatsen_OS_2006.html', 'OS 2006',
-'sport_schaatsen_OS_2010.html', 'OS 2010',
-'sport_schaatsen_OS_2014.html', 'OS 2014',
-'sport_schaatsen_OS_2018.html', 'OS 2018',
-)) , "<hr>\n");
+  my $ranges = get_sport_range();
+  my $yr0    = $ranges->{schaatsen}[0];
+
+  my $os_nr = ($jaar - $yr0) / 4;
+
+  return join('', '<hr> andere winterspelen: ', get_menu ('', $os_nr, 2, -1, @OSlist), "<hr>\n");
 }
 
 sub get_voetbal_list($$)

@@ -45,7 +45,8 @@ sub get_hopa()
 
  my $voetbal_nl_list = get_voetbal_list('hopa', 'NL');
  my $voetbal_ec_list = get_voetbal_list('hopa', 'EC');
- my $last_ekwk       = get_last_ekwk_page();
+ my @ekwkPages       = get_first_and_last_page('ekwk');
+ my @OSpages         = get_first_and_last_page('OS');
  my $sport = [
 'Sport en spel',
 << "EOF"
@@ -54,11 +55,11 @@ sub get_hopa()
  <li> Een <a href="sport.html">sport-archief</a> met onder andere: </li>
   <ul>
    <li> Schaatsen op de Olympische Spelen in:
-    <a href="sport_schaatsen_OS_1994.html">1994</a> t/m
-    <a href="sport_schaatsen_OS_2018.html">2018</a>. </li>
+    ${OSpages[0]} t/m
+    ${OSpages[1]}. </li>
    <li> EK en WK voetbal van
-    <a href="sport_voetbal_EK_1996.html">1996</a> t/m
-    $last_ekwk. </li>
+    ${ekwkPages[0]} t/m
+    ${ekwkPages[1]}. </li>
    <li> <a href="sport_voetbal_WKD2019.html">WK vrouwen 2019</a>.
    <li> Nederlandse clubs in het Europacup voetbal van
 $voetbal_ec_list

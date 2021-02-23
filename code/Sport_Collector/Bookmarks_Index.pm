@@ -45,6 +45,7 @@ sub get_sport_index($$$$$)
  my $nl_list = get_voetbal_list('overzicht', 'NL');
  my $ec_list = get_voetbal_list('overzicht', 'EC');
  my $ekwk_list = EkWkList();
+ my $os_list = OSlist();
  my $host = (get_host_id() eq 'local' ? 'https://www.epsig.nl' : '');
  my $out = << "EOF";
  <ul>
@@ -61,13 +62,7 @@ $nl_list
   <li>$link_jaarstanden |
       $link_uit_thuis
   <li>Uitslagen schaatsen:
-  <a href="sport_schaatsen_OS_2018.html">OS 2018</a>,
-  <a href="sport_schaatsen_OS_2014.html">OS 2014</a>,
-  <a href="sport_schaatsen_OS_2010.html">OS 2010</a>,
-  <a href="sport_schaatsen_OS_2006.html">OS 2006</a>,
-  <a href="sport_schaatsen_OS_2002.html">OS 2002</a>,
-  <a href="sport_schaatsen_OS_1998.html">OS 1998</a>,
-  <a href="sport_schaatsen_OS_1994.html">OS 1994</a>
+$os_list
   <li>Zie verder: <a href="bookmarks_sport.html">sport links</a>
   <li> Zoek Eredivisie uitslagen (vanaf seizoen $first_eredivisie_season):
 <form action=$host/cgi-bin/shob/sport_search.pl method=get>
