@@ -5,7 +5,7 @@ use strict; use warnings;
 #=========================================================================
 # following text starts a package:
 use Exporter;
-use Sport_Functions::Overig qw(yr2szn);
+use Sport_Functions::Seasons qw(yr2szn);
 use Sport_Functions::AddMatch qw(&add_one_line);
 use Sport_Functions::Readers qw(&read_csv_with_header);
 use Sport_Functions::ListRemarks qw($all_remarks);

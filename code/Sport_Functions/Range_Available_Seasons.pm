@@ -7,6 +7,7 @@ use strict; use warnings;
 use File::Spec;
 use Sport_Functions::Readers qw($csv_dir);
 use Sport_Collector::Archief_Voetbal_NL_Topscorers qw(&get_topscorers_competitie);
+use Sport_Functions::Seasons;
 use Exporter;
 use vars qw($VERSION @ISA @EXPORT);
 @ISA = ('Exporter');
@@ -58,13 +59,6 @@ sub get_sub_range($$;$)
   return [$first, $last];
 }
 
-sub max_szn($$)
-{
-  my ($szn1, $szn2) = @_;
-
-  return ($szn1 gt $szn2 ? $szn1 : $szn2);
-}
-
 sub get_sport_range()
 {
   if (scalar %ranges)
@@ -87,10 +81,7 @@ sub get_sport_range()
   my $tpsc = get_topscorers_competitie($szn1, 'eredivisie', 'Eredivisie');
   if (not scalar @$tpsc)
   {
-    my @parts = split /-/, $szn1;
-    $parts[0]--;
-    $parts[1]--;
-    $szn1 = "$parts[0]-$parts[1]";
+    $szn1 = previous_szn($szn1);
   }
   $ranges{topscorers_eredivisie}[1] = $szn1;
 

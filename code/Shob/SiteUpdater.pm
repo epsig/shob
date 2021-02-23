@@ -22,7 +22,7 @@ use Sport_Collector::OS_Schaatsen;
 use Sport_Collector::Archief_EK_WK_Voetbal;
 use Sport_Collector::Stats_Eredivisie;
 use Sport_Collector::Bookmarks_Index;
-use Sport_Functions::Overig;
+use Sport_Functions::Seasons;
 use Sport_Functions::Range_Available_Seasons qw(&get_sport_range);
 use Exporter;
 use vars qw($VERSION @ISA @EXPORT);

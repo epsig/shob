@@ -36,7 +36,6 @@ $VERSION = '21.0';
  '&extremen_gem_aantal_toeschouwers',
  '&min_max_aantal_toeschouwers',
  '&gem_aantal_toeschouwers',
- '&yr2szn',
  '&more_details',
  '&get_voetbal_list',
  '$link_stats_eredivisie',
@@ -354,15 +353,6 @@ sub gem_aantal_toeschouwers($$)
   }
   return (wantarray ? ($sum2, $isum2) : $sum2 / $isum2);
  }
-}
-
-sub yr2szn($)
-{# (c) Edwin Spee
- # versie 1.0 11-aug-2003 initiele versie
-
- my $year = $_[0];
- my $yp1 = $year + 1;
- return qq($year-$yp1);
 }
 
 sub get_rood($$)

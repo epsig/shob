@@ -5,7 +5,7 @@ use strict; use warnings;
 #=========================================================================
 # following text starts a package:
 use Shob_Tools::Html_Stuff;
-use Sport_Functions::Overig;
+use Sport_Functions::Seasons;
 use Exporter;
 use vars qw($VERSION @ISA @EXPORT);
 @ISA = ('Exporter');
