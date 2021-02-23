@@ -9,7 +9,7 @@ use Shob_Tools::General;
 use Shob_Tools::Html_Stuff;
 use Shob_Tools::Idate;
 use Shob_Tools::Html_Head_Bottum;
-use Sport_Functions::Overig;
+use Sport_Functions::List_Available_Pages;
 use Shob::Bookmarks;
 use Shob::Klaverjas_Funcs;
 use Exporter;

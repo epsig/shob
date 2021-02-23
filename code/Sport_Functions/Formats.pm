@@ -15,6 +15,7 @@ use Sport_Collector::Archief_Voetbal_NL_Standen;
 use Sport_Collector::Archief_Voetbal_NL_Topscorers qw(&get_topscorers_competitie);
 use Sport_Functions::Overig;
 use Sport_Functions::Seasons;
+use Sport_Functions::List_Available_Pages;
 use Sport_Functions::Filters;
 use Sport_Functions::Get_Result_Standing;
 use Sport_Functions::Results2Standing;

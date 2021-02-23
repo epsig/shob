@@ -13,7 +13,7 @@ use Sport_Functions::Get_Land_Club;
 use Sport_Functions::Readers qw(&read_csv_with_header);
 use Sport_Functions::ListRemarks qw($all_remarks);
 use Sport_Collector::Teams;
-use Sport_Functions::Overig;
+use Sport_Functions::List_Available_Pages;
 use Exporter;
 use vars qw($VERSION @ISA @EXPORT);
 @ISA = ('Exporter');

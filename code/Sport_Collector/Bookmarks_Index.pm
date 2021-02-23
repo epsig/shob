@@ -8,7 +8,7 @@ use Shob_Tools::Settings;
 use Shob_Tools::Html_Stuff;
 use Shob_Tools::Html_Head_Bottum;
 use Shob::Functions;
-use Sport_Functions::Overig;
+use Sport_Functions::List_Available_Pages;
 use Sport_Collector::Archief_Voetbal_NL_Uitslagen;
 use Sport_Functions::Range_Available_Seasons qw(&get_sport_range);
 use Exporter;
