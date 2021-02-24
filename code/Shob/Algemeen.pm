@@ -181,6 +181,7 @@ my $hopa  = ($web_index eq '' ? $www_epsig_nl : "$www_epsig_nl/$web_index");
 my $list_nl = get_voetbal_list('overzicht', 'NL');
 my $list_ec = get_voetbal_list('overzicht', 'EC');
 my $list_OS = OSlistWithCity();
+my $list_EKWK_DH = EKWK_DH_List();
 
 my $out = << "EOF";
 <ol>
@@ -213,20 +214,7 @@ $list_ec
 $list_OS
   <li>Europees en Wereldkampioenschappen voetbal:
    <br>
-     <a href="sport_voetbal_EK_2020_voorronde.html">EK 2021</a>
-   | <a href="sport_voetbal_WKD2019.html">WK 2019 (D)</a>
-   | <a href="sport_voetbal_WK_2018.html">WK 2018</a>
-   | <a href="sport_voetbal_EK_2016.html">EK 2016</a>
-   | <a href="sport_voetbal_WK_2014.html">WK 2014</a>
-   | <a href="sport_voetbal_EK_2012.html">EK 2012</a>
-   | <a href="sport_voetbal_WK_2010.html">WK 2010</a>
-   | <a href="sport_voetbal_EK_2008.html">EK 2008</a>
-   | <a href="sport_voetbal_WK_2006.html">WK 2006</a>
-   | <a href="sport_voetbal_EK_2004.html">EK 2004</a>
-   | <a href="sport_voetbal_WK_2002.html">WK 2002</a>
-   | <a href="sport_voetbal_EK_2000.html">EK 2000</a>
-   | <a href="sport_voetbal_WK_1998.html">WK 1998</a>
-   | <a href="sport_voetbal_EK_1996.html">EK 1996</a>
+$list_EKWK_DH
  </ol>
  <li><a href="bookmarks.html">Bookmarks</a>
  <ol>
@@ -241,10 +229,11 @@ $list_OS
  </ol>
 </ol>
 EOF
+ my $datum_fixed = get_datum_fixed();
 return maintxt2htmlpage(
  bespaar_bandbreedte($out),
  'Overzicht van de website van Edwin Spee',
- 'title2h1', 20200712, {type1 => 'std_menu'});
+ 'title2h1', $datum_fixed, {type1 => 'std_menu'});
 }
 
 sub get_reactie

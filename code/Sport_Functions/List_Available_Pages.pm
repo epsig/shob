@@ -28,6 +28,7 @@ $VERSION = '21.0';
   '&OSTopMenu',
   '&get_voetbal_list',
   '&EkWkList',
+  '&EKWK_DH_List',
   '&OSlist',
   '&OSlistWithCity',
   '&get_first_and_last_page',
@@ -58,6 +59,44 @@ sub EkWkPlainList()
     push @out, ("sport_voetbal_${ekwk}_${yr}${voorronde}.html", "${ekwk} ${year}");
   }
   return @out;
+}
+
+# note: returned list is of another type, but easy to use in the next step
+sub join_DH_lists(@)
+{
+  my (@list) = @_;
+
+  my @combined = ();
+  for (my $i=0; $i<scalar @list; $i+=2)
+  {
+    my $link = $list[$i];
+    my $name = $list[$i+1];
+    my $year = $name;
+       $year =~ s/\D//g;
+    push @combined, [$link, $name, $year];
+  }
+  # sort list; most recent years first
+  @combined = sort { $b->[2] <=> $a->[2]} @combined;
+  return @combined;
+}
+
+sub EKWK_DH_List()
+{
+  my @ekwk_pages = EkWkPlainList();
+  my @wkD_pages = ('sport_voetbal_WKD2019.html', 'WK 2019 (D)');
+
+  my @combined = join_DH_lists( @ekwk_pages, @wkD_pages);
+
+  my $out = '';
+  foreach my $ekwk (@combined)
+  {
+    my $prepend = ($out eq '' ? '     ' : '   | ');
+    my $link = $ekwk->[0];
+    my $name = $ekwk->[1];
+    $out .= qq($prepend<a href="$link">$name</a>\n);
+  }
+
+  return $out;
 }
 
 sub EkWkList()
