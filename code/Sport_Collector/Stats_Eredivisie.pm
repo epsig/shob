@@ -451,11 +451,8 @@ sub get_stats_eredivisie($$$)
 # $all_data = 1: optie voor xs4all/~spee: wel met geel/rood
 # $all_data = 2: optie voor stats...more
 
- my @parts1 = split(/-/, $szn1);
- my @parts2 = split(/-/, $szn2);
-
- my $yr1 = $parts1[0];
- my $yr2 = $parts2[0];
+ my $yr1 = szn2yr($szn1);
+ my $yr2 = szn2yr($szn2);
 
  my $yrA = ($all_data == 2 ? first_year() : 1993);
 

@@ -236,8 +236,7 @@ sub handle_sport_files($$$)
   my $szn1 = $ranges->{topscorers_eredivisie}[1];
   my $szn2 = $ranges->{voetbal_nl}[1];
   my $curYrA = int($datum_fixed * 1E-4); # current calender year
-  my @parts  = split(/-/, $szn2);
-  my $curYrB = $parts[0];                # year current season started
+  my $curYrB = szn2yr($szn2);            # year current season started
 
   my @pages = ([2, 'all', sub {&get_ekwk_gen('wkD2019');}, 'sport_voetbal_WKD2019.html']);
 

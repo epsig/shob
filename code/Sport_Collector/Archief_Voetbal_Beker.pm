@@ -8,6 +8,7 @@ use Shob_Tools::General;
 use Sport_Functions::Readers qw($csv_dir);
 use Sport_Functions::BekerReaders;
 use Sport_Functions::Overig;
+use Sport_Functions::Seasons;
 use Exporter;
 use vars qw($VERSION @ISA @EXPORT);
 @ISA = ('Exporter');
@@ -39,8 +40,7 @@ sub knvb_beker($)
     $csv =~ s/-/_/;
     if (-f "$csv_dir/$subdir/$csv")
     {
-      my @yrs =  split(/-/, $szn);
-      my $yr = $yrs[0];
+      my $yr = szn2yr($szn);
       $knvb_beker->{$szn} = read_beker_csv($csv, $subdir, $yr);
     }
   }
