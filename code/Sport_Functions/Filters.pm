@@ -7,6 +7,7 @@ use strict; use warnings;
 use Shob_Tools::Settings;
 use Shob_Tools::General;
 use Shob_Tools::Error_Handling;
+use Sport_Functions::Get_Result_Standing qw(&get_uitslag);
 use Exporter;
 use vars qw($VERSION @ISA @EXPORT);
 @ISA = ('Exporter');
@@ -166,6 +167,15 @@ sub filter_team($$$)
   {
    push (@result, $pu->[$i]);
   }
+ }
+ if (scalar @result == 1 && $count != -1)
+ { # this checks on the usage of an invalid id for a land/team
+   my $out = get_uitslag($pu, {});
+   if ($verbose > 2)
+   {
+     print "skipping all results:\n";
+     print $out;
+   }
  }
  return \@result;
 }
