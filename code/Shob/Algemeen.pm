@@ -180,6 +180,7 @@ my $hopa  = ($web_index eq '' ? $www_epsig_nl : "$www_epsig_nl/$web_index");
 
 my $list_nl = get_voetbal_list('overzicht', 'NL');
 my $list_ec = get_voetbal_list('overzicht', 'EC');
+my $list_OS = OSlistWithCity();
 
 my $out = << "EOF";
 <ol>
@@ -209,13 +210,7 @@ $list_nl
   <li>Europacup voetbal, seizoenen:<br>
 $list_ec
   <li>schaatsuitslagen Olympische Winterspelen:<br>
-   <a href="sport_schaatsen_OS_2018.html">PyeongChang (2018)</a>,
-   <a href="sport_schaatsen_OS_2014.html">Sochi (2014)</a>,
-   <a href="sport_schaatsen_OS_2010.html">Vancouver (2010)</a>,
-   <a href="sport_schaatsen_OS_2006.html">Turijn (2006)</a>,
-   <a href="sport_schaatsen_OS_2002.html">Salt Lake City (2002)</a>,
-   <a href="sport_schaatsen_OS_1998.html">Nagano (1998)</a> en
-   <a href="sport_schaatsen_OS_1994.html">Lillehammer (1994)</a>
+$list_OS
   <li>Europees en Wereldkampioenschappen voetbal:
    <br>
      <a href="sport_voetbal_EK_2020_voorronde.html">EK 2021</a>

@@ -10,6 +10,7 @@ use Shob_Tools::Error_Handling;
 use Shob_Tools::Html_Head_Bottum;
 use Shob_Tools::Idate;
 use Sport_Functions::Range_Available_Seasons;
+use Sport_Functions::ListRemarks qw($all_remarks);
 use Exporter;
 use vars qw($VERSION @ISA @EXPORT);
 @ISA = ('Exporter');
@@ -28,6 +29,7 @@ $VERSION = '21.0';
   '&get_voetbal_list',
   '&EkWkList',
   '&OSlist',
+  '&OSlistWithCity',
   '&get_first_and_last_page',
   '$link_stats_eredivisie',
   '$link_jaarstanden',
@@ -120,6 +122,28 @@ sub getOSplainList()
     push @out, ("sport_schaatsen_OS_${yr}.html", "OS ${yr}");
   }
   return @out;
+}
+
+sub OSlistWithCity()
+{
+  my @os_pages = getOSplainList();
+
+  my $ranges = get_sport_range();
+  my $first_year = $ranges->{schaatsen}[0];
+  my $last_year  = $ranges->{schaatsen}[1];
+
+  my $out = '';
+  my $yr = $last_year;
+  for (my $i = scalar @os_pages -1 ; $i > 0; $i -= 2)
+  {
+    my $city = $all_remarks->{schaatsen}->get($yr, 'city');
+    $out .= ($yr == $first_year ? " en\n" : ",\n") if ($out ne '');
+    my $link = $os_pages[$i-1];
+    $out .= qq(   <a href="$link">$city ($yr)</a>);
+    $yr -= 4;
+  }
+  $out .= "\n";
+  return $out;
 }
 
 sub OSlist()
