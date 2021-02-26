@@ -1,4 +1,4 @@
-#!/usr/local/bin/perl -T -I../../shobdir
+#!/usr/bin/perl -T -I.
 $| = 1;
 use strict;
 use warnings;
@@ -6,8 +6,8 @@ use CGI::Carp qw(fatalsToBrowser);
 use CGI qw(:all);
 use Sport_Functions::Search;
 use Shob_Tools::Settings;
-use Sport_Data::Bookmarks_Index;
-use Sport_Data::Archief_Voetbal_NL;
+use Sport_Collector::Bookmarks_Index;
+use Sport_Collector::Archief_Voetbal_NL;
 
 print header;
 

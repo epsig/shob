@@ -567,7 +567,7 @@ sub officieuze_standen($$)
   }
  }
  $out = << "EOF";
-<form method=get action=https://www.epsig.nl/cgi-bin/shob/officieuze_standen.pl>
+<form method=get action=/cgi-bin/shob/officieuze_standen.pl>
 Ga naar andere jaren:
 <input type=hidden name=type value="$type">
 <select name="year">
@@ -578,7 +578,7 @@ $options
 $out
 EOF
 
- return maintxt2htmlpage($out, $title, 'title2h1', $dd, {type1 => 'std_menu'});
+ return maintxt2htmlpage($out, $title, 'title2h1', $dd, {type1 => 'std_menu', root => '/'});
 }
 
 return 1;
