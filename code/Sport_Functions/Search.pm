@@ -11,6 +11,8 @@ use Sport_Functions::Get_Result_Standing;
 use Sport_Functions::Seasons;
 use Sport_Collector::Archief_Voetbal_NL_Uitslagen;
 use Sport_Collector::Teams;
+use Sport_Functions::Range_Available_Seasons;
+use Sport_Functions::Seasons;
 use Exporter;
 use vars qw($VERSION @ISA @EXPORT);
 @ISA = ('Exporter');
@@ -19,7 +21,7 @@ use vars qw($VERSION @ISA @EXPORT);
 #=========================================================================
 # CONTENTS OF THE PACKAGE:
 #=========================================================================
-$VERSION = '18.1';
+$VERSION = '21.1';
 # by Edwin Spee.
 
 @EXPORT =
@@ -32,6 +34,12 @@ sub sport_search_results($$$$)
 {# (c) Edwin Spee
 
  my ($c1, $c2, $dd1, $dd2) = @_;
+
+ my $ranges = get_sport_range();
+ my $first_yr = szn2yr($ranges->{eredivisie}[0]);
+ my $last_yr  = szn2yr($ranges->{eredivisie}[1]);
+ my $max_seasons = 5 + $last_yr - $first_yr;
+
  my @c1 = find_club($c1);
  my @c2 = find_club($c2);
 
@@ -58,8 +66,8 @@ sub sport_search_results($$$$)
   }
   else
   {
-   $out .= ftr(ftdl("ongeldige datum $yr1: format = yyyymmdd. Using 19920101.\n"));
-   ($yr1, $dd1) = (1992, 19920101);
+   ($yr1, $dd1) = ($first_yr, 1E4*$first_yr + 101);
+   $out .= ftr(ftdl("ongeldige datum $yr1: format = yyyymmdd. Using $dd1.\n"));
   }
   if ($dd2 =~ m/(\d{4})(\d{2})(\d{2})/iso)
   {
@@ -71,13 +79,13 @@ sub sport_search_results($$$$)
    ($yr2, $dd2) = (int($dd*1E-4), $dd);
   }
 
-  if (scalar @c1 * scalar @c2 * (1 + $yr2 - $yr1) > 20)
+  if (scalar @c1 * scalar @c2 * (1 + $yr2 - $yr1) > $max_seasons)
   {
    $out .= ftr(ftdl('Too many clubs or seasons, please, be more specific.'));
   }
   else
   {
-   for (my $year=max($yr1-1,1992); $year <= $yr2; $year++)
+   for (my $year=max($yr1-1, $first_yr); $year <= $yr2; $year++)
    {
     my $seizoen = yr2szn($year);
     my $u_szn = $u_nl->{$seizoen};

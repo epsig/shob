@@ -74,7 +74,7 @@ sub handle_gen_files($$$)
   [2, 'all', sub {&get_tech_doc_kj;}, 'tech_doc_kj.html'],
   [2, 'all', sub {&get_tech_doc_shob;}, 'tech_doc_shob.html'],
   [2, 'all', sub {&get_tech_doc_adressen;}, 'tech_doc_adressen.html'],
-  [$fast, 'all', sub {&get_sport_index('', '', '', -1, -1);}, 'sport.html'],
+  [$fast, 'all', sub {&get_sport_index('', 'ajax', 'feyenoord', -1, -1);}, 'sport.html'],
   [2, 'all', sub {&get_reactie;}, 'reactie.html'],
   [2, 'all', sub {&get_dank();}, 'dank_u_wel.html'],
   [2, 'all', sub {&get_std_search_page;}, 'search.html'],
