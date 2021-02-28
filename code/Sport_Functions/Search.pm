@@ -13,6 +13,7 @@ use Sport_Collector::Archief_Voetbal_NL_Uitslagen;
 use Sport_Collector::Teams;
 use Sport_Functions::Range_Available_Seasons;
 use Sport_Functions::Seasons;
+use Sport_Functions::Results2Standing;
 use Exporter;
 use vars qw($VERSION @ISA @EXPORT);
 @ISA = ('Exporter');
@@ -44,6 +45,7 @@ sub sport_search_results($$$$$)
  my @c2 = find_club($c2);
 
  my $out = "\n";
+ my @all_matches = (['']);
  if (scalar @c1 * scalar @c2 > 10)
  {
   $out .= ftr(ftdl('Too many clubs, please, be more specific.'));
@@ -104,12 +106,22 @@ sub sport_search_results($$$$$)
          {
           $uc1c2 = filter_datum($dd1, $dd2, $uc1c2);
          }
-         $out .= get_uitslag($uc1c2, {ptitel => [0]});
+         $out .= get_uitslag($uc1c2, {cols => 6, ptitel => [0]});
+         for (my $i=1; $i < scalar @{$uc1c2}; $i++)
+         {
+           push @all_matches, $uc1c2->[$i];
+         }
     }}}}}
     else
     {
      last;
  }}}}
+
+ if (scalar @all_matches > 1)
+ {
+  my $s = u2s(\@all_matches, 1, 1, '', -1, []);
+  $out .= get_stand($s, 1, 0, [0]);
+ }
 
  return ftable('border', $out);
 }
