@@ -141,10 +141,15 @@ return success;
 }
 </script>
 <form name="myForm" action=/cgi-bin/shob/sport_search.pl method=get onsubmit="return validateForm()">
-<p> clubs: <input type=text name=c1 size=15 value="ajax"> <input type=text name=c2 size=15 value="feyenoord">
+<p> clubs: <input type=text name=c1 size=15 value="ajax"> <input type=text name=c2 size=15 value="feyenoord"> </p>
 <p> start-datum: <input type=text name=dd1 size=9 value="20010101">
-eind-datum: <input type=text name=dd2 size=9 value="20210224"> (formaat datum = yyyymmdd)
-<p> <input type=submit value="OK, verstuur!">
+eind-datum: <input type=text name=dd2 size=9 value="20210224"> (formaat datum = yyyymmdd) </p>
+<p>uit en thuis:
+<input type="radio" id="both" name="both" value="1" checked>
+<label for="1">beide wedstrijden</label>
+<input type="radio" id="both" name="both" value="0">
+<label for="0">1e speelt thuis</label><br> </p>
+<p> <input type=submit value="OK, verstuur!"> </p>
 </form>
 </ul>
 </div></div></div></table>

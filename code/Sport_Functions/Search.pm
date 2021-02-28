@@ -30,10 +30,10 @@ $VERSION = '21.1';
  #========================================================================
 );
 
-sub sport_search_results($$$$)
+sub sport_search_results($$$$$)
 {# (c) Edwin Spee
 
- my ($c1, $c2, $dd1, $dd2) = @_;
+ my ($c1, $c2, $dd1, $dd2, $both) = @_;
 
  my $ranges = get_sport_range();
  my $first_yr = szn2yr($ranges->{eredivisie}[0]);
@@ -97,7 +97,7 @@ sub sport_search_results($$$$)
       {
        if ($t1 ne $t2)
        {
-        my $uc1c2 = filter_team([$t1, $t2], 2, $u_szn);
+        my $uc1c2 = filter_team([$t1, $t2], 2, $u_szn, $both);
         if (scalar @{$uc1c2} > 1)
         {
          if ($year <= $yr1 or $year >= $yr2-1)

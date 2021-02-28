@@ -136,13 +136,12 @@ sub filter_datum($$$)
  return \@result;
 }
 
-sub filter_team($$$)
-{# (c) Edwin Spee
- # versie 2.1 26-jan-2005 verhuisd vanuit web_sport_funcs en stijlaanpassingen
- # versie 2.0 11-aug-2003 zoek patroon moet aanwezig zijn, i.p.v. volledig matchen
- # versie 1.0 begin--2003 initiele versie
+sub filter_team($$$;$)
+{
+ my ($pntr_lookfor, $count, $pu, $both) = @_;
 
- my ($pntr_lookfor, $count,$pu) = @_;
+ my $both_ = (defined $both ? $both : 1);
+
  my @result = ($pu->[0]);
  my $rows = scalar @$pu;
  my $cnt_lookfor = scalar @$pntr_lookfor;
@@ -150,22 +149,30 @@ sub filter_team($$$)
  for (my $i=1; $i<$rows; $i++)
  {
   my $found = 0;
-  for (my $k=0; $k < $cnt_lookfor; $k++)
-  #if ($pntr_lookfor->[$k] eq $pu->[$i][0])
+  if ($both_)
   {
-   if ($pu->[$i][0] =~ m/$pntr_lookfor->[$k]/is or $pu->[$i][0] =~ m/\//iso)
+   for (my $k=0; $k < $cnt_lookfor; $k++)
    {
-    $found++;
+    if ($pu->[$i][0] =~ m/$pntr_lookfor->[$k]/is or $pu->[$i][0] =~ m/\//iso)
+    {
+     $found++;
+    }
+    elsif ($pu->[$i][1] =~ m/$pntr_lookfor->[$k]/is  or $pu->[$i][0] =~ m/\//iso)
+    {
+     $found++;
+    }
    }
-   # elsif ($pntr_lookfor->[$k] eq $pu->[$i][1])
-   elsif ($pu->[$i][1] =~ m/$pntr_lookfor->[$k]/is  or $pu->[$i][0] =~ m/\//iso)
+   if (($count == -1 and $found == 0) or ($count > 0 and $found >= $count))
    {
-    $found++;
+    push (@result, $pu->[$i]);
    }
   }
-  if (($count == -1 and $found == 0) or ($count > 0 and $found >= $count))
+  else
   {
-   push (@result, $pu->[$i]);
+    if ($pu->[$i][0] eq $pntr_lookfor->[0] && $pu->[$i][1] eq $pntr_lookfor->[1])
+    {
+      push (@result, $pu->[$i]);
+    }
   }
  }
  if (scalar @result == 1 && $count != -1)

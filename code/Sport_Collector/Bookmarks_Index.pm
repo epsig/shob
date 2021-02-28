@@ -33,8 +33,8 @@ $VERSION = '21.0';
 sub get_sport_index($$$$$)
 {# (c) Edwin Spee
 
- my $search_data = shift;
- my ($c1, $c2, $dd1, $dd2) = @_;
+ my ($search_data, $c1, $c2, $dd1, $dd2) = @_;
+
  my $dd = $u_nl->{laatste_speeldatum};
  if ($dd1 < 0) {$dd1 = 20010101;}
  if ($dd2 < 0) {$dd2 = $dd;}
@@ -114,10 +114,15 @@ function validateForm() {
 }
 </script>
 <form name="myForm" action=$host/cgi-bin/shob/sport_search.pl method=get onsubmit="return validateForm()">
-<p> clubs: <input type=text name=c1 size=15 value="$c1"> <input type=text name=c2 size=15 value="$c2">
+<p> clubs: <input type=text name=c1 size=15 value="$c1"> <input type=text name=c2 size=15 value="$c2"> </p>
 <p> start-datum: <input type=text name=dd1 size=9 value="$dd1">
-eind-datum: <input type=text name=dd2 size=9 value="$dd2"> (formaat datum = yyyymmdd)
-<p> <input type=submit value="OK, verstuur!">
+eind-datum: <input type=text name=dd2 size=9 value="$dd2"> (formaat datum = yyyymmdd) </p>
+<p>uit en thuis:
+<input type="radio" id="both" name="both" value="1" checked>
+<label for="1">beide wedstrijden</label>
+<input type="radio" id="both" name="both" value="0">
+<label for="0">1e speelt thuis</label><br> </p>
+<p> <input type=submit value="OK, verstuur!"> </p>
 </form>
  </ul>
 EOF
