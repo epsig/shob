@@ -56,7 +56,15 @@ sub read_ec_csv($$)
 
   my $content = read_csv_with_header($fileWithPath);
 
-  my $dateTimeLog = qx/git log -1 --pretty="format:%ci" $fileWithPath/;
+  my $dateTimeLog;
+  if (exists $ENV{SERVER_NAME})
+  {
+    $dateTimeLog = '';
+  }
+  else
+  {
+    $dateTimeLog = qx/git log -1 --pretty="format:%ci" $fileWithPath/;
+  }
   
   my $date;
   if (length($dateTimeLog) > 0)
