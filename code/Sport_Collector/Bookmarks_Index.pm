@@ -12,6 +12,9 @@ use Sport_Functions::List_Available_Pages;
 use Sport_Collector::Archief_Voetbal_NL_Uitslagen;
 use Sport_Functions::Range_Available_Seasons qw(&get_sport_range);
 use Sport_Functions::List_Available_Pages qw(&EkWkList);
+use Sport_Collector::Archief_Voetbal_NL_Standen;
+use Sport_Functions::Seasons;
+use Sport_Functions::Get_Land_Club;
 use Exporter;
 use vars qw($VERSION @ISA @EXPORT);
 @ISA = ('Exporter');
@@ -30,6 +33,44 @@ $VERSION = '21.0';
  #========================================================================
 );
 
+sub create_input_club($$$)
+{
+  my ($clubs, $default, $order) = @_;
+
+  my $out = qq(<select name="c$order">);
+  foreach my $club (@{$clubs})
+  {
+    my $selected = ($club eq $default ? 'selected ' : '');
+    $out .= qq(<option ${selected}value="$club">$club\n);
+  }
+  $out .= qq(</select>\n);
+}
+
+sub get_list_eredivisie_clubs()
+{
+  my $ranges = get_sport_range();
+  my $first_yr = szn2yr($ranges->{eredivisie}[0]);
+  my $last_yr  = szn2yr($ranges->{eredivisie}[1]);
+
+  my @clubs = ();
+  for my $yr ($first_yr .. $last_yr)
+  {
+    my $szn = yr2szn($yr);
+    my $s = standen_eredivisie($szn);
+    for (my $c=1; $c < scalar @$s; $c++)
+    {
+      my $club = expand($s->[$c][0], 0);
+      if ( ! grep /$club/, @clubs)
+      {
+        push @clubs, $club;
+      }
+    }
+  }
+
+  @clubs = sort @clubs;
+  return @clubs;
+}
+
 sub get_sport_index($$$$$)
 {# (c) Edwin Spee
 
@@ -41,6 +82,11 @@ sub get_sport_index($$$$$)
 
  my $ranges = get_sport_range();
  my $first_eredivisie_season = $ranges->{eredivisie}[0];
+
+ my @clubs = get_list_eredivisie_clubs();
+
+ my $input1 = create_input_club(\@clubs, $c1, 1);
+ my $input2 = create_input_club(\@clubs, $c2, 2);
 
  my $nl_list = get_voetbal_list('overzicht', 'NL');
  my $ec_list = get_voetbal_list('overzicht', 'EC');
@@ -76,37 +122,32 @@ function validateDate(date)
   var dd = parseInt(date);
   if (dd.isNaN)
   {
-    alert("Date must be a number (e.g. 20210202)");
+    alert("Date must be a number (e.g. 20210202).");
     return false;
   }
   if (dd < 19700000 || dd > 21000000)
   {
-    alert("Date out of range");
-    return false;
-  }
-  return true;
-}
-function validateClub(club)
-{
-  var rx = /[a-z]/gi;
-  var m = club.match(rx);
-  if ( m == null || m.length < 2 )
-  {
-    alert("Club must contain at least two letters.");
+    alert("Date out of range.");
     return false;
   }
   return true;
 }
 function validateForm() {
-  var           success = validateClub(document.forms["myForm"]["c1"].value);
-  if (success) {success = validateClub(document.forms["myForm"]["c2"].value)};
-  if (success) {success = validateDate(document.forms["myForm"]["dd1"].value)};
+  var           success = validateDate(document.forms["myForm"]["dd1"].value);
   if (success) {success = validateDate(document.forms["myForm"]["dd2"].value)};
+  if (success)
+  {
+    if (document.forms["myForm"]["dd1"].value > document.forms["myForm"]["dd2"].value)
+    {
+      alert("First date must be before second date.")
+      success = false;
+    }
+  }
   if (success)
   {
     if (document.forms["myForm"]["c1"].value == document.forms["myForm"]["c2"].value)
     {
-      alert("Clubs must be different");
+      alert("Clubs must be different.");
       success = false;
     }
   }
@@ -114,7 +155,10 @@ function validateForm() {
 }
 </script>
 <form name="myForm" action=$host/cgi-bin/shob/sport_search.pl method=get onsubmit="return validateForm()">
-<p> clubs: <input type=text name=c1 size=15 value="$c1"> <input type=text name=c2 size=15 value="$c2"> </p>
+<p> clubs:
+$input1
+$input2
+</p>
 <p> start-datum: <input type=text name=dd1 size=9 value="$dd1">
 eind-datum: <input type=text name=dd2 size=9 value="$dd2"> (formaat datum = yyyymmdd) </p>
 <p>uit en thuis:

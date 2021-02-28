@@ -103,37 +103,32 @@ return false;
 var dd = parseInt(date);
 if (dd.isNaN)
 {
-alert("Date must be a number (e.g. 20210202)");
+alert("Date must be a number (e.g. 20210202).");
 return false;
 }
 if (dd < 19700000 || dd > 21000000)
 {
-alert("Date out of range");
-return false;
-}
-return true;
-}
-function validateClub(club)
-{
-var rx = /[a-z]/gi;
-var m = club.match(rx);
-if ( m == null || m.length < 2 )
-{
-alert("Club must contain at least two letters.");
+alert("Date out of range.");
 return false;
 }
 return true;
 }
 function validateForm() {
-var success = validateClub(document.forms["myForm"]["c1"].value);
-if (success) {success = validateClub(document.forms["myForm"]["c2"].value)};
-if (success) {success = validateDate(document.forms["myForm"]["dd1"].value)};
+var success = validateDate(document.forms["myForm"]["dd1"].value);
 if (success) {success = validateDate(document.forms["myForm"]["dd2"].value)};
+if (success)
+{
+if (document.forms["myForm"]["dd1"].value > document.forms["myForm"]["dd2"].value)
+{
+alert("First date must be before second date.")
+success = false;
+}
+}
 if (success)
 {
 if (document.forms["myForm"]["c1"].value == document.forms["myForm"]["c2"].value)
 {
-alert("Clubs must be different");
+alert("Clubs must be different.");
 success = false;
 }
 }
@@ -141,7 +136,72 @@ return success;
 }
 </script>
 <form name="myForm" action=/cgi-bin/shob/sport_search.pl method=get onsubmit="return validateForm()">
-<p> clubs: <input type=text name=c1 size=15 value="ajax"> <input type=text name=c2 size=15 value="feyenoord"> </p>
+<p> clubs:
+<select name="c1"><option value="ADO Den Haag">ADO Den Haag
+<option value="AZ">AZ
+<option selected value="Ajax">Ajax
+<option value="Cambuur Leeuwarden">Cambuur Leeuwarden
+<option value="De Graafschap">De Graafschap
+<option value="Dordrecht">Dordrecht
+<option value="Excelsior">Excelsior
+<option value="FC Den Bosch">FC Den Bosch
+<option value="FC Emmen">FC Emmen
+<option value="FC Groningen">FC Groningen
+<option value="FC Twente">FC Twente
+<option value="FC Utrecht">FC Utrecht
+<option value="FC Volendam">FC Volendam
+<option value="FC Zwolle">FC Zwolle
+<option value="Feyenoord">Feyenoord
+<option value="Fortuna Sittard">Fortuna Sittard
+<option value="Go Ahead Eagles">Go Ahead Eagles
+<option value="Heracles Almelo">Heracles Almelo
+<option value="MVV Maastricht">MVV Maastricht
+<option value="NAC Breda">NAC Breda
+<option value="NEC">NEC
+<option value="PEC Zwolle">PEC Zwolle
+<option value="PSV">PSV
+<option value="RBC Roosendaal">RBC Roosendaal
+<option value="RKC Waalwijk">RKC Waalwijk
+<option value="Roda JC">Roda JC
+<option value="SC Heerenveen">SC Heerenveen
+<option value="Sparta">Sparta
+<option value="VVV-Venlo">VVV-Venlo
+<option value="Vitesse">Vitesse
+<option value="Willem II">Willem II
+</select>
+<select name="c2"><option value="ADO Den Haag">ADO Den Haag
+<option value="AZ">AZ
+<option value="Ajax">Ajax
+<option value="Cambuur Leeuwarden">Cambuur Leeuwarden
+<option value="De Graafschap">De Graafschap
+<option value="Dordrecht">Dordrecht
+<option value="Excelsior">Excelsior
+<option value="FC Den Bosch">FC Den Bosch
+<option value="FC Emmen">FC Emmen
+<option value="FC Groningen">FC Groningen
+<option value="FC Twente">FC Twente
+<option value="FC Utrecht">FC Utrecht
+<option value="FC Volendam">FC Volendam
+<option value="FC Zwolle">FC Zwolle
+<option selected value="Feyenoord">Feyenoord
+<option value="Fortuna Sittard">Fortuna Sittard
+<option value="Go Ahead Eagles">Go Ahead Eagles
+<option value="Heracles Almelo">Heracles Almelo
+<option value="MVV Maastricht">MVV Maastricht
+<option value="NAC Breda">NAC Breda
+<option value="NEC">NEC
+<option value="PEC Zwolle">PEC Zwolle
+<option value="PSV">PSV
+<option value="RBC Roosendaal">RBC Roosendaal
+<option value="RKC Waalwijk">RKC Waalwijk
+<option value="Roda JC">Roda JC
+<option value="SC Heerenveen">SC Heerenveen
+<option value="Sparta">Sparta
+<option value="VVV-Venlo">VVV-Venlo
+<option value="Vitesse">Vitesse
+<option value="Willem II">Willem II
+</select>
+</p>
 <p> start-datum: <input type=text name=dd1 size=9 value="20010101">
 eind-datum: <input type=text name=dd2 size=9 value="20210224"> (formaat datum = yyyymmdd) </p>
 <p>uit en thuis:
