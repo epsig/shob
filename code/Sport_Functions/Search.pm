@@ -61,18 +61,22 @@ sub sport_search_results($$$$$$)
  my @c2 = find_club($c2);
 
  my $out = "\n";
+ my $ierror = 0;
  my @all_matches = ();
  if (scalar @c1 * scalar @c2 > 10)
  {
   $out .= ftr(ftdl('Too many clubs, please, be more specific.'));
+  $ierror = 1;
  }
  elsif (scalar @c1 * scalar @c2 == 0)
  {
   $out .= ftr(ftdl('Sorry, unknown club(s), please, try again.'));
+  $ierror = 1;
  }
  elsif ($c1 eq $c2)
  {
   $out .= ftr(ftdl('Please, give two different clubs.'));
+  $ierror = 1;
  }
  else
  {
@@ -100,6 +104,7 @@ sub sport_search_results($$$$$$)
   if (scalar @c1 * scalar @c2 * (1 + $yr2 - $yr1) > $max_seasons)
   {
    $out .= ftr(ftdl('Too many clubs or seasons, please, be more specific.'));
+   $ierror = 1;
   }
   else
   {
@@ -141,6 +146,10 @@ sub sport_search_results($$$$$$)
   my $s = u2s(\@all_matches, 1, 1, '', -1, []);
   $out .= get_stand($s, 1, 0, [0]);
   $out .= get_uitslag(\@all_matches, {cols => 6, ptitel => [0]});
+ }
+ elsif ($ierror == 0)
+ {
+  $out .= "No matches found between $c1 and $c2 in given period.\n";
  }
 
  return ftable('border', $out);
