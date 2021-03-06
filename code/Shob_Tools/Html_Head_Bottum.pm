@@ -106,7 +106,10 @@ sub html_head
 
  my $head_title =
   qq(<html lang="NL"><head><title>$title</title>\n);
- my $js_meta_tag = ( $body =~ m/<script/imo ?
+
+ my $with_js_head = ($phead->[0][0] > 0);
+ my $with_js_body = ($body =~ m/<script/imo);
+ my $js_meta_tag = ( $with_js_head || $with_js_body ?
   qq(<meta http-equiv="Content-Script-Type" content="text/javascript">\n) : '');
 
  if (not scalar @$phead)

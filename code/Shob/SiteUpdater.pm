@@ -68,7 +68,8 @@ sub handle_gen_files($$$)
 
  do_all_text_dir ($lop, '', [
   [$fast, 'all', sub {&get_hopa;}, 'index.html'],
-  [$fast, 'all', sub {&file2str(File::Spec->catfile('my_scripts', 'countdown.js'));}, 'countdown.js'],
+  [2, 'all', sub {&file2str(File::Spec->catfile('my_scripts', 'countdown.js'));}, 'countdown.js'],
+  [2, 'all', sub {&file2str(File::Spec->catfile('my_scripts', 'validate_sport.js'));}, 'validate_sport.js'],
   [2, 'all', sub {&get_epsig;}, 'epsig.html'],
   [$fast, 'all', sub {&get_stats;}, 'stats.html'],
   [2, 'all', sub {&get_tech_doc_kj;}, 'tech_doc_kj.html'],

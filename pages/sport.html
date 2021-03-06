@@ -2,7 +2,7 @@
 <meta http-equiv="Content-Script-Type" content="text/javascript">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <link rel="stylesheet" type="text/css" href="epsig.css">
-</head><body>
+<script type="text/javascript" language="javascript" src="/validate_sport.js"></script></head><body>
 <div class="row"><div class="column100" ><div class="colh" >Sportpagina's op www.epsig.nl</div><div class="colb" ><ul>
 <li>Wedstrijden Nederlands Elftal:
 <br>
@@ -92,49 +92,6 @@
 <a href="sport_schaatsen_OS_1994.html">OS 1994</a>
 <li>Zie verder: <a href="bookmarks_sport.html">sport links</a>
 <li> Zoek Eredivisie uitslagen (vanaf seizoen 1992-1993):
-<script language="JavaScript">
-function validateDate(date)
-{
-if (date.length != 8)
-{
-alert("Both dates must be given and with 8 digits.");
-return false;
-}
-var dd = parseInt(date);
-if (dd.isNaN)
-{
-alert("Date must be a number (e.g. 20210202).");
-return false;
-}
-if (dd < 19700000 || dd > 21000000)
-{
-alert("Date out of range.");
-return false;
-}
-return true;
-}
-function validateForm() {
-var success = validateDate(document.forms["myForm"]["dd1"].value);
-if (success) {success = validateDate(document.forms["myForm"]["dd2"].value)};
-if (success)
-{
-if (document.forms["myForm"]["dd1"].value > document.forms["myForm"]["dd2"].value)
-{
-alert("First date must be before second date.")
-success = false;
-}
-}
-if (success)
-{
-if (document.forms["myForm"]["c1"].value == document.forms["myForm"]["c2"].value)
-{
-alert("Clubs must be different.");
-success = false;
-}
-}
-return success;
-}
-</script>
 <form name="myForm" action=/cgi-bin/shob/sport_search.pl method=get onsubmit="return validateForm()">
 <p> clubs:
 <select name="c1"><option value="ADO Den Haag">ADO Den Haag
