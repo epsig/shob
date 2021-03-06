@@ -31,10 +31,26 @@ $VERSION = '21.1';
  #========================================================================
 );
 
-sub sport_search_results($$$$$)
+sub my_sort_u($$)
+{
+  my ($a, $b) = @_;
+  # first sort on difference in number of goals
+  my $r = abs($b->[2][1]-$b->[2][2]) <=> abs($a->[2][1]-$a->[2][2]);
+  if ($r == 0)
+  { # if equal, sort on number of goals
+    $r = max($b->[2][1], $b->[2][2]) <=> max($a->[2][1], $a->[2][2]);
+  }
+  if ($r == 0)
+  { # if equal, sort on date 
+    $r = $b->[1] <=> $a->[1];
+  }
+  return $r;
+}
+
+sub sport_search_results($$$$$$)
 {# (c) Edwin Spee
 
- my ($c1, $c2, $dd1, $dd2, $both) = @_;
+ my ($c1, $c2, $dd1, $dd2, $both, $sort) = @_;
 
  my $ranges = get_sport_range();
  my $first_yr = szn2yr($ranges->{eredivisie}[0]);
@@ -45,7 +61,7 @@ sub sport_search_results($$$$$)
  my @c2 = find_club($c2);
 
  my $out = "\n";
- my @all_matches = (['']);
+ my @all_matches = ();
  if (scalar @c1 * scalar @c2 > 10)
  {
   $out .= ftr(ftdl('Too many clubs, please, be more specific.'));
@@ -106,7 +122,6 @@ sub sport_search_results($$$$$)
          {
           $uc1c2 = filter_datum($dd1, $dd2, $uc1c2);
          }
-         $out .= get_uitslag($uc1c2, {cols => 6, ptitel => [0]});
          for (my $i=1; $i < scalar @{$uc1c2}; $i++)
          {
            push @all_matches, $uc1c2->[$i];
@@ -117,10 +132,15 @@ sub sport_search_results($$$$$)
      last;
  }}}}
 
- if (scalar @all_matches > 1)
+ if (scalar @all_matches > 0)
  {
+  if ($sort == 1) {@all_matches = reverse @all_matches;}
+  if ($sort == 2) {@all_matches = sort {my_sort_u($a, $b)} @all_matches;}
+
+  unshift @all_matches, [''];
   my $s = u2s(\@all_matches, 1, 1, '', -1, []);
   $out .= get_stand($s, 1, 0, [0]);
+  $out .= get_uitslag(\@all_matches, {cols => 6, ptitel => [0]});
  }
 
  return ftable('border', $out);

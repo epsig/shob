@@ -165,7 +165,14 @@ eind-datum: <input type=text name=dd2 size=9 value="$dd2"> (formaat datum = yyyy
 <input type="radio" id="both" name="both" value="1" checked>
 <label for="1">beide wedstrijden</label>
 <input type="radio" id="both" name="both" value="0">
-<label for="0">1e speelt thuis</label><br> </p>
+<label for="0">1e speelt thuis</label></p>
+<p> sorteren:
+<input type="radio" id="both" name="sort" value="0" checked>
+<label for="0">datum</label>
+<input type="radio" id="both" name="sort" value="1">
+<label for="1">datum (recent eerst)</label>
+<input type="radio" id="both" name="sort" value="2">
+<label for="2">grote uitslagen eerst</label></p>
 <p> <input type=submit value="OK, verstuur!"> </p>
 </form>
  </ul>
