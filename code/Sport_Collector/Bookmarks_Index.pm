@@ -5,6 +5,7 @@ use strict; use warnings;
 #=========================================================================
 # following text starts a package:
 use Shob_Tools::Settings;
+use Shob_Tools::General qw(&min &max);
 use Shob_Tools::Html_Stuff;
 use Shob_Tools::Html_Head_Bottum;
 use Shob::Functions;
@@ -89,9 +90,11 @@ sub get_sport_index($$$$$$$)
  my $input2 = create_input_club(\@clubs, $c2, 2);
 
  my @checked_both = ('', '');
+ $both = max(0, min($both, 1));
  $checked_both[$both] = 'checked';
 
  my @checked_sort = ('', '', '');
+ $sort = max(0, min($sort, 2));
  $checked_sort[$sort] = 'checked';
 
  my $nl_list = get_voetbal_list('overzicht', 'NL');
