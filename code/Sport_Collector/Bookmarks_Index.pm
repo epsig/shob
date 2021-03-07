@@ -114,6 +114,7 @@ $ec_list
    <br>seizoen:
 $nl_list
   <li>$link_stats_eredivisie
+  en <a href="sport_voetbal_nl_stats_more.html">nog meer stats</a>.
   <li>$link_jaarstanden |
       $link_uit_thuis
   <li>Uitslagen schaatsen:

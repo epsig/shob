@@ -285,7 +285,7 @@ sub handle_sport_files($$$)
   push @pages, [$fast, 'all', sub {&officieuze_standen('uit_thuis', $curYrB);}, 'sport_voetbal_nl_uit_thuis.html'];
 
   push @pages, [$fast, 'all', sub {&get_stats_eredivisie($szn1, $szn2, 0);}, 'sport_voetbal_nl_stats.html'];
-  push @pages, [$fast, '  u', sub {&get_stats_eredivisie($szn1, $szn2, 2);}, 'sport_voetbal_nl_stats_more.html'];
+  push @pages, [$fast, 'all', sub {&get_stats_eredivisie($szn1, $szn2, 2);}, 'sport_voetbal_nl_stats_more.html'];
 
   do_all_text_dir ($lop, '', \@pages);
 }

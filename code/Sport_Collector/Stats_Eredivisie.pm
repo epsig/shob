@@ -466,17 +466,26 @@ sub get_stats_eredivisie($$$)
    qq(| <a href="#extr_uitsl">opvallende uitslagen</a>\n);
  if ($all_data)
  {
-   $out .= qq(| <a href="#geel_rood">gele, rode kaarten</a>\n);
    $out .= qq(| <a href="#allTimeTpsc">all time topscorers</a>\n);
+   $out .= qq(| <a href="#geel_rood">gele, rode kaarten</a>\n);
  }
- $out .= qq(| <a href="#toesch">toeschouwersaantallen</a> |<hr>\n);
+ $out .= qq(| <a href="#toesch">toeschouwersaantallen</a>\n);
+ if ($all_data)
+ {
+   $out .= qq(| <a href="sport_voetbal_nl_stats.html">samengevat</a>\n);
+ }
+ else
+ {
+   $out .= qq(| <a href="sport_voetbal_nl_stats_more.html">meer stats</a>\n);
+ }
+
+ $out .= "|<hr>\n";
+
  $out .= get_tabel_extremen_doelpunten($l_extremen, $yrA, $yr2, 0);
  $out .= "<p>\n";
  $out .= get_tabel_doelpunten($l_extremen, $l_tpsc, $yrA, $yr1, $all_data, 0);
  $out .= "<p>\n";
  $out .= get_tabel_ruimste_zege(1993, $yr2, 0);
- if ($all_data)
- {$out .= "<p>\n" . get_gele_rode_kaarten_tabel(1993, 2004, 0);}
  $out .= "<p>\n";
  $out .= get_toeschouwers_tabel(1993, $yr2, 0);
  $out .= "<p>\n";
@@ -485,8 +494,9 @@ sub get_stats_eredivisie($$$)
 
  if ($all_data > 1)
  {
-   $out .= qq(<a name="allTimeTpsc"> All time Topscorers.<p>\n);
+   $out .= qq(<a name="allTimeTpsc"> <h2> All time Topscorers. </h2>\n);
    $out .= tpsc_all_seasons ( get_lijst_topscorers( first_year(),  $yr1), 20 );
+   $out .= "<p>\n" . get_gele_rode_kaarten_tabel(1993, 2004, 0);
  }
 
  my $dd =max(20210102, $u_nl->{laatste_speeldatum});

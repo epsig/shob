@@ -206,6 +206,7 @@ $index_politiek
  <li><a href="sport.html">Sport</a>
  <ol>
   <li><a href="sport_voetbal_nl_stats.html">statistieken eredivisie</a>
+  en <a href="sport_voetbal_nl_stats_more.html">nog meer stats</a>
   <li>Nederlands betaald voetbal, seizoenen:<br>
 $list_nl
   <li>Europacup voetbal, seizoenen:<br>
