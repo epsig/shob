@@ -207,7 +207,7 @@ sub read_ec_part($$$$$$$)
     }
   }
 
-  if ($total == 12)
+  if ($total == 12 && not $isko)
   {
     $games[0][1][3] = ($cupname eq 'CL' && $phase !~ m/^group2.$/ ? 2 : 1);
   }
