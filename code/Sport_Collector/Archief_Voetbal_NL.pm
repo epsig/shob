@@ -92,9 +92,9 @@ sub get_nc($)
  return $nc;
 }
 
-sub bekerwinnaar($)
+sub bekerwinnaar($$)
 {
-  my $szn = shift;
+  my ($szn, $kampioen) = @_;
 
   my $beker = knvb_beker($szn);
   if (defined $beker)
@@ -104,10 +104,13 @@ sub bekerwinnaar($)
     {
       my $ster = $final->[1][3];
       my $index = ($ster % 2 == 0 ? 1 : 0);
-      return $final->[1][$index];
+      my $winnaar = $final->[1][$index];
+      my $finalist = $final->[1][1-$index];
+      return ($winnaar, $finalist) if ($winnaar eq $kampioen);
+      return ($winnaar);
     }
   }
-  return '';
+  return ('');
 }
 
 sub auto_europa_in($)
@@ -124,7 +127,11 @@ sub auto_europa_in($)
 
   my $out = '';
 
-  my $cupwinner = bekerwinnaar($szn);
+  my $stand = standen_eredivisie($szn);
+  my $kampioen = $stand->[1][0];
+  my @beker_finalists = bekerwinnaar($szn, $kampioen);
+  my $cupwinner = $beker_finalists[0];
+  my $runner_up = (scalar @beker_finalists == 2 ? $beker_finalists[1]: '');
 
   for (my $t=0; $t < scalar @lookfor; $t++)
   {
@@ -148,6 +155,7 @@ sub auto_europa_in($)
         my $club = $clubs[$j];
         $txt .= expand($club, 0);
         $txt .= ' (bekerwinnaar)' if ($club eq $cupwinner && $tournement eq 'UEFA');
+        $txt .= ' (beker finalist)' if ($club eq $runner_up && $tournement eq 'UEFA');
         $txt .= ', ' if ($j < scalar @clubs - 2);
         $txt .= ' en '  if ($j == scalar @clubs - 2);
       }
@@ -215,12 +223,7 @@ sub get_betaald_voetbal_nl($)
  }
  elsif ($yr == 2004)
  {$dd = 20050809;
-  $europa_in = << 'EOF';
-<a href="sport_voetbal_europacup_2005_2006.html#CL">Champions League:</a> PSV.
-<br> <a href="sport_voetbal_europacup_2005_2006.html#vCL">Voorronde Champions League:</a> Ajax.
-<br> <a href="sport_voetbal_europacup_2005_2006.html#UEFAcup">UEFA-cup:</a>
-bekerfinalist Willem II, AZ, Feyenoord en Heerenveen.
-EOF
+  $europa_in = auto_europa_in($szn);
  }
  elsif ($yr == 2005)
  {$dd = 20070512;
@@ -239,11 +242,11 @@ get_uitslag($nc_po->{2006}{Intertoto}{finale}, {});}
  {$dd = 20080523;
   $europa_in =
 "PSV als kampioen rechtstreeks naar de " .
-qq(<a href="sport_europacup_2007_2008.html#CL">Champions League</a>.\n) .
+qq(<a href="sport_voetbal_europacup_2007_2008.html#CL">Champions League</a>.\n) .
 "<p>Overige plekken via Play Offs:\n" .
-qq(<br>Ajax naar <a href="sport_europacup_2007_2008.html#vCL">voorronde Champions League</a> en\n) .
+qq(<br>Ajax naar <a href="sport_voetbal_europacup_2007_2008.html#vCL">voorronde Champions League</a> en\n) .
 "<br>AZ, Heerenveen, Twente en Groningen naar de " .
-qq(<a href="sport_europacup_2007_2008.html#UEFAcup">UEFA-cup.</a>\n) .
+qq(<a href="sport_voetbal_europacup_2007_2008.html#UEFAcup">UEFA-cup.</a>\n) .
 "<br>Utrecht naar de Intertoto.\n" .
 get_uitslag(combine_puus($nc_po->{2007}{CL}{1}, $nc_po->{2007}{CL}{finale}), {}) .
 get_uitslag(combine_puus($nc_po->{2007}{UEFA}{1}, $nc_po->{2007}{UEFA}{finale}), {}) .
