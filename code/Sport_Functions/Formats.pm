@@ -493,7 +493,7 @@ if (defined $u->{CL} or defined $u->{UEFAcup} or defined $u->{EuropaL}) {$out .=
 if (defined $u->{extra}{summary})
 {$out .= qq(<h2>Samenvatting Europacup Seizoen $seizoen</h2>\n) . $u->{extra}{summary} . '<hr>';}
 
-my $vCL_link = (defined $u->{CL}{qfr_3} ? '<a name="vCL"/>' : '');
+my $vCL_link = (defined $u->{CL}{qfr_3} || defined $u->{CL}{qfr_2} ? '<a name="vCL"/>' : '');
 $out .= $out_extra . $vCL_link . $out_cl . $out_cwc . '<p>' . $out_uefacup;
 
 return maintxt2htmlpage($out, $title, 'title2h1',

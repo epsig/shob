@@ -20,7 +20,8 @@ $VERSION = '21.1';
   '&yr2szn',
   '&szn2yr',
   '&max_szn',
-  '&previous_szn'
+  '&previous_szn',
+  '&next_szn',
  #========================================================================
 );
 
@@ -47,6 +48,17 @@ sub previous_szn($)
   my @parts = split /-/, $szn;
   $parts[0]--;
   $parts[1]--;
+
+  return "$parts[0]-$parts[1]";
+}
+
+sub next_szn($)
+{
+  my ($szn) = @_;
+
+  my @parts = split /-/, $szn;
+  $parts[0]++;
+  $parts[1]++;
 
   return "$parts[0]-$parts[1]";
 }

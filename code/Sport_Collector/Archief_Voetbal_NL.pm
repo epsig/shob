@@ -13,6 +13,7 @@ use Sport_Functions::Overig;
 use Sport_Functions::Seasons;
 use Sport_Functions::Formats;
 use Sport_Functions::Filters;
+use Sport_Functions::Get_Land_Club;
 use Sport_Functions::Get_Result_Standing;
 use Sport_Functions::Range_Available_Seasons;
 use Sport_Collector::Archief_Voetbal_Beker;
@@ -91,6 +92,72 @@ sub get_nc($)
  return $nc;
 }
 
+sub bekerwinnaar($)
+{
+  my $szn = shift;
+
+  my $beker = knvb_beker($szn);
+  if (defined $beker)
+  {
+    my $final = $beker->{beker}{final};
+    if (defined $final)
+    {
+      my $ster = $final->[1][3];
+      my $index = ($ster % 2 == 0 ? 1 : 0);
+      return $final->[1][$index];
+    }
+  }
+  return '';
+}
+
+sub auto_europa_in($)
+{
+  my $szn = shift;
+
+  my @lookfor = ('CL', 'vCL', 'EC2', 'UEFA');
+  my @name1 = ('CL', 'vCL', 'CWC', 'UEFAcup');
+  my @name2 = ('Champions League', 'Voorronde Champions League', 'Europacup II', 'UEFA cup');
+  my $pster = read_u2s($szn);
+
+  my $next = next_szn($szn);
+     $next =~ s/-/_/;
+
+  my $out = '';
+
+  my $cupwinner = bekerwinnaar($szn);
+
+  for (my $t=0; $t < scalar @lookfor; $t++)
+  {
+    my $tournement = $lookfor[$t];
+    my @clubs = ();
+    for (my $i=0; $i < scalar @$pster; $i+=2)
+    {
+      my $clubs = $pster->[$i];
+      my $ster  = $pster->[$i+1];
+      if ($ster =~ m/\b$tournement\b/)
+      {
+        my @parts = split(/,/, $clubs);
+        push @clubs, @parts;
+      }
+    }
+    if (scalar @clubs)
+    {
+      my $txt = '';
+      for (my $j=0; $j < scalar @clubs; $j++)
+      {
+        my $club = $clubs[$j];
+        $txt .= expand($club, 0);
+        $txt .= ' (bekerwinnaar)' if ($club eq $cupwinner && $tournement eq 'UEFA');
+        $txt .= ', ' if ($j < scalar @clubs - 2);
+        $txt .= ' en '  if ($j == scalar @clubs - 2);
+      }
+      my $br = ($t == scalar @lookfor -1 ? '' : '<br>');
+      $out .= qq(<a href="sport_voetbal_europacup_$next.html#$name1[$t]">$name2[$t]</a>: $txt $br\n);
+    }
+  }
+  return $out;
+}
+
 sub get_betaald_voetbal_nl($)
 {# (c) Edwin Spee
 
@@ -104,92 +171,47 @@ sub get_betaald_voetbal_nl($)
 
  if ($yr == 1993)
  {$dd = 20090803;
-  $europa_in = << 'EOF';
-<a href="sport_voetbal_europacup_1994_1995.html#CL">Champions League:</a> Ajax <br>
-<a href="sport_voetbal_europacup_1994_1995.html#CWC">Europacup II</a>: Feyenoord<br>
-<a href="sport_voetbal_europacup_1994_1995.html#UEFAcup">UEFA cup</a>: PSV, Vitesse en FC Twente.
-EOF
+  $europa_in = auto_europa_in($szn);
  }
  elsif ($yr == 1994)
  {$dd = 20080216;
-  $europa_in = << 'EOF';
-<a href="sport_voetbal_europacup_1995_1996.html#CL">Champions League:</a> Ajax <br>
-<a href="sport_voetbal_europacup_1995_1996.html#CWC">Europacup II</a>: Feyenoord<br>
-<a href="sport_voetbal_europacup_1995_1996.html#UEFAcup">UEFA cup</a>: Roda JC en PSV
-EOF
+  $europa_in = auto_europa_in($szn);
  }
  elsif ($yr == 1995)
  {$dd = 20080216;
-  $europa_in = << 'EOF';
-<a href="sport_voetbal_europacup_1996_1997.html#CL">Champions League:</a> Ajax <br>
-<a href="sport_voetbal_europacup_1996_1997.html#CWC">Europacup II</a>: PSV<br>
-<a href="sport_voetbal_europacup_1996_1997.html#UEFAcup">UEFA cup</a>: Feyenoord en Roda JC
-EOF
+  $europa_in = auto_europa_in($szn);
  }
  elsif ($yr == 1996)
  {$dd = 20080211;
-  $europa_in = << 'EOF';
-<a href="sport_voetbal_europacup_1997_1998.html#CL">Champions League:</a> PSV en Feyenoord<br>
-<a href="sport_voetbal_europacup_1997_1998.html#CWC">Europacup II</a>: Roda JC<br>
-<a href="sport_voetbal_europacup_1997_1998.html#UEFAcup">UEFA cup</a>: Twente, Ajax en Vitesse
-EOF
+  $europa_in = auto_europa_in($szn);
  }
  elsif ($yr == 1997)
  {$dd = 20201030;
-  $europa_in = << 'EOF';
-<a href="sport_voetbal_europacup_1998_1999.html#CL">Champions League:</a> Ajax<br>
-<a href="sport_voetbal_europacup_1998_1999.html#vCL">Voorronde Champions League:</a> PSV<br>
-<a href="sport_voetbal_europacup_1998_1999.html#CWC">Europacup II:</a> Heerenveen<br>
-<a href="sport_voetbal_europacup_1998_1999.html#UEFAcup">UEFA cup:</a> Vitesse, Feyenoord en Willem II<br>
-EOF
+  $europa_in = auto_europa_in($szn);
  }
  elsif ($yr == 1998)
  {$dd = 20080209;
-  $europa_in = << 'EOF';
-<a href="sport_voetbal_europacup_1999_2000.html#CL">Champions League:</a> Feyenoord en Willem II<br>
-<a href="sport_voetbal_europacup_1999_2000.html#vCL">Voorronde Champions League:</a> PSV<br>
-<a href="sport_voetbal_europacup_1999_2000.html#UEFAcup">UEFA cup:</a> Ajax (bekerwinnaar), Vitesse en Roda JC<br>
-EOF
+  $europa_in = auto_europa_in($szn);
  }
  elsif ($yr == 1999)
  {$dd = 20080209;
-  $europa_in = << 'EOF';
-<a href="sport_voetbal_europacup_2000_2001.html#CL">Champions League:</a> PSV en Heerenveen <br>
-<a href="sport_voetbal_europacup_2000_2001.html#vCL">Voorronde Champions League:</a> Feyenoord <br>
-<a href="sport_voetbal_europacup_2000_2001.html#UEFAcup">UEFA cup:</a> de bekerwinnaar Roda JC en Vitesse en Ajax <br>
-EOF
+  $europa_in = auto_europa_in($szn);
  }
  elsif ($yr == 2000)
  {$dd = 20030807;
-  $europa_in = << 'EOF';
-<a href="sport_voetbal_europacup_2001_2002.html#CL">Champions League:</a> PSV en Feyenoord <br>
-<a href="sport_voetbal_europacup_2001_2002.html#vCL">Voorronde Champions League:</a> Ajax <br>
-<a href="sport_voetbal_europacup_2001_2002.html#UEFAcup">UEFA cup:</a> de bekerwinnaar FC Twente, Roda JC en FC Utrecht <br>
-EOF
+  $europa_in = auto_europa_in($szn);
  }
  elsif ($yr == 2001)
  {$dd = 20030807;
-  $europa_in = << 'EOF';
-<a href="sport_voetbal_europacup_2002_2003.html#CL">Champions League:</a> Ajax en PSV; <br>
-<a href="sport_voetbal_europacup_2002_2003.html#vCL">voorronde Champions League:</a> Feyenoord; <br>
-<a href="sport_voetbal_europacup_2002_2003.html#UEFAcup">UEFA-cup:</a> Heerenveen, Vitesse en FC Utrecht <br>
-EOF
+  $europa_in = auto_europa_in($szn);
  }
  elsif ($yr == 2002)
  {$dd = 20030811;
-  $europa_in = << 'EOF';
-<a href="sport_voetbal_europacup_2003_2004.html#CL">Champions League:</a> PSV.
-<br> <a href="sport_voetbal_europacup_2003_2004.html#vCL">Voorronde Champions League:</a> Ajax.
-<br> <a href="sport_voetbal_europacup_2003_2004.html#UEFAcup">UEFA-cup:</a> bekerwinnaar FC Utrecht, Feyenoord, NAC en NEC.
-EOF
+  $europa_in = auto_europa_in($szn);
  }
  elsif ($yr == 2003)
  {$dd = 20040810;
-  $europa_in = << 'EOF';
-<a href="sport_voetbal_europacup_2004_2005.html#CL">Champions League:</a> Ajax.
-<br> <a href="sport_voetbal_europacup_2004_2005.html#vCL">Voorronde Champions League:</a> PSV.
-<br> <a href="sport_voetbal_europacup_2004_2005.html#UEFAcup">UEFA-cup:</a> bekerwinnaar FC Utrecht, Feyenoord, Heerenveen en AZ.
-EOF
+  $europa_in = auto_europa_in($szn);
  }
  elsif ($yr == 2004)
  {$dd = 20050809;
