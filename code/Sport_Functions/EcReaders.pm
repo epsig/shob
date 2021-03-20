@@ -57,23 +57,26 @@ sub read_ec_csv($$)
   my $content = read_csv_with_header($fileWithPath);
 
   my $dateTimeLog;
+  my $modified;
   if (exists $ENV{SERVER_NAME})
   {
     $dateTimeLog = '';
+    $modified    = ''; 
   }
   else
   {
     $dateTimeLog = qx/git log -1 --pretty="format:%ci" $fileWithPath/;
+    $modified    = qx/git status -s $fileWithPath/;
   }
-  
+
   my $date;
-  if (length($dateTimeLog) > 0)
+  if (length($dateTimeLog) > 0 && $modified !~ /^ ?M/)
   {
     $date = substr($dateTimeLog, 0, 10);
     $date =~ s/-//g;
   }
   else
-  { # apparently file is not added yet, so very new:
+  { # apparently file is not added yet or modified, so very new:
     my $today = todaystr();
     $date = str2itdate($today);
   }
