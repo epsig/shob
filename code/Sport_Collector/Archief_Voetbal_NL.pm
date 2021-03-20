@@ -177,53 +177,14 @@ sub get_betaald_voetbal_nl($)
  my $europa_in = '';
  my $dd = 20090722;
 
- if ($yr == 1993)
- {$dd = 20090803;
+ if ($yr <= 2004)
+ {
+  $dd = $all_remarks->{eredivisie}->get($szn, 'dd');
   $europa_in = auto_europa_in($szn);
  }
- elsif ($yr == 1994)
- {$dd = 20080216;
-  $europa_in = auto_europa_in($szn);
- }
- elsif ($yr == 1995)
- {$dd = 20080216;
-  $europa_in = auto_europa_in($szn);
- }
- elsif ($yr == 1996)
- {$dd = 20080211;
-  $europa_in = auto_europa_in($szn);
- }
- elsif ($yr == 1997)
- {$dd = 20201030;
-  $europa_in = auto_europa_in($szn);
- }
- elsif ($yr == 1998)
- {$dd = 20080209;
-  $europa_in = auto_europa_in($szn);
- }
- elsif ($yr == 1999)
- {$dd = 20080209;
-  $europa_in = auto_europa_in($szn);
- }
- elsif ($yr == 2000)
- {$dd = 20030807;
-  $europa_in = auto_europa_in($szn);
- }
- elsif ($yr == 2001)
- {$dd = 20030807;
-  $europa_in = auto_europa_in($szn);
- }
- elsif ($yr == 2002)
- {$dd = 20030811;
-  $europa_in = auto_europa_in($szn);
- }
- elsif ($yr == 2003)
- {$dd = 20040810;
-  $europa_in = auto_europa_in($szn);
- }
- elsif ($yr == 2004)
- {$dd = 20050809;
-  $europa_in = auto_europa_in($szn);
+ elsif ($yr >= 2010 && $yr <= 2019)
+ {
+  $dd = $all_remarks->{eredivisie}->get($szn, 'dd');
  }
  elsif ($yr == 2005)
  {$dd = 20070512;
@@ -294,38 +255,6 @@ qq(<br>en mag vlak na de WK-finale al weer aan de slag.\n) .
 #get_uitslag($nc_po->{2010}{UEFA}{1}, {}) .
  get_uitslag($nc_po->{2010}{UEFA}{2}, {});
   $dd = 20101128;
- }
- elsif ($yr == 2010)
- {
-  $dd = 20110515;
- }
- elsif ($yr == 2011)
- {
-  $dd = 20120527;
- }
- elsif ($yr == 2012)
- {
-  $dd = 20130804;
- }
- elsif ($yr == 2013)
- {
-  $dd = 20140810;
- }
- elsif ($yr == 2014)
- {
-  $dd = 20150517;
- }
- elsif ($yr == 2015)
- {
-  $dd = 20160617;
- }
- elsif ($yr == 2017)
- {
-  $dd = 20180520;
- }
- elsif ($yr == 2019)
- {
-  $dd = 20200426;
  }
  else
  {

@@ -1,6 +1,7 @@
 season,key,value
 1992-1993,title,Eindstand Eredivisie
 1993-1994,title,Eindstand Eredivisie
+1993-1994,dd,20090803
 1994-1995,title,Eindstand Eredivisie
 1994-1995,opm,Als eerste club in de historie van het betaald voetbal is Ajax ongeslagen kampioen geworden in de hoogste klasse.
 1994-1995,opm,<br>In de Telecompetitie werd zeven keer gelijkgespeeld:
@@ -10,6 +11,7 @@ season,key,value
 1994-1995,opm,Dat was in de bekerwedstrijd tegen Feyenoord.
 1994-1995,opm,<p>Vijf spelers misten in de afgelopen competitie geen minuut:
 1994-1995,opm,"Reiziger en Frank de Boer (Ajax), Brookhuis (NEC), Atmodikoro (Dordrecht'90), Vonk (RKC)."
+1994-1995,dd,20080216
 1995-1996,title,Eindstand Eredivisie
 1995-1996,opm,In de PTT-Telecompetitie is in het afgelopen seizoen
 1995-1996,opm,een record aantal gele en rode kaarten gegeven.
@@ -21,13 +23,19 @@ season,key,value
 1995-1996,opm,<p> Vier spelers speelden in alle 34 duels van de eerste tot de laatste minuut mee.
 1995-1996,opm,"Dat waren de keepers Ed de Goey (Feyenoord), Ron Olyslager (Graafschap)"
 1995-1996,opm,en Edwin Zoetebier (FC Volendam) en de verdediger Johan de Kock (Roda JC).
+1995-1996,dd,20080216
 1996-1997,title,Eindstand Eredivisie
+1996-1997,dd,20080211
 1997-1998,title,Eindstand Eredivisie
+1997-1998,dd,20201030
 1998-1999,title,Eindstand Eredivisie
+1998-1999,dd,20080209
 1999-2000,title,Eindstand Eredivisie
+1999-2000,dd,20080209
 1999-2000,beker_opm,"Dus: in de achtste finale worden Ajax, PSV en Feyenoord uitgeschakeld door"
 1999-2000,beker_opm,"resp. Roda JC, Vitesse en AZ."
 1999-2000,beker_opm,PSV en Feyenoord speelden die ronde in eigen huis...
+2000-2001,dd,20030807
 2000-2001,title,Eindstand (KPN) Eredivisie
 2000-2001,opm,Het doelsaldo speelde dit seizoen een grote rol.
 2000-2001,opm,Vier clubs (Roda&nbsp;JC FC&nbsp;Utrecht Vitesse en RKC)
@@ -35,22 +43,31 @@ season,key,value
 2000-2001,opm,Onderin bleven De&nbsp;Graafschap en Fortuna&nbsp;Sittard op
 2000-2001,opm,31 punten steken. Door het slechtere doelsaldo moet
 2000-2001,opm,Fortuna&nbsp;Sittard promotie/degradatie wedstrijden spelen.
+2001-2002,dd,20030807
 2001-2002,title,Eindstand (KPN) Eredivisie
 2002-2003,title,Eindstand (Holland Casino) Eredivisie
+2002-2003,dd,20030811
 2003-2004,title,Eindstand (Holland Casino) Eredivisie
+2003-2004,dd,20040810
 2004-2005,title,Eindstand (Holland Casino) Eredivisie
+2004-2005,dd,20050809
 2005-2006,title,Eindstand Eredivisie
 2006-2007,title,Eindstand Eredivisie
 2007-2008,title,Eindstand Eredivisie
 2008-2009,title,Eindstand Eredivisie
 2009-2010,title,Eindstand Eredivisie
 2010-2011,title,Eindstand Eredivisie
+2010-2011,dd,20110515
 2011-2012,title,Eindstand Eredivisie
 2011-2012,beker_opm,Ajax-AZ gestaakt na incident rond AZ-keeper Esteban.
 2011-2012,beker_opm,Een maand later geheel overgespeeld voor 20 duizend scholieren onder de 12.
+2011-2012,dd,20120527
 2012-2013,title,Eindstand Eredivisie
+2012-2013,dd,20130804
 2013-2014,title,Eindstand Eredivisie
+2013-2014,dd,20140810
 2014-2015,title,Stand Eredivisie 2014-2015
+2014-2015,dd,20150517
 2015-2016,title,Stand Eredivisie 2015-2016
 2015-2016,opm,Het is lang onduidelijk geweest welke clubs zouden degraderen.
 2015-2016,opm,<br>Oorspronkelijk is FC Twente gestraft door de licentiecommissie
@@ -58,10 +75,15 @@ season,key,value
 2015-2016,opm,en het verstrekken van een nieuwe licentie voor de Eerste Divisie.
 2015-2016,opm,<br>Deze straf is op 17 juni 2016 omgezet in een boete van &euro; 181 000.
 2015-2016,opm,Hierdoor degradeert uiteindelijk ook De Graafschap (naast Cambuur).
+2015-2016,dd,20160617
 2016-2017,title,Stand Eredivisie 2016-2017
+2016-2017,dd,20201227
 2017-2018,title,Stand Eredivisie 2017-2018
+2017-2018,dd,20180520
 2018-2019,title,Stand Eredivisie 2018-2019
+2018-2019,dd,20201227
 2019-2020,title,Stand Eredivisie 2019-2020
 2019-2020,opm,De competitie is 24 april be&euml;indigd vanwege uitbraak Corona virus.
 2019-2020,opm,Er is geen kampioen en geen bekerwinnaar en geen promotie/degradatie.
+2019-2020,dd,20200426
 2020-2021,title,Stand Eredivisie
