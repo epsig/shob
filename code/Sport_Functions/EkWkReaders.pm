@@ -257,7 +257,13 @@ sub read_voorronde_part_u($$$)
       }
     }
   }
-  my $retval = read_wk_part($qfLines, $part, '', $sortrule, $ster);
+  my $title = '';
+  if ($part =~ m/^g([0-9A-Z])$/)
+  {
+    my $group = $1;
+    $title = "Groep $group";
+  }
+  my $retval = read_wk_part($qfLines, $part, $title, $sortrule, $ster);
   return $retval;
 }
 

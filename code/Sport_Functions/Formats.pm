@@ -302,15 +302,6 @@ qq(<li> <a href="sport_voetbal_${EK_WK_str}_$yearTitle.html">Eindronde $year in 
   my $args_u2s = $u_nl->[0][1];
   my $s_nl = u2s($u_nl,  @$args_u2s);
 
-  my $recent = '';
-  if (defined $phu->{recent})
-  {
-   my $dd1 = $phu->{recent}->[0];
-   my $dd2 = $phu->{recent}->[1];
-   $recent = get_uitslag(filter_datum($dd1, $dd2, $u_nl),
-    {ptitel => [2, 'Recente uitslagen en programma']});
-  }
-
   my $beslissend = '';
   if (defined $phu->{beslissend})
   {
@@ -322,11 +313,13 @@ qq(<li> <a href="sport_voetbal_${EK_WK_str}_$yearTitle.html">Eindronde $year in 
   my $u_nl_no_nl = filter_team(['NL'], -1, $u_nl);
 
   $out .= qq(<a name="groepNL"><h2>Stand en uitslagen groep van Nederland</h2></a>\n);
-  my $txt_l = get_stand($s_nl, 2, 0,[2, 'Stand Groep Nederland']) .
+  my $title = $u_nl->[0][0];
+  $title = 'groep Nederland' if $title eq '';
+  my $txt_l = get_stand($s_nl, 2, 0,[2, "Stand $title"]) .
    $beslissend .
    get_uitslag($u_nl_nl, {cols => 3, ptitel => [2, 'Uitslagen Nederlands Elftal']});
-  my $txt_r = $recent .
-   (scalar @$u_nl_no_nl > 1 ? get_uitslag($u_nl_no_nl, {ptitel => [2, 'Overige uitslagen groep Nederland']}) : '');
+  my $txt_r =
+   (scalar @$u_nl_no_nl > 1 ? get_uitslag($u_nl_no_nl, {ptitel => [2, "Overige uitslagen $title"]}) : '');
   if ($txt_r eq '')
   {$out .= ftable('border', $txt_l);}
   else
