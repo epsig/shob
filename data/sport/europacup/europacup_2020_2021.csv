@@ -30,10 +30,10 @@ CL,8f,ESrmd,ITatb,20210316,3-1,2
 CL,8f,G1mnc,DEbmg,20210316,2-0,2
 CL,8f,G1cls,ESamd,20210317,2-0,2
 CL,8f,DEbmn,ITlzr,20210317,2-1,2
-CL,4f,G1mnc,DEbdm,6-7 apr,-,
-CL,4f,DEbmn,FRpsg,6-7 apr,-,
-CL,4f,PTpor,G1cls,6-7 apr,-,
-CL,4f,ESrmd,G1lvp,6-7 apr,-,
+CL,4f,G1mnc,DEbdm,20210406,2-1,
+CL,4f,DEbmn,FRpsg,20210407,2-3,
+CL,4f,PTpor,G1cls,20210407,0-2,
+CL,4f,ESrmd,G1lvp,20210406,3-1,
 EL,v2,LUndk,NLwl2,20200916,0-5,2
 EL,v3,SInsm,NLpsv,20200924,1-5,2
 EL,v3,NLwl2,G2glr,20200924,0-4,2
@@ -80,7 +80,7 @@ EL,16f,GRolp,NLpsv,20210218,4-2,
 EL,16f,NLpsv,GRolp,20210225,2-1,1
 EL,8f,NLajx,CHgrs,20210311,3-0,
 EL,8f,CHgrs,NLajx,20210318,0-2,1
-EL,4f,ESgrn,G1mnu,20210408,-,
-EL,4f,NLajx,ITasr,20210408,-,
-EL,4f,G1ars,CZslp,20210408,-,
-EL,4f,HRdzg,ESvlr,20210408,-,
+EL,4f,ESgrn,G1mnu,20210408,0-2,
+EL,4f,NLajx,ITasr,20210408,1-2,
+EL,4f,G1ars,CZslp,20210408,1-1,
+EL,4f,HRdzg,ESvlr,20210408,0-1,
