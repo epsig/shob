@@ -16,6 +16,7 @@ use Sport_Functions::Filters;
 use Sport_Functions::Get_Land_Club;
 use Sport_Functions::Get_Result_Standing;
 use Sport_Functions::Range_Available_Seasons;
+use Sport_Functions::AddMatch;
 use Sport_Collector::Archief_Voetbal_Beker;
 use Sport_Collector::Archief_Voetbal_NL_Uitslagen;
 use Sport_Collector::Archief_Voetbal_NL_Standen;
@@ -166,6 +167,23 @@ sub auto_europa_in($)
   return $out;
 }
 
+sub get_selection($$$)
+{
+    my $gamesFromFile = shift;
+    my $tournement = shift;
+    my $round =shift;
+
+    my @games = (['']);
+    foreach my $game (@$gamesFromFile)
+    {
+      if ($game->{tournement} eq $tournement && $game->{round} eq $round)
+      {
+        add_one_line(\@games, $game, 1);
+      }
+    }
+    return \@games;
+}
+
 sub get_betaald_voetbal_nl($)
 {# (c) Edwin Spee
 
@@ -188,17 +206,20 @@ sub get_betaald_voetbal_nl($)
  }
  elsif ($yr == 2005)
  {$dd = 20070512;
-  $europa_in =
-"PSV als kampioen rechtstreeks naar de " .
-qq(<a href="sport_voetbal_europacup_2006_2007.html#CL">Champions League</a>.\n) .
-"<p>Overige plekken voor het eerst via Play Offs:\n" .
-qq(<br>Ajax naar <a href="sport_voetbal_europacup_2006_2007.html#vCL">voorronde Champions League</a> en\n) .
-"<br>Groningen, Feyenoord, AZ en Heerenveen naar de " .
-qq(<a href="sport_voetbal_europacup_2006_2007.html#UEFAcup">UEFA-cup.\n) .
-"<br>Twente naar de Intertoto.\n" .
-get_uitslag(combine_puus($nc_po->{2006}{CL}{1}, $nc_po->{2006}{CL}{finale}), {}) .
-get_uitslag($nc_po->{2006}{UEFA}{finale}, {}) .
-get_uitslag($nc_po->{2006}{Intertoto}{finale}, {});}
+  my $file_nc_po = 'po_ec_2006.csv';
+  my $subdir = 'nc_po';
+  my $fullname = "$csv_dir/$subdir/$file_nc_po";
+  my $gamesFromFile = read_csv_with_header($fullname);
+  my $nc_po_nw;
+  $nc_po_nw->{CL}{1} = get_selection($gamesFromFile, 'CL', 1);
+  $nc_po_nw->{CL}{finale} = get_selection($gamesFromFile, 'CL', 'finale');
+  $nc_po_nw->{UEFA}{finale} = get_selection($gamesFromFile, 'UEFA', 'finale');
+  $nc_po_nw->{Intertoto}{finale} = get_selection($gamesFromFile, 'Intertoto', 'finale');
+
+  $europa_in = auto_europa_in($szn) .
+get_uitslag(combine_puus($nc_po_nw->{CL}{1}, $nc_po_nw->{CL}{finale}), {ptitel=>[2,'play-offs voor voorronde Champions League']}) .
+get_uitslag($nc_po_nw->{UEFA}{finale}, {ptitel=>[2,'play-offs voor UEFA Cup']}) .
+get_uitslag($nc_po_nw->{Intertoto}{finale}, {ptitel=>[2,'play-offs voor Intertoto Cup']});}
  elsif ($yr == 2006)
  {$dd = 20080523;
   $europa_in =
