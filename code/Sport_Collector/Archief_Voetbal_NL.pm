@@ -194,6 +194,11 @@ sub get_betaald_voetbal_nl($)
 
  my $europa_in = '';
  my $dd = 20090722;
+ my $yr_p1 = $yr + 1;
+
+ my $file_nc_po = "po_ec_$yr_p1.csv";
+ my $subdir = 'nc_po';
+ my $fullname = "$csv_dir/$subdir/$file_nc_po";
 
  if ($yr <= 2004)
  {
@@ -206,9 +211,6 @@ sub get_betaald_voetbal_nl($)
  }
  elsif ($yr == 2005)
  {$dd = 20070512;
-  my $file_nc_po = 'po_ec_2006.csv';
-  my $subdir = 'nc_po';
-  my $fullname = "$csv_dir/$subdir/$file_nc_po";
   my $gamesFromFile = read_csv_with_header($fullname);
   my $nc_po_nw;
   $nc_po_nw->{CL}{1} = get_selection($gamesFromFile, 'CL', 1);
@@ -222,58 +224,39 @@ get_uitslag($nc_po_nw->{UEFA}{finale}, {ptitel=>[2,'play-offs voor UEFA Cup']}) 
 get_uitslag($nc_po_nw->{Intertoto}{finale}, {ptitel=>[2,'play-offs voor Intertoto Cup']});}
  elsif ($yr == 2006)
  {$dd = 20080523;
-  $europa_in =
-"PSV als kampioen rechtstreeks naar de " .
-qq(<a href="sport_voetbal_europacup_2007_2008.html#CL">Champions League</a>.\n) .
-"<p>Overige plekken via Play Offs:\n" .
-qq(<br>Ajax naar <a href="sport_voetbal_europacup_2007_2008.html#vCL">voorronde Champions League</a> en\n) .
-"<br>AZ, Heerenveen, Twente en Groningen naar de " .
-qq(<a href="sport_voetbal_europacup_2007_2008.html#UEFAcup">UEFA-cup.</a>\n) .
-"<br>Utrecht naar de Intertoto.\n" .
-get_uitslag(combine_puus($nc_po->{2007}{CL}{1}, $nc_po->{2007}{CL}{finale}), {}) .
-get_uitslag(combine_puus($nc_po->{2007}{UEFA}{1}, $nc_po->{2007}{UEFA}{finale}), {}) .
-get_uitslag(combine_puus($nc_po->{2007}{Intertoto}{1}, $nc_po->{2007}{Intertoto}{2},
- $nc_po->{2007}{Intertoto}{finale}), {});}
+  my $gamesFromFile = read_csv_with_header($fullname);
+  my $nc_po_nw;
+  $nc_po_nw->{CL}{1} = get_selection($gamesFromFile, 'CL', 1);
+  $nc_po_nw->{CL}{finale} = get_selection($gamesFromFile, 'CL', 'finale');
+  $nc_po_nw->{UEFA}{1} = get_selection($gamesFromFile, 'UEFA', 1);
+  $nc_po_nw->{UEFA}{finale} = get_selection($gamesFromFile, 'UEFA', 'finale');
+  $nc_po_nw->{Intertoto}{1} = get_selection($gamesFromFile, 'Intertoto', 1);
+  $nc_po_nw->{Intertoto}{2} = get_selection($gamesFromFile, 'Intertoto', 2);
+  $nc_po_nw->{Intertoto}{finale} = get_selection($gamesFromFile, 'Intertoto', 'finale');
+
+  $europa_in = auto_europa_in($szn) .
+get_uitslag(combine_puus($nc_po_nw->{CL}{1}, $nc_po_nw->{CL}{finale}), {ptitel=>[2,'play-offs voor voorronde Champions League']}) .
+get_uitslag(combine_puus($nc_po_nw->{UEFA}{1}, $nc_po_nw->{UEFA}{finale}), {ptitel=>[2,'play-offs voor UEFA Cup']}) .
+get_uitslag(combine_puus($nc_po_nw->{Intertoto}{1}, $nc_po_nw->{Intertoto}{2},
+ $nc_po_nw->{Intertoto}{finale}), {ptitel=>[2,'play-offs voor Intertoto Cup']});}
  elsif ($yr == 2007)
  {$dd = 20090220;
-  $europa_in =
-'PSV als kampioen rechtstreeks naar de '.
-qq(<a href="sport_voetbal_europacup_2008_2009.html#CL">Champions League</a>.\n) .
-'<p>FC Twente via Plays Offs naar ' .
-qq(<a href="sport_voetbal_europacup_2008_2009.html#vCL">voorronde Champions League</a>.\n) .
-'<p>Feyenoord als bekerwinnaar naar de ' .
-qq(<a href="sport_voetbal_europacup_2008_2009.html#UEFAcup">UEFA-cup</a>.\n) .
-"<p>Ajax, Heerenveen en NEC via Play Offs na de UEFA-cup.\n" .
-"<p>NAC na de Play Offs in de Intertoto.<p>\n" .
+  $europa_in = auto_europa_in($szn) .
  get_uitslag(
   combine_puus(
    $nc_po->{2008}{CL}{1},
    $nc_po->{2008}{CL}{finale}), {}) .
  get_uitslag(
   combine_puus(
-#  $nc_po->{2008}{UEFA}{2},
    $nc_po->{2008}{UEFA}{3}), {});}
  elsif ($yr == 2008)
- {$europa_in =
-qq(AZ als kampioen rechtstreek naar de <a href="sport_voetbal_europacup_2009_2010.html#CL">Champions League</a>.\n).
-'<p>FC Twente (zonder nationale play-offs) naar de ' .
-qq(<a href="sport_voetbal_europacup_2009_2010.html#vCL">voorronde Champions League</a>.\n) .
-'<p>Ajax, PSV en Heerenveen (zonder nationale play-offs),' .
-"<br> en NAC als winnaar van de play-offs\n" .
-qq(<br> naar de <a href="sport_voetbal_europacup_2009_2010.html#EuropaL">voorronde Europa League (opvolger UEFA-cup)</a>.\n) .
-#get_uitslag($nc_po->{2009}{UEFA}{1}, {}) .
+ {$europa_in = auto_europa_in($szn) .
  get_uitslag($nc_po->{2009}{UEFA}{2}, {});
   $dd = 20100508;
  }
  elsif ($yr == 2009)
  {
-  $europa_in =
-qq(FC Twente als kampioen naar de Champions League.\n) .
-qq(<p>Ajax naar de voorronde Champions League.\n) .
-qq(<p>PSV, Feyenoord en AZ direct naar (een voorronde van) de Europa League.\n) .
-qq(<p>FC Utrecht wint in de play-offs het laatste ticket voor de Europa League,\n) .
-qq(<br>en mag vlak na de WK-finale al weer aan de slag.\n) .
-#get_uitslag($nc_po->{2010}{UEFA}{1}, {}) .
+  $europa_in = auto_europa_in($szn) .
  get_uitslag($nc_po->{2010}{UEFA}{2}, {});
   $dd = 20101128;
  }
