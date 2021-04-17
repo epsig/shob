@@ -184,6 +184,46 @@ sub get_selection($$$)
     return \@games;
 }
 
+sub auto_europa_po($$)
+{
+  my ($gamesFromFile, $all) = @_;
+
+  my @tournements = ('CL', 'UEFA', 'Intertoto');
+  my @rounds      = (1, 2, 'finale');
+
+  my %fullName = ('CL' => 'voorronde Champions League',
+                  'UEFA' => 'UEFA Cup',
+                  'Intertoto' => 'Intertoto Cup');
+
+  my $europa_po = '';
+  foreach my $tournement (@tournements)
+  {
+    my $uTournement = [];
+    foreach my $round (@rounds)
+    {
+      my $u = get_selection($gamesFromFile, $tournement, $round);
+      if (scalar @$u > 1)
+      {
+        if (scalar @$uTournement == 0 || ($tournement ne 'CL' && $all == 0))
+        {
+          $uTournement = $u;
+        }
+        else
+        {
+          $uTournement = combine_puus($uTournement, $u);
+        }
+      }
+    }
+    if (scalar @$uTournement > 0)
+    {
+      my $title = "play-offs voor $fullName{$tournement}";
+      $europa_po .= get_uitslag($uTournement, {ptitel=>[2, $title]});
+    }
+  }
+
+  return $europa_po;
+}
+
 sub get_betaald_voetbal_nl($)
 {# (c) Edwin Spee
 
@@ -212,33 +252,13 @@ sub get_betaald_voetbal_nl($)
  elsif ($yr == 2005)
  {$dd = 20070512;
   my $gamesFromFile = read_csv_with_header($fullname);
-  my $nc_po_nw;
-  $nc_po_nw->{CL}{1} = get_selection($gamesFromFile, 'CL', 1);
-  $nc_po_nw->{CL}{finale} = get_selection($gamesFromFile, 'CL', 'finale');
-  $nc_po_nw->{UEFA}{finale} = get_selection($gamesFromFile, 'UEFA', 'finale');
-  $nc_po_nw->{Intertoto}{finale} = get_selection($gamesFromFile, 'Intertoto', 'finale');
-
-  $europa_in = auto_europa_in($szn) .
-get_uitslag(combine_puus($nc_po_nw->{CL}{1}, $nc_po_nw->{CL}{finale}), {ptitel=>[2,'play-offs voor voorronde Champions League']}) .
-get_uitslag($nc_po_nw->{UEFA}{finale}, {ptitel=>[2,'play-offs voor UEFA Cup']}) .
-get_uitslag($nc_po_nw->{Intertoto}{finale}, {ptitel=>[2,'play-offs voor Intertoto Cup']});}
+  $europa_in = auto_europa_in($szn) . auto_europa_po($gamesFromFile, 0);
+ }
  elsif ($yr == 2006)
  {$dd = 20080523;
   my $gamesFromFile = read_csv_with_header($fullname);
-  my $nc_po_nw;
-  $nc_po_nw->{CL}{1} = get_selection($gamesFromFile, 'CL', 1);
-  $nc_po_nw->{CL}{finale} = get_selection($gamesFromFile, 'CL', 'finale');
-  $nc_po_nw->{UEFA}{1} = get_selection($gamesFromFile, 'UEFA', 1);
-  $nc_po_nw->{UEFA}{finale} = get_selection($gamesFromFile, 'UEFA', 'finale');
-  $nc_po_nw->{Intertoto}{1} = get_selection($gamesFromFile, 'Intertoto', 1);
-  $nc_po_nw->{Intertoto}{2} = get_selection($gamesFromFile, 'Intertoto', 2);
-  $nc_po_nw->{Intertoto}{finale} = get_selection($gamesFromFile, 'Intertoto', 'finale');
-
-  $europa_in = auto_europa_in($szn) .
-get_uitslag(combine_puus($nc_po_nw->{CL}{1}, $nc_po_nw->{CL}{finale}), {ptitel=>[2,'play-offs voor voorronde Champions League']}) .
-get_uitslag(combine_puus($nc_po_nw->{UEFA}{1}, $nc_po_nw->{UEFA}{finale}), {ptitel=>[2,'play-offs voor UEFA Cup']}) .
-get_uitslag(combine_puus($nc_po_nw->{Intertoto}{1}, $nc_po_nw->{Intertoto}{2},
- $nc_po_nw->{Intertoto}{finale}), {ptitel=>[2,'play-offs voor Intertoto Cup']});}
+  $europa_in = auto_europa_in($szn) . auto_europa_po($gamesFromFile, 1);
+ }
  elsif ($yr == 2007)
  {$dd = 20090220;
   $europa_in = auto_europa_in($szn) .
