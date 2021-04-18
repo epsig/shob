@@ -188,10 +188,11 @@ sub auto_europa_po($$)
 {
   my ($gamesFromFile, $all) = @_;
 
-  my @tournements = ('CL', 'UEFA', 'Intertoto');
+  my @tournements = ('CL', 'EL', 'UEFA', 'Intertoto');
   my @rounds      = (1, 2, 3, 'finale');
 
   my %fullName = ('CL' => 'voorronde Champions League',
+                  'EL' => 'de Europa League',
                   'UEFA' => 'UEFA Cup',
                   'Intertoto' => 'Intertoto Cup');
 
@@ -265,9 +266,10 @@ sub get_betaald_voetbal_nl($)
   $europa_in = auto_europa_in($szn) . auto_europa_po($gamesFromFile, 0);
  }
  elsif ($yr == 2008)
- {$europa_in = auto_europa_in($szn) .
- get_uitslag($nc_po->{2009}{UEFA}{2}, {});
+ {
   $dd = 20100508;
+  my $gamesFromFile = read_csv_with_header($fullname);
+  $europa_in = auto_europa_in($szn) . auto_europa_po($gamesFromFile, 0);
  }
  elsif ($yr == 2009)
  {
