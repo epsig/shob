@@ -39,12 +39,23 @@ $VERSION = '21.0';
  #========================================================================
 );
 
+my $subdir = 'nc_po';
+
 sub get_nc($)
 {# (c) Edwin Spee
 
  my ($year) = @_;
  my $nc;
  my $pd = $nc_po->{$year}{PD};
+
+ my $file_pd = "pd_s_$year.csv";
+ my $fullname = "$csv_dir/$subdir/$file_pd";
+ if (-f $fullname)
+ {
+   $pd->{ncA} = read_stand($fullname, 'groep A', 'ncA');
+   $pd->{ncB} = read_stand($fullname, 'groep B', 'ncB');
+ }
+
  if ($year < 2006 and defined($pd))
  {
   my $opm = '';
@@ -238,7 +249,6 @@ sub get_betaald_voetbal_nl($)
  my $yr_p1 = $yr + 1;
 
  my $file_nc_po = "po_ec_$yr_p1.csv";
- my $subdir = 'nc_po';
  my $fullname = "$csv_dir/$subdir/$file_nc_po";
 
  if ($yr <= 2004)
