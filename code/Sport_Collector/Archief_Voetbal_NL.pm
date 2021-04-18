@@ -246,36 +246,16 @@ sub get_betaald_voetbal_nl($)
   $dd = $all_remarks->{eredivisie}->get($szn, 'dd');
   $europa_in = auto_europa_in($szn);
  }
+ elsif (-f $fullname)
+ {
+  $dd = $all_remarks->{eredivisie}->get($szn, 'dd');
+  my $gamesFromFile = read_csv_with_header($fullname);
+  my $all = ($yr == 2006);
+  $europa_in = auto_europa_in($szn) . auto_europa_po($gamesFromFile, $all);
+ }
  elsif ($yr >= 2010 && $yr <= 2019)
  {
   $dd = $all_remarks->{eredivisie}->get($szn, 'dd');
- }
- elsif ($yr == 2005)
- {$dd = 20070512;
-  my $gamesFromFile = read_csv_with_header($fullname);
-  $europa_in = auto_europa_in($szn) . auto_europa_po($gamesFromFile, 0);
- }
- elsif ($yr == 2006)
- {$dd = 20080523;
-  my $gamesFromFile = read_csv_with_header($fullname);
-  $europa_in = auto_europa_in($szn) . auto_europa_po($gamesFromFile, 1);
- }
- elsif ($yr == 2007)
- {$dd = 20090220;
-  my $gamesFromFile = read_csv_with_header($fullname);
-  $europa_in = auto_europa_in($szn) . auto_europa_po($gamesFromFile, 0);
- }
- elsif ($yr == 2008)
- {
-  $dd = 20100508;
-  my $gamesFromFile = read_csv_with_header($fullname);
-  $europa_in = auto_europa_in($szn) . auto_europa_po($gamesFromFile, 0);
- }
- elsif ($yr == 2009)
- {
-  $dd = 20101128;
-  my $gamesFromFile = read_csv_with_header($fullname);
-  $europa_in = auto_europa_in($szn) . auto_europa_po($gamesFromFile, 0);
  }
  else
  {
@@ -287,7 +267,7 @@ sub get_betaald_voetbal_nl($)
 
   $dd = max($dd, $dd2);
  }
- my $nc = get_nc($yr+1);
+ my $nc = get_nc($yr_p1);
  return format_eindstanden($yr, $opm_ered, $europa_in, $nc, $dd);
 }
 

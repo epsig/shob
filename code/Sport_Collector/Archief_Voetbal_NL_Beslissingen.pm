@@ -27,10 +27,6 @@ $VERSION = '18.1';
 
 our $nc_po;
 
-my $tCL   = 'play-offs voor voorronde Champions League';
-my $tUEFA = 'play-offs voor UEFA Cup';
-my $tEL   = 'play-offs voor de Europa League';
-my $tIC   = 'play-offs voor Intertoto Cup';
 my $tPD   = 'Promotie/degradatie eerste/eredivisie';
 my $tPD3  = 'Promotie/degradatie eerste/eredivisie (best of 3)';
 
