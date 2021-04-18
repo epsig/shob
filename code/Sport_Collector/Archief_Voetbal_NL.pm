@@ -273,9 +273,9 @@ sub get_betaald_voetbal_nl($)
  }
  elsif ($yr == 2009)
  {
-  $europa_in = auto_europa_in($szn) .
- get_uitslag($nc_po->{2010}{UEFA}{2}, {});
   $dd = 20101128;
+  my $gamesFromFile = read_csv_with_header($fullname);
+  $europa_in = auto_europa_in($szn) . auto_europa_po($gamesFromFile, 0);
  }
  else
  {
