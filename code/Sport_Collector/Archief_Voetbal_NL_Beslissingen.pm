@@ -30,18 +30,6 @@ our $nc_po;
 my $tPD   = 'Promotie/degradatie eerste/eredivisie';
 my $tPD3  = 'Promotie/degradatie eerste/eredivisie (best of 3)';
 
-$nc_po->{2004}{PD} = {
-ncA => [ ['groep A'],
-['vit',6,[4,2,0],14,[14, 4],['NB']],
-['vvv',6,[2,2,2], 8,[11,10]],
-['spr',6,[1,3,2], 6,[ 8,10]],
-['hlm',6,[0,3,3], 3,[ 7,16]] ],
-ncB => [ ['groep B'],
-['grf',6,[4,1,1],13,[10, 4],['NP']],
-['hrc',6,[3,2,1],11,[11, 6]],
-['exc',6,[2,2,2], 8,[ 8, 8]],
-['vol',6,[0,1,5], 1,[ 4,15],['ND']] ]};
-
 $nc_po->{2005}{PD} = {
 #'Periode Kampioenen: VVV-Venlo, Sparta, Heracles en Volendam',
 ncA => [ ['Eindstand poule A'],
