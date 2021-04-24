@@ -4,6 +4,7 @@ use strict; use warnings;
 # DECLARATION OF THE PACKAGE
 #=========================================================================
 # following text starts a package:
+use File::Spec;
 use Shob_Tools::General;
 use Shob_Tools::Settings;
 use Shob_Tools::Html_Stuff;
@@ -49,12 +50,14 @@ sub get_nc($)
   my $pd = $nc_po->{$year}{PD};
 
   my $file_pd = "pd_s_$year.csv";
-  my $fullname = "$csv_dir/$subdir/$file_pd";
+  my $fullname = File::Spec->catfile($csv_dir, $subdir, $file_pd);
   if (-f $fullname)
   {
     my $title = $all_remarks->{nc_po}->get($year, 'title', 'groep');
-    $pd->{ncA} = read_stand($fullname, "$title A", 'ncA');
-    $pd->{ncB} = read_stand($fullname, "$title B", 'ncB');
+    foreach my $g ('A', 'B')
+    {
+      $pd->{"nc$g"} = read_stand($fullname, "$title $g", "nc$g");
+    }
   }
 
   if ($year < 2006 and defined($pd))
@@ -250,7 +253,7 @@ sub get_betaald_voetbal_nl($)
  my $yr_p1 = $yr + 1;
 
  my $file_nc_po = "po_ec_$yr_p1.csv";
- my $fullname = "$csv_dir/$subdir/$file_nc_po";
+ my $fullname = File::Spec->catfile($csv_dir, $subdir, $file_nc_po);
 
  if ($yr <= 2004)
  {
