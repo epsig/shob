@@ -30,19 +30,6 @@ our $nc_po;
 my $tPD   = 'Promotie/degradatie eerste/eredivisie';
 my $tPD3  = 'Promotie/degradatie eerste/eredivisie (best of 3)';
 
-$nc_po->{2005}{PD} = {
-#'Periode Kampioenen: VVV-Venlo, Sparta, Heracles en Volendam',
-ncA => [ ['Eindstand poule A'],
-['rbc',6,[3,2,1],11,[ 9, 3],['NB']],
-['vol',6,[2,3,1], 9,[11, 9]],
-['tls',6,[2,2,2], 8,[ 9,10]],
-['vvv',6,[1,1,4], 4,[ 6,13]] ],
-ncB => [ ['Eindstand poule B'],
-['spr',6,[5,0,1],15,[13, 5],['NP']],
-['hlm',6,[2,3,1], 9,[11, 6]],
-['grf',6,[2,2,2], 8,[11,10],['ND']],
-['zwl',6,[0,1,5], 1,[ 6,20]] ]};
-
 #my $play_offs_D = combine_puus($nc_po->{2006}{PD}{1},$nc_po->{2006}{PD}{2},$nc_po->{2006}{PD}{finale});
 #my $nc = ['Periodekampioenen: Volendam, FC Zwolle, TOP Oss, Excelsior, Haarlem en AGOVV.', [], []];
 $nc_po->{2006}{PD}{1} = [ [$tPD3],
