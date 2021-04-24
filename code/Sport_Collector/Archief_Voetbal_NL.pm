@@ -53,18 +53,12 @@ sub get_nc($)
   my $fullname = File::Spec->catfile($csv_dir, $subdir, $file_pd);
   if (-f $fullname)
   {
-    my $title     = $all_remarks->{nc_po}->get($year, 'title', 'groep');
-    $pd->{opm_nc} = $all_remarks->{nc_po}->get_ml($year, 'opm_nc', 1);
+    my $title = $all_remarks->{nc_po}->get($year, 'title', 'groep');
+    my $opm   = $all_remarks->{nc_po}->get_ml($year, 'opm_nc', 1);
     foreach my $g ('A', 'B')
     {
       $pd->{"nc$g"} = read_stand($fullname, "$title $g", "nc$g");
     }
-  }
-
-  if ($year < 2006 and defined($pd))
-  {
-    my $opm = '';
-    if (defined $pd->{opm_nc}) {$opm = $pd->{opm_nc};}
     $nc = [$opm, $pd->{ncA}, $pd->{ncB}];
   }
   elsif ($year == 2006 or $year == 2007)
