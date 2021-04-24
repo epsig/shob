@@ -30,18 +30,6 @@ our $nc_po;
 my $tPD   = 'Promotie/degradatie eerste/eredivisie';
 my $tPD3  = 'Promotie/degradatie eerste/eredivisie (best of 3)';
 
-$nc_po->{1997}{PD} = {
-ncA => [ ['Eindstand poule A'],
-['rkc',6,[5,0,1],15,[19, 6],['NB']],
-['zwl',6,[3,1,2],10,[ 6, 9]],
-['emm',6,[2,1,3], 7,[ 8,10]],
-['adh',6,[0,2,4], 2,[ 3,11]] ],
-ncB => [ ['Eindstand poule B'],
-['nec',6,[5,0,1],15,[19, 5],['NB']],
-['gae',6,[5,0,1],15,[17, 8]],
-['cmb',6,[2,0,4], 6,[ 8,15]],
-['vvv',6,[0,0,6], 0,[ 6,22]] ]};
-
 $nc_po->{1998}{PD} = {
 ncA => [ ['groep A'],
 ['rkc',6,[4,2,0],14,[15, 5],['NB']],
