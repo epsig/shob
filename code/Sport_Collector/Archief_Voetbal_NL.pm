@@ -42,67 +42,67 @@ $VERSION = '21.0';
 my $subdir = 'nc_po';
 
 sub get_nc($)
-{# (c) Edwin Spee
+{
+  my ($year) = @_;
 
- my ($year) = @_;
- my $nc;
- my $pd = $nc_po->{$year}{PD};
+  my $nc;
+  my $pd = $nc_po->{$year}{PD};
 
- my $file_pd = "pd_s_$year.csv";
- my $fullname = "$csv_dir/$subdir/$file_pd";
- if (-f $fullname)
- {
-   my $title = $all_remarks->{nc_po}->get($year, 'title', 'groep');
-   $pd->{ncA} = read_stand($fullname, "$title A", 'ncA');
-   $pd->{ncB} = read_stand($fullname, "$title B", 'ncB');
- }
+  my $file_pd = "pd_s_$year.csv";
+  my $fullname = "$csv_dir/$subdir/$file_pd";
+  if (-f $fullname)
+  {
+    my $title = $all_remarks->{nc_po}->get($year, 'title', 'groep');
+    $pd->{ncA} = read_stand($fullname, "$title A", 'ncA');
+    $pd->{ncB} = read_stand($fullname, "$title B", 'ncB');
+  }
 
- if ($year < 2006 and defined($pd))
- {
-  my $opm = '';
-  if (defined $pd->{opm_nc}) {$opm = $pd->{opm_nc};}
-  $nc = [$opm, $pd->{ncA}, $pd->{ncB}];
- }
- elsif ($year == 2006 or $year == 2007)
- {
-  $nc = [ftable('border', get_uitslag($pd->{finale}, {})), [], []];
- }
- elsif ($year == 2008)
- {
-  $nc = [ftable('border', get_uitslag($pd->{3}, {})), [], []];
- }
- elsif ($year == 2009)
- {
-  $nc = [ftable('border',
-   get_uitslag($nc_po->{2009}{PD}{2}, {}) .
-   get_uitslag($nc_po->{2009}{PD}{3}, {}))];
- }
- elsif ($year == 2010)
- {
-  $nc = [ftable('border',
-   get_uitslag($nc_po->{2010}{PD}{3}, {}) .
-   ftr(ftd({cols => 2},
-   "Kampioen en rechtstreekse promotie: De Graafschap.<br>\n" .
-   "Excelsior promoveert na winst in de nacompetitie op stadgenoot Sparta.<br>\n" .
-   "Haarlem wegens faillisement uit de competitie genomen.<br>\n" .
-   "TOP Oss degradeert naar (nieuwe) Topklasse<br>\n" )))];
- }
- elsif ($year == 2011)
- {
-  $nc = [ftable('border', ftr(ftd(
-   "Periodekampioenen: FC Zwolle, Volendam, MVV en RKC.\n" .
-   '<br> Excelsior en VVV behouden eredivisieschap na nacompetitie.')))];
- }
- elsif ($year == 2012)
- {
-  $nc = [ftable('border', ftr(ftd(
-   'Periodekampioenen: FC Zwolle, FC Den Bosch en Sparta.')))];
- }
- else
- {
-  $nc = [];
- }
- return $nc;
+  if ($year < 2006 and defined($pd))
+  {
+    my $opm = '';
+    if (defined $pd->{opm_nc}) {$opm = $pd->{opm_nc};}
+    $nc = [$opm, $pd->{ncA}, $pd->{ncB}];
+  }
+  elsif ($year == 2006 or $year == 2007)
+  {
+    $nc = [ftable('border', get_uitslag($pd->{finale}, {})), [], []];
+  }
+  elsif ($year == 2008)
+  {
+    $nc = [ftable('border', get_uitslag($pd->{3}, {})), [], []];
+  }
+  elsif ($year == 2009)
+  {
+    $nc = [ftable('border',
+      get_uitslag($nc_po->{2009}{PD}{2}, {}) .
+      get_uitslag($nc_po->{2009}{PD}{3}, {}))];
+  }
+  elsif ($year == 2010)
+  {
+    $nc = [ftable('border',
+      get_uitslag($nc_po->{2010}{PD}{3}, {}) .
+      ftr(ftd({cols => 2},
+      "Kampioen en rechtstreekse promotie: De Graafschap.<br>\n" .
+      "Excelsior promoveert na winst in de nacompetitie op stadgenoot Sparta.<br>\n" .
+      "Haarlem wegens faillisement uit de competitie genomen.<br>\n" .
+      "TOP Oss degradeert naar (nieuwe) Topklasse<br>\n" )))];
+  }
+  elsif ($year == 2011)
+  {
+    $nc = [ftable('border', ftr(ftd(
+      "Periodekampioenen: FC Zwolle, Volendam, MVV en RKC.\n" .
+      '<br> Excelsior en VVV behouden eredivisieschap na nacompetitie.')))];
+  }
+  elsif ($year == 2012)
+  {
+    $nc = [ftable('border', ftr(ftd(
+     'Periodekampioenen: FC Zwolle, FC Den Bosch en Sparta.')))];
+  }
+  else
+  {
+    $nc = [];
+  }
+  return $nc;
 }
 
 sub bekerwinnaar($$)
