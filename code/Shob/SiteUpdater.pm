@@ -256,7 +256,7 @@ sub handle_sport_files($$$)
 
     if ($szn1 ge $ranges->{voetbal_nl}[0] && $szn1 le $ranges->{voetbal_nl}[1])
     {
-      $dl = 1 if ($yr == 2000);
+      $dl = 1 if ($yr == 2001);
       push @pages, [$dl, 'all', sub {&get_betaald_voetbal_nl($yr);}, "sport_voetbal_nl_$szn2.html"];
     }
 
