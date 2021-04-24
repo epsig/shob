@@ -30,23 +30,6 @@ our $nc_po;
 my $tPD   = 'Promotie/degradatie eerste/eredivisie';
 my $tPD3  = 'Promotie/degradatie eerste/eredivisie (best of 3)';
 
-$nc_po->{2000}{PD} = {
-ncA => [ ['Eindstand poule A'],
-['grn',6,[5,0,1],15,[19, 7],['NP']],
-['emm',6,[2,2,2], 8,[ 8,10]],
-['mvv',6,[2,1,3], 7,[11,14],['ND']],
-['hrc',6,[1,1,4], 4,[10,17]] ],
-ncB => [ ['Eindstand poule B'],
-['rbc',6,[3,2,1],11,[10, 7],['NP']],
-['zwl',6,[3,1,2],10,[14, 7]],
-['exc',6,[2,1,3], 7,[11,14]],
-['cmb',6,[1,2,3], 5,[ 6,13],['ND']] ],
-opm_nc => << 'EOF'
-* FC Groningen is na 4 van de 6 wedstrijden al zeker van promotie. <br>
-* RBC Roosendaal komt volgend seizoen voor het eerst in de Eredivisie uit.
-EOF
-};
-
 $nc_po->{2001}{PD} = {
 ncA => [ ['Eindstand poule A'],
 ['fst',6,[3,1,2],10,[ 9, 6],['NB']],
