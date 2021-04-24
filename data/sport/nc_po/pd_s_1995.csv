@@ -1,0 +1,9 @@
+group,club_id,matches,wins,draws,losses,points,goals_scored,goals_against,remark
+ncA,grf,6,4,1,1, 9,17, 8,NP
+ncA,adh,6,4,0,2, 8,11, 6,
+ncA,hrc,6,2,1,3, 5, 8,15,
+ncA,mvv,6,0,2,4, 2, 8,15,ND
+ncB,gae,6,5,1,0,11,13, 6,NB
+ncB,exc,6,3,0,3, 6, 5, 7,
+ncB,vvv,6,1,2,3, 4,10,11,
+ncB,az1,6,1,1,4, 3, 9,13,
