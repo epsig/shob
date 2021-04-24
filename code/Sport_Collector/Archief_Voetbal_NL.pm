@@ -52,8 +52,9 @@ sub get_nc($)
  my $fullname = "$csv_dir/$subdir/$file_pd";
  if (-f $fullname)
  {
-   $pd->{ncA} = read_stand($fullname, 'groep A', 'ncA');
-   $pd->{ncB} = read_stand($fullname, 'groep B', 'ncB');
+   my $title = $all_remarks->{nc_po}->get($year, 'title', 'groep');
+   $pd->{ncA} = read_stand($fullname, "$title A", 'ncA');
+   $pd->{ncB} = read_stand($fullname, "$title B", 'ncB');
  }
 
  if ($year < 2006 and defined($pd))
