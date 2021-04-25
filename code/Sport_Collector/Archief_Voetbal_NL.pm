@@ -46,7 +46,6 @@ sub get_nc($)
   my ($year) = @_;
 
   my $nc;
-  my $pd;
 
   my $file_pd = "pd_s_$year.csv";
   my $fullname = File::Spec->catfile($csv_dir, $subdir, $file_pd);
@@ -59,11 +58,14 @@ sub get_nc($)
 
   if (-f $fullname)
   {
+    my @s = ();
     foreach my $g ('A', 'B')
     {
-      $pd->{"nc$g"} = read_stand($fullname, "$title $g", "nc$g");
+      my $s = read_stand($fullname, "$title $g", "nc$g");
+      push @s, get_stand($s, 2, 0, [1]);
     }
-    $nc = [$opm, $pd->{ncA}, $pd->{ncB}];
+    my $out = get2tables($s[0], $s[1]);
+    $nc = $out . $opm;
   }
   elsif (-f $fullname_u)
   {
@@ -80,16 +82,16 @@ sub get_nc($)
     {
       $out .= ftr(ftd({cols => 2}, $opm));
     }
-    $nc = [ftable('border', $out)];
+    $nc = ftable('border', $out);
   }
   elsif ($opm ne '')
   {
     chomp($opm);
-    $nc = [ftable('border', ftr(ftd($opm)))];
+    $nc = ftable('border', ftr(ftd($opm)));
   }
   else
   {
-    $nc = [];
+    $nc = '';
   }
   return $nc;
 }

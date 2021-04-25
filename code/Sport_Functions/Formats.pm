@@ -534,7 +534,7 @@ if (scalar @$div1)
 {$otp .= qq(<a href="#1ste_div">eerste divisie</a> |\n);}
 if ($some_tpsc)
 {$otp .= qq(<a href="#topscorers">topscorers</a> |\n);}
-if (scalar @$nc)
+if ($nc ne '')
 {$otp .= qq(<a href="#pd">na-competitie</a> |\n);}
 if ($otp ne '') {$out .= '<hr> | ' . $otp;}
 
@@ -601,17 +601,14 @@ if ($some_tpsc)
  {$out .= get_table_border(ftable('tabs', get_tpsc(10, $tpB, 1)));}
 }
 
-if (scalar @$nc)
-{$out .= qq(<a name="pd"><p></a>\n);
- if (scalar @$nc > 2 and scalar @{$nc->[1]} and scalar @{$nc->[2]})
- {$out .= get2tables(
-   get_stand($nc->[1], 2, 0, [1]),
-   get_stand($nc->[2], 2, 0, [1])
-   );
- }
- elsif ($nc->[0] !~ m/table/)
- {$out .= '<h2>Promotie/degradatie</h2>';}
- $out .= "$nc->[0]\n";
+if ($nc ne '')
+{
+  $out .= qq(<a name="pd"><p></a>\n);
+  if ($nc !~ m/table/)
+  {
+    $out .= '<h2>Promotie/degradatie</h2>';
+  }
+  $out .= "$nc\n";
 }
 
 $out .= "<p>\n";
