@@ -51,15 +51,26 @@ sub get_nc($)
 
   my $file_pd = "pd_s_$year.csv";
   my $fullname = File::Spec->catfile($csv_dir, $subdir, $file_pd);
+
+  my $file_pd_u = "pd_u_$year.csv";
+  my $fullname_u = File::Spec->catfile($csv_dir, $subdir, $file_pd_u);
+
+  my $title = $all_remarks->{nc_po}->get($year, 'title', 'groep');
+
   if (-f $fullname)
   {
-    my $title = $all_remarks->{nc_po}->get($year, 'title', 'groep');
     my $opm   = $all_remarks->{nc_po}->get_ml($year, 'opm_nc', 1);
     foreach my $g ('A', 'B')
     {
       $pd->{"nc$g"} = read_stand($fullname, "$title $g", "nc$g");
     }
     $nc = [$opm, $pd->{ncA}, $pd->{ncB}];
+  }
+  elsif (-f $fullname_u)
+  {
+    my $gamesFromFile = read_csv_with_header($fullname_u);
+    my $u = get_selection($gamesFromFile, 'pd', 'finale');
+    $nc = [ftable('border', get_uitslag($u, {ptitel=>[2, $title]})), [], []];
   }
   elsif ($year == 2006 or $year == 2007)
   {
