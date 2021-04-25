@@ -32,15 +32,17 @@ $VERSION = '21.1';
   '&first_year',
   '&standen',
   '&read_u2s',
+  '&read_stand',
  #========================================================================
 );
 
 my $contentFileU2s;
 
-sub read_stand($$)
+sub read_stand($$;$)
 {
   my $filename = shift;
   my $title    = shift;
+  my $filter   = shift;
 
   my $test = read_csv_with_header($filename);
 
@@ -54,6 +56,10 @@ sub read_stand($$)
   foreach my $line (@$test)
   {
     my %h =%$line;
+    if (defined $filter)
+    {
+      if ($h{group} ne $filter) {next;}
+    }
     my $details = [$h{wins}, $h{draws}, $h{losses}];
     my $goal_diff = [$h{'goals_scored'}, $h{'goals_against'}];
     my @current = ($h{club_id}, $h{matches}, $details, $h{points}, $goal_diff);

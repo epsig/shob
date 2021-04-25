@@ -1,0 +1,21 @@
+tournement,round,club1,club2,dd,result,spectators,star
+CL,1,hrv,ajx,20070509,1-0,23500,
+CL,1,twn,az1,20070509,1-1,13250,
+CL,1,ajx,hrv,20070513,4-0,29142,2
+CL,1,az1,twn,20070513,2-0,13232,2
+CL,finale,az1,ajx,20070520,2-1,15943,
+CL,finale,ajx,az1,20070527,3-0,50201,2
+UEFA,1,utr,rdj,20070509,0-0,12500,
+UEFA,1,grn,fyn,20070510,2-1,19000,
+UEFA,1,rdj,utr,20070512,1-1,14600,1
+UEFA,1,fyn,grn,20070513,1-1,18000,1
+UEFA,finale,utr,grn,20070517,0-2,17500,
+UEFA,finale,grn,utr,20070520,2-1,19435,2
+Intertoto,1,vit,nac,20070509,3-2,11450,
+Intertoto,1,spr,nec,20070510,1-1, 9133,
+Intertoto,1,nac,vit,20070512,0-1, 5520,1
+Intertoto,1,nec,spr,20070513,2-1, 4000,2
+Intertoto,2,vit,nec,20070517,1-0,11425,
+Intertoto,2,nec,vit,20070520,0-2, 8224,1
+Intertoto,finale,vit,utr,20070524,2-2, 8750,
+Intertoto,finale,utr,vit,20070527,0-0,13500,2

@@ -1,0 +1,17 @@
+tournement,round,club1,club2,dd,result,spectators,remark,star
+CL,1,twn,nac,20080429,3-0,,{stadion=>'Emmen';publiek=>6000},
+CL,1,hrv,ajx,20080501,1-2,25000,,
+CL,1,nac,twn,20080503,1-5,12400,,1
+CL,1,ajx,hrv,20080505,3-1,47000,,2
+CL,finale,twn,ajx,20080510,2-1,,{stadion=>'Emmen';publiek=>8000},
+CL,finale,ajx,twn,20080518,0-0,46000,,1
+UEFA,1,utr,grn,20080501,2-2,11250,,
+UEFA,1,rdj,nec,20080501,0-1,11000,,
+UEFA,1,grn,utr,20080504,3-1,18000,,2
+UEFA,1,nec,rdj,20080504,2-0, 7500,,2
+UEFA,2,nec,grn,20080508,1-0, 8250,,
+UEFA,2,hrv,nac,20080508,2-0,11000,,
+UEFA,2,grn,nec,20080511,1-3,17381,,1
+UEFA,2,nac,hrv,20080512,2-2, 8000,,
+UEFA,3,nec,nac,20080515,6-0,11500,,
+UEFA,3,nac,nec,20080518,0-1, 5900,,1

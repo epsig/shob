@@ -4,6 +4,7 @@ use strict; use warnings;
 # DECLARATION OF THE PACKAGE
 #=========================================================================
 # following text starts a package:
+use File::Spec;
 use Shob_Tools::General;
 use Shob_Tools::Settings;
 use Shob_Tools::Html_Stuff;
@@ -16,10 +17,10 @@ use Sport_Functions::Filters;
 use Sport_Functions::Get_Land_Club;
 use Sport_Functions::Get_Result_Standing;
 use Sport_Functions::Range_Available_Seasons;
+use Sport_Functions::AddMatch;
 use Sport_Collector::Archief_Voetbal_Beker;
 use Sport_Collector::Archief_Voetbal_NL_Uitslagen;
 use Sport_Collector::Archief_Voetbal_NL_Standen;
-use Sport_Collector::Archief_Voetbal_NL_Beslissingen;
 use Exporter;
 use vars qw($VERSION @ISA @EXPORT);
 @ISA = ('Exporter');
@@ -38,58 +39,61 @@ $VERSION = '21.0';
  #========================================================================
 );
 
-sub get_nc($)
-{# (c) Edwin Spee
+my $subdir = 'nc_po';
 
- my ($year) = @_;
- my $nc;
- my $pd = $nc_po->{$year}{PD};
- if ($year < 2006 and defined($pd))
- {
-  my $opm = '';
-  if (defined $pd->{opm_nc}) {$opm = $pd->{opm_nc};}
-  $nc = [$opm, $pd->{ncA}, $pd->{ncB}];
- }
- elsif ($year == 2006 or $year == 2007)
- {
-  $nc = [ftable('border', get_uitslag($pd->{finale}, {})), [], []];
- }
- elsif ($year == 2008)
- {
-  $nc = [ftable('border', get_uitslag($pd->{3}, {})), [], []];
- }
- elsif ($year == 2009)
- {
-  $nc = [ftable('border',
-   get_uitslag($nc_po->{2009}{PD}{2}, {}) .
-   get_uitslag($nc_po->{2009}{PD}{3}, {}))];
- }
- elsif ($year == 2010)
- {
-  $nc = [ftable('border',
-   get_uitslag($nc_po->{2010}{PD}{3}, {}) .
-   ftr(ftd({cols => 2},
-   "Kampioen en rechtstreekse promotie: De Graafschap.<br>\n" .
-   "Excelsior promoveert na winst in de nacompetitie op stadgenoot Sparta.<br>\n" .
-   "Haarlem wegens faillisement uit de competitie genomen.<br>\n" .
-   "TOP Oss degradeert naar (nieuwe) Topklasse<br>\n" )))];
- }
- elsif ($year == 2011)
- {
-  $nc = [ftable('border', ftr(ftd(
-   "Periodekampioenen: FC Zwolle, Volendam, MVV en RKC.\n" .
-   '<br> Excelsior en VVV behouden eredivisieschap na nacompetitie.')))];
- }
- elsif ($year == 2012)
- {
-  $nc = [ftable('border', ftr(ftd(
-   'Periodekampioenen: FC Zwolle, FC Den Bosch en Sparta.')))];
- }
- else
- {
-  $nc = [];
- }
- return $nc;
+sub get_nc($)
+{
+  my ($year) = @_;
+
+  my $nc;
+
+  my $file_pd = "pd_s_$year.csv";
+  my $fullname = File::Spec->catfile($csv_dir, $subdir, $file_pd);
+
+  my $file_pd_u = "pd_u_$year.csv";
+  my $fullname_u = File::Spec->catfile($csv_dir, $subdir, $file_pd_u);
+
+  my $title = $all_remarks->{nc_po}->get($year, 'title', 'groep');
+  my $opm   = $all_remarks->{nc_po}->get_ml($year, 'opm_nc', 1);
+
+  if (-f $fullname)
+  {
+    my @s = ();
+    foreach my $g ('A', 'B')
+    {
+      my $s = read_stand($fullname, "$title $g", "nc$g");
+      push @s, get_stand($s, 2, 0, [1]);
+    }
+    my $out = get2tables($s[0], $s[1]);
+    $nc = $out . $opm;
+  }
+  elsif (-f $fullname_u)
+  {
+    my $gamesFromFile = read_csv_with_header($fullname_u);
+    my $rounds = $all_remarks->{nc_po}->get($year, 'rounds');
+    my @rounds  = split(/;/, $rounds);
+    my $out = '';
+    foreach my $round (@rounds)
+    {
+      my $u = get_selection($gamesFromFile, 'pd', $round);
+      $out .= get_uitslag($u, {ptitel=>[2, $title]});
+    }
+    if ($opm ne '')
+    {
+      $out .= ftr(ftd({cols => 2}, $opm));
+    }
+    $nc = ftable('border', $out);
+  }
+  elsif ($opm ne '')
+  {
+    chomp($opm);
+    $nc = ftable('border', ftr(ftd($opm)));
+  }
+  else
+  {
+    $nc = '';
+  }
+  return $nc;
 }
 
 sub bekerwinnaar($$)
@@ -166,6 +170,64 @@ sub auto_europa_in($)
   return $out;
 }
 
+sub get_selection($$$)
+{
+    my $gamesFromFile = shift;
+    my $tournement = shift;
+    my $round =shift;
+
+    my @games = (['']);
+    foreach my $game (@$gamesFromFile)
+    {
+      if ($game->{tournement} eq $tournement && $game->{round} eq $round)
+      {
+        add_one_line(\@games, $game, 1);
+      }
+    }
+    return \@games;
+}
+
+sub auto_europa_po($$)
+{
+  my ($gamesFromFile, $all) = @_;
+
+  my @tournements = ('CL', 'EL', 'UEFA', 'Intertoto');
+  my @rounds      = (1, 2, 3, 'finale');
+
+  my %fullName = ('CL' => 'voorronde Champions League',
+                  'EL' => 'de Europa League',
+                  'UEFA' => 'UEFA Cup',
+                  'Intertoto' => 'Intertoto Cup');
+
+  my $europa_po = '';
+  foreach my $tournement (@tournements)
+  {
+    my $uTournement = [];
+    foreach my $round (@rounds)
+    {
+      my $u = get_selection($gamesFromFile, $tournement, $round);
+      if (scalar @$u > 1)
+      {
+        if (scalar @$uTournement == 0 || ($tournement ne 'CL' && $all == 0))
+        {
+          $uTournement = $u;
+        }
+        else
+        {
+          $uTournement = combine_puus($uTournement, $u);
+        }
+      }
+    }
+    if (scalar @$uTournement > 0)
+    {
+      my $title = "play-offs voor $fullName{$tournement}";
+      $europa_po .= get_uitslag($uTournement, {ptitel=>[2, $title]});
+    }
+  }
+
+  return $europa_po;
+}
+
 sub get_betaald_voetbal_nl($)
 {# (c) Edwin Spee
 
@@ -176,85 +238,26 @@ sub get_betaald_voetbal_nl($)
 
  my $europa_in = '';
  my $dd = 20090722;
+ my $yr_p1 = $yr + 1;
+
+ my $file_nc_po = "po_ec_$yr_p1.csv";
+ my $fullname = File::Spec->catfile($csv_dir, $subdir, $file_nc_po);
 
  if ($yr <= 2004)
  {
   $dd = $all_remarks->{eredivisie}->get($szn, 'dd');
   $europa_in = auto_europa_in($szn);
  }
+ elsif (-f $fullname)
+ {
+  $dd = $all_remarks->{eredivisie}->get($szn, 'dd');
+  my $gamesFromFile = read_csv_with_header($fullname);
+  my $all = ($yr == 2006);
+  $europa_in = auto_europa_in($szn) . auto_europa_po($gamesFromFile, $all);
+ }
  elsif ($yr >= 2010 && $yr <= 2019)
  {
   $dd = $all_remarks->{eredivisie}->get($szn, 'dd');
- }
- elsif ($yr == 2005)
- {$dd = 20070512;
-  $europa_in =
-"PSV als kampioen rechtstreeks naar de " .
-qq(<a href="sport_voetbal_europacup_2006_2007.html#CL">Champions League</a>.\n) .
-"<p>Overige plekken voor het eerst via Play Offs:\n" .
-qq(<br>Ajax naar <a href="sport_voetbal_europacup_2006_2007.html#vCL">voorronde Champions League</a> en\n) .
-"<br>Groningen, Feyenoord, AZ en Heerenveen naar de " .
-qq(<a href="sport_voetbal_europacup_2006_2007.html#UEFAcup">UEFA-cup.\n) .
-"<br>Twente naar de Intertoto.\n" .
-get_uitslag(combine_puus($nc_po->{2006}{CL}{1}, $nc_po->{2006}{CL}{finale}), {}) .
-get_uitslag($nc_po->{2006}{UEFA}{finale}, {}) .
-get_uitslag($nc_po->{2006}{Intertoto}{finale}, {});}
- elsif ($yr == 2006)
- {$dd = 20080523;
-  $europa_in =
-"PSV als kampioen rechtstreeks naar de " .
-qq(<a href="sport_voetbal_europacup_2007_2008.html#CL">Champions League</a>.\n) .
-"<p>Overige plekken via Play Offs:\n" .
-qq(<br>Ajax naar <a href="sport_voetbal_europacup_2007_2008.html#vCL">voorronde Champions League</a> en\n) .
-"<br>AZ, Heerenveen, Twente en Groningen naar de " .
-qq(<a href="sport_voetbal_europacup_2007_2008.html#UEFAcup">UEFA-cup.</a>\n) .
-"<br>Utrecht naar de Intertoto.\n" .
-get_uitslag(combine_puus($nc_po->{2007}{CL}{1}, $nc_po->{2007}{CL}{finale}), {}) .
-get_uitslag(combine_puus($nc_po->{2007}{UEFA}{1}, $nc_po->{2007}{UEFA}{finale}), {}) .
-get_uitslag(combine_puus($nc_po->{2007}{Intertoto}{1}, $nc_po->{2007}{Intertoto}{2},
- $nc_po->{2007}{Intertoto}{finale}), {});}
- elsif ($yr == 2007)
- {$dd = 20090220;
-  $europa_in =
-'PSV als kampioen rechtstreeks naar de '.
-qq(<a href="sport_voetbal_europacup_2008_2009.html#CL">Champions League</a>.\n) .
-'<p>FC Twente via Plays Offs naar ' .
-qq(<a href="sport_voetbal_europacup_2008_2009.html#vCL">voorronde Champions League</a>.\n) .
-'<p>Feyenoord als bekerwinnaar naar de ' .
-qq(<a href="sport_voetbal_europacup_2008_2009.html#UEFAcup">UEFA-cup</a>.\n) .
-"<p>Ajax, Heerenveen en NEC via Play Offs na de UEFA-cup.\n" .
-"<p>NAC na de Play Offs in de Intertoto.<p>\n" .
- get_uitslag(
-  combine_puus(
-   $nc_po->{2008}{CL}{1},
-   $nc_po->{2008}{CL}{finale}), {}) .
- get_uitslag(
-  combine_puus(
-#  $nc_po->{2008}{UEFA}{2},
-   $nc_po->{2008}{UEFA}{3}), {});}
- elsif ($yr == 2008)
- {$europa_in =
-qq(AZ als kampioen rechtstreek naar de <a href="sport_voetbal_europacup_2009_2010.html#CL">Champions League</a>.\n).
-'<p>FC Twente (zonder nationale play-offs) naar de ' .
-qq(<a href="sport_voetbal_europacup_2009_2010.html#vCL">voorronde Champions League</a>.\n) .
-'<p>Ajax, PSV en Heerenveen (zonder nationale play-offs),' .
-"<br> en NAC als winnaar van de play-offs\n" .
-qq(<br> naar de <a href="sport_voetbal_europacup_2009_2010.html#EuropaL">voorronde Europa League (opvolger UEFA-cup)</a>.\n) .
-#get_uitslag($nc_po->{2009}{UEFA}{1}, {}) .
- get_uitslag($nc_po->{2009}{UEFA}{2}, {});
-  $dd = 20100508;
- }
- elsif ($yr == 2009)
- {
-  $europa_in =
-qq(FC Twente als kampioen naar de Champions League.\n) .
-qq(<p>Ajax naar de voorronde Champions League.\n) .
-qq(<p>PSV, Feyenoord en AZ direct naar (een voorronde van) de Europa League.\n) .
-qq(<p>FC Utrecht wint in de play-offs het laatste ticket voor de Europa League,\n) .
-qq(<br>en mag vlak na de WK-finale al weer aan de slag.\n) .
-#get_uitslag($nc_po->{2010}{UEFA}{1}, {}) .
- get_uitslag($nc_po->{2010}{UEFA}{2}, {});
-  $dd = 20101128;
  }
  else
  {
@@ -266,7 +269,7 @@ qq(<br>en mag vlak na de WK-finale al weer aan de slag.\n) .
 
   $dd = max($dd, $dd2);
  }
- my $nc = get_nc($yr+1);
+ my $nc = get_nc($yr_p1);
  return format_eindstanden($yr, $opm_ered, $europa_in, $nc, $dd);
 }
 
