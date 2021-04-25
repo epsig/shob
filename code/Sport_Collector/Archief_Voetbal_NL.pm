@@ -68,16 +68,16 @@ sub get_nc($)
   }
   elsif (-f $fullname_u)
   {
-    my $rounds = $all_remarks->{nc_po}->get($year, 'rounds');
     my $gamesFromFile = read_csv_with_header($fullname_u);
-    my $u = get_selection($gamesFromFile, 'pd', $rounds);
-    $nc = [ftable('border', get_uitslag($u, {ptitel=>[2, $title]})), [], []];
-  }
-  elsif ($year == 2009)
-  {
-    $nc = [ftable('border',
-      get_uitslag($nc_po->{2009}{PD}{2}, {}) .
-      get_uitslag($nc_po->{2009}{PD}{3}, {}))];
+    my $rounds = $all_remarks->{nc_po}->get($year, 'rounds');
+    my @rounds  = split(/;/, $rounds);
+    my $out = '';
+    foreach my $round (@rounds)
+    {
+      my $u = get_selection($gamesFromFile, 'pd', $round);
+      $out .= get_uitslag($u, {ptitel=>[2, $title]});
+    }
+    $nc = [ftable('border', $out), [], []];
   }
   elsif ($year == 2010)
   {

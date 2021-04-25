@@ -169,6 +169,10 @@ sub push_or_extend($$$)
     for(my $i=1; $i < scalar @$games; $i++)
     {
       my $cmp_result = $games->[$i];
+      if (ref $cmp_result->[3] eq 'ARRAY')
+      { # fix for best-of-three
+        next;
+      }
       my $aa = $cmp_result->[0];
       my $bb = $cmp_result->[1];
       if ($a eq $bb and $b eq $aa)
