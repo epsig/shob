@@ -82,16 +82,10 @@ sub get_nc($)
     }
     $nc = [ftable('border', $out)];
   }
-  elsif ($year == 2011)
+  elsif ($opm ne '')
   {
-    $nc = [ftable('border', ftr(ftd(
-      "Periodekampioenen: FC Zwolle, Volendam, MVV en RKC.\n" .
-      '<br> Excelsior en VVV behouden eredivisieschap na nacompetitie.')))];
-  }
-  elsif ($year == 2012)
-  {
-    $nc = [ftable('border', ftr(ftd(
-     'Periodekampioenen: FC Zwolle, FC Den Bosch en Sparta.')))];
+    chomp($opm);
+    $nc = [ftable('border', ftr(ftd($opm)))];
   }
   else
   {
