@@ -30,25 +30,6 @@ our $nc_po;
 my $tPD   = 'Promotie/degradatie eerste/eredivisie';
 my $tPD3  = 'Promotie/degradatie eerste/eredivisie (best of 3)';
 
-#my $nc = ['Periodekampioenen: FC Den Bosch, RKC, Go Ahead Eagles, Volendam en Zwolle'];
-$nc_po->{2008}{PD}{1} = [ [$tPD],
-['gae','adh',[20080422,1,1],[20080426,3,0],2],
-['top','hlm',[20080422,2,2],[20080426,3,0],2] ];
-
-$nc_po->{2008}{PD}{2} = [ [$tPD3],
-['adh','vvv',[20080501,1,0],[20080504,1,0]],
-['mvv','rkc',[20080501,1,0],[20080504,2,0]],
-['zwl','dbs',[20080501,0,1],[20080504,1,2]],
-['hlm','grf',[20080501,2,3],[20080504,3,1],2],
-['adh','vvv',[20080507,2,0],1],
-['rkc','mvv',[20080507,4,0],1],
-['zwl','dbs',[20080507,1,0],1] ];
-
-$nc_po->{2008}{PD}{3} = [ [$tPD3],
-['adh','rkc',[20080511,1,1],[20080515,2,2]],
-['zwl','grf',[20080511,1,3],[20080515,0,0],2],
-['adh','rkc',[20080518,2,1],1] ];
-
 $nc_po->{2009} = {
 PD => {
 1 => [ [$tPD],
