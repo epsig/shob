@@ -21,7 +21,6 @@ use Sport_Functions::AddMatch;
 use Sport_Collector::Archief_Voetbal_Beker;
 use Sport_Collector::Archief_Voetbal_NL_Uitslagen;
 use Sport_Collector::Archief_Voetbal_NL_Standen;
-use Sport_Collector::Archief_Voetbal_NL_Beslissingen;
 use Exporter;
 use vars qw($VERSION @ISA @EXPORT);
 @ISA = ('Exporter');
@@ -47,7 +46,7 @@ sub get_nc($)
   my ($year) = @_;
 
   my $nc;
-  my $pd = $nc_po->{$year}{PD};
+  my $pd;
 
   my $file_pd = "pd_s_$year.csv";
   my $fullname = File::Spec->catfile($csv_dir, $subdir, $file_pd);
@@ -56,10 +55,10 @@ sub get_nc($)
   my $fullname_u = File::Spec->catfile($csv_dir, $subdir, $file_pd_u);
 
   my $title = $all_remarks->{nc_po}->get($year, 'title', 'groep');
+  my $opm   = $all_remarks->{nc_po}->get_ml($year, 'opm_nc', 1);
 
   if (-f $fullname)
   {
-    my $opm   = $all_remarks->{nc_po}->get_ml($year, 'opm_nc', 1);
     foreach my $g ('A', 'B')
     {
       $pd->{"nc$g"} = read_stand($fullname, "$title $g", "nc$g");
@@ -77,17 +76,11 @@ sub get_nc($)
       my $u = get_selection($gamesFromFile, 'pd', $round);
       $out .= get_uitslag($u, {ptitel=>[2, $title]});
     }
-    $nc = [ftable('border', $out), [], []];
-  }
-  elsif ($year == 2010)
-  {
-    $nc = [ftable('border',
-      get_uitslag($nc_po->{2010}{PD}{3}, {}) .
-      ftr(ftd({cols => 2},
-      "Kampioen en rechtstreekse promotie: De Graafschap.<br>\n" .
-      "Excelsior promoveert na winst in de nacompetitie op stadgenoot Sparta.<br>\n" .
-      "Haarlem wegens faillisement uit de competitie genomen.<br>\n" .
-      "TOP Oss degradeert naar (nieuwe) Topklasse<br>\n" )))];
+    if ($opm ne '')
+    {
+      $out .= ftr(ftd({cols => 2}, $opm));
+    }
+    $nc = [ftable('border', $out)];
   }
   elsif ($year == 2011)
   {
