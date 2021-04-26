@@ -262,7 +262,16 @@ sub get_tabel_extremen_doelpunten($$$$)
     . fth({cols => 2}, 'hoogste<br>doelsaldo')
     . fth({cols => 2}, 'laagste<br>doelsaldo'))
   . $out);
- $out .= "seizoen 2019-2020 is over 232 wedstrijden; overige over 306.";
+ if ($yrA > 1970)
+ {
+  $out .= "seizoen 2019-2020 is over 232 wedstrijden; overige over 306.";
+ }
+ else
+ {
+  $out .= "seizoen 2019-2020 is over 232 wedstrijden; " .
+          "seizoenen 1962-1963 t/m 1965-1966 over 240 wedstrijden " .
+          "en de overige seizoenen over 306 wedstrijden.";
+ }
  return $out;
 }
 
@@ -403,7 +412,7 @@ sub get_toeschouwers_tabel2($$$)
 
  my $out = << "EOF";
 <table border cellspacing=0>
-<tr><th>seizoen<th colspan=2>best bezocht<th colspan=2>minst bezocht
+<tr><th>seizoen</th><th colspan=2>best bezocht</th><th colspan=2>minst bezocht</th></tr>
 EOF
 
  for (my $j = 0; $j <= $yrB - $yrA; $j++)
