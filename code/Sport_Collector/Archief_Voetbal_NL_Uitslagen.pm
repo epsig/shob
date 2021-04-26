@@ -7,6 +7,7 @@ use strict; use warnings;
 use Sport_Functions::Readers;
 use Sport_Functions::Seasons;
 use Sport_Functions::AddMatch qw(add_one_line);
+use File::Spec;
 use Exporter;
 use vars qw($VERSION @ISA @EXPORT);
 @ISA = ('Exporter');
@@ -39,7 +40,7 @@ sub initEredivisieResults()
    my $szn = yr2szn($yr);
    my $csv = "eredivisie_$szn.csv";
    $csv =~ s/-/_/;
-   my $fullname = "$csv_dir/$subdir/$csv";
+   my $fullname = File::Spec->catfile($csv_dir, $subdir, $csv);
    if (-f $fullname)
    {
     # TODO in a subroutine

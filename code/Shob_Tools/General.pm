@@ -313,7 +313,7 @@ sub zoek_term
   {
    # recursief gebruik van zoek_term (daarom geen prototyping (geeft warning)):
    chdir($file);
-   zoek_term($term, File::Spec->catdir($path, $file), $verbose);
+   zoek_term($term, File::Spec->catfile($path, $file), $verbose);
    chdir(File::Spec->updir);
   }
   elsif ($file !~ m/\.(swp|doc|jpg|db|gif|xls)$/iso)
