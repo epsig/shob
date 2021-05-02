@@ -237,38 +237,37 @@ sub get_betaald_voetbal_nl($)
  my $opm_ered = $all_remarks->{eredivisie}->get_ml($szn, 'opm', 1);
 
  my $europa_in = '';
- my $dd = 20090722;
+ my $dd = $all_remarks->{eredivisie}->get($szn, 'dd', 20090722);
+
  my $yr_p1 = $yr + 1;
 
  my $file_nc_po = "po_ec_$yr_p1.csv";
  my $fullname = File::Spec->catfile($csv_dir, $subdir, $file_nc_po);
 
- if ($yr <= 2004)
+ my $ranges = get_sport_range();
+ my $szn1 = $ranges->{topscorers_eredivisie}[1];
+ my $szn2 = $ranges->{voetbal_nl}[1];
+
+ if (-f $fullname)
  {
-  $dd = $all_remarks->{eredivisie}->get($szn, 'dd');
-  $europa_in = auto_europa_in($szn);
- }
- elsif (-f $fullname)
- {
-  $dd = $all_remarks->{eredivisie}->get($szn, 'dd');
   my $gamesFromFile = read_csv_with_header($fullname);
   my $all = ($yr == 2006);
   $europa_in = auto_europa_in($szn) . auto_europa_po($gamesFromFile, $all);
  }
- elsif ($yr >= 2010 && $yr <= 2019)
- {
-  $dd = $all_remarks->{eredivisie}->get($szn, 'dd');
- }
- else
+ elsif ($szn eq $szn2 && $szn1 ne $szn2)
  {
   $dd = laatste_speeldatum($u_nl->{lastyear});
 
-  my $ranges = get_sport_range();
   my $last_beker_szn = $ranges->{beker}[1];
   my $dd2 = laatste_speeldatum_beker($last_beker_szn);
 
   $dd = max($dd, $dd2);
  }
+ else
+ {
+  $europa_in = auto_europa_in($szn);
+ }
+
  my $nc = get_nc($yr_p1);
  return format_eindstanden($yr, $opm_ered, $europa_in, $nc, $dd);
 }
