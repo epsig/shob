@@ -296,31 +296,10 @@ sub get_namen_topscorers($)
   return $names;
 }
 
-sub get_penalties($)
+sub get_tabel_doelpunten($$$$$)
 {# (c) Edwin Spee
 
- my $szn = $_[0];
- #seizoen ; totaal genomen ; benut ; totaal thuis team
-
-    if ($szn eq '1988-1989') {return [97, -1, -1];}
- elsif ($szn eq '1989-1990') {return [70, -1, -1];}
- elsif ($szn eq '1990-1991') {return [52, -1, -1];}
- elsif ($szn eq '1991-1992') {return [83, 67, 55];}
- elsif ($szn eq '1992-1993') {return [64, 47, -1];}
- elsif ($szn eq '1993-1994') {return [63, 50, -1];}
- elsif ($szn eq '1994-1995') {return [83, 62, 51];}
- elsif ($szn eq '1995-1996') {return [83, 64, -1];}
- elsif ($szn eq '1996-1997') {return [84, 64, -1];}
- elsif ($szn eq '1997-1998') {return [91, 73, -1];}
- elsif ($szn eq '1998-1999') {return [58, -1, -1];}
- elsif ($szn eq '1999-2000') {return [57, -1, -1];}
- else {return [-1, -1, -1];}
-}
-
-sub get_tabel_doelpunten($$$$$$)
-{# (c) Edwin Spee
-
- my ($lijst_extremen, $lijst_tpsc, $yrA, $yrB, $with_penalties, $ABBA) = @_;
+ my ($lijst_extremen, $lijst_tpsc, $yrA, $yrB, $ABBA) = @_;
 
 # record totaal aantal doelpunten: 83-84: 1079, 58-59: 1188
  my $out = '';
@@ -336,10 +315,6 @@ sub get_tabel_doelpunten($$$$$$)
          . ftdl(sprintf('%.2f', $rij_e->[8]))
          . ftdl(get_namen_topscorers($rij_t))
          . ftdl($rij_t->[1]{total});
-   if ($with_penalties)
-   {my $penalties = get_penalties($szn);
-    $tmp_out .= ftdl(no_missing_values($penalties->[0])) .
-            ftdl(no_missing_values($penalties->[1]));}
    $out .= ftr($tmp_out);
  }}
  $out = '<a name="tot_goals"></a>'
@@ -347,8 +322,7 @@ sub get_tabel_doelpunten($$$$$$)
      ftr(fth('seizoen')
      . fth('doelpunten')
      . fth('gem.')
-     . fth({cols => 2}, 'topscorer')
-     . ($with_penalties ? fth("penalty's") . fth('benut') : '') )
+     . fth({cols => 2}, 'topscorer'))
    . $out);
  return $out;
 }
@@ -490,7 +464,7 @@ sub get_stats_eredivisie($$$)
 
  $out .= get_tabel_extremen_doelpunten($l_extremen, $yrA, $yr2, 0);
  $out .= "<p>\n";
- $out .= get_tabel_doelpunten($l_extremen, $l_tpsc, $yrA, $yr1, $all_data, 0);
+ $out .= get_tabel_doelpunten($l_extremen, $l_tpsc, $yrA, $yr1, 0);
  $out .= "<p>\n";
  $out .= get_tabel_ruimste_zege(1993, $yr2, 0);
  $out .= "<p>\n";
