@@ -21,6 +21,7 @@ use Sport_Collector::Archief_Voetbal_NL_Uitslagen;
 use Sport_Collector::Archief_Voetbal_NL_Standen;
 use Sport_Collector::Archief_Voetbal_NL_Topscorers qw(&get_topscorers_competitie);
 use Sport_Collector::Teams;
+use Sport_Functions::ListRemarks qw($all_remarks);
 use Exporter;
 use vars qw($VERSION @ISA @EXPORT);
 @ISA = ('Exporter');
@@ -117,6 +118,28 @@ sub get_namen_expand($)
  {return expand($p->[1],3) . '<br>' . expand($p->[2],3);}
 }
 
+sub extra_spectators_from_remarks($)
+{
+  my $type = shift;
+
+  my $h = {};
+  for (my $yr=1988; $yr<1997; $yr++)
+  {
+    my $szn = yr2szn($yr);
+    my $spectators = $all_remarks->{eredivisie}->get($szn, "${type}_spectators");
+    if (defined($spectators))
+    {
+      if ($type eq 'tot') {
+        $h->{$szn} = $spectators;
+      } else {
+        my @parts = split(/:/, $spectators);
+        $h->{$szn} = [$parts[1], $parts[0]];
+      }
+    }
+  }
+  return $h;
+}
+
 sub get_toeschouwers_tabel($$$)
 {# (c) Edwin Spee
 
@@ -127,38 +150,9 @@ sub get_toeschouwers_tabel($$$)
  # $ABBA = 0: tabel start met $yrB
 # zie soccerstats.com
 
- my $max_toeschouwers = {
-'1988-1989' => [24300,'PSV'],
-'1989-1990' => [24294,'PSV'],
-'1990-1991' => [24529,'PSV'],
-'1991-1992' => [23900,'PSV'],
-'1992-1993' => [25282,'PSV'],
-'1993-1994' => [25806,'PSV'],
-'1994-1995' => [28023,'Feyenoord'],
-'1995-1996' => [26389,'Feyenoord'],
-'1996-1997' => [48764,'Ajax'],
-};
-
- my $min_toeschouwers = {
-'1991-1992' => [2100,"SVV/D '90"],
-'1992-1993' => [2040,'Dordrecht'],
-'1993-1994' => [3012,'RKC'],
-'1994-1995' => [2841,'Dordrecht'],
-'1995-1996' => [3508,'RKC'],
-'1996-1997' => [4029,'RKC'],
-};
-
- my $tot_toeschouwers = {
-'1988-1989' => 2189000,
-'1989-1990' => 2431000,
-'1990-1991' => 2670000,
-'1991-1992' => 2450000,
-'1992-1993' => 2630000,
-'1993-1994' => 3070000,
-'1994-1995' => 3139000,
-'1995-1996' => 3156000,
-'1996-1997' => 3770000,
-};
+ my $max_toeschouwers = extra_spectators_from_remarks('max');
+ my $min_toeschouwers = extra_spectators_from_remarks('min');
+ my $tot_toeschouwers = extra_spectators_from_remarks('tot');
 
  my $skip_last = 0;
  my $schatting_lopend = 0;
@@ -204,13 +198,20 @@ sub get_toeschouwers_tabel($$$)
   my $mn_ts = $min_toeschouwers->{$seizoen};
   my $tot_ts = $tot_toeschouwers->{$seizoen};
   my $tot = ($year == 2019 ? 232 : 306);
-  if (defined $mx_ts and defined $mn_ts and defined $tot_ts)
+  if (defined $mx_ts and defined $tot_ts)
   {
-  $tmp_out .= ftr(ftdl($seizoen)
-   . ftdl(sprintf('%.2f M', $tot_ts/1E6))
-   . ftdl(sprintf('%.1f k', $tot_ts/(1E3 * $tot)))
-   . ftdl($mx_ts->[1]) . ftdl(sprintf('%.1f k', $mx_ts->[0]/1E3))
-   . ftdl($mn_ts->[1]) . ftdl(sprintf('%.1f k', $mn_ts->[0]/1E3)) );
+    my $minClub = ''; my $minValue = '';
+    if (defined $mn_ts)
+    {
+      $minClub = $mn_ts->[1];
+      $minValue = sprintf('%.1f k', $mn_ts->[0]/1E3);
+    }
+
+    $tmp_out .= ftr(ftdl($seizoen)
+    . ftdl(sprintf('%.2f M', $tot_ts/1E6))
+    . ftdl(sprintf('%.1f k', $tot_ts/(1E3 * $tot)))
+    . ftdl($mx_ts->[1]) . ftdl(sprintf('%.1f k', $mx_ts->[0]/1E3))
+    . ftdl( $minClub ). ftdl( $minValue ) );
   }
   else
   {warn "Ongeldig jaar $year in sub get_toeschouwers_tabel.\n";} # warn again...
@@ -468,7 +469,7 @@ sub get_stats_eredivisie($$$)
  $out .= "<p>\n";
  $out .= get_tabel_ruimste_zege(1993, $yr2, 0);
  $out .= "<p>\n";
- $out .= get_toeschouwers_tabel(1993, $yr2, 0);
+ $out .= get_toeschouwers_tabel(1988, $yr2, 0);
  $out .= "<p>\n";
  $out .= get_toeschouwers_tabel2(1993, $yr2, 0);
  $out .= "<p>\n";
