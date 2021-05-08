@@ -21,7 +21,6 @@ use Sport_Collector::Archief_Voetbal_NL_Uitslagen;
 use Sport_Collector::Archief_Voetbal_NL_Standen;
 use Sport_Collector::Archief_Voetbal_NL_Topscorers qw(&get_topscorers_competitie);
 use Sport_Collector::Teams;
-use Sport_Collector::Geel_Rood;
 use Exporter;
 use vars qw($VERSION @ISA @EXPORT);
 @ISA = ('Exporter');
@@ -476,7 +475,6 @@ sub get_stats_eredivisie($$$)
  if ($all_data)
  {
    $out .= qq(| <a href="#allTimeTpsc">all time topscorers</a>\n);
-   $out .= qq(| <a href="#geel_rood">gele, rode kaarten</a>\n);
  }
  $out .= qq(| <a href="#toesch">toeschouwersaantallen</a>\n);
  if ($all_data)
@@ -505,7 +503,6 @@ sub get_stats_eredivisie($$$)
  {
    $out .= qq(<a name="allTimeTpsc"> <h2> All time Topscorers. </h2>\n);
    $out .= tpsc_all_seasons ( get_lijst_topscorers( first_year(),  $yr1), 20 );
-   $out .= "<p>\n" . get_gele_rode_kaarten_tabel(1993, 2004, 0);
  }
 
  my $dd =max(20210102, $u_nl->{laatste_speeldatum});
