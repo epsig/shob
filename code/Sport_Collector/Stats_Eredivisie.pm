@@ -217,7 +217,11 @@ sub get_toeschouwers_tabel($$$)
   {warn "Ongeldig jaar $year in sub get_toeschouwers_tabel.\n";} # warn again...
  }
 
- $out .= ftable('border',
+ $out .= << 'EOF';
+<p><button onclick="sortTable('id1', 1, 2)">Sort</button></p>
+EOF
+
+ $out .= ftable('border cellspacing=0 id="id1"',
   ftr(fth('seizoen')
   . fth({cols => 2}, 'toeschouwers')
   . fth({cols => 2}, 'hoogste gemiddelde') . fth({cols => 2}, 'laagste gemiddelde'))
@@ -481,9 +485,11 @@ sub get_stats_eredivisie($$$)
  }
 
  my $dd =max(20210102, $u_nl->{laatste_speeldatum});
+
 return maintxt2htmlpage($out, 'Statistieken eredivisie', 'title2h1',
- $dd, {type1 => 'std_menu'});
+ $dd, {type1 => 'std_menu', pjs => [2, '/sort_table.js']});
 }
+
 
 sub officieuze_standen($$)
 {

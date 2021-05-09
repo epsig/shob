@@ -1,10 +1,11 @@
 <html lang="NL"><head><title>Statistieken eredivisie</title>
+<meta http-equiv="Content-Script-Type" content="text/javascript">
 <style type="text/css">
 body{background:white;color:black;font-family:"Verdana","Arial";font-size:9pt}
 h1{font-weight:bold;font-size:12pt}acronym{font:italic;cursor:help;}
 th,td{font-size:9pt;padding-top:2pt;padding-bottom:2pt;padding-left:4pt;padding-right:4pt}
 .r{text-align:right}
-</style></head><body>
+</style><script type="text/javascript" language="javascript" src="/sort_table.js"></script></head><body>
 <h1>Statistieken eredivisie</h1>
 <hr>| <a href="#extr_goals">meeste/minste goals</a>
 | <a href="#tot_goals">totaal goals/topscorers</a>
@@ -469,7 +470,8 @@ Ajax-FC Twente</td>
 </table>
 <p>
 <a name="toesch"></a>Schatting van het totaal aantal toeschouwers voor 2020-2021: 1.4 miljoen.
-<table border cellspacing=0><tr><th>seizoen</th><th colspan="2">toeschouwers</th><th colspan="2">hoogste gemiddelde</th><th colspan="2">laagste gemiddelde</th></tr>
+<p><button onclick="sortTable('id1', 1, 2)">Sort</button></p>
+<table border cellspacing=0 id="id1"><tr><th>seizoen</th><th colspan="2">toeschouwers</th><th colspan="2">hoogste gemiddelde</th><th colspan="2">laagste gemiddelde</th></tr>
 <tr><td>&nbsp;</td><th>totaal</th><th>gem.</th><td colspan="4">&nbsp;</td></tr>
 <tr><td>2020-2021</td><td>1.36 M</td><td>4.4 k</td><td>Feyenoord</td><td>2.0 k</td><td><acronym title="VVV-Venlo">VVV</acronym></td><td>0.1 k</td></tr>
 <tr><td>2019-2020</td><td>4.19 M</td><td>18.0 k</td><td>Ajax</td><td>53.3 k</td><td><acronym title="RKC Waalwijk">RKC</acronym></td><td>5.7 k</td></tr>
