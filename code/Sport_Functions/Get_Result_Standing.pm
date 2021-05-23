@@ -76,6 +76,7 @@ sub get_stand($$$$)
 ['vEL', 0, ' (voorr. EL)'],
 ['CL',  0, ' (CL)'],
 ['vCL', 0, ' (voorr. CL)'],
+['vCF', 0, ' (voorr. CF)'],
 ['EC2', 0, ' (ECII)'],
 ['NB',  1, ' (behoud ered.)'],
 ['NP',  1, ' (prom.)'],

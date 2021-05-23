@@ -76,7 +76,9 @@ sub get_nc($)
     foreach my $round (@rounds)
     {
       my $u = get_selection($gamesFromFile, 'pd', $round);
-      $out .= get_uitslag($u, {ptitel=>[2, $title]});
+      my $titleRound = $title;
+      $titleRound .= " ronde $round" if (scalar @rounds > 1);
+      $out .= get_uitslag($u, {ptitel=>[2, $titleRound]});
     }
     if ($opm ne '')
     {
@@ -121,9 +123,10 @@ sub auto_europa_in($)
 {
   my $szn = shift;
 
-  my @lookfor = ('CL', 'vCL', 'EC2', 'UEFA');
-  my @name1 = ('CL', 'vCL', 'CWC', 'UEFAcup');
-  my @name2 = ('Champions League', 'Voorronde Champions League', 'Europacup II', 'UEFA cup');
+  my @lookfor = ('CL', 'vCL', 'EC2', 'UEFA', 'vEL', 'vCF');
+  my @name1 = ('CL', 'vCL', 'CWC', 'UEFAcup', 'Europa League', 'Conference League');
+  my @name2 = ('Champions League', 'Voorronde Champions League', 'Europacup II', 'UEFA cup',
+               'Europa League', 'Conference League');
   my $pster = read_u2s($szn);
 
   my $next = next_szn($szn);
@@ -163,7 +166,7 @@ sub auto_europa_in($)
         $txt .= ', ' if ($j < scalar @clubs - 2);
         $txt .= ' en '  if ($j == scalar @clubs - 2);
       }
-      my $br = ($t == scalar @lookfor -1 ? '' : '<br>');
+      my $br = ($lookfor[$t] eq 'UEFA' ? '' : '<br>');
       $out .= qq(<a href="sport_voetbal_europacup_$next.html#$name1[$t]">$name2[$t]</a>: $txt $br\n);
     }
   }
@@ -191,11 +194,12 @@ sub auto_europa_po($$)
 {
   my ($gamesFromFile, $all) = @_;
 
-  my @tournements = ('CL', 'EL', 'UEFA', 'Intertoto');
+  my @tournements = ('CL', 'EL', 'UEFA', 'Intertoto', 'CF');
   my @rounds      = (1, 2, 3, 'finale');
 
   my %fullName = ('CL' => 'voorronde Champions League',
                   'EL' => 'de Europa League',
+                  'CF' => 'de Conference League',
                   'UEFA' => 'UEFA Cup',
                   'Intertoto' => 'Intertoto Cup');
 
@@ -251,7 +255,7 @@ sub get_betaald_voetbal_nl($)
  if (-f $fullname)
  {
   my $gamesFromFile = read_csv_with_header($fullname);
-  my $all = ($yr == 2006);
+  my $all = ($yr == 2006 || $yr >= 2020);
   $europa_in = auto_europa_in($szn) . auto_europa_po($gamesFromFile, $all);
  }
  elsif ($szn eq $szn2 && $szn1 ne $szn2)
