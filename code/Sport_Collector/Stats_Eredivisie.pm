@@ -217,15 +217,13 @@ sub get_toeschouwers_tabel($$$)
   {warn "Ongeldig jaar $year in sub get_toeschouwers_tabel.\n";} # warn again...
  }
 
- $out .= << 'EOF';
-<p><button onclick="sortTable('id1', 1, 2)">Sort</button></p>
-EOF
+ my $sortBtn = q(<button onclick="sortTable('id1', 1, 2, 1)"> &darr; </button>);
 
  $out .= ftable('border cellspacing=0 id="id1"',
   ftr(fth('seizoen')
   . fth({cols => 2}, 'toeschouwers')
   . fth({cols => 2}, 'hoogste gemiddelde') . fth({cols => 2}, 'laagste gemiddelde'))
-  . ftr(ftd($nbsp) . fth('totaal') . fth('gem.') . ftd({cols => 4}, $nbsp))
+  . ftr(ftd($nbsp) . fth('totaal' . $sortBtn) . fth('gem.') . ftd({cols => 4}, $nbsp))
   . $tmp_out);
 
  return $out;
@@ -236,14 +234,14 @@ sub get_tabel_extremen_doelpunten($$$$)
 
  my ($lijst_extremen, $yrA, $yrB, $ABBA) = @_;
  my $szns = scalar @$lijst_extremen;
- my $out = '';
+ my $out = '<p> Gebruik pijltje om te sorteren </p>';
  for (my $i = 0; $i < $szns; $i++)
  {my $rij = $lijst_extremen->[ $ABBA ? $i : $szns - 1 - $i ];
   my $szn = $rij->[0];
   if ($szn ge yr2szn($yrA) and $szn le yr2szn($yrB))
   {$out .= ftr(ftdl($szn)
         . ftdl(get_namen_expand($rij->[1]))
-        . ftdr($rij->[1][0])
+        . ftdr( sprintf("%3d", $rij->[1][0]) )
         . ftdl(get_namen_expand($rij->[4]))
         . ftdl($rij->[4][0]) . qq(\n)
         . ftdl(get_namen_expand($rij->[2]))
@@ -256,14 +254,21 @@ sub get_tabel_extremen_doelpunten($$$$)
         . ftdl($rij->[6][0]));
   }
  }
+
+ my $sortBtn1 = q(<button onclick="sortTable('id2', 2, 1, 1)"> &darr; </button>);
+ my $sortBtn2 = q(<button onclick="sortTable('id2', 8, 1, 2)"> &uarr; </button>);
+ my $sortBtn3 = q(<button onclick="sortTable('id2', 10, 1, 1)"> &darr; </button>);
+
+ #$out .= ftable('border cellspacing=0 id="id2"',
+
  $out = '<a name="extr_goals"></a>'
- . ftable('border',
+ . ftable('border cellspacing=0 id="id2"',
     ftr(fth('seizoen')
-    . fth({cols => 2}, 'meeste goals')
+    . fth({cols => 2}, 'meeste goals' . $sortBtn1)
     . fth({cols => 2}, 'minste goals') . qq(\n)
     . fth({cols => 2}, 'meeste<br>tegengoals')
-    . fth({cols => 2}, 'minste<br>tegengoals') . qq(\n)
-    . fth({cols => 2}, 'hoogste<br>doelsaldo')
+    . fth({cols => 2}, 'minste<br>tegengoals' . $sortBtn2) . qq(\n)
+    . fth({cols => 2}, 'hoogste<br>doelsaldo' . $sortBtn3)
     . fth({cols => 2}, 'laagste<br>doelsaldo'))
   . $out);
  if ($yrA > 1970)

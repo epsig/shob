@@ -1,4 +1,4 @@
-function sortTable(tableId, col, headerSize) {
+function sortTable(tableId, col, headerSize, upDown) {
   var table, rows, switching, i, x, y, shouldSwitch;
   table = document.getElementById(tableId);
   switching = true;
@@ -17,8 +17,13 @@ function sortTable(tableId, col, headerSize) {
       one from current row and one from the next:*/
       x = rows[i].getElementsByTagName("TD")[col];
       y = rows[i + 1].getElementsByTagName("TD")[col];
+
       //check if the two rows should switch place:
-      if (x.innerHTML.toLowerCase() < y.innerHTML.toLowerCase()) {
+      var compare;
+      if (upDown == 2) { compare = (x.innerHTML.toLowerCase() > y.innerHTML.toLowerCase());}
+      else             { compare = (x.innerHTML.toLowerCase() < y.innerHTML.toLowerCase());}
+
+      if (compare) {
         //if so, mark as a switch and break the loop:
         shouldSwitch = true;
         break;
