@@ -132,6 +132,9 @@ sub auto_europa_in($)
   my $next = next_szn($szn);
      $next =~ s/-/_/;
 
+  my $ranges = get_sport_range();
+  my $last_szn_ec = $ranges->{europacup}[1];
+
   my $out = '';
 
   my $stand = standen_eredivisie($szn);
@@ -167,7 +170,14 @@ sub auto_europa_in($)
         $txt .= ' en '  if ($j == scalar @clubs - 2);
       }
       my $br = ($lookfor[$t] eq 'UEFA' ? '' : '<br>');
-      $out .= qq(<a href="sport_voetbal_europacup_$next.html#$name1[$t]">$name2[$t]</a>: $txt $br\n);
+      if ($szn eq $last_szn_ec)
+      {
+        $out .= qq($name2[$t]: $txt $br\n);
+      }
+      else
+      {
+        $out .= qq(<a href="sport_voetbal_europacup_$next.html#$name1[$t]">$name2[$t]</a>: $txt $br\n);
+      }
     }
   }
   return $out;
