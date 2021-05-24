@@ -46,7 +46,7 @@ sub get_sort_button($$$$)
 
   my $arrow = ($sortUpDown == 1 ? '&darr;' : '&uarr;');
 
-  return qq(<button onclick="sortTable($tableId, $column, $headers, $sortUpDown)"> <b> $arrow </b> </button>);
+  return qq(<button onclick="sortTable('$tableId', $column, $headers, $sortUpDown)"> <b> $arrow </b> </button>);
 }
 
 sub get_lijst_topscorers($$)
@@ -233,8 +233,7 @@ sub get_toeschouwers_tabel($$$)
    my $hulp = int(($i) / 2);
    my $column = $colums[$hulp];
    my $sortUpDown = 1 + ($i % 2);
-   my $arrow = ($sortUpDown == 1 ? '&darr;' : '&uarr;');
-   $sortBtns[$i] = qq(<button onclick="sortTable('id1', $column, 2, $sortUpDown)"> <b> $arrow </b> </button>);
+   $sortBtns[$i] = get_sort_button('id1', $column, 2, $sortUpDown);
  }
 
  $out .= ftable('border cellspacing=0 id="id1"',
@@ -283,11 +282,8 @@ sub get_tabel_extremen_doelpunten($$$$)
  {
    my $column = 2 + 2 * int(($i) / 2);
    my $sortUpDown = 1 + ($i % 2);
-   my $arrow = ($sortUpDown == 1 ? '&darr;' : '&uarr;');
-   $sortBtns[$i] = qq(<button onclick="sortTable('id2', $column, 1, $sortUpDown)"> <b> $arrow </b> </button>);
+   $sortBtns[$i] = get_sort_button('id2', $column, 1, $sortUpDown);
  }
-
- #$out .= ftable('border cellspacing=0 id="id2"',
 
  $out = '<a name="extr_goals"></a>'
  . ftable('border cellspacing=0 id="id2"',
