@@ -345,18 +345,31 @@ sub get_tabel_doelpunten($$$$$)
   if ($szn ge yr2szn($yrA) and $szn le yr2szn($yrB))
   {
    my $tmp_out = ftdl($szn)
-         . ftdr($rij_e->[7])
+         . ftdr(sprintf('%4d', $rij_e->[7]))
          . ftdl(sprintf('%.2f', $rij_e->[8]))
          . ftdl(get_namen_topscorers($rij_t))
          . ftdl($rij_t->[1]{total});
    $out .= ftr($tmp_out);
  }}
+
+ my @sortBtns = ();
+ my @colums = (1, 2, 4);
+ foreach my $i (0..5)
+ {
+   my $hulp = int(($i) / 2);
+   my $column = $colums[$hulp];
+   my $sortUpDown = 1 + ($i % 2);
+   $sortBtns[$i] = get_sort_button('id3', $column, 1, $sortUpDown);
+ }
+
  $out = '<a name="tot_goals"></a>'
- . ftable('border', "\n" .
+ . ftable('border cellspacing=0 id="id3"', "\n" .
      ftr(fth('seizoen')
-     . fth('doelpunten')
-     . fth('gem.')
-     . fth({cols => 2}, 'topscorer'))
+     . fth('doelpunten <br>'   . $sortBtns[0] . $sortBtns[1])
+     . fth('gemiddelde <br>'   . $sortBtns[2] . $sortBtns[3])
+     . fth('naam topscorer')
+     . fth('aantal goals <br>' . $sortBtns[4] . $sortBtns[5])
+     )
    . $out);
  return $out;
 }
