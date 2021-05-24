@@ -40,6 +40,15 @@ $VERSION = '20.0';
  #========================================================================
 );
 
+sub get_sort_button($$$$)
+{
+  my ($tableId, $column, $headers, $sortUpDown) = @_;
+
+  my $arrow = ($sortUpDown == 1 ? '&darr;' : '&uarr;');
+
+  return qq(<button onclick="sortTable($tableId, $column, $headers, $sortUpDown)"> <b> $arrow </b> </button>);
+}
+
 sub get_lijst_topscorers($$)
 { # (c) Edwin Spee
 
@@ -204,26 +213,40 @@ sub get_toeschouwers_tabel($$$)
     if (defined $mn_ts)
     {
       $minClub = $mn_ts->[1];
-      $minValue = sprintf('%.1f k', $mn_ts->[0]/1E3);
+      $minValue = sprintf('%4.1f k', $mn_ts->[0]/1E3);
     }
 
     $tmp_out .= ftr(ftdl($seizoen)
-    . ftdl(sprintf('%.2f M', $tot_ts/1E6))
-    . ftdl(sprintf('%.1f k', $tot_ts/(1E3 * $tot)))
-    . ftdl($mx_ts->[1]) . ftdl(sprintf('%.1f k', $mx_ts->[0]/1E3))
+    . ftdl(sprintf('%4.2f M', $tot_ts/1E6))
+    . ftdl(sprintf('%4.1f k', $tot_ts/(1E3 * $tot)))
+    . ftdl($mx_ts->[1]) . ftdl(sprintf('%4.1f k', $mx_ts->[0]/1E3))
     . ftdl( $minClub ). ftdl( $minValue ) );
   }
   else
   {warn "Ongeldig jaar $year in sub get_toeschouwers_tabel.\n";} # warn again...
  }
 
- my $sortBtn = q(<button onclick="sortTable('id1', 1, 2, 1)"> &darr; </button>);
+ my @sortBtns = ();
+ my @colums = (1, 2, 4, 6);
+ foreach my $i (0..7)
+ {
+   my $hulp = int(($i) / 2);
+   my $column = $colums[$hulp];
+   my $sortUpDown = 1 + ($i % 2);
+   my $arrow = ($sortUpDown == 1 ? '&darr;' : '&uarr;');
+   $sortBtns[$i] = qq(<button onclick="sortTable('id1', $column, 2, $sortUpDown)"> <b> $arrow </b> </button>);
+ }
 
  $out .= ftable('border cellspacing=0 id="id1"',
   ftr(fth('seizoen')
-  . fth({cols => 2}, 'toeschouwers')
-  . fth({cols => 2}, 'hoogste gemiddelde') . fth({cols => 2}, 'laagste gemiddelde'))
-  . ftr(ftd($nbsp) . fth('totaal' . $sortBtn) . fth('gem.') . ftd({cols => 4}, $nbsp))
+  . fth('totaal aantal toeschouwers') . fth('gemiddelde per wedstrijd')
+  . fth({cols => 2}, 'hoogste gemiddelde per club') . fth({cols => 2}, 'laagste gemiddelde per club'))
+  . ftr(ftd($nbsp) .
+    fth($sortBtns[0] . $sortBtns[1]) . 
+    fth($sortBtns[2] . $sortBtns[3]) . 
+    fth({cols => 2}, $sortBtns[4] . $sortBtns[5]) . 
+    fth({cols => 2}, $sortBtns[6] . $sortBtns[7])    
+    )
   . $tmp_out);
 
  return $out;
@@ -245,7 +268,7 @@ sub get_tabel_extremen_doelpunten($$$$)
         . ftdl(get_namen_expand($rij->[4]))
         . ftdl($rij->[4][0]) . qq(\n)
         . ftdl(get_namen_expand($rij->[2]))
-        . ftdr($rij->[2][0])
+        . ftdr( sprintf("%3d", $rij->[2][0]) )
         . ftdl(get_namen_expand($rij->[5]))
         . ftdl($rij->[5][0]) . qq(\n)
         . ftdl(get_namen_expand($rij->[3]))
@@ -255,21 +278,26 @@ sub get_tabel_extremen_doelpunten($$$$)
   }
  }
 
- my $sortBtn1 = q(<button onclick="sortTable('id2', 2, 1, 1)"> &darr; </button>);
- my $sortBtn2 = q(<button onclick="sortTable('id2', 8, 1, 2)"> &uarr; </button>);
- my $sortBtn3 = q(<button onclick="sortTable('id2', 10, 1, 1)"> &darr; </button>);
+ my @sortBtns = ();
+ foreach my $i (0..11)
+ {
+   my $column = 2 + 2 * int(($i) / 2);
+   my $sortUpDown = 1 + ($i % 2);
+   my $arrow = ($sortUpDown == 1 ? '&darr;' : '&uarr;');
+   $sortBtns[$i] = qq(<button onclick="sortTable('id2', $column, 1, $sortUpDown)"> <b> $arrow </b> </button>);
+ }
 
  #$out .= ftable('border cellspacing=0 id="id2"',
 
  $out = '<a name="extr_goals"></a>'
  . ftable('border cellspacing=0 id="id2"',
     ftr(fth('seizoen')
-    . fth({cols => 2}, 'meeste goals' . $sortBtn1)
-    . fth({cols => 2}, 'minste goals') . qq(\n)
-    . fth({cols => 2}, 'meeste<br>tegengoals')
-    . fth({cols => 2}, 'minste<br>tegengoals' . $sortBtn2) . qq(\n)
-    . fth({cols => 2}, 'hoogste<br>doelsaldo' . $sortBtn3)
-    . fth({cols => 2}, 'laagste<br>doelsaldo'))
+    . fth({cols => 2}, 'meeste goals <br> ' . $sortBtns[0] . $sortBtns[1])
+    . fth({cols => 2}, 'minste goals <br> ' . $sortBtns[2] . $sortBtns[3]) . qq(\n)
+    . fth({cols => 2}, 'meeste tegengoals <br> ' . $sortBtns[4] . $sortBtns[5])
+    . fth({cols => 2}, 'minste tegengoals <br> ' . $sortBtns[6] . $sortBtns[7]) . qq(\n)
+    . fth({cols => 2}, 'hoogste doelsaldo <br> ' . $sortBtns[8] . $sortBtns[9])
+    . fth({cols => 2}, 'laagste doelsaldo <br> ' . $sortBtns[10] . $sortBtns[11]))
   . $out);
  if ($yrA > 1970)
  {
