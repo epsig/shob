@@ -42,7 +42,7 @@ CL,2f,FRpsg,G1mnc,20210428,1-2,,
 CL,2f,ESrmd,G1cls,20210427,1-1,,
 CL,2f,G1mnc,FRpsg,20210504,2-0,2,
 CL,2f,G1cls,ESrmd,20210505,2-0,2,
-CL,f,G1mnc,G1cls,20210529,-,,Istanbul
+CL,f,G1mnc,G1cls,20210529,0-1,2,Porto
 EL,v2,LUndk,NLwl2,20200916,0-5,2,
 EL,v3,SInsm,NLpsv,20200924,1-5,2,
 EL,v3,NLwl2,G2glr,20200924,0-4,2,
@@ -101,4 +101,4 @@ EL,2f,G1mnu,ITasr,20210429,6-2,,
 EL,2f,ESvlr,G1ars,20210429,2-1,,
 EL,2f,ITasr,G1mnu,20210506,3-2,2,
 EL,2f,G1ars,ESvlr,20210506,0-0,1,
-EL,f,ESvlr,G1mnu,20210526,-,,Gdansk
+EL,f,ESvlr,G1mnu,20210526,1-1,5,Gdansk
