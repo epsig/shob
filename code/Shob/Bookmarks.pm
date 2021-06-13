@@ -440,8 +440,7 @@ sub get_actueel($)
  my ($edition) = @_; # 'hopa' or 'media'
 
  my $links = [
-['https://www.google.com/search?q=corona', 'Corona',1,13],
-#['http://www.wimbledon.org/','Wimbledon', 6, 7.3],
+['http://www.wimbledon.org/','Wimbledon', 6, 7.3],
 ['http://www.letour.fr/','Tour de France', 8.5, 10], #6.8, 8
 ['https://www.giroditalia.it/', "Giro d'Italia", 10, 11], # met 1e week juni
 ['http://www.nostour.nl/','Tour de France (NOS)', 8.5, 10], #6.8, 8
@@ -452,12 +451,12 @@ sub get_actueel($)
 ['http://www.ausopen.org/','Australian Open', 2, 3], # 1,2
 ['http://www.4en5mei.nl/','vier en vijf mei', 4.7, 5.5],
 #['http://www.examenblad.nl/','Eindexamens', 5.5, 6.3],
-['http://www.rolandgarros.org/','Roland Garros', 9.5, 10.5],
+['http://www.rolandgarros.org/','Roland Garros', 4.7, 6.4],
 #['http://www.nocnsf.nl/london2012','Olympische Zomerspelen Londen', 7.5, 8.9],
 ['http://www.sport.be/binckbanktour/','Ronde van Belgi&euml; en Nederland', 9.5, 10.1],
 ['http://www.usopen.org/','US Open', 8.5, 9.5],
 ['http://prinsjesdag.minfin.nl/','Prinsjesdag', 9.25, 9.9],
-['https://www.lavuelta.es/','Vuelta (Ronde van Spanje)', 10.5, 11.5],
+['https://www.lavuelta.es/','Vuelta (Ronde van Spanje)', 9, 9.9],
 #['http://www.koorhemelsbreed.nl/agenda.html', 'Najaarsconcert van oa Hemelsbreed', 11, 12],
 ['','5 december Sinterklaas', 11.3, 12.3],
 ['https://www.nporadio2.nl/top2000','Top 2000', 12.5, 13],
@@ -473,8 +472,9 @@ sub get_actueel($)
  $deze_maand_fixed += $day / 31;
  $deze_maand += $deze_mday / 31;
 
- if ($yr != 2020 and not ($yr % 2))
+ if (($yr % 2) == 0 || $yr == 2021)
  {
+  $yr = min(2020, $yr);
   my $EK_WK = $yr % 4;
   my $EK_WK_str = ($EK_WK ? 'WK' : 'EK');
   my $ekwk_url = "sport_voetbal_${EK_WK_str}_${yr}.html";
