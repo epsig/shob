@@ -257,7 +257,8 @@ sub uitslag_str($)
  {my ($a, $b) = ($u->[1], $u->[2]);
   return $a .'-'.$b if ($a > -1 and $b > -1);
  }
- elsif (ref ($u->[0]) eq 'ARRAY')
+
+ if (ref ($u->[0]) eq 'ARRAY')
  {
   my $hour = int ($u->[0][1] / 100);
   my $min  = $u->[0][1] % 100;

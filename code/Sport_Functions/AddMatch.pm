@@ -90,6 +90,10 @@ sub add_one_line($$$)
   my ($a, $b) = fill_club_team_land($struct);
 
   my $dd = $struct->{dd};
+  if (defined $struct->{time})
+  {
+    $dd = [$struct->{dd}, $struct->{time}];
+  }
 
   if ($b eq 'straf')
   {
