@@ -29,8 +29,8 @@ gE,SE,SK,20210618,1500,-,,St. Petersburg
 gE,ES,PL,20210619,2100,-,,Sevilla
 gE,SK,ES,20210623,1800,-,,Sevilla
 gE,SE,PL,20210623,1800,-,,St. Petersburg
-gF,HU,PT,20210615,1800,-,,Boedapest
-gF,FR,DE,20210615,2100,-,,M&uuml;nchen
+gF,HU,PT,20210615,1800,0-3,55662,Boedapest
+gF,FR,DE,20210615,2100,1-0,14500,M&uuml;nchen
 gF,HU,FR,20210619,1500,-,,Boedapest
 gF,PT,DE,20210619,1800,-,,M&uuml;nchen
 gF,PT,FR,20210623,2100,-,,Boedapest
