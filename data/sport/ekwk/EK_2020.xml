@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<!DOCTYPE names [
+<!ENTITY euml "&#xEB;">
+<!ENTITY Euml "&#203;">
+<!ENTITY iuml "&#xEF;">
+<!ENTITY uuml "&#252;">
+<!ENTITY iacute "&#237;">
+<!ENTITY eacute "&#xE9;">
+<!ENTITY aacute "&#xE1;">
+<!ENTITY Aacute "&#xC1;">
+<!ENTITY uacute "&#xFA;">
+<!ENTITY egrave "&#xE8;">
+<!ENTITY atilde "&#227;">
+<!ENTITY ntilde "&#xF1;">
+<!ENTITY ouml "&#xF6;">
+<!ENTITY Ouml "&#xD6;">
+<!ENTITY auml "&#228;">
+<!ENTITY oslash "&#248;">
+<!ENTITY Oslash "&#216;">
+<!ENTITY acirc "&#xE2;">
+<!ENTITY ccedil "&#xE7;">
+<!ENTITY aelig "&#xE6;">
+<!ENTITY icirc "&#xEE;">
+<!ENTITY oacute "&#xF3;">
+<!ENTITY ocirc "&#xF4;">
+]>
+
+<games>
+<group_phase>
+<groupC>
+<NL_UA>
+<stats>
+<stadium> Amsterdam </stadium>
+<chronological>
+<data min="51"> 1-0 Wijnaldum </data>
+<data min="58"> 2-0 Weghorst </data>
+<data min="75"> 2-1 Jarmolenko </data>
+<data min="79"> 2-2 Jaremtsjoek </data>
+<data min="85"> 3-2 Dumfries </data>
+</chronological>
+</stats>
+</NL_UA>
+<NL_AT>
+<stats>
+<stadium> Amsterdam </stadium>
+<chronological>
+<data min="11"> 1-0 Depay (p) </data>
+<data min="67"> 2-0 Dumfries </data>
+</chronological>
+</stats>
+</NL_AT>
+</groupC>
+</group_phase>
+</games>
