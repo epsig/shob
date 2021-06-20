@@ -278,7 +278,7 @@ sub format_voorronde_ekwk
  my $out = "<ul>\n";
  if ($year <= $ranges->{ekwk}[1])
  {$out .=
-qq(<li> <a href="sport_voetbal_${EK_WK_str}_$yearTitle.html">Eindronde $year in $organisatie.</a>\n);}
+qq(<li> <a href="sport_voetbal_${EK_WK_str}_$year.html">Eindronde $year in $organisatie.</a>\n);}
  if (defined $phu->{u_nl})
  {$out .= qq(<li> <a href="#groepNL"> Stand en uitslagen groep van Nederland</a>\n);}
  my $t = ($EK_WK ? 'Europese' : 'alle');
