@@ -21,7 +21,7 @@ use Sport_Functions::Get_Result_Standing;
 use Sport_Functions::Results2Standing;
 use Sport_Functions::Get_Land_Club;
 use Sport_Functions::NatLeagueReaders;
-use Sport_Functions::Range_Available_Seasons qw($global_first_year);
+use Sport_Functions::Range_Available_Seasons qw($global_first_year &get_sport_range);
 use Exporter;
 use vars qw($VERSION @ISA @EXPORT);
 @ISA = ('Exporter');
@@ -227,7 +227,7 @@ EOF
 
  $out .= get_last16($phu);
  $out .= qq(<hr><a name="groep_a_h"><h1>De groepswedstrijden</h1></a>\n);
- if ($year == 2018)
+ if ($year >= 2018)
  {
   $out .= $grp_txt;
  }
@@ -270,11 +270,13 @@ sub format_voorronde_ekwk
  my $organisatie = $phu->{organising_country};
  my $yearTitle   = $phu->{yearTitle};
 
+ my $ranges = get_sport_range();
+
  my $EK_WK = $year % 4;
  my $EK_WK_str = ($EK_WK >= 2 ? 'WK' : 'EK');
 
  my $out = "<ul>\n";
- if ($year > 1995 and $year <= 2018) #TODO eindjaar automatiseren
+ if ($year <= $ranges->{ekwk}[1])
  {$out .=
 qq(<li> <a href="sport_voetbal_${EK_WK_str}_$yearTitle.html">Eindronde $year in $organisatie.</a>\n);}
  if (defined $phu->{u_nl})
