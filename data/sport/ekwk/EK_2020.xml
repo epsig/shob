@@ -31,6 +31,7 @@
 <NL_UA>
 <stats>
 <stadium> Amsterdam </stadium>
+<spectators> 15000 </spectators>
 <chronological>
 <data min="51"> 1-0 Wijnaldum </data>
 <data min="58"> 2-0 Weghorst </data>
@@ -43,6 +44,7 @@
 <NL_AT>
 <stats>
 <stadium> Amsterdam </stadium>
+<spectators> 16000 </spectators>
 <chronological>
 <data min="11"> 1-0 Depay (p) </data>
 <data min="67"> 2-0 Dumfries </data>
@@ -52,6 +54,7 @@
 <MK_NL>
 <stats>
 <stadium> Amsterdam </stadium>
+<spectators> 15227 </spectators>
 <chronological>
 <data min="24"> 0-1 Depay </data>
 <data min="51"> 0-2 Wijnaldum </data>
@@ -61,4 +64,18 @@
 </MK_NL>
 </groupC>
 </group_phase>
+<ko>
+<last16>
+<NL_CZ>
+<stats>
+<stadium> Boedapest </stadium>
+<spectators> 52834 </spectators>
+<chronological>
+<data min="68"> 0-1 Holes </data>
+<data min="81"> 0-2 Schick </data>
+</chronological>
+</stats>
+</NL_CZ>
+</last16>
+</ko>
 </games>
