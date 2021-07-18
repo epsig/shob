@@ -219,8 +219,11 @@ EOF
  if ($has_tp)
  {$out .= qq( <li><a href="#topscorers">topscorers</a></li>\n);}
 
+ $out .= "</ul>\n";
+
+ $out .= '<hr> <h2> Samenvatting </h2>' . $phu->{summary} if (defined $phu->{summary});
+
  $out .= << "EOF";
-</ul>
 <hr>
 <a name="r2f"><h1>De laatste $ko</h1></a>
 EOF

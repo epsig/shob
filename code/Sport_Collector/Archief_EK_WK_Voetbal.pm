@@ -62,6 +62,7 @@ sub get_ekwk_gen($;$)
   my $organising_country = $all_remarks->{ekwk}->get($id, 'organising_country');
   my $sort_rule          = $all_remarks->{ekwk}->get($id, 'sort_rule', 5);
   my $title              = $all_remarks->{ekwk}->get($id, 'title', uc($ekwk) . '-' . $year);
+  my $summary            = $all_remarks->{ekwk}->get_ml($id, 'summary_NL', 1);
 
   my $csv_file = File::Spec->catfile($ekwkDir, "$id.csv");
   my $xml_file = File::Spec->catfile($xmlDir, uc($ekwk) . "_$year.xml");
@@ -82,6 +83,8 @@ sub get_ekwk_gen($;$)
   $all_results->{all} = $all;
   my $ddu = laatste_speeldatum($all);
   $dd = (defined $dd ? max($dd, $ddu) : $ddu);
+
+  if ($summary ne '') {$all_results->{summary} = $summary;}
 
   if (defined $outtype && $outtype eq 'dd')
   {
