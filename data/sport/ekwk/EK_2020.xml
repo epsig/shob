@@ -32,6 +32,7 @@
 <stats>
 <stadium> Amsterdam </stadium>
 <spectators> 15000 </spectators>
+<arbiter> Brych (DE) </arbiter>
 <chronological>
 <data min="51"> 1-0 Wijnaldum </data>
 <data min="58"> 2-0 Weghorst </data>
@@ -45,6 +46,7 @@
 <stats>
 <stadium> Amsterdam </stadium>
 <spectators> 16000 </spectators>
+<arbiter> Grinfeld (IL) </arbiter>
 <chronological>
 <data min="11"> 1-0 Depay (p) </data>
 <data min="67"> 2-0 Dumfries </data>
@@ -55,6 +57,7 @@
 <stats>
 <stadium> Amsterdam </stadium>
 <spectators> 15227 </spectators>
+<arbiter> Kov&aacute;cs (RU) </arbiter>
 <chronological>
 <data min="24"> 0-1 Depay </data>
 <data min="51"> 0-2 Wijnaldum </data>
@@ -70,6 +73,7 @@
 <stats>
 <stadium> Boedapest </stadium>
 <spectators> 52834 </spectators>
+<arbiter> Karasev (RU) </arbiter>
 <chronological>
 <data min="55"> rood: De Ligt (NL) </data>
 <data min="68"> 0-1 Holes </data>
@@ -78,5 +82,18 @@
 </stats>
 </NL_CZ>
 </last16>
+<final>
+<IT_ENG>
+<stats>
+<stadium> Londen </stadium>
+<spectators> 67173 </spectators>
+<arbiter> Kuipers (NL) </arbiter>
+<chronological>
+<data min="2"> 0-1 Shaw </data>
+<data min="67"> 1-1 Bonucci </data>
+</chronological>
+</stats>
+</IT_ENG>
+</final>
 </ko>
 </games>
