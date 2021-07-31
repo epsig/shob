@@ -102,10 +102,10 @@ sub read_ec_csv($$)
        }
     };
 
-  my @leagues     = ('CL', 'EC2', 'EL', 'UEFAcup');
-  my %long_names  = ('CL' => 'Champions League', 'EL' => 'Europa League', 'UEFAcup' => 'UEFA cup', 'EC2' => 'EC-II');
-  my %short_names = ('CL' => 'C-L', 'EL' => 'E-L', 'UEFAcup' => 'UEFA-cup', 'EC2' => 'EC-II');
-  my %keys        = ('CL' => 'CL', 'EL' => 'EuropaL', 'UEFAcup' => 'UEFAcup', 'EC2' => 'CWC');
+  my @leagues     = ('CL', 'EC2', 'EL', 'UEFAcup', 'CF');
+  my %long_names  = ('CL' => 'Champions League', 'EL' => 'Europa League', 'UEFAcup' => 'UEFA cup', 'EC2' => 'EC-II', 'CF' => 'Conference League');
+  my %short_names = ('CL' => 'C-L', 'EL' => 'E-L', 'UEFAcup' => 'UEFA-cup', 'EC2' => 'EC-II', 'CF' => 'Conf-L');
+  my %keys        = ('CL' => 'CL', 'EL' => 'EuropaL', 'UEFAcup' => 'UEFAcup', 'EC2' => 'CWC', 'CF' => 'CF');
 
   foreach my $league (@leagues)
   {

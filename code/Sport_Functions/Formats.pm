@@ -420,7 +420,8 @@ sub format_one_ec_cup($$)
   CL      => ['qfr_2', 'qfr_3', 'playoffs', 'groupA' .. 'groupH', 'group2B', 'group2D', 'round_of_16'],
   CWC     => ['round1', 'round2'],
   UEFAcup => ['itoto', 'intertoto', 'qfr', 'qfr_2', 'round1', 'round2', 'groupA' .. 'groupH', 'round3', 'round_of_16'],
-  EuropaL => ['qfr_1', 'qfr', 'qfr_2', 'qfr_3', 'playoffs', 'groupA' .. 'groupL', 'round2', 'round_of_16']};
+  EuropaL => ['qfr_1', 'qfr', 'qfr_2', 'qfr_3', 'playoffs', 'groupA' .. 'groupL', 'round2', 'round_of_16'],
+  CF      => ['qfr_1', 'qfr', 'qfr_2', 'qfr_3', 'playoffs', 'groupA' .. 'groupL', 'round2', 'round_of_16']};
 
  my $longnames =
  {extra   => 'Supercup/Worldcup',
@@ -428,6 +429,7 @@ sub format_one_ec_cup($$)
   CWC     => 'Europacup-II',
   UEFAcup => 'UEFA-cup',
   EuropaL => 'Europa League',
+  CF      => 'Conference League',
  };
 
  my $longname = $longnames->{$cupname};
@@ -475,6 +477,7 @@ my $out_cl      = (defined $u->{CL}      ? format_one_ec_cup('CL',      $u) : ''
 my $out_cwc     = (defined $u->{CWC}     ? '<p>' . format_one_ec_cup('CWC',     $u) : '');
 my $out_uefacup = (defined $u->{UEFAcup} ? format_one_ec_cup('UEFAcup', $u) : '');
 $out_uefacup .= (defined $u->{EuropaL} ? format_one_ec_cup('EuropaL', $u) : '');
+my $out_cf      = (defined $u->{CF}      ? '<p>' . format_one_ec_cup('CF',      $u) : '');
 
 $out .= '<hr> ';
 if (defined $u->{CL}) {$out .= qq(| <a href="#CL">Champions League</a>\n);}
@@ -484,6 +487,7 @@ if (defined $u->{CWC}) {$out .= qq( | <a href="#CWC">EC II</a>\n | <a href="#CWC
 #if (scalar @$itoto) {$out .= qq( | <a href="#intertoto">Intertoto</a>\n);}
 if (defined $u->{UEFAcup}) {$out .= qq( | <a href="#UEFAcup">UEFA-cup</a>\n);}
 if (defined $u->{EuropaL}) {$out .= qq( | <a href="#EuropaL">Europa League</a>\n);}
+if (defined $u->{CF})      {$out .= qq( | <a href="#CF">Conference League</a>\n);}
 if ($out_uefacup =~ m/UEFAcup_last8/iso) {$out .= qq( | <a href="#UEFAcup_last8">Finale UEFA-cup</a>);}
 if ($out_uefacup =~ m/EuropaL_last8/iso) {$out .= qq( | <a href="#EuropaL_last8">Finale Europa League</a>);}
 if (defined $u->{CL} or defined $u->{UEFAcup} or defined $u->{EuropaL}) {$out .= " | <hr>\n";}
@@ -492,7 +496,7 @@ if (defined $u->{extra}{summary})
 {$out .= qq(<h2>Samenvatting Europacup Seizoen $seizoen</h2>\n) . $u->{extra}{summary} . '<hr>';}
 
 my $vCL_link = (defined $u->{CL}{qfr_3} || defined $u->{CL}{qfr_2} ? '<a name="vCL"/>' : '');
-$out .= $out_extra . $vCL_link . $out_cl . $out_cwc . '<p>' . $out_uefacup;
+$out .= $out_extra . $vCL_link . $out_cl . $out_cwc . '<p>' . $out_uefacup . $out_cf;
 
 return maintxt2htmlpage($out, $title, 'title2h1',
  $u->{extra}{dd}, {type1 => 'std_menu'});
