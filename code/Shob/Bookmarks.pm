@@ -452,7 +452,7 @@ sub get_actueel($)
 ['http://www.4en5mei.nl/','vier en vijf mei', 4.7, 5.5],
 #['http://www.examenblad.nl/','Eindexamens', 5.5, 6.3],
 ['http://www.rolandgarros.org/','Roland Garros', 4.7, 6.4],
-#['http://www.nocnsf.nl/london2012','Olympische Zomerspelen Londen', 7.5, 8.9],
+['https://www.teamnl.org/','Olympische Zomerspelen Tokio', 7.5, 8.9],
 ['http://www.sport.be/binckbanktour/','Ronde van Belgi&euml; en Nederland', 9.5, 10.1],
 ['http://www.usopen.org/','US Open', 8.5, 9.5],
 ['http://prinsjesdag.minfin.nl/','Prinsjesdag', 9.25, 9.9],
