@@ -124,7 +124,7 @@ sub auto_europa_in($)
   my $szn = shift;
 
   my @lookfor = ('CL', 'vCL', 'EC2', 'UEFA', 'vEL', 'vCF');
-  my @name1 = ('CL', 'vCL', 'CWC', 'UEFAcup', 'Europa League', 'Conference League');
+  my @name1 = ('CL', 'vCL', 'CWC', 'UEFAcup', 'EuropaL', 'CL');
   my @name2 = ('Champions League', 'Voorronde Champions League', 'Europacup II', 'UEFA cup',
                'Europa League', 'Conference League');
   my $pster = read_u2s($szn);
