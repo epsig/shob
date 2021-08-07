@@ -92,15 +92,13 @@ sub read_ec_csv($$)
   my $voorr_CL_voorronde = $ec_remarks->get($szn, 'voorr_CL_voorronde');
   
   my $remark_extra = $ec_remarks->get_ml_keyStartsWith($szn, 'remark', 2);
-  
-  my $sc = read_ec_part('supercup', '', 1, 'Europese Supercup', $sort_rule, $content);
 
   my $ec = {
-    extra => {
-       dd => $date,
-       supercup => $sc,
-       }
+    extra => { dd => $date }
     };
+  
+  my $sc = read_ec_part('supercup', '', 1, 'Europese Supercup', $sort_rule, $content);
+  $ec->{extra}{supercup} = $sc if (defined $sc);
 
   my @leagues     = ('CL', 'EC2', 'EL', 'UEFAcup', 'CF');
   my %long_names  = ('CL' => 'Champions League', 'EL' => 'Europa League', 'UEFAcup' => 'UEFA cup', 'EC2' => 'EC-II', 'CF' => 'Conference League');
@@ -115,20 +113,54 @@ sub read_ec_csv($$)
 
     if ( ! leagueIsActive($content, $league)) {next;}
 
-    $ec->{$key} = {
-        itoto        => read_ec_part($league,  'itoto', 1, "Intertoto: laatste zestien", $sort_rule, $content, $pnt_telling),
-        intertoto    => read_ec_part($league,  'intertoto', 1, "Finale Intertoto (winnaars naar UEFA-cup)", $sort_rule, $content, $pnt_telling),
-        playoffs     => read_ec_part($league,  'po', 1, "play offs $longname", $sort_rule, $content, $pnt_telling),
-        round1       => read_ec_part($league, 'round1', 1, "1e ronde $shortname", $sort_rule, $content, $pnt_telling),
-        round2       => read_ec_part($league, '16f', 1, "2e ronde $shortname", $sort_rule, $content, $pnt_telling),
-        round3       => read_ec_part($league, 'round3', 1, "3e ronde $shortname", $sort_rule, $content, $pnt_telling),
-        group2B      => read_ec_part($league, 'group2B', 0, "Tweede ronde, Poule B", $sort_rule, $content, $pnt_telling),
-        group2D      => read_ec_part($league, 'group2D', 0, "Tweede ronde, Poule D", $sort_rule, $content, $pnt_telling),
-        round_of_16  => read_ec_part($league,  '8f', 1, "8-ste finale $shortname", $sort_rule, $content, $pnt_telling),
-        quarterfinal => read_ec_part($league,  '4f', 1, "kwart finale $shortname", $sort_rule, $content, $pnt_telling),
-        semifinal    => read_ec_part($league,  '2f', 1, "halve finale $shortname", $sort_rule, $content, $pnt_telling),
-        final        => read_ec_part($league,   'f', 1, "finale $shortname", $sort_rule, $content, $pnt_telling),
-      };
+    my %finals;
+    $finals{'8f'} = ['round_of_16', "8-ste finale $shortname"];
+    $finals{'4f'} = ['quarterfinal', "kwart finale $shortname"];
+    $finals{'2f'} = ['semifinal', "halve finale $shortname"];
+    $finals{'f'}  = ['final', "finale $shortname"];
+
+    foreach my $l ('8f', '4f', '2f', 'f')
+    {
+      my $title = $finals{$l}[1];
+      my $k     = $finals{$l}[0];
+      my $result = read_ec_part($league, $l, 1, $title, $sort_rule, $content, $pnt_telling);
+      if (defined $result)
+      {
+        $ec->{$key}{$k} = $result;
+      }
+    }
+
+    my $playoffs = read_ec_part($league,  'po', 1, "play offs $longname", $sort_rule, $content, $pnt_telling);
+    $ec->{$key}{playoffs} = $playoffs if defined $playoffs;
+
+    foreach my $l ('itoto', 'intertoto')
+    {
+      my $title = ($l eq 'itoto' ? "Intertoto: laatste zestien" : "Finale Intertoto (winnaars naar UEFA-cup)");
+      my $intertoto = read_ec_part($league, $l, 1, $title, $sort_rule, $content, $pnt_telling);
+      if (defined $intertoto)
+      {
+        $ec->{$key}{$l} = $intertoto;
+      }
+    }
+
+    foreach my $l ('B', 'D')
+    {
+      my $group2 = read_ec_part($league, "group2$l", 0, "Tweede ronde, Poule $l", $sort_rule, $content, $pnt_telling);
+      if (defined $group2)
+      {
+        $ec->{$key}{"group2$l"} = $group2;
+      }
+    }
+
+    foreach my $l (1 .. 3)
+    {
+      my $roundname = ($l == 2 ? '16f' : "round$l");
+      my $round = read_ec_part($league, $roundname, 1, "${l}e ronde $shortname", $sort_rule, $content, $pnt_telling);
+      if (defined $round)
+      {
+        $ec->{$key}{"round$l"} = $round;
+      }
+    }
 
     foreach my $l (1 .. 3)
     {
