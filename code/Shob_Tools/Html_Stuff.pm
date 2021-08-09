@@ -166,13 +166,17 @@ sub ftable($$)
  my ($option, $txt) = @_;
 
  # default $option eq 'border'
- my $ts = '<table border cellspacing=0>';
+ my $ts;
  if ($option eq 'tabs')
  {$ts = '<table>';}
  elsif ($option eq 'width100%')
  {$ts = '<table width="100%">';}
+ elsif ($option eq 'border')
+ {$ts = '<table border cellspacing=0>';}
  elsif ($option eq 'border_width100%')
  {$ts = '<table border cellspacing="0" width="100%">';}
+ else
+ {$ts = "<table $option>";}
 
  return "$ts$txt</table>\n";
 }

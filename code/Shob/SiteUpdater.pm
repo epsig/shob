@@ -44,7 +44,7 @@ $VERSION = '21.1';
 
 our $withAdresses = ( -f File::Spec->catfile('Admin', 'Adressen_data2html.pm') );
 
-my $fast = 1; # set to 2 during debugging
+my $fast = 2; # set to 2 during debugging
 
 sub handle_all_files($$$)
 {
@@ -70,6 +70,7 @@ sub handle_gen_files($$$)
   [$fast, 'all', sub {&get_hopa;}, 'index.html'],
   [2, 'all', sub {&file2str(File::Spec->catfile('my_scripts', 'countdown.js'));}, 'countdown.js'],
   [2, 'all', sub {&file2str(File::Spec->catfile('my_scripts', 'validate_sport.js'));}, 'validate_sport.js'],
+  [2, 'all', sub {&file2str(File::Spec->catfile('my_scripts', 'sort_table.js'));}, 'sort_table.js'],
   [2, 'all', sub {&get_epsig;}, 'epsig.html'],
   [$fast, 'all', sub {&get_stats;}, 'stats.html'],
   [2, 'all', sub {&get_tech_doc_kj;}, 'tech_doc_kj.html'],
@@ -284,8 +285,8 @@ sub handle_sport_files($$$)
   push @pages, [$fast, 'all', sub {&officieuze_standen('officieus', $curYrA);}, 'sport_voetbal_nl_jaarstanden.html'];
   push @pages, [$fast, 'all', sub {&officieuze_standen('uit_thuis', $curYrB);}, 'sport_voetbal_nl_uit_thuis.html'];
 
-  push @pages, [$fast, 'all', sub {&get_stats_eredivisie($szn1, $szn2, 0);}, 'sport_voetbal_nl_stats.html'];
-  push @pages, [$fast, 'all', sub {&get_stats_eredivisie($szn1, $szn2, 2);}, 'sport_voetbal_nl_stats_more.html'];
+  push @pages, [1, 'all', sub {&get_stats_eredivisie($szn1, $szn2, 0);}, 'sport_voetbal_nl_stats.html'];
+  push @pages, [1, 'all', sub {&get_stats_eredivisie($szn1, $szn2, 2);}, 'sport_voetbal_nl_stats_more.html'];
 
   do_all_text_dir ($lop, '', \@pages);
 }
