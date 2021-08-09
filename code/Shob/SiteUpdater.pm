@@ -44,7 +44,7 @@ $VERSION = '21.1';
 
 our $withAdresses = ( -f File::Spec->catfile('Admin', 'Adressen_data2html.pm') );
 
-my $fast = 2; # set to 2 during debugging
+my $fast = 1; # set to 2 during debugging
 
 sub handle_all_files($$$)
 {
@@ -285,8 +285,8 @@ sub handle_sport_files($$$)
   push @pages, [$fast, 'all', sub {&officieuze_standen('officieus', $curYrA);}, 'sport_voetbal_nl_jaarstanden.html'];
   push @pages, [$fast, 'all', sub {&officieuze_standen('uit_thuis', $curYrB);}, 'sport_voetbal_nl_uit_thuis.html'];
 
-  push @pages, [1, 'all', sub {&get_stats_eredivisie($szn1, $szn2, 0);}, 'sport_voetbal_nl_stats.html'];
-  push @pages, [1, 'all', sub {&get_stats_eredivisie($szn1, $szn2, 2);}, 'sport_voetbal_nl_stats_more.html'];
+  push @pages, [$fast, 'all', sub {&get_stats_eredivisie($szn1, $szn2, 0);}, 'sport_voetbal_nl_stats.html'];
+  push @pages, [$fast, 'all', sub {&get_stats_eredivisie($szn1, $szn2, 2);}, 'sport_voetbal_nl_stats_more.html'];
 
   do_all_text_dir ($lop, '', \@pages);
 }

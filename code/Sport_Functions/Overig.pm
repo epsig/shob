@@ -183,12 +183,14 @@ sub min_max_aantal_toeschouwers($$)
  my $NoSpectators = 0;
  my ($tmin, $tmax) = (1e34, 0);
 
+ my $ii = 0;
  for (my $i=1; $i < scalar @$pu; $i++)
  {
   my $rij = $pu->[$i][2];
   if ($pu->[$i][1] eq 'straf') {next;}
   if (scalar @$rij > 3)
   {
+   $ii++;
    my $t = $rij->[3];
    if (ref $t eq 'HASH')
    {
@@ -216,6 +218,12 @@ sub min_max_aantal_toeschouwers($$)
    }
   }
  }
+
+ if ($ii == 0)
+ {
+   return '';
+ }
+
  my $str = ftdl($seizoen);
  my $games = '';
  for (my $i = 0; $i < scalar @imax; $i++)

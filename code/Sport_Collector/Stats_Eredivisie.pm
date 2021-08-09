@@ -440,7 +440,8 @@ EOF
   my $year = ( $ABBA ? $yrA + $j : $yrB - $j);
   my $seizoen = yr2szn($year);
   my $u_szn = $u_nl->{$seizoen};
-  $out .= min_max_aantal_toeschouwers($seizoen, $u_szn);
+  my $txt = min_max_aantal_toeschouwers($seizoen, $u_szn);
+  $out .= $txt if ($txt ne '');
  }
  $out .= qq(</table>\n);
 
