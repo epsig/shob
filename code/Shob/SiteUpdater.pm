@@ -129,8 +129,8 @@ sub handle_gen_files($$$)
    Admin::CV_Edwin_Spee->import;
   
    my $cmds = [
-   [2, 'all', sub {get_cv(1, $all_data, 2)}, 'cv.html'],
-   [2,   'l', sub {get_cv(0, $all_data, 0)}, 'cv_nolinks.html'],
+   [2, 'all', sub {get_cv(1, 0, 2)}, 'cv.html'],
+   [2,   'l', sub {get_cv(0, 0, 0)}, 'cv_nolinks.html'],
    ];
    do_all_text_dir ($lop, '', $cmds);
   }
