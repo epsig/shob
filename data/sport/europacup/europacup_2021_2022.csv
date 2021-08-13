@@ -1,8 +1,12 @@
 league,round,team1,team2,dd,result,star,stadium
+supercup,,G1cls,ESvlr,20210811,1-1,5,
 CL,v2,NLpsv,TRglt,20210721,5-1,,
 CL,v2,TRglt,NLpsv,20210728,1-2,1,
 CL,v3,NLpsv,DKmdl,20210803,3-0,,
+CL,v3,DKmdl,NLpsv,20210810,0-1,1,
 CF,v2,XKdrt,NLfyn,20210722,0-0,,
 CF,v2,NLfyn,XKdrt,20210729,3-2,2,
 CF,v3,NLvit,IEdnd,20210805,2-2,,
 CF,v3,CHlzr,NLfyn,20210805,0-3,,
+CF,v3,NLfyn,CHlzr,20210812,3-0,2,
+CF,v3,IEdnd,NLvit,20210812,1-2,1,
