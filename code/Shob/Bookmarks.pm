@@ -441,9 +441,9 @@ sub get_actueel($)
 
  my $links = [
 ['http://www.wimbledon.org/','Wimbledon', 6, 7.3],
-['http://www.letour.fr/','Tour de France', 8.5, 10], #6.8, 8
+['http://www.letour.fr/','Tour de France', 6.8, 8],
 ['https://www.giroditalia.it/', "Giro d'Italia", 10, 11], # met 1e week juni
-['http://www.nostour.nl/','Tour de France (NOS)', 8.5, 10], #6.8, 8
+['http://www.nostour.nl/','Tour de France (NOS)', 6.8, 8],
 ['http://valentijnsdag.pagina.nl/','14 feb Valentijnsdag', 2.3, 2.8],
 #['https://www.verkiezingen2015.nl/', '18 maart Staten-verkiezingen', 3, 4],
 ['http://www.knsb.nl/', 'Schaatsen: EK/WK sprint/all-round', 1, 3.9], # tot half maart
