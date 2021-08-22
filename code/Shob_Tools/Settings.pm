@@ -184,7 +184,9 @@ sub init_host_id()
  }
  elsif ($HostId eq 'ubuntu')
  {
-  $www_epsig_nl = "$ENV{HOME}/epsig/github/shob/pages";
+  # quick fix / as long as cgi-bin works locally
+  # $www_epsig_nl = "$ENV{HOME}/epsig/github/shob/pages";
+  $www_epsig_nl = 'https://www.epsig.nl';
   $www_xs4all_nl_spee = $www_epsig_nl;
  }
  else
