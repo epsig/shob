@@ -82,11 +82,12 @@ EOF
  <li> hoe zo, <a href="epsig.html">epsig?</a> </li>
  <li> en, veel <a href="$url_stats">hits?</a> </li>
  <li>
-  <form action=/cgi-bin/search.cgi method=get>
-   <input type="hidden" name="html_url" value="/search.html">
-   <input type=text name=keywords size=8>
-   <input type=submit value="Zoek op deze site!">
-  </form> </li>
+<form action="https://www.google.com/search" class="searchform" method="get" name="searchform" target="_blank">
+<input name="sitesearch" type="hidden" value="epsig.nl">
+<input autocomplete="on" class="form-control search" name="q" placeholder="Search in epsig.nl" required="required"  type="text">
+<button class="button" type="submit">Search</button>
+</form>
+ </li>
 </ul>
 EOF
 ];
@@ -148,15 +149,10 @@ sub get_std_search_page()
 $title,
 # <input type="hidden" name="user" value="www.epsig.nl">
 << 'EOF'
-<form action="/cgi-bin/search.cgi" method="get">
-<input type="hidden" name="html_url" value="/search.html">
-Zoektermen: <input type="text" name="keywords" size="50"><br>
-<p>
-<input type="checkbox" name="exact_match">
-Zoeken op geheel woord.
-<br>
-<input type="submit" value="Zoek!">
-<input type="reset" value="wis">
+<form action="https://www.google.com/search" class="searchform" method="get" name="searchform" target="_blank">
+<input name="sitesearch" type="hidden" value="epsig.nl">
+<input autocomplete="on" class="form-control search" name="q" placeholder="Search in epsig.nl" required="required"  type="text">
+<button class="button" type="submit">Search</button>
 </form>
 EOF
 ];
