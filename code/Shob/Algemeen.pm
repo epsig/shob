@@ -165,10 +165,6 @@ sub get_overzicht
 
 my $extra_ascii = $local_version ? qq( en <a href="tmp_ascii_codes.html">ascii codes</a>\n) : '';
 
-my $index_politiek = ($local_version ?
-qq(<li><a href="$www_xs4all_nl_spee/p-b/index.html">Politiek, meningen, opinies</a>) :
-'<li>Politiek, meningen, opinies');
-
 my $link_web_versie = ($local_version ?
 qq(,\n <a href="https://www.epsig.nl/overzicht.html">Web-versie van dit overzicht.</a>):'');
 
@@ -191,13 +187,6 @@ my $out = << "EOF";
   <li>technische documentatie: <a href="tech_doc_kj.html">klaverjassen</a>,
    <a href="tech_doc_shob.html">shob</a> en
    <a href="tech_doc_adressen.html">adressen</a>.
- </ol>
-$index_politiek
- <ol>
-  <li><a href="$www_xs4all_nl_spee/opinion/kwaliteitssprong_OV.html">kwaliteitssprong OV</a>
-  <li><a href="$www_xs4all_nl_spee/p-b/staatsschuld.html">ontwikkeling staatsschuld</a>
-  <li><a href="$www_xs4all_nl_spee/p-b/demissionair.html">demissionaire periodes</a>
-  <li><a href="$www_xs4all_nl_spee/p-b/verkiezingsuitslagen.html">verkiezingsuitslagen 1994-heden</a>
  </ol>
  <li><a href="sport.html">Sport</a>
  <ol>
