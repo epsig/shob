@@ -442,7 +442,7 @@ sub get_actueel($)
  my $links = [
 ['http://www.wimbledon.org/','Wimbledon', 6, 7.3],
 ['http://www.letour.fr/','Tour de France', 6.8, 8],
-['https://www.giroditalia.it/', "Giro d'Italia", 10, 11], # met 1e week juni
+['https://www.giroditalia.it/', "Giro d'Italia", 6, 7], # met 1e week juni
 ['http://www.nostour.nl/','Tour de France (NOS)', 6.8, 8],
 ['http://valentijnsdag.pagina.nl/','14 feb Valentijnsdag', 2.3, 2.8],
 #['https://www.verkiezingen2015.nl/', '18 maart Staten-verkiezingen', 3, 4],
@@ -453,7 +453,7 @@ sub get_actueel($)
 #['http://www.examenblad.nl/','Eindexamens', 5.5, 6.3],
 ['http://www.rolandgarros.org/','Roland Garros', 4.7, 6.4],
 ['https://www.teamnl.org/','Paralympische Zomerspelen Tokio', 8.5, 9.9],
-['http://www.sport.be/binckbanktour/','Ronde van Belgi&euml; en Nederland', 9.5, 10.1],
+['http://www.sport.be/binckbanktour/','Ronde van Belgi&euml; en Nederland', 9.0, 9.5],
 ['http://www.usopen.org/','US Open', 8.5, 9.5],
 ['http://prinsjesdag.minfin.nl/','Prinsjesdag', 9.25, 9.9],
 ['https://www.lavuelta.es/','Vuelta (Ronde van Spanje)', 9, 9.9],
