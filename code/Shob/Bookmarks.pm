@@ -481,10 +481,12 @@ sub get_actueel($)
  my $actueel = '';
  foreach my $rij (@$links)
  {
-  if ($rij->{date1} <= $deze_maand_fixed && $deze_maand_fixed <= $rij->{date2})
+  my $in_between = ($rij->{date1} <= $deze_maand_fixed && $deze_maand_fixed <= $rij->{date2});
+  $in_between = 1 if ($rij->{date2} > 13 and $deze_maand_fixed <= $rij->{date2} - 12);
+  if ($in_between)
   {
    $totaal++;
-   if (defined $rij->url)
+   if (defined $rij->{url})
    {
      $actueel .= qq(<li><a href="$rij->{url}">$rij->{description}</a>\n);
    }
