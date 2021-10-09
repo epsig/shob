@@ -119,12 +119,6 @@ sub init_webdir($)
   $WD_His  = File::Spec->catdir($ENV{HOME}, 'WWW_old');
   $WbDrOld = File::Spec->catdir($ENV{HOME}, 'WWW');
  }
- elsif ($id eq 'werk')
- {
-  $WebDir  = File::Spec->catdir($ENV{home}, 'prive', 'web');
-  $WD_His  = File::Spec->catdir($ENV{home}, 'prive', 'web_old');
-  $WbDrOld = File::Spec->catdir($ENV{home}, 'prive', 'web');
- }
  elsif ($id eq 'local')
  {
   $WebDir  = File::Spec->catdir('C:', 'www.epsig.nl');

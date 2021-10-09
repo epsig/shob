@@ -172,10 +172,6 @@ sub prive()
 {# (c) Edwin Spee
 
  my $familie_fotos = "fotoalbum/index.html";
- my $citrix_link = 'https://webaccess.minvenw.nl/rikz';
- if (get_host_id() eq 'werk')
- {$citrix_link    = 'http://kzdlic.rikz.rws.minvenw.nl/';
-  $familie_fotos  = 'http://www.epsig.nl/fotoalbum/';}
 
  return << "EOF";
 <tr> <th colspan=2 class=h> Priv&eacute; </th></tr>
@@ -188,7 +184,6 @@ sub prive()
 <li><a href="$www_epsig_nl/klaverjas_faq.html">klaverjassen</a>
 </ul> </td>
 <td> <ul>
-<li> <a href="$citrix_link">Telewerken RIKZ</a> |
 <a href="https://webmail.xs4all.nl/">WebMail</a> |
 <a href="https://service.xs4all.nl/">self-service</a>
 <li><a href="$familie_fotos">Familie-fotoos</a>
@@ -200,92 +195,19 @@ sub prive()
 EOF
 }
 
-sub werk1()
+sub get_bkmrks()
 {# (c) Edwin Spee
 
-return <<'EOF';
-<tr> <th colspan=2 class=h> RWS / RIKZ </th></tr>
-<tr> <td>
-<ul>
-<li>RIKZ: <a href="http://www.rikz.nl/">internet</a> en
-<a href="http://intranet.rijkswaterstaat.nl/wd">intranet</a>
-<li> Deltares:
- <a href="http://www.deltares.nl/">homepage</a>,
- <a href="http://smoelenboek.deltares.nl/">smoelenboek</a> en
- <a href="http://deltadesk.sharepointsite.com/welkom.aspx">delta-desk</a>
-</li>
-<li> SIMONA HoPa:
-<a href="http://www.helpdeskwater.nl/waqua/">internet</a>,
-<li> <a href="http://www.rws-atlantis.nl/">Atlantis</a>
-| <a href="http://donar.minvenw.nl:8080/Naut/home.html">Nautilus ingang Donar</a>
+ my $dd = 20211009;
 
-<li> <a href="http://matroos.rikz.rws.minvenw.nl/">Matroos</a>
-| <a href="http://matroos2.rikz.rws.minvenw.nl/mapbender/frames/login.php">matroos: geo-ingang</a>
-|
-EOF
-}
-
-sub werk4($)
-{# (c) Edwin Spee
-
-my $type = $_[0];
-my $x = <<'EOF';
-<li><a href="http://www.waterbase.nl/">Waterbase</a>
-EOF
-my $s = qq(</ul></td><td><ul>\n);
-if ($type == 2) {$x .= $s;}
-$x .= qq(<li><a href="http://intranet.minvenw.nl/">intranet-home</a> | \n) .
- qq(<a href="http://www.startpagina.sap.minvenw.nl/">SAP</a>\n);
-if ($type == 1) {$x .= $s;}
-$x .= <<'EOF';
-<li><a href="http://adresgids.venwnet.minvenw.nl/">adresgids</a>
-<li><a href="http://intranet.rijkswaterstaat.nl/knmi/home/">KNMI</a>
-<li><a href="http://www.trendsinwater.nl/">Trends in water</a>
-<li><a href="http://www.haringvlietsluizen.nl/">Haringvlietsluizen</a>
-<li>
- <a href="http://kennisplein.venwnet.minvenw.nl/">kennisplein.venwnet.minvenw.nl</a> |
- <a href="http://intra.ryx.nl/nieuws/bladeren.phtm?bron=dagbladen">Bladeren door kranten</a>
-<li><a href="http://www.cf.ac.uk/engin/news/confs/hydro/">hydroinfomatics</a>
-</ul></td></tr>
-EOF
-return $x;
-}
-
-sub get_bkmrks($)
-{# (c) Edwin Spee
-
- my $type = $_[0];
-
- my $is_werk = $type =~ m/werk/iso;
-
- my ($typenr, $index, $prive, $werk_unix, $werk_pc) = (0, 0, 1, 2, 3);
- if    ($type =~ m/index/iso) {$typenr = $index;}
- elsif ($type =~ m/prive/iso) {$typenr = $prive;}
- elsif ($type =~ m/unix/iso)  {$typenr = $werk_unix;}
- else                         {$typenr = $werk_pc;}
-
- my @dd = (20080912, 20081228, 20080912, 20081228);
-
- my $skip = ($typenr == $index ? 3 : -1);
+ my $skip = 3;
  my $footer = ftr ( ftd({cols=>2, class=>'c'},
-  menu_bottum('./', $skip, 3, $dd[$typenr], 0 )))
+  menu_bottum('./', $skip, 3, $dd, 0 )))
   . "</table> \n";
  my $out = '<table width="100%">';
- if ($typenr == $index)
- {$out .= kopA() . kopB(0);}
- elsif ($typenr == $prive )
- {$out .= kopA() . kopB(2) . prive();}
- elsif ($typenr == $werk_unix )
- {$out .= kopA() . werk1() . werk4(1) . kopB(1) . prive();}
- else
- {
-  my $werk2 =
-qq(<li><a href="file:///\\\\gwdcfa/programs/matlab.53/help/helpdesk.html">MATLAB helpdesk</a>\n);
-  $out .= kopA() . werk1() . $werk2 . werk4(2) . kopB(1) . prive();
- }
+ $out .= kopA() . kopB(0);
 
-return maintxt2htmlpage($out, $typenr >= $werk_unix ?  'Startpagina' : 'Startpunten', 'std',
- -1, {mymenu => $footer});
+return maintxt2htmlpage($out, 'Startpunten', 'std', -1, {mymenu => $footer});
 }
 
 sub get_bkmrks_geld()

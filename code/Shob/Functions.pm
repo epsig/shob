@@ -48,8 +48,6 @@ sub check_version
  {return 1;}
  elsif ($host eq 'ubuntu' and $hst2 =~ m/u/iso)
  {return 1;}
- elsif ($host eq 'werk' and $hst2 =~ m/w/iso)
- {return 1;}
  elsif ($host eq 'wh_epsig' and $hst2 =~ m/r/iso)
  {return 1;}
  else
@@ -356,11 +354,7 @@ sub vimrc
  $vimrc .= file2str($file1);
  $vimrc .= ($host eq 'local' ? file2str($file2) : '');
 
-# specifieke regels voor werk/pcthuis eruit halen indien ongewenst:
-#if ($host ne 'werk')
-#{
-# $vimrc =~ s/^.*" alleen voor.*werk.*$//imgo;
-#}
+# specifieke regels voor pcthuis eruit halen indien ongewenst:
  if ($host ne 'local')
  {
   $vimrc =~ s/^.*" alleen voor.*pcthuis.*$//imgo;

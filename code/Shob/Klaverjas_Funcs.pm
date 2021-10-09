@@ -528,7 +528,6 @@ sub get_klaverjas_faq
 {# (c) Edwin Spee
 
  my $url_beta = 'kj_beta_versies.html';
- if (get_host_id() eq 'werk') {$url_beta = 'https://www.epsig.nl/' . $url_beta;}
 
  my $out = "<ol> <li> Welke versies zijn er precies? <br> Mijn klaverjas-spel is er in 6 smaken:\n";
  $out .= get_6smaken('');

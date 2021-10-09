@@ -92,9 +92,7 @@ sub handle_gen_files($$$)
   [2, 'all', sub {&get_bkmrks_science;}, 'tmp_bookmarks_science.html'],
   [2, 'all', sub {&get_bkmrks_overheid;}, 'tmp_bookmarks_overheid.html'],
   [2, 'all', sub {&get_bkmrks_milieu;}, 'tmp_bookmarks_milieu.html'],
-  [2, 'all', sub {&get_bkmrks('werk');}, 'tmp_bookmarks_werk.html'],
-  [2, 'all', sub {&get_bkmrks('prive');}, 'tmp_bookmarks_prive.html'],
-  [2, 'all', sub {&get_bkmrks('index');}, 'bookmarks.html'],
+  [2, 'all', sub {&get_bkmrks();}, 'bookmarks.html'],
   [2, 'all', sub {&get_klaverjas_faq;}, 'klaverjas_faq.html']]);
 # [1, ' rl', sub {&get_klaverjas_beta_versies;}, 'kj_beta_versies.html'],
 

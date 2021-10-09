@@ -72,7 +72,7 @@ $voetbal_nl_list
 EOF
 ];
 
- my $url_stats = (get_host_id eq 'werk' ? 'https://www.epsig.nl/stats.html' : 'stats.html');
+ my $url_stats = 'stats.html';
 
  my $deze_site = [
 'Deze site',
