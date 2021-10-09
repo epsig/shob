@@ -20,7 +20,7 @@ use vars qw($VERSION @ISA @EXPORT);
 #=========================================================================
 # CONTENTS OF THE PACKAGE:
 #=========================================================================
-$VERSION = '18.1';
+$VERSION = '21.0';
 # by Edwin Spee.
 
 @EXPORT =
@@ -438,82 +438,88 @@ EOF
 sub get_actueel($)
 {# (c) Edwin Spee
 
- my ($edition) = @_; # 'hopa' or 'media'
+  my ($edition) = @_; # 'hopa' or 'media'
 
- my $fileWithPath = File::Spec->catfile(File::Spec->updir(), 'data', 'bookmarks', 'current.csv');
- my $links = read_csv_with_header($fileWithPath);
+  my $fileWithPath = File::Spec->catfile(File::Spec->updir(), 'data', 'bookmarks', 'current.csv');
+  my $links = read_csv_with_header($fileWithPath);
 
 # datum gefixeerd om uit CVS te kunnen reproduceren:
- my $datum_fixed = get_datum_fixed();
- my ($yr, $deze_maand_fixed, $day) = split_idate($datum_fixed);
- my $deze_maand = 1+(localtime())[4];
- my $deze_mday  = (localtime())[3];
- $deze_maand_fixed += $day / 31;
- $deze_maand += $deze_mday / 31;
+  my $datum_fixed = get_datum_fixed();
+  my ($yr, $deze_maand_fixed, $day) = split_idate($datum_fixed);
+  my $deze_maand = 1+(localtime())[4];
+  my $deze_mday  = (localtime())[3];
+  $deze_maand_fixed += $day / 31;
+  $deze_maand += $deze_mday / 31;
 
- if (($yr % 2) == 0 || $yr == 2021)
- {
-  $yr = min(2020, $yr);
-  my $EK_WK = $yr % 4;
-  my $EK_WK_str = ($EK_WK ? 'WK' : 'EK');
-  my $ekwk_url = "sport_voetbal_${EK_WK_str}_${yr}.html";
-  my $webdir = get_webdir();
-  my $voorronde = '_voorronde';
-  if (-f File::Spec->catfile($webdir, $ekwk_url))
-  {$voorronde = '';}
-  $ekwk_url = "sport_voetbal_${EK_WK_str}_${yr}$voorronde.html";
-  if (not -f File::Spec->catfile($webdir, $ekwk_url))
-  # {shob_error('notfound', [$ekwk_url]);}
-  {return '';}
-  if ($edition eq 'media')
-  {$ekwk_url = "$www_epsig_nl/$ekwk_url";}
-  push @$links, {url => $ekwk_url, description => "$EK_WK_str-voetbal", date1 => 5.5, date2 => 7.5};
-  if ($yr % 4 == 2)
+  if (($yr % 2) == 0 || $yr == 2021)
   {
-   my $ospage = "sport_schaatsen_OS_$yr.html";
-   if (-f File::Spec->catfile($webdir, $ospage))
-   {push @$links, {url => $ospage, description => 'Olymp. Winterspelen', date => 2.0, date => 3.3};}
+    $yr = min(2020, $yr);
+    my $EK_WK = $yr % 4;
+    my $EK_WK_str = ($EK_WK ? 'WK' : 'EK');
+    my $ekwk_url = "sport_voetbal_${EK_WK_str}_${yr}.html";
+    my $webdir = get_webdir();
+    my $voorronde = '_voorronde';
+    if (-f File::Spec->catfile($webdir, $ekwk_url))
+    {$voorronde = '';}
+    $ekwk_url = "sport_voetbal_${EK_WK_str}_${yr}$voorronde.html";
+    if (not -f File::Spec->catfile($webdir, $ekwk_url))
+    # {shob_error('notfound', [$ekwk_url]);}
+    {return '';}
+    if ($edition eq 'media')
+    {$ekwk_url = "$www_epsig_nl/$ekwk_url";}
+    push @$links, {url => $ekwk_url, description => "$EK_WK_str-voetbal", date1 => 5.5, date2 => 7.5};
+    if ($yr % 4 == 2)
+    {
+      my $ospage = "sport_schaatsen_OS_$yr.html";
+      if (-f File::Spec->catfile($webdir, $ospage))
+      {
+        push @$links, {url => $ospage, description => 'Olymp. Winterspelen', date => 2.0, date => 3.3};
+      }
+    }
   }
- }
 
- my $totaal = 0; my $totaal2 = 0;
- my $found_diff = 0;
- my $actueel = '';
- foreach my $rij (@$links)
- {
-  my $in_between = ($rij->{date1} <= $deze_maand_fixed && $deze_maand_fixed <= $rij->{date2});
-  $in_between = 1 if ($rij->{date2} > 13 and $deze_maand_fixed <= $rij->{date2} - 12);
-  if ($in_between)
+  my $totaal = 0; my $totaal2 = 0;
+  my $found_diff = 0;
+  my $actueel = '';
+  foreach my $rij (@$links)
   {
-   $totaal++;
-   if (defined $rij->{url})
-   {
-     $actueel .= qq(<li><a href="$rij->{url}">$rij->{description}</a>\n);
-   }
-   else
-   {
-     $actueel .= qq(<li>$rij->{description}\n);
-   }
-   if ($rij->{description} =~ m/brexit/iso)
-   {$actueel .= qq(over (onder voorbehoud): <div id="brexit"> </div>\n);}
+    my $in_between = ($rij->{date1} <= $deze_maand_fixed && $deze_maand_fixed <= $rij->{date2});
+    $in_between = 1 if ($rij->{date2} > 13 and $deze_maand_fixed <= $rij->{date2} - 12);
+    if ($in_between)
+    {
+      $totaal++;
+      if (defined $rij->{url})
+      {
+        $actueel .= qq(<li><a href="$rij->{url}">$rij->{description}</a>\n);
+      }
+      else
+      {
+        $actueel .= qq(<li>$rij->{description}\n);
+      }
+      if ($rij->{description} =~ m/brexit/iso)
+      {
+        $actueel .= qq(over (onder voorbehoud): <div id="brexit"> </div>\n);
+      }
+    }
+    elsif ($rij->{date1} <= $deze_maand && $deze_maand  <= $rij->{date2})
+    {
+      print "Skipping: $rij->[1]\n";
+      $found_diff = 1;
+    }
   }
-  elsif ($rij->{date1} <= $deze_maand && $deze_maand  <= $rij->{date2})
+
+  if ($found_diff and $edition ne 'media' and not get_history())
   {
-   print "Skipping: $rij->[1]\n";
-   $found_diff = 1;
+    print "Datum in bookmarks-media is niet up-to-date! Druk op ENTER.\n";
+    lees_stdin;
   }
- }
 
- if ($found_diff and $edition ne 'media' and not get_history())
- {
-  print "Datum in bookmarks-media is niet up-to-date! Druk op ENTER.\n";
-  lees_stdin;
- }
+  if ($totaal == 0)
+  {
+    $actueel = "<li>geen grote evenementen deze maand.\n";
+  }
 
- if ($totaal == 0)
- {$actueel = "<li>geen grote evenementen deze maand.\n";
- }
- return $actueel;
+  return $actueel;
 }
 
 sub get_bkmrks_media()
