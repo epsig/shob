@@ -441,15 +441,7 @@ sub get_actueel($)
  my ($edition) = @_; # 'hopa' or 'media'
 
  my $fileWithPath = File::Spec->catfile(File::Spec->updir(), 'data', 'bookmarks', 'current.csv');
- my $content = read_csv_with_header($fileWithPath);
-
- my $links = [];
- foreach my $line (@$content)
- {
-  my $url = $line->{url};
-  $url = '' if not defined $url;
-  push @$links, [$url, $line->{description}, $line->{date1}, $line->{date2}];
- }
+ my $links = read_csv_with_header($fileWithPath);
 
 # datum gefixeerd om uit CVS te kunnen reproduceren:
  my $datum_fixed = get_datum_fixed();
@@ -475,12 +467,12 @@ sub get_actueel($)
   {return '';}
   if ($edition eq 'media')
   {$ekwk_url = "$www_epsig_nl/$ekwk_url";}
-  push @$links, [$ekwk_url, "$EK_WK_str-voetbal", 5.5, 7.5];
+  push @$links, {url => $ekwk_url, description => "$EK_WK_str-voetbal", date1 => 5.5, date2 => 7.5};
   if ($yr % 4 == 2)
   {
    my $ospage = "sport_schaatsen_OS_$yr.html";
    if (-f File::Spec->catfile($webdir, $ospage))
-   {push @$links, [$ospage, 'Olymp. Winterspelen', 2.0, 3.3];}
+   {push @$links, {url => $ospage, description => 'Olymp. Winterspelen', date => 2.0, date => 3.3};}
   }
  }
 
@@ -489,22 +481,21 @@ sub get_actueel($)
  my $actueel = '';
  foreach my $rij (@$links)
  {
-  if ($rij->[2] <= $deze_maand_fixed && $deze_maand_fixed <= $rij->[3])
+  if ($rij->{date1} <= $deze_maand_fixed && $deze_maand_fixed <= $rij->{date2})
   {
    $totaal++;
-   my ($url, $descr, undef, undef) = @$rij;
-   if ($url ne '')
+   if (defined $rij->url)
    {
-     $actueel .= qq(<li><a href="$url">$descr</a>\n);
+     $actueel .= qq(<li><a href="$rij->{url}">$rij->{description}</a>\n);
    }
    else
    {
-     $actueel .= qq(<li>$descr\n);
+     $actueel .= qq(<li>$rij->{description}\n);
    }
-   if ($descr =~ m/brexit/iso)
+   if ($rij->{description} =~ m/brexit/iso)
    {$actueel .= qq(over (onder voorbehoud): <div id="brexit"> </div>\n);}
   }
-  elsif ($rij->[2] <= $deze_maand && $deze_maand  <= $rij->[3])
+  elsif ($rij->{date1} <= $deze_maand && $deze_maand  <= $rij->{date2})
   {
    print "Skipping: $rij->[1]\n";
    $found_diff = 1;
