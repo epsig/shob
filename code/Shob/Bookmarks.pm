@@ -11,6 +11,7 @@ use Shob_Tools::Html_Stuff;
 use Shob_Tools::Idate;
 use Shob_Tools::Error_Handling;
 use Shob::Functions;
+use Sport_Functions::Readers;
 use Exporter;
 use vars qw($VERSION @ISA @EXPORT);
 @ISA = ('Exporter');
@@ -439,30 +440,16 @@ sub get_actueel($)
 
  my ($edition) = @_; # 'hopa' or 'media'
 
- my $links = [
-['http://www.wimbledon.org/','Wimbledon', 6, 7.3],
-['http://www.letour.fr/','Tour de France', 6.8, 8],
-['https://www.giroditalia.it/', "Giro d'Italia", 6, 7], # met 1e week juni
-['http://www.nostour.nl/','Tour de France (NOS)', 6.8, 8],
-['http://valentijnsdag.pagina.nl/','14 feb Valentijnsdag', 2.3, 2.8],
-#['https://www.verkiezingen2015.nl/', '18 maart Staten-verkiezingen', 3, 4],
-['http://www.knsb.nl/', 'Schaatsen: EK/WK sprint/all-round', 1, 3.9], # tot half maart
-#[ ttlink(434,'', 'tekst'), 'Toertochten op NOS Teletekst', 1, 2.9],
-['http://www.ausopen.org/','Australian Open', 2, 3], # 1,2
-['http://www.4en5mei.nl/','vier en vijf mei', 4.7, 5.5],
-#['http://www.examenblad.nl/','Eindexamens', 5.5, 6.3],
-['http://www.rolandgarros.org/','Roland Garros', 4.7, 6.4],
-['https://www.teamnl.org/','Paralympische Zomerspelen Tokio', 8.5, 9.9],
-['http://www.sport.be/binckbanktour/','Ronde van Belgi&euml; en Nederland', 9.0, 9.5],
-['http://www.usopen.org/','US Open', 8.5, 9.5],
-['http://prinsjesdag.minfin.nl/','Prinsjesdag', 9.25, 9.9],
-['https://www.lavuelta.es/','Vuelta (Ronde van Spanje)', 9, 9.9],
-#['http://www.koorhemelsbreed.nl/agenda.html', 'Najaarsconcert van oa Hemelsbreed', 11, 12],
-['','5 december Sinterklaas', 11.3, 12.3],
-['https://www.nporadio2.nl/top2000','Top 2000', 12.5, 13],
-['https://www.nporadio2.nl/top2000','Top 2000', 0, 0.3],
-['','25-26 december Kerstfeest', 12.5, 13],
-['','25-26 december Kerstfeest', 0, 0.3]]; #TODO op een regel kunnen opgeven
+ my $fileWithPath = File::Spec->catfile(File::Spec->updir(), 'data', 'bookmarks', 'current.csv');
+ my $content = read_csv_with_header($fileWithPath);
+
+ my $links = [];
+ foreach my $line (@$content)
+ {
+  my $url = $line->{url};
+  $url = '' if not defined $url;
+  push @$links, [$url, $line->{description}, $line->{date1}, $line->{date2}];
+ }
 
 # datum gefixeerd om uit CVS te kunnen reproduceren:
  my $datum_fixed = get_datum_fixed();

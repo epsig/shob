@@ -34,8 +34,11 @@ sub read_csv_with_header($;$)
   my $subdir   = shift;
 
   my $fullname = $filename;
-  $fullname = File::Spec->catfile($subdir, $filename)  if (defined $subdir);
-  $fullname = File::Spec->catfile($csv_dir, $fullname) if ($fullname !~ m/$csv_dir/);
+  if (not -f $fullname)
+  {
+    $fullname = File::Spec->catfile($subdir, $filename)  if (defined $subdir);
+    $fullname = File::Spec->catfile($csv_dir, $fullname) if ($fullname !~ m/$csv_dir/);
+  }
 
   if ( ! -f $fullname) {return [];}
 
