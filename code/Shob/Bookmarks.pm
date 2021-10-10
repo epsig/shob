@@ -41,16 +41,12 @@ sub get_bkmrks_html
 'HTML (en CSS en JavaScript)',
 << "EOF"
 <ul><li><a href="http://www.handleidinghtml.nl/">www.handleidinghtml.nl</a>
-<li><a href="http://developer.irt.org/script/">JavaScript FAQ</a>
 <li><a href="http://www.selfhtml.org">selfhtml.org</a>
 <li><a href="http://www.w3.org/TR/">Technische documentatie bij W3C</a>
 <li><a href="http://wsabstract.com">wsabstract.com</a>
 <li><a href="http://www.webreference.com">webreference.com</a>
 <li><a href="http://www.htmlcenter.com">htmlcenter.com</a>
-<li><a href="http://browserwatch.internet.com">browserwatch.internet.com</a>
 <li><a href="http://www.jsworkshop.com">www.jsworkshop.com</a>
-<li><a href="http://www.mijnhomepage.nl">mijnhomepage.nl</a>
-<li><a href="http://www.mijnhomepage.nl/csscursus/abbr-acronym.php">Abbr, Acronym Tags en CSS</a>
 <li><a href="anybrowser.html">Special characters in HTML</a>
 </ul>
 EOF
@@ -61,9 +57,7 @@ EOF
 << 'EOF'
 <ul>
  <li><a href="http://www.w3.org/TR/xmlschema-0/">XML-Schema</a>
- <li><a href="http://www.opengis.net/gml/">GML: a Markup Language for Geography</a>
- <li><a href="http://www.cgd.ucar.edu/cms/eaton/cf-metadata/">NetCDF Climate and Forecast (CF) Metadata Convention</a>
- <li><a href="http://ferret.wrc.noaa.gov/noaa_coop/coop_cdf_profile.html">NetCDF Coards convention</a>
+ <li><a href="https://cfconventions.org/">NetCDF Climate and Forecast (CF) Metadata Convention</a>
 </ul>
 EOF
 ];
@@ -73,9 +67,7 @@ EOF
 << 'EOF'
 <ul><li><a href="http://www.nsc.liu.se/~boein/f77to90/f77to90.html">Fortran 90 for the Fortran 77 Programmer</a>
 <li><a href="http://www.star.le.ac.uk/~cgp/f90course/f90.html">Fortran 90 for the Fortran 77 Programmer II</a>
-<li><a href="http://wwwinfo.cern.ch/asdoc/f90.html">Fortran 90 Tutorials</a>
-<li><a href="http://www.polyhedron.co.uk/compare/linux/f90bench_p4.html">Compiler Comparisons: Performance</a>
-<li><a href="http://www.polyhedron.co.uk/compare/linux/diagnose.html">Compiler Comparisons: Diagnose Capabilities</a>
+<li><a href="https://polyhedron.com/?page_id=175">Compiler Comparisons</a>
 </ul>
 </ul>
 EOF
@@ -110,8 +102,7 @@ EOF
 << 'EOF'
 <ul>
 <li><a href="http://www.allenware.com/">demo-cursus Batch-files en HTML</a>
-<li><a href="http://www.archive.org/">Way back machine</a>:
-<a href="http://www.archive.org/web/*/http://www.xs4all.nl/~spee">mijn homepage daar</a>
+<li><a href="https://www.archive.org/">Way back machine</a>
 <li><a href="https://mindprod.com/jgloss/unmain.html">How to write unmaintainable code</a>
 <li><a href="http://www.squarebox.co.uk/javatips.html">Tips for maintainable Java code</a>
 <li><a href="http://www.pha.jhu.edu/sysadmin/security/ssh-users.html">Getting started with SSH</a>
@@ -121,7 +112,7 @@ EOF
 
  my $pout = [$html_js, $io_stds, $versiebeheerlinks, $perllinks, $f90, $overig];
  my $title = 'Bookmarks: Computers en internet';
- return maintxt2htmlpage($pout, $title, 'std', 20161012, {type1 => 'std_menu'});
+ return maintxt2htmlpage($pout, $title, 'std', 20211010, {type1 => 'std_menu'});
 }
 
 sub get_actueel($)
@@ -287,8 +278,7 @@ return maintxt2htmlpage(bespaar_bandbreedte($out), 'Bookmarks: media', 'title2h1
 }
 
 sub get_bkmrks_milieu()
-{# (c) Edwin Spee
- # versie 1.0 19-aug-2003 initiele versie
+{
 
 my $tt711 = ttlink(711, 'Actuele smog voorspelling');
 my $out = << "EOF";
@@ -296,11 +286,7 @@ my $out = << "EOF";
 <tr> <th> Algemeen </th> <th> Onderzoek </th> </tr>
 <tr> <td valign=top>
 <ul>
- <li><a href="http://www.knmi.nl/">KNMI</a>:
-     <a href="http://www.knmi.nl/voorl/weer/aktueel.html">weer vandaag</a>,
-     <a href="http://www.knmi.nl/voorl/weer/verwachting.html">overzicht</a>,
-     <a href="http://www.knmi.nl/voorl/weer/meerdaagse.html">lange termijn</a> en
-     <a href="http://www.knmi.nl/voorl/weer/extreem.html">extremen</a>
+ <li><a href="https://www.knmi.nl/">KNMI</a>
  <li><a href="http://weerkamer.nl/radar/">Radarbeelden (regenbuien)</a>
  <li> $tt711
  <li><a href="http://www.meteocon.nl/">Meteo Consult</a>
