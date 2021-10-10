@@ -25,7 +25,6 @@ $VERSION = '21.0';
 
 @EXPORT =
 (#========================================================================
- '&get_bkmrks_geld',
  '&get_bkmrks_html',
  '&get_actueel',
  '&get_bkmrks_media',
@@ -34,63 +33,6 @@ $VERSION = '21.0';
  '&get_bkmrks_treinen',
  #========================================================================
 );
-
-sub get_bkmrks_geld()
-{# (c) Edwin Spee
-
-my $tt501 = ttlink(501, 'financieel nieuws', 'tekst');
-my $tt502 = ttlink(502, 'indices', 'tekst');
-my $tt504 = ttlink(504, 'stemming Damrak', 'tekst');
-my $out = << "EOF";
-<ul>
-<h2> <li>Vacatures </h2>
-<a href="http://www.intermediair.nl/">Intermediair</a>
-| <a href="http://www.jobnews.nl/">Jobnews</a>
-| <a href="http://www.monsterboard.nl/">Monsterboard.nl</a>
-| <a href="http://www.executivesonly.nl/">executivesonly.nl</a>
-| <a href="http://vacature.overzicht.nl/">vacature.overzicht.nl</a>
-
-<h2> <li>On-line winkels </h2>
-<a href="http://www.nl.bol.com/">bol.com</a>
-| <a href="http://www.shop.nl/">shop.nl</a>
-| <a href="http://www.proxis.nl/">proxis.nl</a>
-| <a href="http://www.davista.nl/">davista.nl</a>
-| <a href="http://www.amazon.com/">amazon</a>
-| <a href="http://www.letsbuyit.nl/">Letsbuyit</a>
-
-<h2> <li>On-line veilingen </h2>
-<a href="http://www.ibazar.nl/">ibazar</a>
-| <a href="http://www.ricardo.nl/">ricardo</a>
-
-<h2> <li>Banken </h2>
-<a href="http://www.abnamro.nl/">ABN-AMRO</a>
-| <a href="http://www.gwk.nl/">GWK</a>
-| <a href="http://www.ing.nl/">ING</a>
-| <a href="http://www.rabobank.nl/">Rabobank</a>
-| <a href="http://www.snsbank.nl/">SNS Bank</a>
-<br>
-Groen sparen:
-<a href="http://www.asnbank.nl/">ASN Bank</a> en
-<a href="http://www.triodos.nl/">Triodos Bank</a>
-
-<h2> <li>Effectenbeurs </h2>
-<a href="http://www.euronext.com/">EuroNext</a>
-<br>
-<a href="http://www.behr.nl/cgi-bin/pp?ppix=1&showap=0">Persoonlijk Portefeuille</a>
-<br>
-<a href="http://www.behr.nl/Beurs/Fondsh/">Grafiek slotkoersen</a>
-<br>
-NOS-Teletekst: $tt501, $tt502 en $tt504
-<br> <a href="http://pacific.commerce.ubc.ca/xr/data.html">Historische wisselkoersen</a>
-
-<h2> <li>Overig </h2>
-<a href="http://www.eurodiffusie.nl/Content/herkennen.php">Afbeeldingen op de Euro-munten</a>
-<br>
-<a href="http://www.cbf-keur.nl/instelling.html">Goede doelen met cbf-keur</a>
-</ul>
-EOF
-return maintxt2htmlpage($out, 'Bookmarks: Geldzaken', 'title2h1', 20110411, {type1 => 'std_menu'});
-}
 
 sub get_bkmrks_html
 {# (c) Edwin Spee

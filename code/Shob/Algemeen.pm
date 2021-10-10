@@ -208,7 +208,6 @@ $list_EKWK_DH
       <a href="bookmarks_treinen.html">treinen</a>,
       <a href="bookmarks_media.html">media</a>,
       <a href="tmp_bookmarks_milieu.html">weer, klimaat en milieu</a>,
-      <a href="tmp_bookmarks_geld.html">geld</a>,
       <a href="tmp_bookmarks_science.html">wetenschap</a> en
       <a href="bookmarks_computers.html">computers en internet</a>.
  </ol>

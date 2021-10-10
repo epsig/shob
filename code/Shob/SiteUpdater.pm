@@ -88,7 +88,6 @@ sub handle_gen_files($$$)
   [2, 'all', sub {&get_bkmrks_html;}, 'bookmarks_computers.html'],
   [2, 'all', sub {&get_sport_links;}, 'bookmarks_sport.html'],
   [$fast, 'all', sub {&get_bkmrks_media;}, 'bookmarks_media.html'],
-  [2, 'all', sub {&get_bkmrks_geld;}, 'tmp_bookmarks_geld.html'],
   [2, 'all', sub {&get_bkmrks_science;}, 'tmp_bookmarks_science.html'],
   [2, 'all', sub {&get_bkmrks_milieu;}, 'tmp_bookmarks_milieu.html'],
   [2, 'all', sub {&get_klaverjas_faq;}, 'klaverjas_faq.html']]);
