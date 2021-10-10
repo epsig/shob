@@ -30,7 +30,6 @@ $VERSION = '21.0';
  '&get_actueel',
  '&get_bkmrks_media',
  '&get_bkmrks_milieu',
- '&get_bkmrks_overheid',
  '&get_bkmrks_science',
  '&get_bkmrks_treinen',
  #========================================================================
@@ -420,63 +419,6 @@ Milieuvriendelijk transport: de fiets </th> </tr>
 EOF
 return maintxt2htmlpage(bespaar_bandbreedte($out), 'Bookmarks: Meteorologie en Milieu',
  'title2h1', 20030819, {type1 => 'std_menu'});
-}
-
-sub get_bkmrks_overheid()
-{# (c) Edwin Spee
-
-my $out = << 'EOF';
-<ul>
- <li>De ministeries:
-  <a href="http://www.minaz.nl/">Algemene Z.</a>
-  | <a href="http://www.minocw.nl/">Onderwijs</a>
-  | <a href="http://www.minez.nl/">Economische Z.</a>
-  | <a href="http://www.minvenw.nl/">Verkeer en Waterstaat</a>
-  | <a href="http://www.minvrom.nl/">VROM</a>
-  | <a href="http://www.minbzk.nl/">Binnenlandse Z.</a>
-  | <a href="http://www.minbuza.nl/">Buitenlandse Z.</a>
-  | <a href="http://www.minvws.nl/">VWS</a>
-  | <a href="http://www.mindef.nl/">Defensie</a>
-  | <a href="http://www.minjust.nl/">Justitie</a>
-  | <a href="http://www.minfin.nl/">Financi&euml;n</a>
-  | <a href="http://www.minlnv.nl/">Landbouw</a>
- <li>Politieke partijen:
-  | <a href="http://www.cda.nl/">CDA</a>
-  | <a href="http://www.christenunie.nl/">ChristenUnie (GVP &amp; RPF)</a>
-  | <a href="http://www.d66.nl/">D66</a>
-  | <a href="http://www.groenlinks.nl/">Groenlinks</a>
-  | <a href="http://www.pvda.nl/">PvdA</a>
-  | <a href="http://www.sp.nl/">Socialistische Partij (SP)</a>
-  | <a href="http://www.vvd.nl/">VVD</a>
- <li><a href="http://www.parlement.com/">parlement.com</a>
- <li><a href="http://www.parlement.nl/">Parlement</a>:
-  <a href="http://www.eerstekamer.nl/">Eerste Kamer</a>,
-  <a href="http://www.tweede-kamer.nl/">Tweede Kamer</a> en
-  <a href="http://www.regering.nl/">Regering.nl</a>.
- <li><a href="http://www.overheid.nl/">Overheid.nl</a>
- <li><a href="http://www.koninklijkhuis.nl/">Koninklijk Huis</a>
- <li><a href="http://www.postbus51.nl/">Postbus 51</a>
- <li> onderdelen ministeries:
-  <ul>
-   <li><a href="http://www.minocw.nl/spelling/">De nieuwe spelling</a>
-   <li><a href="http://www.studiefinanciering.nl/">Studiefinanciering</a>
-   <li><a href="http://www.openbaarministerie.nl/">www.openbaarministerie.nl</a>
-   <li><a href="http://www.meldpunt.org/">Internet Meldpunt Kinderpornografie</a>
-   <li><a href="http://www.belastingdienst.nl/">Belastingdienst</a>
-  </ul>
- <li><a href="http://www.archief.nl/">Rijksarchiefdienst</a>
- <li><a href="http://www.ol2000.nl/">het Overheidsloket 2000</a>
- <li><a href="http://www.awt.nl/">De Adviesraad voor het Wetenschaps- en Technologiebeleid (AWT)</a>
- <li><a href="http://www.eur.nl/frg/grondwet.html">Grondwet voor het Koninkrijk der Nederlanden</a>
- <li><a href="http://wettenbank.sdu.nl/">wettenbank.sdu.nl</a>
- <li><a href="http://www.wetten.nu/">Nederlandse wet- en regelgeving</a>
- <li><a href="http://www.sdu.nl/">SDU</a>
- <li><a href="http://www.sdu.nl/staatscourant/vandaag/">Staatscourant</a>
- <li><a href="http://www.amsterdam.nl/">Gemeente Amsterdam</a>
-</ul>
-EOF
-return maintxt2htmlpage($out, 'Bookmarks: politiek en overheid', 'title2h1',
- 20031209, {type1 => 'std_menu'});
 }
 
 sub get_bkmrks_science()
