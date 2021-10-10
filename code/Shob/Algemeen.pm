@@ -202,7 +202,7 @@ $list_OS
    <br>
 $list_EKWK_DH
  </ol>
- <li><a href="bookmarks.html">Bookmarks</a>
+ <li>Bookmarks
  <ol>
   <li><a href="bookmarks_sport.html">sport</a>,
       <a href="bookmarks_treinen.html">treinen</a>,

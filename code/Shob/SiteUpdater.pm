@@ -92,7 +92,6 @@ sub handle_gen_files($$$)
   [2, 'all', sub {&get_bkmrks_science;}, 'tmp_bookmarks_science.html'],
   [2, 'all', sub {&get_bkmrks_overheid;}, 'tmp_bookmarks_overheid.html'],
   [2, 'all', sub {&get_bkmrks_milieu;}, 'tmp_bookmarks_milieu.html'],
-  [2, 'all', sub {&get_bkmrks();}, 'bookmarks.html'],
   [2, 'all', sub {&get_klaverjas_faq;}, 'klaverjas_faq.html']]);
 # [1, ' rl', sub {&get_klaverjas_beta_versies;}, 'kj_beta_versies.html'],
 
