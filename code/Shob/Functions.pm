@@ -327,18 +327,13 @@ sub my_webpage_diff
  return $found;
 }
 
-sub ttlink
-{# (c) Edwin Spee
+sub ttlink($$)
+{
+  my ($pagenr, $omschrijving) = @_;
 
- my ($p, $omschrijving, $optie) = @_;
-# optie = 'gif' of 'tekst'
+  my $url = qq(https://teletekst-data.nos.nl/webplus?p=$pagenr);
 
- my $url = qq(http://teletekst-data.nos.nl/webplus?p=$p);
-
- if ($omschrijving eq '')
- {return $url;}
- else
- {return qq(<a href="$url">$omschrijving</a>);}
+  return qq(<a href="$url">$omschrijving</a>);
 }
 
 sub vimrc

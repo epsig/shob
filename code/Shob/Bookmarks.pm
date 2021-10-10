@@ -216,7 +216,7 @@ sub get_bkmrks_media()
 
 my $actueel = get_actueel('media');
 
-my $tt101 = ttlink(101, 'NOS Teletekst', 'tekst');
+my $tt101 = ttlink(101, 'NOS Teletekst');
 my $out = << "EOF";
 <table>
 <tr> <td valign=top> <center> <b> Het laatste nieuws </b> </center>
@@ -290,7 +290,7 @@ sub get_bkmrks_milieu()
 {# (c) Edwin Spee
  # versie 1.0 19-aug-2003 initiele versie
 
-my $tt711 = ttlink(711, 'Actuele smog voorspelling', 'gif');
+my $tt711 = ttlink(711, 'Actuele smog voorspelling');
 my $out = << "EOF";
 <table>
 <tr> <th> Algemeen </th> <th> Onderzoek </th> </tr>
@@ -366,7 +366,7 @@ return maintxt2htmlpage(bespaar_bandbreedte($out), 'Bookmarks: Meteorologie en M
 sub get_bkmrks_science()
 {# (c) Edwin Spee
 
- my $tt777 = ttlink(777, 'Wereldklok', 'tekst');
+ my $tt777 = ttlink(777, 'Wereldklok');
  my $out = << "EOF";
 <ul>
  <li><a href="http://www.xs4all.nl/~carlkop/astronet.html">Astronet</a>
@@ -399,7 +399,7 @@ EOF
 sub get_bkmrks_treinen
 {# (c) Edwin Spee
 
- my $tt751 = ttlink(751, 'actueel', 'tekst');
+ my $tt751 = ttlink(751, 'actueel');
 
  my $reisplanner = [
 'reisplanners',

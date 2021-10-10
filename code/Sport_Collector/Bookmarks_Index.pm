@@ -188,7 +188,7 @@ sub get_sport_links
 {# (c) Edwin Spee
 
 #erg seizoensafhankelijk:
- my $tt434 = ttlink(434,'Toertochten op NOS Teletekst', 'tekst');
+ my $tt434 = ttlink(434,'Toertochten op NOS Teletekst');
  $tt434 = '<li>' . $tt434;
 
  my $schaatsen = [
@@ -301,7 +301,7 @@ EOF
 EOF
 ];
 
- my $tt601 = ttlink(601, 'Laatste sportnieuws', 'tekst');
+ my $tt601 = ttlink(601, 'Laatste sportnieuws');
 
  my $sport_links_rest = [
 "enkele andere sport pagina's",
