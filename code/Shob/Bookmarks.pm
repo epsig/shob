@@ -326,36 +326,10 @@ return maintxt2htmlpage(bespaar_bandbreedte($out), 'Bookmarks: Meteorologie en M
 }
 
 sub get_bkmrks_science()
-{# (c) Edwin Spee
-
- my $tt777 = ttlink(777, 'Wereldklok');
- my $out = << "EOF";
-<ul>
- <li><a href="http://www.xs4all.nl/~carlkop/astronet.html">Astronet</a>
- <li><a href="http://www.eswo.org/astro/">ESWO - Astro site (incl. kalender)</a>
- <li><a href="http://umbra.nascom.nasa.gov/eclipse/">Zonsverduisteringen</a>
- <li><a href="http://riemann.usno.navy.mil/AA/data/docs/UpcomingEclipses.html">Zon- en Maansverduisteringen</a>
- <li><a href="http://spaceflight.nasa.gov/">NASA spaceflight</a>
- <li><a href="http://seds.lpl.arizona.edu/nineplanets/nineplanets/">The nine planets</a>
- <li><a href="http://www.ee.ryerson.ca:8080/~elf/abacus/">Abacus (telraam)</a>
- <li><a href="http://www.nnv.nl/">Natuurkunde nieuws (NNV)</a>
- <li><a href="http://natuurkunde.pagina.nl/">natuurkunde.pagina.nl</a>
- <li><a href="http://www.amara.com/science/science.html">Amara's Science Links</a>
- <li><a href="http://physics.nist.gov/cuu/">SI eenheden</a>
- <li><a href="http://evlweb.eecs.uic.edu/EVL/supercomp/WAVE/EINSTEIN.html">Realitiviteis theorie</a>
- <li><a href="http://www.cs.cmu.edu/afs/cs.cmu.edu/user/mleone/web/how-to.html">Advice on Research and Writing</a>
- <ul>
-  <li><a href="ftp://parcftp.xerox.com/pub/popl96/vanLeunenLipton">How to have your abstract rejected</a>
- </ul>
- <li><a href="http://www.cs.indiana.edu/mit.research.how.to/section3.13.html">Emotional factors</a>
- <li> $tt777 lokale tijden.
- <li><a href="http://www.timeanddate.com/">Tijd en datum</a>
- <li><a href="http://mapweb.parc.xerox.com/map/">Zoom-world-map</a>,
-     <a href="http://www.indo.com/distance/">How far is it?</a>
- <li><a href="http://www.s9.com/biography/">Biographical Dictionary</a>
-</ul>
-EOF
- return maintxt2htmlpage($out, 'Bookmarks: wetenschap', 'title2h1', 20070802, {type1 => 'std_menu'});
+{
+  my $pout = fill_pout([['wetenschap', 'science']]);
+  my $title = 'Bookmarks: wetenschap';
+  return maintxt2htmlpage($pout, $title, 'std', 20211016, {type1 => 'std_menu'});
 }
 
 sub get_bkmrks_treinen
