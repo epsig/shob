@@ -110,22 +110,19 @@ sub get_actueel($)
   $deze_maand_fixed += $day / 31;
   $deze_maand += $deze_mday / 31;
 
-  if (($yr % 2) == 0 || $yr == 2021)
+  if (($yr % 2) == 0)
   {
-    $yr = min(2020, $yr);
     my $EK_WK = $yr % 4;
     my $EK_WK_str = ($EK_WK ? 'WK' : 'EK');
     my $ekwk_url = "sport_voetbal_${EK_WK_str}_${yr}.html";
     my $webdir = get_webdir();
+
     my $voorronde = '_voorronde';
-    if (-f File::Spec->catfile($webdir, $ekwk_url))
-    {$voorronde = '';}
+    $voorronde = '' if (-f File::Spec->catfile($webdir, $ekwk_url));
+
     $ekwk_url = "sport_voetbal_${EK_WK_str}_${yr}$voorronde.html";
-    if (not -f File::Spec->catfile($webdir, $ekwk_url))
-    # {shob_error('notfound', [$ekwk_url]);}
-    {return '';}
-    if ($edition eq 'media')
-    {$ekwk_url = "$www_epsig_nl/$ekwk_url";}
+    shob_error('notfound', [$ekwk_url]) if (not -f File::Spec->catfile($webdir, $ekwk_url));
+
     push @$links, {url => $ekwk_url, description => "$EK_WK_str-voetbal", date1 => 5.5, date2 => 7.5};
     if ($yr % 4 == 2)
     {
