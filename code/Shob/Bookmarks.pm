@@ -33,86 +33,49 @@ $VERSION = '21.0';
  '&get_bkmrks_treinen',
  #========================================================================
 );
+our $links_csv = [];
+
+sub get_bookmarks_cell($)
+{
+  my $part = shift;
+
+  if (scalar @$links_csv == 0)
+  {
+    my $fileWithPath = File::Spec->catfile(File::Spec->updir(), 'data', 'bookmarks', 'archive.csv');
+    $links_csv = read_csv_with_header($fileWithPath);
+  }
+
+  my $cell = "\n<ul>\n";
+  foreach my $link (@$links_csv)
+  {
+    if ($link->{chapter} eq $part)
+    {
+      $cell .= qq(<li><a href="$link->{url}">$link->{description}</a></li>\n);
+    }
+  }
+  $cell .= "</ul>\n";
+
+  return $cell;
+}
 
 sub get_bkmrks_html
-{# (c) Edwin Spee
+{
+  my @parts = (
+    ['HTML (en CSS en JavaScript)', 'html'],
+    ['Invoer/uitvoer standards', 'io_std'],
+    ['Versiebeheer', 'versiebeheer'],
+    ['Perl', 'perl'],
+    ['Fortran-90', 'fortran'],
+    ['Overig', 'overig'],
+  );
+  my @pout = ();
+  foreach my $part (@parts)
+  {
+    push @pout, [$part->[0], get_bookmarks_cell($part->[1])];
+  }
 
- my $html_js = [
-'HTML (en CSS en JavaScript)',
-<< "EOF"
-<ul><li><a href="http://www.handleidinghtml.nl/">www.handleidinghtml.nl</a>
-<li><a href="http://www.selfhtml.org">selfhtml.org</a>
-<li><a href="http://www.w3.org/TR/">Technische documentatie bij W3C</a>
-<li><a href="http://wsabstract.com">wsabstract.com</a>
-<li><a href="http://www.webreference.com">webreference.com</a>
-<li><a href="http://www.htmlcenter.com">htmlcenter.com</a>
-<li><a href="http://www.jsworkshop.com">www.jsworkshop.com</a>
-<li><a href="anybrowser.html">Special characters in HTML</a>
-</ul>
-EOF
-];
-
- my $io_stds = [
-'Invoer/uitvoer standards',
-<< 'EOF'
-<ul>
- <li><a href="http://www.w3.org/TR/xmlschema-0/">XML-Schema</a>
- <li><a href="https://cfconventions.org/">NetCDF Climate and Forecast (CF) Metadata Convention</a>
-</ul>
-EOF
-];
-
- my $f90 = [
-'Fortran-90',
-<< 'EOF'
-<ul><li><a href="http://www.nsc.liu.se/~boein/f77to90/f77to90.html">Fortran 90 for the Fortran 77 Programmer</a>
-<li><a href="http://www.star.le.ac.uk/~cgp/f90course/f90.html">Fortran 90 for the Fortran 77 Programmer II</a>
-<li><a href="https://polyhedron.com/?page_id=175">Compiler Comparisons</a>
-</ul>
-</ul>
-EOF
-];
-
- my $perllinks = [
-'Perl',
-<< 'EOF'
-<ul><li><a href="http://www.perl.com/">perl.com</a>:
- <a href="http://perldoc.perl.org/">documentation</a> en
- <a href="http://perldoc.perl.org/index-faq.html">FAQ</a>
-<li><a href="http://perldoc.perl.org/index-functions.html">overzicht perl functies</a>
-</ul>
-EOF
-];
-
- my $versiebeheerlinks = [
-'Versiebeheer',
-<< 'EOF'
-<ul>
- <li><a href="http://wiht.link/CVS-resources">CVS</a>
- <li><a href="https://git-scm.com/">Git</a>
- <li><a href="http://subversion.apache.org/">Subversion</a>:
-     <a href="http://svnbook.red-bean.com/">svnbook</a>
- <li><a href="http://en.wikipedia.org/wiki/Comparison_of_issue_tracking_systems">Vergelijking bij wikipedia</a>
-</ul>
-EOF
-];
-
- my $overig = [
-'Overig',
-<< 'EOF'
-<ul>
-<li><a href="http://www.allenware.com/">demo-cursus Batch-files en HTML</a>
-<li><a href="https://www.archive.org/">Way back machine</a>
-<li><a href="https://mindprod.com/jgloss/unmain.html">How to write unmaintainable code</a>
-<li><a href="http://www.squarebox.co.uk/javatips.html">Tips for maintainable Java code</a>
-<li><a href="http://www.pha.jhu.edu/sysadmin/security/ssh-users.html">Getting started with SSH</a>
-</ul>
-EOF
-];
-
- my $pout = [$html_js, $io_stds, $versiebeheerlinks, $perllinks, $f90, $overig];
- my $title = 'Bookmarks: Computers en internet';
- return maintxt2htmlpage($pout, $title, 'std', 20211010, {type1 => 'std_menu'});
+  my $title = 'Bookmarks: Computers en internet';
+  return maintxt2htmlpage(\@pout, $title, 'std', 20211016, {type1 => 'std_menu'});
 }
 
 sub get_actueel($)
