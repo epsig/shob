@@ -255,74 +255,17 @@ return maintxt2htmlpage(bespaar_bandbreedte($out), 'Bookmarks: media', 'title2h1
 
 sub get_bkmrks_milieu()
 {
+  my @parts = (
+  ['Algemeen', 'algemeen'],
+  ['Onderzoek', 'onderzoek'],
+  ['Tijdschriften', 'journals'],
+  ['Organizaties', 'organizations'],
+  ['Milieuvriendelijk transport: de fiets', 'fietsen'],
+  );
 
-my $tt711 = ttlink(711, 'Actuele smog voorspelling');
-my $out = << "EOF";
-<table>
-<tr> <th> Algemeen </th> <th> Onderzoek </th> </tr>
-<tr> <td valign=top>
-<ul>
- <li><a href="https://www.knmi.nl/">KNMI</a>
- <li><a href="http://weerkamer.nl/radar/">Radarbeelden (regenbuien)</a>
- <li> $tt711
- <li><a href="http://www.meteocon.nl/">Meteo Consult</a>
- <li><a href="http://www.rivm.nl/">RIVM</a>
- <li><a href="http://www.milieuloket.nl/">www.milieuloket.nl</a>
- <li><a href="http://www.milieuonline.nl/">www.milieuonline.nl</a>
- <li><a href="http://www.fema.gov/fema/trop.htm">FEMA - Tropical Storm and Hurricane Watch Information</a>
- <li><a href="http://www.nhc.noaa.gov/products.html">National Hurricane Center</a>
- <li><a href="http://earthsystems.org/Environment.shtml">The World-Wide Web Virtual Library: Environment</a>
- <li><a href="http://www.geo.ucalgary.ca/VL-EarthSciences.html">The World-Wide Web Virtual Library: Earth Sciences</a>
- <li><a href="http://www.ugems.psu.edu/~owens/WWW_Virtual_Library/">The World-Wide Web Virtual Library: Meteorology</a>
- <li><a href="http://www.envirolink.org/">Environmental Web Resources</a>
-</ul>
-</td>
-<td valign=top>
-<ul>
- <li><a href="http://www.phys.uu.nl/~wwwimau/">The Institute for Marine and Atmospheric research Utrecht (IMAU)</a>
- <li><a href="http://www.nop.nl/">NOP: Nationaal Onderzoek Programma Mondiale Luchtverontreiniging en Klimaatverandering</a>
- <li><a href="http://www.sron.nl/divisions/eos/">Earth Oriented Science Division</a> (EOS at SRON, RU Utrecht)
- <li><a href="http://www.cwi.nl/~gollum/MaE.html">CWI Research Program Mathematics & the Environment</a>
- <li><a href="http://www.ucar.edu/">NCAR</a> (National Centre for Atmospheric Research, Boulder, Co, USA)
- <li><a href="http://www.dkrz.de/">Deutsches Klimarechenzentrum</a>
- <li><a href="http://www.mep.tno.nl/">TNO Institute of Environmental Sciences, Energy Research and Process Innovation </a>
-</ul>
-</td> </tr>
-
-<tr> <th> Tijdschriften </th> <th> Organisaties </th> </tr>
-<tr> <td valign=top>
-<ul>
- <li><a href="http://www.nature.com/">Nature</a>
- <li><a href="http://www.elsevier.nl/locate/atmosenv">Atmospheric Environment</a>
- <li><a href="http://www.agu.org/pubs/jgrcntrb.html">Journal of Geophysical Research</a>
-</ul>
-</td>
-<td valign=top>
-<ul>
- <li><a href="http://www.greenpeace.org/">Greenpeace</a>
- <li><a href="http://www.panda.org/">WWF (World Wildlife Fund)</a>,
-     <a href="http://www.wnf.nl/">Wereld Natuurfonds (WNF)</a>
- <li><a href="http://www.milieudefensie.nl/">www.milieudefensie.nl</a>
- <li><a href="http://www.milieunet.nl/">www.milieunet.nl</a>
- <li><a href="http://www.xs4all.nl/~foeint/">Friends of the earth International</a>
- <li><a href="http://www.sociamedia.nl/agenda.html">Aktie agenda (omslag)</a>
- <li><a href="http://www.pz.nl/dekleineaarde/">Stichting de kleine aarde</a>
-</ul>
-</td> </tr>
-<tr> <th colspan=2 align=center>
-Milieuvriendelijk transport: de fiets </th> </tr>
-<tr> <td colspan=2 align=center>
-<ul>
- <li><a href="http://www.fietsnet.nl/">www.fietsnet.nl</a>
- <li><a href="http://www.fietsrai.nl/">www.fietsrai.nl</a>
- <li><a href="http://www.batavus.com/">www.batavus.com</a>
- <li><a href="http://www.gazelle.nl/">www.gazelle.nl</a>
-</ul>
-</td> </tr>
-</table>
-EOF
-return maintxt2htmlpage(bespaar_bandbreedte($out), 'Bookmarks: Meteorologie en Milieu',
- 'title2h1', 20030819, {type1 => 'std_menu'});
+  my $pout = fill_pout(\@parts);
+  my $title = 'Bookmarks: Meteorologie en Milieu';
+  return maintxt2htmlpage($pout, $title, 'std', 20211016, {type1 => 'std_menu'});
 }
 
 sub get_bkmrks_science()
