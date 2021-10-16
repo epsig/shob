@@ -50,12 +50,32 @@ sub get_bookmarks_cell($)
   {
     if ($link->{chapter} eq $part)
     {
-      $cell .= qq(<li><a href="$link->{url}">$link->{description}</a></li>\n);
+      my $url = $link->{url};
+      if ($url =~ m/ttpage.(\d\d\d)/)
+      {
+        $cell .= '<li>' . ttlink($1, $link->{description}) . "</li>\n";
+      }
+      else
+      {
+        $cell .= qq(<li><a href="$link->{url}">$link->{description}</a></li>\n);
+      }
     }
   }
   $cell .= "</ul>\n";
 
   return $cell;
+}
+
+sub fill_pout($)
+{
+  my $parts = shift;
+
+  my @pout = ();
+  foreach my $part (@$parts)
+  {
+    push @pout, [$part->[0], get_bookmarks_cell($part->[1])];
+  }
+  return \@pout;
 }
 
 sub get_bkmrks_html
@@ -68,14 +88,10 @@ sub get_bkmrks_html
     ['Fortran-90', 'fortran'],
     ['Overig', 'overig'],
   );
-  my @pout = ();
-  foreach my $part (@parts)
-  {
-    push @pout, [$part->[0], get_bookmarks_cell($part->[1])];
-  }
 
+  my $pout = fill_pout(\@parts);
   my $title = 'Bookmarks: Computers en internet';
-  return maintxt2htmlpage(\@pout, $title, 'std', 20211016, {type1 => 'std_menu'});
+  return maintxt2htmlpage($pout, $title, 'std', 20211016, {type1 => 'std_menu'});
 }
 
 sub get_actueel($)
@@ -346,97 +362,19 @@ EOF
 }
 
 sub get_bkmrks_treinen
-{# (c) Edwin Spee
+{
+  my @parts = (
+  ['reisplanners', 'trip_planners'],
+  ['nieuwe infrastructuur', 'new_infra'],
+  ['light rail', 'lightrail'],
+  ['spoorwegbedrijven (reizigers)', 'railwaycompanies'],
+  ['overige trein-sites-I', 'rail_rest1'],
+  ['overige trein-sites-II', 'rail_rest2']
+  );
 
- my $tt751 = ttlink(751, 'actueel');
-
- my $reisplanner = [
-'reisplanners',
-<< "EOF"
-<ul>
- <li> <a href="http://www.ns.nl/">NS reisplanner</a>
- <li> <a href="https://9292.nl/">9292.nl: OV reis info</a>
- <li> <a href="http://bahn.hafas.de/">Duitse internationale reisplanner</a>
- <li> Actuele NS info via NOS-TT: $tt751.
-</ul>
-EOF
-];
-
- my $spoorbedrijven = [
-'spoorwegbedrijven (reizigers)',
-<< 'EOF'
-<ul>
- <li> NL: <a href="https://www.ns.nl/">NS</a>,
-          <a href="https://www.keolis.nl/">Keolis (vh. Syntus)</a>
- <li>  B: <a href="http://www.belgianrail.be/">NMBS-SNCB</a>
- <li>  D: <a href="http://www.bahn.de/">Deutsche Bahn</a>
- <li> FR: <a href="https://www.sncf.fr/">SNCF</a>
- <li> CH: <a href="https://www.sbb.ch/">SBB</a>
- <li> UK: <a href="http://www.rail.co.uk/">Rail</a>,
-          <a href="http://www.britrail.com/">BritRail</a>,
-          <a href="https://www.scotrail.co.uk/">ScotRail</a>
- <li> EU: <a href="http://www.thalys.com/">thalys</a>,
-          <a href="http://www.eurotunnel.com/">eurotunnel</a>
-</ul>
-EOF
-];
-
- my $lightrail = [
-'light rail',
-<< 'EOF'
-<ul>
- <li><a href="https://www.ret.nl/">RET (Rotterdam)</a>
- <li><a href="https://www.amsterdam.nl/noordzuidlijn/">Noord-Zuidlijn Amsterdam</a>
- <li><a href="http://www.lightrail.nl/">www.lightrail.nl</a>
- <li><a href="http://www.lightrail.nl/lightrailatlas/index-english.htm">Light Rail Atlas</a>
- <li><a href="http://subway.umka.org/">Subway maps</a>
- <li><a href="https://www.ratp.fr/">Metro Parijs</a>
-</ul>
-EOF
-];
-
- my $nw_infra = [
-'nieuwe infrastructuur',
-<< 'EOF'
-<ul>
- <li><a href="http://www.infrasite.nl/">infrasite.nl</a>
- <li><a href="http://www.prorail.nl/">Prorail (-> publiek)</a>
-</ul>
-EOF
-];
-
- my $rest1 = [
-'overige trein-sites-I',
-<< 'EOF'
-<ul>
- <li><a href="https://www.ns.nl/deur-tot-deur/ov-fiets/">OV-Fiets</a>
- <li><a href="http://www.connexxion.nl/">ConneXXion</a>
- <li><a href="http://www.haaglanden.nl/">Haaglanden</a>
- <li><a href="http://ov-wereld.pagina.nl/">ov-wereld.pagina.nl</a>
- <li><a href="https://trein.startpagina.nl/">trein.startpagina.nl</a>
- <li><a href="https://www.rover.nl/">Rover</a>
- <li><a href="http://www.railfaneurope.net/">European Railway Server / Rail fan Europe</a>
- <li><a href="https://railmagazine.nl/">Rail Magazine</a>
-</ul>
-EOF
-];
-
- my $rest2 = [
-'overige trein-sites-II',
-<< 'EOF'
-<ul>
- <li><a href="http://www.railforum.nl/">Railforum</a>
- <li><a href="http://www.verkeerskunde.com/">vakblad Verkeerskunde</a>
- <li><a href="http://www.railway-technology.com">www.railway-technology.com</a>
- <li><a href="http://www.eurail.com/">Europe by rail</a>
- <li><a href="http://bemorail.nl">Bemo Rail BV</a>
-</ul>
-EOF
-];
-
- my $pout = [$reisplanner, $nw_infra, $lightrail, $spoorbedrijven, $rest1, $rest2];
- my $title = 'Bookmarks: treinen';
- return maintxt2htmlpage($pout, $title, 'std', 20180527, {type1 => 'std_menu'});
+  my $pout = fill_pout(\@parts);
+  my $title = 'Bookmarks: treinen';
+  return maintxt2htmlpage($pout, $title, 'std', 20211016, {type1 => 'std_menu'});
 }
 
 return 1;
