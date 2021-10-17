@@ -146,11 +146,11 @@ sub get_actueel($)
       $totaal++;
       if (defined $rij->{url})
       {
-        $actueel .= qq(<li><a href="$rij->{url}">$rij->{description}</a>\n);
+        $actueel .= qq(<li><a href="$rij->{url}">$rij->{description}</a></li>\n);
       }
       else
       {
-        $actueel .= qq(<li>$rij->{description}\n);
+        $actueel .= qq(<li>$rij->{description}</li>\n);
       }
       if ($rij->{description} =~ m/brexit/iso)
       {
@@ -172,85 +172,30 @@ sub get_actueel($)
 
   if ($totaal == 0)
   {
-    $actueel = "<li>geen grote evenementen deze maand.\n";
+    $actueel = "<li>geen grote evenementen deze maand.</li>\n";
   }
 
   return $actueel;
 }
 
 sub get_bkmrks_media()
-{# (c) Edwin Spee
+{
+  my $actueel = "<ul>" . get_actueel('media') . "</ul>\n";
 
-my $actueel = get_actueel('media');
+  my @parts = (
+  ['Het laatste nieuws', 'latest_news'],
+  ['Kranten op Internet', 'newspapers'],
+  ['', ''],
+  ['Divers', 'divers_news'],
+  ['TV', 'tv'],
+  ['Radio', 'radio']
+  );
 
-my $tt101 = ttlink(101, 'NOS Teletekst');
-my $out = << "EOF";
-<table>
-<tr> <td valign=top> <center> <b> Het laatste nieuws </b> </center>
-<ul>
- <li> $tt101
- <li><a href="http://www.rtlnieuws.nl/">RTL Nieuws</a>
- <li><a href="http://www.omroep.nl/nos/nieuws/">NOS Nieuws: hoofdpunten</a>
- <li><a href="http://www.text.nl/">Teletekst RTL4, 5 en Yorin</a>
- <li><a href="http://www.vrt.be/">Vlaamse Radio- en TV</a>
- <li><a href="http://news.bbc.co.uk/">BBC News</a>
- <li><a href="http://www.cnn.com/">CNN</a>
- <li><a href="http://dailynews.yahoo.com/">Yahoo</a>
- <li><a href="http://news.lycos.com/headlines/TopNews/">Lycos</a>
- <li><a href="http://www.anp.nl/">ANP</a>
-</ul>
-<td valign=top> <center> <b>Kalender / Actueel</b> </center>
-<ul>
-$actueel</ul>
-<td valign=top> <center> <b>Divers</b> </center>
-<ul>
- <li><a href="http://www.planet.nl/multimedia/">Planet Multimedia</a>
- <li><a href="http://www.webwereld.nl/">WebWereld</a>
- <li><a href="http://www.jorislange.nl/media/">Adressen Nederlandse media</a>
- <li><a href="http://www.eurotv.com/">The most complete European TV Guide Web</a>
- <li><a href="http://www.radiowereld.nl/">www.radiowereld.nl</a>
- <li><a href="http://www.amibo.demon.nl/juinen/">Juiner Courant</a>
-</ul>
-<tr> <td valign=top> <center> <b>Kranten op Internet</b> </center>
-<ul>
- <li><a href="http://www.volkskrant.nl/">De Volkskrant</a>
- <li><a href="http://www.nrc.nl/">NRC</a>
- <li><a href="http://www.trouw.nl/">Trouw</a>
- <li><a href="http://www.ad.nl/">Algemeen Dagblad</a>
- <li><a href="http://www.sdu.nl/staatscourant/vandaag/">Staatscourant</a>
- <li><a href="http://www.telegraaf.nl/">De Telegraaf</a>
- <li><a href="http://www.gelderlander.nl/">De Gelderlander</a>
- <li><a href="http://www.leidschdagblad.nl/">Leidsch Dagblad</a>
- <li><a href="http://www.eindhovensdagblad.nl/">Eindhovens Dagblad</a>
- <li><a href="http://www.rotterdamsdagblad.nl/">Rotterdams Dagblad</a>
- <li><a href="http://www.stem.nl/">Dagblad De Stem</a>
-</ul>
-<td valign=top> <center> <b>TV</b> </center>
-<ul>
- <li>De Nederlandse <a href="http://www.omroep.nl/">Publieke Omroep</a>
- <li><a href="http://www.rtl4.nl/">RTL 4</a>
- <li><a href="http://www.rtl5.nl/">RTL 5</a>
- <li><a href="http://www.yorin.nl/">Yorin</a>
- <li><a href="http://www.sbs6.nl/">SBS 6</a>
- <li><a href="http://www.tmf.nl/">TMF</a>
- <li><a href="http://www.foxtv.nl/">Fox TV</a>
- <li><a href="http://www.sire.nl/">SIRE</a>
-</ul>
-</td>
-<td valign=top> <center> <b>Radio</b> </center>
-<ul>
- <li><a href="http://www.concertzender.nl/">Concertzender</a>
- <li><a href="http://www.skyradio.nl/">Sky Radio</a>
- <!-- <li><a href="http://www.veronica.nl/veronicafm/">Radio Veronica</a> -->
- <li><a href="http://www.radio538.nl/">Radio 538</a>
- <li><a href="http://www.radio10.nl/">Radio 10 FM</a>
- <li><a href="http://www.radio-noordzee.nl/">Radio Noordzee Nationaal</a>
-</ul>
-</tr>
-</table>
-EOF
-return maintxt2htmlpage(bespaar_bandbreedte($out), 'Bookmarks: media', 'title2h1',
- get_datum_fixed(), {type1 => 'std_menu'});
+  my $pout = fill_pout(\@parts);
+  $pout->[2] = ['Actueel', $actueel];
+
+  my $title = 'Bookmarks: media';
+  return maintxt2htmlpage($pout, $title, 'std', get_datum_fixed(), {type1 => 'std_menu'});
 }
 
 sub get_bkmrks_milieu()

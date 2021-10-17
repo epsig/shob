@@ -103,3 +103,29 @@ fietsen,http://www.fietsnet.nl/,www.fietsnet.nl
 fietsen,http://www.fietsrai.nl/,www.fietsrai.nl
 fietsen,http://www.batavus.com/,www.batavus.com
 fietsen,http://www.gazelle.nl/,www.gazelle.nl
+latest_news,ttpage(101),NOS Teletekst
+latest_news,https://www.rtlnieuws.nl/,RTL Nieuws
+latest_news,https://www.vrt.be/nl/,Vlaamse Radio- en TV
+latest_news,https://www.bbc.com/news,BBC News
+latest_news,https://edition.cnn.com/,CNN
+latest_news,https://news.yahoo.com/,Yahoo
+latest_news,https://www.anp.nl/,ANP
+divers_news,https://webwereld.nl/,WebWereld
+newspapers,https://www.volkskrant.nl/,De Volkskrant
+newspapers,https://www.nrc.nl/,NRC
+newspapers,https://www.trouw.nl/,Trouw
+newspapers,https://www.ad.nl/,Algemeen Dagblad
+newspapers,https://www.telegraaf.nl/,De Telegraaf
+tv,https://www.npostart.nl/,De Nederlandse publieke omroep
+tv,https://www.rtl.nl/,RTL
+tv,https://www.kijk.nl/,kijk.nl
+tv,https://www.foxtv.nl/,Fox TV
+tv,https://sire.nl/,SIRE
+radio,https://juke.nl/,Juke
+radio,https://www.nporadio1.nl/,NPO Radio 1
+radio,https://www.nporadio2.nl/,NPO Radio 2
+radio,https://www.skyradio.nl/,Sky Radio
+radio,https://www.radioveronica.nl/,Radio Veronica
+radio,https://www.radio538.nl/,Radio 538
+radio,https://www.radio10.nl/,Radio 10 FM
+radio,https://www.concertzender.nl/,Concertzender
