@@ -1,0 +1,34 @@
+page,key,value
+treinen,reisplanners,trip_planners
+treinen,nieuwe infrastructuur,new_infra
+treinen,light rail,lightrail
+treinen,spoorwegbedrijven (reizigers),railwaycompanies
+treinen,overige trein-sites-I,rail_rest1
+treinen,overige trein-sites-II,rail_rest2
+treinen,title,Bookmarks: treinen
+treinen,dd,20211016
+science,wetenschap,science
+science,title,Bookmarks: wetenschap
+science,dd,20211016
+milieu,Algemeen,algemeen
+milieu,Onderzoek,onderzoek
+milieu,Tijdschriften,journals
+milieu,Organizaties,organizations
+milieu,Milieuvriendelijk transport: de fiets,fietsen
+milieu,title,Bookmarks: Meteorologie en Milieu
+milieu,dd,20211016
+html,HTML (en CSS en JavaScript),html
+html,Invoer/uitvoer standards,io_std
+html,Versiebeheer,versiebeheer
+html,Perl,perl
+html,Fortran-90,fortran
+html,Overig,overig
+html,title,Bookmarks: Computers en internet
+html,dd,20211016
+media,Het laatste nieuws,latest_news
+media,Kranten op Internet,newspapers
+media,reserved,empty
+media,Divers,divers_news
+media,TV,tv
+media,Radio,radio
+media,title,Bookmarks: media

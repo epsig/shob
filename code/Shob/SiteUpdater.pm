@@ -84,12 +84,12 @@ sub handle_gen_files($$$)
   [2, 'all', sub {&get_overzicht;}, 'overzicht.html'],
   [2, 'all', sub {&get_letters();}, 'anybrowser.html'],
   [2, 'all', sub {&get_ascii_codes;}, 'tmp_ascii_codes.html'],
-  [2, 'all', sub {&get_bkmrks_treinen;}, 'bookmarks_treinen.html'],
-  [2, 'all', sub {&get_bkmrks_html;}, 'bookmarks_computers.html'],
+  [2, 'all', sub {&get_bkmrks_gen('treinen');}, 'bookmarks_treinen.html'],
+  [2, 'all', sub {&get_bkmrks_gen('html');}, 'bookmarks_computers.html'],
   [2, 'all', sub {&get_sport_links;}, 'bookmarks_sport.html'],
-  [$fast, 'all', sub {&get_bkmrks_media;}, 'bookmarks_media.html'],
-  [2, 'all', sub {&get_bkmrks_science;}, 'tmp_bookmarks_science.html'],
-  [2, 'all', sub {&get_bkmrks_milieu;}, 'tmp_bookmarks_milieu.html'],
+  [$fast, 'all', sub {&get_bkmrks_gen('media');}, 'bookmarks_media.html'],
+  [2, 'all', sub {&get_bkmrks_gen('science');}, 'tmp_bookmarks_science.html'],
+  [2, 'all', sub {&get_bkmrks_gen('milieu');}, 'tmp_bookmarks_milieu.html'],
   [2, 'all', sub {&get_klaverjas_faq;}, 'klaverjas_faq.html']]);
 # [1, ' rl', sub {&get_klaverjas_beta_versies;}, 'kj_beta_versies.html'],
 

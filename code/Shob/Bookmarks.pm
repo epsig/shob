@@ -20,20 +20,17 @@ use vars qw($VERSION @ISA @EXPORT);
 #=========================================================================
 # CONTENTS OF THE PACKAGE:
 #=========================================================================
-$VERSION = '21.0';
+$VERSION = '21.1';
 # by Edwin Spee.
 
 @EXPORT =
 (#========================================================================
- '&get_bkmrks_html',
+ '&get_bkmrks_gen',
  '&get_actueel',
- '&get_bkmrks_media',
- '&get_bkmrks_milieu',
- '&get_bkmrks_science',
- '&get_bkmrks_treinen',
  #========================================================================
 );
 our $links_csv = [];
+our $config_csv = [];
 
 sub get_bookmarks_cell($)
 {
@@ -76,22 +73,6 @@ sub fill_pout($)
     push @pout, [$part->[0], get_bookmarks_cell($part->[1])];
   }
   return \@pout;
-}
-
-sub get_bkmrks_html
-{
-  my @parts = (
-    ['HTML (en CSS en JavaScript)', 'html'],
-    ['Invoer/uitvoer standards', 'io_std'],
-    ['Versiebeheer', 'versiebeheer'],
-    ['Perl', 'perl'],
-    ['Fortran-90', 'fortran'],
-    ['Overig', 'overig'],
-  );
-
-  my $pout = fill_pout(\@parts);
-  my $title = 'Bookmarks: Computers en internet';
-  return maintxt2htmlpage($pout, $title, 'std', 20211016, {type1 => 'std_menu'});
 }
 
 sub get_actueel($)
@@ -178,62 +159,47 @@ sub get_actueel($)
   return $actueel;
 }
 
-sub get_bkmrks_media()
+sub get_bkmrks_gen($)
 {
-  my $actueel = "<ul>" . get_actueel('media') . "</ul>\n";
+  my $page = shift;
 
-  my @parts = (
-  ['Het laatste nieuws', 'latest_news'],
-  ['Kranten op Internet', 'newspapers'],
-  ['', ''],
-  ['Divers', 'divers_news'],
-  ['TV', 'tv'],
-  ['Radio', 'radio']
-  );
+  if (scalar @$config_csv == 0)
+  {
+    my $fileWithPath = File::Spec->catfile(File::Spec->updir(), 'data', 'bookmarks', 'config.csv');
+    $config_csv = read_csv_with_header($fileWithPath);
+  }
 
+  my @parts = ();
+  my $dd;
+  my $title;
+  foreach my $line (@$config_csv)
+  {
+    if ($line->{page} eq $page)
+    {
+      if ($line->{key} eq 'dd')
+      {
+        $dd = $line->{value};
+      }
+      elsif ($line->{key} eq 'title')
+      {
+        $title = $line->{value};
+      }
+      else
+      {
+        push @parts, [$line->{key}, $line->{value}];
+      }
+    }
+  }
   my $pout = fill_pout(\@parts);
-  $pout->[2] = ['Actueel', $actueel];
 
-  my $title = 'Bookmarks: media';
-  return maintxt2htmlpage($pout, $title, 'std', get_datum_fixed(), {type1 => 'std_menu'});
-}
+  if ($page eq 'media')
+  {
+    my $actueel = "<ul>" . get_actueel('media') . "</ul>\n";
+    $pout->[2] = ['Actueel', $actueel];
+    $dd = get_datum_fixed();
+  }
 
-sub get_bkmrks_milieu()
-{
-  my @parts = (
-  ['Algemeen', 'algemeen'],
-  ['Onderzoek', 'onderzoek'],
-  ['Tijdschriften', 'journals'],
-  ['Organizaties', 'organizations'],
-  ['Milieuvriendelijk transport: de fiets', 'fietsen'],
-  );
-
-  my $pout = fill_pout(\@parts);
-  my $title = 'Bookmarks: Meteorologie en Milieu';
-  return maintxt2htmlpage($pout, $title, 'std', 20211016, {type1 => 'std_menu'});
-}
-
-sub get_bkmrks_science()
-{
-  my $pout = fill_pout([['wetenschap', 'science']]);
-  my $title = 'Bookmarks: wetenschap';
-  return maintxt2htmlpage($pout, $title, 'std', 20211016, {type1 => 'std_menu'});
-}
-
-sub get_bkmrks_treinen
-{
-  my @parts = (
-  ['reisplanners', 'trip_planners'],
-  ['nieuwe infrastructuur', 'new_infra'],
-  ['light rail', 'lightrail'],
-  ['spoorwegbedrijven (reizigers)', 'railwaycompanies'],
-  ['overige trein-sites-I', 'rail_rest1'],
-  ['overige trein-sites-II', 'rail_rest2']
-  );
-
-  my $pout = fill_pout(\@parts);
-  my $title = 'Bookmarks: treinen';
-  return maintxt2htmlpage($pout, $title, 'std', 20211016, {type1 => 'std_menu'});
+  return maintxt2htmlpage($pout, $title, 'std', $dd, {type1 => 'std_menu'});
 }
 
 return 1;
