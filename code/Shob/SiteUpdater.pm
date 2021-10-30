@@ -280,6 +280,16 @@ sub handle_sport_files($$$)
   push @pages, [$fast, 'all', sub {&officieuze_standen('officieus', $curYrA);}, 'sport_voetbal_nl_jaarstanden.html'];
   push @pages, [$fast, 'all', sub {&officieuze_standen('uit_thuis', $curYrB);}, 'sport_voetbal_nl_uit_thuis.html'];
 
+  foreach my $yr ($ranges->{global_first_year} .. $curYrB)
+  {
+    my $szn1 = yr2szn($yr);
+    my $szn2 = $szn1;
+       $szn2 =~ s/-/_/;
+    my $dl = ($yr == $curYrB ? $fast : 2);
+    push @pages, [$dl, 'all', sub {&officieuze_standen('officieus', $yr);}, "sport_voetbal_nl_jaarstanden_$yr.html"];
+    push @pages, [$dl, 'all', sub {&officieuze_standen('uit_thuis', $yr);}, "sport_voetbal_nl_uit_thuis_$szn2.html"];
+  }
+
   push @pages, [$fast, 'all', sub {&get_stats_eredivisie($szn1, $szn2, 0);}, 'sport_voetbal_nl_stats.html'];
   push @pages, [$fast, 'all', sub {&get_stats_eredivisie($szn1, $szn2, 2);}, 'sport_voetbal_nl_stats_more.html'];
 

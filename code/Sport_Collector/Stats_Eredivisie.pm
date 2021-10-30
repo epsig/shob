@@ -596,25 +596,24 @@ sub officieuze_standen($$)
  {
   if ($i == $yr) {next;}
   my $selected = ($i == $yr -1 ? 'selected ' : '');
-  if ($type ne 'uit_thuis')
+  if ($type eq 'uit_thuis')
   {
-   $options .= qq(<option ${selected}value="$i">$i\n);
+   my $szn = yr2szn($i);
+   my $szn2 = $szn;
+      $szn2 =~ s/-/_/;
+   $options .= qq(<a href="sport_voetbal_nl_uit_thuis_$szn2.html">$szn</a> | \n);
   }
   else
   {
-   my $szn = yr2szn($i);
-   $options .= qq(<option ${selected}value="$i">$szn\n);
+   $options .= qq(<a href="sport_voetbal_nl_jaarstanden_$i.html">$i</a> | \n);
   }
  }
+ my $jaren = ($type eq 'uit_thuis' ? 'seizoenen' : 'jaren');
  $out = << "EOF";
-<form method=get action=/cgi-bin/shob/officieuze_standen.pl>
-Ga naar andere jaren:
-<input type=hidden name=type value="$type">
-<select name="year">
+<hr>
+Ga naar andere $jaren:
 $options
-</select>
-<input type="submit" value="verstuur">
-</form>
+<hr>
 $out
 EOF
 
