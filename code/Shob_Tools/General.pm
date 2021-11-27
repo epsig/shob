@@ -77,12 +77,14 @@ sub round($)
 }
 
 sub equal_digits($$)
-{# (c) Edwin Spee
- # versie 1.0 02-sep-2003 initiele versie
+{
+  my ($a,$b) = @_;
 
- my ($a,$b) = @_;
-
- return (length($a) == length($b));
+  if (defined $a and defined $b)
+  {
+    return (length($a) == length($b));
+  }
+  return 0;
 }
 
 sub img_velden($$$$$$)

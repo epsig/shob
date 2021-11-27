@@ -126,9 +126,16 @@ sub get_stand($$$$)
   }
   elsif ($wedstr > 0 and $output_optie != 4)
   {
-   $row .= "\n" . ftdx ($tdarr[5],
-    qq(<acronym title="$winst x w, $gelijk x g en $verloren x v => $punten pnt">$punten</acronym>));
-   $row .= "\n" . ftdr (qq(<acronym title="$voor - $tegen = $saldo">$saldo</acronym>));
+    if (defined $winst and defined $gelijk and defined $verloren)
+    {
+      $row .= "\n" . ftdx ($tdarr[5],
+        qq(<acronym title="$winst x w, $gelijk x g en $verloren x v => $punten pnt">$punten</acronym>));
+    }
+    else
+    {
+      $row .= "\n" . ftdx ($tdarr[5], $punten);
+    }
+    $row .= "\n" . ftdr (qq(<acronym title="$voor - $tegen = $saldo">$saldo</acronym>));
   }
   else
   {
@@ -170,8 +177,11 @@ sub fill_tdarray_stand($$)
 
   for (my $j=1; $j<8; $j++)
   {
-   $mins[$j] = min($mins[$j],$data[$j]);
-   $maxs[$j] = max($maxs[$j],$data[$j]);
+    if (defined $data[$j])
+    {
+      $mins[$j] = min($mins[$j],$data[$j]);
+      $maxs[$j] = max($maxs[$j],$data[$j]);
+    }
   }
  }
  my @tdarr = @tdarr_init;
