@@ -1,50 +1,50 @@
 group,land,matches,points,goals_scored,goals_against,remark
-sA,Servi&euml;        ,   8,20  ,18, 9,*
-sA,Portugal           ,   8,17  ,17, 6,+
-sA,Ierland            ,   8, 9  ,11, 8,
-sA,Luxemburg          ,   8, 9  , 8,18,
-sA,Azerbeidzjan       ,   8, 1  , 5,18,
-sB,Spanje             ,   8,19  ,15, 5,*
-sB,Zweden             ,   8,15  ,12, 6,+
-sB,Griekenland        ,   8,10  , 8, 8,
-sB,Georgi&euml;       ,   8, 7  , 6,12,
-sB,Kosovo             ,   8, 5  , 5,15,
-sC,Zwitserland        ,   8,18  ,15, 2,*
-sC,Itali&euml;        ,   8,16  ,13, 2,+
-sC,Noord-Ierland      ,   8, 9  , 6, 7,
-sC,Bulgarije          ,   8, 8  , 6,14,
-sC,Litouwen           ,   8, 3  , 4,19,
-sD,Frankrijk          ,   8,18  ,18, 3,*
-sD,UA                 ,   8,12  ,11, 8,+
-sD,Finland            ,   8,11  ,10,10,
-sD,Bosni&euml;-Herz.  ,   8, 7  , 9,12,
-sD,Kazachstan         ,   8, 3  , 5,20,
-sE,Belgi&euml;        ,   8,20  ,25, 6,*
-sE,G3                 ,   8,15  ,14, 9,+
-sE,Tsjechi&euml;      ,   8,14  ,14, 9,+
-sE,Estland            ,   8, 4  , 9,21,
-sE,Wit-Rusland        ,   8, 3  , 7,24,
-sF,Denemarken         ,  10,27  ,30, 3,*
-sF,Schotland          ,  10,23  ,17, 7,+
-sF,Isra&euml;l        ,  10,16  ,23,21,
-sF,Oostenrijk         ,  10,16  ,19,17,+
-sF,FO                 ,  10, 4  , 7,23,
-sF,Moldavi&euml;      ,  10, 1  , 5,30,
-sH,Kroati&euml;       ,  10,23  ,21, 4,*
-sH,Rusland            ,  10,22  ,19, 6,+
-sH,Slowakije          ,  10,14  ,17,10,
-sH,Sloveni&euml;      ,  10,14  ,13,12,
-sH,Cyprus             ,  10, 5  , 4,21,
-sH,MT                 ,  10, 5  , 9,30,
-sI,Engeland           ,  10,26  ,39, 3,*
-sI,PL                 ,  10,20  ,30,11,+
-sI,Albani&euml;       ,  10,18  ,12,12,
-sI,Hongarije          ,  10,17  ,19,13,
-sI,Andorra            ,  10, 6  , 8,24,
-sI,San Marino         ,  10, 0  , 1,46,
-sJ,Duitsland          ,  10,27  ,36, 4,*
-sJ,Noord-Macedoni&euml;, 10,18  ,23,11,+
-sJ,Roemeni&euml;      ,  10,17  ,13, 8,
-sJ,Armeni&euml;       ,  10,12  , 9,20,
-sJ,IJsland            ,  10, 9  ,12,18,
-sJ,Liechtenstein      ,  10, 1  , 2,34,
+sA,RS, 8,20,18, 9,*
+sA,PT, 8,17,17, 6,+
+sA,IE, 8, 9,11, 8,
+sA,LU, 8, 9, 8,18,
+sA,AZ, 8, 1, 5,18,
+sB,ES, 8,19,15, 5,*
+sB,SE, 8,15,12, 6,+
+sB,GR, 8,10, 8, 8,
+sB,GE, 8, 7, 6,12,
+sB,XK, 8, 5, 5,15,
+sC,CH, 8,18,15, 2,*
+sC,IT, 8,16,13, 2,+
+sC,G4, 8, 9, 6, 7,
+sC,BG, 8, 8, 6,14,
+sC,LT, 8, 3, 4,19,
+sD,FR, 8,18,18, 3,*
+sD,UA, 8,12,11, 8,+
+sD,FI, 8,11,10,10,
+sD,BA, 8, 7, 9,12,
+sD,KZ, 8, 3, 5,20,
+sE,BE, 8,20,25, 6,*
+sE,G3, 8,15,14, 9,+
+sE,CZ, 8,14,14, 9,+
+sE,EE, 8, 4, 9,21,
+sE,BY, 8, 3, 7,24,
+sF,DK,10,27,30, 3,*
+sF,G2,10,23,17, 7,+
+sF,IL,10,16,23,21,
+sF,AT,10,16,19,17,+
+sF,FO,10, 4, 7,23,
+sF,MD,10, 1, 5,30,
+sH,HR,10,23,21, 4,*
+sH,RU,10,22,19, 6,+
+sH,SK,10,14,17,10,
+sH,SI,10,14,13,12,
+sH,CY,10, 5, 4,21,
+sH,MT,10, 5, 9,30,
+sI,G1,10,26,39, 3,*
+sI,PL,10,20,30,11,+
+sI,AL,10,18,12,12,
+sI,HU,10,17,19,13,
+sI,AD,10, 6, 8,24,
+sI,SM,10, 0, 1,46,
+sJ,DE,10,27,36, 4,*
+sJ,MK,10,18,23,11,+
+sJ,RO,10,17,13, 8,
+sJ,AM,10,12, 9,20,
+sJ,IS,10, 9,12,18,
+sJ,LI,10, 1, 2,34,
