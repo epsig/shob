@@ -151,7 +151,7 @@ sub get_ekwk_voorr_data($)
         my $grp = $1;
         my $grpNr = $grp;
         if ($start eq 'A') {$grpNr = 1 + ord($grpNr) - ord('A');}
-        my $star_grp_euro = -1;
+        my $star_grp_euro = $u_nl->[0][1][3];
         $star_grp_euro = $all_remarks->{ekwk_qf}->get($id, 'star_grp_euro', $star_grp_euro);
         $ekwk_qf->{grp_euro}->[$grpNr] = u2s($u_nl, 1, 3, "Groep $grp", $star_grp_euro);
       }
