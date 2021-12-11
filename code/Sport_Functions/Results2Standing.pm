@@ -434,7 +434,10 @@ sub u2s
  {
   add_ster(\@s, ['+','+','+'], 1);
  }
-
+ elsif ($ster == 6)
+ {
+  add_ster(\@s, ['*','**','***'], 1);
+ }
  return \@s;
 }
 
