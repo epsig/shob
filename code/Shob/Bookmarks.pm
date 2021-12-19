@@ -140,7 +140,7 @@ sub get_actueel($)
     }
     elsif ($rij->{date1} <= $deze_maand && $deze_maand  <= $rij->{date2})
     {
-      print "Skipping: $rij->[1]\n";
+      print "Skipping: $rij->{description}\n";
       $found_diff = 1;
     }
   }
