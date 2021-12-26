@@ -133,10 +133,6 @@ sub get_actueel($)
       {
         $actueel .= qq(<li>$rij->{description}</li>\n);
       }
-      if ($rij->{description} =~ m/brexit/iso)
-      {
-        $actueel .= qq(over (onder voorbehoud): <div id="brexit"> </div>\n);
-      }
     }
     elsif ($rij->{date1} <= $deze_maand && $deze_maand  <= $rij->{date2})
     {

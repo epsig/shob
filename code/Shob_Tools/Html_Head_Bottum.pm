@@ -144,8 +144,6 @@ sub html_head
    {$hdtxt .= qq(<base href="$www_epsig_nl/">\n);}
    if (scalar @$phead > 4 and $phead->[4][0]==3)
    {$hdtxt .= qq(<base href="http://www.epsig.nl/">\n);}
-   if ($body =~ m/brexit/iso)
-   {$hdtxt .= qq(<script type="text/javascript" language="javascript" src="countdown.js"></script>);}
    $hdtxt .= "</head><body>\n";
    return $hdtxt;
  }
