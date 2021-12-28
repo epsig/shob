@@ -27,12 +27,11 @@ $VERSION = '18.1';
  '&no_prompt_mkdir', '&get_prompt_mkdir',
  '&get_CVS_tag',
  '$www_epsig_nl',
- '$www_xs4all_nl_spee',
  #========================================================================
 );
 
 our ($local_version, $all_data, $opt, $verbose) = -1;
-our ($www_epsig_nl, $www_xs4all_nl_spee) = ('', '');
+our  $www_epsig_nl  = '';
 
 my ($counter, $HostId, $WebDir, $WD_His, $WbDrOld, $history, $ask_mkdir) =
     (0, '', '', '', '', 0, 1);
@@ -168,24 +167,20 @@ sub init_host_id()
  if ($HostId eq 'remote' or $HostId eq 'wh_epsig')
  {
   $www_epsig_nl = 'https://www.epsig.nl';
-  $www_xs4all_nl_spee = 'https://spee.home.xs4all.nl';
  }
  elsif ($HostId eq 'local')
  {
   $www_epsig_nl = 'file:///c:/www.epsig.nl';
-  $www_xs4all_nl_spee = $www_epsig_nl;
  }
  elsif ($HostId eq 'ubuntu')
  {
   # quick fix / as long as cgi-bin works locally
   # $www_epsig_nl = "$ENV{HOME}/epsig/github/shob/pages";
   $www_epsig_nl = 'https://www.epsig.nl';
-  $www_xs4all_nl_spee = $www_epsig_nl;
  }
  else
  {
   $www_epsig_nl = '../pages/';
-  $www_xs4all_nl_spee = $www_epsig_nl;
  }
 }
 
