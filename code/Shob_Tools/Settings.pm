@@ -62,11 +62,10 @@ sub get_my_hostname()
  return $hostname;
 }
 
-sub init_settings($$$$)
+sub init_settings($$$)
 {# (c) Edwin Spee
- # versie 1.0 31-jan-2005 initiele versie
 
- my ($nh, $opt_in, $vrbs, $lv) = @_;
+ my ($opt_in, $vrbs, $lv) = @_;
 
  $local_version = ($lv =~ m/n/iso ? 0 : 1);
  $all_data = $local_version;

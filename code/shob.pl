@@ -70,7 +70,6 @@ sub shob_main_loop()
 
   my $is_remote = ($hostid eq 'remote' or $hostid eq 'epsig' or $hostid eq 'wh_epsig');
   my $lv = $is_remote ? 'n' : 'y';
-  my $nh = $lv;
   my $defaults = $is_remote ? 1 : 0;
   my $parts = 0;
 
@@ -206,11 +205,9 @@ sub shob_main_loop()
   {
     print 'Locale versie: (jyn) ';
     $lv = lees_regel;
-    print 'Nette html (jyn) ';
-    $nh = lees_regel;
   }
 
-  init_settings($nh, $opt, 0, $lv);
+  init_settings($opt, 0, $lv);
   init_web_index($lv =~ m/n/iso ? 0 : 1);
   my $parts2 = ($parts < 2 ? 2 - $parts : $parts+1);
   handle_all_files($opt, $lv, $parts2);
