@@ -16,7 +16,7 @@ use vars qw($VERSION @ISA @EXPORT);
 #=========================================================================
 # CONTENTS OF THE PACKAGE:
 #=========================================================================
-$VERSION = '18.1';
+$VERSION = '21.0';
 # by Edwin Spee.
 
 @EXPORT =
@@ -26,6 +26,12 @@ $VERSION = '18.1';
  #========================================================================
 );
 
+my $CntSame = 6;
+my $NrGamesSame = 7;
+my $PointsSame = 8;
+my $GoalsSame = 9;
+my $AwayGoalsSame = 10;
+
 my $winst;
 sub calc_onderling_resultaat($$)
 {# (c) Edwin Spee
@@ -33,7 +39,7 @@ sub calc_onderling_resultaat($$)
  my ($s, $u) = @_;
  my $l = scalar @$s;
 
-# extra veld $s->[i][6] al of niet doorlopen en extra lus
+# extra veld $s->[i][CntSame] al of niet doorlopen en extra lus
  for (my $i=0; $i<$l; $i++)
  {
   my $rij = $s->[$i];
@@ -41,12 +47,12 @@ sub calc_onderling_resultaat($$)
   {
    $rij->[5][0] = '';
   }
-  $rij->[6] = 0;
+  $rij->[$CntSame] = 0;
  }
 
  for (my $i=0; $i<$l; $i++)
  {
-  if ($s->[$i][6] == 0)
+  if ($s->[$i][$CntSame] == 0)
   {
     my $a = $s->[$i];
 # zoek teams met evenveel punten en wedstrijden als a
@@ -66,11 +72,11 @@ sub calc_onderling_resultaat($$)
     for my $i (@teams_nr)
     {
      my $rij = $s->[$i];
-     $rij->[6] = $found;
-     $rij->[7] = 0;
-     $rij->[8] = 0;
-     $rij->[9] = [0, 0];
-     $rij->[10] = 0;
+     $rij->[$CntSame] = $found;
+     $rij->[$NrGamesSame] = 0;
+     $rij->[$PointsSame] = 0;
+     $rij->[$GoalsSame] = [0, 0];
+     $rij->[$AwayGoalsSame] = 0;
     }
 
     if ($found > 1)
@@ -132,11 +138,11 @@ if (not $only_init)
   my $pnt = $winst * $w + $g;
   if ($special == 1)
   {
-   $rij->[7]++;
-   $rij->[8] += $pnt;
-   $rij->[9][0] += $u1;
-   $rij->[9][1] += $u2;
-   $rij->[10] += ($reversed ? $u1 : 0); # aantal uitdoelpunten
+   $rij->[$NrGamesSame]++;
+   $rij->[$PointsSame] += $pnt;
+   $rij->[$GoalsSame][0] += $u1;
+   $rij->[$GoalsSame][1] += $u2;
+   $rij->[$AwayGoalsSame] += ($reversed ? $u1 : 0);
   }
   else
   {
@@ -206,11 +212,11 @@ sub cmp_onderling($$$)
  my ($a, $b, $type) = @_;
 
  my $ret_val = (
-   ($b->[8] <=> $a->[8]) or
-   ($a->[7] <=> $b->[7]) or
-   (($b->[9][0]-$b->[9][1]) <=> ($a->[9][0]-$a->[9][1])) or
-   ($type * ($b->[10] <=> $a->[10])) or
-   ($b->[9][0] <=> $a->[9][0]) or
+   ($b->[$PointsSame] <=> $a->[$PointsSame]) or
+   ($a->[$NrGamesSame] <=> $b->[$NrGamesSame]) or
+   (($b->[$GoalsSame][0]-$b->[$GoalsSame][1]) <=> ($a->[$GoalsSame][0]-$a->[$GoalsSame][1])) or
+   ($type * ($b->[$AwayGoalsSame] <=> $a->[$AwayGoalsSame])) or
+   ($b->[$GoalsSame][0] <=> $a->[$GoalsSame][0]) or
    (($b->[4][0]-$b->[4][1]) <=> ($a->[4][0]-$a->[4][1])) or
    ($b->[4][0] <=> $a->[4][0]) );
  return $ret_val;
