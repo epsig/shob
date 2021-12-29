@@ -155,17 +155,10 @@ if (not $only_init)
    $rij->[4][1] += $u2;
 }}}}
 
-sub alphabetical($$)
+sub alphabetical
 {# (c) Edwin Spee
 
- my ($a, $b) = @_;
-
  my $str_cmp = (uc(expand($a->[0], 0)) cmp uc(expand($b->[0], 0)) );
- if ($verbose > 1)
- {
-  print uc(expand($a->[0], 0)) . ' - ' . uc(expand($b->[0], 0));
-  print " : $str_cmp\n";
- }
  return $str_cmp;
 }
 
@@ -191,7 +184,7 @@ sub srtfie1
  }
  else
  {
-  return alphabetical($a, $b);
+  return alphabetical;
  }
 }
 
@@ -209,7 +202,7 @@ sub srtfie2
  }
  else
  {
-  return alphabetical($a, $b);
+  return alphabetical;
  }
 }
 
@@ -247,7 +240,7 @@ sub srtfie3
   }
   else
   {
-   return alphabetical($a, $b);
+   return alphabetical;
   }
  }
 }
@@ -270,7 +263,7 @@ sub srtfie4
   }
   else
   {
-   return alphabetical($a, $b);
+   return alphabetical;
   }
  }
 }
@@ -297,7 +290,7 @@ sub srtfie5
   }
   else
   {
-   return alphabetical($a, $b);
+   return alphabetical;
   }
  }
 }
