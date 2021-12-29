@@ -169,13 +169,20 @@ sub alphabetical($$)
  return $str_cmp;
 }
 
+sub srtGoalDiff($$)
+{
+  my ($aa, $bb) = @_;
+  my $result = (($bb->[0]-$bb->[1]) <=> ($aa->[0]-$aa->[1]));
+  return $result;
+}
+
 sub srtfie1
 {# (c) Edwin Spee
 
  my $num_result = (
   ($b->[3] <=> $a->[3]) or
   ($a->[1] <=> $b->[1]) or
-  (($b->[4][0]-$b->[4][1]) <=> ($a->[4][0]-$a->[4][1])) or
+  srtGoalDiff($a->[4], $b->[4]) or
   ($b->[4][0] <=> $a->[4][0]) );
 
  if ($num_result)
@@ -194,7 +201,7 @@ sub srtfie2
  my $num_result = (
   ($b->[3] <=> $a->[3]) or
   ($a->[1] <=> $b->[1]) or
-  (($b->[4][0]-$b->[4][1]) <=> ($a->[4][0]-$a->[4][1])));
+  srtGoalDiff($a->[4], $b->[4]));
 
  if ($num_result)
  {
@@ -214,10 +221,10 @@ sub cmp_onderling($$$)
  my $ret_val = (
    ($b->[$PointsSame] <=> $a->[$PointsSame]) or
    ($a->[$NrGamesSame] <=> $b->[$NrGamesSame]) or
-   (($b->[$GoalsSame][0]-$b->[$GoalsSame][1]) <=> ($a->[$GoalsSame][0]-$a->[$GoalsSame][1])) or
+    srtGoalDiff($a->[$GoalsSame], $b->[$GoalsSame]) or
    ($type * ($b->[$AwayGoalsSame] <=> $a->[$AwayGoalsSame])) or
    ($b->[$GoalsSame][0] <=> $a->[$GoalsSame][0]) or
-   (($b->[4][0]-$b->[4][1]) <=> ($a->[4][0]-$a->[4][1])) or
+    srtGoalDiff($a->[4], $b->[4]) or
    ($b->[4][0] <=> $a->[4][0]) );
  return $ret_val;
 }
@@ -274,7 +281,7 @@ sub srtfie5
  my $num_result = (
   ($b->[3] <=> $a->[3]) or
   ($a->[1] <=> $b->[1]) or
-  (($b->[4][0]-$b->[4][1]) <=> ($a->[4][0]-$a->[4][1])) or
+   srtGoalDiff($a->[4], $b->[4]) or
   ($b->[4][0] <=> $a->[4][0]) );
 
  if ($num_result)
