@@ -110,7 +110,7 @@ sub get_actueel($)
       my $ospage = "sport_schaatsen_OS_$yr.html";
       if (-f File::Spec->catfile($webdir, $ospage))
       {
-        push @$links, {url => $ospage, description => 'Olymp. Winterspelen', date => 2.0, date => 3.3};
+        push @$links, {url => $ospage, description => 'Olymp. Winterspelen', date1 => 1.0, date2 => 3.3};
       }
     }
   }

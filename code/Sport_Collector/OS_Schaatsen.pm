@@ -223,15 +223,21 @@ sub format_os($)
   for (my $i = 0; $i < scalar @links; $i++)
   {
     my $DH = ($links[$i] =~ m/D/ ? 'D' : 'H');
-    $samenv .= ftr(ftdl($links[$i]) . schaats_dtb2html(0, $results->[$i], $i >= 12, $DH));
+    if (scalar @{$results->[$i]})
+    {
+      $samenv .= ftr(ftdl($links[$i]) . schaats_dtb2html(0, $results->[$i], $i >= 12, $DH));
+    }
   }
 
   my $compleet = '';
   for (my $i = 0; $i < scalar @names; $i++)
   {
     my $DH = ($links[$i] =~ m/D/ ? 'D' : 'H');
-    $compleet .= ftr(fth({cols => 5, class => 'h'}, $names[$i])) .
+    if (scalar @{$results->[$i]})
+    {
+      $compleet .= ftr(fth({cols => 5, class => 'h'}, $names[$i])) .
                    schaats_dtb2html(1, $results->[$i], $i >= 12, $DH);
+    }
   }
 
    my $outtxt = ftable('border', $samenv) . "<hr>\n" . ftable('border', $compleet);
@@ -252,7 +258,7 @@ sub get_one_distance($$$)
     {
       my $result = $line->{result};
       if ($result =~ m/;/)
-      {
+      { # handle 2x 500m
         my @parts = split(';', $result);
         foreach my $part (@parts)
         {
@@ -263,6 +269,12 @@ sub get_one_distance($$$)
           }
         }
         push(@data, [$line->{ranking}, $line->{name}, @parts]);
+      }
+      elsif ($result =~ m/:/)
+      { # handle time string of form 3:58.12 (M:SS.HH)
+        my @parts = split(':', $result);
+        $result = 60.0*$parts[0] + $parts[1];
+        push(@data, [$line->{ranking}, $line->{name}, $result]);
       }
       else
       {
