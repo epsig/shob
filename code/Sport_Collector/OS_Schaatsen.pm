@@ -274,6 +274,10 @@ sub get_one_distance($$$)
       { # handle time string of form 3:58.12 (M:SS.HH)
         my @parts = split(':', $result);
         $result = 60.0*$parts[0] + $parts[1];
+        if (defined($line->{remark}))
+        {
+          $result = [$result, $line->{remark}];
+        }
         push(@data, [$line->{ranking}, $line->{name}, $result]);
       }
       else
