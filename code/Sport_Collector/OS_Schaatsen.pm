@@ -257,6 +257,12 @@ sub get_one_distance($$$)
     if ($line->{DH} eq $DH && $line->{distance} eq $distance)
     {
       my $result = $line->{result};
+      my $name = $line->{name};
+      if (defined ($line->{team}))
+      {
+        $line->{team} =~ s/; /, /g;
+        $name = [$name, $line->{team}];
+      }
       if ($result =~ m/;/)
       { # handle 2x 500m
         my @parts = split(';', $result);
@@ -278,19 +284,13 @@ sub get_one_distance($$$)
         {
           $result = [$result, $line->{remark}];
         }
-        push(@data, [$line->{ranking}, $line->{name}, $result]);
+        push(@data, [$line->{ranking}, $name, $result]);
       }
       else
       {
         if (defined($line->{remark}))
         {
           $result = [$result, $line->{remark}];
-        }
-        my $name = $line->{name};
-        if (defined ($line->{team}))
-        {
-          $line->{team} =~ s/; /, /g;
-          $name = [$name, $line->{team}];
         }
         push(@data, [$line->{ranking}, $name, $result]);
       }
