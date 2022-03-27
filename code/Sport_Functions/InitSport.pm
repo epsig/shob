@@ -41,8 +41,8 @@ sub sport_init()
 
   set_laatste_speeldatum_u_nl();
   set_laatste_speeldatum_ec();
-  set_laatste_speeldatum_ekwk();
   set_laatste_speeldatum_oefenduels();
+  set_laatste_speeldatum_ekwk();
   set_laatste_datum_statfiles();
 }
 
