@@ -104,7 +104,8 @@ sub get_actueel($)
     $ekwk_url = "sport_voetbal_${EK_WK_str}_${yr}$voorronde.html";
     shob_error('notfound', [$ekwk_url]) if (not -f File::Spec->catfile($webdir, $ekwk_url));
 
-    push @$links, {url => $ekwk_url, description => "$EK_WK_str-voetbal", date1 => 5.5, date2 => 7.5};
+    # date1 => 5.5, date2 => 7.5 for 'normal' WK's
+    push @$links, {url => $ekwk_url, description => "$EK_WK_str-voetbal", date1 => 11.0, date2 => 12.99};
     if ($yr % 4 == 2)
     {
       my $ospage = "sport_schaatsen_OS_$yr.html";
