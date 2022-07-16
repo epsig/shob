@@ -23,12 +23,16 @@ White (29,41)
 Mead (34,38,81)
 Rosso (66)
 
-Engeland          - Noorwegen         -
 Vrijdag 15 juli, 21.00 uur, Southampton:
-Noord-Ierland     - Engeland          -
+Noord-Ierland     0 Engeland          5
+                    Kirby (40)
+                    Mead (44)
+                    Russo (48,53)
+                    Burrows (76/ed)
 
 Vrijdag 15 juli, 21.00 uur, Brighton:
-Oostenrijk        - Noorwegen         -
+Oostenrijk        1 Noorwegen         0
+Billa (37)
 
 groep B
 Vrijdag 8 jul, Milton Keynes:
@@ -71,10 +75,15 @@ NEDERLAND         1 Zweden            1
 Roord (52)          J.Andersson (35)
 
 Woensdag, 18.00 uur, Sheffield:
-Zweden            - Zwitserland       -
+Zweden            2 Zwitserland       1
+Rolfö (53)          Bachmann (55)
+Bennison (79)
 
 Woensdag, 21.00 uur, Leigh:
-NEDERLAND         - Portugal          -
+NEDERLAND         3 Portugal          2
+Egurrola (7)        C.Costa (38/pen)
+v.d.Gragt (16)      Dian.Silva (47)
+v.d.Donk (62)
 
 Zondag 17 juli, 18.00 uur, Sheffield:
 NEDERLAND         - Zwitserland       -
@@ -98,10 +107,13 @@ Katoto (12)
 Cascarino (39)
 
 Donderdag, 18.00 uur, Manchester:
-Italië            - IJsland           -
+Italië            1 IJsland           1
+Bergamaschi (62)    Vilhjalmsdottir (3)
 
 Donderdag, 21.00 uur, Rotherham:
-Frankrijk         - België            -
+Frankrijk         2 België            1
+Diani (6)           Cayman (36)
+Mbock (41)
 
 Maandag 18 juli, 21.00 uur, Rotherham:
 IJsland           - Frankrijk         -
