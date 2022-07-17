@@ -60,7 +60,8 @@ sub get_hopa()
    <li> EK en WK voetbal van
     ${ekwkPages[0]} t/m
     ${ekwkPages[1]}. </li>
-   <li> <a href="sport_voetbal_WKD2019.html">WK vrouwen 2019</a>.
+   <li> <a href="sport_voetbal_WKD2019.html">WK vrouwen 2019</a>,
+        <a href="sport_voetbal_EKD2022.html">EK vrouwen 2022</a>.
    <li> Nederlandse clubs in het Europacup voetbal van
 $voetbal_ec_list
    </li>
