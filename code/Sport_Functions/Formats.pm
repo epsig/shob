@@ -151,6 +151,7 @@ sub format_ekwk($$$$$)
 
  my $EK_WK = $year % 4;
  my $EK_WK_str = ($EK_WK >= 2 ? 'WK' : 'EK');
+ $EK_WK_str = 'EK' if ($year == 2022 && $organisatie eq "Engeland");
 
  my $DH = $year % 2;
 
