@@ -20,6 +20,9 @@ jobs:
     steps:
     - uses: actions/checkout@v2
 
+    - name: PrepareInstallXML
+      run: sudo apt-get update
+
     - name: InstallXML
       run: sudo apt-get build-dep libxml-parser-perl
 
