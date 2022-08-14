@@ -20,11 +20,12 @@ jobs:
     steps:
     - uses: actions/checkout@v2
 
-    - name: PrepareInstallXML
-      run: sudo echo "deb-src http://archive.ubuntu.com/ubuntu artful main restricted" >> /etc/apt/sources.list
+#   - name: PrepareInstallXML
+#     run: sudo echo "deb-src http://archive.ubuntu.com/ubuntu artful main restricted" >> /etc/apt/sources.list
 
     - name: InstallXML
-      run: sudo apt-get build-dep libxml-parser-perl
+      run: cpan XML::Parser
+#     run: sudo apt-get build-dep libxml-parser-perl
 
     - name: CheckSyntax
       # Build your program with the given configuration
