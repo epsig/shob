@@ -20,6 +20,9 @@ jobs:
     steps:
     - uses: actions/checkout@v2
 
+    - name: InstallXML
+      run: apt-get build-dep libxml-parser-perl
+
     - name: CheckSyntax
       # Build your program with the given configuration
       working-directory: ${{github.workspace}}/code
