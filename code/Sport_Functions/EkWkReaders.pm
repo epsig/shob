@@ -10,7 +10,7 @@ use Sport_Functions::Overig;
 use Sport_Functions::Readers qw($csv_dir &read_csv_with_header);
 use Sport_Functions::ListRemarks qw($all_remarks);
 use Sport_Functions::AddMatch qw(&add_one_line);
-use XML::Parser;
+require XML::Parser;
 use vars qw($VERSION @ISA @EXPORT);
 @ISA = ('Exporter');
 #=========================================================================
