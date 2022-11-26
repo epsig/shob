@@ -1,0 +1,69 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<!DOCTYPE names [
+<!ENTITY uuml "&#252;">
+<!ENTITY iacute "&#237;">
+<!ENTITY eacute "&#xE9;">
+<!ENTITY atilde "&#227;">
+<!ENTITY auml "&#228;">
+<!ENTITY aelig "&#xE6;">
+]>
+
+<games>
+<group_phase>
+<groupA>
+<NL_SN>
+<stats>
+Doha, maandag:
+<chronological>
+<data min="84"> 0-1 Gakpo </data>
+<data min="90+9"> 0-2 Klaassen </data>
+</chronological>
+SENEGAL           0 NEDERLAND         2
+
+<spectators>  41721 </spectators>
+<arbiter>  Pereira Sampaio (BR) </arbiter>
+Geel: N. Mendy,      De Ligt
+I. Gueye
+
+<line_up team="SN">
+É. Mendy, Sabaly, Koulibaly,
+Cissé, Diallo (Jakobs/62), Kouyaté
+(P. Gueye/73), I. Gueye, N. Mendy, Diatta
+(Jackson/74), Dia (B. Dieng/69), I. Sarr </line_up>
+<line_up team="NL">
+Noppert, Dumfries, De Ligt,
+v. Dijk, Aké, Blind, Berghuis (Koopmeiners/79),
+Gakpo (De Roon/90+4), F. de Jong,
+Janssen (Depay/62), Bergwijn (Klaassen/79) </line_up>
+</stats>
+</NL_SN>
+<NL_EC>
+<stats>
+Doha, vrijdag:
+NEDERLAND         1 ECUADOR           1
+<chronological>
+<data min="6"> 1-0 Gakpo </data>
+<data min="49"> 1-1 E. Valencia </data>
+</chronological>
+
+<spectators> 44833 </spectators>
+<arbiter> Ghorbal (DZ) </arbiter>
+
+Geel:               Méndez
+
+<line_up team="NL">
+Noppert, Dumfries, J. Timber,
+v. Dijk, Aké, Blind, Koopmeiners (De Roon/79),
+Klaassen (Berghuis/69), F. de Jong,
+Gakpo (Weghorst/80), Bergwijn (Depay/46) </line_up>
+<line_up team="EC">
+Galindez, Áng. Preciado, Porozo,
+Torres, Hincapié, Estupinán, Plata
+(Rodríguez/90), Méndez, Caicedo,
+E. Valencia (Ibarra/90), Estrada
+(Sarmiento/74) </line_up>
+</stats>
+</NL_EC>
+</groupA>
+</group_phase>
+</games>
