@@ -15,8 +15,8 @@
 <stats>
 Doha, maandag:
 <chronological>
-<data min="84"> 0-1 Gakpo </data>
-<data min="90+9"> 0-2 Klaassen </data>
+<data min="84"> 0-1 gakpo </data>
+<data min="90+9"> 0-2 klaassen </data>
 </chronological>
 SENEGAL           0 NEDERLAND         2
 
@@ -42,7 +42,7 @@ Janssen (Depay/62), Bergwijn (Klaassen/79) </line_up>
 Doha, vrijdag:
 NEDERLAND         1 ECUADOR           1
 <chronological>
-<data min="6"> 1-0 Gakpo </data>
+<data min="6"> 1-0 gakpo </data>
 <data min="49"> 1-1 E. Valencia </data>
 </chronological>
 
@@ -64,6 +64,16 @@ E. Valencia (Ibarra/90), Estrada
 (Sarmiento/74) </line_up>
 </stats>
 </NL_EC>
+<NL_QA>
+<stats>
+<chronological>
+<data min="26"> 1-0 gakpo </data>
+<data min="49"> 2-0 fdejong </data>
+</chronological>
+<arbiter> Gassama (GM) </arbiter>
+<spectators> 66784 </spectators>
+</stats>
+</NL_QA>
 </groupA>
 </group_phase>
 </games>
