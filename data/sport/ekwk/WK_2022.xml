@@ -91,5 +91,20 @@ E. Valencia (Ibarra/90), Estrada
 </stats>
 </NL_US>
 </last16>
+<last8>
+<NL_AR>
+<stats>
+<chronological>
+<data min="35"> 0-1 Molina </data>
+<data min="73"> 0-2 Messi (p) </data>
+<data min="83"> 1-2 weghorst </data>
+<data min="90+11"> 2-2 weghorst </data>
+</chronological>
+<arbiter> Mateu (ES) </arbiter>
+<spectators> 88966 </spectators>
+<wns_short> 3-4 </wns_short>
+</stats>
+</NL_AR>
+</last8>
 </ko>
 </games>
