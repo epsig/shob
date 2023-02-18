@@ -2,7 +2,6 @@
 use strict;
 use warnings;
 
-use XML::Parser;
 use Data::Dumper;
 
 my $verbose = 0;
@@ -39,6 +38,9 @@ sub chronological
  }}
  return $out;
 }
+
+require XML::Parser;
+XML::Parser->import();
 
 my $p1 = XML::Parser->new(Style => 'Tree');
 my $tree = $p1->parsefile('WK_2010.xml');

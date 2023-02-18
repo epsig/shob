@@ -10,7 +10,6 @@ use Sport_Functions::Overig;
 use Sport_Functions::Readers qw($csv_dir &read_csv_with_header);
 use Sport_Functions::ListRemarks qw($all_remarks);
 use Sport_Functions::AddMatch qw(&add_one_line);
-use XML::Parser;
 use vars qw($VERSION @ISA @EXPORT);
 @ISA = ('Exporter');
 #=========================================================================
@@ -169,6 +168,14 @@ sub read_ekwk($$$$)
  
   if (-f $xmlfile)
   {
+    eval
+    {
+      require XML::Parser;
+      XML::Parser->import();
+    };
+    if ($@)
+    {return $ekwk;}
+
     my $p1 = XML::Parser->new(Style => 'Tree');
     my $tree = $p1->parsefile($xmlfile);
     my $xml = read_ekwk_xml($ekwkLines);
