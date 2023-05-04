@@ -1,2 +1,2 @@
-* edwin@epsig.nl
-theme: minima
+baseurl: "/pages"
+theme: jekyll-theme-minimal
