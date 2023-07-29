@@ -71,7 +71,7 @@ sub handle_gen_files($$$)
   [2, 'all', sub {&file2str(File::Spec->catfile('my_scripts', 'validate_sport.js'));}, 'validate_sport.js'],
   [2, 'all', sub {&file2str(File::Spec->catfile('my_scripts', 'sort_table.js'));}, 'sort_table.js'],
   [2, 'all', sub {&get_epsig;}, 'epsig.html'],
-  [$fast, 'all', sub {&get_stats;}, 'stats.html'],
+  [2, 'all', sub {&get_stats;}, 'stats.html'],
   [2, 'all', sub {&get_tech_doc_kj;}, 'tech_doc_kj.html'],
   [2, 'all', sub {&get_tech_doc_shob;}, 'tech_doc_shob.html'],
   [2, 'all', sub {&get_tech_doc_adressen;}, 'tech_doc_adressen.html'],
