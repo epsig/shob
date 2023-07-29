@@ -235,7 +235,8 @@ sub handle_sport_files($$$)
   my $curYrB = szn2yr($szn2);            # year current season started
 
   my @pages = ([2, 'all', sub {&get_ekwk_gen('wkD2019');}, 'sport_voetbal_WKD2019.html'],
-               [1, 'all', sub {&get_ekwk_gen('ekD2022');}, 'sport_voetbal_EKD2022.html']);
+               [2, 'all', sub {&get_ekwk_gen('ekD2022');}, 'sport_voetbal_EKD2022.html'],
+               [1, 'all', sub {&get_ekwk_gen('wkD2023');}, 'sport_voetbal_WKD2023.html']);
 
   foreach my $yr ($ranges->{global_first_year} .. $curYrB + 2)
   {
