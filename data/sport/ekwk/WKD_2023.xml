@@ -1,0 +1,69 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<!DOCTYPE names [
+<!ENTITY eacute "&#xE9;">
+<!ENTITY aacute "&#xE1;">
+<!ENTITY ouml "&#xF6;">
+]>
+
+<games>
+<group_phase>
+<groupE>
+<NL_PT>
+<stats>
+<stadium> Dunedin </stadium>
+<chronological>
+<data min="13"> 1-0 v.d. Gragt </data>
+</chronological>
+</stats>
+</NL_PT>
+<US_NL>
+<stats>
+<stadium> Wellington </stadium>
+<chronological>
+<data min="17"> 0-1 Roord </data>
+<data min="62"> 1-1 Horan </data>
+</chronological>
+</stats>
+</US_NL>
+<NL_VN>
+<stats>
+<stadium> Dunedin </stadium>
+<chronological>
+<data min="8"> 1-0 Martens </data>
+<data min="11"> 2-0 Snoeijs </data>
+<data min="17"> 3-0 Brugts </data>
+<data min="23"> 4-0 Roord </data>
+<data min="45"> 5-0 v.d. Donk </data>
+<data min="57"> 6-0 Brugts </data>
+<data min="83"> 7-0 Roord </data>
+</chronological>
+</stats>
+</NL_VN>
+</groupE>
+</group_phase>
+<ko>
+<last16>
+<NL_ZA>
+<stats>
+<stadium> Sydney </stadium>
+<chronological>
+<data min="9"> 1-0 Roord </data>
+<data min="68"> 2-0 Berensteyn </data>
+</chronological>
+</stats>
+</NL_ZA>
+</last16>
+<last8>
+<ES_NL>
+<stats>
+<stadium> Wellington </stadium>
+<chronological>
+<data min="81"> 1-0 Caldentey </data>
+<data min="90+1"> 1-1 v.d. Gragt </data>
+<data min="111"> 2-1 Paralluelo </data>
+</chronological>
+</stats>
+</ES_NL>
+</last8>
+</ko>
+</games>

@@ -84,7 +84,8 @@ sub EKWK_DH_List()
 {
   my @ekwk_pages = EkWkPlainList();
   my @wkD_pages = ('sport_voetbal_WKD2019.html', 'WK 2019 (D)',
-                   'sport_voetbal_EKD2022.html', 'EK 2022 (D)');
+                   'sport_voetbal_EKD2022.html', 'EK 2022 (D)',
+                   'sport_voetbal_WKD2023.html', 'WK 2023 (D)');
 
   my @combined = join_DH_lists( @ekwk_pages, @wkD_pages);
 

@@ -71,7 +71,7 @@ sub handle_gen_files($$$)
   [2, 'all', sub {&file2str(File::Spec->catfile('my_scripts', 'validate_sport.js'));}, 'validate_sport.js'],
   [2, 'all', sub {&file2str(File::Spec->catfile('my_scripts', 'sort_table.js'));}, 'sort_table.js'],
   [2, 'all', sub {&get_epsig;}, 'epsig.html'],
-  [$fast, 'all', sub {&get_stats;}, 'stats.html'],
+  [2, 'all', sub {&get_stats;}, 'stats.html'],
   [2, 'all', sub {&get_tech_doc_kj;}, 'tech_doc_kj.html'],
   [2, 'all', sub {&get_tech_doc_shob;}, 'tech_doc_shob.html'],
   [2, 'all', sub {&get_tech_doc_adressen;}, 'tech_doc_adressen.html'],
@@ -235,7 +235,8 @@ sub handle_sport_files($$$)
   my $curYrB = szn2yr($szn2);            # year current season started
 
   my @pages = ([2, 'all', sub {&get_ekwk_gen('wkD2019');}, 'sport_voetbal_WKD2019.html'],
-               [1, 'all', sub {&get_ekwk_gen('ekD2022');}, 'sport_voetbal_EKD2022.html']);
+               [2, 'all', sub {&get_ekwk_gen('ekD2022');}, 'sport_voetbal_EKD2022.html'],
+               [1, 'all', sub {&get_ekwk_gen('wkD2023');}, 'sport_voetbal_WKD2023.html']);
 
   foreach my $yr ($ranges->{global_first_year} .. $curYrB + 2)
   {
