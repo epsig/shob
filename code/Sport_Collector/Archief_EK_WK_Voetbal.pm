@@ -56,7 +56,7 @@ sub get_ekwk_gen($;$)
   my $year = $id;
      $year =~ s/[ew]kD?//;
 
-  my $ekwk = substr($id, 0, 2);
+  my $ekwk = substr($id, 0, length($id)-4);
 
   my $dd                 = $all_remarks->{ekwk}->get($id, 'dd');
   my $organising_country = $all_remarks->{ekwk}->get($id, 'organising_country');
