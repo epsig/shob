@@ -114,13 +114,13 @@ sub read_ec_csv($$)
     if ( ! leagueIsActive($content, $league)) {next;}
 
     my %finals;
-    $finals{'tr'} = ['tr', "extra round $shortname"];
+    $finals{'xr'} = ['xr', "extra round $shortname"];
     $finals{'8f'} = ['round_of_16', "8-ste finale $shortname"];
     $finals{'4f'} = ['quarterfinal', "kwart finale $shortname"];
     $finals{'2f'} = ['semifinal', "halve finale $shortname"];
     $finals{'f'}  = ['final', "finale $shortname"];
 
-    foreach my $l ('tr', '8f', '4f', '2f', 'f')
+    foreach my $l ('xr', '8f', '4f', '2f', 'f')
     {
       my $title = $finals{$l}[1];
       my $k     = $finals{$l}[0];

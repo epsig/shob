@@ -421,8 +421,8 @@ sub format_one_ec_cup($$)
   CL      => ['qfr_2', 'qfr_3', 'playoffs', 'groupA' .. 'groupH', 'group2B', 'group2D', 'round_of_16'],
   CWC     => ['round1', 'round2'],
   UEFAcup => ['itoto', 'intertoto', 'qfr', 'qfr_2', 'round1', 'round2', 'groupA' .. 'groupH', 'round3', 'round_of_16'],
-  EuropaL => ['qfr_1', 'qfr', 'qfr_2', 'qfr_3', 'playoffs', 'groupA' .. 'groupL', 'round2', 'tr', 'round_of_16'],
-  CF      => ['qfr_1', 'qfr', 'qfr_2', 'qfr_3', 'playoffs', 'groupA' .. 'groupL', 'round2', 'tr', 'round_of_16']};
+  EuropaL => ['qfr_1', 'qfr', 'qfr_2', 'qfr_3', 'playoffs', 'groupA' .. 'groupL', 'round2', 'xr', 'round_of_16'],
+  CF      => ['qfr_1', 'qfr', 'qfr_2', 'qfr_3', 'playoffs', 'groupA' .. 'groupL', 'round2', 'xr', 'round_of_16']};
 
  my $longnames =
  {extra   => 'Supercup/Worldcup',
