@@ -11,7 +11,7 @@
             "console": "integratedTerminal",
             "program": "${workspaceFolder}/${relativeFile}",
             "exec": "perl",
-            "execArgs": [],
+            "execArgs": ['-dl'],
             "root": "${workspaceRoot}/code",
             "inc": [],
             "args": ["-dl"],
