@@ -83,6 +83,9 @@ ekD2022,allgroups,ster=1
 wk2022,organising_country,Qatar
 wk2022,dd,20221115
 wk2022,allgroups,ster=1
-ek2024,organising_country,Duitsland
 wkD2023,organising_country,Australi&euml; and Nieuw-Zeeland
 wkD2023,allgroups,ster=1
+ek2024,organising_country,Duitsland
+ek2024,sort_rule,4
+ek2024,dd,20210608
+ek2024,allgroups,ster=-1
