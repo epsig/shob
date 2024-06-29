@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<games>
+<group_phase>
+<groupD>
+<PL_NL>
+<stats>
+<chronological>
+<data min="16"> 1-0 Buksa </data>
+<data min="29"> 1-1 gakpo </data>
+<data min="83"> 1-2 weghorst </data>
+</chronological>
+<spectators> 48117 </spectators>
+<arbiter> Soares Dias (PT) </arbiter>
+</stats>
+</PL_NL>
+<NL_AT>
+<stats>
+<chronological>
+<data min="6"> 0-1 Malen (ed) </data>
+<data min="47"> 1-1 gakpo </data>
+<data min="59"> 1-2 Schmid </data>
+<data min="75"> 2-2 depay </data>
+<data min="80"> 2-3 Sabitzer </data>
+</chronological>
+<spectators> 68363 </spectators>
+<arbiter> Kruzliak (SK) </arbiter>
+</stats>
+</NL_AT>
+</groupD>
+</group_phase>
+<ko>
+<last16>
+</last16>
+<last8>
+</last8>
+</ko>
+</games>
