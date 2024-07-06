@@ -1,4 +1,7 @@
 <?xml version="1.0" encoding="utf-8" ?>
+<!DOCTYPE names [
+<!ENTITY uuml "&#252;">
+]>
 <games>
 <group_phase>
 <groupD>
@@ -9,10 +12,18 @@
 <data min="29"> 1-1 gakpo </data>
 <data min="83"> 1-2 weghorst </data>
 </chronological>
+<stadium> Hamburg </stadium>
 <spectators> 48117 </spectators>
 <arbiter> Soares Dias (PT) </arbiter>
 </stats>
 </PL_NL>
+<NL_FR>
+<stats>
+<stadium> Leipzig </stadium>
+<spectators> 38531 </spectators>
+<arbiter> Taylor (ENG) </arbiter>
+</stats>
+</NL_FR>
 <NL_AT>
 <stats>
 <chronological>
@@ -22,6 +33,7 @@
 <data min="75"> 2-2 depay </data>
 <data min="80"> 2-3 Sabitzer </data>
 </chronological>
+<stadium> Berlijn </stadium>
 <spectators> 68363 </spectators>
 <arbiter> Kruzliak (SK) </arbiter>
 </stats>
@@ -37,6 +49,7 @@
 <data min="83">0-2 Malen </data>
 <data min="90+3">0-3 Malen </data>
 </chronological>
+<stadium> M&uuml;nchen </stadium>
 <spectators> 65012 </spectators>
 <arbiter> Zwayer (DE) </arbiter>
 </stats>
