@@ -1,5 +1,5 @@
 round,land1,land2,dd,time,result,spectators,stadium,remark,star
-gA,DE,G2,20240614,2100,5-1,65052,M&uuml;nchen,,
+gA,DE,G2,20240614,2100,5-1,65052,M&uuml;nchen,ref=DE_SCT,
 gA,HU,CH,20240615,1500,1-3,41676,Keulen,,
 gA,DE,HU,20240619,1800,2-0,54000,Stuttgart,,
 gA,G2,CH,20240619,2100,1-1,42711,Keulen,,
@@ -46,6 +46,6 @@ gF,CZ,TR,20240626,2100,1-2,47683,Hamburg,,
 4f,ES,DE,20240705,1800,2-1,54000,Stuttgart,,1
 4f,PT,FR,20240705,2100,0-0,47789,Hamburg,,6
 4f,G1,CH,20240706,1800,-,,D&uuml;sseldorf,,
-4f,NL,TR,20240706,2100,-,,Berlijn,,
+4f,NL,TR,20240706,2100,-,,Berlijn,ref=NL_TR,
 2f,ES,FR,20240709,2100,-,,M&uuml;nchen,,
 2f,NL / TR,ENG / CH,20240710,2100,-,,Dortmund,,

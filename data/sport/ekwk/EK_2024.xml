@@ -4,6 +4,23 @@
 ]>
 <games>
 <group_phase>
+<groupA>
+<DE_SCT>
+<stats>
+<chronological>
+<data min="10"> 1-0 Wirtz </data>
+<data min="19"> 2-0 Musiala </data>
+<data min="45+1"> 3-0 Havertz </data>
+<data min="68"> 4-0 F&uuml;llkrug </data>
+<data min="87"> 4-1 R&uuml;diger (ed) </data>
+<data min="90+3"> 5-1 Can </data>
+</chronological>
+<stadium> M&uuml;nchen </stadium>
+<spectators> 65052 </spectators>
+<arbiter> Turpin (FR)</arbiter>
+</stats>
+</DE_SCT>
+</groupA>
 <groupD>
 <PL_NL>
 <stats>
@@ -56,6 +73,14 @@
 </RO_NL>
 </last16>
 <last8>
+<NL_TR>
+<stats>
+<chronological>
+</chronological>
+<stadium> Berlijn </stadium>
+<arbiter> Turpin (FR) </arbiter>
+</stats>
+</NL_TR>
 </last8>
 </ko>
 </games>
