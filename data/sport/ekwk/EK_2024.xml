@@ -76,8 +76,12 @@
 <NL_TR>
 <stats>
 <chronological>
+<data min="35"> 0-1 Akaydin </data>
+<data min="70"> 1-1 De Vrij </data>
+<data min="76"> 2-1 M&uuml;ld&uuml;r (ed) </data>
 </chronological>
 <stadium> Berlijn </stadium>
+<spectators> 70091 </spectators>
 <arbiter> Turpin (FR) </arbiter>
 </stats>
 </NL_TR>
