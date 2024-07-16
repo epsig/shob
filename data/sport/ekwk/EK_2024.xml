@@ -86,5 +86,33 @@
 </stats>
 </NL_TR>
 </last8>
+<last4>
+<NL_ENG>
+<stats>
+<chronological>
+<data min="7"> 1-0 Simons </data>
+<data min="18"> 1-1 Kane (p) </data>
+<data min="90"> 1-2 Watkins </data>
+</chronological>
+<stadium> Dortmund </stadium>
+<spectators> 60926 </spectators>
+<arbiter> Zwayer (DE) </arbiter>
+</stats>
+</NL_ENG>
+</last4>
+<final>
+<ES_ENG>
+<stats>
+<chronological>
+<data min="47"> 1-0 N. Williams </data>
+<data min="73"> 1-1 Palmer </data>
+<data min="86"> 2-1 Oyarzabal </data>
+</chronological>
+<stadium> Berlijn </stadium>
+<spectators> 65600 </spectators>
+<arbiter> Letexier (FR) </arbiter>
+</stats>
+</ES_ENG>
+</final>
 </ko>
 </games>
