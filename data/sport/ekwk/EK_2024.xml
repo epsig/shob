@@ -44,7 +44,7 @@
 <NL_AT>
 <stats>
 <chronological>
-<data min="6"> 0-1 Malen (ed) </data>
+<data min="6"> 0-1 D. Malen (ed) </data>
 <data min="47"> 1-1 gakpo </data>
 <data min="59"> 1-2 Schmid </data>
 <data min="75"> 2-2 depay </data>
@@ -63,8 +63,8 @@
 <stats>
 <chronological>
 <data min="20">0-1 gakpo </data>
-<data min="83">0-2 Malen </data>
-<data min="90+3">0-3 Malen </data>
+<data min="83">0-2 malen </data>
+<data min="90+3">0-3 malen </data>
 </chronological>
 <stadium> M&uuml;nchen </stadium>
 <spectators> 65012 </spectators>
