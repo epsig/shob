@@ -1,8 +1,9 @@
-league,round,team1,team2,dd,result,star
-CL,v3,ATrbs,NLtwn,20240806,2-1,
-CL,v3,NLtwn,ATrbs,20240813,3-3,1
-EL,v2,NLajx,RSvns,20240725,1-0,
-EL,v2,RSvns,NLajx,20240801,1-3,1
-EL,v3,GRpnt,NLajx,20240808,0-1,
-CF,v2,NLgae,NObbr,20240725,0-0,
-CF,v2,NObbr,NLgae,20240801,2-1,2
+league,round,team1,team2,dd,result,star,remark
+CL,v3,ATrbs,NLtwn,20240806,2-1,,
+CL,v3,NLtwn,ATrbs,20240813,3-3,1,
+EL,v2,NLajx,RSvns,20240725,1-0,,
+EL,v2,RSvns,NLajx,20240801,1-3,1,
+EL,v3,GRpnt,NLajx,20240808,0-1,,
+EL,v3,NLajx,GRpnt,20240815,0-1,6,na 34 strafschoppen (13-12)
+CF,v2,NLgae,NObbr,20240725,0-0,,
+CF,v2,NObbr,NLgae,20240801,2-1,2,
