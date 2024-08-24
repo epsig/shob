@@ -617,7 +617,7 @@ $options
 $out
 EOF
 
- return maintxt2htmlpage($out, $title, 'title2h1', $dd, {type1 => 'std_menu', root => '/'});
+ return maintxt2htmlpage($out, $title, 'title2h1', $dd, {type1 => 'std_menu'});
 }
 
 return 1;
