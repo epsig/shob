@@ -444,6 +444,10 @@ sub u2s
  {
   add_ster(\@s, ['*','**','***'], 1);
  }
+ elsif ($ster == 7)
+ {
+  add_ster(\@s, [('*')x8,('+')x16], 1);
+ }
  return \@s;
 }
 
