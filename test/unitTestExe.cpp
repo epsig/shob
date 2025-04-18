@@ -2,6 +2,7 @@
 #include <gtest/gtest.h>
 
 #include "testCsvReader.h"
+#include "testXmlReader.h"
 
 using namespace shob::readers::test;
 
@@ -16,4 +17,10 @@ TEST(unitTest, testCsvReader)
 {
     testCsvReader::test1();
 }
+
+TEST(unitTest, testXmlReader)
+{
+    testXmlReader::test1();
+}
+
 

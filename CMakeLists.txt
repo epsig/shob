@@ -4,6 +4,14 @@ cmake_minimum_required(VERSION 3.28 FATAL_ERROR)
 # project name and language
 project(shob LANGUAGES CXX)
 
+# use boost:
+find_package(Boost 1.83)
+if (Boost_FOUND)
+    include_directories(${Boost_INCLUDE_DIRS})
+else()
+    message(FATAL_ERROR "Boost not found")
+endif()
+
 file(GLOB shob_files "src/*.*")
 add_library(shob STATIC ${shob_files})
 set_target_properties(shob PROPERTIES CXX_STANDARD 20)
@@ -48,4 +56,12 @@ if(NOT googletest_POPULATED)
 endif()
 
 target_link_libraries(shobTest shob gtest_main)
+
+enable_testing()
+
+add_test(
+  NAME shob-unit-tests
+  COMMAND $<TARGET_FILE:shobTest>
+  WORKING_DIRECTORY ${CMAKE_CURRENT_LIST_DIR}
+)
 
