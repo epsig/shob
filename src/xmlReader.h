@@ -2,6 +2,7 @@
 
 #include <string>
 #include <set>
+#include <vector>
 
 struct Catowner
 {
@@ -10,3 +11,16 @@ struct Catowner
 };
 
 Catowner load(const std::string& file);
+
+struct Goal
+{
+    std::string min;
+    std::string score;
+};
+
+struct Game
+{
+    std::vector<Goal> data;
+};
+
+Game loadChronological(const std::string& file);

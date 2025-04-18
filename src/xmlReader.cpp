@@ -20,3 +20,25 @@ Catowner load(const std::string &file)
 
     return co;
 }
+
+Game loadChronological(const std::string& file)
+{
+    boost::property_tree::ptree pt;
+    read_xml(file, pt);
+
+    Game game;
+
+    for (const auto& i : pt.get_child("games.group_phase.groupA.CH_NL.stats.chronological"))
+    {
+        std::string name;
+        boost::property_tree::ptree sub_pt;
+        std::tie(name, sub_pt) = i;
+
+        Goal goal;
+        goal.min = sub_pt.get<std::string>("<xmlattr>.min");
+        goal.score = sub_pt.data();
+        game.data.push_back(goal);
+    }
+
+    return game;
+}

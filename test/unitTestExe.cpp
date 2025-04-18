@@ -23,4 +23,9 @@ TEST(unitTest, testXmlReader)
     testXmlReader::test1();
 }
 
+TEST(unitTest, testXmlReader2)
+{
+    testXmlReader::test2();
+}
+
 

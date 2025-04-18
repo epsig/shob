@@ -15,5 +15,12 @@ namespace shob::readers::test
         EXPECT_EQ(9, cats.cats.size());
     }
 
+    void testXmlReader::test2()
+    {
+        const std::string filename = testUtils::refFileWithPath(__FILE__, "../data/sport/ekwk/EK_1996.xml");
+        auto game = loadChronological(filename);
+        EXPECT_EQ(2, game.data.size());
+    }
+
 }
 
