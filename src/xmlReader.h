@@ -12,15 +12,4 @@ struct Catowner
 
 Catowner load(const std::string& file);
 
-struct Goal
-{
-    std::string min;
-    std::string score;
-};
-
-struct Game
-{
-    std::vector<Goal> data;
-};
-
-Game loadChronological(const std::string& file);
+std::vector<std::pair<std::string, std::string>> loadPairs(const std::string& file, const std::string& path, const std::string& attr);
