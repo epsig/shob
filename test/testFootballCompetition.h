@@ -1,0 +1,13 @@
+
+#pragma once
+
+namespace shob::football::test
+{
+    class testFootballCompetition
+    {
+    public:
+        static void test1();
+    };
+
+}
+
