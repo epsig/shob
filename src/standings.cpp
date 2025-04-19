@@ -1,6 +1,8 @@
 
 #include "standings.h"
 
+#include <algorithm>
+
 namespace shob::football
 {
     void standings::addResult(const std::string& team1, const std::string& team2, const int goals1, const int goals2)
@@ -25,12 +27,52 @@ namespace shob::football
     {
         auto index = findIndex(team);
         auto& row = list[index];
-        if (goals1 == goals2) row.draws++;
-        if (goals1 > goals2) row.wins++;
-        if (goals1 < goals2) row.losses++;
+        if (goals1 == goals2)
+        {
+            row.draws++;
+            row.points++;
+        }
+        else if (goals1 > goals2)
+        {
+            row.wins++;
+            row.points += 3; // TODO
+        }
+        else
+        {
+            row.losses++;
+        }
         row.totalGames++;
         row.goals += goals1;
         row.goalsAgainst += goals2;
     }
+
+    bool standingsRow::compareTo(const standingsRow& other) const
+    {
+        if (points == other.points)
+        {
+            if (totalGames == other.totalGames)
+            {
+                return goalDifference() > other.goalDifference();
+            }
+            else
+            {
+                return totalGames < other.totalGames;
+            }
+        }
+        else
+        {
+            return points > other.points;
+        }
+    }
+
+    void standings::sort()
+    {
+        std::sort(list.begin(), list.end(),
+            [](const standingsRow& val1, const standingsRow& val2)
+            {return val1.compareTo(val2); });
+
+    }
+
+
 }
 

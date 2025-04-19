@@ -18,6 +18,7 @@ namespace shob::football
             const auto goals2 = std::stoi(parts[1]);
             table.addResult(match.team1, match.team2, goals1, goals2);
         }
+        table.sort();
 
         return table;
     }
