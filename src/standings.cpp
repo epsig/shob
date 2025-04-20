@@ -8,7 +8,7 @@ namespace shob::football
     void standings::addResult(const std::string& team1, const std::string& team2, const int goals1, const int goals2)
     {
         addRow(team1, goals1, goals2);
-        addRow(team2, goals2, goals1);
+        addRow(team2, goals2, goals1);  // NOLINT(readability-suspicious-call-argument)
     }
 
     size_t standings::findIndex(const std::string& team)
@@ -44,6 +44,13 @@ namespace shob::football
         row.totalGames++;
         row.goals += goals1;
         row.goalsAgainst += goals2;
+    }
+
+    void standings::handlePunishment(const std::string team, const int pnts)
+    {
+        auto index = findIndex(team);
+        auto& row = list[index];
+        row.points -= pnts;
     }
 
     bool standingsRow::compareTo(const standingsRow& other) const

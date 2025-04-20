@@ -21,10 +21,18 @@ namespace shob::football
         for (size_t i = 0; i < cntMatches; i++)
         {
             const auto& line = csvData[i + 1];
-            const auto dd_int = std::stoi(line[dd]);
-            const auto spectators_int = (line[spectators].empty() ? 0 : std::stoi(line[spectators]));
-            auto match = footballMatch(line[team1], line[team2], dd_int, line[result], spectators_int);
-            matches.push_back(match);
+            try
+            {
+                auto dd_int = std::stoi(line[dd]);
+                const auto spectators_int = (line[spectators].empty() ? 0 : std::stoi(line[spectators]));
+                auto match = footballMatch(line[team1], line[team2], dd_int, line[result], spectators_int);
+                matches.push_back(match);
+            }
+            catch (...)
+            {
+                auto match = footballMatch(line[team1], line[team2], 0, line[result], 0);
+                matches.push_back(match);
+            }
         }
     }
 
