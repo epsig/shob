@@ -12,6 +12,7 @@ namespace shob::football
         std::string id;
         std::vector<footballMatch> matches;
         void readFromCsv(const std::string & filename);
+        void readFromCsvData(const std::vector<std::vector<std::string>>& csvData);
     };
 
 }

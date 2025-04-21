@@ -4,6 +4,7 @@
 #include <gtest/gtest.h>
 
 #include "../src/footballCompetition.h"
+#include "../src/results2standings.h"
 
 #include "testUtils.h"
 
@@ -12,10 +13,27 @@ namespace shob::football::test
     void testFootballCompetition::test1()
     {
         const std::string filename = readers::test::testUtils::refFileWithPath(__FILE__, "../data/sport/eredivisie/eredivisie_2024_2025.csv");
-        auto competition = football::footballCompetition();
+        auto competition = footballCompetition();
 
         competition.readFromCsv(filename);
         EXPECT_EQ(243, competition.matches.size());
+    }
+
+    void testFootballCompetition::testStrafPoints()
+    {
+        const std::vector<std::string> header = { "club1", "club2", "dd", "result", "spectators", "remark" };
+        const std::vector<std::string> straf = { "vit", "straf" , "pnt", "18", "", "dd 19 april" };
+        std::vector<std::vector<std::string>> csvData;
+        csvData.push_back(header);
+        csvData.push_back(straf);
+        auto competition = footballCompetition();
+        competition.readFromCsvData(csvData);
+        ASSERT_EQ(1, competition.matches.size());
+
+        auto table = results2standings::u2s(competition);
+
+        ASSERT_EQ(table.list.size(), 1);
+        EXPECT_EQ(table.list[0].points, -18);
     }
 
 }

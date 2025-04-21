@@ -41,4 +41,8 @@ TEST(unitTest, testResults2standings)
     testResults2standings::test1();
 }
 
+TEST(unitTest, testStrafPoints)
+{
+    testFootballCompetition::testStrafPoints();
+}
 

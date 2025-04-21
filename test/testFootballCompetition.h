@@ -7,6 +7,7 @@ namespace shob::football::test
     {
     public:
         static void test1();
+        static void testStrafPoints();
     };
 
 }

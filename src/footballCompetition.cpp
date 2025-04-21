@@ -10,6 +10,11 @@ namespace shob::football
     void footballCompetition::readFromCsv(const std::string& filename)
     {
         auto csvData = csvReader::readCsvFile(filename);
+        readFromCsvData(csvData);
+    }
+
+    void footballCompetition::readFromCsvData(const std::vector<std::vector<std::string>>& csvData)
+    {
         auto cntMatches = csvData.size() - 1;
         matches = std::vector<footballMatch>();
 

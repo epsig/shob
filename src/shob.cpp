@@ -4,16 +4,18 @@
 
 #include "results2standings.h"
 
+using namespace shob::football;
+
 int main(int argc, char* argv[])
 {
     if (argc < 2) return -1;
     std::string file = argv[1];
 
-    auto competition = shob::football::footballCompetition();
+    auto competition = footballCompetition();
 
     competition.readFromCsv(file);
 
-    auto table = shob::football::results2standings::u2s(competition);
+    auto table = results2standings::u2s(competition);
 
     for (const auto& row : table.list)
     {
