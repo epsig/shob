@@ -27,4 +27,14 @@ namespace shob::general
             return "?";
         }
     }
+
+    bool DateTime::allDigits(const std::string& date)
+    {
+        for (const char& c : date)
+        {
+            if (c < '0' || c > '9') return false;
+        }
+        return true;
+    }
+
 }

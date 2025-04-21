@@ -10,8 +10,8 @@ namespace shob::football
     class footballMatch
     {
     public:
-        footballMatch(const std::string team1, const std::string team2, int dd, const std::string& result, int spectators)
-            : team1(team1), team2(team2), dd(dd), result(result), spectators(spectators){}
+        footballMatch(const std::string team1, const std::string team2, const general::DateTime& dd, const std::string& result, int spectators)
+            : team1(team1), team2(team2), dd(dd), result(result), spectators(spectators) {}
         std::string team1; // id home playing team
         std::string team2; // id away playing team
         general::DateTime dd;

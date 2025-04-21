@@ -12,6 +12,7 @@ namespace shob::general
         DateTime(const int yyyymmdd, const int hhmm);
         DateTime(const std::string& raw);
         std::string toString() const;
+        static bool allDigits(const std::string& date);
     private:
         DateTimeType type;
         int yyyymmdd = -999; // date in the form 20250419

@@ -6,6 +6,7 @@
 namespace shob::football
 {
     using namespace shob::readers;
+    using namespace shob::general;
 
     void footballCompetition::readFromCsv(const std::string& filename)
     {
@@ -15,29 +16,33 @@ namespace shob::football
 
     void footballCompetition::readFromCsvData(const std::vector<std::vector<std::string>>& csvData)
     {
-        auto cntMatches = csvData.size() - 1;
+        const auto cntMatches = csvData.size() - 1;
         matches = std::vector<footballMatch>();
 
-        auto team1 = csvReader::findColumn("club1", csvData[0]);
-        auto team2 = csvReader::findColumn("club2", csvData[0]);
-        auto dd = csvReader::findColumn("dd", csvData[0]);
-        auto result = csvReader::findColumn("result", csvData[0]);
-        auto spectators = csvReader::findColumn("spectators", csvData[0]);
+        auto team1Column = csvReader::findColumn("club1", csvData[0]);
+        auto team2Column = csvReader::findColumn("club2", csvData[0]);
+        auto ddColumn = csvReader::findColumn("dd", csvData[0]);
+        auto resultColumn = csvReader::findColumn("result", csvData[0]);
+        auto spectatorsColumn = csvReader::findColumn("spectators", csvData[0]);
         for (size_t i = 0; i < cntMatches; i++)
         {
             const auto& line = csvData[i + 1];
-            try
+            int spectators = 0;
+            if (!line[spectatorsColumn].empty())
             {
-                auto dd_int = std::stoi(line[dd]);
-                const auto spectators_int = (line[spectators].empty() ? 0 : std::stoi(line[spectators]));
-                auto match = footballMatch(line[team1], line[team2], dd_int, line[result], spectators_int);
-                matches.push_back(match);
+                spectators = std::stoi(line[spectatorsColumn]);
             }
-            catch (...)
+            auto date = DateTime(0);
+            if (DateTime::allDigits(line[ddColumn]))
             {
-                auto match = footballMatch(line[team1], line[team2], 0, line[result], 0);
-                matches.push_back(match);
+                date = DateTime( std::stoi(line[ddColumn]));
             }
+            else
+            {
+                date = DateTime(line[ddColumn]);
+            }
+            auto match = footballMatch(line[team1Column], line[team2Column], date, line[resultColumn], spectators);
+            matches.push_back(match);
         }
     }
 
