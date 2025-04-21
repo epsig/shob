@@ -28,20 +28,16 @@ namespace shob::football
         {
             const auto& line = csvData[i + 1];
             int spectators = 0;
-            if (!line[spectatorsColumn].empty())
+            if (spectatorsColumn < line.size())
             {
-                spectators = std::stoi(line[spectatorsColumn]);
+                if (!line[spectatorsColumn].empty())
+                {
+                    spectators = std::stoi(line[spectatorsColumn]);
+                }
             }
-            auto date = DateTime(0);
-            if (DateTime::allDigits(line[ddColumn]))
-            {
-                date = DateTime( std::stoi(line[ddColumn]));
-            }
-            else
-            {
-                date = DateTime(line[ddColumn]);
-            }
-            auto match = footballMatch(line[team1Column], line[team2Column], date, line[resultColumn], spectators);
+            const auto date = (DateTime::allDigits(line[ddColumn]) ?
+                DateTime( std::stoi(line[ddColumn])) : DateTime(line[ddColumn]));
+            const auto match = footballMatch(line[team1Column], line[team2Column], date, line[resultColumn], spectators);
             matches.push_back(match);
         }
     }
