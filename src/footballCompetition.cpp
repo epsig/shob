@@ -2,6 +2,7 @@
 #include "footballCompetition.h"
 
 #include "csvReader.h"
+#include "dateFactory.h"
 
 namespace shob::football
 {
@@ -35,8 +36,7 @@ namespace shob::football
                     spectators = std::stoi(line[spectatorsColumn]);
                 }
             }
-            const auto date = (DateTime::allDigits(line[ddColumn]) ?
-                DateTime( std::stoi(line[ddColumn])) : DateTime(line[ddColumn]));
+            auto date = dateFactory::getDate(line[ddColumn]);
             const auto match = footballMatch(line[team1Column], line[team2Column], date, line[resultColumn], spectators);
             matches.push_back(match);
         }
