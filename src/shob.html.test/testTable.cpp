@@ -8,9 +8,12 @@ namespace shob::html::test
 {
     void testTable::test1()
     {
-        std::vector<std::string> header = { "aap", "noot", "mies" };
-        std::vector<std::string> body = { "boom", "roos", "vis" };
-        auto table = table::buildTable({ header, body });
+        tableContent content;
+        content.header.data = { "aap", "noot", "mies" };
+        rowContent body;
+        body.data = { "boom", "roos", "vis" };
+        content.body.push_back(body);
+        auto table = table::buildTable(content);
         ASSERT_EQ(4, table.size());
     }
 

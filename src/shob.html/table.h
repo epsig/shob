@@ -5,12 +5,26 @@
 
 namespace shob::html
 {
+    class rowContent
+    {
+    public:
+        std::vector<std::string> data;
+    };
+
+    class tableContent
+    {
+    public:
+        rowContent header;
+        std::vector<rowContent> body;
+    };
+
     class table
     {
     public:
-        static std::vector<std::string> buildTable(const std::vector<std::vector<std::string>>& content);
+        static std::vector<std::string> buildTable(const tableContent& content);
     private:
-        static std::string buildRow(const std::vector<std::string>& content);
-        static std::string buildHeader(const std::vector<std::string>& content);
+        static std::string buildRow(const rowContent& content);
+        static std::string buildHeader(const rowContent& content);
+        static std::string buildRow(const rowContent& content, const std::string& tag1, const std::string& tag2);
     };
 }

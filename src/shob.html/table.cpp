@@ -3,38 +3,41 @@
 
 namespace shob::html
 {
-    std::vector<std::string> table::buildTable(const std::vector<std::vector<std::string>>& content)
+    std::vector<std::string> table::buildTable(const tableContent& content)
     {
         std::vector<std::string> table;
         table.emplace_back("<table>");
-        table.push_back(buildHeader(content[0]));
-        for (size_t i = 1; i < content.size(); i++)
+        if ( ! content.header.data.empty())
         {
-            table.push_back(buildRow(content[i]));
+            table.push_back(buildHeader(content.header));
+        }
+        for (const auto& row : content.body)
+        {
+            table.push_back(buildRow(row));
         }
         table.emplace_back("</table>");
         return table;
     }
 
-    std::string table::buildRow(const std::vector<std::string>& content)
+    std::string table::buildRow(const rowContent& content)
+    {
+        return buildRow(content, "<td>", "</td>");
+    }
+
+    std::string table::buildHeader(const rowContent& content)
+    {
+        return buildRow(content, "<th>", "</th>");
+    }
+
+    std::string table::buildRow(const rowContent& content, const std::string& tag1, const std::string& tag2)
     {
         std::string row = "<tr>";
-        for (const auto& col : content)
+        for (const auto& col : content.data)
         {
-            row += "<td>" + col + "</td>";
+            row += tag1 + col + tag2;
         }
         row += "</tr>";
         return row;
     }
 
-    std::string table::buildHeader(const std::vector<std::string>& content)
-    {
-        std::string row = "<tr>";
-        for (const auto& col : content)
-        {
-            row += "<th>" + col + "</th>";
-        }
-        row += "</tr>";
-        return row;
-    }
 }
