@@ -3,8 +3,8 @@
 
 #include <gtest/gtest.h>
 
-#include "../src/shob.readers/xmlReader.h"
-#include "testUtils.h"
+#include "../shob.readers/xmlReader.h"
+#include "../shob.general.test/testUtils.h"
 
 namespace shob::readers::test
 {
@@ -17,7 +17,7 @@ namespace shob::readers::test
 
     void testXmlReader::test2()
     {
-        const std::string filename = testUtils::refFileWithPath(__FILE__, "../data/sport/ekwk/EK_1996.xml");
+        const std::string filename = testUtils::refFileWithPath(__FILE__, "../../data/sport/ekwk/EK_1996.xml");
         const std::string  path = "games.group_phase.groupA.CH_NL.stats.chronological";
         const auto games = loadPairs(filename, path , "min");
         ASSERT_EQ(2, games.size());

@@ -3,11 +3,8 @@
 
 #include "testCsvReader.h"
 #include "testXmlReader.h"
-#include "testFootballCompetition.h"
-#include "testResults2standings.h"
 
 using namespace shob::readers::test;
-using namespace shob::football::test;
 
 int main(int argc, char** argv)
 {
@@ -29,20 +26,5 @@ TEST(unitTest, testXmlReader)
 TEST(unitTest, testXmlReader2)
 {
     testXmlReader::test2();
-}
-
-TEST(unitTest, testFootballCompetition)
-{
-    testFootballCompetition::test1();
-}
-
-TEST(unitTest, testResults2standings)
-{
-    testResults2standings::test1();
-}
-
-TEST(unitTest, testStrafPoints)
-{
-    testFootballCompetition::testStrafPoints();
 }
 
