@@ -12,10 +12,9 @@ else()
     message(FATAL_ERROR "Boost not found")
 endif()
 
-file(GLOB shob_files "src/*.*")
-list(REMOVE_ITEM shob_files "src/shob.cpp")
-add_library(shoblib STATIC ${shob_files})
-set_target_properties(shoblib PROPERTIES CXX_STANDARD 20)
+file(GLOB football_files "src/shob.football/*.*")
+add_library(shob.football STATIC ${football_files})
+set_target_properties(shob.football PROPERTIES CXX_STANDARD 20)
 
 file(GLOB general_files "src/shob.general/*.*")
 add_library(shob.general STATIC ${general_files})
@@ -67,9 +66,9 @@ if(NOT googletest_POPULATED)
     endif()
 endif()
 
-target_link_libraries(shoblib shob.general shob.readers)
-target_link_libraries(shobTest shoblib shob.general shob.readers gtest_main)
-target_link_libraries(shob shoblib shob.general shob.readers gtest_main)
+target_link_libraries(shob.football shob.general shob.readers)
+target_link_libraries(shobTest shob.football shob.general shob.readers gtest_main)
+target_link_libraries(shob shob.football shob.general shob.readers gtest_main)
 
 enable_testing()
 

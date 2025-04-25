@@ -1,7 +1,7 @@
 
 #pragma once
 
-namespace shob::sport
+namespace shob::football
 {
     enum class starEnum {unknownYet, homeWins, awayWins, homeWinsXt, awayWinsXt, homeWinsPenalties, awayWinsPenalties};
 

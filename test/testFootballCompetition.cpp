@@ -3,8 +3,8 @@
 
 #include <gtest/gtest.h>
 
-#include "../src/footballCompetition.h"
-#include "../src/results2standings.h"
+#include "../src/shob.football/footballCompetition.h"
+#include "../src/shob.football/results2standings.h"
 
 #include "testUtils.h"
 

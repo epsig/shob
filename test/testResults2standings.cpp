@@ -5,7 +5,7 @@
 
 #include "testUtils.h"
 
-#include "../src/results2standings.h"
+#include "../src/shob.football/results2standings.h"
 
 namespace shob::football::test
 {

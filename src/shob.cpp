@@ -2,7 +2,7 @@
 #include <string>
 #include <iostream>
 
-#include "results2standings.h"
+#include "shob.football/results2standings.h"
 
 using namespace shob::football;
 
