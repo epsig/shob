@@ -4,6 +4,10 @@ cmake_minimum_required(VERSION 3.28 FATAL_ERROR)
 # project name and language
 project(shob LANGUAGES CXX)
 
+set(CMAKE_ARCHIVE_OUTPUT_DIRECTORY ${CMAKE_CURRENT_BINARY_DIR}/lib)
+set(CMAKE_LIBRARY_OUTPUT_DIRECTORY ${CMAKE_CURRENT_BINARY_DIR}/lib)
+set(CMAKE_RUNTIME_OUTPUT_DIRECTORY ${CMAKE_CURRENT_BINARY_DIR}/bin)
+
 # use boost:
 find_package(Boost 1.83)
 if (Boost_FOUND)
