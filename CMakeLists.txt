@@ -17,6 +17,10 @@ list(REMOVE_ITEM shob_files "src/shob.cpp")
 add_library(shoblib STATIC ${shob_files})
 set_target_properties(shoblib PROPERTIES CXX_STANDARD 20)
 
+file(GLOB general_files "src/shob.general/*.*")
+add_library(shob.general STATIC ${general_files})
+set_target_properties(shob.general PROPERTIES CXX_STANDARD 20)
+
 add_executable(shob src/shob.cpp)
 set_target_properties(shob PROPERTIES CXX_STANDARD 20)
 
@@ -59,8 +63,9 @@ if(NOT googletest_POPULATED)
     endif()
 endif()
 
-target_link_libraries(shobTest shoblib gtest_main)
-target_link_libraries(shob shoblib gtest_main)
+target_link_libraries(shoblib shob.general)
+target_link_libraries(shobTest shoblib shob.general gtest_main)
+target_link_libraries(shob shoblib shob.general gtest_main)
 
 enable_testing()
 
