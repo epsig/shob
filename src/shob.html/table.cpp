@@ -3,19 +3,19 @@
 
 namespace shob::html
 {
-    std::vector<std::string> table::buildTable(const tableContent& content)
+    rowContent table::buildTable(const tableContent& content)
     {
-        std::vector<std::string> table;
-        table.emplace_back("<table>");
+        rowContent table;
+        table.data.emplace_back("<table>");
         if ( ! content.header.data.empty())
         {
-            table.push_back(buildHeader(content.header));
+            table.data.push_back(buildHeader(content.header));
         }
         for (const auto& row : content.body)
         {
-            table.push_back(buildRow(row));
+            table.data.push_back(buildRow(row));
         }
-        table.emplace_back("</table>");
+        table.data.emplace_back("</table>");
         return table;
     }
 

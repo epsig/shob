@@ -14,7 +14,7 @@ namespace shob::html::test
         body.data = { "boom", "roos", "vis" };
         content.body.push_back(body);
         auto table = table::buildTable(content);
-        ASSERT_EQ(4, table.size());
+        ASSERT_EQ(4, table.data.size());
     }
 
 }

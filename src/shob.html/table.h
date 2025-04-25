@@ -21,7 +21,7 @@ namespace shob::html
     class table
     {
     public:
-        static std::vector<std::string> buildTable(const tableContent& content);
+        static rowContent buildTable(const tableContent& content);
     private:
         static std::string buildRow(const rowContent& content);
         static std::string buildHeader(const rowContent& content);
