@@ -3,7 +3,7 @@
 
 #include <gtest/gtest.h>
 
-#include "../src/xmlReader.h"
+#include "../src/shob.readers/xmlReader.h"
 #include "testUtils.h"
 
 namespace shob::readers::test

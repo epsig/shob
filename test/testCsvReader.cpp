@@ -3,7 +3,7 @@
 
 #include <gtest/gtest.h>
 
-#include "../src/csvReader.h"
+#include "../src/shob.readers/csvReader.h"
 
 #include "testUtils.h"
 
