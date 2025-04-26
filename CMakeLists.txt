@@ -32,6 +32,10 @@ file(GLOB html_files "src/shob.html/*.*")
 add_library(shob.html STATIC ${html_files})
 set_target_properties(shob.html PROPERTIES CXX_STANDARD 20)
 
+file(GLOB teams_files "src/shob.teams/*.*")
+add_library(shob.teams STATIC ${teams_files})
+set_target_properties(shob.teams PROPERTIES CXX_STANDARD 20)
+
 add_executable(shob src/shob.cpp)
 set_target_properties(shob PROPERTIES CXX_STANDARD 20)
 
@@ -50,6 +54,10 @@ set_target_properties(shob.general.test PROPERTIES CXX_STANDARD 20)
 file(GLOB html_test_files "src/shob.html.test/*.*")
 add_executable(shob.html.test ${html_test_files})
 set_target_properties(shob.html.test PROPERTIES CXX_STANDARD 20)
+
+file(GLOB teams_test_files "src/shob.teams.test/*.*")
+add_executable(shob.teams.test ${teams_test_files})
+set_target_properties(shob.teams.test PROPERTIES CXX_STANDARD 20)
 
 include(FetchContent)
 
@@ -89,7 +97,9 @@ target_link_libraries(shob.football shob.general shob.readers)
 target_link_libraries(shob.readers.test shob.general shob.general.test shob.readers gtest_main)
 target_link_libraries(shob.football.test shob.football shob.general shob.general.test shob.readers gtest_main)
 target_link_libraries(shob.html.test shob.html gtest_main)
-target_link_libraries(shob shob.football shob.general shob.readers gtest_main)
+target_link_libraries(shob shob.football shob.general shob.readers)
+target_link_libraries(shob.teams shob.readers)
+target_link_libraries(shob.teams.test shob.teams shob.readers shob.general.test gtest_main)
 
 enable_testing()
 
@@ -108,6 +118,12 @@ add_test(
 add_test(
   NAME shob-html-unit-tests
   COMMAND $<TARGET_FILE:shob.html.test>
+  WORKING_DIRECTORY ${CMAKE_CURRENT_LIST_DIR}
+)
+
+add_test(
+  NAME shob-teams-unit-tests
+  COMMAND $<TARGET_FILE:shob.teams.test>
   WORKING_DIRECTORY ${CMAKE_CURRENT_LIST_DIR}
 )
 
