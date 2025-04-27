@@ -12,8 +12,13 @@ namespace shob::teams
         Init(data);
     }
 
-    std::string clubTeams::expand(const std::string& club)
+    std::string clubTeams::expand(const std::string& club) const
     {
+        if (club.size() == 3)
+        {
+            auto nlClub = "NL" + club;
+            return clubs.at(nlClub);
+        }
         return clubs.at(club);
     }
 

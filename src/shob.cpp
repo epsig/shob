@@ -3,23 +3,34 @@
 #include <iostream>
 
 #include "shob.football/results2standings.h"
+#include "shob.teams/clubTeams.h"
 
 using namespace shob::football;
 
 int main(int argc, char* argv[])
 {
-    if (argc < 2) return -1;
-    std::string file = argv[1];
+    if (argc < 3) return -1;
+    std::string file1 = argv[1];
+    std::string file2 = argv[2];
 
     auto competition = footballCompetition();
 
-    competition.readFromCsv(file);
+    competition.readFromCsv(file1);
 
     auto table = results2standings::u2s(competition);
 
-    for (const auto& row : table.list)
+    auto teams = shob::teams::clubTeams();
+    teams.InitFromFile(file2);
+
+    auto htmlTable = table.prepareTable(teams);
+
+    auto out = shob::html::table::buildTable(htmlTable);
+
+    std::cout << "<html> <body>" << std::endl;
+    for (const auto& row : out.data)
     {
-        std::cout << row.team << " " << row.totalGames << " " << row.points << " " << row.goalDifference() << std::endl;
+        std::cout << row << std::endl;
     }
+    std::cout << "</body> </html>" << std::endl;
 
 }

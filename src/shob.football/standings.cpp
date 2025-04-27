@@ -77,9 +77,22 @@ namespace shob::football
         std::sort(list.begin(), list.end(),
             [](const standingsRow& val1, const standingsRow& val2)
             {return val1.compareTo(val2); });
-
     }
 
+    html::tableContent standings::prepareTable(const teams::clubTeams& teams) const
+    {
+        auto table = html::tableContent();
+        table.header.data = { "club", "games", "points", "goal difference" };
+        for (const auto& row : list)
+        {
+            html::rowContent data;
+            auto team = teams.expand(row.team);
+            data.data = { team, std::to_string(row.totalGames), std::to_string(row.points), std::to_string(row.goalDifference()) };
+            table.body.push_back(data);
+        }
+
+        return table;
+    }
 
 }
 

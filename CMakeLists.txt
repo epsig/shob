@@ -93,11 +93,11 @@ if(NOT googletest_POPULATED)
     endif()
 endif()
 
-target_link_libraries(shob.football shob.general shob.readers)
+target_link_libraries(shob.football shob.general shob.readers shob.teams)
 target_link_libraries(shob.readers.test shob.general shob.general.test shob.readers gtest_main)
 target_link_libraries(shob.football.test shob.football shob.general shob.general.test shob.readers gtest_main)
 target_link_libraries(shob.html.test shob.html gtest_main)
-target_link_libraries(shob shob.football shob.general shob.readers)
+target_link_libraries(shob shob.football shob.general shob.readers shob.html shob.teams)
 target_link_libraries(shob.teams shob.readers)
 target_link_libraries(shob.teams.test shob.teams shob.readers shob.general.test gtest_main)
 
