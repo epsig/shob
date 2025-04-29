@@ -23,6 +23,11 @@ TEST(unitTest, testResults2standings)
     testResults2standings::test1();
 }
 
+TEST(unitTest, testResults2standingsWithTeams)
+{
+    testResults2standings::test2();
+}
+
 TEST(unitTest, testStrafPoints)
 {
     testFootballCompetition::testStrafPoints();
