@@ -37,9 +37,10 @@ namespace shob::football::test
 
         auto table = results2standings::u2s(competition);
 
+        auto settings = html::settings();
         auto reader = teams::clubTeams();
         reader.InitFromFile(filename2);
-        auto table2 = table.prepareTable(reader);
+        auto table2 = table.prepareTable(reader, settings);
 
         EXPECT_EQ(table2.body.size(), 18);
         EXPECT_EQ(table2.body[16].data[0], "RKC Waalwijk");

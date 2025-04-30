@@ -79,10 +79,17 @@ namespace shob::football
             {return val1.compareTo(val2); });
     }
 
-    html::tableContent standings::prepareTable(const teams::clubTeams& teams) const
+    html::tableContent standings::prepareTable(const teams::clubTeams& teams, const html::settings& settings) const
     {
         auto table = html::tableContent();
-        table.header.data = { "club", "games", "points", "goal difference" };
+        if (settings.lang == html::language::Dutch)
+        {
+            table.header.data = { "club", "aantal wedstrijden", "punten", "doelsaldo" };
+        }
+        else
+        {
+            table.header.data = { "club", "games", "points", "goal difference" };
+        }
         for (const auto& row : list)
         {
             html::rowContent data;

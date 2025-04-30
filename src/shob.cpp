@@ -22,7 +22,9 @@ int main(int argc, char* argv[])
     auto teams = shob::teams::clubTeams();
     teams.InitFromFile(file2);
 
-    auto htmlTable = table.prepareTable(teams);
+    auto settings = shob::html::settings();
+
+    auto htmlTable = table.prepareTable(teams, settings);
 
     auto out = shob::html::table::buildTable(htmlTable);
 
@@ -32,5 +34,4 @@ int main(int argc, char* argv[])
         std::cout << row << std::endl;
     }
     std::cout << "</body> </html>" << std::endl;
-
 }
