@@ -11,7 +11,8 @@ namespace shob::readers::test
 {
     void testCsvAllSeasonsReader::test1()
     {
-        const std::string filename = testUtils::refFileWithPath(__FILE__, "../../data/sport/eredivisie/eredivisie_u2s.csv");
+        const std::string u2sFile = "../../data/sport/eredivisie/eredivisie_u2s.csv";
+        const std::string filename = testUtils::refFileWithPath(__FILE__, u2sFile);
         auto result = csvAllSeasonsReader();
         result.init(filename);
         auto filtered = result.getSeason("2023-2024");

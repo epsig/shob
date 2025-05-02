@@ -9,9 +9,10 @@ using namespace shob::football;
 
 int main(int argc, char* argv[])
 {
-    if (argc < 3) return -1;
+    if (argc < 4) return -1;
     std::string file1 = argv[1];
     std::string file2 = argv[2];
+    std::string file3 = argv[3];
 
     auto competition = footballCompetition();
 
@@ -23,6 +24,10 @@ int main(int argc, char* argv[])
     teams.InitFromFile(file2);
 
     auto settings = shob::html::settings();
+
+    auto extras = shob::readers::csvAllSeasonsReader();
+    extras.init(file3);
+    table.addExtras(extras, "2023-2024");
 
     auto htmlTable = table.prepareTable(teams, settings);
 

@@ -3,9 +3,11 @@
 
 #include <string>
 #include <vector>
+#include <map>
 #include "../shob.html/table.h"
 #include "../shob.html/settings.h"
 #include "../shob.teams/clubTeams.h"
+#include "../shob.readers/csvAllSeasonsReader.h"
 
 namespace shob::football
 {
@@ -24,17 +26,26 @@ namespace shob::football
         int points = 0;
     };
 
+    class u2sExtra
+    {
+    public:
+        std::vector<std::string> extras;
+    };
+
     class standings
     {
     public:
         std::vector<standingsRow> list;
         void addResult(const std::string& team1, const std::string& team2, const int goals1, const int goals2);
+        void addExtras(const readers::csvAllSeasonsReader& r, const std::string& season);
         void sort();
         void handlePunishment(const std::string team, const int pnts);
         html::tableContent prepareTable(const teams::clubTeams & teams, const html::settings & settings) const;
     private:
+        std::map<std::string, u2sExtra> extras;
         void addRow(const std::string& team1, const int goals1, const int goals2);
         size_t findIndex(const std::string& team);
+        static void updateTeamWithExtras(std::string& team, const std::vector<std::string>& extraData);
     };
 }
 

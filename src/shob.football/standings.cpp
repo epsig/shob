@@ -3,6 +3,8 @@
 
 #include <algorithm>
 
+#include "../shob.readers/csvReader.h"
+
 namespace shob::football
 {
     void standings::addResult(const std::string& team1, const std::string& team2, const int goals1, const int goals2)
@@ -79,6 +81,18 @@ namespace shob::football
             {return val1.compareTo(val2); });
     }
 
+    void standings::updateTeamWithExtras(std::string& team, const std::vector<std::string>& extraData)
+    {
+        if (extraData[0] == "K")
+        {
+            team = "<b>" + team + " (" + extraData[1] + ") </b>";
+        }
+        else
+        {
+            team += " (" + extraData[0] + ")";
+        }
+    }
+
     html::tableContent standings::prepareTable(const teams::clubTeams& teams, const html::settings& settings) const
     {
         auto table = html::tableContent();
@@ -94,11 +108,33 @@ namespace shob::football
         {
             html::rowContent data;
             auto team = teams.expand(row.team);
+            if (extras.contains(row.team))
+            {
+                auto extraData = extras.at(row.team).extras;
+                updateTeamWithExtras(team, extraData);
+            }
             data.data = { team, std::to_string(row.totalGames), std::to_string(row.points), std::to_string(row.goalDifference()) };
             table.body.push_back(data);
         }
 
         return table;
+    }
+
+    void standings::addExtras(const readers::csvAllSeasonsReader& r, const std::string& season)
+    {
+        auto extraU2s = r.getSeason(season);
+        for (size_t i = 1; i < extraU2s.size(); i++)
+        {
+            auto teams = extraU2s[i][0];
+            auto splittedTeams = readers::csvReader::split(teams, ";");
+            auto u2s = extraU2s[i][1];
+            u2sExtra data;
+            data.extras = readers::csvReader::split(u2s, ";");
+            for (const auto& team : splittedTeams)
+            {
+                extras.insert({ team, data });
+            }
+        }
     }
 
 }

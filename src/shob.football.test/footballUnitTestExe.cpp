@@ -28,6 +28,11 @@ TEST(unitTest, testResults2standingsWithTeams)
     testResults2standings::test2();
 }
 
+TEST(unitTest, testResults2standingsWithExtras)
+{
+    testResults2standings::test3();
+}
+
 TEST(unitTest, testStrafPoints)
 {
     testFootballCompetition::testStrafPoints();

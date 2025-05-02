@@ -12,7 +12,8 @@ namespace shob::football::test
 {
     void testFootballCompetition::test1()
     {
-        const std::string filename = readers::test::testUtils::refFileWithPath(__FILE__, "../../data/sport/eredivisie/eredivisie_2024_2025.csv");
+        const std::string eredivisie2425 = "../../data/sport/eredivisie/eredivisie_2024_2025.csv";
+        const std::string filename = readers::test::testUtils::refFileWithPath(__FILE__, eredivisie2425);
         auto competition = footballCompetition();
 
         competition.readFromCsv(filename);
