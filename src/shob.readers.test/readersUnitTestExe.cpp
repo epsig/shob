@@ -3,6 +3,7 @@
 
 #include "testCsvReader.h"
 #include "testXmlReader.h"
+#include "testCsvAllSeasonsReader.h"
 
 using namespace shob::readers::test;
 
@@ -26,5 +27,10 @@ TEST(unitTest, testXmlReader)
 TEST(unitTest, testXmlReader2)
 {
     testXmlReader::test2();
+}
+
+TEST(unitTest, testCsvAllSeasonsReader)
+{
+    testCsvAllSeasonsReader::test1();
 }
 
