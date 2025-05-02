@@ -9,25 +9,27 @@ using namespace shob::football;
 
 int main(int argc, char* argv[])
 {
-    if (argc < 4) return -1;
-    std::string file1 = argv[1];
-    std::string file2 = argv[2];
-    std::string file3 = argv[3];
+    if (argc < 2) return -1;
+    std::string season = argv[1];
 
     auto competition = footballCompetition();
 
+    auto season1 = season;
+    season1.replace(4, 1, "_");
+    auto file1 = "sport/eredivisie/eredivisie_" + season1 + ".csv";
     competition.readFromCsv(file1);
 
     auto table = results2standings::u2s(competition);
 
     auto teams = shob::teams::clubTeams();
+    auto file2 = "sport/clubs.csv";
     teams.InitFromFile(file2);
 
     auto settings = shob::html::settings();
 
     auto extras = shob::readers::csvAllSeasonsReader();
-    extras.init(file3);
-    table.addExtras(extras, "2023-2024");
+    extras.init("sport/eredivisie/eredivisie_u2s.csv");
+    table.addExtras(extras, season);
 
     auto htmlTable = table.prepareTable(teams, settings);
 
