@@ -53,6 +53,7 @@ namespace shob::football
         auto index = findIndex(team);
         auto& row = list[index];
         row.points -= pnts;
+        row.punishmentPoints += pnts;
     }
 
     bool standingsRow::compareTo(const standingsRow& other) const
@@ -81,16 +82,40 @@ namespace shob::football
             {return val1.compareTo(val2); });
     }
 
-    void standings::updateTeamWithExtras(std::string& team, const std::vector<std::string>& extraData)
+    std::string joinStrings(const std::string& s1, const std::string& s2, const std::string& separator)
+    {   // TODO move to string utils or something like that
+        if (s1.empty()) return s2;
+        if (s2.empty()) return s1;
+        return s1 + separator + s2;
+    }
+
+    void standings::updateTeamWithExtras(std::string& team, const std::vector<std::string>& extraData, const int punishment)
     {
-        if (extraData[0] == "K")
+        bool useBold = false;
+        std::string extra1;
+        std::string extra2;
+        if (punishment != 0)
         {
-            team = "<b>" + team + " (" + extraData[1] + ") </b>";
+            extra1 = std::to_string(-punishment);
         }
-        else
+        if ( ! extraData.empty())
         {
-            team += " (" + extraData[0] + ")";
+            if (extraData[0] == "K")
+            {
+                useBold = true;
+                extra2 = extraData[1];
+            }
+            else
+            {
+                extra2 = extraData[0];
+            }
         }
+        team += " (" + joinStrings(extra1, extra2, "; ") +")";
+        if (useBold)
+        {
+            team = "<b>" + team + "</b>";
+        }
+
     }
 
     html::tableContent standings::prepareTable(const teams::clubTeams& teams, const html::settings& settings) const
@@ -108,11 +133,16 @@ namespace shob::football
         {
             html::rowContent data;
             auto team = teams.expand(row.team);
+            std::vector<std::string> extraData;
             if (extras.contains(row.team))
             {
-                auto extraData = extras.at(row.team).extras;
-                updateTeamWithExtras(team, extraData);
+                extraData = extras.at(row.team).extras;
             }
+            if (row.punishmentPoints != 0 || !extraData.empty())
+            {
+                updateTeamWithExtras(team, extraData, row.punishmentPoints);
+            }
+
             data.data = { team, std::to_string(row.totalGames), std::to_string(row.points), std::to_string(row.goalDifference()) };
             table.body.push_back(data);
         }

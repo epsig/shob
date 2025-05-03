@@ -24,6 +24,7 @@ namespace shob::football
         int goals = 0;
         int goalsAgainst = 0;
         int points = 0;
+        int punishmentPoints = 0;
     };
 
     class u2sExtra
@@ -45,7 +46,7 @@ namespace shob::football
         std::map<std::string, u2sExtra> extras;
         void addRow(const std::string& team1, const int goals1, const int goals2);
         size_t findIndex(const std::string& team);
-        static void updateTeamWithExtras(std::string& team, const std::vector<std::string>& extraData);
+        static void updateTeamWithExtras(std::string& team, const std::vector<std::string>& extraData, const int punishment);
     };
 }
 
