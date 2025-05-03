@@ -36,6 +36,10 @@ file(GLOB teams_files "src/shob.teams/*.*")
 add_library(shob.teams STATIC ${teams_files})
 set_target_properties(shob.teams PROPERTIES CXX_STANDARD 20)
 
+file(GLOB pages_files "src/shob.pages/*.*")
+add_library(shob.pages STATIC ${pages_files})
+set_target_properties(shob.pages PROPERTIES CXX_STANDARD 20)
+
 add_executable(shob src/shob.cpp)
 set_target_properties(shob PROPERTIES CXX_STANDARD 20)
 
@@ -97,7 +101,8 @@ target_link_libraries(shob.football shob.general shob.readers shob.teams)
 target_link_libraries(shob.readers.test shob.general shob.general.test shob.readers gtest_main)
 target_link_libraries(shob.football.test shob.football shob.general shob.general.test shob.readers gtest_main)
 target_link_libraries(shob.html.test shob.html gtest_main)
-target_link_libraries(shob shob.football shob.general shob.readers shob.html shob.teams)
+target_link_libraries(shob.pages shob.football shob.general shob.readers shob.html shob.teams)
+target_link_libraries(shob shob.football shob.general shob.readers shob.html shob.teams shob.pages)
 target_link_libraries(shob.teams shob.readers)
 target_link_libraries(shob.teams.test shob.teams shob.readers shob.general.test gtest_main)
 
