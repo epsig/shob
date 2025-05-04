@@ -63,6 +63,11 @@ file(GLOB teams_test_files "src/shob.teams.test/*.*")
 add_executable(shob.teams.test ${teams_test_files})
 set_target_properties(shob.teams.test PROPERTIES CXX_STANDARD 20)
 
+file(GLOB pages_test_files "src/shob.pages.test/*.*")
+add_executable(shob.pages.test ${pages_test_files})
+set_target_properties(shob.pages.test PROPERTIES CXX_STANDARD 20)
+
+
 include(FetchContent)
 
 FetchContent_Declare(
@@ -103,6 +108,8 @@ target_link_libraries(shob.football.test shob.football shob.general shob.general
 target_link_libraries(shob.html.test shob.html gtest_main)
 target_link_libraries(shob.pages shob.football shob.general shob.readers shob.html shob.teams)
 target_link_libraries(shob shob.football shob.general shob.readers shob.html shob.teams shob.pages)
+target_link_libraries(shob.pages.test shob.football shob.general shob.readers shob.html
+    shob.teams shob.pages shob.general.test gtest_main)
 target_link_libraries(shob.teams shob.readers)
 target_link_libraries(shob.teams.test shob.teams shob.readers shob.general.test gtest_main)
 
@@ -129,6 +136,12 @@ add_test(
 add_test(
   NAME shob-teams-unit-tests
   COMMAND $<TARGET_FILE:shob.teams.test>
+  WORKING_DIRECTORY ${CMAKE_CURRENT_LIST_DIR}
+)
+
+add_test(
+  NAME shob-pages-unit-tests
+  COMMAND $<TARGET_FILE:shob.pages.test>
   WORKING_DIRECTORY ${CMAKE_CURRENT_LIST_DIR}
 )
 

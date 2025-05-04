@@ -8,7 +8,10 @@ namespace shob::pages
     class format_nl
     {
     public:
-        static void get_season_stdout(const std::string& season);
-        static std::vector<std::string> get_season(const std::string& season);
+        format_nl(const std::string& folder) : sportDataFolder(folder) {}
+        void get_season_stdout(const std::string& season) const;
+        std::vector<std::string> get_season(const std::string& season) const;
+    private:
+        const std::string& sportDataFolder;
     };
 }
