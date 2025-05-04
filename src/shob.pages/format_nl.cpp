@@ -7,7 +7,16 @@
 
 namespace shob::pages
 {
-    void format_nl::get_season(const std::string& season)
+    void format_nl::get_season_stdout(const std::string& season)
+    {
+        auto output = get_season(season);
+        for (const auto& row : output)
+        {
+            std::cout << row << std::endl;
+        }
+    }
+
+    std::vector<std::string> format_nl::get_season(const std::string& season)
     {
         auto competition = football::footballCompetition();
 
@@ -32,12 +41,15 @@ namespace shob::pages
 
         auto out = html::table::buildTable(htmlTable);
 
-        std::cout << "<html> <body>" << std::endl;
+        std::vector<std::string> output;
+        output.emplace_back("<html> <body>");
         for (const auto& row : out.data)
         {
-            std::cout << row << std::endl;
+            output.push_back(row);
         }
-        std::cout << "</body> </html>" << std::endl;
+        output.emplace_back("</body> </html>");
+
+        return output;
     }
 
 }
