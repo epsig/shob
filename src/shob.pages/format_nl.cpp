@@ -33,8 +33,6 @@ namespace shob::pages
 
         auto settings = html::settings();
 
-        auto extras = readers::csvAllSeasonsReader();
-        extras.init(sportDataFolder + "/eredivisie/eredivisie_u2s.csv");
         table.addExtras(extras, season);
 
         auto htmlTable = table.prepareTable(teams, settings);
