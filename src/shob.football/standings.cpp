@@ -110,11 +110,11 @@ namespace shob::football
                 extra2 = extraData[0];
             }
         }
-        team += " (" + joinStrings(extra1, extra2, "; ") +")";
         if (useBold)
         {
             team = "<b>" + team + "</b>";
         }
+        team += " (" + joinStrings(extra1, extra2, "; ") + ")";
 
     }
 
