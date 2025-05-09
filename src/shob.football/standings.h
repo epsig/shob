@@ -36,6 +36,7 @@ namespace shob::football
     class standings
     {
     public:
+        standings();
         std::vector<standingsRow> list;
         void addResult(const std::string& team1, const std::string& team2, const int goals1, const int goals2);
         void addExtras(const readers::csvAllSeasonsReader& r, const std::string& season);
@@ -44,9 +45,11 @@ namespace shob::football
         html::tableContent prepareTable(const teams::clubTeams & teams, const html::settings & settings) const;
     private:
         std::map<std::string, u2sExtra> extras;
+        std::map<std::string, std::string> mapExtra;
         void addRow(const std::string& team1, const int goals1, const int goals2);
         size_t findIndex(const std::string& team);
-        static void updateTeamWithExtras(std::string& team, const std::vector<std::string>& extraData, const int punishment);
+        void updateTeamWithExtras(std::string& team, const std::vector<std::string>& extraData, const int punishment) const;
+        void expandExtra(std::string& extra) const;
     };
 }
 

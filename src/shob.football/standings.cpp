@@ -7,6 +7,21 @@
 
 namespace shob::football
 {
+    standings::standings()
+    {
+        mapExtra.insert({ "PDD", "NC;degr." });
+        mapExtra.insert({ "PDP", "NC;prom." });
+        mapExtra.insert({ "PD", "NC" });
+        mapExtra.insert({ "RP", "prom." });
+        mapExtra.insert({ "RD", "degr." });
+        mapExtra.insert({ "vEL", "voorr. EL" });
+        mapExtra.insert({ "vCL", "voorr. CL" });
+        mapExtra.insert({ "vCF", "voorr. CF" });
+        mapExtra.insert({ "EC2", "ECII" });
+        mapExtra.insert({ "NP", "prom." });
+        mapExtra.insert({ "ND", "degr." });
+    }
+
     void standings::addResult(const std::string& team1, const std::string& team2, const int goals1, const int goals2)
     {
         addRow(team1, goals1, goals2);
@@ -89,7 +104,12 @@ namespace shob::football
         return s1 + separator + s2;
     }
 
-    void standings::updateTeamWithExtras(std::string& team, const std::vector<std::string>& extraData, const int punishment)
+    void standings::expandExtra(std::string& extra) const
+    {
+        if (mapExtra.contains(extra)) extra = mapExtra.at(extra);
+    }
+
+    void standings::updateTeamWithExtras(std::string& team, const std::vector<std::string>& extraData, const int punishment) const
     {
         bool useBold = false;
         std::string extra1;
@@ -109,6 +129,7 @@ namespace shob::football
             {
                 extra2 = extraData[0];
             }
+            expandExtra(extra2);
         }
         if (useBold)
         {

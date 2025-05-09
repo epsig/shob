@@ -67,7 +67,7 @@ namespace shob::football::test
         auto table2 = table.prepareTable(reader, settings);
 
         EXPECT_EQ(table2.body.size(), 18);
-        EXPECT_EQ(table2.body[16].data[0], "FC Volendam (RD)");
-        EXPECT_EQ(table2.body[17].data[0], "Vitesse (-18; RD)");
+        EXPECT_EQ(table2.body[16].data[0], "FC Volendam (degr.)");
+        EXPECT_EQ(table2.body[17].data[0], "Vitesse (-18; degr.)");
     }
 }
