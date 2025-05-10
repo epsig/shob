@@ -31,17 +31,27 @@ namespace shob::pages
         auto file2 = sportDataFolder + "/clubs.csv";
         teams.InitFromFile(file2);
 
+        auto file3 = sportDataFolder + "/eerste_divisie/eerste_divisie_" + season1 + ".csv";
+        auto standing_1e_div = football::standings();
+        standing_1e_div.initFromFile(file3);
+
         auto settings = html::settings();
 
         table.addExtras(extras, season);
 
         auto htmlTable = table.prepareTable(teams, settings);
+        auto htmlTable2 = standing_1e_div.prepareTable(teams, settings);
 
         auto out = html::table::buildTable(htmlTable);
+        auto out2 = html::table::buildTable(htmlTable2);
 
         std::vector<std::string> output;
         output.emplace_back("<html> <body>");
         for (const auto& row : out.data)
+        {
+            output.push_back(row);
+        }
+        for (const auto& row : out2.data)
         {
             output.push_back(row);
         }

@@ -23,6 +23,28 @@ namespace shob::football
         mapExtra.insert({ "ND", "degr." });
     }
 
+    void standings::initFromFile(const std::string& filename)
+    {
+        auto stand = readers::csvReader::readCsvFile(filename);
+        for (size_t i = 1; i < stand.size(); i++)
+        {
+            auto row = standingsRow();
+            auto& rowCsv = stand[i];
+            row.team = rowCsv[0];
+            row.totalGames = std::stoi(rowCsv[1]);
+            row.points = std::stoi(rowCsv[5]);
+            row.goals = std::stoi(rowCsv[6]);
+            row.goalsAgainst = std::stoi(rowCsv[7]);
+            if ( ! rowCsv[8].empty())
+            {
+                u2sExtra data;
+                data.extras = readers::csvReader::split(rowCsv[8], ";");
+                extras.insert({ row.team, data });
+            }
+            list.push_back(row);
+        }
+    }
+
     void standings::addResult(const std::string& team1, const std::string& team2, const int goals1, const int goals2)
     {
         addRow(team1, goals1, goals2);
