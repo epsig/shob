@@ -30,6 +30,9 @@ namespace shob::readers
         std::string line;
         while(std::getline(myFile, line))
         {
+            if (!line.empty() && line[line.length() - 1] == '\r') {
+                line.erase(line.length() - 1);
+            }
             auto parts = split(line, ",");
             result.push_back(parts);
         }
