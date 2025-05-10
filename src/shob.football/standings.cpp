@@ -9,6 +9,7 @@ namespace shob::football
 {
     standings::standings()
     {
+        // TODO in cvs ; add full descriptions; add English ; remove NP and ND
         mapExtra.insert({ "PDD", "NC;degr." });
         mapExtra.insert({ "PDP", "NC;prom." });
         mapExtra.insert({ "PD", "NC" });
