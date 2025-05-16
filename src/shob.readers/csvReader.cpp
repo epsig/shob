@@ -5,6 +5,30 @@
 
 namespace shob::readers
 {
+    // trim from end of string (right)
+    std::string csvReader::rtrim(const std::string& s, const char* t)
+    {
+        std::string r = s;
+        r.erase(r.find_last_not_of(t) + 1);
+        return r;
+    }
+
+    // trim from beginning of string (left)
+    std::string csvReader::ltrim(const std::string& s, const char* t)
+    {
+        std::string r = s;
+        r.erase(0, r.find_first_not_of(t));
+        return r;
+    }
+
+    // trim from both ends of string (right then left)
+    std::string csvReader::trim(const std::string& s, const char* t)
+    {
+        auto trimmed = rtrim(s, t);
+        return ltrim(trimmed, t);
+    }
+
+
     // for string delimiter
     std::vector<std::string> csvReader::split(const std::string& s, const std::string& delimiter)
     {
@@ -15,7 +39,7 @@ namespace shob::readers
         while ((pos_end = s.find(delimiter, pos_start)) != std::string::npos) {
             token = s.substr(pos_start, pos_end - pos_start);
             pos_start = pos_end + delim_len;
-            res.push_back(token);
+            res.push_back(trim(token, " "));
         }
 
         res.push_back(s.substr(pos_start));
