@@ -4,6 +4,7 @@
 
 #include "../shob.football/results2standings.h"
 #include "../shob.teams/clubTeams.h"
+#include "../shob.football/topscorers.h"
 
 namespace shob::pages
 {
@@ -45,6 +46,19 @@ namespace shob::pages
         auto out = html::table::buildTable(htmlTable);
         auto out2 = html::table::buildTable(htmlTable2);
 
+
+        // top scorers:
+        auto allTp = readers::csvAllSeasonsReader();
+        auto file4 = sportDataFolder + "/eredivisie/topscorers_eredivisie.csv";
+
+        allTp.init(file4);
+
+        auto tp = football::topscorers(allTp);
+        tp.initFromFile(season);
+
+        auto table2 = tp.prepareTable(teams, settings);
+        auto out3 = html::table::buildTable(table2);
+
         std::vector<std::string> output;
         output.emplace_back("<html> <body>");
         for (const auto& row : out.data)
@@ -52,6 +66,10 @@ namespace shob::pages
             output.push_back(row);
         }
         for (const auto& row : out2.data)
+        {
+            output.push_back(row);
+        }
+        for (const auto& row : out3.data)
         {
             output.push_back(row);
         }

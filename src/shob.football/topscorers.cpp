@@ -35,7 +35,7 @@ namespace shob::football
             html::rowContent data;
             auto team = teams.expand(row.club);
 
-            data.data = { std::to_string(row.rank),  row.name + "(" + team + ")", std::to_string(row.goals) };
+            data.data = { std::to_string(row.rank),  row.name + " (" + team + ")", std::to_string(row.goals) };
             table.body.push_back(data);
         }
 
