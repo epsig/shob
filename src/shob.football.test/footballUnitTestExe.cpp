@@ -3,6 +3,7 @@
 
 #include "testFootballCompetition.h"
 #include "testResults2standings.h"
+#include "testTopscorers.h"
 
 using namespace shob::football::test;
 
@@ -37,4 +38,10 @@ TEST(unitTest, testStrafPoints)
 {
     testFootballCompetition::testStrafPoints();
 }
+
+TEST(unitTest, testTopScorers)
+{
+    testTopscorers::test1();
+}
+
 

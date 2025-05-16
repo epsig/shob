@@ -1,0 +1,34 @@
+
+
+#include "testTopscorers.h"
+
+#include <gtest/gtest.h>
+
+#include "../shob.general.test/testUtils.h"
+
+#include "../shob.football/topscorers.h"
+
+#include "../shob.teams/clubTeams.h"
+
+#include "../shob.readers/csvAllSeasonsReader.h"
+
+namespace shob::football::test
+{
+    using namespace readers::test;
+
+    const std::string eredivisie = "../../data/sport/eredivisie/topscorers_eredivisie.csv";
+    const std::string filename = testUtils::refFileWithPath(__FILE__, eredivisie);
+    const std::string clubs = "../../data/sport/clubs.csv";
+
+    void testTopscorers::test1()
+    {
+        auto allTp = readers::csvAllSeasonsReader();
+        allTp.init(filename);
+
+        auto tp = topscorers(allTp);
+        tp.initFromFile("2019-2020");
+
+
+        //EXPECT_EQ(table.list.size(), 18);
+    }
+}

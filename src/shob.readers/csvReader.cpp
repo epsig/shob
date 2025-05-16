@@ -49,7 +49,5 @@ namespace shob::readers
         return 999;
     }
 
-
-
 }
 
