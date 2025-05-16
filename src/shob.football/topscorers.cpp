@@ -18,6 +18,29 @@ namespace shob::football
             list_tp.push_back(tp);
         }
     }
-}
 
+    html::tableContent topscorers::prepareTable(const teams::clubTeams& teams, const html::settings& settings) const
+    {
+        auto table = html::tableContent();
+        if (settings.lang == html::language::Dutch)
+        {
+            table.header.data = { "positie", "naam (club)", "doelpunten" };
+        }
+        else
+        {
+            table.header.data = { "rank", "player (club)", "goals" };
+        }
+        for (const auto& row : list_tp)
+        {
+            html::rowContent data;
+            auto team = teams.expand(row.club);
+
+            data.data = { std::to_string(row.rank),  row.name + "(" + team + ")", std::to_string(row.goals) };
+            table.body.push_back(data);
+        }
+
+        return table;
+    }
+
+}
 

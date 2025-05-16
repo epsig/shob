@@ -28,7 +28,13 @@ namespace shob::football::test
         auto tp = topscorers(allTp);
         tp.initFromFile("2019-2020");
 
+        auto settings = html::settings();
+        auto reader = teams::clubTeams();
+        const std::string filename2 = testUtils::refFileWithPath(__FILE__, clubs);
 
-        //EXPECT_EQ(table.list.size(), 18);
+        reader.InitFromFile(filename2);
+        auto table2 = tp.prepareTable(reader, settings);
+
+        EXPECT_EQ(table2.body.size(), 2);
     }
 }
