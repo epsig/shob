@@ -19,6 +19,7 @@ namespace shob::football::test
     const std::string eredivisie = "../../data/sport/eredivisie/topscorers_eredivisie.csv";
     const std::string filename = testUtils::refFileWithPath(__FILE__, eredivisie);
     const std::string clubs = "../../data/sport/clubs.csv";
+    const std::string voetballers = "../../data/sport/voetballers.csv";
 
     void testTopscorers::test1()
     {
@@ -28,12 +29,16 @@ namespace shob::football::test
         auto tp = topscorers(allTp);
         tp.initFromFile("2019-2020");
 
+        auto players = teams::footballers();
+        const std::string filename3 = testUtils::refFileWithPath(__FILE__, voetballers);
+        players.initFromFile(filename3);
+
         auto settings = html::settings();
         auto reader = teams::clubTeams();
         const std::string filename2 = testUtils::refFileWithPath(__FILE__, clubs);
 
         reader.InitFromFile(filename2);
-        auto table2 = tp.prepareTable(reader, settings);
+        auto table2 = tp.prepareTable(reader, players, settings);
 
         EXPECT_EQ(table2.body.size(), 2);
     }

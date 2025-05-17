@@ -19,7 +19,7 @@ namespace shob::football
         }
     }
 
-    html::tableContent topscorers::prepareTable(const teams::clubTeams& teams, const html::settings& settings) const
+    html::tableContent topscorers::prepareTable(const teams::clubTeams& teams, const teams::footballers& players, const html::settings& settings) const
     {
         auto table = html::tableContent();
         if (settings.lang == html::language::Dutch)
@@ -34,8 +34,12 @@ namespace shob::football
         {
             html::rowContent data;
             auto team = teams.expand(row.club);
-
-            data.data = { std::to_string(row.rank),  row.name + " (" + team + ")", std::to_string(row.goals) };
+            auto name = players.expand(row.name);
+            if (row.rank == 1)
+            {
+                name = "<b>" + name + "</b>";
+            }
+            data.data = { std::to_string(row.rank), name + " (" + team + ")", std::to_string(row.goals) };
             table.body.push_back(data);
         }
 

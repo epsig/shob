@@ -56,7 +56,11 @@ namespace shob::pages
         auto tp = football::topscorers(allTp);
         tp.initFromFile(season);
 
-        auto table2 = tp.prepareTable(teams, settings);
+        auto players = teams::footballers();
+        const std::string filename3 = sportDataFolder + "/voetballers.csv";
+        players.initFromFile(filename3);
+
+        auto table2 = tp.prepareTable(teams, players, settings);
         auto out3 = html::table::buildTable(table2);
 
         std::vector<std::string> output;
