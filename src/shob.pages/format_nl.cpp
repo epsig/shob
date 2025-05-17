@@ -4,7 +4,6 @@
 
 #include "../shob.football/results2standings.h"
 #include "../shob.teams/clubTeams.h"
-#include "../shob.football/topscorers.h"
 
 namespace shob::pages
 {
@@ -15,6 +14,21 @@ namespace shob::pages
         {
             std::cout << row << std::endl;
         }
+    }
+
+    html::rowContent format_nl::getTopScorers(const std::string& file, const std::string& season,
+    const teams::footballers& players, const teams::clubTeams& teams)
+    {
+        auto settings = html::settings();
+
+        auto allTp = readers::csvAllSeasonsReader();
+        allTp.init(file);
+
+        auto tp = football::topscorers(allTp);
+        tp.initFromFile(season);
+        auto table = tp.prepareTable(teams, players, settings);
+        auto out = html::table::buildTable(table);
+        return out;
     }
 
     std::vector<std::string> format_nl::get_season(const std::string& season) const
@@ -43,39 +57,30 @@ namespace shob::pages
         auto htmlTable = table.prepareTable(teams, settings);
         auto htmlTable2 = standing_1e_div.prepareTable(teams, settings);
 
-        auto out = html::table::buildTable(htmlTable);
-        auto out2 = html::table::buildTable(htmlTable2);
+        auto out = std::vector<html::rowContent>();
 
+        out.push_back(html::table::buildTable(htmlTable));
+        out.push_back(html::table::buildTable(htmlTable2));
 
-        // top scorers:
-        auto allTp = readers::csvAllSeasonsReader();
-        auto file4 = sportDataFolder + "/eredivisie/topscorers_eredivisie.csv";
-
-        allTp.init(file4);
-
-        auto tp = football::topscorers(allTp);
-        tp.initFromFile(season);
-
+        // topscorers:
         auto players = teams::footballers();
         const std::string filename3 = sportDataFolder + "/voetballers.csv";
         players.initFromFile(filename3);
 
-        auto table2 = tp.prepareTable(teams, players, settings);
-        auto out3 = html::table::buildTable(table2);
+        auto file_tp_eredivisie = sportDataFolder + "/eredivisie/topscorers_eredivisie.csv";
+        out.push_back(getTopScorers(file_tp_eredivisie, season, players, teams));
+
+        auto file_tp_eerste_divisie = sportDataFolder + "/eerste_divisie/topscorers_eerste_divisie.csv";
+        out.push_back(getTopScorers(file_tp_eerste_divisie, season, players, teams));
 
         std::vector<std::string> output;
         output.emplace_back("<html> <body>");
-        for (const auto& row : out.data)
+        for (const auto& part : out)
         {
-            output.push_back(row);
-        }
-        for (const auto& row : out2.data)
-        {
-            output.push_back(row);
-        }
-        for (const auto& row : out3.data)
-        {
-            output.push_back(row);
+            for (const auto& row : part.data)
+            {
+                output.push_back(row);
+            }
         }
         output.emplace_back("</body> </html>");
 

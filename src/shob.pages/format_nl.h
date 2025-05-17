@@ -3,6 +3,7 @@
 #include <string>
 #include <vector>
 #include "../shob.readers/csvAllSeasonsReader.h"
+#include "../shob.football/topscorers.h"
 
 namespace shob::pages
 {
@@ -16,5 +17,8 @@ namespace shob::pages
     private:
         const std::string sportDataFolder;
         const readers::csvAllSeasonsReader extras;
+        static html::rowContent getTopScorers(const std::string& file, const std::string& season,
+            const teams::footballers& players, const teams::clubTeams& teams);
+
     };
 }
