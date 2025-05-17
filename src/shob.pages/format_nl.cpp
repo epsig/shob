@@ -17,7 +17,7 @@ namespace shob::pages
     }
 
     html::rowContent format_nl::getTopScorers(const std::string& file, const std::string& season,
-    const teams::footballers& players, const teams::clubTeams& teams)
+        const teams::footballers& players, const teams::clubTeams& teams)
     {
         auto settings = html::settings();
 
