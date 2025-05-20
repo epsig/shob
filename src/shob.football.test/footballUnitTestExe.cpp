@@ -4,6 +4,7 @@
 #include "testFootballCompetition.h"
 #include "testResults2standings.h"
 #include "testTopscorers.h"
+#include "testFilterResults.h"
 
 using namespace shob::football::test;
 
@@ -44,4 +45,8 @@ TEST(unitTest, testTopScorers)
     testTopscorers::test1();
 }
 
+TEST(unitTest, testFilterResults)
+{
+    testFilterResults::test1();
+}
 
