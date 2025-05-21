@@ -4,6 +4,7 @@
 #include <memory>
 #include "../shob.general/shobDate.h"
 #include "starEnum.h"
+#include "../shob.teams/clubTeams.h"
 
 namespace shob::football
 {
@@ -21,6 +22,10 @@ namespace shob::football
         std::string referee;
         int spectators;
         std::string remark;
+        std::string printSimple(const teams::clubTeams& teams) const
+        {
+            return teams.expand(team1) + " - " + teams.expand(team2) + " " + result;
+        }
     };
 
 }
