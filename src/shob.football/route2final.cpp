@@ -4,7 +4,7 @@
 namespace shob::football
 {
     //     html::tableContent standings::prepareTable(const teams::clubTeams& teams, const html::settings& settings) const
-    html::tableContent route2finale::prepareTable(const teams::clubTeams& teams) const
+    html::tableContent route2final::prepareTable(const teams::clubTeams& teams) const
     {
         auto table = html::tableContent();
 

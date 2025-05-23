@@ -6,10 +6,10 @@
 
 namespace shob::football
 {
-    class route2finale
+    class route2final
     {
     public:
-        route2finale(footballCompetition final, footballCompetition semiFinal,
+        route2final(footballCompetition final, footballCompetition semiFinal,
             footballCompetition quarterFinal, footballCompetition last16) :
             final(std::move(final)), semiFinal(std::move(semiFinal)), quarterFinal(std::move(quarterFinal)), last16(std::move(last16)) {}
         html::tableContent prepareTable(const teams::clubTeams& teams) const;
