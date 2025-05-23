@@ -19,7 +19,11 @@ namespace shob::teams
             auto nlClub = "NL" + club;
             return clubs.at(nlClub);
         }
-        return clubs.at(club);
+        else if (clubs.contains(club))
+        {
+            return clubs.at(club);
+        }
+        return club;
     }
 
     void clubTeams::Init(const std::vector<std::vector<std::string>>& data)

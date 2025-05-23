@@ -4,6 +4,7 @@
 
 #include "../shob.football/results2standings.h"
 #include "../shob.teams/clubTeams.h"
+#include "../shob.football/route2finalFactory.h"
 
 namespace shob::pages
 {
@@ -72,6 +73,12 @@ namespace shob::pages
 
         auto file_tp_eerste_divisie = sportDataFolder + "/eerste_divisie/topscorers_eerste_divisie.csv";
         out.push_back(getTopScorers(file_tp_eerste_divisie, season, players, teams));
+
+        // beker:
+        const std::string bekerFilename = sportDataFolder + "/beker/beker_" + season1 +".csv";
+        const auto r2f = football::route2finaleFactory::create(bekerFilename);
+        const auto prepTable = r2f.prepareTable(teams);
+        out.push_back(html::table::buildTable(prepTable));
 
         std::vector<std::string> output;
         output.emplace_back("<html> <body>");
