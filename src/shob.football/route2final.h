@@ -18,6 +18,9 @@ namespace shob::football
         footballCompetition semiFinal;
         footballCompetition quarterFinal;
         footballCompetition last16;
+        static void addOneRound(html::tableContent& table, const std::vector<footballMatch>& matches, const std::vector<int>& positions,
+            const teams::clubTeams& teams, const size_t offset);
+
     };
 
 }

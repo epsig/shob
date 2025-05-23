@@ -22,6 +22,6 @@ namespace shob::football::test
         const auto r2f = route2finaleFactory::create(filename);
         const auto prepTable = r2f.prepareTable(reader);
 
-        EXPECT_EQ(1, prepTable.body.size());
+        EXPECT_EQ(16, prepTable.body.size());
     }
 }
