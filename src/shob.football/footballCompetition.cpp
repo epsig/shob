@@ -42,4 +42,17 @@ namespace shob::football
         }
     }
 
+    footballCompetition footballCompetition::filter(const std::set<std::string>& clubs) const
+    {
+        auto filtered = footballCompetition();
+        for (const auto& match : matches)
+        {
+            if (clubs.contains(match.team1) && clubs.contains(match.team2))
+            {
+                filtered.matches.push_back(match);
+            }
+        }
+        return filtered;
+    }
+
 }

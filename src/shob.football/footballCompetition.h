@@ -2,6 +2,7 @@
 #pragma once
 
 #include "footballMatch.h"
+#include <set>
 #include <vector>
 
 namespace shob::football
@@ -13,6 +14,7 @@ namespace shob::football
         std::vector<footballMatch> matches;
         void readFromCsv(const std::string & filename);
         void readFromCsvData(const std::vector<std::vector<std::string>>& csvData);
+        footballCompetition filter(const std::set<std::string>& clubs) const;
     };
 
 }

@@ -10,12 +10,12 @@
 
 namespace shob::football::test
 {
+    const std::string eredivisie2425 = "../../data/sport/eredivisie/eredivisie_2024_2025.csv";
+    const std::string filename = readers::test::testUtils::refFileWithPath(__FILE__, eredivisie2425);
+
     void testFootballCompetition::test1()
     {
-        const std::string eredivisie2425 = "../../data/sport/eredivisie/eredivisie_2024_2025.csv";
-        const std::string filename = readers::test::testUtils::refFileWithPath(__FILE__, eredivisie2425);
         auto competition = footballCompetition();
-
         competition.readFromCsv(filename);
         EXPECT_EQ(306, competition.matches.size());
     }
@@ -35,6 +35,16 @@ namespace shob::football::test
 
         ASSERT_EQ(table.list.size(), 1);
         EXPECT_EQ(table.list[0].points, -18);
+    }
+
+    void testFootballCompetition::testFiltered()
+    {
+        auto competition = footballCompetition();
+        competition.readFromCsv(filename);
+
+        const std::set<std::string> toppers = { "ajx", "fyn", "psv" };
+        const auto filtered = competition.filter(toppers);
+        EXPECT_EQ(6, filtered.matches.size());
     }
 
 }
