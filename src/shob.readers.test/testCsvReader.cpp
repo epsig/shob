@@ -13,7 +13,7 @@ namespace shob::readers::test
     {
         const std::string filename = testUtils::refFileWithPath(__FILE__,  "../../data/sport/eredivisie/eredivisie_2024_2025.csv");
         auto result = csvReader::readCsvFile(filename);
-        EXPECT_EQ(244, result.size());
+        EXPECT_EQ(307, result.size());
     }
 
 }

@@ -17,7 +17,7 @@ namespace shob::football::test
         auto competition = footballCompetition();
 
         competition.readFromCsv(filename);
-        EXPECT_EQ(243, competition.matches.size());
+        EXPECT_EQ(306, competition.matches.size());
     }
 
     void testFootballCompetition::testStrafPoints()
