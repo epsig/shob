@@ -34,31 +34,34 @@ namespace shob::pages
 
     std::vector<std::string> format_nl::get_season(const std::string& season) const
     {
-        auto competition = football::footballCompetition();
+        auto settings = html::settings();
 
         auto season1 = season;
         season1.replace(4, 1, "_");
         auto file1 = sportDataFolder + "/eredivisie/eredivisie_" + season1 + ".csv";
+        auto competition = football::footballCompetition();
         competition.readFromCsv(file1);
 
-        auto table = football::results2standings::u2s(competition);
+        auto out = std::vector<html::rowContent>();
 
         auto teams = teams::clubTeams();
         auto file2 = sportDataFolder + "/clubs.csv";
         teams.InitFromFile(file2);
 
+        const std::set<std::string> toppers = { "ajx", "fyn", "psv" };
+        const auto filtered = competition.filter(toppers);
+        out.push_back(html::table::buildTable(filtered.prepareTable(teams, settings)));
+
+        auto table = football::results2standings::u2s(competition);
+
         auto file3 = sportDataFolder + "/eerste_divisie/eerste_divisie_" + season1 + ".csv";
         auto standing_1e_div = football::standings();
         standing_1e_div.initFromFile(file3);
-
-        auto settings = html::settings();
 
         table.addExtras(extras, season);
 
         auto htmlTable = table.prepareTable(teams, settings);
         auto htmlTable2 = standing_1e_div.prepareTable(teams, settings);
-
-        auto out = std::vector<html::rowContent>();
 
         out.push_back(html::table::buildTable(htmlTable));
         out.push_back(html::table::buildTable(htmlTable2));
