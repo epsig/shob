@@ -10,6 +10,8 @@ namespace shob::football
     {
     public:
         static footballCompetition readFromCsvData(const std::vector<std::vector<std::string>>& csvData, const std::string& round);
+    private:
+        static starEnum getStar(const std::vector<std::string>& line, size_t index);
     };
 
 }
