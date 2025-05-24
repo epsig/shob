@@ -52,8 +52,12 @@ add_executable(shob.football.test ${football_test_files})
 set_target_properties(shob.football.test PROPERTIES CXX_STANDARD 20)
 
 file(GLOB general_test_files "src/shob.general.test/*.*")
-add_library(shob.general.test STATIC ${general_test_files})
+add_executable(shob.general.test ${general_test_files})
 set_target_properties(shob.general.test PROPERTIES CXX_STANDARD 20)
+
+file(GLOB test_utils_files "src/shob.test.utils/*.*")
+add_library(shob.test.utils STATIC ${test_utils_files})
+set_target_properties(shob.test.utils PROPERTIES CXX_STANDARD 20)
 
 file(GLOB html_test_files "src/shob.html.test/*.*")
 add_executable(shob.html.test ${html_test_files})
@@ -103,15 +107,16 @@ if(NOT googletest_POPULATED)
 endif()
 
 target_link_libraries(shob.football shob.general shob.readers shob.teams)
-target_link_libraries(shob.readers.test shob.general shob.general.test shob.readers gtest_main)
-target_link_libraries(shob.football.test shob.football shob.general shob.general.test shob.readers gtest_main)
+target_link_libraries(shob.readers.test shob.general shob.test.utils shob.readers gtest_main)
+target_link_libraries(shob.football.test shob.football shob.general shob.test.utils shob.readers gtest_main)
 target_link_libraries(shob.html.test shob.html gtest_main)
 target_link_libraries(shob.pages shob.football shob.general shob.readers shob.html shob.teams)
 target_link_libraries(shob shob.football shob.general shob.readers shob.html shob.teams shob.pages)
 target_link_libraries(shob.pages.test shob.football shob.general shob.readers shob.html
-    shob.teams shob.pages shob.general.test gtest_main)
+    shob.teams shob.pages shob.test.utils gtest_main)
 target_link_libraries(shob.teams shob.readers)
-target_link_libraries(shob.teams.test shob.teams shob.readers shob.general.test gtest_main)
+target_link_libraries(shob.teams.test shob.teams shob.readers shob.test.utils gtest_main)
+target_link_libraries(shob.general.test shob.general shob.test.utils gtest_main)
 
 enable_testing()
 
@@ -142,6 +147,12 @@ add_test(
 add_test(
   NAME shob-pages-unit-tests
   COMMAND $<TARGET_FILE:shob.pages.test>
+  WORKING_DIRECTORY ${CMAKE_CURRENT_LIST_DIR}
+)
+
+add_test(
+  NAME shob-general-unit-tests
+  COMMAND $<TARGET_FILE:shob.general.test>
   WORKING_DIRECTORY ${CMAKE_CURRENT_LIST_DIR}
 )
 

@@ -4,7 +4,7 @@
 #include <gtest/gtest.h>
 
 #include "../shob.readers/xmlReader.h"
-#include "../shob.general.test/testUtils.h"
+#include "../shob.test.utils/testUtils.h"
 
 namespace shob::readers::test
 {

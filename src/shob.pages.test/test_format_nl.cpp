@@ -4,7 +4,7 @@
 #include <gtest/gtest.h>
 
 #include "../shob.pages/format_nl_factory.h"
-#include "../shob.general.test/testUtils.h"
+#include "../shob.test.utils/testUtils.h"
 
 namespace shob::pages::test
 {

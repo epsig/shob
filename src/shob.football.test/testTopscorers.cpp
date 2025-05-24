@@ -4,7 +4,7 @@
 
 #include <gtest/gtest.h>
 
-#include "../shob.general.test/testUtils.h"
+#include "../shob.test.utils/testUtils.h"
 
 #include "../shob.football/topscorers.h"
 

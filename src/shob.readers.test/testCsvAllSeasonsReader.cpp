@@ -5,7 +5,7 @@
 
 #include "../shob.readers/csvAllSeasonsReader.h"
 
-#include "../shob.general.test/testUtils.h"
+#include "../shob.test.utils/testUtils.h"
 
 namespace shob::readers::test
 {

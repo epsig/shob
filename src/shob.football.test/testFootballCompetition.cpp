@@ -6,7 +6,7 @@
 #include "../shob.football/footballCompetition.h"
 #include "../shob.football/results2standings.h"
 
-#include "../shob.general.test/testUtils.h"
+#include "../shob.test.utils/testUtils.h"
 
 namespace shob::football::test
 {
