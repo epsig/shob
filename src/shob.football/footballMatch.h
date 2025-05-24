@@ -19,6 +19,7 @@ namespace shob::football
             std::string result, int spectators, const starEnum star, const bool isFinal)
             : team1(std::move(team1)), team2(std::move(team2)), dd(dd), result(std::move(result)),
               star(star), spectators(spectators), isFinal(isFinal) {}
+        std::string printSimple(const teams::clubTeams& teams) const;
         std::string team1; // id home playing team
         std::string team2; // id away playing team
         std::shared_ptr <general::shobDate> dd;
@@ -29,8 +30,9 @@ namespace shob::football
         int spectators;
         bool isFinal = false;
         std::string remark;
+    private:
         int winner() const;
-        std::string printSimple(const teams::clubTeams& teams) const;
+        std::string nvns() const;
     };
 
 }

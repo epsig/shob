@@ -5,7 +5,7 @@ namespace shob::football
 {
     int footballMatch::winner() const
     {
-        switch (star)
+        switch (star)  // NOLINT(clang-diagnostic-switch-enum)
         {
         case starEnum::awayWins:
         case starEnum::awayWinsXt:
@@ -17,6 +17,21 @@ namespace shob::football
             return 0;
         default:
             return -1;
+        }
+    }
+
+    std::string footballMatch::nvns() const
+    {
+        switch (star)  // NOLINT(clang-diagnostic-switch-enum)
+        {
+        case starEnum::awayWinsXt:
+        case starEnum::homeWinsXt:
+            return " nv";
+        case starEnum::awayWinsPenalties:
+        case starEnum::homeWinsPenalties:
+            return " ns";
+        default:
+            return "";
         }
     }
 
@@ -35,7 +50,7 @@ namespace shob::football
                 expanded[index] += " *";
             }
         }
-        return dd->toShortString() + " " + expanded[0] + " - " + expanded[1] + " " + result;
+        return dd->toShortString() + " " + expanded[0] + " - " + expanded[1] + " " + result + nvns();
     }
 };
 
