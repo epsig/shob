@@ -14,6 +14,16 @@ int main(int argc, char* argv[])
     }
     std::string season = argv[1];
 
-    auto fmt_nl = shob::pages::format_nl_factory::build("sport");
-    fmt_nl.get_season_stdout(season);
+    try
+    {
+        auto fmt_nl = shob::pages::format_nl_factory::build("sport");
+        fmt_nl.get_season_stdout(season);
+    }
+    catch (const std::exception& e)
+    {
+        std::cout << e.what() << std::endl;
+        return -1;
+    }
+
+    return 0;
 }
