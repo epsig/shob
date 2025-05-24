@@ -9,6 +9,7 @@ namespace shob::football::test
         static void test1();
         static void testStrafPoints();
         static void testFiltered();
+        static void testPrepareTable();
     };
 
 }

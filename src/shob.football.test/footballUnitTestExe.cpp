@@ -45,6 +45,11 @@ TEST(unitTest, testFiltered)
     testFootballCompetition::testFiltered();
 }
 
+TEST(unitTest, testPrepareTable)
+{
+    testFootballCompetition::testPrepareTable();
+}
+
 TEST(unitTest, testTopScorers)
 {
     testTopscorers::test1();

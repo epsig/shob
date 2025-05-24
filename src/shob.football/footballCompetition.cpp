@@ -55,4 +55,26 @@ namespace shob::football
         return filtered;
     }
 
+    html::tableContent footballCompetition::prepareTable(const teams::clubTeams& teams, const html::settings& settings) const
+    {
+        auto table = html::tableContent();
+        if (settings.lang == html::language::Dutch)
+        {
+            table.header.data = { "dd", "team1", "team2", "uitslag" };
+        }
+        else
+        {
+            table.header.data = { "dd", "team (home)", "team (away)", "result" };
+        }
+
+        for (const auto& row : matches)
+        {
+            auto out = html::rowContent();
+            out.data = { row.dd->toShortString(), teams.expand(row.team1), teams.expand(row.team2), row.result };
+            table.body.push_back(out);
+        }
+
+        return table;
+    }
+
 }
