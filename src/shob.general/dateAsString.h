@@ -6,8 +6,9 @@ namespace shob::general
     class dateAsString : public shobDate
     {
     public:
-        dateAsString(const std::string& dd) : dd(dd) {}
-        std::string toString()  const override { return dd; }
+        dateAsString(std::string dd) : dd(std::move(dd)) {}
+        std::string toString()      const override { return dd; }
+        std::string toShortString() const override { return dd; }
     private:
         const std::string dd;
     };

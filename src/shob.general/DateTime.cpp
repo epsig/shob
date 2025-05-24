@@ -10,4 +10,9 @@ namespace shob::general
         return std::to_string(yyyymmdd) + " " + std::to_string(hhmm);
     }
 
+    std::string DateTime::toShortString() const
+    {
+        return std::to_string(yyyymmdd);
+    }
+
 }

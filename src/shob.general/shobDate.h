@@ -7,5 +7,6 @@ namespace shob::general
     {
     public:
         virtual std::string toString() const { return ""; }
+        virtual std::string toShortString() const { return ""; }
     };
 }

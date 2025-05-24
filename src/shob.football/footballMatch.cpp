@@ -10,25 +10,32 @@ namespace shob::football
         case starEnum::awayWins:
         case starEnum::awayWinsXt:
         case starEnum::awayWinsPenalties:
-            return 2;
+            return 1;
         case starEnum::homeWins:
         case starEnum::homeWinsXt:
         case starEnum::homeWinsPenalties:
-            return 1;
-        default:
             return 0;
+        default:
+            return -1;
         }
     }
 
     std::string footballMatch::printSimple(const teams::clubTeams& teams) const
     {
-        auto expanded1 = teams.expand(team1);
-        auto expanded2 = teams.expand(team2);
-        if (isFinal && winner() == 1) expanded1 = "<b>" + expanded1 + "</b>";
-        if (isFinal && winner() == 2) expanded2 = "<b>" + expanded2 + "</b>";
-        if (!isFinal && winner() == 1) expanded1 += " *";
-        if (!isFinal && winner() == 2) expanded2 += " *";
-        return expanded1 + " - " + expanded2 + " " + result;
+        std::vector expanded = { teams.expand(team1), teams.expand(team2) };
+        const auto index = winner();
+        if (index >= 0)
+        {
+            if (isFinal)
+            {
+                expanded[index] = "<b>" + expanded[index] + "</b>";
+            }
+            else
+            {
+                expanded[index] += " *";
+            }
+        }
+        return dd->toShortString() + " " + expanded[0] + " - " + expanded[1] + " " + result;
     }
 };
 
