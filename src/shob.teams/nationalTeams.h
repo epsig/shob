@@ -1,8 +1,8 @@
 
 #pragma once
 #include <string>
-#include <vector>
 #include <map>
+#include "../shob.readers/csvReader.h"
 
 namespace shob::teams
 {
@@ -12,7 +12,7 @@ namespace shob::teams
         void InitFromFile(const std::string& filename);
         std::string expand(const std::string& landcode);
     private:
-        void Init(const std::vector<std::vector<std::string>>& data);
+        void Init(const readers::csvContent& data);
         std::map<std::string, std::string> countries;
     };
 }

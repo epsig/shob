@@ -26,11 +26,11 @@ namespace shob::teams
         return club;
     }
 
-    void clubTeams::Init(const std::vector<std::vector<std::string>>& data)
+    void clubTeams::Init(const readers::csvContent& data)
     {
-        for (size_t i=1; i < data.size(); i++)
+        for (const auto& row : data.body)
         {
-            clubs.insert({ data[i][0], data[i][1] });
+            clubs.insert({ row.column[0], row.column[1] });
         }
     }
 }

@@ -22,11 +22,13 @@ namespace shob::football::test
 
     void testFootballCompetition::testStrafPoints()
     {
-        const std::vector<std::string> header = { "club1", "club2", "dd", "result", "spectators", "remark" };
-        const std::vector<std::string> straf = { "vit", "straf" , "pnt", "18", "", "dd 19 april" };
-        std::vector<std::vector<std::string>> csvData;
-        csvData.push_back(header);
-        csvData.push_back(straf);
+        readers::csvColContent header;
+        header.column = { "club1", "club2", "dd", "result", "spectators", "remark" };
+        readers::csvColContent straf;
+        straf.column = { "vit", "straf" , "pnt", "18", "", "dd 19 april" };
+        readers::csvContent csvData;
+        csvData.header = header;
+        csvData.body.push_back(straf);
         auto competition = footballCompetition();
         competition.readFromCsvData(csvData);
         ASSERT_EQ(1, competition.matches.size());

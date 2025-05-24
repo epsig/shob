@@ -23,7 +23,7 @@ namespace shob::football
             }
             else
             {
-                const auto parts = readers::csvReader::split(score, "-");
+                const auto parts = readers::csvReader::split(score, "-").column;
                 const auto goals1 = std::stoi(parts[0]);
                 const auto goals2 = std::stoi(parts[1]);
                 table.addResult(match.team1, match.team2, goals1, goals2);

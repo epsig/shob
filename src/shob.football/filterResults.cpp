@@ -1,6 +1,5 @@
 
 #include "filterResults.h"
-#include "../shob.readers/csvReader.h"
 #include "../shob.general/dateFactory.h"
 
 namespace shob::football
@@ -20,21 +19,21 @@ namespace shob::football
         return star;
     }
 
-    footballCompetition filterResults::readFromCsvData(const std::vector<std::vector<std::string>>& csvData, const std::string& round)
+    footballCompetition filterResults::readFromCsvData(const csvContent & csvData, const std::string& round)
     {
         auto comp = footballCompetition();
 
-        const auto team1Column = csvReader::findColumn("team1", csvData[0]);
-        const auto team2Column = csvReader::findColumn("team2", csvData[0]);
-        const auto ddColumn = csvReader::findColumn("dd", csvData[0]);
-        const auto resultColumn = csvReader::findColumn("result", csvData[0]);
-        const auto spectatorsColumn = csvReader::findColumn("spectators", csvData[0]);
-        const auto starColumn = csvReader::findColumn("star", csvData[0]);
+        const auto team1Column = csvReader::findColumn("team1", csvData.header);
+        const auto team2Column = csvReader::findColumn("team2", csvData.header);
+        const auto ddColumn = csvReader::findColumn("dd", csvData.header);
+        const auto resultColumn = csvReader::findColumn("result", csvData.header);
+        const auto spectatorsColumn = csvReader::findColumn("spectators", csvData.header);
+        const auto starColumn = csvReader::findColumn("star", csvData.header);
 
         const auto isFinal = round == "f";
-        for (size_t i = 1; i < csvData.size(); i++)
+        for (const auto& col : csvData.body)
         {
-            const auto& line = csvData[i];
+            const auto& line = col.column;
             if (line[0] == round)
             {
                 int spectators = 0;

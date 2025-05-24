@@ -26,10 +26,10 @@ namespace shob::football
     void standings::initFromFile(const std::string& filename)
     {
         auto stand = readers::csvReader::readCsvFile(filename);
-        for (size_t i = 1; i < stand.size(); i++)
+        for (const auto& col : stand.body)
         {
             auto row = standingsRow();
-            auto& rowCsv = stand[i];
+            auto& rowCsv = col.column;
             row.team = rowCsv[0];
             row.totalGames = std::stoi(rowCsv[1]);
             row.points = std::stoi(rowCsv[5]);
@@ -38,7 +38,7 @@ namespace shob::football
             if ( ! rowCsv[8].empty())
             {
                 u2sExtra data;
-                data.extras = readers::csvReader::split(rowCsv[8], ";");
+                data.extras = readers::csvReader::split(rowCsv[8], ";").column;
                 extras.insert({ row.team, data });
             }
             list.push_back(row);
@@ -200,10 +200,10 @@ namespace shob::football
         for (size_t i = 1; i < extraU2s.size(); i++)
         {
             auto teams = extraU2s[i][0];
-            auto splittedTeams = readers::csvReader::split(teams, ";");
+            auto splittedTeams = readers::csvReader::split(teams, ";").column;
             auto u2s = extraU2s[i][1];
             u2sExtra data;
-            data.extras = readers::csvReader::split(u2s, ";");
+            data.extras = readers::csvReader::split(u2s, ";").column;
             for (const auto& team : splittedTeams)
             {
                 extras.insert({ team, data });

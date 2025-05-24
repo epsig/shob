@@ -3,6 +3,7 @@
 
 #include <string>
 #include <vector>
+#include "../shob.readers/csvReader.h"
 
 namespace shob::readers
 {
@@ -12,8 +13,7 @@ namespace shob::readers
         void init(const std::string& filename);
         std::vector<std::vector<std::string>> getSeason(const std::string& season) const;
     private:
-        std::vector<std::vector<std::string>> allData;
-        std::vector<std::string> header;
+        csvContent allData;
     };
 
 }

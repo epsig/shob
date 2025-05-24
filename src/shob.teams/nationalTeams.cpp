@@ -17,11 +17,11 @@ namespace shob::teams
         return countries.at(landcode);
     }
 
-    void nationalTeams::Init(const std::vector<std::vector<std::string>>& data)
+    void nationalTeams::Init(const readers::csvContent& data)
     {
-        for (size_t i = 1; i < data.size(); i++)
+        for (const auto& row : data.body)
         {
-            countries.insert({ data[i][0], data[i][2] });
+            countries.insert({ row.column[0], row.column[2] });
         }
     }
 }

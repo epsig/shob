@@ -20,9 +20,9 @@ namespace shob::teams
     {
         auto data = readers::csvReader::readCsvFile(filename);
 
-        for (size_t i = 1; i < data.size(); i++)
+        for (const auto& col : data.body)
         {
-            const auto& row = data[i];
+            const auto& row = col.column;
             auto player = footballer();
             player.firstName = row[1];
             player.insertion = row[2];

@@ -15,21 +15,20 @@ namespace shob::football
         readFromCsvData(csvData);
     }
 
-    void footballCompetition::readFromCsvData(const std::vector<std::vector<std::string>>& csvData)
+    void footballCompetition::readFromCsvData(const csvContent& csvData)
     {
-        const auto cntMatches = csvData.size() - 1;
         matches = std::vector<footballMatch>();
 
-        const auto team1Column = csvReader::findColumn("club1", csvData[0]);
-        const auto team2Column = csvReader::findColumn("club2", csvData[0]);
-        const auto ddColumn = csvReader::findColumn("dd", csvData[0]);
-        const auto resultColumn = csvReader::findColumn("result", csvData[0]);
-        const auto spectatorsColumn = csvReader::findColumn("spectators", csvData[0]);
-        const auto remarksColumn = csvReader::findColumn("remark", csvData[0]);
+        const auto team1Column = csvReader::findColumn("club1", csvData.header);
+        const auto team2Column = csvReader::findColumn("club2", csvData.header);
+        const auto ddColumn = csvReader::findColumn("dd", csvData.header);
+        const auto resultColumn = csvReader::findColumn("result", csvData.header);
+        const auto spectatorsColumn = csvReader::findColumn("spectators", csvData.header);
+        const auto remarksColumn = csvReader::findColumn("remark", csvData.header);
 
-        for (size_t i = 0; i < cntMatches; i++)
+        for (const auto& col : csvData.body)
         {
-            const auto& line = csvData[i + 1];
+            const auto& line = col.column;
             int spectators = 0;
             if (spectatorsColumn < line.size())
             {
