@@ -19,12 +19,12 @@ namespace shob::football
     {
         matches = std::vector<footballMatch>();
 
-        const auto team1Column = csvReader::findColumn("club1", csvData.header);
-        const auto team2Column = csvReader::findColumn("club2", csvData.header);
-        const auto ddColumn = csvReader::findColumn("dd", csvData.header);
-        const auto resultColumn = csvReader::findColumn("result", csvData.header);
-        const auto spectatorsColumn = csvReader::findColumn("spectators", csvData.header);
-        const auto remarksColumn = csvReader::findColumn("remark", csvData.header);
+        const auto team1Column = csvData.findColumn("club1");
+        const auto team2Column = csvData.findColumn("club2");
+        const auto ddColumn = csvData.findColumn("dd");
+        const auto resultColumn = csvData.findColumn("result");
+        const auto spectatorsColumn = csvData.findColumn("spectators");
+        const auto remarksColumn = csvData.findColumn("remark");
 
         for (const auto& col : csvData.body)
         {

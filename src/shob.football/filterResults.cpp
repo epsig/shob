@@ -23,12 +23,12 @@ namespace shob::football
     {
         auto comp = footballCompetition();
 
-        const auto team1Column = csvReader::findColumn("team1", csvData.header);
-        const auto team2Column = csvReader::findColumn("team2", csvData.header);
-        const auto ddColumn = csvReader::findColumn("dd", csvData.header);
-        const auto resultColumn = csvReader::findColumn("result", csvData.header);
-        const auto spectatorsColumn = csvReader::findColumn("spectators", csvData.header);
-        const auto starColumn = csvReader::findColumn("star", csvData.header);
+        const auto team1Column = csvData.findColumn("team1");
+        const auto team2Column = csvData.findColumn("team2");
+        const auto ddColumn = csvData.findColumn("dd");
+        const auto resultColumn = csvData.findColumn("result");
+        const auto spectatorsColumn = csvData.findColumn("spectators");
+        const auto starColumn = csvData.findColumn("star");
 
         const auto isFinal = round == "f";
         for (const auto& col : csvData.body)

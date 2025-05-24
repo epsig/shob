@@ -73,7 +73,7 @@ namespace shob::readers
         return result;
     }
 
-    size_t csvReader::findColumn(const std::string& columnName, const csvColContent& header)
+    size_t csvContent::findColumn(const std::string& columnName) const
     {
         for (size_t i = 0; i < header.column.size(); i++)
         {

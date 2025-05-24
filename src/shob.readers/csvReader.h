@@ -17,13 +17,13 @@ namespace shob::readers
     public:
         csvColContent header;
         std::vector<csvColContent> body;
+        size_t findColumn(const std::string& columnName) const;
     };
 
     class csvReader
     {
     public:
         static csvContent readCsvFile(const std::string& filename);
-        static size_t findColumn(const std::string& columnName, const csvColContent& header);
         static csvColContent split(const std::string& s, const std::string& delimiter);
     private:
         static std::string rtrim(const std::string& s, const char* t);
