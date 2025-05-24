@@ -12,9 +12,9 @@ namespace shob::football
     {
     public:
         footballMatch(std::string team1, std::string team2, const std::shared_ptr<general::shobDate>& dd,
-            std::string result, int spectators)
+            std::string result, int spectators, std::string remark)
             : team1(std::move(team1)), team2(std::move(team2)), dd(dd), result(std::move(result)),
-              spectators(spectators) {}
+              spectators(spectators), remark(std::move(remark)) {}
         footballMatch(std::string team1, std::string team2, const std::shared_ptr<general::shobDate>& dd,
             std::string result, int spectators, const starEnum star, const bool isFinal)
             : team1(std::move(team1)), team2(std::move(team2)), dd(dd), result(std::move(result)),

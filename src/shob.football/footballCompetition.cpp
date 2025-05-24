@@ -20,11 +20,13 @@ namespace shob::football
         const auto cntMatches = csvData.size() - 1;
         matches = std::vector<footballMatch>();
 
-        auto team1Column = csvReader::findColumn("club1", csvData[0]);
-        auto team2Column = csvReader::findColumn("club2", csvData[0]);
-        auto ddColumn = csvReader::findColumn("dd", csvData[0]);
-        auto resultColumn = csvReader::findColumn("result", csvData[0]);
-        auto spectatorsColumn = csvReader::findColumn("spectators", csvData[0]);
+        const auto team1Column = csvReader::findColumn("club1", csvData[0]);
+        const auto team2Column = csvReader::findColumn("club2", csvData[0]);
+        const auto ddColumn = csvReader::findColumn("dd", csvData[0]);
+        const auto resultColumn = csvReader::findColumn("result", csvData[0]);
+        const auto spectatorsColumn = csvReader::findColumn("spectators", csvData[0]);
+        const auto remarksColumn = csvReader::findColumn("remark", csvData[0]);
+
         for (size_t i = 0; i < cntMatches; i++)
         {
             const auto& line = csvData[i + 1];
@@ -36,8 +38,10 @@ namespace shob::football
                     spectators = std::stoi(line[spectatorsColumn]);
                 }
             }
-            auto date = dateFactory::getDate(line[ddColumn]);
-            const auto match = footballMatch(line[team1Column], line[team2Column], date, line[resultColumn], spectators);
+            const std::string remarks=  (remarksColumn < line.size() ? line[remarksColumn] : "");
+            const auto date = dateFactory::getDate(line[ddColumn]);
+            const auto match = footballMatch(line[team1Column], line[team2Column], date,
+                line[resultColumn], spectators, remarks);
             matches.push_back(match);
         }
     }
@@ -60,17 +64,17 @@ namespace shob::football
         auto table = html::tableContent();
         if (settings.lang == html::language::Dutch)
         {
-            table.header.data = { "dd", "team1", "team2", "uitslag" };
+            table.header.data = { "dd", "team1", "team2", "uitslag", "opm" };
         }
         else
         {
-            table.header.data = { "dd", "team (home)", "team (away)", "result" };
+            table.header.data = { "dd", "team (home)", "team (away)", "result", "remark" };
         }
 
         for (const auto& row : matches)
         {
             auto out = html::rowContent();
-            out.data = { row.dd->toShortString(), teams.expand(row.team1), teams.expand(row.team2), row.result };
+            out.data = { row.dd->toShortString(), teams.expand(row.team1), teams.expand(row.team2), row.result, row.remark };
             table.body.push_back(out);
         }
 
