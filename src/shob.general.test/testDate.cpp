@@ -3,6 +3,8 @@
 #include "../shob.general/itdate.h"
 #include <gtest/gtest.h>
 
+#include "../shob.general/shobException.h"
+
 namespace shob::general::test
 {
     void testDate::testItdateToString()
@@ -19,6 +21,21 @@ namespace shob::general::test
         ASSERT_EQ(str, "*****");
     }
 
+    void testDate::testErrorHandlingMaxDays()
+    {
+        std::string msg;
+        try
+        {
+            auto mxdays = shobDate::maxDays(2025, 15);
+            ASSERT_EQ(mxdays, 0) << "note that this line is unreachable";
+        }
+        catch (const shobException& e)
+        {
+            msg = e.what();
+        }
+        ASSERT_EQ(msg, "Invalid month number: 15");
+    }
+
     void testDate::testIsLeapYear()
     {
         const auto isLeap1 = shobDate::isLeapYear(2000);
@@ -31,7 +48,7 @@ namespace shob::general::test
         ASSERT_TRUE(isLeap4);
     }
 
-    void testDate::test4()
+    void testDate::testMaxDays()
     {
         const auto maxDays1 = shobDate::maxDays(2025, 2);
         ASSERT_EQ(maxDays1, 28);

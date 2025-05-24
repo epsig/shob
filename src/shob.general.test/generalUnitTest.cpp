@@ -22,6 +22,11 @@ TEST(unitTest, testErrorHandling)
     testDate::testErrorHandling();
 }
 
+TEST(unitTest, testErrorHandlingMaxDays)
+{
+    testDate::testErrorHandlingMaxDays();
+}
+
 TEST(unitTest, testLeapYear)
 {
     testDate::testIsLeapYear();
@@ -29,6 +34,6 @@ TEST(unitTest, testLeapYear)
 
 TEST(unitTest, testMaxDaysPerMonth)
 {
-    testDate::test4();
+    testDate::testMaxDays();
 }
 
