@@ -6,7 +6,8 @@ namespace shob::football::test
     class testFilterResults
     {
     public:
-        static void test1();
+        static void testFilterWithRoute2Finale();
+        static void testGetReturns();
     };
 
 }

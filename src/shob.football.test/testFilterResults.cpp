@@ -9,7 +9,7 @@
 
 namespace shob::football::test
 {
-    void testFilterResults::test1()
+    void testFilterResults::testFilterWithRoute2Finale()
     {
         const std::string beker2425 = "../../data/sport/beker/beker_2024_2025.csv";
         const std::string filename = readers::test::testUtils::refFileWithPath(__FILE__, beker2425);
@@ -23,5 +23,15 @@ namespace shob::football::test
         const auto prepTable = r2f.prepareTable(reader);
 
         EXPECT_EQ(16, prepTable.body.size());
+    }
+
+    void testFilterResults::testGetReturns()
+    {
+        const std::string beker2425 = "../../data/sport/beker/beker_2009_2010.csv";
+        const std::string filename = readers::test::testUtils::refFileWithPath(__FILE__, beker2425);
+        const auto data = readers::csvReader::readCsvFile(filename);
+        const auto finale = filterResults::readFromCsvData(data, "f");
+        const auto couples = finale.getReturns();
+        EXPECT_EQ(1, couples.size());
     }
 }

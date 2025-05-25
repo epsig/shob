@@ -80,4 +80,27 @@ namespace shob::football
         return table;
     }
 
+    bool footballCompetition::equalTeams(size_t i, size_t j) const
+    {
+        if (matches[i].team1 == matches[j].team2 && matches[i].team2 == matches[j].team1) return true;
+        if (matches[i].team1 == matches[j].team1 && matches[i].team2 == matches[j].team2) return true;
+        return false;
+    }
+
+    std::map<size_t, size_t> footballCompetition::getReturns() const
+    {
+        std::map<size_t, size_t> couples;
+        for (size_t i = 0; i < matches.size(); i++)
+        {
+            for (size_t j = i+1; j < matches.size(); j++)
+            {
+                if (equalTeams(i,j))
+                {
+                    couples.insert({ i,j });
+                }
+            }
+        }
+        return couples;
+    }
+
 }

@@ -6,6 +6,7 @@
 #include "../shob.html/settings.h"
 #include "../shob.readers/csvReader.h"
 #include <set>
+#include <map>
 #include <vector>
 
 namespace shob::football
@@ -17,8 +18,11 @@ namespace shob::football
         std::vector<footballMatch> matches;
         void readFromCsv(const std::string & filename);
         void readFromCsvData(const readers::csvContent& csvData);
+        std::map<size_t, size_t> getReturns() const;
         footballCompetition filter(const std::set<std::string>& clubs) const;
         html::tableContent prepareTable(const teams::clubTeams& teams, const html::settings& settings) const;
+    private:
+        bool equalTeams(size_t i, size_t j) const;
     };
 
 }

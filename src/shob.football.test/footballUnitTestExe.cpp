@@ -57,6 +57,11 @@ TEST(unitTest, testTopScorers)
 
 TEST(unitTest, testFilterResults)
 {
-    testFilterResults::test1();
+    testFilterResults::testFilterWithRoute2Finale();
+}
+
+TEST(unitTest, testGetReturns)
+{
+    testFilterResults::testGetReturns();
 }
 
