@@ -13,9 +13,12 @@ namespace shob::football
         std::string name;
     };
 
-    struct filterInputList
+    class filterInputList
     {
+    public:
         std::vector<filterInput> data;
+        bool isFinale() const;
+        bool checkLine(const readers::csvColContent& col) const;
     };
 
     class filterResults
@@ -23,9 +26,7 @@ namespace shob::football
     public:
         static footballCompetition readFromCsvData(const readers::csvContent& csvData, const filterInputList& filter);
     private:
-        static bool checkLine(const readers::csvColContent& col, const filterInputList& filter);
         static starEnum getStar(const std::vector<std::string>& line, size_t index);
-        static bool isFinale(const filterInputList& filter);
     };
 
 }
