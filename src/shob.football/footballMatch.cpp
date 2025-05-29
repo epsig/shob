@@ -35,12 +35,16 @@ namespace shob::football
         }
     }
 
-    std::string footballMatch::printSimple(const teams::clubTeams& teams) const
+    std::string footballMatch::printSimple(const teams::clubTeams& teams, const bool isReturn) const
     {
         std::vector expanded = { teams.expand(team1), teams.expand(team2) };
-        const auto index = winner();
+        auto index = winner();
         if (index >= 0)
         {
+            if (isReturn)
+            {
+                index = 1 - index;
+            }
             if (isFinal)
             {
                 expanded[index] = "<b>" + expanded[index] + "</b>";
