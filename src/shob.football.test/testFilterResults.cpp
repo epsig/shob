@@ -27,11 +27,11 @@ namespace shob::football::test
 
     void testFilterResults::testGetReturns()
     {
-        const std::string beker2425 = "../../data/sport/beker/beker_2009_2010.csv";
-        const std::string filename = readers::test::testUtils::refFileWithPath(__FILE__, beker2425);
+        const std::string beker0910 = "../../data/sport/beker/beker_2009_2010.csv";
+        const std::string filename = readers::test::testUtils::refFileWithPath(__FILE__, beker0910);
         const auto data = readers::csvReader::readCsvFile(filename);
         const auto finale = filterResults::readFromCsvData(data, "f");
-        const auto couples = finale.getReturns();
-        EXPECT_EQ(1, couples.size());
+        const auto coupledMatches = finale.getReturns();
+        EXPECT_EQ(1, coupledMatches.couples.size());
     }
 }

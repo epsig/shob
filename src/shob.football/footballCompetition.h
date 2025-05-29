@@ -11,6 +11,12 @@
 
 namespace shob::football
 {
+    struct coupledMatchesData
+    {
+        std::map<size_t, size_t> couples;
+        std::vector<bool> isSecondMatch;
+    };
+
     class footballCompetition
     {
     public:
@@ -18,7 +24,7 @@ namespace shob::football
         std::vector<footballMatch> matches;
         void readFromCsv(const std::string & filename);
         void readFromCsvData(const readers::csvContent& csvData);
-        std::map<size_t, size_t> getReturns() const;
+        coupledMatchesData getReturns() const;
         footballCompetition filter(const std::set<std::string>& clubs) const;
         html::tableContent prepareTable(const teams::clubTeams& teams, const html::settings& settings) const;
     private:

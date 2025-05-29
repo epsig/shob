@@ -87,20 +87,22 @@ namespace shob::football
         return false;
     }
 
-    std::map<size_t, size_t> footballCompetition::getReturns() const
+    coupledMatchesData footballCompetition::getReturns() const
     {
-        std::map<size_t, size_t> couples;
+        coupledMatchesData coupledMatches;
+        coupledMatches.isSecondMatch = std::vector(matches.size(), false);
         for (size_t i = 0; i < matches.size(); i++)
         {
             for (size_t j = i+1; j < matches.size(); j++)
             {
                 if (equalTeams(i,j))
                 {
-                    couples.insert({ i,j });
+                    coupledMatches.couples.insert({ i,j });
+                    coupledMatches.isSecondMatch[j] = true;
                 }
             }
         }
-        return couples;
+        return coupledMatches;
     }
 
 }
