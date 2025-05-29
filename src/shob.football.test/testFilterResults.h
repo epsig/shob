@@ -8,6 +8,7 @@ namespace shob::football::test
     public:
         static void testFilterWithRoute2Finale();
         static void testGetReturns();
+        static void testFilterEuropacup();
     };
 
 }

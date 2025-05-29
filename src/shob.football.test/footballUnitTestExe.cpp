@@ -65,3 +65,8 @@ TEST(unitTest, testGetReturns)
     testFilterResults::testGetReturns();
 }
 
+TEST(unitTest, testFilterEuropacup)
+{
+    testFilterResults::testFilterEuropacup();
+}
+

@@ -30,8 +30,28 @@ namespace shob::football::test
         const std::string beker0910 = "../../data/sport/beker/beker_2009_2010.csv";
         const std::string filename = readers::test::testUtils::refFileWithPath(__FILE__, beker0910);
         const auto data = readers::csvReader::readCsvFile(filename);
-        const auto finale = filterResults::readFromCsvData(data, "f");
+
+        auto filter = filterInputList();
+        filter.data.push_back({ 0, "f" });
+        const auto finale = filterResults::readFromCsvData(data, filter);
         const auto coupledMatches = finale.getReturns();
         EXPECT_EQ(1, coupledMatches.couples.size());
     }
+
+    void testFilterResults::testFilterEuropacup()
+    {
+        const std::string ec2425 = "../../data/sport/europacup/europacup_2024_2025.csv";
+        const std::string filename = readers::test::testUtils::refFileWithPath(__FILE__, ec2425);
+
+        const std::string clubs = "../../data/sport/clubs.csv";
+        const std::string filename2 = readers::test::testUtils::refFileWithPath(__FILE__, clubs);
+        auto reader = teams::clubTeams();
+        reader.InitFromFile(filename2);
+
+        const auto r2f = route2finaleFactory::createEC(filename, "CL");
+        const auto prepTable = r2f.prepareTable(reader);
+
+        EXPECT_EQ(16, prepTable.body.size());
+    }
+
 }
