@@ -19,28 +19,7 @@ namespace shob::football
         return star;
     }
 
-    bool filterInputList::isFinale() const
-    {
-        for (const auto& dat : data)
-        {
-            if (dat.name == "f")
-            {
-                return true;
-            }
-        }
-        return false;
-    }
-
-    bool filterInputList::checkLine(const csvColContent& col) const
-    {
-        for (const auto& dat : data)
-        {
-            if (col.column[dat.rowIndex] != dat.name) return false;
-        }
-        return true;
-    }
-
-    footballCompetition filterResults::readFromCsvData(const csvContent & csvData, const filterInputList& round)
+    footballCompetition filterResults::readFromCsvData(const csvContent & csvData, const filterInputList& filter)
     {
         auto comp = footballCompetition();
 
@@ -51,10 +30,10 @@ namespace shob::football
         const auto spectatorsColumn = csvData.findColumn("spectators");
         const auto starColumn = csvData.findColumn("star");
 
-        const auto isFinal = round.isFinale();
+        const auto isFinal = filter.isFinale();
         for (const auto& col : csvData.body)
         {
-            if (round.checkLine(col))
+            if (filter.checkLine(col))
             {
                 const auto& line = col.column;
                 int spectators = 0;

@@ -1,26 +1,12 @@
 
 #pragma once
 
+#include "filterInput.h"
 #include "footballCompetition.h"
 #include "../shob.readers/csvReader.h"
-#include <vector>
 
 namespace shob::football
 {
-    struct filterInput
-    {
-        size_t rowIndex;
-        std::string name;
-    };
-
-    class filterInputList
-    {
-    public:
-        std::vector<filterInput> data;
-        bool isFinale() const;
-        bool checkLine(const readers::csvColContent& col) const;
-    };
-
     class filterResults
     {
     public:
