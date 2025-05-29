@@ -6,7 +6,7 @@
 namespace shob::general
 {
     static const std::vector<std::string> monthsDutch =
-    { "jan", "feb", "mar", "apr", "mei", "jun", "jul", "aug", "sep", "okt", "nov", "dec" };
+    { "jan", "feb", "mrt", "apr", "mei", "jun", "jul", "aug", "sep", "okt", "nov", "dec" };
     static const std::vector<size_t> maxDaysPerMonth ={ 31, 29, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31 };
 
     class shobDate
