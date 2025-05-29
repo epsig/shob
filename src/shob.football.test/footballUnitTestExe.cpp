@@ -5,6 +5,7 @@
 #include "testResults2standings.h"
 #include "testTopscorers.h"
 #include "testFilterResults.h"
+#include "testFilterInput.h"
 
 using namespace shob::football::test;
 
@@ -69,4 +70,25 @@ TEST(unitTest, testFilterEuropacup)
 {
     testFilterResults::testFilterEuropacup();
 }
+
+TEST(unitTest, testFilterInput1)
+{
+    testFilterInput::test1();
+}
+
+TEST(unitTest, testFilterInput2)
+{
+    testFilterInput::test2();
+}
+
+TEST(unitTest, testFilterInput3)
+{
+    testFilterInput::test3();
+}
+
+TEST(unitTest, testFilterInput4)
+{
+    testFilterInput::test4();
+}
+
 
