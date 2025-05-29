@@ -16,6 +16,11 @@ else()
     message(FATAL_ERROR "Boost not found")
 endif()
 
+if (WIN32)
+    set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} /FC")
+    # gives full path for macro __FILE__ ; used in test code
+endif()
+
 file(GLOB football_files "src/shob.football/*.*")
 add_library(shob.football STATIC ${football_files})
 set_target_properties(shob.football PROPERTIES CXX_STANDARD 20)
