@@ -32,7 +32,7 @@ namespace shob::football::test
         const auto data = readers::csvReader::readCsvFile(filename);
 
         auto filter = filterInputList();
-        filter.data.push_back({ 0, "f" });
+        filter.filters.push_back({ 0, "f" });
         const auto finale = filterResults::readFromCsvData(data, filter);
         const auto coupledMatches = finale.getReturns();
         EXPECT_EQ(1, coupledMatches.couples.size());

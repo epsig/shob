@@ -15,7 +15,7 @@ namespace shob::football
     class filterInputList
     {
     public:
-        std::vector<filterInput> data;
+        std::vector<filterInput> filters;
         bool isFinale() const;
         bool checkLine(const readers::csvColContent& col) const;
     };

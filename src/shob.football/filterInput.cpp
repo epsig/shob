@@ -5,9 +5,9 @@ namespace shob::football
 {
     bool filterInputList::isFinale() const
     {
-        for (const auto& dat : data)
+        for (const auto& filter : filters)
         {
-            if (dat.name == "f")
+            if (filter.name == "f")
             {
                 return true;
             }
@@ -17,9 +17,9 @@ namespace shob::football
 
     bool filterInputList::checkLine(const readers::csvColContent& col) const
     {
-        for (const auto& dat : data)
+        for (const auto& filter : filters)
         {
-            if (col.column[dat.rowIndex] != dat.name) return false;
+            if (col.column[filter.rowIndex] != filter.name) return false;
         }
         return true;
     }
