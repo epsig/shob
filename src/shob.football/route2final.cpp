@@ -15,7 +15,7 @@ namespace shob::football
                 rowContent data;
                 for (size_t j = 0; j < offset; j++) data.data.emplace_back("");
                 data.data.push_back( matches.matches[i].printSimple(teams)) ;
-                for (size_t j = offset; j < 4; j++) data.data.emplace_back("");
+                for (size_t j = offset + 1; j < 4; j++) data.data.emplace_back("");
                 table.body[positions[i]] = data;
             }
         }
