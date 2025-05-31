@@ -82,5 +82,16 @@ namespace shob::readers
         return 999;
     }
 
+    std::vector<std::string> csvContent::findColumnNamesTeams() const
+    {
+        auto names = std::vector<std::string>();
+        std::vector<std::string> possibilities = { "team1", "team2", "club1", "club2", "land1", "land2" };
+        for (const auto& name : possibilities)
+        {
+            if (findColumn(name) < 999) names.push_back(name);
+        }
+        return names;
+    }
+
 }
 

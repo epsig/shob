@@ -19,7 +19,7 @@ namespace shob::pages
 
     std::vector<std::string> format_ec::get_season(const std::string& season) const
     {
-        auto settings = html::settings();
+        //auto settings = html::settings();
 
         auto season1 = season;
         season1.replace(4, 1, "_");

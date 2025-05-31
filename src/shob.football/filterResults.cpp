@@ -23,8 +23,9 @@ namespace shob::football
     {
         auto comp = footballCompetition();
 
-        const auto team1Column = csvData.findColumn("team1");
-        const auto team2Column = csvData.findColumn("team2");
+        const auto clubNames = csvData.findColumnNamesTeams();
+        const auto team1Column = csvData.findColumn(clubNames[0]);
+        const auto team2Column = csvData.findColumn(clubNames[1]);
         const auto ddColumn = csvData.findColumn("dd");
         const auto resultColumn = csvData.findColumn("result");
         const auto spectatorsColumn = csvData.findColumn("spectators");

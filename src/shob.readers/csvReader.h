@@ -18,6 +18,7 @@ namespace shob::readers
         csvColContent header;
         std::vector<csvColContent> body;
         size_t findColumn(const std::string& columnName) const;
+        std::vector<std::string> findColumnNamesTeams() const;
     };
 
     class csvReader
