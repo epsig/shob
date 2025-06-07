@@ -1,5 +1,8 @@
 
 #include "filterResults.h"
+
+#include <iostream>
+
 #include "../shob.general/dateFactory.h"
 
 namespace shob::football
@@ -13,7 +16,15 @@ namespace shob::football
         {
             if ( ! line[index].empty())
             {
-                star = static_cast<starEnum>(std::stoi(line[index]));
+                const auto& number = line[index];
+                if ( number == "-1" || general::dateFactory::allDigits(number))
+                {
+                    star = static_cast<starEnum>(std::stoi(number));
+                }
+                else
+                {
+                    std::cout << "warning found invalid star: " << number << std::endl;
+                }
             }
         }
         return star;

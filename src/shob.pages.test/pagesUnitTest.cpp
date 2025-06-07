@@ -18,8 +18,13 @@ TEST(unitTest, testFormatNL)
     testFormatNL::test1();
 }
 
-TEST(unitTest, testFormatEc)
+TEST(unitTest, testFormatEc_2023_2024)
 {
-    testFormatEc::test1();
+    testFormatEc::test_2023_2024();
+}
+
+TEST(unitTest, testFormatEc_1994_1995)
+{
+    testFormatEc::test_1994_1995();
 }
 

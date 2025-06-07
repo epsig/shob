@@ -10,7 +10,6 @@ namespace shob::general
     {
     public:
         static std::shared_ptr<shobDate> getDate(const std::string& dd);
-    private:
         static bool allDigits(const std::string& date);
     };
 }
