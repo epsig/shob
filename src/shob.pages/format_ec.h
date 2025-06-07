@@ -11,13 +11,14 @@ namespace shob::pages
     class format_ec
     {
     public:
-        format_ec(std::string& folder, readers::csvAllSeasonsReader& extras) :
-            sportDataFolder(std::move(folder)), extras(std::move(extras)) {}
+        format_ec(std::string folder, readers::csvAllSeasonsReader& extras, teams::clubTeams& teams) :
+            sportDataFolder(std::move(folder)), extras(std::move(extras)), teams(std::move(teams)) {}
         void get_season_stdout(const std::string& season) const;
         std::vector<std::string> get_season(const std::string& season) const;
     private:
         const std::string sportDataFolder;
         const readers::csvAllSeasonsReader extras;
-        static html::rowContent getFirstHalfYear(const std::string& part, const std::string& filename, const teams::clubTeams& teams);
+        const teams::clubTeams teams;
+        html::rowContent getFirstHalfYear(const std::string& part, const std::string& filename) const;
     };
 }

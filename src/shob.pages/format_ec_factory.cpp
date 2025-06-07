@@ -8,7 +8,11 @@ namespace shob::pages
         auto extras = readers::csvAllSeasonsReader();
         extras.init(dataFolder + "/europacup/europacup_u2s.csv");
 
-        auto format = format_ec(dataFolder, extras);
+        auto teams = teams::clubTeams();
+        auto file2 = dataFolder + "/clubs.csv";
+        teams.InitFromFile(file2);
+
+        auto format = format_ec(dataFolder, extras, teams);
         return format;
     }
 }
