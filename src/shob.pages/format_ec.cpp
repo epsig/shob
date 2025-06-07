@@ -47,17 +47,7 @@ namespace shob::pages
             const auto stand = football::results2standings::u2s(groupsPhase);
             const auto prepTable = stand.prepareTable(teams, settings);
             const auto table = html::table::buildTable(prepTable);
-            if (rows.data.empty())
-            {
-                rows = table;
-            }
-            else
-            {
-                for (const auto & r : table.data)
-                {
-                    rows.data.push_back(r);
-                }
-            }
+            rows.addContent(table);
         }
         return rows;
     }

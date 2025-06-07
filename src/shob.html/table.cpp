@@ -3,6 +3,14 @@
 
 namespace shob::html
 {
+    void rowContent::addContent(const rowContent& extra)
+    {
+        for (const auto& r : extra.data)
+        {
+            data.push_back(r);
+        }
+    }
+
     rowContent table::buildTable(const tableContent& content)
     {
         rowContent table;
