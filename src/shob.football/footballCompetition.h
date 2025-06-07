@@ -26,6 +26,7 @@ namespace shob::football
         void readFromCsvData(const readers::csvContent& csvData);
         coupledMatchesData getReturns() const;
         footballCompetition filter(const std::set<std::string>& clubs) const;
+        footballCompetition filterNL() const;
         html::tableContent prepareTable(const teams::clubTeams& teams, const html::settings& settings) const;
     private:
         bool equalTeams(size_t i, size_t j) const;

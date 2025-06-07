@@ -59,9 +59,24 @@ namespace shob::football
         return filtered;
     }
 
+    footballCompetition footballCompetition::filterNL() const
+    {
+        auto filtered = footballCompetition();
+        for (const auto& match : matches)
+        {
+            if (match.team1.starts_with("NL") || match.team2.starts_with("NL"))
+            {
+                filtered.matches.push_back(match);
+            }
+        }
+        return filtered;
+    }
+
     html::tableContent footballCompetition::prepareTable(const teams::clubTeams& teams, const html::settings& settings) const
     {
         auto table = html::tableContent();
+        if ( matches.empty()) { return table; }
+
         if (settings.lang == html::language::Dutch)
         {
             table.header.data = { "dd", "team1", "team2", "uitslag", "opm" };

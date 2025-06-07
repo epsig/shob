@@ -16,7 +16,7 @@ namespace shob::pages::test
         const std::string dataFolder = testUtils::refFileWithPath(__FILE__, dataMap);
         auto fmt_ec = format_ec_factory::build(dataFolder);
         auto lines = fmt_ec.get_season("2023-2024");
-        EXPECT_EQ(lines.size(), 84);
+        EXPECT_EQ(lines.size(), 120);
     }
 }
 

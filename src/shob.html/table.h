@@ -17,6 +17,7 @@ namespace shob::html
     public:
         rowContent header;
         std::vector<rowContent> body;
+        bool empty() const { return body.empty() && header.data.empty(); }
     };
 
     class table

@@ -50,6 +50,10 @@ namespace shob::pages
             const auto prepTable = stand.prepareTable(teams, settings);
             const auto table = html::table::buildTable(prepTable);
             rows.addContent(table);
+            const auto matchesNL = groupsPhase.filterNL();
+            const auto prepTable2 = matchesNL.prepareTable(teams, settings);
+            const auto table2 = html::table::buildTable(prepTable2);
+            rows.addContent(table2);
         }
         return rows;
     }

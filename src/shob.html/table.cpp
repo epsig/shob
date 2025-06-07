@@ -14,6 +14,8 @@ namespace shob::html
     rowContent table::buildTable(const tableContent& content)
     {
         rowContent table;
+        if (content.empty()) { return table; }
+
         table.data.emplace_back("<table>");
         if ( ! content.header.data.empty())
         {
