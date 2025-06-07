@@ -9,9 +9,11 @@
 
 namespace shob::pages
 {
+    using namespace shob::football;
+
     void format_ec::get_season_stdout(const std::string& season) const
     {
-        auto output = get_season(season);
+        const auto output = get_season(season);
         for (const auto& row : output)
         {
             std::cout << row << std::endl;
@@ -34,17 +36,17 @@ namespace shob::pages
     html::rowContent format_ec::getFirstHalfYear(const std::string& part, const readers::csvContent& data) const
     {
         auto rows = html::rowContent();
-        auto settings = html::settings();
+        constexpr auto settings = html::settings();
 
-        auto groups = getGroups(part, data);
+        const auto groups = getGroups(part, data);
 
         for (const auto& group : groups)
         {
-            auto filter = football::filterInputList();
+            auto filter = filterInputList();
             filter.filters.push_back({ 0, part });
             filter.filters.push_back({ 1, group });
-            const auto groupsPhase = football::filterResults::readFromCsvData(data, filter);
-            const auto stand = football::results2standings::u2s(groupsPhase);
+            const auto groupsPhase = filterResults::readFromCsvData(data, filter);
+            const auto stand = results2standings::u2s(groupsPhase);
             const auto prepTable = stand.prepareTable(teams, settings);
             const auto table = html::table::buildTable(prepTable);
             rows.addContent(table);
@@ -56,16 +58,16 @@ namespace shob::pages
     {
         auto season1 = season;
         season1.replace(4, 1, "_");
-        auto file1 = sportDataFolder + "/europacup/europacup_" + season1 + ".csv";
+        const auto file1 = sportDataFolder + "/europacup/europacup_" + season1 + ".csv";
         const auto csvData = readers::csvReader::readCsvFile(file1);
 
         auto out = std::vector<html::rowContent>();
 
-        auto ECparts = { "CL", "EL", "CF" };
+        const auto ECparts = { "CL", "EL", "CF" };
         for (const auto& part : ECparts)
         {
             out.push_back(getFirstHalfYear(part, csvData));
-            auto r2f = football::route2finaleFactory::createEC(csvData, part);
+            const auto r2f = route2finaleFactory::createEC(csvData, part);
             const auto prepTable = r2f.prepareTable(teams);
             out.push_back(html::table::buildTable(prepTable));
         }
