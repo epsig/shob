@@ -2,6 +2,7 @@
 #pragma once
 #include <string>
 #include <vector>
+#include <set>
 #include "../shob.readers/csvAllSeasonsReader.h"
 #include "../shob.teams/clubTeams.h"
 #include "../shob.html/table.h"
@@ -20,5 +21,6 @@ namespace shob::pages
         const readers::csvAllSeasonsReader extras;
         const teams::clubTeams teams;
         html::rowContent getFirstHalfYear(const std::string& part, const readers::csvContent& data) const;
+        static std::set<std::string> getGroups(const std::string& part, const readers::csvContent& data);
     };
 }
