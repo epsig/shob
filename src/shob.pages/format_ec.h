@@ -22,5 +22,6 @@ namespace shob::pages
         const teams::clubTeams teams;
         html::rowContent getFirstHalfYear(const std::string& part, const readers::csvContent& data) const;
         static std::set<std::string> getGroups(const std::string& part, const readers::csvContent& data);
+        static std::vector<std::string> getParts(const readers::csvContent& data);
     };
 }

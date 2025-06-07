@@ -20,6 +20,22 @@ namespace shob::pages
         }
     }
 
+    std::vector<std::string> format_ec::getParts(const readers::csvContent& data)
+    {
+        auto partsUnordered = std::vector<std::string>();
+        auto partsOrdered = std::set<std::string>();
+        for (const auto& row : data.body)
+        {
+            const auto& part = row.column[0];
+            if ( ! partsOrdered.contains(part))
+            {
+                partsOrdered.insert(part);
+                partsUnordered.push_back(part);
+            }
+        }
+        return partsUnordered;
+    }
+
     std::set<std::string> format_ec::getGroups(const std::string& part, const readers::csvContent& data)
     {
         auto groups = std::set<std::string>();
@@ -67,13 +83,16 @@ namespace shob::pages
 
         auto out = std::vector<html::rowContent>();
 
-        const auto ECparts = { "CL", "EL", "CF" };
+        const auto ECparts = getParts(csvData);
         for (const auto& part : ECparts)
         {
-            out.push_back(getFirstHalfYear(part, csvData));
-            const auto r2f = route2finaleFactory::createEC(csvData, part);
-            const auto prepTable = r2f.prepareTable(teams);
-            out.push_back(html::table::buildTable(prepTable));
+            if (part != "supercup") // TODO
+            {
+                out.push_back(getFirstHalfYear(part, csvData));
+                const auto r2f = route2finaleFactory::createEC(csvData, part);
+                const auto prepTable = r2f.prepareTable(teams);
+                out.push_back(html::table::buildTable(prepTable));
+            }
         }
 
         std::vector<std::string> output;
