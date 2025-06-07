@@ -20,6 +20,25 @@ namespace shob::pages
         }
     }
 
+    std::vector<std::string> format_ec::getQualifiers(const std::string& part, const readers::csvContent& data)
+    {
+        auto partsUnordered = std::vector<std::string>();
+        auto partsOrdered = std::set<std::string>();
+        for (const auto& row : data.body)
+        {
+            const auto& qf = row.column[1];
+            if (row.column[0] == part && qf.at(0) != 'g' && !qf.ends_with("f") && !qf.starts_with("x"))
+            {
+                if ( ! partsOrdered.contains(qf))
+                {
+                    partsUnordered.push_back(qf);
+                    partsOrdered.insert(qf);
+                }
+            }
+        }
+        return partsUnordered;
+    }
+
     std::vector<std::string> format_ec::getParts(const readers::csvContent& data)
     {
         auto partsUnordered = std::vector<std::string>();
@@ -53,6 +72,18 @@ namespace shob::pages
     {
         auto rows = html::rowContent();
         constexpr auto settings = html::settings();
+
+        const auto qualifiers = getQualifiers(part, data);
+        for (const auto& qf : qualifiers)
+        {
+            auto filter = filterInputList();
+            filter.filters.push_back({ 0, part });
+            filter.filters.push_back({ 1, qf });
+            const auto groupsPhase = filterResults::readFromCsvData(data, filter);
+            const auto prepTable = groupsPhase.prepareTable(teams, settings);
+            const auto table = html::table::buildTable(prepTable);
+            rows.addContent(table);
+        }
 
         const auto groups = getGroups(part, data);
 
