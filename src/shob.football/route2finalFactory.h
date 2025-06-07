@@ -8,7 +8,7 @@ namespace shob::football
     {
     public:
         static route2final create(const std::string& filename);
-        static route2final createEC(const std::string& filename, const std::string& ECpart);
+        static route2final createEC(const readers::csvContent& data, const std::string& ECpart);
     };
 
 }

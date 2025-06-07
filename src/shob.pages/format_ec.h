@@ -19,6 +19,6 @@ namespace shob::pages
         const std::string sportDataFolder;
         const readers::csvAllSeasonsReader extras;
         const teams::clubTeams teams;
-        html::rowContent getFirstHalfYear(const std::string& part, const std::string& filename) const;
+        html::rowContent getFirstHalfYear(const std::string& part, const readers::csvContent& data) const;
     };
 }

@@ -24,10 +24,8 @@ namespace shob::football
         return r2f;
     }
 
-    route2final route2finaleFactory::createEC(const std::string& filename, const std::string& ECpart)
+    route2final route2finaleFactory::createEC(const readers::csvContent& data, const std::string& ECpart)
     {
-        const auto data = readers::csvReader::readCsvFile(filename);
-
         auto filter = filterInputList();
         filter.filters.push_back({ 0, ECpart });
         filter.filters.push_back({ 1, "f" });

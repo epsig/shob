@@ -17,10 +17,9 @@ namespace shob::pages
         }
     }
 
-    html::rowContent format_ec::getFirstHalfYear(const std::string& part, const std::string& filename) const
+    html::rowContent format_ec::getFirstHalfYear(const std::string& part, const readers::csvContent& data) const
     {
         auto settings = html::settings();
-        const auto data = readers::csvReader::readCsvFile(filename);
 
         auto filter = football::filterInputList();
         filter.filters.push_back({ 0, part });
@@ -40,14 +39,15 @@ namespace shob::pages
         auto season1 = season;
         season1.replace(4, 1, "_");
         auto file1 = sportDataFolder + "/europacup/europacup_" + season1 + ".csv";
+        const auto csvData = readers::csvReader::readCsvFile(file1);
 
         auto out = std::vector<html::rowContent>();
 
         auto ECparts = { "CL", "EL", "CF" };
         for (const auto& part : ECparts)
         {
-            out.push_back(getFirstHalfYear(part, file1));
-            auto r2f = football::route2finaleFactory::createEC(file1, part);
+            out.push_back(getFirstHalfYear(part, csvData));
+            auto r2f = football::route2finaleFactory::createEC(csvData, part);
             const auto prepTable = r2f.prepareTable(teams);
             out.push_back(html::table::buildTable(prepTable));
         }

@@ -52,7 +52,8 @@ namespace shob::football::test
         auto reader = teams::clubTeams();
         reader.InitFromFile(filename2);
 
-        const auto r2f = route2finaleFactory::createEC(filename, "CL");
+        const auto data = csvReader::readCsvFile(filename);
+        const auto r2f = route2finaleFactory::createEC(data, "CL");
         const auto prepTable = r2f.prepareTable(reader);
 
         EXPECT_EQ(16, prepTable.body.size());
