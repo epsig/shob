@@ -57,7 +57,8 @@ namespace shob::pages
         return groups;
     }
 
-    html::rowContent format_ec::getFirstHalfYear(const std::string& part, const readers::csvContent& data) const
+    html::rowContent format_ec::getFirstHalfYear(const std::string& part, const readers::csvContent& data,
+        const std::string& season) const
     {
         auto rows = html::rowContent();
         constexpr auto settings = html::settings();
@@ -82,7 +83,8 @@ namespace shob::pages
             filter.filters.push_back({ 0, part });
             filter.filters.push_back({ 1, group });
             const auto groupsPhase = filterResults::readFromCsvData(data, filter);
-            const auto stand = results2standings::u2s(groupsPhase);
+            auto stand = results2standings::u2s(groupsPhase);
+            stand.addExtrasEC(extras, season);
             const auto prepTable = stand.prepareTable(teams, settings);
             auto table = html::table::buildTable(prepTable);
             rows.addContent(table);
@@ -109,7 +111,7 @@ namespace shob::pages
         {
             if (part != "supercup") // TODO
             {
-                auto content = getFirstHalfYear(part, csvData);
+                auto content = getFirstHalfYear(part, csvData, season);
                 out.addContent(content);
                 const auto r2f = route2finaleFactory::createEC(csvData, part);
                 const auto prepTable = r2f.prepareTable(teams);

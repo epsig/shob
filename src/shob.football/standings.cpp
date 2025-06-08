@@ -173,8 +173,9 @@ namespace shob::football
         {
             table.header.data = { "club", "games", "points", "goal difference" };
         }
-        for (const auto& row : list)
+        for (size_t i = 0; i < list.size(); i++)
         {
+            const auto& row = list[i];
             html::rowContent data;
             auto team = teams.expand(row.team);
             std::vector<std::string> extraData;
@@ -186,6 +187,11 @@ namespace shob::football
             {
                 updateTeamWithExtras(team, extraData, row.punishmentPoints);
             }
+            if (wns_cl == 7)
+            {
+                if (i < 8) team += " *";
+                else if (i < 24) team += " +";
+            }
 
             data.data = { team, std::to_string(row.totalGames), std::to_string(row.points), std::to_string(row.goalDifference()) };
             table.body.push_back(data);
@@ -196,7 +202,7 @@ namespace shob::football
 
     void standings::addExtras(const readers::csvAllSeasonsReader& r, const std::string& season)
     {
-        auto extraU2s = r.getSeason(season);
+        const auto extraU2s = r.getSeason(season);
         for (size_t i = 1; i < extraU2s.size(); i++)
         {
             auto teams = extraU2s[i][0];
@@ -207,6 +213,18 @@ namespace shob::football
             for (const auto& team : splittedTeams)
             {
                 extras.insert({ team, data });
+            }
+        }
+    }
+
+    void standings::addExtrasEC(const readers::csvAllSeasonsReader& r, const std::string& season)
+    {
+        auto extraU2s = r.getSeason(season);
+        if (extraU2s.size() > 1)
+        {
+            if (extraU2s[1][0] == "wns_CL")
+            {
+                wns_cl = std::stoi(extraU2s[1][1]);
             }
         }
     }

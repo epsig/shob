@@ -20,7 +20,8 @@ namespace shob::pages
         const std::string sportDataFolder;
         const readers::csvAllSeasonsReader extras;
         const teams::clubTeams teams;
-        html::rowContent getFirstHalfYear(const std::string& part, const readers::csvContent& data) const;
+        html::rowContent getFirstHalfYear(const std::string& part, const readers::csvContent& data,
+            const std::string& season) const;
         static general::uniqueStrings getGroups(const std::string& part, const readers::csvContent& data);
         static general::uniqueStrings getParts(const readers::csvContent& data);
         static general::uniqueStrings getQualifiers(const std::string& part, const readers::csvContent& data);
