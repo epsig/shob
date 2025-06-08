@@ -19,44 +19,34 @@ namespace shob::pages
         }
     }
 
-    std::vector<std::string> format_ec::getQualifiers(const std::string& part, const readers::csvContent& data)
+    general::uniqueStrings format_ec::getQualifiers(const std::string& part, const readers::csvContent& data)
     {
-        auto partsUnordered = std::vector<std::string>();
-        auto partsOrdered = std::set<std::string>();
+        auto parts = general::uniqueStrings();
         for (const auto& row : data.body)
         {
             const auto& qf = row.column[1];
             if (row.column[0] == part && qf.at(0) != 'g' && !qf.ends_with("f") && !qf.starts_with("x"))
             {
-                if ( ! partsOrdered.contains(qf))
-                {
-                    partsUnordered.push_back(qf);
-                    partsOrdered.insert(qf);
-                }
+                parts.insert(qf);
             }
         }
-        return partsUnordered;
+        return parts;
     }
 
-    std::vector<std::string> format_ec::getParts(const readers::csvContent& data)
+    general::uniqueStrings format_ec::getParts(const readers::csvContent& data)
     {
-        auto partsUnordered = std::vector<std::string>();
-        auto partsOrdered = std::set<std::string>();
+        auto parts = general::uniqueStrings();
         for (const auto& row : data.body)
         {
             const auto& part = row.column[0];
-            if ( ! partsOrdered.contains(part))
-            {
-                partsOrdered.insert(part);
-                partsUnordered.push_back(part);
-            }
+            parts.insert(part);
         }
-        return partsUnordered;
+        return parts;
     }
 
-    std::set<std::string> format_ec::getGroups(const std::string& part, const readers::csvContent& data)
+    general::uniqueStrings format_ec::getGroups(const std::string& part, const readers::csvContent& data)
     {
-        auto groups = std::set<std::string>();
+        auto groups = general::uniqueStrings();
         for ( const auto& row : data.body)
         {
             if (row.column[0] == part && row.column[1].at(0) == 'g')
@@ -72,7 +62,7 @@ namespace shob::pages
         auto rows = html::rowContent();
         constexpr auto settings = html::settings();
 
-        const auto qualifiers = getQualifiers(part, data);
+        const auto qualifiers = getQualifiers(part, data).list();
         for (const auto& qf : qualifiers)
         {
             auto filter = filterInputList();
@@ -84,7 +74,7 @@ namespace shob::pages
             rows.addContent(table);
         }
 
-        const auto groups = getGroups(part, data);
+        const auto groups = getGroups(part, data).list();
 
         for (const auto& group : groups)
         {
@@ -114,7 +104,7 @@ namespace shob::pages
         auto out = html::rowContent();
         out.addContent("<html> <body>");
 
-        const auto ECparts = getParts(csvData);
+        const auto ECparts = getParts(csvData).list();
         for (const auto& part : ECparts)
         {
             if (part != "supercup") // TODO

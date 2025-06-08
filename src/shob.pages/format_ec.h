@@ -2,7 +2,7 @@
 #pragma once
 #include <string>
 #include <vector>
-#include <set>
+#include "../shob.general/uniqueStrings.h"
 #include "../shob.readers/csvAllSeasonsReader.h"
 #include "../shob.teams/clubTeams.h"
 #include "../shob.html/table.h"
@@ -21,8 +21,8 @@ namespace shob::pages
         const readers::csvAllSeasonsReader extras;
         const teams::clubTeams teams;
         html::rowContent getFirstHalfYear(const std::string& part, const readers::csvContent& data) const;
-        static std::set<std::string> getGroups(const std::string& part, const readers::csvContent& data);
-        static std::vector<std::string> getParts(const readers::csvContent& data);
-        static std::vector<std::string> getQualifiers(const std::string& part, const readers::csvContent& data);
+        static general::uniqueStrings getGroups(const std::string& part, const readers::csvContent& data);
+        static general::uniqueStrings getParts(const readers::csvContent& data);
+        static general::uniqueStrings getQualifiers(const std::string& part, const readers::csvContent& data);
     };
 }

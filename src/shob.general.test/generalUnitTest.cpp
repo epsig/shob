@@ -2,6 +2,7 @@
 #include <gtest/gtest.h>
 
 #include "testDate.h"
+#include "testUniqueStrings.h"
 
 using namespace shob::general::test;
 
@@ -35,5 +36,10 @@ TEST(unitTest, testLeapYear)
 TEST(unitTest, testMaxDaysPerMonth)
 {
     testDate::testMaxDays();
+}
+
+TEST(unitTest, testUniqueStrings)
+{
+    testUniqueStrings::test1();
 }
 
