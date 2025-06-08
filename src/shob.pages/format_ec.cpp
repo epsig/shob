@@ -1,7 +1,6 @@
 
 #include "format_ec.h"
 #include <iostream>
-#include <set>
 
 #include "../shob.football/results2standings.h"
 #include "../shob.football/route2finalFactory.h"
@@ -124,8 +123,8 @@ namespace shob::pages
                 out.addContent(content);
                 const auto r2f = route2finaleFactory::createEC(csvData, part);
                 const auto prepTable = r2f.prepareTable(teams);
-                auto content2 = html::table::buildTable(prepTable);
-                out.addContent(content2);
+                content = html::table::buildTable(prepTable);
+                out.addContent(content);
             }
         }
 
