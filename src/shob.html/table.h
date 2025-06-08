@@ -9,7 +9,7 @@ namespace shob::html
     {
     public:
         std::vector<std::string> data;
-        void addContent(const rowContent& extra);
+        void addContent(rowContent& extra);
         void addContent(std::string extra);
     };
 

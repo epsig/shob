@@ -3,11 +3,11 @@
 
 namespace shob::html
 {
-    void rowContent::addContent(const rowContent& extra)
+    void rowContent::addContent(rowContent& extra)
     {
-        for (const auto& r : extra.data)
+        for (auto& r : extra.data)
         {
-            data.push_back(r);
+            data.emplace_back(std::move(r));
         }
     }
 

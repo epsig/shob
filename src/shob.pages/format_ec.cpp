@@ -81,7 +81,7 @@ namespace shob::pages
             filter.filters.push_back({ 1, qf });
             const auto groupsPhase = filterResults::readFromCsvData(data, filter);
             const auto prepTable = groupsPhase.prepareTable(teams, settings);
-            const auto table = html::table::buildTable(prepTable);
+            auto table = html::table::buildTable(prepTable);
             rows.addContent(table);
         }
 
@@ -95,11 +95,11 @@ namespace shob::pages
             const auto groupsPhase = filterResults::readFromCsvData(data, filter);
             const auto stand = results2standings::u2s(groupsPhase);
             const auto prepTable = stand.prepareTable(teams, settings);
-            const auto table = html::table::buildTable(prepTable);
+            auto table = html::table::buildTable(prepTable);
             rows.addContent(table);
             const auto matchesNL = groupsPhase.filterNL();
             const auto prepTable2 = matchesNL.prepareTable(teams, settings);
-            const auto table2 = html::table::buildTable(prepTable2);
+            auto table2 = html::table::buildTable(prepTable2);
             rows.addContent(table2);
         }
         return rows;
@@ -120,10 +120,12 @@ namespace shob::pages
         {
             if (part != "supercup") // TODO
             {
-                out.addContent(getFirstHalfYear(part, csvData));
+                auto content = getFirstHalfYear(part, csvData);
+                out.addContent(content);
                 const auto r2f = route2finaleFactory::createEC(csvData, part);
                 const auto prepTable = r2f.prepareTable(teams);
-                out.addContent(html::table::buildTable(prepTable));
+                auto content2 = html::table::buildTable(prepTable);
+                out.addContent(content2);
             }
         }
 
