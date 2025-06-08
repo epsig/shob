@@ -11,6 +11,11 @@ namespace shob::html
         }
     }
 
+    void rowContent::addContent(std::string extra)
+    {
+        data.emplace_back(std::move(extra));
+    }
+
     rowContent table::buildTable(const tableContent& content)
     {
         rowContent table;

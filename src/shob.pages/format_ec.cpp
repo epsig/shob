@@ -14,7 +14,7 @@ namespace shob::pages
     void format_ec::get_season_stdout(const std::string& season) const
     {
         const auto output = get_season(season);
-        for (const auto& row : output)
+        for (const auto& row : output.data)
         {
             std::cout << row << std::endl;
         }
@@ -105,39 +105,31 @@ namespace shob::pages
         return rows;
     }
 
-    std::vector<std::string> format_ec::get_season(const std::string& season) const
+    html::rowContent format_ec::get_season(const std::string& season) const
     {
         auto season1 = season;
         season1.replace(4, 1, "_");
         const auto file1 = sportDataFolder + "/europacup/europacup_" + season1 + ".csv";
         const auto csvData = readers::csvReader::readCsvFile(file1);
 
-        auto out = std::vector<html::rowContent>();
+        auto out = html::rowContent();
+        out.addContent("<html> <body>");
 
         const auto ECparts = getParts(csvData);
         for (const auto& part : ECparts)
         {
             if (part != "supercup") // TODO
             {
-                out.push_back(getFirstHalfYear(part, csvData));
+                out.addContent(getFirstHalfYear(part, csvData));
                 const auto r2f = route2finaleFactory::createEC(csvData, part);
                 const auto prepTable = r2f.prepareTable(teams);
-                out.push_back(html::table::buildTable(prepTable));
+                out.addContent(html::table::buildTable(prepTable));
             }
         }
 
-        std::vector<std::string> output;
-        output.emplace_back("<html> <body>");
-        for (const auto& part : out)
-        {
-            for (const auto& row : part.data)
-            {
-                output.push_back(row);
-            }
-        }
-        output.emplace_back("</body> </html>");
+        out.addContent("</body> </html>");
 
-        return output;
+        return out;
     }
 
 }
