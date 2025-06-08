@@ -11,7 +11,7 @@ namespace shob::pages
     void format_nl::get_season_stdout(const std::string& season) const
     {
         auto output = get_season(season);
-        for (const auto& row : output)
+        for (const auto& row : output.data)
         {
             std::cout << row << std::endl;
         }
@@ -32,7 +32,7 @@ namespace shob::pages
         return out;
     }
 
-    std::vector<std::string> format_nl::get_season(const std::string& season) const
+    html::rowContent format_nl::get_season(const std::string& season) const
     {
         auto settings = html::settings();
 
@@ -42,7 +42,8 @@ namespace shob::pages
         auto competition = football::footballCompetition();
         competition.readFromCsv(file1);
 
-        auto out = std::vector<html::rowContent>();
+        auto out = html::rowContent();
+        out.addContent("<html> <body>");
 
         auto teams = teams::clubTeams();
         auto file2 = sportDataFolder + "/clubs.csv";
@@ -50,7 +51,8 @@ namespace shob::pages
 
         const std::set<std::string> toppers = { "ajx", "fyn", "psv" };
         const auto filtered = competition.filter(toppers);
-        out.push_back(html::table::buildTable(filtered.prepareTable(teams, settings)));
+        auto content = html::table::buildTable(filtered.prepareTable(teams, settings));
+        out.addContent(content);
 
         auto table = football::results2standings::u2s(competition);
 
@@ -63,8 +65,10 @@ namespace shob::pages
         auto htmlTable = table.prepareTable(teams, settings);
         auto htmlTable2 = standing_1e_div.prepareTable(teams, settings);
 
-        out.push_back(html::table::buildTable(htmlTable));
-        out.push_back(html::table::buildTable(htmlTable2));
+        content = html::table::buildTable(htmlTable);
+        out.addContent(content);
+        content = html::table::buildTable(htmlTable2);
+        out.addContent(content);
 
         // topscorers:
         auto players = teams::footballers();
@@ -72,29 +76,23 @@ namespace shob::pages
         players.initFromFile(filename3);
 
         auto file_tp_eredivisie = sportDataFolder + "/eredivisie/topscorers_eredivisie.csv";
-        out.push_back(getTopScorers(file_tp_eredivisie, season, players, teams));
+        content = getTopScorers(file_tp_eredivisie, season, players, teams);
+        out.addContent(content);
 
         auto file_tp_eerste_divisie = sportDataFolder + "/eerste_divisie/topscorers_eerste_divisie.csv";
-        out.push_back(getTopScorers(file_tp_eerste_divisie, season, players, teams));
+        content = getTopScorers(file_tp_eerste_divisie, season, players, teams);
+        out.addContent(content);
 
         // beker:
         const std::string bekerFilename = sportDataFolder + "/beker/beker_" + season1 +".csv";
         const auto r2f = football::route2finaleFactory::create(bekerFilename);
         const auto prepTable = r2f.prepareTable(teams);
-        out.push_back(html::table::buildTable(prepTable));
+        content = html::table::buildTable(prepTable);
+        out.addContent(content);
 
-        std::vector<std::string> output;
-        output.emplace_back("<html> <body>");
-        for (const auto& part : out)
-        {
-            for (const auto& row : part.data)
-            {
-                output.push_back(row);
-            }
-        }
-        output.emplace_back("</body> </html>");
+        out.addContent("</body> </html>");
 
-        return output;
+        return out;
     }
 
 }
