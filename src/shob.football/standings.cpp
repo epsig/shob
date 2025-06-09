@@ -3,6 +3,7 @@
 
 #include <algorithm>
 
+#include "../shob.general/dateFactory.h"
 #include "../shob.readers/csvReader.h"
 
 namespace shob::football
@@ -224,7 +225,11 @@ namespace shob::football
         {
             if (extraU2s[1][0] == "wns_CL")
             {
-                wns_cl = std::stoi(extraU2s[1][1]);
+                auto option = extraU2s[1][1];
+                if (general::dateFactory::allDigits(option))
+                {
+                    wns_cl = std::stoi(option);
+                }
             }
         }
     }
