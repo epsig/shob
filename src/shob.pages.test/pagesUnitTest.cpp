@@ -18,6 +18,11 @@ TEST(unitTest, testFormatNL)
     testFormatNL::test1();
 }
 
+TEST(unitTest, testFormatEc_2024_2025)
+{
+    testFormatEc::test_2024_2025();
+}
+
 TEST(unitTest, testFormatEc_2023_2024)
 {
     testFormatEc::test_2023_2024();

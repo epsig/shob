@@ -14,6 +14,13 @@ namespace shob::pages::test
     const std::string dataFolder = testUtils::refFileWithPath(__FILE__, dataMap);
     const auto fmt_ec = format_ec_factory::build(dataFolder);
 
+    void testFormatEc::test_2024_2025()
+    {
+        const auto lines = fmt_ec.get_season("2024-2025");
+        ASSERT_EQ(lines.data.size(), 244);
+        EXPECT_EQ(lines.data[16], "<tr><td>Atalanta Bergamo +</td><td>8</td><td>15</td><td>14</td></tr>") << " check + after team name";
+    }
+
     void testFormatEc::test_2023_2024()
     {
         const auto lines = fmt_ec.get_season("2023-2024");
