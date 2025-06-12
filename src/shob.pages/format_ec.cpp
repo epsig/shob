@@ -58,22 +58,26 @@ namespace shob::pages
         return groups;
     }
 
-    int format_ec::readExtras(const std::string& season) const
+    void format_ec::readExtras(const std::string& season, int& wns_cl, html::rowContent& summary) const
     {
         auto extraU2s = extras.getSeason(season);
-        int wns_cl = -1;
-        if (extraU2s.size() > 1)
+        wns_cl = -1;
+
+        for (const auto& row : extraU2s)
         {
-            if (extraU2s[1][0] == "wns_CL")
+            if (row[0] == "wns_CL")
             {
-                auto option = extraU2s[1][1];
+                auto option = row[1];
                 if (general::dateFactory::allDigits(option))
                 {
                     wns_cl = std::stoi(option);
                 }
             }
+            else if (row[0] == "summary_NL") // TODO also check summary_UK
+            {
+                summary.data.push_back(row[1]);
+            }
         }
-        return wns_cl;
     }
 
     html::rowContent format_ec::getFirstHalfYear(const std::string& part, const readers::csvContent& data,
@@ -122,9 +126,17 @@ namespace shob::pages
         const auto file1 = sportDataFolder + "/europacup/europacup_" + season1 + ".csv";
         const auto csvData = readers::csvReader::readCsvFile(file1);
 
-        int wns_cl = readExtras(season);
+        int wns_cl;
+        html::rowContent summary;
+        readExtras(season, wns_cl, summary);
         auto out = html::rowContent();
         out.addContent("<html> <body>");
+
+        if ( ! summary.data.empty())
+        {
+            out.addContent("<h2> summary </h2>");
+            out.addContent(summary);
+        }
 
         const auto ECparts = getParts(csvData).list();
         for (const auto& part : ECparts)

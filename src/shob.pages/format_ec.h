@@ -25,6 +25,6 @@ namespace shob::pages
         static general::uniqueStrings getGroups(const std::string& part, const readers::csvContent& data);
         static general::uniqueStrings getParts(const readers::csvContent& data);
         static general::uniqueStrings getQualifiers(const std::string& part, const readers::csvContent& data);
-        int readExtras(const std::string& season) const;
+        void readExtras(const std::string& season, int& wns_cl, html::rowContent& summary) const;
     };
 }

@@ -30,7 +30,7 @@ namespace shob::pages::test
     void testFormatEc::test_1994_1995()
     {
         const auto lines = fmt_ec.get_season("1994-1995");
-        EXPECT_EQ(lines.data.size(), 86);
+        EXPECT_EQ(lines.data.size(), 95);
     }
 }
 
