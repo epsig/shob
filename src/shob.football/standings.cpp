@@ -218,21 +218,5 @@ namespace shob::football
         }
     }
 
-    void standings::addExtrasEC(const readers::csvAllSeasonsReader& r, const std::string& season)
-    {
-        auto extraU2s = r.getSeason(season);
-        if (extraU2s.size() > 1)
-        {
-            if (extraU2s[1][0] == "wns_CL")
-            {
-                auto option = extraU2s[1][1];
-                if (general::dateFactory::allDigits(option))
-                {
-                    wns_cl = std::stoi(option);
-                }
-            }
-        }
-    }
-
 }
 

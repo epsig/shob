@@ -5,6 +5,7 @@
 #include "../shob.football/results2standings.h"
 #include "../shob.football/route2finalFactory.h"
 #include "../shob.football/filterResults.h"
+#include "../shob.general/dateFactory.h"
 
 namespace shob::pages
 {
@@ -57,8 +58,26 @@ namespace shob::pages
         return groups;
     }
 
+    int format_ec::readExtras(const std::string& season) const
+    {
+        auto extraU2s = extras.getSeason(season);
+        int wns_cl = -1;
+        if (extraU2s.size() > 1)
+        {
+            if (extraU2s[1][0] == "wns_CL")
+            {
+                auto option = extraU2s[1][1];
+                if (general::dateFactory::allDigits(option))
+                {
+                    wns_cl = std::stoi(option);
+                }
+            }
+        }
+        return wns_cl;
+    }
+
     html::rowContent format_ec::getFirstHalfYear(const std::string& part, const readers::csvContent& data,
-        const std::string& season) const
+        const std::string& season, const int wns_cl) const
     {
         auto rows = html::rowContent();
         constexpr auto settings = html::settings();
@@ -84,7 +103,7 @@ namespace shob::pages
             filter.filters.push_back({ 1, group });
             const auto groupsPhase = filterResults::readFromCsvData(data, filter);
             auto stand = results2standings::u2s(groupsPhase);
-            stand.addExtrasEC(extras, season);
+            stand.wns_cl = wns_cl;
             const auto prepTable = stand.prepareTable(teams, settings);
             auto table = html::table::buildTable(prepTable);
             rows.addContent(table);
@@ -103,6 +122,7 @@ namespace shob::pages
         const auto file1 = sportDataFolder + "/europacup/europacup_" + season1 + ".csv";
         const auto csvData = readers::csvReader::readCsvFile(file1);
 
+        int wns_cl = readExtras(season);
         auto out = html::rowContent();
         out.addContent("<html> <body>");
 
@@ -111,7 +131,7 @@ namespace shob::pages
         {
             if (part != "supercup") // TODO
             {
-                auto content = getFirstHalfYear(part, csvData, season);
+                auto content = getFirstHalfYear(part, csvData, season, wns_cl);
                 out.addContent(content);
                 const auto r2f = route2finaleFactory::createEC(csvData, part);
                 const auto prepTable = r2f.prepareTable(teams);
