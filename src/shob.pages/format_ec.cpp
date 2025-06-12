@@ -58,10 +58,10 @@ namespace shob::pages
         return groups;
     }
 
-    void format_ec::readExtras(const std::string& season, int& wns_cl, html::rowContent& summary) const
+    void format_ec::readExtras(const std::string& season, wns_ec& wns_cl, html::rowContent& summary) const
     {
         auto extraU2s = extras.getSeason(season);
-        wns_cl = -1;
+        wns_cl.wns_cl = -1;
 
         for (const auto& row : extraU2s)
         {
@@ -70,7 +70,18 @@ namespace shob::pages
                 auto option = row[1];
                 if (general::dateFactory::allDigits(option))
                 {
-                    wns_cl = std::stoi(option);
+                    wns_cl.wns_cl = std::stoi(option);
+                }
+                else
+                {
+                    auto splitted = readers::csvReader::split(option, ";");
+                    for (const auto & part: splitted.column)
+                    {
+                        auto splitted2 = readers::csvReader::split(part, ":");
+                        auto group = "g" + splitted2.column[0];
+                        auto wns = splitted2.column[1];
+                        wns_cl.groups.insert({ group, std::stoi(wns) });
+                    }
                 }
             }
             else if (row[0] == "summary_NL") // TODO also check summary_UK
@@ -81,7 +92,7 @@ namespace shob::pages
     }
 
     html::rowContent format_ec::getFirstHalfYear(const std::string& part, const readers::csvContent& data,
-        const std::string& season, const int wns_cl) const
+        const std::string& season, const wns_ec& wns_cl) const
     {
         auto rows = html::rowContent();
         constexpr auto settings = html::settings();
@@ -107,7 +118,14 @@ namespace shob::pages
             filter.filters.push_back({ 1, group });
             const auto groupsPhase = filterResults::readFromCsvData(data, filter);
             auto stand = results2standings::u2s(groupsPhase);
-            stand.wns_cl = wns_cl;
+            if (wns_cl.groups.contains(group))
+            {
+                stand.wns_cl = wns_cl.groups.at(group);
+            }
+            else
+            {
+                stand.wns_cl = wns_cl.wns_cl;
+            }
             const auto prepTable = stand.prepareTable(teams, settings);
             auto table = html::table::buildTable(prepTable);
             rows.addContent(table);
@@ -126,7 +144,7 @@ namespace shob::pages
         const auto file1 = sportDataFolder + "/europacup/europacup_" + season1 + ".csv";
         const auto csvData = readers::csvReader::readCsvFile(file1);
 
-        int wns_cl;
+        wns_ec wns_cl;
         html::rowContent summary;
         readExtras(season, wns_cl, summary);
         auto out = html::rowContent();

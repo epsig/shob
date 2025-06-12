@@ -2,6 +2,7 @@
 #pragma once
 #include <string>
 #include <vector>
+#include <map>
 #include "../shob.general/uniqueStrings.h"
 #include "../shob.readers/csvAllSeasonsReader.h"
 #include "../shob.teams/clubTeams.h"
@@ -9,6 +10,12 @@
 
 namespace shob::pages
 {
+    struct wns_ec
+    {
+        int wns_cl;
+        std::map<std::string, int> groups;
+    };
+
     class format_ec
     {
     public:
@@ -21,10 +28,10 @@ namespace shob::pages
         const readers::csvAllSeasonsReader extras;
         const teams::clubTeams teams;
         html::rowContent getFirstHalfYear(const std::string& part, const readers::csvContent& data,
-            const std::string& season, const int wns_cl) const;
+            const std::string& season, const wns_ec& wns_cl) const;
         static general::uniqueStrings getGroups(const std::string& part, const readers::csvContent& data);
         static general::uniqueStrings getParts(const readers::csvContent& data);
         static general::uniqueStrings getQualifiers(const std::string& part, const readers::csvContent& data);
-        void readExtras(const std::string& season, int& wns_cl, html::rowContent& summary) const;
+        void readExtras(const std::string& season, wns_ec& wns_cl, html::rowContent& summary) const;
     };
 }
