@@ -5,9 +5,10 @@
 namespace shob::football
 {
 
-    standings results2standings::u2s(const footballCompetition& matches)
+    standings results2standings::u2s(const footballCompetition& matches, const int scoring)
     {
         auto table = standings();
+        table.scoring = scoring;
 
         for (const auto& match : matches.matches)
         {

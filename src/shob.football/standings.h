@@ -45,6 +45,7 @@ namespace shob::football
         void handlePunishment(const std::string team, const int pnts);
         html::tableContent prepareTable(const teams::clubTeams & teams, const html::settings & settings) const;
         int wns_cl = -1;
+        int scoring = 3;
     private:
         std::map<std::string, u2sExtra> extras;
         std::map<std::string, std::string> mapExtra;

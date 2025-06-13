@@ -14,6 +14,7 @@ namespace shob::pages
     {
     public:
         int wns_cl;
+        int scoring;
         std::map<std::string, int> groups;
         int getWns(const std::string& group) const
         {

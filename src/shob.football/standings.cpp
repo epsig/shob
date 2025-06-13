@@ -3,7 +3,6 @@
 
 #include <algorithm>
 
-#include "../shob.general/dateFactory.h"
 #include "../shob.readers/csvReader.h"
 
 namespace shob::football
@@ -76,7 +75,7 @@ namespace shob::football
         else if (goals1 > goals2)
         {
             row.wins++;
-            row.points += 3; // TODO
+            row.points += scoring;
         }
         else
         {

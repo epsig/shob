@@ -18,7 +18,7 @@ namespace shob::pages::test
     {
         const auto lines = fmt_ec.get_season("2024-2025");
         ASSERT_EQ(lines.data.size(), 244);
-        EXPECT_EQ(lines.data[16], "<tr><td>Atalanta Bergamo +</td><td>8</td><td>15</td><td>14</td></tr>") << " check + after team name";
+        EXPECT_EQ(lines.data[16], "<tr><td>Atalanta Bergamo +</td><td>8</td><td>15</td><td>14</td></tr>") << "check + after team name";
     }
 
     void testFormatEc::test_2023_2024()
@@ -30,7 +30,8 @@ namespace shob::pages::test
     void testFormatEc::test_1994_1995()
     {
         const auto lines = fmt_ec.get_season("1994-1995");
-        EXPECT_EQ(lines.data.size(), 95);
+        ASSERT_EQ(lines.data.size(), 95);
+        EXPECT_EQ(lines.data[12], "<tr><td>Ajax</td><td>6</td><td>10</td><td>7</td></tr>") << "check 2 points for a win";
     }
 }
 

@@ -65,6 +65,7 @@ namespace shob::pages
     {
         auto extraU2s = extras.getSeason(season);
         wns_cl.wns_cl = -1;
+        wns_cl.scoring = 3; // default since 1995
 
         for (const auto& row : extraU2s)
         {
@@ -90,6 +91,10 @@ namespace shob::pages
             else if (row[0] == "summary_NL") // TODO also check summary_UK
             {
                 summary.data.push_back(row[1]);
+            }
+            else if (row[0] == "scoring")
+            {
+                wns_cl.scoring = std::stoi(row[1]);
             }
         }
     }
@@ -119,7 +124,7 @@ namespace shob::pages
             filter.filters.push_back({ 0, part });
             filter.filters.push_back({ 1, group });
             const auto groupsPhase = filterResults::readFromCsvData(data, filter);
-            auto stand = results2standings::u2s(groupsPhase);
+            auto stand = results2standings::u2s(groupsPhase, wns_cl.scoring);
             stand.wns_cl = wns_cl.getWns(group);
             const auto prepTable = stand.prepareTable(teams, settings);
             auto table = table::buildTable(prepTable);
