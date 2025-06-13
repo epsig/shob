@@ -10,10 +10,22 @@
 
 namespace shob::pages
 {
-    struct wns_ec
+    class wns_ec
     {
+    public:
         int wns_cl;
         std::map<std::string, int> groups;
+        int getWns(const std::string& group) const
+        {
+            if (groups.contains(group))
+            {
+                return groups.at(group);
+            }
+            else
+            {
+                return wns_cl;
+            }
+        }
     };
 
     class format_ec
@@ -27,8 +39,7 @@ namespace shob::pages
         const std::string sportDataFolder;
         const readers::csvAllSeasonsReader extras;
         const teams::clubTeams teams;
-        html::rowContent getFirstHalfYear(const std::string& part, const readers::csvContent& data,
-            const std::string& season, const wns_ec& wns_cl) const;
+        html::rowContent getFirstHalfYear(const std::string& part, const readers::csvContent& data, const wns_ec& wns_cl) const;
         static general::uniqueStrings getGroups(const std::string& part, const readers::csvContent& data);
         static general::uniqueStrings getParts(const readers::csvContent& data);
         static general::uniqueStrings getQualifiers(const std::string& part, const readers::csvContent& data);

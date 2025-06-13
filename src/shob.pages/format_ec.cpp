@@ -10,6 +10,9 @@
 namespace shob::pages
 {
     using namespace shob::football;
+    using namespace shob::readers;
+    using namespace shob::html;
+    using namespace shob::general;
 
     void format_ec::get_season_stdout(const std::string& season) const
     {
@@ -20,9 +23,9 @@ namespace shob::pages
         }
     }
 
-    general::uniqueStrings format_ec::getQualifiers(const std::string& part, const readers::csvContent& data)
+    uniqueStrings format_ec::getQualifiers(const std::string& part, const csvContent& data)
     {
-        auto parts = general::uniqueStrings();
+        auto parts = uniqueStrings();
         for (const auto& row : data.body)
         {
             const auto& qf = row.column[1];
@@ -34,9 +37,9 @@ namespace shob::pages
         return parts;
     }
 
-    general::uniqueStrings format_ec::getParts(const readers::csvContent& data)
+    uniqueStrings format_ec::getParts(const csvContent& data)
     {
-        auto parts = general::uniqueStrings();
+        auto parts = uniqueStrings();
         for (const auto& row : data.body)
         {
             const auto& part = row.column[0];
@@ -45,9 +48,9 @@ namespace shob::pages
         return parts;
     }
 
-    general::uniqueStrings format_ec::getGroups(const std::string& part, const readers::csvContent& data)
+    uniqueStrings format_ec::getGroups(const std::string& part, const csvContent& data)
     {
-        auto groups = general::uniqueStrings();
+        auto groups = uniqueStrings();
         for ( const auto& row : data.body)
         {
             if (row.column[0] == part && row.column[1].at(0) == 'g')
@@ -58,7 +61,7 @@ namespace shob::pages
         return groups;
     }
 
-    void format_ec::readExtras(const std::string& season, wns_ec& wns_cl, html::rowContent& summary) const
+    void format_ec::readExtras(const std::string& season, wns_ec& wns_cl, rowContent& summary) const
     {
         auto extraU2s = extras.getSeason(season);
         wns_cl.wns_cl = -1;
@@ -68,16 +71,16 @@ namespace shob::pages
             if (row[0] == "wns_CL")
             {
                 auto option = row[1];
-                if (general::dateFactory::allDigits(option))
+                if (dateFactory::allDigits(option))
                 {
                     wns_cl.wns_cl = std::stoi(option);
                 }
                 else
                 {
-                    auto splitted = readers::csvReader::split(option, ";");
+                    auto splitted = csvReader::split(option, ";");
                     for (const auto & part: splitted.column)
                     {
-                        auto splitted2 = readers::csvReader::split(part, ":");
+                        auto splitted2 = csvReader::split(part, ":");
                         auto group = "g" + splitted2.column[0];
                         auto wns = splitted2.column[1];
                         wns_cl.groups.insert({ group, std::stoi(wns) });
@@ -91,10 +94,9 @@ namespace shob::pages
         }
     }
 
-    html::rowContent format_ec::getFirstHalfYear(const std::string& part, const readers::csvContent& data,
-        const std::string& season, const wns_ec& wns_cl) const
+    rowContent format_ec::getFirstHalfYear(const std::string& part, const csvContent& data, const wns_ec& wns_cl) const
     {
-        auto rows = html::rowContent();
+        auto rows = rowContent();
         constexpr auto settings = html::settings();
 
         const auto qualifiers = getQualifiers(part, data).list();
@@ -105,7 +107,7 @@ namespace shob::pages
             filter.filters.push_back({ 1, qf });
             const auto groupsPhase = filterResults::readFromCsvData(data, filter);
             const auto prepTable = groupsPhase.prepareTable(teams, settings);
-            auto table = html::table::buildTable(prepTable);
+            auto table = table::buildTable(prepTable);
             rows.addContent(table);
         }
 
@@ -118,36 +120,29 @@ namespace shob::pages
             filter.filters.push_back({ 1, group });
             const auto groupsPhase = filterResults::readFromCsvData(data, filter);
             auto stand = results2standings::u2s(groupsPhase);
-            if (wns_cl.groups.contains(group))
-            {
-                stand.wns_cl = wns_cl.groups.at(group);
-            }
-            else
-            {
-                stand.wns_cl = wns_cl.wns_cl;
-            }
+            stand.wns_cl = wns_cl.getWns(group);
             const auto prepTable = stand.prepareTable(teams, settings);
-            auto table = html::table::buildTable(prepTable);
+            auto table = table::buildTable(prepTable);
             rows.addContent(table);
             const auto matchesNL = groupsPhase.filterNL();
             const auto prepTable2 = matchesNL.prepareTable(teams, settings);
-            auto table2 = html::table::buildTable(prepTable2);
+            auto table2 = table::buildTable(prepTable2);
             rows.addContent(table2);
         }
         return rows;
     }
 
-    html::rowContent format_ec::get_season(const std::string& season) const
+    rowContent format_ec::get_season(const std::string& season) const
     {
         auto season1 = season;
         season1.replace(4, 1, "_");
         const auto file1 = sportDataFolder + "/europacup/europacup_" + season1 + ".csv";
-        const auto csvData = readers::csvReader::readCsvFile(file1);
+        const auto csvData = csvReader::readCsvFile(file1);
 
         wns_ec wns_cl;
-        html::rowContent summary;
+        rowContent summary;
         readExtras(season, wns_cl, summary);
-        auto out = html::rowContent();
+        auto out = rowContent();
         out.addContent("<html> <body>");
 
         if ( ! summary.data.empty())
@@ -161,11 +156,11 @@ namespace shob::pages
         {
             if (part != "supercup") // TODO
             {
-                auto content = getFirstHalfYear(part, csvData, season, wns_cl);
+                auto content = getFirstHalfYear(part, csvData, wns_cl);
                 out.addContent(content);
                 const auto r2f = route2finaleFactory::createEC(csvData, part);
                 const auto prepTable = r2f.prepareTable(teams);
-                content = html::table::buildTable(prepTable);
+                content = table::buildTable(prepTable);
                 out.addContent(content);
             }
         }
