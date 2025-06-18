@@ -8,7 +8,10 @@ namespace shob::pages
         auto extras = readers::csvAllSeasonsReader();
         extras.init(dataFolder + "/eredivisie/eredivisie_u2s.csv");
 
-        auto format = format_nl(dataFolder, extras);
+        auto remarks = readers::csvAllSeasonsReader();
+        remarks.init(dataFolder + "/eredivisie/eredivisie_remarks.csv");
+
+        auto format = format_nl(dataFolder, extras, remarks);
         return format;
     }
 }

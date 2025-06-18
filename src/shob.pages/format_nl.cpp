@@ -54,7 +54,17 @@ namespace shob::pages
         auto content = html::table::buildTable(filtered.prepareTable(teams, settings));
         out.addContent(content);
 
-        auto table = football::results2standings::u2s(competition);
+        const auto currentRemarks = remarks.getSeason(season);
+        int scoring = 3;
+        for (const auto& row: currentRemarks)
+        {
+            if (row[0] == "scoring")
+            {
+                scoring = std::stoi(row[1]);
+            }
+        }
+
+        auto table = football::results2standings::u2s(competition, scoring);
 
         auto file3 = sportDataFolder + "/eerste_divisie/eerste_divisie_" + season1 + ".csv";
         auto standing_1e_div = football::standings();
