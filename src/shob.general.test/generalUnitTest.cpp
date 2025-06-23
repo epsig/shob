@@ -3,6 +3,7 @@
 
 #include "testDate.h"
 #include "testUniqueStrings.h"
+#include "testGlob.h"
 
 using namespace shob::general::test;
 
@@ -41,5 +42,10 @@ TEST(unitTest, testMaxDaysPerMonth)
 TEST(unitTest, testUniqueStrings)
 {
     testUniqueStrings::test1();
+}
+
+TEST(unitTest, testGlob)
+{
+    testGlob::test1();
 }
 
