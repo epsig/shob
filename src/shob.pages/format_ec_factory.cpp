@@ -3,7 +3,7 @@
 
 namespace shob::pages
 {
-    format_ec format_ec_factory::build(const std::string& dataFolder)
+    format_ec format_ec_factory::build(const std::string& dataFolder, const html::settings& settings)
     {
         auto remarks = readers::csvAllSeasonsReader();
         remarks.init(dataFolder + "/europacup/europacup_remarks.csv");
@@ -12,7 +12,7 @@ namespace shob::pages
         auto file2 = dataFolder + "/clubs.csv";
         teams.InitFromFile(file2);
 
-        auto format = format_ec(dataFolder, remarks, teams);
+        auto format = format_ec(dataFolder, remarks, teams, settings);
         return format;
     }
 }

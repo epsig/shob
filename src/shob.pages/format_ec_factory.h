@@ -8,6 +8,6 @@ namespace shob::pages
     class format_ec_factory
     {
     public:
-        static format_ec build(const std::string& dataFolder);
+        static format_ec build(const std::string& dataFolder, const html::settings& settings);
     };
 }

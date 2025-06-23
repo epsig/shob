@@ -67,6 +67,8 @@ namespace shob::pages
         wns_cl.wns_cl = -1;
         wns_cl.scoring = 3; // default since 1995
 
+        std::string summary_key = (settings.lang == language::Dutch ? "summary_NL" : "summary_UK");
+
         for (const auto& row : extraU2s)
         {
             if (row[0] == "wns_CL")
@@ -88,7 +90,7 @@ namespace shob::pages
                     }
                 }
             }
-            else if (row[0] == "summary_NL") // TODO also check summary_UK
+            else if (row[0] == summary_key)
             {
                 summary.data.push_back(row[1]);
             }
@@ -102,7 +104,6 @@ namespace shob::pages
     rowContent format_ec::getFirstHalfYear(const std::string& part, const csvContent& data, const wns_ec& wns_cl) const
     {
         auto rows = rowContent();
-        constexpr auto settings = html::settings();
 
         const auto qualifiers = getQualifiers(part, data).list();
         for (const auto& qf : qualifiers)
@@ -152,7 +153,14 @@ namespace shob::pages
 
         if ( ! summary.data.empty())
         {
-            out.addContent("<h2> summary </h2>");
+            if (settings.lang == language::Dutch)
+            {
+                out.addContent("<h2> Samenvatting Europacup Seizoen " + season + " </h2>");
+            }
+            else
+            {
+                out.addContent("<h2> Summary Europa cup season " + season + "</h2>");
+            }
             out.addContent(summary);
         }
 

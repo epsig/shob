@@ -12,7 +12,8 @@ namespace shob::pages::test
 
     const std::string dataMap = "../../data/sport/";
     const std::string dataFolder = testUtils::refFileWithPath(__FILE__, dataMap);
-    const auto fmt_ec = format_ec_factory::build(dataFolder);
+    const html::settings settings = html::settings();
+    const auto fmt_ec = format_ec_factory::build(dataFolder, settings);
 
     void testFormatEc::test_2024_2025()
     {

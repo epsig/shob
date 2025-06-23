@@ -26,7 +26,8 @@ int main(int argc, char* argv[])
         }
         else if (type == "ec")
         {
-            auto fmt_ec = shob::pages::format_ec_factory::build("sport");
+            constexpr auto settings = shob::html::settings();
+            auto fmt_ec = shob::pages::format_ec_factory::build("sport", settings);
             fmt_ec.get_season_stdout(season);
         }
     }
