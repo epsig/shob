@@ -44,7 +44,7 @@ namespace shob::football
         }
     }
 
-    tableContent route2final::prepareTable(const teams::clubTeams& teams) const
+    tableContent route2final::prepareTable(const teams::clubTeams& teams, const language& language) const
     {
         const std::vector lineNrs16 = { 0, 2, 4, 6, 9, 11, 13, 15 };
         const std::vector lineNrs8 = { 1, 5, 10, 14 };
@@ -57,7 +57,14 @@ namespace shob::football
         if ( ! final.matches.empty())
         {
             auto row = rowContent();
-            row.data = { "", "", "", "<b>F I N A L E:</b>" };
+            if (language == language::Dutch)
+            {
+                row.data = { "", "", "", "<b>F I N A L E:</b>" };
+            }
+            else
+            {
+                row.data = { "", "", "", "<b>F I N A L:</b>" };
+            }
             table.body[7] = row;
         }
         addOneRound(table, final, lineNrs2, teams, 3);

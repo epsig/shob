@@ -3,6 +3,7 @@
 #include "footballCompetition.h"
 #include "../shob.html/table.h"
 #include "../shob.teams/clubTeams.h"
+#include "../shob.html/language.h"
 
 namespace shob::football
 {
@@ -12,7 +13,7 @@ namespace shob::football
         route2final(footballCompetition final, footballCompetition semiFinal,
             footballCompetition quarterFinal, footballCompetition last16) :
             final(std::move(final)), semiFinal(std::move(semiFinal)), quarterFinal(std::move(quarterFinal)), last16(std::move(last16)) {}
-        html::tableContent prepareTable(const teams::clubTeams& teams) const;
+        html::tableContent prepareTable(const teams::clubTeams& teams, const html::language& language) const;
     private:
         footballCompetition final;
         footballCompetition semiFinal;

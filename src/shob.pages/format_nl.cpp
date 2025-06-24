@@ -96,7 +96,7 @@ namespace shob::pages
         // beker:
         const std::string bekerFilename = sportDataFolder + "/beker/beker_" + season1 +".csv";
         const auto r2f = football::route2finaleFactory::create(bekerFilename);
-        const auto prepTable = r2f.prepareTable(teams);
+        const auto prepTable = r2f.prepareTable(teams, settings.lang);
         content = html::table::buildTable(prepTable);
         out.addContent(content);
 

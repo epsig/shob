@@ -43,6 +43,7 @@ namespace shob::pages::test
         ASSERT_EQ(lines.data.size(), 149);
         EXPECT_EQ(lines.data[7], "<br>Sevilla wins the Europa League with two goals of Luuk de Jong.") << "check UK summary";
         EXPECT_EQ(lines.data[2], "Due to the Covid-19 pandemic, the tournament was suspended") << "check reading comma between quotes";
+        EXPECT_EQ(lines.data[47], "<tr><td></td><td></td><td></td><td><b>F I N A L:</b></td></tr>") << "check language in route2final";
     }
 }
 

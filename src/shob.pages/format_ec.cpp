@@ -172,7 +172,7 @@ namespace shob::pages
                 auto content = getFirstHalfYear(part, csvData, wns_cl);
                 out.addContent(content);
                 const auto r2f = route2finaleFactory::createEC(csvData, part);
-                const auto prepTable = r2f.prepareTable(teams);
+                const auto prepTable = r2f.prepareTable(teams, settings.lang);
                 content = table::buildTable(prepTable);
                 out.addContent(content);
             }
