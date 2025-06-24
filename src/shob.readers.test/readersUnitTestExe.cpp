@@ -19,6 +19,11 @@ TEST(unitTest, testCsvReader)
     testCsvReader::test1();
 }
 
+TEST(unitTest, testSplit)
+{
+    testCsvReader::test2();
+}
+
 TEST(unitTest, testXmlReader)
 {
     testXmlReader::test1();

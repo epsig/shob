@@ -34,5 +34,15 @@ namespace shob::pages::test
         ASSERT_EQ(lines.data.size(), 95);
         EXPECT_EQ(lines.data[12], "<tr><td>Ajax</td><td>6</td><td>10</td><td>7</td></tr>") << "check 2 points for a win";
     }
+
+    void testFormatEc::test_2019_2020_UK()
+    {
+        const html::settings settingsUK = html::settings(html::language::English);
+        const auto fmt_ec_uk = format_ec_factory::build(dataFolder, settingsUK);
+        const auto lines = fmt_ec_uk.get_season("2019-2020");
+        ASSERT_EQ(lines.data.size(), 149);
+        EXPECT_EQ(lines.data[7], "<br>Sevilla wins the Europa League with two goals of Luuk de Jong.") << "check UK summary";
+        EXPECT_EQ(lines.data[2], "Due to the Covid-19 pandemic, the tournament was suspended") << "check reading comma between quotes";
+    }
 }
 

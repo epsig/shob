@@ -33,3 +33,8 @@ TEST(unitTest, testFormatEc_1994_1995)
     testFormatEc::test_1994_1995();
 }
 
+TEST(unitTest, test_2019_2020_UK)
+{
+    testFormatEc::test_2019_2020_UK();
+}
+

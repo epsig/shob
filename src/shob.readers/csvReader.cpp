@@ -36,6 +36,19 @@ namespace shob::readers
         std::string token;
         csvColContent res;
 
+        constexpr char doubleQuote = '"';
+        const std::string q = std::string(1, doubleQuote);
+        if (delimiter != q)
+        {
+            if (s.find(doubleQuote) != std::string::npos)
+            {
+                auto splittedOnQuotes = split(s, q);
+                auto splitted = split(splittedOnQuotes.column[0], delimiter);
+                splitted.column.back() = splittedOnQuotes.column[1];
+                return splitted;
+            }
+        }
+
         while ((pos_end = s.find(delimiter, pos_start)) != std::string::npos) {
             token = s.substr(pos_start, pos_end - pos_start);
             pos_start = pos_end + delim_len;
