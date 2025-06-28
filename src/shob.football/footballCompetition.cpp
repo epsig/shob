@@ -35,7 +35,10 @@ namespace shob::football
             {
                 if (!line[spectatorsColumn].empty())
                 {
-                    spectators = std::stoi(line[spectatorsColumn]);
+                    if (dateFactory::allDigits(line[spectatorsColumn]))
+                    {
+                        spectators = std::stoi(line[spectatorsColumn]);
+                    }
                 }
             }
             const std::string remarks=  (remarksColumn < line.size() ? line[remarksColumn] : "");

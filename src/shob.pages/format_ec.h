@@ -36,6 +36,7 @@ namespace shob::pages
         format_ec(std::string folder, readers::csvAllSeasonsReader& extras, teams::clubTeams& teams, const html::settings& settings) :
             sportDataFolder(std::move(folder)), extras(std::move(extras)), teams(std::move(teams)), settings(settings) {}
         void get_season_stdout(const std::string& season) const;
+        void get_season_to_file(const std::string& season, const std::string& filename) const;
         html::rowContent get_season(const std::string& season) const;
     private:
         const std::string sportDataFolder;

@@ -13,6 +13,7 @@ namespace shob::pages
         format_nl(std::string folder, readers::csvAllSeasonsReader extras, readers::csvAllSeasonsReader remarks) :
             sportDataFolder(std::move(folder)), extras(std::move(extras)), remarks(std::move(remarks)) {}
         void get_season_stdout(const std::string& season) const;
+        void get_season_to_file(const std::string& season, const std::string& filename) const;
         html::rowContent get_season(const std::string& season) const;
     private:
         const std::string sportDataFolder;

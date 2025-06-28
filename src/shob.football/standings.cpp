@@ -146,7 +146,10 @@ namespace shob::football
             if (extraData[0] == "K")
             {
                 useBold = true;
-                extra2 = extraData[1];
+                if (extraData.size() > 1)
+                {
+                    extra2 = extraData[1];
+                }
             }
             else
             {

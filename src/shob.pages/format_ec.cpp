@@ -1,6 +1,7 @@
 
 #include "format_ec.h"
 #include <iostream>
+#include <fstream>
 
 #include "../shob.football/results2standings.h"
 #include "../shob.football/route2finalFactory.h"
@@ -13,6 +14,16 @@ namespace shob::pages
     using namespace shob::readers;
     using namespace shob::html;
     using namespace shob::general;
+
+    void format_ec::get_season_to_file(const std::string& season, const std::string& filename) const
+    {
+        auto output = get_season(season);
+        auto file = std::ofstream(filename);
+        for (const auto& row : output.data)
+        {
+            file << row << std::endl;
+        }
+    }
 
     void format_ec::get_season_stdout(const std::string& season) const
     {

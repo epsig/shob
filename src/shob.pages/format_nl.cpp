@@ -1,6 +1,7 @@
 
 #include "format_nl.h"
 #include <iostream>
+#include <fstream>
 
 #include "../shob.football/results2standings.h"
 #include "../shob.teams/clubTeams.h"
@@ -8,6 +9,16 @@
 
 namespace shob::pages
 {
+    void format_nl::get_season_to_file(const std::string& season, const std::string& filename) const
+    {
+        auto output = get_season(season);
+        auto file = std::ofstream(filename);
+        for (const auto& row : output.data)
+        {
+            file << row << std::endl;
+        }
+    }
+
     void format_nl::get_season_stdout(const std::string& season) const
     {
         auto output = get_season(season);

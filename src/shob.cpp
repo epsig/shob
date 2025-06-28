@@ -6,29 +6,25 @@
 
 int main(int argc, char* argv[])
 {
-    if (argc < 3)
-    {
-        std::cout << "usage: " << argv[0] << " type season" << std::endl;
-        std::cout << "example type season : nl 2022-2023." << std::endl;
-        std::cout << "                 or : ec 2012-2013." << std::endl;
-        std::cout << "must be run in the 'data' folder." << std::endl;
-        return -1;
-    }
-    std::string type = argv[1];
-    std::string season = argv[2];
+    int firstYear = 1994;
+    int lastYear = 2024;
 
     try
     {
-        if (type == "nl")
+        if (argc >= 3)
         {
-            auto fmt_nl = shob::pages::format_nl_factory::build("sport");
-            fmt_nl.get_season_stdout(season);
+            firstYear = std::atoi(argv[1]);
+            lastYear = std::atoi(argv[2]);
         }
-        else if (type == "ec")
+        auto fmt_nl = shob::pages::format_nl_factory::build("sport");
+        constexpr auto settings = shob::html::settings();
+        auto fmt_ec = shob::pages::format_ec_factory::build("sport", settings);
+        for (int year = firstYear; year <= lastYear; year++)
         {
-            constexpr auto settings = shob::html::settings();
-            auto fmt_ec = shob::pages::format_ec_factory::build("sport", settings);
-            fmt_ec.get_season_stdout(season);
+            int yp1 = year + 1;
+            std::string season = std::to_string(year) + "-" + std::to_string(yp1);
+            fmt_nl.get_season_to_file(season, "../pages_new/sport_nl_"+std::to_string(year)+".html"); // TODO season with underscore
+            fmt_ec.get_season_to_file(season, "../pages_new/sport_ec_" + std::to_string(year) + ".html");
         }
     }
     catch (const std::exception& e)
