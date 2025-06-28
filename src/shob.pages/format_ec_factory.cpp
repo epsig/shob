@@ -1,5 +1,7 @@
 
 #include "format_ec_factory.h"
+#include "topmenu.h"
+#include "../shob.general/glob.h"
 
 namespace shob::pages
 {
@@ -12,7 +14,10 @@ namespace shob::pages
         auto file2 = dataFolder + "/clubs.csv";
         teams.InitFromFile(file2);
 
-        auto format = format_ec(dataFolder, remarks, teams, settings);
+        auto archive = general::glob::list(dataFolder + "/europacup", "europacup_[0-9].*csv");
+        auto menu = topmenu(archive);
+
+        auto format = format_ec(dataFolder, remarks, teams, settings, menu);
         return format;
     }
 }
