@@ -27,7 +27,7 @@ namespace shob::football::test
         allTp.init(filename);
 
         auto tp = topscorers(allTp);
-        tp.initFromFile("2019-2020");
+        tp.initFromFile(general::season(2019));
 
         auto players = teams::footballers();
         const std::string filename3 = testUtils::refFileWithPath(__FILE__, voetballers);

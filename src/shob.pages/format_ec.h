@@ -8,6 +8,7 @@
 #include "../shob.teams/clubTeams.h"
 #include "../shob.html/table.h"
 #include "../shob.html/settings.h"
+#include "../shob.general/season.h"
 
 namespace shob::pages
 {
@@ -35,9 +36,9 @@ namespace shob::pages
     public:
         format_ec(std::string folder, readers::csvAllSeasonsReader& extras, teams::clubTeams& teams, const html::settings& settings) :
             sportDataFolder(std::move(folder)), extras(std::move(extras)), teams(std::move(teams)), settings(settings) {}
-        void get_season_stdout(const std::string& season) const;
-        void get_season_to_file(const std::string& season, const std::string& filename) const;
-        html::rowContent get_season(const std::string& season) const;
+        void get_season_stdout(const general::season& season) const;
+        void get_season_to_file(const general::season& season, const std::string& filename) const;
+        html::rowContent get_season(const general::season& season) const;
     private:
         const std::string sportDataFolder;
         const readers::csvAllSeasonsReader extras;
@@ -47,6 +48,6 @@ namespace shob::pages
         static general::uniqueStrings getGroups(const std::string& part, const readers::csvContent& data);
         static general::uniqueStrings getParts(const readers::csvContent& data);
         static general::uniqueStrings getQualifiers(const std::string& part, const readers::csvContent& data);
-        void readExtras(const std::string& season, wns_ec& wns_cl, html::rowContent& summary) const;
+        void readExtras(const general::season& season, wns_ec& wns_cl, html::rowContent& summary) const;
     };
 }

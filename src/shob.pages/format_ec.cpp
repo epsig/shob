@@ -15,7 +15,7 @@ namespace shob::pages
     using namespace shob::html;
     using namespace shob::general;
 
-    void format_ec::get_season_to_file(const std::string& season, const std::string& filename) const
+    void format_ec::get_season_to_file(const season& season, const std::string& filename) const
     {
         auto output = get_season(season);
         auto file = std::ofstream(filename);
@@ -25,7 +25,7 @@ namespace shob::pages
         }
     }
 
-    void format_ec::get_season_stdout(const std::string& season) const
+    void format_ec::get_season_stdout(const season& season) const
     {
         const auto output = get_season(season);
         for (const auto& row : output.data)
@@ -72,7 +72,7 @@ namespace shob::pages
         return groups;
     }
 
-    void format_ec::readExtras(const std::string& season, wns_ec& wns_cl, rowContent& summary) const
+    void format_ec::readExtras(const season& season, wns_ec& wns_cl, rowContent& summary) const
     {
         auto extraU2s = extras.getSeason(season);
         wns_cl.wns_cl = -1;
@@ -149,11 +149,9 @@ namespace shob::pages
         return rows;
     }
 
-    rowContent format_ec::get_season(const std::string& season) const
+    rowContent format_ec::get_season(const season& season) const
     {
-        auto season1 = season;
-        season1.replace(4, 1, "_");
-        const auto file1 = sportDataFolder + "/europacup/europacup_" + season1 + ".csv";
+        const auto file1 = sportDataFolder + "/europacup/europacup_" + season.to_part_filename() + ".csv";
         const auto csvData = csvReader::readCsvFile(file1);
 
         wns_ec wns_cl;
@@ -166,11 +164,11 @@ namespace shob::pages
         {
             if (settings.lang == language::Dutch)
             {
-                out.addContent("<h2> Samenvatting Europacup Seizoen " + season + " </h2>");
+                out.addContent("<h2> Samenvatting Europacup Seizoen " + season.to_string() + " </h2>");
             }
             else
             {
-                out.addContent("<h2> Summary Europa cup season " + season + "</h2>");
+                out.addContent("<h2> Summary Europa cup season " + season.to_string() + "</h2>");
             }
             out.addContent(summary);
         }

@@ -3,7 +3,7 @@
 
 namespace shob::football
 {
-    void topscorers::initFromFile(const std::string& season)
+    void topscorers::initFromFile(const general::season& season)
     {
         auto data = reader.getSeason(season);
 

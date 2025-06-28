@@ -203,7 +203,7 @@ namespace shob::football
         return table;
     }
 
-    void standings::addExtras(const readers::csvAllSeasonsReader& r, const std::string& season)
+    void standings::addExtras(const readers::csvAllSeasonsReader& r, const general::season& season)
     {
         const auto extraU2s = r.getSeason(season);
         for (size_t i = 1; i < extraU2s.size(); i++)

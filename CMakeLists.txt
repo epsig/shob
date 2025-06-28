@@ -112,6 +112,7 @@ if(NOT googletest_POPULATED)
 endif()
 
 target_link_libraries(shob.football shob.general shob.readers shob.teams)
+target_link_libraries(shob.readers shob.general)
 target_link_libraries(shob.readers.test shob.general shob.test.utils shob.readers gtest_main)
 target_link_libraries(shob.football.test shob.football shob.general shob.test.utils shob.readers gtest_main)
 target_link_libraries(shob.html.test shob.html gtest_main)

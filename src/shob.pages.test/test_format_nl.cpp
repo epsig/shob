@@ -15,7 +15,7 @@ namespace shob::pages::test
         const std::string dataMap = "../../data/sport/";
         const std::string dataFolder = testUtils::refFileWithPath(__FILE__, dataMap);
         auto fmt_nl = format_nl_factory::build(dataFolder);
-        auto lines = fmt_nl.get_season("2023-2024");
+        auto lines = fmt_nl.get_season(general::season(2023));
         EXPECT_EQ(lines.data.size(), 99);
     }
 }

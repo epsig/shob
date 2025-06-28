@@ -15,7 +15,7 @@ namespace shob::readers::test
         const std::string filename = testUtils::refFileWithPath(__FILE__, u2sFile);
         auto result = csvAllSeasonsReader();
         result.init(filename);
-        auto filtered = result.getSeason("2023-2024");
+        auto filtered = result.getSeason(general::season(2023));
         EXPECT_EQ(9, filtered.size());
     }
 

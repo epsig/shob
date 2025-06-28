@@ -4,6 +4,7 @@
 #include <vector>
 #include "../shob.readers/csvAllSeasonsReader.h"
 #include "../shob.football/topscorers.h"
+#include "../shob.general/season.h"
 
 namespace shob::pages
 {
@@ -12,15 +13,14 @@ namespace shob::pages
     public:
         format_nl(std::string folder, readers::csvAllSeasonsReader extras, readers::csvAllSeasonsReader remarks) :
             sportDataFolder(std::move(folder)), extras(std::move(extras)), remarks(std::move(remarks)) {}
-        void get_season_stdout(const std::string& season) const;
-        void get_season_to_file(const std::string& season, const std::string& filename) const;
-        html::rowContent get_season(const std::string& season) const;
+        void get_season_stdout(const general::season& season) const;
+        void get_season_to_file(const general::season& season, const std::string& filename) const;
+        html::rowContent get_season(const general::season& season) const;
     private:
         const std::string sportDataFolder;
         const readers::csvAllSeasonsReader extras;
         const readers::csvAllSeasonsReader remarks;
-        static html::rowContent getTopScorers(const std::string& file, const std::string& season,
+        static html::rowContent getTopScorers(const std::string& file, const general::season& season,
             const teams::footballers& players, const teams::clubTeams& teams);
-
     };
 }
