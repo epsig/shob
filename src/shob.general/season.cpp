@@ -13,10 +13,10 @@ namespace shob::general
         return to_string('_');
     }
 
-    std::string season::to_string(const char c) const
+    std::string season::to_string(const char separator) const
     {
-        const int yp1 = year + 1;
-        return std::to_string(year) + c + std::to_string(yp1);
+        const int yp1 = firstYear + 1;
+        return std::to_string(firstYear) + separator + std::to_string(yp1);
     }
 
 }

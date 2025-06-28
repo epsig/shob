@@ -4,6 +4,7 @@
 #include "testDate.h"
 #include "testUniqueStrings.h"
 #include "testGlob.h"
+#include "testSeason.h"
 
 using namespace shob::general::test;
 
@@ -47,5 +48,15 @@ TEST(unitTest, testUniqueStrings)
 TEST(unitTest, testGlob)
 {
     testGlob::test1();
+}
+
+TEST(unitTest, testSeason1)
+{
+    testSeason::test1();
+}
+
+TEST(unitTest, testSeason2)
+{
+    testSeason::test2();
 }
 

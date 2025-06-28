@@ -1,7 +1,6 @@
 
 #pragma once
 #include <string>
-#include <vector>
 #include "../shob.readers/csvAllSeasonsReader.h"
 #include "../shob.football/topscorers.h"
 #include "../shob.general/season.h"
