@@ -21,6 +21,9 @@ namespace shob::general
         /// returns e.g. 2020_2021
         /// </summary>
         std::string to_part_filename() const;
+
+        static season findSeason(const std::string& text);
+
     private:
         std::string to_string(const char separator) const;
         const int firstYear;

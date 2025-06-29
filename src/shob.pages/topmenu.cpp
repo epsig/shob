@@ -8,8 +8,15 @@ namespace shob::pages
         auto menu = html::rowContent();
         for (const auto& row : archive)
         {
+            auto curSeason = general::season::findSeason(row);
+            auto url = row;
+            auto pos = url.find(".csv");
+            url.replace(pos, 4, ".html");
             auto year = html::rowContent();
-            year.data = { "bla bla" + row };
+            if (row.find(season.to_part_filename()) != std::string::npos)
+                year.addContent(curSeason.to_string());
+            else
+                year.addContent("<a href=\"sport_voetbal_" + url + "\">" + curSeason.to_string() + "</a>");
             menu.addContent(year);
         }
         return menu;

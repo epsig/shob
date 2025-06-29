@@ -160,16 +160,20 @@ namespace shob::pages
         auto out = rowContent();
         out.addContent("<html> <body>");
 
+        if (settings.lang == language::Dutch)
+            out.addContent("<h1>Europacup voetbal seizoen " + season.to_string() + "</h1>");
+        else
+            out.addContent("<h1>Europa cup football season " + season.to_string() + "</h1>");
+
+        auto menuOut = menu.getMenu(season);
+        out.addContent(menuOut);
+
         if ( ! summary.data.empty())
         {
             if (settings.lang == language::Dutch)
-            {
                 out.addContent("<h2> Samenvatting Europacup Seizoen " + season.to_string() + " </h2>");
-            }
             else
-            {
                 out.addContent("<h2> Summary Europa cup season " + season.to_string() + "</h2>");
-            }
             out.addContent(summary);
         }
 

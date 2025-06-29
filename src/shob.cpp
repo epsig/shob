@@ -33,7 +33,7 @@ int main(int argc, char* argv[])
         {
             const auto season = shob::general::season(year);
             fmt_nl.get_season_to_file(season, "../pages_new/sport_nl_" + season.to_part_filename() + ".html");
-            fmt_ec.get_season_to_file(season, "../pages_new/sport_ec_" + season.to_part_filename() + ".html");
+            fmt_ec.get_season_to_file(season, "../pages_new/sport_voetbal_europacup_" + season.to_part_filename() + ".html");
         }
     }
     catch (const std::exception& e)
