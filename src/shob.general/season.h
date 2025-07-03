@@ -18,6 +18,11 @@ namespace shob::general
         std::string to_string() const;
 
         /// <summary>
+        /// returns e.g. 20-21
+        /// </summary>
+        std::string to_string_short() const;
+
+        /// <summary>
         /// returns e.g. 2020_2021
         /// </summary>
         std::string to_part_filename() const;

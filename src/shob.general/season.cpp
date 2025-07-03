@@ -1,15 +1,21 @@
 
 #include "season.h"
+#include "shobException.h"
 
 #include <boost/regex.hpp>
-
-#include "shobException.h"
+#include <format>
 
 namespace shob::general
 {
     std::string season::to_string() const
     {
         return to_string('-');
+    }
+
+    std::string season::to_string_short() const
+    {
+        const int yp1 = firstYear + 1;
+        return std::format("{:02}-{:02}", firstYear % 100, yp1 % 100);
     }
 
     std::string season::to_part_filename() const

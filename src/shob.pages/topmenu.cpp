@@ -17,11 +17,11 @@ namespace shob::pages
             auto year = html::rowContent();
             if (row.find(season.to_part_filename()) != std::string::npos)
             {
-                year.addContent(curSeason.to_string());
+                year.addContent(curSeason.to_string_short());
                 curPos = static_cast<int>(menu.data.size());
             }
             else
-                year.addContent("<a href=\"sport_voetbal_" + url + "\">" + curSeason.to_string() + "</a>");
+                year.addContent("<a href=\"sport_voetbal_" + url + "\">" + curSeason.to_string_short() + "</a>");
             menu.addContent(year);
         }
         if (nEntries > maxUrls)
