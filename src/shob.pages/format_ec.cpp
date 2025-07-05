@@ -158,12 +158,18 @@ namespace shob::pages
         rowContent summary;
         readExtras(season, wns_cl, summary);
         auto out = rowContent();
-        out.addContent("<html> <body>");
+        out.addContent("<html> <title>Europacup voetbal seizoen " + season.to_string() + "</title> <body>");
 
         if (settings.lang == language::Dutch)
+        {
             out.addContent("<h1>Europacup voetbal seizoen " + season.to_string() + "</h1>");
+            out.addContent("andere seizoenen: ");
+        }
         else
+        {
             out.addContent("<h1>Europa cup football season " + season.to_string() + "</h1>");
+            out.addContent("other seasons: ");
+        }
 
         auto menuOut = menu.getMenu(season);
         out.addContent(menuOut);

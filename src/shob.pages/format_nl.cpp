@@ -52,9 +52,12 @@ namespace shob::pages
         competition.readFromCsv(file1);
 
         auto out = html::rowContent();
-        out.addContent("<html> <body>");
+        out.addContent("<html> <title>Overzicht betaald voetbal in Nederland, seizoen " + season.to_string() + "</title> <body>");
+
+        out.addContent("<h1>Overzicht betaald voetbal in Nederland, seizoen " + season.to_string() + "</h1>");
 
         auto menuOut = menu.getMenu(season);
+        out.addContent("andere seizoenen: ");
         out.addContent(menuOut);
 
         auto teams = teams::clubTeams();
