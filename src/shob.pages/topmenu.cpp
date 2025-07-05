@@ -51,21 +51,19 @@ namespace shob::pages
     {
         auto newMenu = html::rowContent();
 
-        const int nEntries = static_cast<int>(menu.data.size());
-
         newMenu.addContent(menu.data[0]);
         addEllipsis(newMenu);
-        for( int i = 2; i < nEntries-1; i++)
+
+        int first = curPos + 1 - maxUrls / 2;
+        int last = curPos + maxUrls / 2;
+        for( int i = first; i < last; i++)
         {
-            if (std::abs(i - curPos) < maxUrls/2)
-            {
-                newMenu.addContent(menu.data[i]);
-            }
+            newMenu.addContent(menu.data[i]);
         }
+
         addEllipsis(newMenu);
         newMenu.addContent(menu.data.back());
-        menu.data.clear();
-        menu.addContent(newMenu);
+        std::swap(menu, newMenu);
     }
 
     void topMenu::shortenMenuLeft(html::rowContent& menu) const
@@ -78,8 +76,7 @@ namespace shob::pages
         }
         addEllipsis(newMenu);
         newMenu.addContent(menu.data.back());
-        menu.data.clear();
-        menu.addContent(newMenu);
+        std::swap(menu, newMenu);
     }
 
     void topMenu::shortenMenuRight(html::rowContent& menu) const
@@ -94,8 +91,7 @@ namespace shob::pages
         {
             newMenu.addContent(menu.data[i]);
         }
-        menu.data.clear();
-        menu.addContent(newMenu);
+        std::swap(menu, newMenu);
     }
 
 }
