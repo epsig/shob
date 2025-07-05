@@ -9,7 +9,7 @@
 #include "../shob.html/table.h"
 #include "../shob.html/settings.h"
 #include "../shob.general/season.h"
-#include "topmenu.h"
+#include "topMenu.h"
 
 namespace shob::pages
 {
@@ -36,7 +36,7 @@ namespace shob::pages
     {
     public:
         format_ec(std::string folder, readers::csvAllSeasonsReader& extras, teams::clubTeams& teams, const html::settings& settings,
-            topmenu menu) :
+            topMenu menu) :
             sportDataFolder(std::move(folder)), extras(std::move(extras)), teams(std::move(teams)), settings(settings),
             menu(std::move(menu)) {}
         void get_season_stdout(const general::season& season) const;
@@ -47,7 +47,7 @@ namespace shob::pages
         const readers::csvAllSeasonsReader extras;
         const teams::clubTeams teams;
         const html::settings settings;
-        const topmenu menu;
+        const topMenu menu;
         html::rowContent getFirstHalfYear(const std::string& part, const readers::csvContent& data, const wns_ec& wns_cl) const;
         static general::uniqueStrings getGroups(const std::string& part, const readers::csvContent& data);
         static general::uniqueStrings getParts(const readers::csvContent& data);

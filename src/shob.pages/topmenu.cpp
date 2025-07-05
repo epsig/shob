@@ -1,9 +1,9 @@
 
-#include "topmenu.h"
+#include "topMenu.h"
 
 namespace shob::pages
 {
-    html::rowContent topmenu::getMenu(const general::season& season) const
+    html::rowContent topMenu::getMenu(const general::season& season) const
     {
         auto menu = html::rowContent();
         const int nEntries = static_cast<int>(archive.size());
@@ -42,14 +42,19 @@ namespace shob::pages
         return menu;
     }
 
-    void topmenu::shortenMenu(html::rowContent& menu, int curPos) const
+    void topMenu::addEllipsis(html::rowContent& rows)
+    {
+        rows.addContent("...");
+    }
+
+    void topMenu::shortenMenu(html::rowContent& menu, int curPos) const
     {
         auto newMenu = html::rowContent();
 
         const int nEntries = static_cast<int>(menu.data.size());
 
         newMenu.addContent(menu.data[0]);
-        newMenu.addContent("...");
+        addEllipsis(newMenu);
         for( int i = 2; i < nEntries-1; i++)
         {
             if (std::abs(i - curPos) < maxUrls/2)
@@ -57,13 +62,13 @@ namespace shob::pages
                 newMenu.addContent(menu.data[i]);
             }
         }
-        newMenu.addContent("...");
+        addEllipsis(newMenu);
         newMenu.addContent(menu.data.back());
         menu.data.clear();
         menu.addContent(newMenu);
     }
 
-    void topmenu::shortenMenuLeft(html::rowContent& menu) const
+    void topMenu::shortenMenuLeft(html::rowContent& menu) const
     {
         auto newMenu = html::rowContent();
 
@@ -71,20 +76,20 @@ namespace shob::pages
         {
             newMenu.addContent(menu.data[i]);
         }
-        newMenu.addContent("...");
+        addEllipsis(newMenu);
         newMenu.addContent(menu.data.back());
         menu.data.clear();
         menu.addContent(newMenu);
     }
 
-    void topmenu::shortenMenuRight(html::rowContent& menu) const
+    void topMenu::shortenMenuRight(html::rowContent& menu) const
     {
         auto newMenu = html::rowContent();
 
         const int nEntries = static_cast<int>(menu.data.size());
 
         newMenu.addContent(menu.data[0]);
-        newMenu.addContent("...");
+        addEllipsis(newMenu);
         for (int i = nEntries - maxUrls; i < nEntries; i++)
         {
             newMenu.addContent(menu.data[i]);

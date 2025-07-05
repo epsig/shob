@@ -3,6 +3,7 @@
 
 #include "test_format_nl.h"
 #include "test_format_ec.h"
+#include "test_topmenu.h"
 
 using namespace shob::pages::test;
 
@@ -36,5 +37,20 @@ TEST(unitTest, testFormatEc_1994_1995)
 TEST(unitTest, test_2019_2020_UK)
 {
     testFormatEc::test_2019_2020_UK();
+}
+
+TEST(unitTest, test_top_menu_left)
+{
+    testTopMenu::test_left();
+}
+
+TEST(unitTest, test_top_menu_center)
+{
+    testTopMenu::test_center();
+}
+
+TEST(unitTest, test_top_menu_right)
+{
+    testTopMenu::test_right();
 }
 

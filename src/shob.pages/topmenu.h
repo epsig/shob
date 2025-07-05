@@ -8,17 +8,19 @@
 
 namespace shob::pages
 {
-    class topmenu
+    class topMenu
     {
     public:
-        topmenu(std::vector<std::string> archive) : archive(std::move(archive)) {}
+        topMenu(std::vector<std::string> archive, const int maxUrls=10) :
+            archive(std::move(archive)), maxUrls(maxUrls) {}
         html::rowContent getMenu(const general::season& season) const;
-        const int maxUrls = 10;
     private:
         std::vector<std::string> archive;
+        const int maxUrls;
         void shortenMenu(html::rowContent& menu, int curPos) const;
         void shortenMenuLeft(html::rowContent& menu) const;
         void shortenMenuRight(html::rowContent& menu) const;
+        static void addEllipsis(html::rowContent& rows);
     };
 }
 
