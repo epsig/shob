@@ -54,6 +54,9 @@ namespace shob::pages
         auto out = html::rowContent();
         out.addContent("<html> <body>");
 
+        auto menuOut = menu.getMenu(season);
+        out.addContent(menuOut);
+
         auto teams = teams::clubTeams();
         auto file2 = sportDataFolder + "/clubs.csv";
         teams.InitFromFile(file2);

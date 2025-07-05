@@ -28,7 +28,6 @@ namespace shob::readers
         return ltrim(trimmed, t);
     }
 
-
     // for string delimiter
     csvColContent csvReader::split(const std::string& s, const std::string& delimiter)
     {

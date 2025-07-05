@@ -11,7 +11,7 @@ int main(int argc, char* argv[])
 {
     try
     {
-        int firstYear = 1994;
+        int firstYear = 1993;
         int lastYear = 2024;
 
         if (argc >= 3)
@@ -32,8 +32,11 @@ int main(int argc, char* argv[])
         for (int year = firstYear; year <= lastYear; year++)
         {
             const auto season = shob::general::season(year);
-            fmt_nl.get_season_to_file(season, "../pages_new/sport_nl_" + season.to_part_filename() + ".html");
-            fmt_ec.get_season_to_file(season, "../pages_new/sport_voetbal_europacup_" + season.to_part_filename() + ".html");
+            fmt_nl.get_season_to_file(season, "../pages_new/sport_voetbal_nl_" + season.to_part_filename() + ".html");
+            if (year >= 1994)
+            {
+                fmt_ec.get_season_to_file(season, "../pages_new/sport_voetbal_europacup_" + season.to_part_filename() + ".html");
+            }
         }
     }
     catch (const std::exception& e)
