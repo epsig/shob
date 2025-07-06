@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<!DOCTYPE names [
+<!ENTITY eacute "&#xE9;">
+<!ENTITY aacute "&#xE1;">
+<!ENTITY ouml "&#xF6;">
+]>
+
+<games>
+<group_phase>
+<groupD>
+<WLS_NL>
+<stats>
+<stadium> Luzern </stadium>
+<chronological>
+<data min="45+3"> 0-1 Miedema </data>
+<data min="48"> 0-2 Pelova </data>
+<data min="57"> 0-3 Brugts </data>
+</chronological>
+</stats>
+</WLS_NL>
+</groupD>
+</group_phase>
+</games>
