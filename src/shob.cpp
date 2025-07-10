@@ -1,5 +1,6 @@
 
 #include <iostream>
+#include <filesystem>
 
 #include "shob.general/dateFactory.h"
 #include "shob.pages/format_ec_factory.h"
@@ -9,6 +10,10 @@
 
 int main(int argc, char* argv[])
 {
+    using namespace std::filesystem;
+    using namespace shob::pages;
+    using namespace shob::general;
+
     try
     {
         int firstYear = 1993;
@@ -16,19 +21,19 @@ int main(int argc, char* argv[])
 
         if (argc >= 3)
         {
-            if (shob::general::dateFactory::allDigits(argv[1]) && shob::general::dateFactory::allDigits(argv[2]))
+            if (dateFactory::allDigits(argv[1]) && dateFactory::allDigits(argv[2]))
             {
                 firstYear = std::atoi(argv[1]);
                 lastYear = std::atoi(argv[2]);
             }
             else
             {
-                throw shob::general::shobException("first two command line arguments must be years");
+                throw shobException("first two command line arguments must be years");
             }
         }
-        auto fmt_nl = shob::pages::format_nl_factory::build("sport");
+        auto fmt_nl = format_nl_factory::build("sport");
         constexpr auto settings = shob::html::settings();
-        auto fmt_ec = shob::pages::format_ec_factory::build("sport", settings);
+        auto fmt_ec = format_ec_factory::build("sport", settings);
         for (int year = firstYear; year <= lastYear; year++)
         {
             const auto season = shob::general::season(year);
@@ -38,6 +43,7 @@ int main(int argc, char* argv[])
                 fmt_ec.get_season_to_file(season, "../pages_new/sport_voetbal_europacup_" + season.to_part_filename() + ".html");
             }
         }
+        copy("../code/test/epsig.css", "../pages_new/epsig.css");
     }
     catch (const std::exception& e)
     {
