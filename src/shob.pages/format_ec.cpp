@@ -3,6 +3,7 @@
 #include <iostream>
 #include <fstream>
 
+#include "head_bottum.h"
 #include "../shob.football/results2standings.h"
 #include "../shob.football/route2finalFactory.h"
 #include "../shob.football/filterResults.h"
@@ -158,16 +159,16 @@ namespace shob::pages
         rowContent summary;
         readExtras(season, wns_cl, summary);
         auto out = rowContent();
-        out.addContent("<html> <title>Europacup voetbal seizoen " + season.to_string() + "</title> <body>");
 
+        std::string title;
         if (settings.lang == language::Dutch)
         {
-            out.addContent("<h1>Europacup voetbal seizoen " + season.to_string() + "</h1>");
+            title = "Europacup voetbal seizoen " + season.to_string();
             out.addContent("andere seizoenen: ");
         }
         else
         {
-            out.addContent("<h1>Europa cup football season " + season.to_string() + "</h1>");
+            title = "Europa cup football season " + season.to_string();
             out.addContent("other seasons: ");
         }
 
@@ -197,9 +198,11 @@ namespace shob::pages
             }
         }
 
-        out.addContent("</body> </html>");
+        auto hb = headBottumInput();
+        std::swap(hb.title, title);
+        std::swap(hb.body, out);
 
-        return out;
+        return headBottum::getPage(hb);
     }
 
 }
