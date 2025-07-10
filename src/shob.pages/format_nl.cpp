@@ -6,6 +6,7 @@
 #include "../shob.football/results2standings.h"
 #include "../shob.teams/clubTeams.h"
 #include "../shob.football/route2finalFactory.h"
+#include "../shob.pages/head_bottum.h"
 
 namespace shob::pages
 {
@@ -52,9 +53,6 @@ namespace shob::pages
         competition.readFromCsv(file1);
 
         auto out = html::rowContent();
-        out.addContent("<html> <title>Overzicht betaald voetbal in Nederland, seizoen " + season.to_string() + "</title> <body>");
-
-        out.addContent("<h1>Overzicht betaald voetbal in Nederland, seizoen " + season.to_string() + "</h1>");
 
         auto menuOut = menu.getMenu(season);
         out.addContent("andere seizoenen: ");
@@ -115,9 +113,11 @@ namespace shob::pages
         content = html::table::buildTable(prepTable);
         out.addContent(content);
 
-        out.addContent("</body> </html>");
+        auto hb = headBottumInput();
+        hb.title = "Overzicht betaald voetbal in Nederland, seizoen " + season.to_string();
+        std::swap(hb.body, out);
 
-        return out;
+        return headBottum::getPage(hb);
     }
 
 }
