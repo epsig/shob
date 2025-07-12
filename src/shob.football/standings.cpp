@@ -7,6 +7,8 @@
 
 namespace shob::football
 {
+    using namespace shob::general;
+
     standings::standings()
     {
         // TODO in cvs ; add full descriptions; add English ; remove NP and ND
@@ -179,7 +181,7 @@ namespace shob::football
         for (size_t i = 0; i < list.size(); i++)
         {
             const auto& row = list[i];
-            html::multipleStrings data;
+            multipleStrings data;
             auto team = teams.expand(row.team);
             std::vector<std::string> extraData;
             if (extras.contains(row.team))

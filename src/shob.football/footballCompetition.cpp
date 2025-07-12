@@ -91,7 +91,7 @@ namespace shob::football
 
         for (const auto& row : matches)
         {
-            auto out = html::multipleStrings();
+            auto out = multipleStrings();
             out.data = { row.dd->toShortString(), teams.expand(row.team1), teams.expand(row.team2), row.result, row.remark };
             table.body.push_back(out);
         }

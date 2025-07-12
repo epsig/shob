@@ -4,6 +4,8 @@
 
 namespace shob::html
 {
+    using namespace shob::general;
+
     bool updateIfDifferent::areEqual(const std::vector<std::string>& prev, const std::vector<std::string>& current)
     {
         if (prev.size() != current.size()) return false;

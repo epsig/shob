@@ -3,7 +3,9 @@
 
 namespace shob::football
 {
-    void topscorers::initFromFile(const general::season& season)
+    using namespace shob::general;
+
+    void topscorers::initFromFile(const season& season)
     {
         auto data = reader.getSeason(season);
 
@@ -32,7 +34,7 @@ namespace shob::football
         }
         for (const auto& row : list_tp)
         {
-            html::multipleStrings data;
+            multipleStrings data;
             auto team = teams.expand(row.club);
             auto name = players.expand(row.name);
             if (row.rank == 1)

@@ -12,6 +12,7 @@
 namespace shob::pages
 {
     namespace fs = std::filesystem;
+    using namespace shob::general;
 
     void format_nl::get_season_to_file(const general::season& season, const std::string& filename) const
     {
@@ -28,7 +29,7 @@ namespace shob::pages
         }
     }
 
-    html::multipleStrings format_nl::getTopScorers(const std::string& file, const general::season& season,
+    multipleStrings format_nl::getTopScorers(const std::string& file, const season& season,
         const teams::footballers& players, const teams::clubTeams& teams)
     {
         auto settings = html::settings();
@@ -43,7 +44,7 @@ namespace shob::pages
         return out;
     }
 
-    html::multipleStrings format_nl::get_season(const general::season& season) const
+    multipleStrings format_nl::get_season(const season& season) const
     {
         auto settings = html::settings();
 
@@ -51,7 +52,7 @@ namespace shob::pages
         auto competition = football::footballCompetition();
         competition.readFromCsv(file1);
 
-        auto out = html::multipleStrings();
+        auto out = multipleStrings();
 
         auto menuOut = menu.getMenu(season);
         out.addContent("andere seizoenen: ");

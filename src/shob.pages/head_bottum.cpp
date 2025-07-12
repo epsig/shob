@@ -3,9 +3,9 @@
 
 namespace shob::pages
 {
-    html::multipleStrings headBottum::getStyleSheet()
+    general::multipleStrings headBottum::getStyleSheet()
     {
-        html::multipleStrings out;
+        general::multipleStrings out;
         out.addContent("<style type = \"text/css\">");
         out.addContent("body{ background:white; color:black; font-family:\"Verdana\",\"Arial\"; font-size:9pt }");
         out.addContent("h1{font-weight:bold; font - size:12pt }acronym{ font:italic; cursor:help; }");
@@ -16,17 +16,17 @@ namespace shob::pages
         return out;
     }
 
-    html::multipleStrings headBottum::getLinkToStyleSheet()
+    general::multipleStrings headBottum::getLinkToStyleSheet()
     {
-        html::multipleStrings out;
+        general::multipleStrings out;
         out.addContent("<meta name = \"viewport\" content = \"width = device-width, initial-scale = 1\">");
         out.addContent("<link rel = \"stylesheet\" type = \"text/css\" href = \"epsig.css\">");
         return out;
     }
 
-    html::multipleStrings headBottum::getPage(headBottumInput& input)
+    general::multipleStrings headBottum::getPage(headBottumInput& input)
     {
-        html::multipleStrings out;
+        general::multipleStrings out;
         out.addContent("<html> <head> <title>" + input.title + "</title>");
         if (input.css == styleSheetType::inlineInHead)
         {
