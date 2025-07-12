@@ -12,7 +12,6 @@ namespace shob::html
         static void update(const std::string& path, const general::multipleStrings& content);
         static void update(const std::string& path1, const std::string& path2);
     private:
-        static bool areEqual(const general::multipleStrings& prev, const general::multipleStrings& current);
         static general::multipleStrings readFile(const std::string& path);
         static void writeToFile(const std::string& path, const general::multipleStrings& data);
     };

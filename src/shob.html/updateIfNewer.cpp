@@ -6,16 +6,6 @@ namespace shob::html
 {
     using namespace shob::general;
 
-    bool updateIfDifferent::areEqual(const multipleStrings& prev, const multipleStrings& current)
-    {
-        if (prev.data.size() != current.data.size()) return false;
-        for (int i = 0; i < static_cast<int>(prev.data.size()); i++)
-        {
-            if (prev.data[i] != current.data[i]) return false;
-        }
-        return true;
-    }
-
     multipleStrings updateIfDifferent::readFile(const std::string& path)
     {
         multipleStrings content;
@@ -45,7 +35,7 @@ namespace shob::html
     {
         auto previousVersion = readFile(path1);
         auto newVersion = readFile(path2);
-        if (!areEqual(previousVersion, newVersion))
+        if (!previousVersion.areEqual(newVersion))
         {
             writeToFile(path1, newVersion);
         }
@@ -55,7 +45,7 @@ namespace shob::html
     {
         auto previousVersion = readFile(path);
 
-        if ( ! areEqual(previousVersion, content))
+        if ( !previousVersion.areEqual(content))
         {
             writeToFile(path, content);
         }
