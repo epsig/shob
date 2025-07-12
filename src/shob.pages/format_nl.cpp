@@ -1,6 +1,7 @@
 
 #include "format_nl.h"
 #include <iostream>
+#include <filesystem>
 
 #include "../shob.football/results2standings.h"
 #include "../shob.teams/clubTeams.h"
@@ -10,6 +11,8 @@
 
 namespace shob::pages
 {
+    namespace fs = std::filesystem;
+
     void format_nl::get_season_to_file(const general::season& season, const std::string& filename) const
     {
         auto output = get_season(season);
@@ -104,10 +107,13 @@ namespace shob::pages
 
         // beker:
         const std::string bekerFilename = sportDataFolder + "/beker/beker_" + season.to_part_filename() +".csv";
-        const auto r2f = football::route2finaleFactory::create(bekerFilename);
-        const auto prepTable = r2f.prepareTable(teams, settings.lang);
-        content = html::table::buildTable(prepTable);
-        out.addContent(content);
+        if (fs::exists(bekerFilename))
+        {
+            const auto r2f = football::route2finaleFactory::create(bekerFilename);
+            const auto prepTable = r2f.prepareTable(teams, settings.lang);
+            content = html::table::buildTable(prepTable);
+            out.addContent(content);
+        }
 
         auto hb = headBottumInput();
         hb.title = "Overzicht betaald voetbal in Nederland, seizoen " + season.to_string();

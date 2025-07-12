@@ -16,7 +16,7 @@ int main(int argc, char* argv[])
 
     try
     {
-        int firstYear = 1994;
+        int firstYear = 1993;
         int lastYear = 2024;
 
         if (argc >= 3)
