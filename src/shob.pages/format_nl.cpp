@@ -28,7 +28,7 @@ namespace shob::pages
         }
     }
 
-    html::rowContent format_nl::getTopScorers(const std::string& file, const general::season& season,
+    html::multipleStrings format_nl::getTopScorers(const std::string& file, const general::season& season,
         const teams::footballers& players, const teams::clubTeams& teams)
     {
         auto settings = html::settings();
@@ -43,7 +43,7 @@ namespace shob::pages
         return out;
     }
 
-    html::rowContent format_nl::get_season(const general::season& season) const
+    html::multipleStrings format_nl::get_season(const general::season& season) const
     {
         auto settings = html::settings();
 
@@ -51,7 +51,7 @@ namespace shob::pages
         auto competition = football::footballCompetition();
         competition.readFromCsv(file1);
 
-        auto out = html::rowContent();
+        auto out = html::multipleStrings();
 
         auto menuOut = menu.getMenu(season);
         out.addContent("andere seizoenen: ");

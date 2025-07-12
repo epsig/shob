@@ -3,7 +3,7 @@
 
 namespace shob::html
 {
-    void rowContent::addContent(rowContent& extra)
+    void multipleStrings::addContent(multipleStrings& extra)
     {
         for (auto& r : extra.data)
         {
@@ -11,14 +11,14 @@ namespace shob::html
         }
     }
 
-    void rowContent::addContent(std::string extra)
+    void multipleStrings::addContent(std::string extra)
     {
         data.emplace_back(std::move(extra));
     }
 
-    rowContent table::buildTable(const tableContent& content)
+    multipleStrings table::buildTable(const tableContent& content)
     {
-        rowContent table;
+        multipleStrings table;
         if (content.empty()) { return table; }
 
         table.data.emplace_back("<table>");
@@ -34,17 +34,17 @@ namespace shob::html
         return table;
     }
 
-    std::string table::buildRow(const rowContent& content)
+    std::string table::buildRow(const multipleStrings& content)
     {
         return buildRow(content, "<td>", "</td>");
     }
 
-    std::string table::buildHeader(const rowContent& content)
+    std::string table::buildHeader(const multipleStrings& content)
     {
         return buildRow(content, "<th>", "</th>");
     }
 
-    std::string table::buildRow(const rowContent& content, const std::string& tag1, const std::string& tag2)
+    std::string table::buildRow(const multipleStrings& content, const std::string& tag1, const std::string& tag2)
     {
         std::string row = "<tr>";
         for (const auto& col : content.data)

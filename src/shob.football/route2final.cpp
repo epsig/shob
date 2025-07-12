@@ -12,7 +12,7 @@ namespace shob::football
         {
             for(size_t i = 0; i < positions.size(); i++)
             {
-                rowContent data;
+                multipleStrings data;
                 for (size_t j = 0; j < offset; j++) data.data.emplace_back("");
                 data.data.push_back( matches.matches[i].printSimple(teams)) ;
                 for (size_t j = offset + 1; j < 4; j++) data.data.emplace_back("");
@@ -29,7 +29,7 @@ namespace shob::football
                 {
                     if ( ! returns.isSecondMatch[i])
                     {
-                        rowContent data;
+                        multipleStrings data;
                         for (size_t j = 0; j < offset; j++) data.data.emplace_back("");
                         auto first = matches.matches[i].printSimple(teams);
                         auto ii = returns.couples[i];
@@ -52,11 +52,11 @@ namespace shob::football
         const std::vector lineNrs2 = { 8 };
 
         auto table = tableContent();
-        table.body = std::vector<rowContent>(16);
+        table.body = std::vector<multipleStrings>(16);
 
         if ( ! final.matches.empty())
         {
-            auto row = rowContent();
+            auto row = multipleStrings();
             if (language == language::Dutch)
             {
                 row.data = { "", "", "", "<b>F I N A L E:</b>" };

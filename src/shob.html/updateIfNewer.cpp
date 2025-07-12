@@ -49,7 +49,7 @@ namespace shob::html
         }
     }
 
-    void updateIfDifferent::update(const std::string& path, const rowContent& content)
+    void updateIfDifferent::update(const std::string& path, const multipleStrings& content)
     {
         auto previousVersion = readFile(path);
 

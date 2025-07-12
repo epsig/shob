@@ -13,7 +13,7 @@ namespace shob::pages
 
     struct headBottumInput
     {
-        html::rowContent body;
+        html::multipleStrings body;
         std::string title;
         styleSheetType css = styleSheetType::inlineInHead;
     };
@@ -21,10 +21,10 @@ namespace shob::pages
     class headBottum
     {
     public:
-        static html::rowContent getPage(headBottumInput& input);
+        static html::multipleStrings getPage(headBottumInput& input);
     private:
-        static html::rowContent getStyleSheet();
-        static html::rowContent getLinkToStyleSheet();
+        static html::multipleStrings getStyleSheet();
+        static html::multipleStrings getLinkToStyleSheet();
     };
 }
 

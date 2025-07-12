@@ -5,29 +5,29 @@
 
 namespace shob::html
 {
-    class rowContent
+    class multipleStrings
     {
     public:
         std::vector<std::string> data;
-        void addContent(rowContent& extra);
+        void addContent(multipleStrings& extra);
         void addContent(std::string extra);
     };
 
     class tableContent
     {
     public:
-        rowContent header;
-        std::vector<rowContent> body;
+        multipleStrings header;
+        std::vector<multipleStrings> body;
         bool empty() const { return body.empty() && header.data.empty(); }
     };
 
     class table
     {
     public:
-        static rowContent buildTable(const tableContent& content);
+        static multipleStrings buildTable(const tableContent& content);
     private:
-        static std::string buildRow(const rowContent& content);
-        static std::string buildHeader(const rowContent& content);
-        static std::string buildRow(const rowContent& content, const std::string& tag1, const std::string& tag2);
+        static std::string buildRow(const multipleStrings& content);
+        static std::string buildHeader(const multipleStrings& content);
+        static std::string buildRow(const multipleStrings& content, const std::string& tag1, const std::string& tag2);
     };
 }

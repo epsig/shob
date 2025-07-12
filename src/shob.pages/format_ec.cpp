@@ -69,7 +69,7 @@ namespace shob::pages
         return groups;
     }
 
-    void format_ec::readExtras(const season& season, wns_ec& wns_cl, rowContent& summary) const
+    void format_ec::readExtras(const season& season, wns_ec& wns_cl, multipleStrings& summary) const
     {
         auto extraU2s = extras.getSeason(season);
         wns_cl.wns_cl = -1;
@@ -109,9 +109,9 @@ namespace shob::pages
         }
     }
 
-    rowContent format_ec::getFirstHalfYear(const std::string& part, const csvContent& data, const wns_ec& wns_cl) const
+    multipleStrings format_ec::getFirstHalfYear(const std::string& part, const csvContent& data, const wns_ec& wns_cl) const
     {
-        auto rows = rowContent();
+        auto rows = multipleStrings();
 
         const auto qualifiers = getQualifiers(part, data).list();
         for (const auto& qf : qualifiers)
@@ -146,15 +146,15 @@ namespace shob::pages
         return rows;
     }
 
-    rowContent format_ec::get_season(const season& season) const
+    multipleStrings format_ec::get_season(const season& season) const
     {
         const auto file1 = sportDataFolder + "/europacup/europacup_" + season.to_part_filename() + ".csv";
         const auto csvData = csvReader::readCsvFile(file1);
 
         wns_ec wns_cl;
-        rowContent summary;
+        multipleStrings summary;
         readExtras(season, wns_cl, summary);
-        auto out = rowContent();
+        auto out = multipleStrings();
 
         std::string title;
         if (settings.lang == language::Dutch)

@@ -41,17 +41,17 @@ namespace shob::pages
             menu(std::move(menu)) {}
         void get_season_stdout(const general::season& season) const;
         void get_season_to_file(const general::season& season, const std::string& filename) const;
-        html::rowContent get_season(const general::season& season) const;
+        html::multipleStrings get_season(const general::season& season) const;
     private:
         const std::string sportDataFolder;
         const readers::csvAllSeasonsReader extras;
         const teams::clubTeams teams;
         const html::settings settings;
         const topMenu menu;
-        html::rowContent getFirstHalfYear(const std::string& part, const readers::csvContent& data, const wns_ec& wns_cl) const;
+        html::multipleStrings getFirstHalfYear(const std::string& part, const readers::csvContent& data, const wns_ec& wns_cl) const;
         static general::uniqueStrings getGroups(const std::string& part, const readers::csvContent& data);
         static general::uniqueStrings getParts(const readers::csvContent& data);
         static general::uniqueStrings getQualifiers(const std::string& part, const readers::csvContent& data);
-        void readExtras(const general::season& season, wns_ec& wns_cl, html::rowContent& summary) const;
+        void readExtras(const general::season& season, wns_ec& wns_cl, html::multipleStrings& summary) const;
     };
 }

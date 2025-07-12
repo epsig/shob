@@ -13,14 +13,14 @@ namespace shob::pages
     public:
         topMenu(std::vector<std::string> archive, const int maxUrls=10) :
             archive(std::move(archive)), maxUrls(maxUrls) {}
-        html::rowContent getMenu(const general::season& season) const;
+        html::multipleStrings getMenu(const general::season& season) const;
     private:
         std::vector<std::string> archive;
         const int maxUrls;
-        void shortenMenu(html::rowContent& menu, int curPos) const;
-        void shortenMenuLeft(html::rowContent& menu) const;
-        void shortenMenuRight(html::rowContent& menu) const;
-        static void addEllipsis(html::rowContent& rows);
+        void shortenMenu(html::multipleStrings& menu, int curPos) const;
+        void shortenMenuLeft(html::multipleStrings& menu) const;
+        void shortenMenuRight(html::multipleStrings& menu) const;
+        static void addEllipsis(html::multipleStrings& rows);
     };
 }
 

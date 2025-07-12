@@ -8,7 +8,7 @@ namespace shob::html
     class updateIfDifferent
     {
     public:
-        static void update(const std::string& path, const rowContent& content);
+        static void update(const std::string& path, const multipleStrings& content);
         static void update(const std::string& path1, const std::string& path2);
     private:
         static bool areEqual(const std::vector<std::string>& prev, const std::vector<std::string>& current);

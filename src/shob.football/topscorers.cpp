@@ -32,7 +32,7 @@ namespace shob::football
         }
         for (const auto& row : list_tp)
         {
-            html::rowContent data;
+            html::multipleStrings data;
             auto team = teams.expand(row.club);
             auto name = players.expand(row.name);
             if (row.rank == 1)

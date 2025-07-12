@@ -3,9 +3,9 @@
 
 namespace shob::pages
 {
-    html::rowContent topMenu::getMenu(const general::season& season) const
+    html::multipleStrings topMenu::getMenu(const general::season& season) const
     {
-        auto menu = html::rowContent();
+        auto menu = html::multipleStrings();
         const int nEntries = static_cast<int>(archive.size());
         int curPos = 0;
         for (const auto& row : archive)
@@ -14,7 +14,7 @@ namespace shob::pages
             auto url = row;
             auto pos = url.find(".csv");
             url.replace(pos, 4, ".html");
-            auto year = html::rowContent();
+            auto year = html::multipleStrings();
             if (row.find(season.to_part_filename()) != std::string::npos)
             {
                 year.addContent(curSeason.to_string_short());
@@ -42,14 +42,14 @@ namespace shob::pages
         return menu;
     }
 
-    void topMenu::addEllipsis(html::rowContent& rows)
+    void topMenu::addEllipsis(html::multipleStrings& rows)
     {
         rows.addContent("...");
     }
 
-    void topMenu::shortenMenu(html::rowContent& menu, int curPos) const
+    void topMenu::shortenMenu(html::multipleStrings& menu, int curPos) const
     {
-        auto newMenu = html::rowContent();
+        auto newMenu = html::multipleStrings();
 
         newMenu.addContent(menu.data[0]);
         addEllipsis(newMenu);
@@ -66,9 +66,9 @@ namespace shob::pages
         std::swap(menu, newMenu);
     }
 
-    void topMenu::shortenMenuLeft(html::rowContent& menu) const
+    void topMenu::shortenMenuLeft(html::multipleStrings& menu) const
     {
-        auto newMenu = html::rowContent();
+        auto newMenu = html::multipleStrings();
 
         for (int i = 0; i < maxUrls; i++)
         {
@@ -79,9 +79,9 @@ namespace shob::pages
         std::swap(menu, newMenu);
     }
 
-    void topMenu::shortenMenuRight(html::rowContent& menu) const
+    void topMenu::shortenMenuRight(html::multipleStrings& menu) const
     {
-        auto newMenu = html::rowContent();
+        auto newMenu = html::multipleStrings();
 
         const int nEntries = static_cast<int>(menu.data.size());
 
