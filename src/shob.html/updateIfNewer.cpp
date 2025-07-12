@@ -6,19 +6,19 @@ namespace shob::html
 {
     using namespace shob::general;
 
-    bool updateIfDifferent::areEqual(const std::vector<std::string>& prev, const std::vector<std::string>& current)
+    bool updateIfDifferent::areEqual(const multipleStrings& prev, const multipleStrings& current)
     {
-        if (prev.size() != current.size()) return false;
-        for (int i = 0; i < static_cast<int>(prev.size()); i++)
+        if (prev.data.size() != current.data.size()) return false;
+        for (int i = 0; i < static_cast<int>(prev.data.size()); i++)
         {
-            if (prev[i] != current[i]) return false;
+            if (prev.data[i] != current.data[i]) return false;
         }
         return true;
     }
 
-    std::vector<std::string> updateIfDifferent::readFile(const std::string& path)
+    multipleStrings updateIfDifferent::readFile(const std::string& path)
     {
-        std::vector<std::string> content;
+        multipleStrings content;
 
         std::ifstream myFile(path);
         std::string line;
@@ -27,15 +27,15 @@ namespace shob::html
             if (!line.empty() && line[line.length() - 1] == '\r') {
                 line.erase(line.length() - 1);
             }
-            content.push_back(line);
+            content.data.push_back(line);
         }
         return content;
     }
 
-    void updateIfDifferent::writeToFile(const std::string& path, const std::vector<std::string>& data)
+    void updateIfDifferent::writeToFile(const std::string& path, const multipleStrings& data)
     {
         auto fileOut = std::ofstream(path);
-        for (const auto& row : data)
+        for (const auto& row : data.data)
         {
             fileOut << row << std::endl;
         }
@@ -55,9 +55,9 @@ namespace shob::html
     {
         auto previousVersion = readFile(path);
 
-        if ( ! areEqual(previousVersion, content.data))
+        if ( ! areEqual(previousVersion, content))
         {
-            writeToFile(path, content.data);
+            writeToFile(path, content);
         }
 
     }
