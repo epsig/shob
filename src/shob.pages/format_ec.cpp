@@ -1,13 +1,13 @@
 
 #include "format_ec.h"
 #include <iostream>
-#include <fstream>
 
 #include "head_bottum.h"
 #include "../shob.football/results2standings.h"
 #include "../shob.football/route2finalFactory.h"
 #include "../shob.football/filterResults.h"
 #include "../shob.general/dateFactory.h"
+#include "../shob.html/updateIfNewer.h"
 
 namespace shob::pages
 {
@@ -19,11 +19,7 @@ namespace shob::pages
     void format_ec::get_season_to_file(const season& season, const std::string& filename) const
     {
         auto output = get_season(season);
-        auto file = std::ofstream(filename);
-        for (const auto& row : output.data)
-        {
-            file << row << std::endl;
-        }
+        html::updateIfDifferent::update(filename, output);
     }
 
     void format_ec::get_season_stdout(const season& season) const

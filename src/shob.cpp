@@ -10,13 +10,13 @@
 
 int main(int argc, char* argv[])
 {
-    using namespace std::filesystem;
+    namespace fs = std::filesystem;
     using namespace shob::pages;
     using namespace shob::general;
 
     try
     {
-        int firstYear = 1993;
+        int firstYear = 1994;
         int lastYear = 2024;
 
         if (argc >= 3)
@@ -43,7 +43,7 @@ int main(int argc, char* argv[])
                 fmt_ec.get_season_to_file(season, "../pages_new/sport_voetbal_europacup_" + season.to_part_filename() + ".html");
             }
         }
-        copy("../code/test/epsig.css", "../pages_new/epsig.css");
+        fs::copy("../code/test/epsig.css", "../pages_new/epsig.css");
     }
     catch (const std::exception& e)
     {

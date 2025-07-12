@@ -1,23 +1,19 @@
 
 #include "format_nl.h"
 #include <iostream>
-#include <fstream>
 
 #include "../shob.football/results2standings.h"
 #include "../shob.teams/clubTeams.h"
 #include "../shob.football/route2finalFactory.h"
 #include "../shob.pages/head_bottum.h"
+#include "../shob.html/updateIfNewer.h"
 
 namespace shob::pages
 {
     void format_nl::get_season_to_file(const general::season& season, const std::string& filename) const
     {
         auto output = get_season(season);
-        auto file = std::ofstream(filename);
-        for (const auto& row : output.data)
-        {
-            file << row << std::endl;
-        }
+        html::updateIfDifferent::update(filename, output);
     }
 
     void format_nl::get_season_stdout(const general::season& season) const
