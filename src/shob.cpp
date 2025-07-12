@@ -1,16 +1,15 @@
 
 #include <iostream>
-#include <filesystem>
 
 #include "shob.general/dateFactory.h"
 #include "shob.pages/format_ec_factory.h"
 #include "shob.pages/format_nl_factory.h"
 #include "shob.general/season.h"
 #include "shob.general/shobException.h"
+#include "shob.html/updateIfNewer.h"
 
 int main(int argc, char* argv[])
 {
-    namespace fs = std::filesystem;
     using namespace shob::pages;
     using namespace shob::general;
 
@@ -43,7 +42,7 @@ int main(int argc, char* argv[])
                 fmt_ec.get_season_to_file(season, "../pages_new/sport_voetbal_europacup_" + season.to_part_filename() + ".html");
             }
         }
-        fs::copy("../code/test/epsig.css", "../pages_new/epsig.css");
+        shob::html::updateIfDifferent::update("../code/test/epsig.css", "../pages_new/epsig.css");
     }
     catch (const std::exception& e)
     {

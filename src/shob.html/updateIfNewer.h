@@ -9,8 +9,11 @@ namespace shob::html
     {
     public:
         static void update(const std::string& path, const rowContent& content);
+        static void update(const std::string& path1, const std::string& path2);
     private:
-        static bool areEqual(const std::vector<std::string>& prev, const rowContent& current);
+        static bool areEqual(const std::vector<std::string>& prev, const std::vector<std::string>& current);
+        static std::vector<std::string> readFile(const std::string& path);
+        static void writeToFile(const std::string& path, const std::vector<std::string>& data);
 
     };
 }
