@@ -95,8 +95,5 @@ ek2024,gD,ster=5
 ek2024,gE,ster=5
 ek2024,gF,ster=5
 ekD2025,organising_country,Zwitserland
-ekD2025,gA,ster=1
-ekD2025,gB,ster=1
-ekD2025,gC,ster=1
-ekD2025,gD,ster=-1
+ekD2025,allgroups,ster=1
 wk2026,organising_country,Canada;USA;Mexico
