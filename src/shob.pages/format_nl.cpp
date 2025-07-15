@@ -55,7 +55,7 @@ namespace shob::pages
         auto out = multipleStrings();
 
         auto menuOut = menu.getMenu(season);
-        out.addContent("andere seizoenen: ");
+        menuOut.data[0] = "<hr> andere seizoenen: | " + menuOut.data[0];
         out.addContent(menuOut);
 
         auto teams = teams::clubTeams();

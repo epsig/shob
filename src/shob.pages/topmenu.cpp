@@ -5,26 +5,26 @@ namespace shob::pages
 {
     using namespace shob::general;
 
-    multipleStrings topMenu::getMenu(const general::season& season) const
+    multipleStrings topMenu::getMenu(const season& season) const
     {
         auto menu = multipleStrings();
         const int nEntries = static_cast<int>(archive.size());
         int curPos = 0;
         for (const auto& row : archive)
         {
-            auto curSeason = general::season::findSeason(row);
+            auto curSeason = season::findSeason(row);
             auto url = row;
             auto pos = url.find(".csv");
             url.replace(pos, 4, ".html");
-            auto year = multipleStrings();
+            auto year = std::string();
             if (row.find(season.to_part_filename()) != std::string::npos)
             {
-                year.addContent(curSeason.to_string_short());
+                year = curSeason.to_string_short();
                 curPos = static_cast<int>(menu.data.size());
             }
             else
-                year.addContent("<a href=\"sport_voetbal_" + url + "\">" + curSeason.to_string_short() + "</a>");
-            menu.addContent(year);
+                year = "<a href=\"sport_voetbal_" + url + "\">" + curSeason.to_string_short() + "</a>";
+            menu.addContent(year + " |");
         }
         if (nEntries > maxUrls)
         {
@@ -46,7 +46,7 @@ namespace shob::pages
 
     void topMenu::addEllipsis(multipleStrings& rows)
     {
-        rows.addContent("...");
+        rows.addContent(" ...  |");
     }
 
     void topMenu::shortenMenu(multipleStrings& menu, int curPos) const

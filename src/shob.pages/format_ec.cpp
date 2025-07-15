@@ -155,20 +155,20 @@ namespace shob::pages
         multipleStrings summary;
         readExtras(season, wns_cl, summary);
         auto out = multipleStrings();
+        auto menuOut = menu.getMenu(season);
 
         std::string title;
         if (settings.lang == language::Dutch)
         {
             title = "Europacup voetbal seizoen " + season.to_string();
-            out.addContent("andere seizoenen: ");
+            menuOut.data[0] = "<hr> andere seizoenen: | " + menuOut.data[0];
         }
         else
         {
             title = "Europa cup football season " + season.to_string();
-            out.addContent("other seasons: ");
+            menuOut.data[0] = "<hr> other seasons: | " + menuOut.data[0];
         }
 
-        auto menuOut = menu.getMenu(season);
         out.addContent(menuOut);
 
         if ( ! summary.data.empty())

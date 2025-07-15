@@ -27,8 +27,8 @@ namespace shob::pages::test
         auto menu = topMenu(archive, 6);
         auto tpmenu1 = menu.getMenu(general::season(2012));
         EXPECT_EQ(tpmenu1.data.size(), 8);
-        EXPECT_EQ(tpmenu1.data[2], "12-13");
-        EXPECT_EQ(tpmenu1.data[6], "...");
+        EXPECT_EQ(tpmenu1.data[2], "12-13 |");
+        EXPECT_EQ(tpmenu1.data[6], " ...  |");
     }
 
     void testTopMenu::test_center()
@@ -37,9 +37,9 @@ namespace shob::pages::test
         auto menu = topMenu(archive, 6);
         auto tpmenu1 = menu.getMenu(general::season(2015));
         EXPECT_EQ(tpmenu1.data.size(), 9);
-        EXPECT_EQ(tpmenu1.data[1], "...");
-        EXPECT_EQ(tpmenu1.data[4], "15-16");
-        EXPECT_EQ(tpmenu1.data[7], "...");
+        EXPECT_EQ(tpmenu1.data[1], " ...  |");
+        EXPECT_EQ(tpmenu1.data[4], "15-16 |");
+        EXPECT_EQ(tpmenu1.data[7], " ...  |");
     }
 
     void testTopMenu::test_right()
@@ -48,8 +48,8 @@ namespace shob::pages::test
         auto menu = topMenu(archive, 6);
         auto tpmenu1 = menu.getMenu(general::season(2018));
         EXPECT_EQ(tpmenu1.data.size(), 8);
-        EXPECT_EQ(tpmenu1.data[6], "18-19");
-        EXPECT_EQ(tpmenu1.data[1], "...");
+        EXPECT_EQ(tpmenu1.data[6], "18-19 |");
+        EXPECT_EQ(tpmenu1.data[1], " ...  |");
     }
 }
 
