@@ -146,7 +146,19 @@ namespace shob::pages
         return rows;
     }
 
-    multipleStrings format_ec::getInternalLinks(const std::vector<std::string>& ECparts) const
+    bool format_ec::hasFinal(const std::string& part, const csvContent& csvData)
+    {
+        for (const auto& line : csvData.body)
+        {
+            if (line.column[0] == part && line.column[1].find("f") != std::string::npos)
+            {
+                return true;
+            }
+        }
+        return false;
+    }
+
+    multipleStrings format_ec::getInternalLinks(const std::vector<std::string>& ECparts, const csvContent& csvData) const
     {
         auto out = multipleStrings();
         bool isFirst = true;
@@ -162,10 +174,12 @@ namespace shob::pages
                         link1 = "<hr> " + link1;
                         isFirst = false;
                     }
-                    // TODO link2 only if present
-                    auto link2 = "| <a href=\"#" + part + "_last8\">Finale " + part + "</a>";
                     out.addContent(link1);
-                    out.addContent(link2);
+                    if (hasFinal(part, csvData))
+                    {
+                        auto link2 = "| <a href=\"#" + part + "_last8\">Finale " + part + "</a>";
+                        out.addContent(link2);
+                    }
                 }
             }
         }
@@ -199,7 +213,7 @@ namespace shob::pages
         out.addContent(menuOut);
 
         const auto ECparts = getParts(csvData).list();
-        auto internalMenu = getInternalLinks(ECparts);
+        auto internalMenu = getInternalLinks(ECparts, csvData);
         out.addContent(internalMenu);
 
         if ( ! summary.data.empty())
