@@ -26,4 +26,13 @@ namespace shob::general
         return true;
     }
 
+    int multipleStrings::findString(const std::string& s) const
+    {
+        for (int i = 0; i < static_cast<int>(data.size()); i++)
+        {
+            if (data[i] != s) return i;
+        }
+        return -1;
+    }
+
 }
