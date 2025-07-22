@@ -5,6 +5,17 @@
 
 namespace shob::pages
 {
+    std::unordered_map<std::string,std::string> format_ec_factory::getLeagueNames(const std::string& dataFolder)
+    {
+        auto leagueNames = readers::csvReader::readCsvFile(dataFolder + "/europacup/league_names.csv");
+        std::unordered_map<std::string, std::string> map;
+        for (const auto& line : leagueNames.body)
+        {
+            map.insert({ line.column[0], line.column[1] });
+        }
+        return map;
+    }
+
     format_ec format_ec_factory::build(const std::string& dataFolder, const html::settings& settings)
     {
         auto remarks = readers::csvAllSeasonsReader();
@@ -17,7 +28,9 @@ namespace shob::pages
         auto archive = general::glob::list(dataFolder + "/europacup", "europacup_[0-9].*csv");
         auto menu = topMenu(archive);
 
-        auto format = format_ec(dataFolder, remarks, teams, settings, menu);
+        auto leagueNames = getLeagueNames(dataFolder);
+
+        auto format = format_ec(dataFolder, remarks, teams, settings, menu, leagueNames);
         return format;
     }
 }

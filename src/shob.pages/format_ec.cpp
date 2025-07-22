@@ -19,7 +19,7 @@ namespace shob::pages
     void format_ec::get_season_to_file(const season& season, const std::string& filename) const
     {
         auto output = get_season(season);
-        html::updateIfDifferent::update(filename, output);
+        updateIfDifferent::update(filename, output);
     }
 
     void format_ec::get_season_stdout(const season& season) const
@@ -146,6 +146,33 @@ namespace shob::pages
         return rows;
     }
 
+    multipleStrings format_ec::getInternalLinks(const std::vector<std::string>& ECparts) const
+    {
+        auto out = multipleStrings();
+        bool isFirst = true;
+        for (const auto& part : ECparts)
+        {
+            if (leagueNames.contains(part))
+            {
+                if (part != "supercup")
+                {
+                    auto link1 = "| <a href=\"#" + part + "\">" + leagueNames.at(part) + "</a>";
+                    if (isFirst)
+                    {
+                        link1 = "<hr> " + link1;
+                        isFirst = false;
+                    }
+                    // TODO link2 only if present
+                    auto link2 = "| <a href=\"#" + part + "_last8\">Finale " + part + "</a>";
+                    out.addContent(link1);
+                    out.addContent(link2);
+                }
+            }
+        }
+        out.data.back() += " | <hr>";
+        return out;
+    }
+
     multipleStrings format_ec::get_season(const season& season) const
     {
         const auto file1 = sportDataFolder + "/europacup/europacup_" + season.to_part_filename() + ".csv";
@@ -171,6 +198,10 @@ namespace shob::pages
 
         out.addContent(menuOut);
 
+        const auto ECparts = getParts(csvData).list();
+        auto internalMenu = getInternalLinks(ECparts);
+        out.addContent(internalMenu);
+
         if ( ! summary.data.empty())
         {
             if (settings.lang == language::Dutch)
@@ -180,16 +211,18 @@ namespace shob::pages
             out.addContent(summary);
         }
 
-        const auto ECparts = getParts(csvData).list();
+
         for (const auto& part : ECparts)
         {
             if (part != "supercup") // TODO
             {
+                out.addContent("<a name=\"" + part + "\"/>");
                 auto content = getFirstHalfYear(part, csvData, wns_cl);
                 out.addContent(content);
                 const auto r2f = route2finaleFactory::createEC(csvData, part);
                 const auto prepTable = r2f.prepareTable(teams, settings.lang);
                 content = table::buildTable(prepTable);
+                out.addContent("<a name=\"" + part + "_last8\"/>");
                 out.addContent(content);
             }
         }
