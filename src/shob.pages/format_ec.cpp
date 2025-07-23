@@ -116,7 +116,7 @@ namespace shob::pages
         filter.filters.push_back({ 0, part });
         const auto matches = filterResults::readFromCsvData(data, filter);
         const auto prepTable = matches.prepareTable(teams, settings);
-        auto table = table::buildTable(prepTable);
+        auto table = table::buildTable(prepTable, "Europese Supercup");
         return table;
     }
 
