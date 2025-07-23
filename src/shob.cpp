@@ -31,7 +31,8 @@ int main(int argc, char* argv[])
             }
         }
         auto fmt_nl = format_nl_factory::build("sport");
-        constexpr auto settings = shob::html::settings();
+        auto settings = shob::html::settings();
+        settings.dateFormatShort = false;
         auto fmt_ec = format_ec_factory::build("sport", settings);
         for (int year = firstYear; year <= lastYear; year++)
         {

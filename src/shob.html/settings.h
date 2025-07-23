@@ -8,6 +8,6 @@ namespace shob::html
     {
     public:
         language lang = language::Dutch;
-        bool onlySummary = true;
+        bool dateFormatShort = true;
     };
 }

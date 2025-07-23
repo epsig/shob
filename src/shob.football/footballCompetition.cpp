@@ -80,19 +80,29 @@ namespace shob::football
         auto table = html::tableContent();
         if ( matches.empty()) { return table; }
 
+        bool withRemarks = false;
+        for (const auto& row : matches)
+        {
+            if (!row.remark.empty()) withRemarks = true;
+        }
+
         if (settings.lang == html::language::Dutch)
         {
-            table.header.data = { "dd", "team1", "team2", "uitslag", "opm" };
+            table.header.data = { "dd", "team1", "team2", "uitslag" };
+            if (withRemarks) table.header.data.emplace_back("opm");
         }
         else
         {
-            table.header.data = { "dd", "team (home)", "team (away)", "result", "remark" };
+            table.header.data = { "dd", "team (home)", "team (away)", "result" };
+            if (withRemarks) table.header.data.emplace_back("remark");
         }
 
         for (const auto& row : matches)
         {
             auto out = multipleStrings();
-            out.data = { row.dd->toShortString(), teams.expand(row.team1), teams.expand(row.team2), row.result, row.remark };
+            const std::string dd = settings.dateFormatShort ? row.dd->toShortString() : row.dd->toString();
+            out.data = { dd, teams.expand(row.team1), teams.expand(row.team2), row.result };
+            if (withRemarks) out.data.emplace_back(row.remark);
             table.body.push_back(out);
         }
 
