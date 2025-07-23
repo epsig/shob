@@ -56,5 +56,6 @@ namespace shob::pages
         general::multipleStrings getInternalLinks(const std::vector<std::string>& ECparts, const readers::csvContent& csvData) const;
         void readExtras(const general::season& season, wns_ec& wns_cl, general::multipleStrings& summary) const;
         static bool hasFinal(const std::string& part, const readers::csvContent& csvData);
+        general::multipleStrings getSupercup(const readers::csvContent& data) const;
     };
 }

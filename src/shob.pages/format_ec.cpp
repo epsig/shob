@@ -109,6 +109,17 @@ namespace shob::pages
         }
     }
 
+    multipleStrings format_ec::getSupercup(const csvContent& data) const
+    {
+        auto filter = filterInputList();
+        const std::string part = "supercup";
+        filter.filters.push_back({ 0, part });
+        const auto matches = filterResults::readFromCsvData(data, filter);
+        const auto prepTable = matches.prepareTable(teams, settings);
+        auto table = table::buildTable(prepTable);
+        return table;
+    }
+
     multipleStrings format_ec::getFirstHalfYear(const std::string& part, const csvContent& data, const wns_ec& wns_cl) const
     {
         auto rows = multipleStrings();
@@ -225,10 +236,14 @@ namespace shob::pages
             out.addContent(summary);
         }
 
-
         for (const auto& part : ECparts)
         {
-            if (part != "supercup") // TODO
+            if (part == "supercup")
+            {
+                auto sc = getSupercup(csvData);
+                out.addContent(sc);
+            }
+            else
             {
                 out.addContent("<a name=\"" + part + "\"/>");
                 auto content = getFirstHalfYear(part, csvData, wns_cl);

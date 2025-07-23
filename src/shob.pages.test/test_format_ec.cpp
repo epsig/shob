@@ -25,7 +25,7 @@ namespace shob::pages::test
     void testFormatEc::test_2023_2024()
     {
         const auto lines = fmt_ec.get_season(general::season(2023));
-        EXPECT_EQ(lines.data.size(), 186);
+        EXPECT_EQ(lines.data.size(), 190);
     }
 
     void testFormatEc::test_1994_1995()
@@ -40,7 +40,7 @@ namespace shob::pages::test
         const html::settings settingsUK = html::settings(html::language::English);
         const auto fmt_ec_uk = format_ec_factory::build(dataFolder, settingsUK);
         const auto lines = fmt_ec_uk.get_season(general::season(2019));
-        ASSERT_EQ(lines.data.size(), 177);
+        ASSERT_EQ(lines.data.size(), 181);
         EXPECT_GE(lines.findString("Due to the Covid-19 pandemic, the tournament was suspended"), 0) << "check reading comma between quotes";
         EXPECT_GE(lines.findString("<br>Sevilla wins the Europa League with two goals of Luuk de Jong."), 0) << "check UK summary";
         EXPECT_GE(lines.findString("<tr><td></td><td></td><td></td><td><b>F I N A L:</b></td></tr>"), 0) << "check language in route2final";
