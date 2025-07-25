@@ -11,13 +11,16 @@ namespace shob::html
     public:
         general::multipleStrings header;
         std::vector<general::multipleStrings> body;
+        std::string title;
+        std::vector<int> colWidths;
         bool empty() const { return body.empty() && header.data.empty(); }
     };
 
     class table
     {
     public:
-        static general::multipleStrings buildTable(const tableContent& content, std::string title = "");
+        static general::multipleStrings buildTable(const tableContent& content);
+        static general::multipleStrings buildTable(const std::vector<tableContent>& content);
     private:
         static std::string buildRow(const general::multipleStrings& content);
         static std::string buildHeader(const general::multipleStrings& content);

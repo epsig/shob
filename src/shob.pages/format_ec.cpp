@@ -115,14 +115,15 @@ namespace shob::pages
         const std::string part = "supercup";
         filter.filters.push_back({ 0, part });
         const auto matches = filterResults::readFromCsvData(data, filter);
-        const auto prepTable = matches.prepareTable(teams, settings);
-        auto table = table::buildTable(prepTable, "Europese Supercup");
+        auto prepTable = matches.prepareTable(teams, settings);
+        prepTable.title = "Europese Supercup";
+        auto table = table::buildTable(prepTable);
         return table;
     }
 
     multipleStrings format_ec::getFirstHalfYear(const std::string& part, const csvContent& data, const wns_ec& wns_cl) const
     {
-        auto rows = multipleStrings();
+        auto tables = std::vector<tableContent>();
 
         const auto qualifiers = getQualifiers(part, data).list();
         for (const auto& qf : qualifiers)
@@ -130,10 +131,18 @@ namespace shob::pages
             auto filter = filterInputList();
             filter.filters.push_back({ 0, part });
             filter.filters.push_back({ 1, qf });
-            const auto groupsPhase = filterResults::readFromCsvData(data, filter);
-            const auto prepTable = groupsPhase.prepareTable(teams, settings);
-            auto table = table::buildTable(prepTable);
-            rows.addContent(table);
+            const auto matches = filterResults::readFromCsvData(data, filter);
+            auto prepTable = matches.prepareTable(teams, settings);
+            if (qf == "po")
+            {
+                prepTable.title = "Play-offs " + leagueNames.at(part);
+            }
+            else
+            {
+                prepTable.title = "xe voorronde " + leagueNames.at(part);
+                prepTable.title.front() = qf.back();
+            }
+            tables.push_back(prepTable);
         }
 
         const auto groups = getGroups(part, data).list();
@@ -146,14 +155,14 @@ namespace shob::pages
             const auto groupsPhase = filterResults::readFromCsvData(data, filter);
             auto stand = results2standings::u2s(groupsPhase, wns_cl.scoring);
             stand.wns_cl = wns_cl.getWns(group);
-            const auto prepTable = stand.prepareTable(teams, settings);
-            auto table = table::buildTable(prepTable);
-            rows.addContent(table);
+            auto prepTable = stand.prepareTable(teams, settings);
+            prepTable.title = leagueNames.at(part) + ", Groep " + group.back();
             const auto matchesNL = groupsPhase.filterNL();
             const auto prepTable2 = matchesNL.prepareTable(teams, settings);
-            auto table2 = table::buildTable(prepTable2);
-            rows.addContent(table2);
+            tables.push_back(prepTable);
+            tables.push_back(prepTable2);
         }
+        auto rows = table::buildTable(tables);
         return rows;
     }
 
