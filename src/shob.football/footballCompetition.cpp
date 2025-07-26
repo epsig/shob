@@ -97,11 +97,15 @@ namespace shob::football
             if (withRemarks) table.header.data.emplace_back("remark");
         }
 
-        for (const auto& row : matches)
+        auto returns = getReturns();
+
+        for (int i = 0; i < static_cast<int>(matches.size()); i++)
         {
+            auto& row = matches[i];
             auto out = multipleStrings();
             const std::string dd = settings.dateFormatShort ? row.dd->toShortString() : row.dd->toString();
-            out.data = { dd, teams.expand(row.team1), teams.expand(row.team2), row.result };
+            bool addCountry = settings.addCountry && !returns.isSecondMatch[i];
+            out.data = { dd, teams.expand(row.team1, addCountry), teams.expand(row.team2, addCountry), row.result };
             if (withRemarks) out.data.emplace_back(row.remark);
             table.body.push_back(out);
         }

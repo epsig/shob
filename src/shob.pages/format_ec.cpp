@@ -115,7 +115,9 @@ namespace shob::pages
         const std::string part = "supercup";
         filter.filters.push_back({ 0, part });
         const auto matches = filterResults::readFromCsvData(data, filter);
-        auto prepTable = matches.prepareTable(teams, settings);
+        auto adjSettings = settings;
+        adjSettings.addCountry = true;
+        auto prepTable = matches.prepareTable(teams, adjSettings);
         prepTable.title = "Europese Supercup";
         auto table = table::buildTable(prepTable);
         return table;
@@ -132,7 +134,9 @@ namespace shob::pages
             filter.filters.push_back({ 0, part });
             filter.filters.push_back({ 1, qf });
             const auto matches = filterResults::readFromCsvData(data, filter);
-            auto prepTable = matches.prepareTable(teams, settings);
+            auto adjSettings = settings;
+            adjSettings.addCountry = true;
+            auto prepTable = matches.prepareTable(teams, adjSettings);
             if (qf == "po")
             {
                 prepTable.title = "Play-offs " + leagueNames.at(part);

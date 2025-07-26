@@ -9,5 +9,6 @@ namespace shob::html
     public:
         language lang = language::Dutch;
         bool dateFormatShort = true;
+        bool addCountry = false;
     };
 }

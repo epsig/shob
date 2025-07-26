@@ -24,6 +24,7 @@ namespace shob::pages
         auto teams = teams::clubTeams();
         auto file2 = dataFolder + "/clubs.csv";
         teams.InitFromFile(file2);
+        teams.AddLandCodes(dataFolder + "/landcodes.csv");
 
         auto archive = general::glob::list(dataFolder + "/europacup", "europacup_[0-9].*csv");
         auto menu = topMenu(archive);

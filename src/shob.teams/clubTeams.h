@@ -10,9 +10,12 @@ namespace shob::teams
     {
     public:
         void InitFromFile(const std::string& filename);
+        void AddLandCodes(const std::string& filename);
         std::string expand(const std::string& club) const;
+        std::string expand(const std::string& club, const bool addCountry) const;
     private:
         void Init(const readers::csvContent& data);
         std::map<std::string, std::string> clubs;
+        std::map<std::string, std::string> landCodes;
     };
 }
