@@ -23,8 +23,11 @@ namespace shob::html
         static general::multipleStrings buildTable(const std::vector<tableContent>& content);
     private:
         static std::string buildRow(const general::multipleStrings& content);
+        static std::string buildRow(const general::multipleStrings& content, const std::vector<int>& colWidths);
         static std::string buildHeader(const general::multipleStrings& content);
         static std::string buildHeader(const std::string& s, const size_t cols);
+        static std::string buildHeader(const general::multipleStrings& content, const std::vector<int>& colWidths);
         static std::string buildRow(const general::multipleStrings& content, const std::string& tag1, const std::string& tag2);
+        static std::string buildRow(const general::multipleStrings& content, const std::vector<std::string>& tag1, const std::vector<std::string>& tag2);
     };
 }

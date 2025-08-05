@@ -88,14 +88,16 @@ namespace shob::football
 
         if (settings.lang == html::language::Dutch)
         {
-            table.header.data = { "dd", "team1", "team2", "uitslag" };
+            table.header.data = { "dd", "team1 - team2", "uitslag" };
             if (withRemarks) table.header.data.emplace_back("opm");
         }
         else
         {
-            table.header.data = { "dd", "team (home)", "team (away)", "result" };
+            table.header.data = { "dd", "team (home) - team (away)", "result" };
             if (withRemarks) table.header.data.emplace_back("remark");
         }
+        table.colWidths = {1, 2, 1};
+        if (withRemarks) table.colWidths.push_back(1);
 
         auto returns = getReturns();
 
@@ -109,7 +111,7 @@ namespace shob::football
                 dd = "<acronym title=\"" + row.stadium + "\">" + dd + "</acronym>";
             }
             bool addCountry = settings.addCountry && !returns.isSecondMatch[i];
-            out.data = { dd, teams.expand(row.team1, addCountry), teams.expand(row.team2, addCountry), row.result };
+            out.data = { dd, teams.expand(row.team1, addCountry) + " - " + teams.expand(row.team2, addCountry), row.result };
             if (withRemarks) out.data.emplace_back(row.remark);
             table.body.push_back(out);
         }
