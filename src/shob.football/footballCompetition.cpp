@@ -103,7 +103,11 @@ namespace shob::football
         {
             auto& row = matches[i];
             auto out = multipleStrings();
-            const std::string dd = settings.dateFormatShort ? row.dd->toShortString() : row.dd->toString();
+            std::string dd = settings.dateFormatShort ? row.dd->toShortString() : row.dd->toString();
+            if ( ! row.stadium.empty())
+            {
+                dd = "<acronym title=\"" + row.stadium + "\">" + dd + "</acronym>";
+            }
             bool addCountry = settings.addCountry && !returns.isSecondMatch[i];
             out.data = { dd, teams.expand(row.team1, addCountry), teams.expand(row.team2, addCountry), row.result };
             if (withRemarks) out.data.emplace_back(row.remark);

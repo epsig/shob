@@ -41,6 +41,7 @@ namespace shob::football
         const auto resultColumn = csvData.findColumn("result");
         const auto spectatorsColumn = csvData.findColumn("spectators");
         const auto starColumn = csvData.findColumn("star");
+        const auto stadiumColumn = csvData.findColumn("stadium");
 
         const auto isFinal = filter.isFinale();
         for (const auto& col : csvData.body)
@@ -56,10 +57,13 @@ namespace shob::football
                         spectators = std::stoi(line[spectatorsColumn]);
                     }
                 }
+                std::string stadium;
+                if (stadiumColumn < line.size()) stadium = line[stadiumColumn];
                 const auto date = general::dateFactory::getDate(line[ddColumn]);
                 const auto star = getStar(line,starColumn);
-                const auto match = footballMatch(line[team1Column], line[team2Column], date, line[resultColumn],
+                auto match = footballMatch(line[team1Column], line[team2Column], date, line[resultColumn],
                     spectators, star, isFinal);
+                match.stadium = stadium;
                 comp.matches.push_back(match);
             }
         }
