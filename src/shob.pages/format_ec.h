@@ -3,12 +3,12 @@
 #include <string>
 #include <vector>
 #include <map>
-#include <unordered_map>
 #include "../shob.general/uniqueStrings.h"
 #include "../shob.readers/csvAllSeasonsReader.h"
 #include "../shob.teams/clubTeams.h"
 #include "../shob.html/settings.h"
 #include "../shob.general/season.h"
+#include "../shob.football/leagueNames.h"
 #include "topMenu.h"
 
 namespace shob::pages
@@ -36,7 +36,7 @@ namespace shob::pages
     {
     public:
         format_ec(std::string folder, readers::csvAllSeasonsReader& extras, teams::clubTeams& teams, const html::settings& settings,
-            topMenu menu, std::unordered_map<std::string, std::string> leagueNames) :
+            topMenu menu, football::leagueNames leagueNames) :
             sportDataFolder(std::move(folder)), extras(std::move(extras)), teams(std::move(teams)), settings(settings),
             menu(std::move(menu)), leagueNames(std::move(leagueNames)) {}
         void get_season_stdout(const general::season& season) const;
@@ -48,7 +48,7 @@ namespace shob::pages
         const teams::clubTeams teams;
         const html::settings settings;
         const topMenu menu;
-        const std::unordered_map<std::string, std::string> leagueNames;
+        const football::leagueNames leagueNames;
         general::multipleStrings getFirstHalfYear(const std::string& part, const readers::csvContent& data, const wns_ec& wns_cl) const;
         static general::uniqueStrings getGroups(const std::string& part, const readers::csvContent& data);
         static general::uniqueStrings getParts(const readers::csvContent& data);

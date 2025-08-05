@@ -139,11 +139,11 @@ namespace shob::pages
             auto prepTable = matches.prepareTable(teams, adjSettings);
             if (qf == "po")
             {
-                prepTable.title = "Play-offs " + leagueNames.at(part);
+                prepTable.title = "Play-offs " + leagueNames.getFullName(part);
             }
             else
             {
-                prepTable.title = "xe voorronde " + leagueNames.at(part);
+                prepTable.title = "xe voorronde " + leagueNames.getFullName(part);
                 prepTable.title.front() = qf.back();
             }
             tables.push_back(prepTable);
@@ -160,7 +160,7 @@ namespace shob::pages
             auto stand = results2standings::u2s(groupsPhase, wns_cl.scoring);
             stand.wns_cl = wns_cl.getWns(group);
             auto prepTable = stand.prepareTable(teams, settings);
-            prepTable.title = leagueNames.at(part) + ", Groep " + group.back();
+            prepTable.title = leagueNames.getFullName(part) + ", Groep " + group.back();
             const auto matchesNL = groupsPhase.filterNL();
             const auto prepTable2 = matchesNL.prepareTable(teams, settings);
             tables.push_back(prepTable);
@@ -192,16 +192,16 @@ namespace shob::pages
             {
                 if (part != "supercup")
                 {
-                    auto link1 = "| <a href=\"#" + part + "\">" + leagueNames.at(part) + "</a>";
+                    auto link1 = " | <a href=\"#" + leagueNames.getLinkName(part) + "\">" + leagueNames.getFullName(part) + "</a>";
                     if (isFirst)
                     {
-                        link1 = "<hr> " + link1;
+                        link1 = "<hr>" + link1;
                         isFirst = false;
                     }
                     out.addContent(link1);
                     if (hasFinal(part, csvData))
                     {
-                        auto link2 = "| <a href=\"#" + part + "_last8\">Finale " + part + "</a>";
+                        auto link2 = " | <a href=\"#" + leagueNames.getLinkName(part) + "_last8\">Finale " + leagueNames.getShortName(part) + "</a>";
                         out.addContent(link2);
                     }
                 }
@@ -258,13 +258,13 @@ namespace shob::pages
             }
             else
             {
-                out.addContent("<a name=\"" + part + "\"/>");
+                out.addContent("<a name=\"" + leagueNames.getLinkName(part) + "\"/>");
                 auto content = getFirstHalfYear(part, csvData, wns_cl);
                 out.addContent(content);
                 const auto r2f = route2finaleFactory::createEC(csvData, part);
                 const auto prepTable = r2f.prepareTable(teams, settings.lang);
                 content = table::buildTable(prepTable);
-                out.addContent("<a name=\"" + part + "_last8\"/>");
+                out.addContent("<a name=\"" + leagueNames.getLinkName(part) + "_last8\"/>");
                 out.addContent(content);
             }
         }
