@@ -164,7 +164,28 @@ namespace shob::football
             team = "<b>" + team + "</b>";
         }
         team += " (" + joinStrings(extra1, extra2, "; ") + ")";
+    }
 
+    void standings::updateTeamWithWnsCl(std::string& team, const size_t i) const
+    {
+        if (wns_cl == 1)
+        {
+            if (i < 2) team += " *";
+        }
+        else if (wns_cl == 3)
+        {
+            if (i < 1) team += " *";
+        }
+        else if (wns_cl == 7)
+        {
+            if (i < 8) team += " *";
+            else if (i < 24) team += " +";
+        }
+        else if (wns_cl == 0) // TODO does not work well
+        {
+            if (i < 2) team += " *";
+            else if (i < 3) team += " +";
+        }
     }
 
     html::tableContent standings::prepareTable(const teams::clubTeams& teams, const html::settings& settings) const
@@ -192,11 +213,7 @@ namespace shob::football
             {
                 updateTeamWithExtras(team, extraData, row.punishmentPoints);
             }
-            if (wns_cl == 7)
-            {
-                if (i < 8) team += " *";
-                else if (i < 24) team += " +";
-            }
+            updateTeamWithWnsCl(team, i);
 
             data.data = { team, std::to_string(row.totalGames), std::to_string(row.points), std::to_string(row.goalDifference()) };
             table.body.push_back(data);

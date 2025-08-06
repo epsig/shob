@@ -53,6 +53,7 @@ namespace shob::football
         void addRow(const std::string& team1, const int goals1, const int goals2);
         size_t findIndex(const std::string& team);
         void updateTeamWithExtras(std::string& team, const std::vector<std::string>& extraData, const int punishment) const;
+        void updateTeamWithWnsCl(std::string& team, const size_t i) const;
         void expandExtra(std::string& extra) const;
     };
 }
