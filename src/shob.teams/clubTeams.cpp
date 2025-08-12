@@ -1,6 +1,7 @@
 
 #include "clubTeams.h"
 #include "../shob.readers/csvReader.h"
+#include "../shob.html/funcs.h"
 
 namespace shob::teams
 {
@@ -35,7 +36,7 @@ namespace shob::teams
             if (landCodes.contains(land))
             {
                 auto fullNameLand = landCodes.at(land);
-                expanded +=  " (<acronym title=\"" + fullNameLand + "\">" + shortName + "</acronym>)";
+                expanded += " (" + html::funcs::acronym(shortName , fullNameLand ) + ")";
             }
             else
             {

@@ -120,7 +120,7 @@ target_link_libraries(shob.pages shob.football shob.general shob.readers shob.ht
 target_link_libraries(shob shob.football shob.general shob.readers shob.html shob.teams shob.pages)
 target_link_libraries(shob.pages.test shob.football shob.general shob.readers shob.html
     shob.teams shob.pages shob.test.utils gtest_main)
-target_link_libraries(shob.teams shob.readers)
+target_link_libraries(shob.teams shob.readers shob.html)
 target_link_libraries(shob.teams.test shob.teams shob.readers shob.test.utils gtest_main)
 target_link_libraries(shob.general.test shob.general shob.test.utils gtest_main)
 

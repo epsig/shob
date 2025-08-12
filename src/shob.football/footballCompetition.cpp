@@ -3,6 +3,7 @@
 
 #include "../shob.readers/csvReader.h"
 #include "../shob.general/dateFactory.h"
+#include "../shob.html/funcs.h"
 
 namespace shob::football
 {
@@ -108,7 +109,7 @@ namespace shob::football
             std::string dd = settings.dateFormatShort ? row.dd->toShortString() : row.dd->toString();
             if ( ! row.stadium.empty())
             {
-                dd = "<acronym title=\"" + row.stadium + "\">" + dd + "</acronym>";
+                dd = html::funcs::acronym(dd, "te: " + row.stadium);
             }
             bool addCountry = settings.addCountry && !returns.isSecondMatch[i];
             out.data = { dd, teams.expand(row.team1, addCountry) + " - " + teams.expand(row.team2, addCountry), row.result };
