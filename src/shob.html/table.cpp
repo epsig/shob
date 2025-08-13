@@ -1,5 +1,6 @@
 
 #include "table.h"
+#include "funcs.h"
 
 namespace shob::html
 {
@@ -142,9 +143,22 @@ namespace shob::html
     std::string table::buildRow(const multipleStrings& content, const std::string& tag1, const std::string& tag2)
     {
         std::string row = "<tr>";
-        for (const auto& col : content.data)
+        bool extraLine = true;
+        for (int i = 0; i < static_cast<int>(content.data.size()); i++)
         {
-            row += tag1 + col + tag2;
+            auto& col = content.data[i];
+            if (funcs::isAcronymOnly(col))
+            {
+                if (extraLine) row += "\n";
+                row += "<td class=r>" + col + tag2;
+                if (i < static_cast<int>(content.data.size()) - 1) row += "\n";
+                extraLine = false;
+            }
+            else
+            {
+                row += tag1 + col + tag2;
+                extraLine = true;
+            }
         }
         row += "</tr>";
         return row;

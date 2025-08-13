@@ -218,7 +218,7 @@ namespace shob::football
             updateTeamWithWnsCl(team, i);
 
             auto points = html::funcs::acronym(std::to_string(row.points),
-                std::format("{:} x w , {:} x g, {:} x v", row.wins, row.draws, row.losses ));
+                std::format("{:} x w , {:} x g en {:} x v => {:} pnt", row.wins, row.draws, row.losses, row.points ));
             auto goalDiff = html::funcs::acronym(std::to_string(row.goalDifference()),
                 std::format("{:} - {:} = {:}", row.goals, row.goalsAgainst, row.goalDifference()));
             data.data = { team, std::to_string(row.totalGames), points, goalDiff };

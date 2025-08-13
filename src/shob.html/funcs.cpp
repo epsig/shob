@@ -7,4 +7,10 @@ namespace shob::html
     {
         return "<acronym title=\"" + longName + "\">" + shortName + "</acronym>";
     }
+
+    bool funcs::isAcronymOnly(const std::string& cell)
+    {
+        return cell.starts_with("<acronym") && cell.ends_with("</acronym>");
+    }
+
 }
