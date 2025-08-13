@@ -4,11 +4,18 @@
 
 namespace shob::html
 {
+    enum class addCountryType
+    {
+        notAtAll,
+        withAcronym,
+        fullCountryName
+    };
+
     class settings
     {
     public:
         language lang = language::Dutch;
         bool dateFormatShort = true;
-        bool addCountry = false;
+        addCountryType addCountry = addCountryType::notAtAll;
     };
 }

@@ -22,11 +22,11 @@ namespace shob::teams
         }
     }
 
-    std::string clubTeams::expand(const std::string& club, const bool addCountry) const
+    std::string clubTeams::expand(const std::string& club, const html::addCountryType addCountry) const
     {
         auto expanded = expand(club);
         auto land = club.substr(0, 2);
-        if (addCountry && land != "NL")
+        if (addCountry != html::addCountryType::notAtAll && land != "NL")
         {
             auto shortName = land;
             if (land == "G1") shortName = "ENG"; // TODO naar class landcodes
@@ -36,7 +36,14 @@ namespace shob::teams
             if (landCodes.contains(land))
             {
                 auto fullNameLand = landCodes.at(land);
-                expanded += " (" + html::funcs::acronym(shortName , fullNameLand ) + ")";
+                if (addCountry == html::addCountryType::withAcronym)
+                {
+                    expanded += " (" + html::funcs::acronym(shortName, fullNameLand) + ")";
+                }
+                else
+                {
+                    expanded += " (" + fullNameLand + ")";
+                }
             }
             else
             {

@@ -111,7 +111,8 @@ namespace shob::football
             {
                 dd = html::funcs::acronym(dd, "te: " + row.stadium);
             }
-            bool addCountry = settings.addCountry && !returns.isSecondMatch[i];
+            auto addCountry = settings.addCountry;
+            if (returns.isSecondMatch[i]) addCountry = html::addCountryType::notAtAll;
             out.data = { dd, teams.expand(row.team1, addCountry) + " - " + teams.expand(row.team2, addCountry), row.result };
             if (withRemarks) out.data.emplace_back(row.remark);
             table.body.push_back(out);

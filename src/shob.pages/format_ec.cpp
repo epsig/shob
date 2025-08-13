@@ -116,7 +116,7 @@ namespace shob::pages
         filter.filters.push_back({ 0, part });
         const auto matches = filterResults::readFromCsvData(data, filter);
         auto adjSettings = settings;
-        adjSettings.addCountry = true;
+        adjSettings.addCountry = addCountryType::withAcronym;
         auto prepTable = matches.prepareTable(teams, adjSettings);
         prepTable.title = "Europese Supercup";
         auto table = table::buildTable(prepTable);
@@ -135,7 +135,7 @@ namespace shob::pages
             filter.filters.push_back({ 1, qf });
             const auto matches = filterResults::readFromCsvData(data, filter);
             auto adjSettings = settings;
-            adjSettings.addCountry = true;
+            adjSettings.addCountry = addCountryType::fullCountryName;
             auto prepTable = matches.prepareTable(teams, adjSettings);
             if (qf == "po")
             {
