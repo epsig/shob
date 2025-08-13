@@ -2,8 +2,10 @@
 #include "standings.h"
 
 #include <algorithm>
+#include <format>
 
 #include "../shob.readers/csvReader.h"
+#include "../shob.html/funcs.h"
 
 namespace shob::football
 {
@@ -215,7 +217,11 @@ namespace shob::football
             }
             updateTeamWithWnsCl(team, i);
 
-            data.data = { team, std::to_string(row.totalGames), std::to_string(row.points), std::to_string(row.goalDifference()) };
+            auto points = html::funcs::acronym(std::to_string(row.points),
+                std::format("{:} x w , {:} x g, {:} x v", row.wins, row.draws, row.losses ));
+            auto goalDiff = html::funcs::acronym(std::to_string(row.goalDifference()),
+                std::format("{:} - {:} = {:}", row.goals, row.goalsAgainst, row.goalDifference()));
+            data.data = { team, std::to_string(row.totalGames), points, goalDiff };
             table.body.push_back(data);
         }
 
