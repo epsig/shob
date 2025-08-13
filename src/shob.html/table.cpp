@@ -147,7 +147,7 @@ namespace shob::html
         for (int i = 0; i < static_cast<int>(content.data.size()); i++)
         {
             auto& col = content.data[i];
-            if (funcs::isAcronymOnly(col))
+            if (funcs::isAcronymOnly(col) && col.find(" =") != std::string::npos)
             {
                 if (extraLine) row += "\n";
                 row += "<td class=r>" + col + tag2;
