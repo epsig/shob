@@ -205,7 +205,7 @@ namespace shob::football
         {
             const auto& row = list[i];
             multipleStrings data;
-            auto team = teams.expand(row.team);
+            auto team = teams.expand(row.team, settings.addCountry);
             std::vector<std::string> extraData;
             if (extras.contains(row.team))
             {

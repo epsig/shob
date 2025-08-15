@@ -127,6 +127,9 @@ namespace shob::pages
     {
         auto tables = std::vector<tableContent>();
 
+        auto adjSettings = settings;
+        adjSettings.addCountry = addCountryType::fullCountryName;
+
         const auto qualifiers = getQualifiers(part, data).list();
         for (const auto& qf : qualifiers)
         {
@@ -134,8 +137,6 @@ namespace shob::pages
             filter.filters.push_back({ 0, part });
             filter.filters.push_back({ 1, qf });
             const auto matches = filterResults::readFromCsvData(data, filter);
-            auto adjSettings = settings;
-            adjSettings.addCountry = addCountryType::fullCountryName;
             auto prepTable = matches.prepareTable(teams, adjSettings);
             if (qf == "po")
             {
@@ -159,7 +160,7 @@ namespace shob::pages
             const auto groupsPhase = filterResults::readFromCsvData(data, filter);
             auto stand = results2standings::u2s(groupsPhase, wns_cl.scoring);
             stand.wns_cl = wns_cl.getWns(group);
-            auto prepTable = stand.prepareTable(teams, settings);
+            auto prepTable = stand.prepareTable(teams, adjSettings);
             prepTable.title = leagueNames.getFullName(part) + ", Groep " + group.back();
             const auto matchesNL = groupsPhase.filterNL();
             const auto prepTable2 = matchesNL.prepareTable(teams, settings);
