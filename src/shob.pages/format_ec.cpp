@@ -161,7 +161,15 @@ namespace shob::pages
             auto stand = results2standings::u2s(groupsPhase, wns_cl.scoring);
             stand.wns_cl = wns_cl.getWns(group);
             auto prepTable = stand.prepareTable(teams, adjSettings);
-            prepTable.title = leagueNames.getFullName(part) + ", Groep " + group.back();
+            if (group.find('2') == std::string::npos)
+            {
+                prepTable.title = leagueNames.getFullName(part) + ", Groep " + group.back();
+            }
+            else
+            {
+                prepTable.title = "Tweede ronde, Poule ";
+                prepTable.title += group.back();
+            }
             const auto matchesNL = groupsPhase.filterNL();
             const auto prepTable2 = matchesNL.prepareTable(teams, settings);
             tables.push_back(prepTable);
