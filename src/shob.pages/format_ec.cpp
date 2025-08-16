@@ -159,7 +159,7 @@ namespace shob::pages
             filter.filters.push_back({ 1, group });
             const auto groupsPhase = filterResults::readFromCsvData(data, filter);
             auto stand = results2standings::u2s(groupsPhase, wns_cl.scoring);
-            stand.wns_cl = wns_cl.getWns(group);
+            stand.wns_cl = wns_cl.getWns(part, group, groupsPhase);
             auto prepTable = stand.prepareTable(teams, adjSettings);
             if (group.find('2') == std::string::npos)
             {

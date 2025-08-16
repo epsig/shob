@@ -172,21 +172,25 @@ namespace shob::football
     {
         if (wns_cl == 1)
         {
-            if (i < 2) team += " *";
+            if (i < 2) team += " +";
         }
         else if (wns_cl == 3)
         {
-            if (i < 1) team += " *";
+            if (i < 1) team += " +";
+        }
+        else if (wns_cl == 5)
+        {
+            if (i < 3) team += " +";
         }
         else if (wns_cl == 7)
         {
             if (i < 8) team += " *";
             else if (i < 24) team += " +";
         }
-        else if (wns_cl == 0) // TODO does not work well
+        else if (wns_cl == 2)
         {
-            if (i < 2) team += " *";
-            else if (i < 3) team += " +";
+            if (i < 2) team += " +";
+            else if (i < 3) team += " *";
         }
     }
 

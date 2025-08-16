@@ -9,6 +9,7 @@
 #include "../shob.html/settings.h"
 #include "../shob.general/season.h"
 #include "../shob.football/leagueNames.h"
+#include "../shob.football/footballCompetition.h"
 #include "topMenu.h"
 
 namespace shob::pages
@@ -19,11 +20,23 @@ namespace shob::pages
         int wns_cl;
         int scoring;
         std::map<std::string, int> groups;
-        int getWns(const std::string& group) const
+        int getWns(const std::string& part, const std::string& group, const football::footballCompetition& matches) const
         {
             if (groups.contains(group))
             {
                 return groups.at(group);
+            }
+            else if (wns_cl != -1)
+            {
+                return wns_cl;
+            }
+            else if (matches.matches.size() == 12)
+            {
+                return (part == "CL" && group.find('2') == std::string::npos ? 2 : 1);
+            }
+            else if (matches.matches.size() == 10 && part == "UEFAcup")
+            {
+                return 5;
             }
             else
             {
