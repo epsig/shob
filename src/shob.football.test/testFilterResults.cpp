@@ -56,8 +56,8 @@ namespace shob::football::test
         const auto r2f = route2finaleFactory::createEC(data, "CL");
         const auto prepTable = r2f.prepareTable(reader, html::language::Dutch);
 
-        EXPECT_EQ(16, prepTable.body.size());
-        EXPECT_EQ(prepTable.body[0].data[0], "4 mrt Club Brugge - Aston Villa 1-3<br>12 mrt Aston Villa * - Club Brugge 3-0")
+        EXPECT_EQ(8, prepTable.body.size());
+        EXPECT_EQ(prepTable.body[0].data[0], "8 apr Arsenal - Real Madrid 3-0<br>16 apr Real Madrid - Arsenal * 1-2")
             << "check star for winner and having two matches";
     }
 

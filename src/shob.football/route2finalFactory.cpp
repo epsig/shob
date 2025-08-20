@@ -34,8 +34,7 @@ namespace shob::football
         const auto semiFinal = filterResults::readFromCsvData(data, filter);
         filter.filters[1].name = "4f";
         const auto quarterFinal = filterResults::readFromCsvData(data, filter);
-        filter.filters[1].name = "8f";
-        const auto last16 = filterResults::readFromCsvData(data, filter);
+        const auto last16 = footballCompetition();
 
         const auto r2f = route2final(finale, semiFinal, quarterFinal, last16);
         return r2f;

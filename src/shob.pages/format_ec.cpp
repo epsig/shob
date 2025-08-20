@@ -45,6 +45,20 @@ namespace shob::pages
         return parts;
     }
 
+    uniqueStrings format_ec::getXtra(const std::string& part, const csvContent& data)
+    {
+        auto parts = uniqueStrings();
+        for (const auto& row : data.body)
+        {
+            const auto& qf = row.column[1];
+            if (row.column[0] == part && (qf == "xr" || qf == "8f"))
+            {
+                parts.insert(qf);
+            }
+        }
+        return parts;
+    }
+
     uniqueStrings format_ec::getParts(const csvContent& data)
     {
         auto parts = uniqueStrings();
@@ -175,6 +189,26 @@ namespace shob::pages
             tables.push_back(prepTable);
             tables.push_back(prepTable2);
         }
+
+        const auto extras = getXtra(part, data).list();
+        for (const auto& qf : extras)
+        {
+            auto filter = filterInputList();
+            filter.filters.push_back({ 0, part });
+            filter.filters.push_back({ 1, qf });
+            const auto matches = filterResults::readFromCsvData(data, filter);
+            auto prepTable = matches.prepareTable(teams, adjSettings);
+            if (qf == "xr")
+            {
+                prepTable.title = "Tussenronde " + leagueNames.getFullName(part);
+            }
+            else
+            {
+                prepTable.title = "8e finale " + leagueNames.getFullName(part);
+            }
+            tables.push_back(prepTable);
+        }
+
         auto rows = table::buildTable(tables);
         return rows;
     }
