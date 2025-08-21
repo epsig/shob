@@ -196,17 +196,20 @@ namespace shob::pages
             auto filter = filterInputList();
             filter.filters.push_back({ 0, part });
             filter.filters.push_back({ 1, qf });
-            const auto matches = filterResults::readFromCsvData(data, filter);
-            auto prepTable = matches.prepareTable(teams, adjSettings);
-            if (qf == "xr")
+            const auto matches = filterResults::readFromCsvData(data, filter).filterNL();
+            if ( ! matches.matches.empty())
             {
-                prepTable.title = "Tussenronde " + leagueNames.getFullName(part);
+                auto prepTable = matches.prepareTable(teams, adjSettings);
+                if (qf == "xr")
+                {
+                    prepTable.title = "Tussenronde " + leagueNames.getFullName(part);
+                }
+                else
+                {
+                    prepTable.title = "8e finale " + leagueNames.getFullName(part);
+                }
+                tables.push_back(prepTable);
             }
-            else
-            {
-                prepTable.title = "8e finale " + leagueNames.getFullName(part);
-            }
-            tables.push_back(prepTable);
         }
 
         auto rows = table::buildTable(tables);

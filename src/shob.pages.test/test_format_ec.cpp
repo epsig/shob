@@ -18,7 +18,7 @@ namespace shob::pages::test
     void testFormatEc::test_2024_2025()
     {
         const auto lines = fmt_ec.get_season(general::season(2024));
-        ASSERT_EQ(lines.data.size(), 314);
+        ASSERT_EQ(lines.data.size(), 272);
         EXPECT_GE(lines.findString("<tr><td>Atalanta Bergamo +</td><td>8</td><td>15</td><td>14</td></tr>"), 0) << "check + after team name";
     }
 
