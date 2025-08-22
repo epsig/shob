@@ -83,9 +83,9 @@ namespace shob::pages
         return groups;
     }
 
-    void format_ec::readExtras(const season& season, wns_ec& wns_cl, multipleStrings& summary) const
+    std::vector<std::vector<std::string>> format_ec::readExtras(const season& season, wns_ec& wns_cl, multipleStrings& summary) const
     {
-        auto extraU2s = extras.getSeason(season);
+        std::vector<std::vector<std::string>> extraU2s = extras.getSeason(season);
         wns_cl.wns_cl = -1;
         wns_cl.scoring = 3; // default since 1995
 
@@ -121,6 +121,7 @@ namespace shob::pages
                 wns_cl.scoring = std::stoi(row[1]);
             }
         }
+        return extraU2s;
     }
 
     multipleStrings format_ec::getSupercup(const csvContent& data) const
@@ -137,7 +138,26 @@ namespace shob::pages
         return Table.buildTable(prepTable);
     }
 
-    multipleStrings format_ec::getFirstHalfYear(const std::string& part, const csvContent& data, const wns_ec& wns_cl) const
+    std::string format_ec::getRemarks(const std::string& part, const std::string& group, const std::vector<std::vector<std::string>>& extraU2s)
+    {
+        std::string remarks;
+        std::string key = "remark_" + part + "_" + group;
+        for (const auto& row : extraU2s)
+        {
+            if (row[0] == key)
+            {
+                if (!remarks.empty())
+                {
+                    remarks += "\n";
+                }
+                remarks += row[1];
+            }
+        }
+        return remarks;
+    }
+
+    multipleStrings format_ec::getFirstHalfYear(const std::string& part, const csvContent& data, const wns_ec& wns_cl,
+        const std::vector<std::vector<std::string>>& extraU2s) const
     {
         auto tables = std::vector<tableContent>();
 
@@ -187,11 +207,21 @@ namespace shob::pages
             const auto matchesNL = groupsPhase.filterNL();
             const auto prepTable2 = matchesNL.prepareTable(teams, settings);
             tables.push_back(prepTable);
+            auto remarks = getRemarks(part, group, extraU2s);
+            if ( ! remarks.empty())
+            {
+                auto prepTable3 = tableContent();
+                prepTable3.colWidths.push_back(4);
+                auto ms = multipleStrings();
+                ms.addContent(remarks);
+                prepTable3.body.push_back(ms);
+                tables.push_back(prepTable3);
+            }
             tables.push_back(prepTable2);
         }
 
-        const auto extras = getXtra(part, data).list();
-        for (const auto& qf : extras)
+        const auto xtras = getXtra(part, data).list();
+        for (const auto& qf : xtras)
         {
             auto filter = filterInputList();
             filter.filters.push_back({ 0, part });
@@ -264,7 +294,7 @@ namespace shob::pages
 
         wns_ec wns_cl;
         multipleStrings summary;
-        readExtras(season, wns_cl, summary);
+        auto extraU2s = readExtras(season, wns_cl, summary);
         auto out = multipleStrings();
         auto menuOut = menu.getMenu(season);
 
@@ -305,7 +335,7 @@ namespace shob::pages
             else
             {
                 out.addContent("<a name=\"" + leagueNames.getLinkName(part) + "\"/>");
-                auto content = getFirstHalfYear(part, csvData, wns_cl);
+                auto content = getFirstHalfYear(part, csvData, wns_cl, extraU2s);
                 out.addContent(content);
                 const auto r2f = route2finaleFactory::createEC(csvData, part);
                 const auto prepTable = r2f.prepareTable(teams, settings.lang);

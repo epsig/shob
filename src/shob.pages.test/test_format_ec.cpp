@@ -31,7 +31,7 @@ namespace shob::pages::test
     void testFormatEc::test_1994_1995()
     {
         const auto lines = fmt_ec.get_season(general::season(1994));
-        ASSERT_EQ(lines.data.size(), 104);
+        ASSERT_EQ(lines.data.size(), 105);
         EXPECT_GE(lines.findString("<tr><td>Ajax</td><td>6</td><td>10</td><td>7</td></tr>"), 0) << "check 2 points for a win";
     }
 
