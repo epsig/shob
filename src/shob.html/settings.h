@@ -17,5 +17,6 @@ namespace shob::html
         language lang = language::Dutch;
         bool dateFormatShort = true;
         addCountryType addCountry = addCountryType::notAtAll;
+        bool isCompatible = false;
     };
 }

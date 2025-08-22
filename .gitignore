@@ -1,4 +1,4 @@
 .vstags
 doit.sh
 build*
-pages_new
+pages_*

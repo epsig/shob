@@ -289,9 +289,9 @@ namespace shob::pages
         if ( ! summary.data.empty())
         {
             if (settings.lang == language::Dutch)
-                out.addContent("<h2> Samenvatting Europacup Seizoen " + season.to_string() + " </h2>");
+                out.addContent("<h2>Samenvatting Europacup Seizoen " + season.to_string() + "</h2>");
             else
-                out.addContent("<h2> Summary Europa cup season " + season.to_string() + "</h2>");
+                out.addContent("<h2>Summary Europa cup season " + season.to_string() + "</h2>");
             out.addContent(summary);
         }
 

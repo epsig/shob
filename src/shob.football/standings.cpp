@@ -215,9 +215,10 @@ namespace shob::football
             {
                 extraData = extras.at(row.team).extras;
             }
-            if (row.punishmentPoints != 0 || !extraData.empty())
+            const auto punishmentPoints = settings.isCompatible ?  0: row.punishmentPoints;
+            if (punishmentPoints != 0 || !extraData.empty())
             {
-                updateTeamWithExtras(team, extraData, row.punishmentPoints);
+                updateTeamWithExtras(team, extraData, punishmentPoints);
             }
             updateTeamWithWnsCl(team, i);
 
