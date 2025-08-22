@@ -13,7 +13,8 @@ namespace shob::html::test
         general::multipleStrings body;
         body.data = { "boom", "roos", "vis" };
         content.body.push_back(body);
-        auto table = table::buildTable(content);
+        auto Table = table(settings());
+        auto table = Table.buildTable(content);
         ASSERT_EQ(4, table.data.size());
     }
 

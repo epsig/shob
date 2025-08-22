@@ -133,8 +133,8 @@ namespace shob::pages
         adjSettings.addCountry = addCountryType::withAcronym;
         auto prepTable = matches.prepareTable(teams, adjSettings);
         prepTable.title = "Europese Supercup";
-        auto table = table::buildTable(prepTable);
-        return table;
+        auto Table = table(settings);
+        return Table.buildTable(prepTable);
     }
 
     multipleStrings format_ec::getFirstHalfYear(const std::string& part, const csvContent& data, const wns_ec& wns_cl) const
@@ -212,8 +212,8 @@ namespace shob::pages
             }
         }
 
-        auto rows = table::buildTable(tables);
-        return rows;
+        auto Table = table(settings);
+        return Table.buildTable(tables);
     }
 
     bool format_ec::hasFinal(const std::string& part, const csvContent& csvData)
@@ -309,7 +309,8 @@ namespace shob::pages
                 out.addContent(content);
                 const auto r2f = route2finaleFactory::createEC(csvData, part);
                 const auto prepTable = r2f.prepareTable(teams, settings.lang);
-                content = table::buildTable(prepTable);
+                auto Table = table(settings);
+                content = Table.buildTable(prepTable);
                 out.addContent("<a name=\"" + leagueNames.getLinkName(part) + "_last8\"/>");
                 out.addContent(content);
             }

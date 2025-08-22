@@ -6,9 +6,12 @@ namespace shob::html
 {
     using namespace shob::general;
 
-    multipleStrings table::buildTable(const tableContent& content)
+    multipleStrings table::buildTable(const tableContent& content) const
     {
         multipleStrings table;
+
+        std::string zeroWidth = settings_.isCompatible ? "0" : "\"0\"";
+
         if (content.empty()) { return table; }
 
         if (content.title.empty())
@@ -19,7 +22,7 @@ namespace shob::html
         {
             size_t cols = 1;
             if (!content.header.data.empty()) cols = content.header.data.size();
-            table.data.emplace_back("<table border cellspacing=\"0\">" + buildHeader(content.title, cols));
+            table.data.emplace_back("<table border cellspacing=" + zeroWidth+">" + buildHeader(content.title, cols));
         }
 
         if ( ! content.header.data.empty())
@@ -34,12 +37,14 @@ namespace shob::html
         return table;
     }
 
-    multipleStrings table::buildTable(const std::vector<tableContent>& content)
+    multipleStrings table::buildTable(const std::vector<tableContent>& content) const
     {
         multipleStrings table;
         if (content.empty()) { return table; }
 
-        table.data.emplace_back("<table border cellspacing=\"0\">");
+        std::string zeroWidth = settings_.isCompatible ? "0" : "\"0\"";
+
+        table.data.emplace_back("<table border cellspacing=" + zeroWidth + ">");
 
         for (const auto& subTable : content)
         {

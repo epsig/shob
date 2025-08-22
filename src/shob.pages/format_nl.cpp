@@ -40,7 +40,8 @@ namespace shob::pages
         auto tp = football::topscorers(allTp);
         tp.initFromFile(season);
         auto table = tp.prepareTable(teams, players, settings);
-        auto out = html::table::buildTable(table);
+        auto Table = html::table(settings);
+        auto out = Table.buildTable(table);
         return out;
     }
 
@@ -62,9 +63,11 @@ namespace shob::pages
         auto file2 = sportDataFolder + "/clubs.csv";
         teams.InitFromFile(file2);
 
+        auto Table = html::table(settings);
+
         const std::set<std::string> toppers = { "ajx", "fyn", "psv" };
         const auto filtered = competition.filter(toppers);
-        auto content = html::table::buildTable(filtered.prepareTable(teams, settings));
+        auto content = Table.buildTable(filtered.prepareTable(teams, settings));
         out.addContent(content);
 
         const auto currentRemarks = remarks.getSeason(season);
@@ -88,9 +91,9 @@ namespace shob::pages
         auto htmlTable = table.prepareTable(teams, settings);
         auto htmlTable2 = standing_1e_div.prepareTable(teams, settings);
 
-        content = html::table::buildTable(htmlTable);
+        content = Table.buildTable(htmlTable);
         out.addContent(content);
-        content = html::table::buildTable(htmlTable2);
+        content = Table.buildTable(htmlTable2);
         out.addContent(content);
 
         // topscorers:
@@ -112,7 +115,7 @@ namespace shob::pages
         {
             const auto r2f = football::route2finaleFactory::create(bekerFilename);
             const auto prepTable = r2f.prepareTable(teams, settings.lang);
-            content = html::table::buildTable(prepTable);
+            content = Table.buildTable(prepTable);
             out.addContent(content);
         }
 
