@@ -79,13 +79,17 @@ namespace shob::football
         if ( ! final.matches.empty())
         {
             auto row = general::multipleStrings();
+            for (int i = 0; i < (last16.matches.empty() ? 2 : 3); i++)
+            {
+                row.data.emplace_back("");
+            }
             if (language == language::Dutch)
             {
-                row.data = { "", "", "", "<b>F I N A L E:</b>" };
+                row.data.emplace_back("<b>F I N A L E:</b>");
             }
             else
             {
-                row.data = { "", "", "", "<b>F I N A L:</b>" };
+                row.data.emplace_back("<b>F I N A L:</b>");
             }
             table.body[finalTextRow] = row;
         }
