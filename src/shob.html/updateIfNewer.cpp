@@ -31,13 +31,16 @@ namespace shob::html
         }
     }
 
+    /// copies path1 to path2, but only if their content is different
+    /// @param path1 source file
+    /// @param path2 destination file
     void updateIfDifferent::update(const std::string& path1, const std::string& path2)
     {
         auto previousVersion = readFile(path1);
         auto newVersion = readFile(path2);
         if (!previousVersion.areEqual(newVersion))
         {
-            writeToFile(path1, newVersion);
+            writeToFile(path2, previousVersion);
         }
     }
 
