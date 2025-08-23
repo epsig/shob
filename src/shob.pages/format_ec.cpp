@@ -37,7 +37,7 @@ namespace shob::pages
         for (const auto& row : data.body)
         {
             const auto& qf = row.column[1];
-            if (row.column[0] == part && qf.at(0) != 'g' && !qf.ends_with("f") && !qf.starts_with("x"))
+            if (row.column[0] == part && qf.at(0) != 'g' && !qf.ends_with("f") && !qf.starts_with("x") && !qf.starts_with("r"))
             {
                 parts.insert(qf);
             }
@@ -51,7 +51,7 @@ namespace shob::pages
         for (const auto& row : data.body)
         {
             const auto& qf = row.column[1];
-            if (row.column[0] == part && (qf == "xr" || qf == "8f"))
+            if (row.column[0] == part && (qf == "xr" || qf == "8f" || qf == "16f" || qf.starts_with("round")))
             {
                 parts.insert(qf);
             }
@@ -233,6 +233,15 @@ namespace shob::pages
                 if (qf == "xr")
                 {
                     prepTable.title = "Tussenronde " + leagueNames.getFullName(part);
+                }
+                else if (qf.starts_with("round"))
+                {
+                    prepTable.title = "xe ronde " + leagueNames.getShortName(part);
+                    prepTable.title.front() = qf.back();
+                }
+                else if (qf == "16f")
+                {
+                    prepTable.title = "16e finale " + leagueNames.getFullName(part);
                 }
                 else
                 {
