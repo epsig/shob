@@ -11,6 +11,26 @@ namespace shob::general
         }
     }
 
+    size_t multipleStrings::length() const
+    {
+        size_t length = 0;
+        for (auto& r : data)
+        {
+            length += r.size();
+        }
+        return length;
+    }
+
+    std::string multipleStrings::to_string() const
+    {
+        std::string result;
+        for (auto& r : data)
+        {
+            result += r + "\n";
+        }
+        return result;
+    }
+
     void multipleStrings::addContent(std::string extra)
     {
         data.emplace_back(std::move(extra));
@@ -18,7 +38,15 @@ namespace shob::general
 
     bool multipleStrings::areEqual(const multipleStrings& other) const
     {
-        if (data.size() != other.data.size()) return false;
+        if (data.size() != other.data.size())
+        {
+            if (length() + data.size() == other.length() + other.data.size())
+            {
+                // this comparison always works but is quite expensive
+                return to_string() == other.to_string();
+            }
+            return false;
+        }
         for (int i = 0; i < static_cast<int>(data.size()); i++)
         {
             if (data[i] != other.data[i]) return false;

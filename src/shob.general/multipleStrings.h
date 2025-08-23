@@ -12,5 +12,7 @@ namespace shob::general
         void addContent(std::string extra);
         bool areEqual(const multipleStrings& other) const;
         int findString(const std::string& s) const;
+        size_t length() const;
+        std::string to_string() const;
     };
 }
