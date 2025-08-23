@@ -11,6 +11,11 @@ namespace shob::general
         }
     }
 
+    void multipleStrings::addContent(std::string extra)
+    {
+        data.emplace_back(std::move(extra));
+    }
+
     size_t multipleStrings::length() const
     {
         size_t length = 0;
@@ -29,11 +34,6 @@ namespace shob::general
             result += r + "\n";
         }
         return result;
-    }
-
-    void multipleStrings::addContent(std::string extra)
-    {
-        data.emplace_back(std::move(extra));
     }
 
     bool multipleStrings::areEqual(const multipleStrings& other) const

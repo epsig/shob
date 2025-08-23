@@ -12,7 +12,7 @@ namespace shob::general
     class shobDate
     {
     public:
-        virtual std::string toString() const { return ""; }
+        virtual std::string toString(bool isCompatible) const { return ""; }
         virtual std::string toShortString() const { return ""; }
         static bool isLeapYear(const size_t year);
         static size_t maxDays(const size_t year, const size_t mon);

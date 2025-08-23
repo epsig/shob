@@ -97,7 +97,9 @@ namespace shob::football
             table.header.data = { "dd", "team (home) - team (away)", "result" };
             if (withRemarks) table.header.data.emplace_back("remark");
         }
+        if (settings.isCompatible) table.header.data.clear();
         table.colWidths = {1, 2, 1};
+        if (settings.isCompatible) table.colWidths = { 3, 1 };
         if (withRemarks) table.colWidths.push_back(1);
 
         auto returns = getReturns();
@@ -106,14 +108,21 @@ namespace shob::football
         {
             auto& row = matches[i];
             auto out = multipleStrings();
-            std::string dd = settings.dateFormatShort ? row.dd->toShortString() : row.dd->toString();
+            std::string dd = settings.dateFormatShort ? row.dd->toShortString() : row.dd->toString(settings.isCompatible);
             if ( ! row.stadium.empty())
             {
                 dd = html::funcs::acronym(dd, "te: " + row.stadium);
             }
             auto addCountry = settings.addCountry;
             if (returns.isSecondMatch[i]) addCountry = html::addCountryType::notAtAll;
-            out.data = { dd, teams.expand(row.team1, addCountry) + " - " + teams.expand(row.team2, addCountry), row.result };
+            if (settings.isCompatible)
+            {
+                out.data = { dd + " " + teams.expand(row.team1, addCountry) + " - " + teams.expand(row.team2, addCountry), row.result };
+            }
+            else
+            {
+                out.data = { dd, teams.expand(row.team1, addCountry) + " - " + teams.expand(row.team2, addCountry), row.result };
+            }
             if (withRemarks) out.data.emplace_back(row.remark);
             table.body.push_back(out);
         }

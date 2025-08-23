@@ -9,7 +9,7 @@ namespace shob::general
     {
     public:
         itdate(const int dd) : dd(dd) {}
-        std::string toString() const override;
+        std::string toString(bool isCompatible) const override;
         std::string toShortString() const override;
     private:
         bool splitAndValidate(size_t& year, size_t& mon, size_t& day) const;

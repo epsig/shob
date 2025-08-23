@@ -1,6 +1,7 @@
 
 #include "table.h"
 #include "funcs.h"
+#include <boost/regex.hpp>
 
 namespace shob::html
 {
@@ -148,7 +149,9 @@ namespace shob::html
     std::string table::buildRow(const multipleStrings& content, const std::string& tag1, const std::string& tag2)
     {
         std::string row = "<tr>";
+        boost::regex expression("\\d+-\\d+");
         bool extraLine = true;
+        boost::cmatch what;
         for (int i = 0; i < static_cast<int>(content.data.size()); i++)
         {
             auto& col = content.data[i];
@@ -158,6 +161,10 @@ namespace shob::html
                 row += "<td class=r>" + col + tag2;
                 if (i < static_cast<int>(content.data.size()) - 1) row += "\n";
                 extraLine = false;
+            }
+            else if (regex_match(col.c_str(), what, expression))
+            {
+                row += "<td class=c>" + col + tag2;
             }
             else
             {
@@ -172,9 +179,19 @@ namespace shob::html
     std::string table::buildRow(const multipleStrings& content, const std::vector<std::string>& tag1, const std::vector<std::string>& tag2)
     {
         std::string row = "<tr>";
+        boost::regex expression("\\d+-\\d+");
+        boost::cmatch what;
         for (int i = 0; i < static_cast<int>(content.data.size()); i++)
         {
-            row += tag1[i] + content.data[i] + tag2[i];
+            auto& col = content.data[i];
+            if (regex_match(col.c_str(), what, expression))
+            {
+                row += "<td class=c>" + col + tag2[i];
+            }
+            else
+            {
+                row += tag1[i] + content.data[i] + tag2[i];
+            }
         }
         row += "</tr>";
         return row;

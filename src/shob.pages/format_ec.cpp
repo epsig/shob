@@ -323,6 +323,7 @@ namespace shob::pages
             else
                 out.addContent("<h2>Summary Europa cup season " + season.to_string() + "</h2>");
             out.addContent(summary);
+            out.addContent("<hr>");
         }
 
         for (const auto& part : ECparts)
