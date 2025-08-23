@@ -114,14 +114,21 @@ namespace shob::football
                 dd = html::funcs::acronym(dd, "te: " + row.stadium);
             }
             auto addCountry = settings.addCountry;
-            if (returns.isSecondMatch[i]) addCountry = html::addCountryType::notAtAll;
+            std::vector<std::string> stars = { "", "" };
+            if (returns.isSecondMatch[i])
+            {
+                addCountry = html::addCountryType::notAtAll;
+                auto index = row.winner();
+                if (index >= 0) stars[1-index] = "&nbsp;*";
+            }
             if (settings.isCompatible)
             {
-                out.data = { dd + " " + teams.expand(row.team1, addCountry) + " - " + teams.expand(row.team2, addCountry), row.result };
+
+                out.data = { dd + " " + teams.expand(row.team1, addCountry) + stars[0] + " - " + teams.expand(row.team2, addCountry) + stars[1], row.result};
             }
             else
             {
-                out.data = { dd, teams.expand(row.team1, addCountry) + " - " + teams.expand(row.team2, addCountry), row.result };
+                out.data = { dd, teams.expand(row.team1, addCountry) + stars[0] + " - " + teams.expand(row.team2, addCountry) + stars[1], row.result};
             }
             if (withRemarks) out.data.emplace_back(row.remark);
             table.body.push_back(out);

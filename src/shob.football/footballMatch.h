@@ -30,8 +30,8 @@ namespace shob::football
         int spectators;
         bool isFinal = false;
         std::string remark;
-    private:
         int winner() const;
+    private:
         std::string nvns() const;
     };
 
