@@ -351,7 +351,14 @@ namespace shob::pages
                 const auto prepTable = r2f.prepareTable(teams, settings.lang);
                 auto Table = table(settings);
                 content = Table.buildTable(prepTable);
-                out.addContent("<a name=\"" + leagueNames.getLinkName(part) + "_last8\"/>");
+                if (settings.isCompatible)
+                {
+                    out.addContent("<p><a name=\"" + leagueNames.getLinkName(part) + "_last8\"></a><p>");
+                }
+                else
+                {
+                    out.addContent("<p><a name=\"" + leagueNames.getLinkName(part) + "_last8\"/>");
+                }
                 out.addContent(content);
             }
         }
