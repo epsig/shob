@@ -115,15 +115,18 @@ namespace shob::football
             }
             auto addCountry = settings.addCountry;
             std::vector<std::string> stars = { "", "" };
+            auto index = row.winner();
             if (returns.isSecondMatch[i])
             {
                 addCountry = html::addCountryType::notAtAll;
-                auto index = row.winner();
                 if (index >= 0) stars[1-index] = "&nbsp;*";
+            }
+            else
+            {
+                if (index >= 0) stars[index] = "&nbsp;*";
             }
             if (settings.isCompatible)
             {
-
                 out.data = { dd + " " + teams.expand(row.team1, addCountry) + stars[0] + " - " + teams.expand(row.team2, addCountry) + stars[1], row.result};
             }
             else
