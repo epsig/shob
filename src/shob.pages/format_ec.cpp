@@ -174,11 +174,21 @@ namespace shob::pages
             filter.filters.push_back({ 0, part });
             filter.filters.push_back({ 1, qf });
             auto matches = filterResults::readFromCsvData(data, filter);
+            if (qf == "intertoto") matches = matches.filterNL();
             if (groups.empty()) matches.onlyKO = true;
             auto prepTable = matches.prepareTable(teams, adjSettings);
             if (qf == "po")
             {
                 prepTable.title = "Play-offs " + leagueNames.getFullName(part);
+            }
+            else if (qf == "itoto")
+            {
+                prepTable.title = "Intertoto: laatste zestien";
+            }
+            else if (qf == "intertoto")
+            {
+                prepTable.title = "Finale Intertoto";
+                if (settings.isCompatible) prepTable.title += " (winnaars naar UEFA-cup)";
             }
             else
             {
@@ -258,7 +268,7 @@ namespace shob::pages
                 }
                 else
                 {
-                    prepTable.title = "8e finale " + leagueNames.getFullName(part);
+                    prepTable.title = "8-ste finale " + leagueNames.getFullName(part);
                 }
                 tables.push_back(prepTable);
             }
