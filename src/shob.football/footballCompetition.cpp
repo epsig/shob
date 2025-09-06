@@ -98,8 +98,16 @@ namespace shob::football
             if (withRemarks) table.header.data.emplace_back("remark");
         }
         if (settings.isCompatible) table.header.data.clear();
-        table.colWidths = {1, 2, 1};
-        if (settings.isCompatible) table.colWidths = { 3, 1 };
+        if (onlyKO)
+        {
+            table.colWidths = { 1, 1, 1 };
+            if (settings.isCompatible) table.colWidths = { 1, 1 };
+        }
+        else
+        {
+            table.colWidths = { 1, 2, 1 };
+            if (settings.isCompatible) table.colWidths = { 3, 1 };
+        }
         if (withRemarks) table.colWidths.push_back(1);
 
         auto returns = getReturns();

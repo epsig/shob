@@ -164,13 +164,17 @@ namespace shob::pages
         auto adjSettings = settings;
         adjSettings.addCountry = addCountryType::fullCountryName;
 
+        // formatting depends on presence / absence of groups
+        const auto groups = getGroups(part, data).list();
+
         const auto qualifiers = getQualifiers(part, data).list();
         for (const auto& qf : qualifiers)
         {
             auto filter = filterInputList();
             filter.filters.push_back({ 0, part });
             filter.filters.push_back({ 1, qf });
-            const auto matches = filterResults::readFromCsvData(data, filter);
+            auto matches = filterResults::readFromCsvData(data, filter);
+            if (groups.empty()) matches.onlyKO = true;
             auto prepTable = matches.prepareTable(teams, adjSettings);
             if (qf == "po")
             {
@@ -183,8 +187,6 @@ namespace shob::pages
             }
             tables.push_back(prepTable);
         }
-
-        const auto groups = getGroups(part, data).list();
 
         for (const auto& group : groups)
         {
@@ -221,12 +223,14 @@ namespace shob::pages
         }
 
         const auto xtras = getXtra(part, data).list();
+        int rounds = 0;
         for (const auto& qf : xtras)
         {
             auto filter = filterInputList();
             filter.filters.push_back({ 0, part });
             filter.filters.push_back({ 1, qf });
-            const auto matches = filterResults::readFromCsvData(data, filter).filterNL();
+            auto matches = filterResults::readFromCsvData(data, filter).filterNL();
+            if (groups.empty()) matches.onlyKO = true;
             if ( ! matches.matches.empty())
             {
                 auto prepTable = matches.prepareTable(teams, adjSettings);
@@ -238,10 +242,19 @@ namespace shob::pages
                 {
                     prepTable.title = "xe ronde " + leagueNames.getShortName(part);
                     prepTable.title.front() = qf.back();
+                    rounds++;
                 }
                 else if (qf == "16f")
                 {
-                    prepTable.title = "16e finale " + leagueNames.getFullName(part);
+                    if (groups.empty() && rounds == 1)
+                    {
+                        rounds++;
+                        prepTable.title = "2e ronde " + leagueNames.getFullName(part);
+                    }
+                    else
+                    {
+                        prepTable.title = "16e finale " + leagueNames.getFullName(part);
+                    }
                 }
                 else
                 {
