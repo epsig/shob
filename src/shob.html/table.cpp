@@ -61,6 +61,10 @@ namespace shob::html
                 {
                     cols = subTable.header.data.size();
                 }
+                else
+                {
+                    cols = subTable.body.size();
+                }
                 table.data.emplace_back(buildHeader(subTable.title, cols));
             }
             if (!subTable.header.data.empty())
