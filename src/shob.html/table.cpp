@@ -51,7 +51,7 @@ namespace shob::html
         {
             if ( ! subTable.title.empty())
             {
-                size_t cols = 1;
+                size_t cols;
                 if (!subTable.colWidths.empty())
                 {
                     cols = 0;
@@ -63,7 +63,7 @@ namespace shob::html
                 }
                 else
                 {
-                    cols = subTable.body.size();
+                    cols = subTable.body[0].data.size();
                 }
                 table.data.emplace_back(buildHeader(subTable.title, cols));
             }
