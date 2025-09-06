@@ -21,7 +21,7 @@ namespace shob::pages
         auto archive = general::glob::list(dataFolder + "/europacup", "europacup_[0-9].*csv");
         auto menu = topMenu(archive);
 
-        auto leagueNames = football::leagueNames(dataFolder + "/europacup/league_names.csv");
+        auto leagueNames = football::leagueNames(dataFolder + "/europacup/league_names.csv", settings.isCompatible);
 
         auto format = format_ec(dataFolder, remarks, teams, settings, menu, leagueNames);
         return format;

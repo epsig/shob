@@ -15,7 +15,7 @@ namespace shob::football
     class leagueNames
     {
     public:
-        leagueNames(const std::string& filename);
+        leagueNames(const std::string& filename, const bool isCompatible = false);
         std::string getFullName(const std::string& id) const;
         std::string getLinkName(const std::string& id) const;
         std::string getShortName(const std::string& id) const;

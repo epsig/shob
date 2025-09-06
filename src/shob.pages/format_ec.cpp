@@ -249,7 +249,7 @@ namespace shob::pages
                     if (groups.empty() && rounds == 1)
                     {
                         rounds++;
-                        prepTable.title = "2e ronde " + leagueNames.getFullName(part);
+                        prepTable.title = "2e ronde " + leagueNames.getShortName(part);
                     }
                     else
                     {

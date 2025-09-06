@@ -4,7 +4,7 @@
 
 namespace shob::football
 {
-    leagueNames::leagueNames(const std::string& filename)
+    leagueNames::leagueNames(const std::string& filename, const bool isCompatible)
     {
         auto leagueNames = readers::csvReader::readCsvFile(filename);
         for (const auto& line : leagueNames.body)
@@ -15,6 +15,7 @@ namespace shob::football
             allNames.shortName = line.column[3];
             data.insert({ line.column[0], allNames });
         }
+        if (isCompatible) data.at("EC2").shortName = "EC-II";
     }
 
     std::string leagueNames::getFullName(const std::string& id) const
