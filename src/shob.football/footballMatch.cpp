@@ -35,9 +35,10 @@ namespace shob::football
         }
     }
 
-    std::string footballMatch::printSimple(const teams::clubTeams& teams, const bool isReturn) const
+    std::string footballMatch::printSimple(const teams::clubTeams& teams, const bool isReturn, const bool isCompatible,
+        const std::vector<html::addCountryType>& addCountry) const
     {
-        std::vector expanded = { teams.expand(team1), teams.expand(team2) };
+        std::vector expanded = { teams.expand(team1, addCountry[0]), teams.expand(team2, addCountry[1])};
         auto index = winner();
         if (index >= 0)
         {
@@ -54,7 +55,7 @@ namespace shob::football
                 expanded[index] += " *";
             }
         }
-        return dd->toShortString() + " " + expanded[0] + " - " + expanded[1] + " " + result + nvns();
+        return dd->toString(isCompatible) + " " + expanded[0] + " - " + expanded[1] + " " + result + nvns();
     }
 };
 

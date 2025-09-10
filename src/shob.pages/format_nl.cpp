@@ -114,7 +114,7 @@ namespace shob::pages
         if (fs::exists(bekerFilename))
         {
             const auto r2f = football::route2finaleFactory::create(bekerFilename);
-            const auto prepTable = r2f.prepareTable(teams, settings.lang);
+            const auto prepTable = r2f.prepareTable(teams, settings);
             content = Table.buildTable(prepTable);
             out.addContent(content);
         }

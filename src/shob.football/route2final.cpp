@@ -6,7 +6,8 @@ namespace shob::football
     using namespace shob::html;
 
     void route2final::addOneRound(tableContent& table, const footballCompetition& matches,
-        const std::vector<int>& positions, const teams::clubTeams& teams, const size_t offset, const size_t maxCols)
+        const std::vector<int>& positions, const teams::clubTeams& teams, const size_t offset, const size_t maxCols,
+        const settings settings, const std::vector<addCountryType>& addCountry)
     {
         if (matches.matches.size() == positions.size())
         {
@@ -14,7 +15,7 @@ namespace shob::football
             {
                 general::multipleStrings data;
                 for (size_t j = 0; j < offset; j++) data.data.emplace_back("");
-                data.data.push_back( matches.matches[i].printSimple(teams)) ;
+                data.data.push_back( matches.matches[i].printSimple(teams, false, settings.isCompatible, addCountry)) ;
                 for (size_t j = offset + 1; j < maxCols; j++) data.data.emplace_back("");
                 table.body[positions[i]] = data;
             }
@@ -31,9 +32,9 @@ namespace shob::football
                     {
                         general::multipleStrings data;
                         for (size_t j = 0; j < offset; j++) data.data.emplace_back("");
-                        auto first = matches.matches[i].printSimple(teams);
+                        auto first = matches.matches[i].printSimple(teams, false, settings.isCompatible, addCountry);
                         auto ii = returns.couples[i];
-                        auto second = matches.matches[ii].printSimple(teams, true);
+                        auto second = matches.matches[ii].printSimple(teams, true, settings.isCompatible, addCountry);
                         data.data.push_back(first + "<br>" + second);
                         for (size_t j = offset + 1; j < maxCols; j++) data.data.emplace_back("");
                         table.body[positions[ipos]] = data;
@@ -44,7 +45,7 @@ namespace shob::football
         }
     }
 
-    tableContent route2final::prepareTable(const teams::clubTeams& teams, const language& language) const
+    tableContent route2final::prepareTable(const teams::clubTeams& teams, const settings& settings) const
     {
         const std::vector lineNrs16 = { 0, 2, 4, 6, 9, 11, 13, 15 };
         std::vector<int> lineNrs8;
@@ -83,7 +84,7 @@ namespace shob::football
             {
                 row.data.emplace_back("");
             }
-            if (language == language::Dutch)
+            if (settings.lang == language::Dutch)
             {
                 row.data.emplace_back("<b>F I N A L E:</b>");
             }
@@ -93,12 +94,18 @@ namespace shob::football
             }
             table.body[finalTextRow] = row;
         }
-        addOneRound(table, final, lineNrs2, teams, offsets[0], maxCols);
-        addOneRound(table, semiFinal, lineNrs4, teams, offsets[1], maxCols);
-        addOneRound(table, quarterFinal, lineNrs8, teams, offsets[2], maxCols);
+        std::vector addCountries1 = { addCountryType::withAcronym, addCountryType::notAtAll };
+        std::vector addCountries2 = { addCountryType::notAtAll, addCountryType::notAtAll };
+        addOneRound(table, final, lineNrs2, teams, offsets[0], maxCols, settings, addCountries2);
+        addOneRound(table, semiFinal, lineNrs4, teams, offsets[1], maxCols, settings, addCountries2);
         if (!last16.matches.empty())
         {
-            addOneRound(table, last16, lineNrs16, teams, offsets[3], maxCols);
+            addOneRound(table, quarterFinal, lineNrs8, teams, offsets[2], maxCols, settings, addCountries2);
+            addOneRound(table, last16, lineNrs16, teams, offsets[3], maxCols, settings, addCountries1);
+        }
+        else
+        {
+            addOneRound(table, quarterFinal, lineNrs8, teams, offsets[2], maxCols, settings, addCountries1);
         }
 
         return table;
