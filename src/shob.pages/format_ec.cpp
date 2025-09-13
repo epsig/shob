@@ -371,7 +371,8 @@ namespace shob::pages
                 auto content = getFirstHalfYear(part, csvData, wns_cl, extraU2s);
                 out.addContent(content);
                 const auto r2f = route2finaleFactory::createEC(csvData, part);
-                const auto prepTable = r2f.prepareTable(teams, settings);
+                auto prepTable = r2f.prepareTable(teams, settings);
+                prepTable.header.addContent(leagueNames.getFullName(part) + ": de laatste acht");
                 auto Table = table(settings);
                 content = Table.buildTable(prepTable);
                 if (settings.isCompatible)
