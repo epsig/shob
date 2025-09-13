@@ -111,15 +111,17 @@ namespace shob::pages
 
         // beker:
         const std::string bekerFilename = sportDataFolder + "/beker/beker_" + season.to_part_filename() +".csv";
+        int dd = 0;
         if (fs::exists(bekerFilename))
         {
             const auto r2f = football::route2finaleFactory::create(bekerFilename);
             const auto prepTable = r2f.prepareTable(teams, settings);
             content = Table.buildTable(prepTable);
             out.addContent(content);
+            dd = r2f.lastDate().toInt();
         }
 
-        auto hb = headBottumInput();
+        auto hb = headBottumInput(dd);
         hb.title = "Overzicht betaald voetbal in Nederland, seizoen " + season.to_string();
         std::swap(hb.body, out);
 

@@ -5,6 +5,7 @@
 #include "../shob.html/table.h"
 #include "../shob.html/settings.h"
 #include "../shob.readers/csvReader.h"
+#include "../shob.general/itdate.h"
 #include <set>
 #include <map>
 #include <vector>
@@ -29,6 +30,7 @@ namespace shob::football
         footballCompetition filterNL() const;
         html::tableContent prepareTable(const teams::clubTeams& teams, const html::settings& settings) const;
         bool onlyKO = false;
+        general::itdate lastDate() const;
     private:
         bool equalTeams(size_t i, size_t j) const;
     };

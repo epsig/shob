@@ -173,4 +173,15 @@ namespace shob::football
         return coupledMatches;
     }
 
+    itdate footballCompetition::lastDate() const
+    {
+        int date = 19000101;
+        for (const auto& match : matches)
+        {
+            date = std::max(date, match.dd->toInt());
+        }
+        auto dd = itdate(date);
+        return dd;
+    }
+
 }

@@ -358,6 +358,7 @@ namespace shob::pages
             out.addContent("<hr>");
         }
 
+        int dd = 0;
         for (const auto& part : ECparts)
         {
             if (part == "supercup")
@@ -384,10 +385,11 @@ namespace shob::pages
                     out.addContent("<p><a name=\"" + leagueNames.getLinkName(part) + "_last8\"/>");
                 }
                 out.addContent(content);
+                dd = std::max(dd, r2f.lastDate().toInt());
             }
         }
 
-        auto hb = headBottumInput();
+        auto hb = headBottumInput(dd);
         std::swap(hb.title, title);
         std::swap(hb.body, out);
 

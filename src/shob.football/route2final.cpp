@@ -110,6 +110,17 @@ namespace shob::football
 
         return table;
     }
+
+    general::itdate route2final::lastDate() const
+    {
+        auto dd = final.lastDate().toInt();
+        dd = std::max(dd, semiFinal.lastDate().toInt());
+        dd = std::max(dd, quarterFinal.lastDate().toInt());
+        dd = std::max(dd, last16.lastDate().toInt());
+        auto date = general::itdate(dd);
+        return date;
+    }
+
 }
 
 

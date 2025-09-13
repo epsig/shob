@@ -24,6 +24,22 @@ namespace shob::pages
         return out;
     }
 
+    general::multipleStrings headBottum::getFooter(const general::itdate& dd)
+    {
+        general::multipleStrings out;
+        out.addContent("<table width=100%> <tr> <td width=10%>&nbsp;</td>");
+        out.addContent("<td width=80% align=center><table border cellspacing=0>");
+        out.addContent("<tr><td><a href=\"reactie.html\">mail-me</a></td> ");
+        out.addContent("<td><a href=\"index.html\">homepage</a></td> ");
+        out.addContent("<td><a href=\"klaverjas_faq.html\">klaverjassen</a></td> ");
+        out.addContent("<td><a href=\"sport.html\">sport</a></td> ");
+        out.addContent("<td>d.d. " + dd.toString(false) + " </td> </tr> ");
+        out.addContent("</table> ");
+        out.addContent("</td> <td width=10%>&nbsp;</td> </tr> </table>");
+
+        return out;
+    }
+
     general::multipleStrings headBottum::getPage(headBottumInput& input)
     {
         general::multipleStrings out;
@@ -43,7 +59,11 @@ namespace shob::pages
         out.addContent("<h1>" + input.title + "</h1>");
 
         out.addContent(input.body);
-        out.addContent("</body> </html>");
+
+        auto footer = getFooter(input.dd);
+        out.addContent(footer);
+
+        out.addContent("</body></html>");
 
         return out;
     }

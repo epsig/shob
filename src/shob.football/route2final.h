@@ -14,6 +14,7 @@ namespace shob::football
             footballCompetition quarterFinal, footballCompetition last16) :
             final(std::move(final)), semiFinal(std::move(semiFinal)), quarterFinal(std::move(quarterFinal)), last16(std::move(last16)) {}
         html::tableContent prepareTable(const teams::clubTeams& teams, const html::settings& settings) const;
+        general::itdate lastDate() const;
     private:
         footballCompetition final;
         footballCompetition semiFinal;

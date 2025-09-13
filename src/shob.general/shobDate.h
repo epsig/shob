@@ -14,6 +14,7 @@ namespace shob::general
     public:
         virtual std::string toString(bool isCompatible) const { return ""; }
         virtual std::string toShortString() const { return ""; }
+        virtual int toInt() const { return 0; }
         static bool isLeapYear(const size_t year);
         static size_t maxDays(const size_t year, const size_t mon);
     };
