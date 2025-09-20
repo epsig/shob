@@ -45,7 +45,7 @@ namespace shob::football
         }
     }
 
-    tableContent route2final::prepareTable(const teams::clubTeams& teams, const settings& settings) const
+    std::vector<tableContent> route2final::prepareTable(const teams::clubTeams& teams, const settings& settings) const
     {
         const std::vector lineNrs16 = { 0, 2, 4, 6, 9, 11, 13, 15 };
         std::vector<int> lineNrs8;
@@ -108,7 +108,29 @@ namespace shob::football
             addOneRound(table, quarterFinal, lineNrs8, teams, offsets[2], maxCols, settings, addCountries1);
         }
 
-        return table;
+        if (!final.matches.empty())
+        {
+            if (!final.matches[0].remark.empty())
+            {
+                auto table2 = tableContent();
+                general::multipleStrings s;
+                auto remark = "(opm: " + final.matches[0].remark + ")";
+                s.addContent(remark);
+                table2.body.push_back(s);
+                table2.colWidths = { static_cast<int>(maxCols) };
+                if (maxCols == 3)
+                {
+                    table.colWidths = { 1, 1, 1 };
+                }
+                else
+                {
+                    table.colWidths = {1, 1, 1, 1};
+                }
+                return { table, table2 };
+            }
+        }
+
+        return { table };
     }
 
     general::itdate route2final::lastDate() const

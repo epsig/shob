@@ -43,9 +43,15 @@ namespace shob::html
         multipleStrings table;
         if (content.empty()) { return table; }
 
-        std::string zeroWidth = settings_.isCompatible ? "0" : "\"0\"";
-
-        table.data.emplace_back("<table border cellspacing=" + zeroWidth + ">");
+        if (withBorder)
+        {
+            const std::string zeroWidth = settings_.isCompatible ? "0" : "\"0\"";
+            table.data.emplace_back("<table border cellspacing=" + zeroWidth + ">");
+        }
+        else
+        {
+            table.data.emplace_back("<table frame=\"box\">");
+        }
 
         for (const auto& subTable : content)
         {

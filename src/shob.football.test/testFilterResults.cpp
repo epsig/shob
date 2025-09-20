@@ -25,8 +25,8 @@ namespace shob::football::test
         const auto r2f = route2finaleFactory::create(filename);
         const auto prepTable = r2f.prepareTable(reader, html::settings());
 
-        EXPECT_EQ(16, prepTable.body.size());
-        EXPECT_EQ(prepTable.body[8].data[3], "21 apr 2025 AZ - <b>Go Ahead Eagles</b> 1-1 ns") << "check bold for winner";
+        EXPECT_EQ(16, prepTable[0].body.size());
+        EXPECT_EQ(prepTable[0].body[8].data[3], "21 apr 2025 AZ - <b>Go Ahead Eagles</b> 1-1 ns") << "check bold for winner";
     }
 
     void testFilterResults::testGetReturns()
@@ -56,8 +56,8 @@ namespace shob::football::test
         const auto r2f = route2finaleFactory::createEC(data, "CL");
         const auto prepTable = r2f.prepareTable(reader, html::settings());
 
-        EXPECT_EQ(8, prepTable.body.size());
-        EXPECT_EQ(prepTable.body[0].data[0], "8 apr 2025 Arsenal (ENG) - Real Madrid 3-0<br>16 apr 2025 Real Madrid (ES) - Arsenal * 1-2")
+        EXPECT_EQ(8, prepTable[0].body.size());
+        EXPECT_EQ(prepTable[0].body[0].data[0], "8 apr 2025 Arsenal (ENG) - Real Madrid 3-0<br>16 apr 2025 Real Madrid (ES) - Arsenal * 1-2")
             << "check star for winner and having two matches";
     }
 

@@ -1,5 +1,6 @@
 #pragma once
 
+#include <vector>
 #include "footballCompetition.h"
 #include "../shob.html/table.h"
 #include "../shob.teams/clubTeams.h"
@@ -13,7 +14,7 @@ namespace shob::football
         route2final(footballCompetition final, footballCompetition semiFinal,
             footballCompetition quarterFinal, footballCompetition last16) :
             final(std::move(final)), semiFinal(std::move(semiFinal)), quarterFinal(std::move(quarterFinal)), last16(std::move(last16)) {}
-        html::tableContent prepareTable(const teams::clubTeams& teams, const html::settings& settings) const;
+        std::vector<html::tableContent> prepareTable(const teams::clubTeams& teams, const html::settings& settings) const;
         general::itdate lastDate() const;
     private:
         footballCompetition final;

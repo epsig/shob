@@ -373,8 +373,9 @@ namespace shob::pages
                 out.addContent(content);
                 const auto r2f = route2finaleFactory::createEC(csvData, part);
                 auto prepTable = r2f.prepareTable(teams, settings);
-                prepTable.header.addContent(leagueNames.getFullName(part) + ": de laatste acht");
+                prepTable[0].header.addContent(leagueNames.getFullName(part) + ": de laatste acht");
                 auto Table = table(settings);
+                Table.withBorder = false;
                 content = Table.buildTable(prepTable);
                 if (settings.isCompatible)
                 {

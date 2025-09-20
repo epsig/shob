@@ -42,6 +42,7 @@ namespace shob::football
         const auto spectatorsColumn = csvData.findColumn("spectators");
         const auto starColumn = csvData.findColumn("star");
         const auto stadiumColumn = csvData.findColumn("stadium");
+        const auto remarkColumn = csvData.findColumn("remark");
 
         const auto isFinal = filter.isFinale();
         for (const auto& col : csvData.body)
@@ -64,6 +65,7 @@ namespace shob::football
                 auto match = footballMatch(line[team1Column], line[team2Column], date, line[resultColumn],
                     spectators, star, isFinal);
                 match.stadium = stadium;
+                if (remarkColumn < line.size()) match.remark = line[remarkColumn];
                 comp.matches.push_back(match);
             }
         }

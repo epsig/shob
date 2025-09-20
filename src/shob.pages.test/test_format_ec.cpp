@@ -18,20 +18,20 @@ namespace shob::pages::test
     void testFormatEc::test_2024_2025()
     {
         const auto lines = fmt_ec.get_season(general::season(2024));
-        ASSERT_EQ(lines.data.size(), 284);
+        ASSERT_EQ(lines.data.size(), 287);
         EXPECT_GE(lines.findString("<tr><td>Atalanta Bergamo +</td><td>8</td><td>15</td><td>14</td></tr>"), 0) << "check + after team name";
     }
 
     void testFormatEc::test_2023_2024()
     {
         const auto lines = fmt_ec.get_season(general::season(2023));
-        EXPECT_EQ(lines.data.size(), 182);
+        EXPECT_EQ(lines.data.size(), 183);
     }
 
     void testFormatEc::test_1994_1995()
     {
         const auto lines = fmt_ec.get_season(general::season(1994));
-        ASSERT_EQ(lines.data.size(), 122);
+        ASSERT_EQ(lines.data.size(), 123);
         EXPECT_GE(lines.findString("<tr><td>Ajax</td><td>6</td><td>10</td><td>7</td></tr>"), 0) << "check 2 points for a win";
     }
 
