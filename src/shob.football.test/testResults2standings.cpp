@@ -4,10 +4,10 @@
 #include <gtest/gtest.h>
 
 #include "../shob.test.utils/testUtils.h"
-
 #include "../shob.football/results2standings.h"
-
 #include "../shob.teams/clubTeams.h"
+#include "../shob.football/filterInput.h"
+#include "../shob.football/filterResults.h"
 
 namespace shob::football::test
 {
@@ -69,5 +69,26 @@ namespace shob::football::test
         EXPECT_EQ(table2.body.size(), 18);
         EXPECT_EQ(table2.body[16].data[0], "FC Volendam (degr.)");
         EXPECT_EQ(table2.body[17].data[0], "Vitesse (-18; degr.)");
+    }
+
+    void testResults2standings::testMutualResults()
+    {
+        // set up test:
+        const auto file1 = testUtils::refFileWithPath(__FILE__, "../../data/sport/europacup/europacup_1996_1997.csv");
+        const auto csvData = readers::csvReader::readCsvFile(file1);
+        auto filter = filterInputList();
+        filter.filters.push_back({ 0, "CL" });
+        filter.filters.push_back({ 1, "gA" });
+        const auto CL_gA = filterResults::readFromCsvData(csvData, filter);
+
+        // standing with mutual results:
+        const auto stand = results2standings::u2s(CL_gA, 3, 3);
+        EXPECT_EQ(stand.list[0].team, "FRaux");
+        EXPECT_EQ(stand.list[1].team, "NLajx");
+
+        // standing without mutual results:
+        const auto stand2 = results2standings::u2s(CL_gA, 3, 0);
+        EXPECT_EQ(stand2.list[1].team, "FRaux");
+        EXPECT_EQ(stand2.list[0].team, "NLajx");
     }
 }

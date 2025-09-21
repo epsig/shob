@@ -9,5 +9,6 @@ namespace shob::football::test
         static void test1();
         static void test2();
         static void test3();
+        static void testMutualResults();
     };
 }
