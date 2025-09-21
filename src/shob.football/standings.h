@@ -26,12 +26,21 @@ namespace shob::football
         int goalsAgainst = 0;
         int points = 0;
         int punishmentPoints = 0;
+        std::map<std::string, bool> mutualResults;
     };
 
     class u2sExtra
     {
     public:
         std::vector<std::string> extras;
+    };
+
+    struct compactMatch
+    {
+        std::string team1;
+        std::string team2;
+        int goals1;
+        int goals2;
     };
 
     class standings
@@ -47,6 +56,7 @@ namespace shob::football
         html::tableContent prepareTable(const teams::clubTeams & teams, const html::settings & settings) const;
         int wns_cl = -1;
         int scoring = 3;
+        void addNecessaryMutualResults(const std::vector<compactMatch>& matches);
     private:
         std::map<std::string, u2sExtra> extras;
         std::map<std::string, std::string> mapExtra;

@@ -157,7 +157,7 @@ namespace shob::pages
     }
 
     multipleStrings format_ec::getFirstHalfYear(const std::string& part, const csvContent& data, const wns_ec& wns_cl,
-        const std::vector<std::vector<std::string>>& extraU2s) const
+        const std::vector<std::vector<std::string>>& extraU2s, const int sortRule) const
     {
         auto tables = std::vector<tableContent>();
 
@@ -204,7 +204,7 @@ namespace shob::pages
             filter.filters.push_back({ 0, part });
             filter.filters.push_back({ 1, group });
             const auto groupsPhase = filterResults::readFromCsvData(data, filter);
-            auto stand = results2standings::u2s(groupsPhase, wns_cl.scoring);
+            auto stand = results2standings::u2s(groupsPhase, wns_cl.scoring, sortRule);
             stand.wns_cl = wns_cl.getWns(part, group, groupsPhase);
             auto prepTable = stand.prepareTable(teams, adjSettings);
             if (group.find('2') == std::string::npos)
@@ -319,6 +319,18 @@ namespace shob::pages
         return out;
     }
 
+    void format_ec::readSortRule(int& sortRule, const std::vector<std::vector<std::string>>& extraU2s)
+    {
+        for(const auto& row : extraU2s)
+        {
+            if (row[0] == "sort_rule")
+            {
+                sortRule = std::stoi(row[1]);
+                break;
+            }
+        }
+    }
+
     multipleStrings format_ec::get_season(const season& season) const
     {
         const auto file1 = sportDataFolder + "/europacup/europacup_" + season.to_part_filename() + ".csv";
@@ -329,6 +341,9 @@ namespace shob::pages
         auto extraU2s = readExtras(season, wns_cl, summary);
         auto out = multipleStrings();
         auto menuOut = menu.getMenu(season);
+
+        int sortRule = 0;
+        readSortRule(sortRule, extraU2s);
 
         std::string title;
         if (settings.lang == language::Dutch)
@@ -369,7 +384,7 @@ namespace shob::pages
             else
             {
                 out.addContent("<a name=\"" + leagueNames.getLinkName(part) + "\"/>");
-                auto content = getFirstHalfYear(part, csvData, wns_cl, extraU2s);
+                auto content = getFirstHalfYear(part, csvData, wns_cl, extraU2s, sortRule);
                 out.addContent(content);
                 const auto r2f = route2finaleFactory::createEC(csvData, part);
                 auto prepTable = r2f.prepareTable(teams, settings);

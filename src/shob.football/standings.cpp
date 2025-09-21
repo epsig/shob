@@ -3,7 +3,6 @@
 
 #include <algorithm>
 #include <format>
-
 #include "../shob.readers/csvReader.h"
 #include "../shob.html/funcs.h"
 
@@ -100,6 +99,8 @@ namespace shob::football
 
     bool standingsRow::compareTo(const standingsRow& other) const
     {
+        if (mutualResults.contains(other.team)) return mutualResults.at(other.team);
+
         if (points == other.points)
         {
             if (totalGames == other.totalGames)
@@ -114,6 +115,46 @@ namespace shob::football
         else
         {
             return points > other.points;
+        }
+    }
+
+    void standings::addNecessaryMutualResults(const std::vector<compactMatch>& matches)
+    {
+        for (int i=0; i < static_cast<int>(list.size()); i++)
+        {
+            for (int j=0; j < i; j++)
+            {
+                if (list[i].points == list[j].points && list[i].totalGames == list[j].totalGames && list[i].totalGames > 0)
+                {
+                    auto goals = std::vector<int>(2, 0);
+                    auto goalsAway = std::vector<int>(2, 0);
+                    for (const auto& m : matches)
+                    {
+                        if (list[i].team == m.team1 && list[j].team == m.team2)
+                        {
+                            goals[0] += m.goals1;
+                            goals[1] += m.goals2;
+                            goalsAway[1] += m.goals2;
+                        }
+                        else if (list[i].team == m.team2 && list[j].team == m.team1)
+                        {
+                            goals[0] += m.goals2;
+                            goals[1] += m.goals1;
+                            goalsAway[0] += m.goals2;
+                        }
+                    }
+                    if (goals[0] > goals[1] || (goals[0] == goals[1] && goalsAway[0] > goalsAway[1]))
+                    {
+                        list[i].mutualResults.insert({ list[j].team, true });
+                        list[j].mutualResults.insert({ list[i].team, false });
+                    }
+                    else if (goals[0] < goals[1] || (goals[0] == goals[1] && goalsAway[0] < goalsAway[1]))
+                    {
+                        list[i].mutualResults.insert({ list[j].team, false });
+                        list[j].mutualResults.insert({ list[i].team, true });
+                    }
+                }
+            }
         }
     }
 
