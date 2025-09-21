@@ -43,6 +43,11 @@ namespace shob::teams
                 expanded += " (" + shortName + ")";
             }
         }
+        const auto positionInString = expanded.find(") (");
+        if (positionInString != std::string::npos)
+        {
+            expanded.replace(positionInString, 3, "; ");
+        }
         return expanded;
     }
 
