@@ -133,13 +133,16 @@ namespace shob::football
             {
                 if (index >= 0) stars[index] = "&nbsp;*";
             }
+            auto result = row.result;
+            if (row.star == starEnum::homeWinsXt || row.star == starEnum::awayWinsXt) result += "&nbsp;n.v.";
+            if (row.star == starEnum::homeWinsPenalties || row.star == starEnum::awayWinsPenalties) result += "&nbsp;n.s.";
             if (settings.isCompatible)
             {
-                out.data = { dd + " " + teams.expand(row.team1, addCountry) + stars[0] + " - " + teams.expand(row.team2, addCountry) + stars[1], row.result};
+                out.data = { dd + " " + teams.expand(row.team1, addCountry) + stars[0] + " - " + teams.expand(row.team2, addCountry) + stars[1], result};
             }
             else
             {
-                out.data = { dd, teams.expand(row.team1, addCountry) + stars[0] + " - " + teams.expand(row.team2, addCountry) + stars[1], row.result};
+                out.data = { dd, teams.expand(row.team1, addCountry) + stars[0] + " - " + teams.expand(row.team2, addCountry) + stars[1], result};
             }
             if (withRemarks) out.data.emplace_back(row.remark);
             table.body.push_back(out);

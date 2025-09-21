@@ -172,7 +172,7 @@ namespace shob::html
                 if (i < static_cast<int>(content.data.size()) - 1) row += "\n";
                 extraLine = false;
             }
-            else if (regex_match(col.c_str(), what, expression))
+            else if (regex_search(col.c_str(), expression))
             {
                 row += "<td class=c>" + col + tag2;
             }
@@ -194,7 +194,7 @@ namespace shob::html
         for (int i = 0; i < static_cast<int>(content.data.size()); i++)
         {
             auto& col = content.data[i];
-            if (regex_match(col.c_str(), what, expression))
+            if (regex_search(col.c_str(), expression))
             {
                 row += "<td class=c>" + col + tag2[i];
             }
