@@ -41,6 +41,10 @@ namespace shob::pages
             {
                 parts.insert(qf);
             }
+            else if (row.column[0] == part && part == "UEFAcup" && qf == "round1")
+            {
+                parts.insert(qf);
+            }
         }
         return parts;
     }
@@ -51,7 +55,10 @@ namespace shob::pages
         for (const auto& row : data.body)
         {
             const auto& qf = row.column[1];
-            if (row.column[0] == part && (qf == "xr" || qf == "8f" || qf == "16f" || qf.starts_with("round")))
+            if (row.column[0] == part && part == "UEFAcup" && qf == "round1")
+            {
+            }
+            else if (row.column[0] == part && (qf == "xr" || qf == "8f" || qf == "16f" || qf.starts_with("round")))
             {
                 parts.insert(qf);
             }

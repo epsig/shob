@@ -219,9 +219,20 @@ namespace shob::football
         {
             if (i < 1) team += " +";
         }
+        else if (wns_cl == 4)
+        {
+            if (i < 1) team += " +";
+            else if (i < 2) team += " *";
+        }
         else if (wns_cl == 5)
         {
             if (i < 3) team += " +";
+        }
+        else if (wns_cl == 6)
+        {
+            if (i < 1) team += " *";
+            else if (i < 2) team += " **";
+            else if (i < 3) team += " ***";
         }
         else if (wns_cl == 7)
         {
@@ -266,8 +277,17 @@ namespace shob::football
 
             auto points = html::funcs::acronym(std::to_string(row.points),
                 std::format("{:} x w, {:} x g en {:} x v => {:} pnt", row.wins, row.draws, row.losses, row.points ));
-            auto goalDiff = html::funcs::acronym(std::format("{0:+}", row.goalDifference()),
-                std::format("{:} - {:} = {:+}", row.goals, row.goalsAgainst, row.goalDifference()));
+            std::string goalDiff;
+            if (row.goalDifference() == 0)
+            {
+                goalDiff = html::funcs::acronym(std::format("{0:}", row.goalDifference()),
+                    std::format("{:} - {:} = {:}", row.goals, row.goalsAgainst, row.goalDifference()));
+            }
+            else
+            {
+                goalDiff = html::funcs::acronym(std::format("{0:+}", row.goalDifference()),
+                    std::format("{:} - {:} = {:+}", row.goals, row.goalsAgainst, row.goalDifference()));
+            }
             data.data = { team, std::to_string(row.totalGames), points, goalDiff };
             table.body.push_back(data);
         }
