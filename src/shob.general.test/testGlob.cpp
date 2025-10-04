@@ -15,6 +15,6 @@ namespace shob::general::test
 
         const auto list = glob::list(dataFolder, "europacup.[12][90].*");
 
-        ASSERT_EQ(list.size(), 31);
+        ASSERT_EQ(list.size(), 32);
     }
 }
