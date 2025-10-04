@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<!DOCTYPE names [
+<!ENTITY eacute "&#xE9;">
+<!ENTITY aacute "&#xE1;">
+<!ENTITY ouml "&#xF6;">
+]>
+
+<games>
+<group_phase>
+<groupD>
+<WLS_NL>
+<stats>
+<stadium> Luzern </stadium>
+<chronological>
+<data min="45+3"> 0-1 Miedema </data>
+<data min="48"> 0-2 Pelova </data>
+<data min="57"> 0-3 Brugts </data>
+</chronological>
+</stats>
+</WLS_NL>
+<ENG_NL>
+<stats>
+<stadium> Zurich </stadium>
+<chronological>
+<data min="22"> 1-0 James </data>
+<data min="45+2"> 2-0 Stanway </data>
+<data min="60"> 3-0 James </data>
+<data min="67"> 4-0 Toone </data>
+</chronological>
+</stats>
+</ENG_NL>
+<NL_FR>
+<stats>
+<stadium> Basel </stadium>
+<chronological>
+<data min="22"> 0-1 Toletti </data>
+<data min="26"> 1-1 Pelova </data>
+<data min="41"> 2-1 Bacha (ed) </data>
+<data min="61"> 2-2 Katoto </data>
+<data min="64"> 2-3 Cascarino </data>
+<data min="67"> 2-4 Cascarino </data>
+<data min="90+2"> 2-5 Karchaoui (p) </data>
+</chronological>
+</stats>
+</NL_FR>
+</groupD>
+</group_phase>
+<ko>
+<final>
+<ENG_ES>
+<stats>
+<stadium> Basel </stadium>
+<chronological>
+<data min="25"> 0-1 Caldentey </data>
+<data min="57"> 1-1 Russa </data>
+</chronological>
+</stats>
+</ENG_ES>
+</final>
+</ko>
+</games>

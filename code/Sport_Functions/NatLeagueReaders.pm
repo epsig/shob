@@ -66,8 +66,13 @@ sub ReadNatLeagueFinals($)
 
   my $NLraw = read_csv_with_header($csvFile, 'nationsLeague');
   my @uf = (['final']); my @uh = (['semi final']); my @f34 = (['bronze']);
+  my @uk = (['quarter finals']);
   foreach my $game (@$NLraw)
   {
+    if ($game->{phase} eq '4f')
+    {
+      add_one_line(\@uk, $game, 1);
+    }
     if ($game->{phase} eq '2f')
     {
       add_one_line(\@uh, $game, 1);
@@ -82,7 +87,7 @@ sub ReadNatLeagueFinals($)
     }
   }
 
-  my $pu   = {uh => \@uh, u34 => \@f34, uf => \@uf};
+  my $pu   = {uk => \@uk, uh => \@uh, u34 => \@f34, uf => \@uf};
   return $pu;
 }
 

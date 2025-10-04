@@ -262,7 +262,9 @@ EOF
 
  my $dames = ($DH ? '(vrouwen) ' : '');
  my $title = "$EK_WK_str voetbal ${dames}te $organisatie in $year";
- return maintxt2htmlpage(EkWkTopMenu($year) . $out, $title, 'title2h1',
+ my $topmenu = "";
+ if ( not $DH ) { $topmenu = EkWkTopMenu($year);}
+ return maintxt2htmlpage($topmenu . $out, $title, 'title2h1',
   $dd, {type1 => 'std_menu'});
 }
 

@@ -62,7 +62,8 @@ sub get_hopa()
     ${ekwkPages[1]}. </li>
    <li> <a href="sport_voetbal_WKD2019.html">WK vrouwen 2019</a>,
         <a href="sport_voetbal_EKD2022.html">EK vrouwen 2022</a>,
-        <a href="sport_voetbal_WKD2023.html">WK vrouwen 2023</a>.
+        <a href="sport_voetbal_WKD2023.html">WK vrouwen 2023</a>,
+        <a href="sport_voetbal_EKD2025.html">EK vrouwen 2025</a>.
    <li> Nederlandse clubs in het Europacup voetbal van
 $voetbal_ec_list
    </li>
