@@ -3,6 +3,9 @@
 
 #include <algorithm>
 #include <format>
+#include <iostream>
+
+#include "../shob.general/shobException.h"
 #include "../shob.readers/csvReader.h"
 #include "../shob.html/funcs.h"
 
@@ -50,8 +53,8 @@ namespace shob::football
 
     void standings::addResult(const std::string& team1, const std::string& team2, const int goals1, const int goals2)
     {
-        addRow(team1, goals1, goals2);
-        addRow(team2, goals2, goals1);  // NOLINT(readability-suspicious-call-argument)
+        addRow(team1, goals1, goals2, false);
+        addRow(team2, goals2, goals1, true);  // NOLINT(readability-suspicious-call-argument)
     }
 
     size_t standings::findIndex(const std::string& team)
@@ -66,7 +69,7 @@ namespace shob::football
         return list.size() - 1;
     }
 
-    void standings::addRow(const std::string& team, const int goals1, const int goals2)
+    void standings::addRow(const std::string& team, const int goals1, const int goals2, const bool switched)
     {
         auto index = findIndex(team);
         auto& row = list[index];
@@ -78,6 +81,7 @@ namespace shob::football
         else if (goals1 > goals2)
         {
             row.wins++;
+            if (switched) row.awayWins++;
             row.points += scoring;
         }
         else
@@ -87,6 +91,7 @@ namespace shob::football
         row.totalGames++;
         row.goals += goals1;
         row.goalsAgainst += goals2;
+        if (switched) row.awayGoals += goals1;
     }
 
     void standings::handlePunishment(const std::string team, const int pnts)
@@ -116,6 +121,28 @@ namespace shob::football
         {
             return points > other.points;
         }
+    }
+
+    bool standingsRow::compareTo6(const standingsRow& other) const
+    {
+        auto results = std::vector<std::vector<int>>();
+        results.push_back({ points, other.points });
+        results.push_back({-totalGames, -other.totalGames});
+        results.push_back({ goalDifference(), other.goalDifference() });
+        results.push_back({ goals, other.goals });
+        results.push_back({ awayGoals, other.awayGoals });
+        results.push_back({ wins, other.wins });
+        results.push_back({ awayWins, other.awayWins });
+        results.push_back({ sumPointsOpponents, other.sumPointsOpponents });
+        results.push_back({ sumGoalDiffOpponents, other.sumGoalDiffOpponents });
+        results.push_back({ sumGoalsOpponents, other.sumGoalDiffOpponents });
+
+        for (const auto& r : results)
+        {
+            if (r[0] != r[1]) return r[0] > r[1];
+        }
+        std::cout << "fall back on comparing teams: " << team << " , " << other.team << std::endl;
+        return team < other.team;
     }
 
     void standings::addNecessaryMutualResults(const std::vector<compactMatch>& matches)
@@ -158,11 +185,55 @@ namespace shob::football
         }
     }
 
-    void standings::sort()
+    size_t standings::findIndex(const std::string& team) const
     {
-        std::sort(list.begin(), list.end(),
-            [](const standingsRow& val1, const standingsRow& val2)
-            {return val1.compareTo(val2); });
+        for (size_t i = 0; i < list.size(); i++)
+        {
+            if (list[i].team == team) return i;
+        }
+        throw shobException("Team not found");
+    }
+
+    void standings::addResultsOpponents(const std::vector<compactMatch>& matches)
+    {
+        for (auto & row : list)
+        {
+            for (const auto& m : matches)
+            {
+                size_t index;
+                if (m.team1 == row.team)
+                {
+                    index = findIndex(m.team2);
+                }
+                else if (m.team2 == row.team)
+                {
+                    index = findIndex(m.team1);
+                }
+                else
+                {
+                    continue;
+                }
+                row.sumPointsOpponents += list[index].points;
+                row.sumGoalDiffOpponents += list[index].goalDifference();
+                row.sumGoalsOpponents += list[index].goals;
+            }
+        }
+    }
+
+    void standings::sort(const int sort_rule)
+    {
+        if (sort_rule == 6)
+        {
+            std::sort(list.begin(), list.end(),
+                [](const standingsRow& val1, const standingsRow& val2)
+                {return val1.compareTo6(val2); });
+        }
+        else
+        {
+            std::sort(list.begin(), list.end(),
+                [](const standingsRow& val1, const standingsRow& val2)
+                {return val1.compareTo(val2); });
+        }
     }
 
     std::string joinStrings(const std::string& s1, const std::string& s2, const std::string& separator)
