@@ -8,6 +8,7 @@ season,key,value
 1994-1995,summary_NL,"<br>Vitesse loot de latere winnaar Parma, en PSV het sterke Bayern Leverkusen, maar"
 1994-1995,summary_NL,Twente stelt zwaar teleur tegen het onbekende Kispest Honved.
 1994-1995,wns_CL,1
+1994-1995,scoring,2
 1994-1995,remark_CL_gD,14 oktober 1994: AC Milan krijgt 2 winstpunten in mindering als straf
 1994-1995,remark_CL_gD,<br>voor het 'flesjes'-incident. In het duel tegen Casino Salzburg moest
 1994-1995,remark_CL_gD,"<br>de keeper van de Oostenrijkers het veld verlaten, nadat"
@@ -168,6 +169,7 @@ season,key,value
 2010-2011,summary_NL,League is de 3e en 4e ontmoeting in korte tijd tussen
 2010-2011,summary_NL,de aartsrivalen Barcelona en Real Madrid.
 2013-2014,sort_rule,3
+2018-2019,sort_rule,3
 2019-2020,summary_NL,Door de Corona uitbraak heeft de europacup maanden stil gelegen.
 2019-2020,summary_NL,De Champions League is uitgespeeld in Lissabon.
 2019-2020,summary_NL,De Europa League is uitgespeeld in Duitsland.
@@ -182,3 +184,4 @@ season,key,value
 2019-2020,summary_UK,<br>Sevilla wins the Europa League with two goals of Luuk de Jong.
 2021-2022,wns_CL,C:2;B:6;D:4;E:4;G:4
 2024-2025,wns_CL,7
+2024-2025,sort_rule,6

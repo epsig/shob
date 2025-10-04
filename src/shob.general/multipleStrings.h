@@ -1,0 +1,18 @@
+#pragma once
+#include <string>
+#include <vector>
+
+namespace shob::general
+{
+    class multipleStrings
+    {
+    public:
+        std::vector<std::string> data;
+        void addContent(multipleStrings& extra);
+        void addContent(std::string extra);
+        bool areEqual(const multipleStrings& other) const;
+        int findString(const std::string& s) const;
+        size_t length() const;
+        std::string to_string() const;
+    };
+}

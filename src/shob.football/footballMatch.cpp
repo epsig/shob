@@ -1,0 +1,68 @@
+
+#include "footballMatch.h"
+#include "../shob.html/funcs.h"
+
+namespace shob::football
+{
+    int footballMatch::winner() const
+    {
+        switch (star)  // NOLINT(clang-diagnostic-switch-enum)
+        {
+        case starEnum::awayWins:
+        case starEnum::awayWinsXt:
+        case starEnum::awayWinsPenalties:
+            return 1;
+        case starEnum::homeWins:
+        case starEnum::homeWinsXt:
+        case starEnum::homeWinsPenalties:
+            return 0;
+        default:
+            return -1;
+        }
+    }
+
+    std::string footballMatch::nvns() const
+    {
+        switch (star)  // NOLINT(clang-diagnostic-switch-enum)
+        {
+        case starEnum::awayWinsXt:
+        case starEnum::homeWinsXt:
+            return " nv";
+        case starEnum::awayWinsPenalties:
+        case starEnum::homeWinsPenalties:
+            return " ns";
+        default:
+            return "";
+        }
+    }
+
+    std::string footballMatch::printSimple(const teams::clubTeams& teams, const bool isReturn, const bool isCompatible,
+        const std::vector<html::addCountryType>& addCountry) const
+    {
+        std::vector expanded = { teams.expand(team1, addCountry[0]), teams.expand(team2, addCountry[1])};
+        auto index = winner();
+        if (index >= 0)
+        {
+            if (isReturn)
+            {
+                index = 1 - index;
+            }
+            if (isFinal)
+            {
+                expanded[index] = "<b>" + expanded[index] + "</b>";
+            }
+            else
+            {
+                expanded[index] += " *";
+            }
+        }
+        auto datum = dd->toString(isCompatible);
+        if ( ! stadium.empty())
+        {
+            datum = html::funcs::acronym(datum, "te: " + stadium);
+        }
+        return datum + " " + expanded[0] + " - " + expanded[1] + " " + result + nvns();
+    }
+};
+
+
