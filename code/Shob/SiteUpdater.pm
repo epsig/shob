@@ -247,11 +247,6 @@ sub handle_sport_files($$$)
 
     my $dl = ($yr >= $curYrB ? $fast : 2);
 
-    if ($szn1 ge $ranges->{europacup}[0] && $szn1 le $ranges->{europacup}[1])
-    {
-      push @pages, [$dl, 'all', sub {&get_ec_webpage($szn1);}, "sport_voetbal_europacup_$szn2.html"];
-    }
-
     if ($szn1 ge $ranges->{voetbal_nl}[0] && $szn1 le $ranges->{voetbal_nl}[1])
     {
       push @pages, [$dl, 'all', sub {&get_betaald_voetbal_nl($yr);}, "sport_voetbal_nl_$szn2.html"];
