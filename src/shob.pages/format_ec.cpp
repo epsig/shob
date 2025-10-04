@@ -410,6 +410,7 @@ namespace shob::pages
                 out.addContent(content);
                 dd = std::max(dd, r2f.lastDate().toInt());
             }
+            out.addContent("<p/>");
         }
 
         auto hb = headBottumInput(dd);

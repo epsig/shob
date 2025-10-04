@@ -1,5 +1,6 @@
 
 #include "footballMatch.h"
+#include "../shob.html/funcs.h"
 
 namespace shob::football
 {
@@ -55,7 +56,12 @@ namespace shob::football
                 expanded[index] += " *";
             }
         }
-        return dd->toString(isCompatible) + " " + expanded[0] + " - " + expanded[1] + " " + result + nvns();
+        auto datum = dd->toString(isCompatible);
+        if ( ! stadium.empty())
+        {
+            datum = html::funcs::acronym(datum, "te: " + stadium);
+        }
+        return datum + " " + expanded[0] + " - " + expanded[1] + " " + result + nvns();
     }
 };
 

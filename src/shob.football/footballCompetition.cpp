@@ -108,7 +108,11 @@ namespace shob::football
             table.colWidths = { 1, 2, 1 };
             if (settings.isCompatible) table.colWidths = { 3, 1 };
         }
-        if (withRemarks) table.colWidths.push_back(1);
+        if (withRemarks)
+        {
+            table.colWidths.push_back(1);
+            table.colWidths[1] = 1;
+        }
 
         auto returns = getReturns();
 

@@ -322,7 +322,7 @@ namespace shob::football
         auto table = html::tableContent();
         if (settings.lang == html::language::Dutch)
         {
-            table.header.data = { "club", "aantal wedstrijden", "punten", "doelsaldo" };
+            table.header.data = { "club", "wedstrijden", "punten", "doelsaldo" };
         }
         else
         {
