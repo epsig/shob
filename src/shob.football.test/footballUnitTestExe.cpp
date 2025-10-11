@@ -36,6 +36,11 @@ TEST(unitTest, testResults2standingsWithMutualResults)
     testResults2standings::testMutualResults();
 }
 
+TEST(unitTest, testSortOnResultsOpponents)
+{
+    testResults2standings::testSortOnResultsOpponents();
+}
+
 TEST(unitTest, testFootballCompetition)
 {
     testFootballCompetition::test1();

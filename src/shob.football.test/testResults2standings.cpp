@@ -91,4 +91,24 @@ namespace shob::football::test
         EXPECT_EQ(stand2.list[1].team, "FRaux");
         EXPECT_EQ(stand2.list[0].team, "NLajx");
     }
+
+    void testResults2standings::testSortOnResultsOpponents()
+    {
+        // set up test:
+        const auto file1 = testUtils::refFileWithPath(__FILE__, "../../data/sport/europacup/europacup_2024_2025.csv");
+        const auto csvData = readers::csvReader::readCsvFile(file1);
+        auto filter = filterInputList();
+        filter.filters.push_back({ 0, "CF" });
+        filter.filters.push_back({ 1, "gA" });
+        const auto CF_gA = filterResults::readFromCsvData(csvData, filter);
+
+        // standing with sort method = 6:
+        const auto stand = results2standings::u2s(CF_gA, 3, 6);
+        EXPECT_EQ(stand.list[4].team, "SEdjg");
+        EXPECT_EQ(stand.list[5].team, "CHlgn");
+        EXPECT_EQ(stand.list[4].goals, 11);
+        EXPECT_EQ(stand.list[5].goals, 11);
+        EXPECT_EQ(stand.list[4].sumPointsOpponents, 50);
+        EXPECT_EQ(stand.list[5].sumPointsOpponents, 48);
+    }
 }
