@@ -12,7 +12,7 @@ using namespace shob::football::test;
 int main(int argc, char** argv)
 {
     ::testing::InitGoogleTest(&argc, argv);
-    //::testing::GTEST_FLAG(filter) = "unitTest.testStrafPoints";
+    //::testing::GTEST_FLAG(filter) = "unitTest.testSortOnResultsOpponents2Matches";
     return RUN_ALL_TESTS();
 }
 
@@ -34,6 +34,16 @@ TEST(unitTest, testResults2standingsWithExtras)
 TEST(unitTest, testResults2standingsWithMutualResults)
 {
     testResults2standings::testMutualResults();
+}
+
+TEST(unitTest, testSortOnResultsOpponents)
+{
+    testResults2standings::testSortOnResultsOpponents();
+}
+
+TEST(unitTest, testSortOnResultsOpponents2Matches)
+{
+    testResults2standings::testSortOnResultsOpponent2Matches();
 }
 
 TEST(unitTest, testFootballCompetition)

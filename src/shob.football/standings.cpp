@@ -125,23 +125,24 @@ namespace shob::football
 
     bool standingsRow::compareTo6(const standingsRow& other) const
     {
-        auto results = std::vector<std::vector<int>>();
-        results.push_back({ points, other.points });
-        results.push_back({-totalGames, -other.totalGames});
-        results.push_back({ goalDifference(), other.goalDifference() });
-        results.push_back({ goals, other.goals });
-        results.push_back({ awayGoals, other.awayGoals });
-        results.push_back({ wins, other.wins });
-        results.push_back({ awayWins, other.awayWins });
-        results.push_back({ sumPointsOpponents, other.sumPointsOpponents });
-        results.push_back({ sumGoalDiffOpponents, other.sumGoalDiffOpponents });
-        results.push_back({ sumGoalsOpponents, other.sumGoalDiffOpponents });
+        auto results = std::vector<std::pair<int,int>>();
+        results.emplace_back(points, other.points);
+        results.emplace_back(-totalGames, -other.totalGames);
+        results.emplace_back(goalDifference(), other.goalDifference());
+        results.emplace_back(goals, other.goals);
+        results.emplace_back(awayGoals, other.awayGoals);
+        results.emplace_back(wins, other.wins);
+        results.emplace_back(awayWins, other.awayWins);
+        results.emplace_back(sumPointsOpponents, other.sumPointsOpponents);
+        results.emplace_back(sumGoalDiffOpponents, other.sumGoalDiffOpponents);
+        results.emplace_back(sumGoalsOpponents, other.sumGoalsOpponents);
 
         for (const auto& r : results)
         {
-            if (r[0] != r[1]) return r[0] > r[1];
+            if (r.first != r.second) return r.first > r.second;
         }
         std::cout << "fall back on comparing teams: " << team << " , " << other.team << std::endl;
+
         return team < other.team;
     }
 

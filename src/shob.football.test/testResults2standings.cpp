@@ -91,4 +91,48 @@ namespace shob::football::test
         EXPECT_EQ(stand2.list[1].team, "FRaux");
         EXPECT_EQ(stand2.list[0].team, "NLajx");
     }
+
+    void testResults2standings::testSortOnResultsOpponents()
+    {
+        // set up test:
+        const auto file1 = testUtils::refFileWithPath(__FILE__, "../../data/sport/europacup/europacup_2024_2025.csv");
+        const auto csvData = readers::csvReader::readCsvFile(file1);
+        auto filter = filterInputList();
+        filter.filters.push_back({ 0, "CF" });
+        filter.filters.push_back({ 1, "gA" });
+        const auto CF_gA = filterResults::readFromCsvData(csvData, filter);
+
+        // standing with sort method = 6:
+        const auto stand = results2standings::u2s(CF_gA, 3, 6);
+        EXPECT_EQ(stand.list[4].team, "SEdjg");
+        EXPECT_EQ(stand.list[5].team, "CHlgn");
+        EXPECT_EQ(stand.list[4].goals, 11);
+        EXPECT_EQ(stand.list[5].goals, 11);
+        EXPECT_EQ(stand.list[4].sumPointsOpponents, 50);
+        EXPECT_EQ(stand.list[5].sumPointsOpponents, 48);
+    }
+
+    void testResults2standings::testSortOnResultsOpponent2Matches()
+    {
+        // set up test:
+        auto comp = footballCompetition();
+        const auto date = std::make_shared<general::itdate>(20251001);
+        const auto match1 = footballMatch("A", "B", date, "1-0", 12345, "");
+        const auto match2 = footballMatch("C", "D", date, "1-0", 12345, "");
+        comp.matches.push_back(match1);
+        comp.matches.push_back(match2);
+
+        // standing with sort method = 6:
+        const auto stand = results2standings::u2s(comp, 3, 6);
+        // A and C have the same points (3) and other comparing data; fall back on alphabetical
+        // B and D have the same points (0) and other comparing data; fall back on alphabetical
+        EXPECT_EQ(stand.list[0].team, "A");
+        EXPECT_EQ(stand.list[1].team, "C");
+        EXPECT_EQ(stand.list[2].team, "B");
+        EXPECT_EQ(stand.list[3].team, "D");
+        EXPECT_EQ(stand.list[0].sumPointsOpponents, 0);
+        EXPECT_EQ(stand.list[1].sumPointsOpponents, 0);
+        EXPECT_EQ(stand.list[2].sumPointsOpponents, 3);
+        EXPECT_EQ(stand.list[3].sumPointsOpponents, 3);
+    }
 }
