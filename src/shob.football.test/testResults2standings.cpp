@@ -111,4 +111,28 @@ namespace shob::football::test
         EXPECT_EQ(stand.list[4].sumPointsOpponents, 50);
         EXPECT_EQ(stand.list[5].sumPointsOpponents, 48);
     }
+
+    void testResults2standings::testSortOnResultsOpponent2Matches()
+    {
+        // set up test:
+        auto comp = footballCompetition();
+        auto date = std::make_shared<general::itdate>(20251001);
+        auto match1 = footballMatch("A", "B", date, "1-0", 12345, "");
+        auto match2 = footballMatch("C", "D", date, "1-0", 12345, "");
+        comp.matches.push_back(match1);
+        comp.matches.push_back(match2);
+
+        // standing with sort method = 6:
+        const auto stand = results2standings::u2s(comp, 3, 6);
+        // A and C have the same points (3) and other comparing data; fall back on alphabetical
+        // B and D have the same points (0) and other comparing data; fall back on alphabetical
+        EXPECT_EQ(stand.list[0].team, "A");
+        EXPECT_EQ(stand.list[1].team, "C");
+        EXPECT_EQ(stand.list[2].team, "B");
+        EXPECT_EQ(stand.list[3].team, "D");
+        EXPECT_EQ(stand.list[0].sumPointsOpponents, 0);
+        EXPECT_EQ(stand.list[1].sumPointsOpponents, 0);
+        EXPECT_EQ(stand.list[2].sumPointsOpponents, 3);
+        EXPECT_EQ(stand.list[3].sumPointsOpponents, 3);
+    }
 }

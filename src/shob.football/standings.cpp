@@ -135,13 +135,14 @@ namespace shob::football
         results.emplace_back(awayWins, other.awayWins);
         results.emplace_back(sumPointsOpponents, other.sumPointsOpponents);
         results.emplace_back(sumGoalDiffOpponents, other.sumGoalDiffOpponents);
-        results.emplace_back(sumGoalsOpponents, other.sumGoalDiffOpponents);
+        results.emplace_back(sumGoalsOpponents, other.sumGoalsOpponents);
 
         for (const auto& r : results)
         {
             if (r.first != r.second) return r.first > r.second;
         }
         std::cout << "fall back on comparing teams: " << team << " , " << other.team << std::endl;
+
         return team < other.team;
     }
 
