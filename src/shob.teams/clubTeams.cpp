@@ -67,9 +67,11 @@ namespace shob::teams
 
     void clubTeams::Init(const readers::csvContent& data)
     {
+        int col = 1;
+        if (data.header.column[1].find("code") != std::string::npos) col = 2;
         for (const auto& row : data.body)
         {
-            clubs.insert({ row.column[0], row.column[1] });
+            clubs.insert({ row.column[0], row.column[col] });
         }
     }
 }

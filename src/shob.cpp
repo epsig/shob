@@ -5,6 +5,7 @@
 #include "shob.general/dateFactory.h"
 #include "shob.pages/format_ec_factory.h"
 #include "shob.pages/format_nl_factory.h"
+#include "shob.pages/format_voorr_ekwk.h"
 #include "shob.general/season.h"
 #include "shob.general/shobException.h"
 #include "shob.html/updateIfNewer.h"
@@ -45,6 +46,14 @@ int main(int argc, char* argv[])
             if (year >= 1994)
             {
                 fmt_ec.get_season_to_file(season, "../pages/sport_voetbal_europacup_" + season.to_part_filename() + ".html");
+            }
+            if (year % 2 == 0)
+            {
+                auto national_teams = shob::teams::clubTeams();
+                national_teams.InitFromFile("sport/landcodes.csv");
+
+                auto fmt = format_voorr_ekwk("sport/ekwk_qf/", national_teams);
+                fmt.get_pages_to_file(year, std::format("../pages_new/voorronde_{}.html", year));
             }
         }
         if (std::filesystem::is_directory("../pages_new/"))
