@@ -2,8 +2,11 @@
 #include "format_voorr_ekwk.h"
 #include <format>
 #include <iostream>
+
+#include "head_bottum.h"
 #include "../shob.football/filterResults.h"
 #include "../shob.html/updateIfNewer.h"
+#include "../shob.football/results2standings.h"
 
 namespace shob::pages
 {
@@ -38,11 +41,23 @@ namespace shob::pages
         const auto matches = football::filterResults::readFromCsvData(csvData, filter);
 
         auto adjSettings = html::settings();
-        //auto teams = teams::clubTeams();
         auto prepTable = matches.prepareTable(teams, adjSettings);
         prepTable.title = "Groep Nederland";
         auto Table = html::table(html::settings());
-        return Table.buildTable(prepTable);
+        auto retVal = Table.buildTable(prepTable);
+
+        auto stand = football::results2standings::u2s(matches);
+        auto prepTable2 = stand.prepareTable(teams, adjSettings);
+        prepTable2.title = "Stand groep Nederland";
+        auto table2 = Table.buildTable(prepTable2);
+        retVal.addContent(table2);
+
+        int dd = matches.lastDate().toInt();
+        auto hb = headBottumInput(dd);
+        hb.title = "Voorronde ek/wk";
+        std::swap(hb.body, retVal);
+
+        return headBottum::getPage(hb);
 
     }
 }
