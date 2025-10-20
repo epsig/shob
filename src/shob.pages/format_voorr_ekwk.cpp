@@ -27,9 +27,9 @@ namespace shob::pages
 
     general::multipleStrings format_voorr_ekwk::get_pages(const int year) const
     {
-        auto ekwk = ekwk_date(year);
+        const auto ekwk = ekwk_date(year);
 
-        int dd;
+        int dd = 0;
         auto retVal = get_group_nl(ekwk, dd);
 
         auto hb = headBottumInput(dd);
@@ -41,13 +41,10 @@ namespace shob::pages
 
     general::multipleStrings format_voorr_ekwk::get_group_nl(const ekwk_date& ekwk, int& dd) const
     {
-        auto csvInput = std::format("{}{}{}u.csv", dataSportFolder, ekwk.shortName(), ekwk.year);
-        std::cout << csvInput << std::endl;
-
+        const auto csvInput = std::format("{}{}{}u.csv", dataSportFolder, ekwk.shortName(), ekwk.year);
         const auto csvData = readers::csvReader::readCsvFile(csvInput);
 
         auto filter = football::filterInputList();
-
         const std::string part = "gG";
         filter.filters.push_back({ 0, part });
         const auto matches = football::filterResults::readFromCsvData(csvData, filter);
@@ -55,7 +52,7 @@ namespace shob::pages
         auto adjSettings = html::settings();
         auto prepTable = matches.prepareTable(teams, adjSettings);
         prepTable.title = "Groep Nederland";
-        auto Table = html::table(html::settings());
+        const auto Table = html::table(html::settings());
         auto retVal = Table.buildTable(prepTable);
 
         auto stand = football::results2standings::u2s(matches);
