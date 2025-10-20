@@ -40,13 +40,16 @@ int main(int argc, char* argv[])
         for (int year = firstYear; year <= lastYear; year++)
         {
             const auto season = shob::general::season(year);
-            if ( std::filesystem::is_directory("../pages_new/"))
+            if (year < 2026)
             {
-                fmt_nl.get_season_to_file(season, "../pages_new/sport_voetbal_nl_" + season.to_part_filename() + ".html");
-            }
-            if (year >= 1994)
-            {
-                fmt_ec.get_season_to_file(season, "../pages/sport_voetbal_europacup_" + season.to_part_filename() + ".html");
+                if (std::filesystem::is_directory("../pages_new/"))
+                {
+                    fmt_nl.get_season_to_file(season, "../pages_new/sport_voetbal_nl_" + season.to_part_filename() + ".html");
+                }
+                if (year >= 1994)
+                {
+                    fmt_ec.get_season_to_file(season, "../pages/sport_voetbal_europacup_" + season.to_part_filename() + ".html");
+                }
             }
             if (year % 2 == 0)
             {
