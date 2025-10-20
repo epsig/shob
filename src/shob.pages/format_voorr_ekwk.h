@@ -2,6 +2,7 @@
 
 #include "../shob.general/multipleStrings.h"
 #include "../shob.teams/clubTeams.h"
+#include "../shob.football/footballCompetition.h"
 #include "ekwk_date.h"
 
 namespace shob::pages
@@ -18,5 +19,7 @@ namespace shob::pages
     private:
         std::string dataSportFolder;
         teams::clubTeams teams;
+        static std::pair<football::footballCompetition, football::footballCompetition>
+            split_matches(const football::footballCompetition& all);
     };
 }

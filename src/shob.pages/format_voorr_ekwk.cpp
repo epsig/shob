@@ -10,6 +10,8 @@
 
 namespace shob::pages
 {
+    using namespace shob::football;
+
     void format_voorr_ekwk::get_pages_to_file(const int year, const std::string& filename) const
     {
         auto output = get_pages(year);
@@ -39,6 +41,25 @@ namespace shob::pages
         return headBottum::getPage(hb);
     }
 
+    std::pair< footballCompetition, footballCompetition>
+        format_voorr_ekwk::split_matches(const footballCompetition& all)
+    {
+        auto withNL = footballCompetition();
+        auto withoutNL = footballCompetition();
+        for (const auto& match : all.matches)
+        {
+            if (match.team1 == "NL" || match.team2 == "NL")
+            {
+                withNL.matches.push_back(match);
+            }
+            else
+            {
+                withoutNL.matches.push_back(match);
+            }
+        }
+        return { withNL, withoutNL };
+    }
+
     general::multipleStrings format_voorr_ekwk::get_group_nl(const ekwk_date& ekwk, int& dd) const
     {
         const auto csvInput = std::format("{}{}{}u.csv", dataSportFolder, ekwk.shortName(), ekwk.year);
@@ -49,11 +70,18 @@ namespace shob::pages
         filter.filters.push_back({ 0, part });
         const auto matches = football::filterResults::readFromCsvData(csvData, filter);
 
+        auto splitted = split_matches(matches);
+
         auto adjSettings = html::settings();
-        auto prepTable = matches.prepareTable(teams, adjSettings);
-        prepTable.title = "Groep Nederland";
+        auto prepTableA = splitted.first.prepareTable(teams, adjSettings);
+        prepTableA.title = "Uitslagen Nederland";
         const auto Table = html::table(html::settings());
-        auto retVal = Table.buildTable(prepTable);
+        auto retVal = Table.buildTable(prepTableA);
+
+        auto prepTableB = splitted.second.prepareTable(teams, adjSettings);
+        prepTableB.title = "Overige uitslagen";
+        auto tableB = Table.buildTable(prepTableB);
+        retVal.addContent(tableB);
 
         auto stand = football::results2standings::u2s(matches);
         auto prepTable2 = stand.prepareTable(teams, adjSettings);
