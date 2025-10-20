@@ -2,19 +2,10 @@
 
 #include "../shob.general/multipleStrings.h"
 #include "../shob.teams/clubTeams.h"
+#include "ekwk_date.h"
 
 namespace shob::pages
 {
-    class ekwk_date
-    {
-    public:
-        ekwk_date(const int year) : year(year), isWk(year % 4 == 2) {}
-        std::string shortName() const { return (isWk ? "wk" : "ek"); }
-        const int year;
-    private:
-        bool isWk;
-    };
-
     class format_voorr_ekwk
     {
     public:
