@@ -29,7 +29,22 @@ namespace shob::pages
     {
         auto isWk = year % 4 == 2;
         std::string ekwk = (isWk ? "wk" : "ek");
-        auto csvInput = std::format("{}{}{}u.csv", dataSportFolder,ekwk, year);
+
+        int dd;
+        auto retVal = get_group_nl(year, dd);
+
+        auto hb = headBottumInput(dd);
+        hb.title = "Voorronde " + ekwk + " " + std::to_string(year);
+        std::swap(hb.body, retVal);
+
+        return headBottum::getPage(hb);
+    }
+
+    general::multipleStrings format_voorr_ekwk::get_group_nl(const int year, int& dd) const
+    {
+        auto isWk = year % 4 == 2;
+        std::string ekwk = (isWk ? "wk" : "ek");
+        auto csvInput = std::format("{}{}{}u.csv", dataSportFolder, ekwk, year);
         std::cout << csvInput << std::endl;
 
         const auto csvData = readers::csvReader::readCsvFile(csvInput);
@@ -52,12 +67,9 @@ namespace shob::pages
         auto table2 = Table.buildTable(prepTable2);
         retVal.addContent(table2);
 
-        int dd = matches.lastDate().toInt();
-        auto hb = headBottumInput(dd);
-        hb.title = "Voorronde ek/wk";
-        std::swap(hb.body, retVal);
+        dd = matches.lastDate().toInt();
 
-        return headBottum::getPage(hb);
-
+        return retVal;
     }
+
 }
