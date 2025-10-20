@@ -27,24 +27,21 @@ namespace shob::pages
 
     general::multipleStrings format_voorr_ekwk::get_pages(const int year) const
     {
-        auto isWk = year % 4 == 2;
-        std::string ekwk = (isWk ? "wk" : "ek");
+        auto ekwk = ekwk_date(year);
 
         int dd;
-        auto retVal = get_group_nl(year, dd);
+        auto retVal = get_group_nl(ekwk, dd);
 
         auto hb = headBottumInput(dd);
-        hb.title = "Voorronde " + ekwk + " " + std::to_string(year);
+        hb.title = "Voorronde " + ekwk.shortName() + " " + std::to_string(year);
         std::swap(hb.body, retVal);
 
         return headBottum::getPage(hb);
     }
 
-    general::multipleStrings format_voorr_ekwk::get_group_nl(const int year, int& dd) const
+    general::multipleStrings format_voorr_ekwk::get_group_nl(const ekwk_date& ekwk, int& dd) const
     {
-        auto isWk = year % 4 == 2;
-        std::string ekwk = (isWk ? "wk" : "ek");
-        auto csvInput = std::format("{}{}{}u.csv", dataSportFolder, ekwk, year);
+        auto csvInput = std::format("{}{}{}u.csv", dataSportFolder, ekwk.shortName(), ekwk.year);
         std::cout << csvInput << std::endl;
 
         const auto csvData = readers::csvReader::readCsvFile(csvInput);

@@ -5,13 +5,23 @@
 
 namespace shob::pages
 {
+    class ekwk_date
+    {
+    public:
+        ekwk_date(const int year) : year(year), isWk(year % 4 == 2) {}
+        std::string shortName() const { return (isWk ? "wk" : "ek"); }
+        const int year;
+    private:
+        bool isWk;
+    };
+
     class format_voorr_ekwk
     {
     public:
         format_voorr_ekwk(std::string folder, teams::clubTeams teams) :
             dataSportFolder(std::move(folder)), teams(std::move(teams)) {}
         general::multipleStrings get_pages(const int year) const;
-        general::multipleStrings get_group_nl(const int year, int& dd) const;
+        general::multipleStrings get_group_nl(const ekwk_date& ekwk, int& dd) const;
         void get_pages_to_file(const int year, const std::string& filename) const;
         void get_pages_stdout(const int year) const;
     private:
