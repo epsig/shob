@@ -9,6 +9,7 @@ namespace shob::pages
     public:
         ekwk_date(const int year);
         std::string shortName() const;
+        std::string shortNameWithYear() const;
         const int year;
     private:
         bool isWk;

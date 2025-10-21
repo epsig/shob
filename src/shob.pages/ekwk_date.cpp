@@ -10,5 +10,10 @@ namespace shob::pages
     {
         return (isWk ? "wk" : "ek");
     }
+
+    std::string ekwk_date::shortNameWithYear() const
+    {
+        return shortName() + std::to_string(year);
+    }
 }
 

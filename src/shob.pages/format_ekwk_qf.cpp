@@ -27,12 +27,28 @@ namespace shob::pages
         }
     }
 
+    int format_ekwk_qf::findStar(const std::vector<std::vector<std::string>>& remarks)
+    {
+        for(const auto& remark : remarks)
+        {
+            if (remark[1].starts_with("star"))
+            {
+                auto number = remark[1].substr(5, 1);
+                return std::atoi(number.c_str());
+            }
+        }
+        return 0;
+    }
+
     general::multipleStrings format_ekwk_qf::get_pages(const int year) const
     {
         const auto ekwk = ekwk_date(year);
 
+        auto remarks = seasonsReader.getSeason(ekwk.shortNameWithYear());
+        auto star = findStar(remarks);
+
         int dd = 0;
-        auto retVal = get_group_nl(ekwk, dd);
+        auto retVal = get_group_nl(ekwk, dd, star);
 
         auto hb = headBottumInput(dd);
         hb.title = "Voorronde " + ekwk.shortName() + " " + std::to_string(year);
@@ -41,7 +57,7 @@ namespace shob::pages
         return headBottum::getPage(hb);
     }
 
-    general::multipleStrings format_ekwk_qf::get_group_nl(const ekwk_date& ekwk, int& dd) const
+    general::multipleStrings format_ekwk_qf::get_group_nl(const ekwk_date& ekwk, int& dd, const int star) const
     {
         const auto csvInput = std::format("{}{}{}u.csv", dataSportFolder, ekwk.shortName(), ekwk.year);
         const auto csvData = readers::csvReader::readCsvFile(csvInput);
@@ -53,21 +69,19 @@ namespace shob::pages
         filter.filters.push_back({ 0, part });
         const auto matches = filterResults::readFromCsvData(csvData, filter);
 
-        auto adjSettings = html::settings();
-        adjSettings.dateFormatShort = false;
-
         auto stand = results2standings::u2s(matches);
-        auto prepTableStandings = stand.prepareTable(teams, adjSettings);
+        stand.wns_cl = star;
+        auto prepTableStandings = stand.prepareTable(teams, settings);
         prepTableStandings.title = "Stand groep Nederland";
 
         auto splitted = matches.split_matches("NL");
 
-        auto prepTableMatchesNL = splitted.first.prepareTable(teams, adjSettings);
+        auto prepTableMatchesNL = splitted.first.prepareTable(teams, settings);
         prepTableMatchesNL.title = "Uitslagen Nederland";
-        const auto Table = html::table(adjSettings);
+        const auto Table = html::table(settings);
         auto leftPart = Table.buildTable({ prepTableStandings, prepTableMatchesNL });
 
-        auto prepTableMatchesWithoutNL = splitted.second.prepareTable(teams, adjSettings);
+        auto prepTableMatchesWithoutNL = splitted.second.prepareTable(teams, settings);
         prepTableMatchesWithoutNL.title = "Overige uitslagen";
         auto rightPart = Table.buildTable(prepTableMatchesWithoutNL);
 
