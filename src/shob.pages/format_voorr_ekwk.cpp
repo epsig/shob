@@ -51,7 +51,8 @@ namespace shob::pages
         filter.filters.push_back({ 0, part });
         const auto matches = filterResults::readFromCsvData(csvData, filter);
 
-        const auto adjSettings = html::settings();
+        auto adjSettings = html::settings();
+        adjSettings.dateFormatShort = false;
 
         auto stand = results2standings::u2s(matches);
         auto prepTableStandings = stand.prepareTable(teams, adjSettings);
@@ -61,7 +62,7 @@ namespace shob::pages
 
         auto prepTableMatchesNL = splitted.first.prepareTable(teams, adjSettings);
         prepTableMatchesNL.title = "Uitslagen Nederland";
-        const auto Table = html::table(html::settings());
+        const auto Table = html::table(adjSettings);
         auto leftPart = Table.buildTable({ prepTableStandings, prepTableMatchesNL });
 
         auto prepTableMatchesWithoutNL = splitted.second.prepareTable(teams, adjSettings);
