@@ -41,36 +41,17 @@ namespace shob::pages
         return headBottum::getPage(hb);
     }
 
-    std::pair< footballCompetition, footballCompetition>
-        format_voorr_ekwk::split_matches(const footballCompetition& all)
-    {
-        auto withNL = footballCompetition();
-        auto withoutNL = footballCompetition();
-        for (const auto& match : all.matches)
-        {
-            if (match.team1 == "NL" || match.team2 == "NL")
-            {
-                withNL.matches.push_back(match);
-            }
-            else
-            {
-                withoutNL.matches.push_back(match);
-            }
-        }
-        return { withNL, withoutNL };
-    }
-
     general::multipleStrings format_voorr_ekwk::get_group_nl(const ekwk_date& ekwk, int& dd) const
     {
         const auto csvInput = std::format("{}{}{}u.csv", dataSportFolder, ekwk.shortName(), ekwk.year);
         const auto csvData = readers::csvReader::readCsvFile(csvInput);
 
-        auto filter = football::filterInputList();
+        auto filter = filterInputList();
         const std::string part = "gG";
         filter.filters.push_back({ 0, part });
-        const auto matches = football::filterResults::readFromCsvData(csvData, filter);
+        const auto matches = filterResults::readFromCsvData(csvData, filter);
 
-        auto splitted = split_matches(matches);
+        auto splitted = matches.split_matches("NL");
 
         auto adjSettings = html::settings();
         auto prepTableA = splitted.first.prepareTable(teams, adjSettings);
@@ -83,7 +64,7 @@ namespace shob::pages
         auto tableB = Table.buildTable(prepTableB);
         retVal.addContent(tableB);
 
-        auto stand = football::results2standings::u2s(matches);
+        auto stand = results2standings::u2s(matches);
         auto prepTable2 = stand.prepareTable(teams, adjSettings);
         prepTable2.title = "Stand groep Nederland";
         auto table2 = Table.buildTable(prepTable2);

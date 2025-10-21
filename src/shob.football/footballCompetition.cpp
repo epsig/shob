@@ -76,6 +76,25 @@ namespace shob::football
         return filtered;
     }
 
+    std::pair<footballCompetition, footballCompetition>
+        footballCompetition::split_matches(const std::string& team) const
+    {
+        auto withTeam = footballCompetition();
+        auto withoutTeam = footballCompetition();
+        for (const auto& match : matches)
+        {
+            if (match.team1 == team || match.team2 == team)
+            {
+                withTeam.matches.push_back(match);
+            }
+            else
+            {
+                withoutTeam.matches.push_back(match);
+            }
+        }
+        return { withTeam, withoutTeam };
+    }
+
     html::tableContent footballCompetition::prepareTable(const teams::clubTeams& teams, const html::settings& settings) const
     {
         auto table = html::tableContent();
