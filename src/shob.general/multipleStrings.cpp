@@ -9,6 +9,7 @@ namespace shob::general
         {
             data.emplace_back(std::move(r));
         }
+        extra.data.clear();
     }
 
     void multipleStrings::addContent(std::string extra)

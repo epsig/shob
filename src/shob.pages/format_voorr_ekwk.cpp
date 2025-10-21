@@ -71,16 +71,9 @@ namespace shob::pages
         prepTableMatchesWithoutNL.title = "Overige uitslagen";
         auto rightPart = Table.buildTable(prepTableMatchesWithoutNL);
 
-        auto retVal = general::multipleStrings();
-        retVal.addContent("<table border>");
-        retVal.addContent("<tr><td valign=""top"">");
-        retVal.addContent(leftPart);
-        retVal.addContent("</td> <td valign=""top""> ");
-        retVal.addContent(rightPart);
-        retVal.addContent("</td> </tr>");
-
         dd = matches.lastDate().toInt();
 
+        auto retVal = Table.tableOfTwoTables(leftPart, rightPart);
         return retVal;
     }
 
