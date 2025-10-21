@@ -1,24 +1,24 @@
-
-#include "format_voorr_ekwk.h"
-#include <format>
-#include <iostream>
-
+#include "format_ekwk_qf.h"
 #include "head_bottum.h"
 #include "../shob.football/filterResults.h"
 #include "../shob.html/updateIfNewer.h"
 #include "../shob.football/results2standings.h"
+#include "../shob.football/footballCompetition.h"
+
+#include <format>
+#include <iostream>
 
 namespace shob::pages
 {
     using namespace shob::football;
 
-    void format_voorr_ekwk::get_pages_to_file(const int year, const std::string& filename) const
+    void format_ekwk_qf::get_pages_to_file(const int year, const std::string& filename) const
     {
         auto output = get_pages(year);
         html::updateIfDifferent::update(filename, output);
     }
 
-    void format_voorr_ekwk::get_pages_stdout(const int year) const
+    void format_ekwk_qf::get_pages_stdout(const int year) const
     {
         const auto output = get_pages(year);
         for (const auto& row : output.data)
@@ -27,7 +27,7 @@ namespace shob::pages
         }
     }
 
-    general::multipleStrings format_voorr_ekwk::get_pages(const int year) const
+    general::multipleStrings format_ekwk_qf::get_pages(const int year) const
     {
         const auto ekwk = ekwk_date(year);
 
@@ -41,7 +41,7 @@ namespace shob::pages
         return headBottum::getPage(hb);
     }
 
-    general::multipleStrings format_voorr_ekwk::get_group_nl(const ekwk_date& ekwk, int& dd) const
+    general::multipleStrings format_ekwk_qf::get_group_nl(const ekwk_date& ekwk, int& dd) const
     {
         const auto csvInput = std::format("{}{}{}u.csv", dataSportFolder, ekwk.shortName(), ekwk.year);
         const auto csvData = readers::csvReader::readCsvFile(csvInput);

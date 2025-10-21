@@ -6,7 +6,7 @@
 #include "shob.general/dateFactory.h"
 #include "shob.pages/format_ec_factory.h"
 #include "shob.pages/format_nl_factory.h"
-#include "shob.pages/format_voorr_ekwk.h"
+#include "shob.pages/format_ekwk_qf_factory.h"
 #include "shob.general/season.h"
 #include "shob.general/shobException.h"
 #include "shob.html/updateIfNewer.h"
@@ -19,7 +19,7 @@ int main(int argc, char* argv[])
     try
     {
         int firstYear = 1993;
-        int lastYear = 2026;
+        int lastYear = 2026; // TODO function of current date
 
         if (argc >= 3)
         {
@@ -33,10 +33,13 @@ int main(int argc, char* argv[])
                 throw shobException("first two command line arguments must be years");
             }
         }
+
         auto fmt_nl = format_nl_factory::build("sport");
         auto settings = shob::html::settings();
         settings.dateFormatShort = false;
         auto fmt_ec = format_ec_factory::build("sport", settings);
+        auto fmt_ekwk_qf = format_ekwk_qf_factory::build("sport", settings);
+
         for (int year = firstYear; year <= lastYear; year++)
         {
             const auto season = shob::general::season(year);
@@ -53,11 +56,7 @@ int main(int argc, char* argv[])
             }
             if (year % 2 == 0)
             {
-                auto national_teams = shob::teams::clubTeams();
-                national_teams.InitFromFile("sport/landcodes.csv");
-
-                auto fmt = format_voorr_ekwk("sport/ekwk_qf/", national_teams);
-                fmt.get_pages_to_file(year, std::format("../pages_new/voorronde_{}.html", year));
+                fmt_ekwk_qf.get_pages_to_file(year, std::format("../pages_new/voorronde_{}.html", year));
             }
         }
         if (std::filesystem::is_directory("../pages_new/"))

@@ -2,15 +2,14 @@
 
 #include "../shob.general/multipleStrings.h"
 #include "../shob.teams/clubTeams.h"
-#include "../shob.football/footballCompetition.h"
 #include "ekwk_date.h"
 
 namespace shob::pages
 {
-    class format_voorr_ekwk
+    class format_ekwk_qf
     {
     public:
-        format_voorr_ekwk(std::string folder, teams::clubTeams teams) :
+        format_ekwk_qf(std::string folder, teams::clubTeams teams) :
             dataSportFolder(std::move(folder)), teams(std::move(teams)) {}
         general::multipleStrings get_pages(const int year) const;
         general::multipleStrings get_group_nl(const ekwk_date& ekwk, int& dd) const;
