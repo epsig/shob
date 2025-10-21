@@ -47,7 +47,9 @@ namespace shob::pages
         const auto csvData = readers::csvReader::readCsvFile(csvInput);
 
         auto filter = filterInputList();
-        const std::string part = "gG";
+        const auto parts = csvData.getParts();
+        const std::string part = parts.list()[0];
+
         filter.filters.push_back({ 0, part });
         const auto matches = filterResults::readFromCsvData(csvData, filter);
 

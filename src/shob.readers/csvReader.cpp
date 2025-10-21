@@ -105,5 +105,16 @@ namespace shob::readers
         return names;
     }
 
+    general::uniqueStrings csvContent::getParts() const
+    {
+        auto parts = general::uniqueStrings();
+        for (const auto& row : body)
+        {
+            const auto& part = row.column[0];
+            parts.insert(part);
+        }
+        return parts;
+    }
+
 }
 
