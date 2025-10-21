@@ -51,24 +51,30 @@ namespace shob::pages
         filter.filters.push_back({ 0, part });
         const auto matches = filterResults::readFromCsvData(csvData, filter);
 
-        auto splitted = matches.split_matches("NL");
-
-        auto adjSettings = html::settings();
-        auto prepTableA = splitted.first.prepareTable(teams, adjSettings);
-        prepTableA.title = "Uitslagen Nederland";
-        const auto Table = html::table(html::settings());
-        auto retVal = Table.buildTable(prepTableA);
-
-        auto prepTableB = splitted.second.prepareTable(teams, adjSettings);
-        prepTableB.title = "Overige uitslagen";
-        auto tableB = Table.buildTable(prepTableB);
-        retVal.addContent(tableB);
+        const auto adjSettings = html::settings();
 
         auto stand = results2standings::u2s(matches);
-        auto prepTable2 = stand.prepareTable(teams, adjSettings);
-        prepTable2.title = "Stand groep Nederland";
-        auto table2 = Table.buildTable(prepTable2);
-        retVal.addContent(table2);
+        auto prepTableStandings = stand.prepareTable(teams, adjSettings);
+        prepTableStandings.title = "Stand groep Nederland";
+
+        auto splitted = matches.split_matches("NL");
+
+        auto prepTableMatchesNL = splitted.first.prepareTable(teams, adjSettings);
+        prepTableMatchesNL.title = "Uitslagen Nederland";
+        const auto Table = html::table(html::settings());
+        auto leftPart = Table.buildTable({ prepTableStandings, prepTableMatchesNL });
+
+        auto prepTableMatchesWithoutNL = splitted.second.prepareTable(teams, adjSettings);
+        prepTableMatchesWithoutNL.title = "Overige uitslagen";
+        auto rightPart = Table.buildTable(prepTableMatchesWithoutNL);
+
+        auto retVal = general::multipleStrings();
+        retVal.addContent("<table border>");
+        retVal.addContent("<tr><td valign=""top"">");
+        retVal.addContent(leftPart);
+        retVal.addContent("</td> <td valign=""top""> ");
+        retVal.addContent(rightPart);
+        retVal.addContent("</td> </tr>");
 
         dd = matches.lastDate().toInt();
 
