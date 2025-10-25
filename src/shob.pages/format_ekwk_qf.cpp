@@ -47,8 +47,15 @@ namespace shob::pages
         auto remarks = seasonsReader.getSeason(ekwk.shortNameWithYear());
         auto star = findStar(remarks);
 
+        auto retVal = general::multipleStrings();
+        retVal.addContent("<hr>");
+        auto topMenu = menu.getMenu(std::to_string(year));
+        retVal.addContent(topMenu);
+        retVal.addContent("<hr>");
+
         int dd = 0;
-        auto retVal = get_group_nl(ekwk, dd, star);
+        auto groupNL = get_group_nl(ekwk, dd, star);
+        retVal.addContent(groupNL);
 
         auto hb = headBottumInput(dd);
         hb.title = "Voorronde " + ekwk.shortName() + " " + std::to_string(year);

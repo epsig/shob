@@ -8,5 +8,8 @@ namespace shob::pages
     {
     public:
         static format_ekwk_qf build(const std::string& dataFolder, const html::settings& settings);
+    private:
+        static topMenu prepareTopMenu(const std::string& dataFolderEkWkQf);
+        static bool cmpFunc(const std::string& a, const std::string& b);
     };
 }

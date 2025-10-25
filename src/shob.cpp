@@ -39,6 +39,7 @@ int main(int argc, char* argv[])
         settings.dateFormatShort = false;
         auto fmt_ec = format_ec_factory::build("sport", settings);
         auto fmt_ekwk_qf = format_ekwk_qf_factory::build("sport", settings);
+        const auto fmt_outfile = "../pages_new/sport_voetbal_{}_{}_voorronde.html";
 
         for (int year = firstYear; year <= lastYear; year++)
         {
@@ -54,10 +55,17 @@ int main(int argc, char* argv[])
                     fmt_ec.get_season_to_file(season, "../pages/sport_voetbal_europacup_" + season.to_part_filename() + ".html");
                 }
             }
-            if (year % 2 == 0)
+            // ReSharper disable once CppDefaultCaseNotHandledInSwitchStatement
+            switch (year % 4)
             {
-                fmt_ekwk_qf.get_pages_to_file(year, std::format("../pages_new/voorronde_{}.html", year));
+            case 0:
+                fmt_ekwk_qf.get_pages_to_file(year, std::format(fmt_outfile, "EK", year));
+                break;
+            case 2:
+                fmt_ekwk_qf.get_pages_to_file(year, std::format(fmt_outfile, "WK", year));
+                break;
             }
+
         }
         if (std::filesystem::is_directory("../pages_new/"))
         {

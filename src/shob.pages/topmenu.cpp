@@ -44,6 +44,46 @@ namespace shob::pages
         return menu;
     }
 
+    multipleStrings topMenu::getMenu(const std::string& year) const
+    {
+        auto menu = multipleStrings();
+        const int nEntries = static_cast<int>(archive.size());
+        int curPos = 0;
+        for (const auto& row : archive)
+        {
+            auto pos = row.find("K");
+            auto yr = row.substr(pos - 1, 7);
+            yr[2] = ' ';
+            if (row.find(year) != std::string::npos)
+            {
+                curPos = static_cast<int>(menu.data.size());
+                menu.addContent(yr + " |");
+            }
+            else
+            {
+                auto url = row + ".html";
+                url = "<a href=\"" + url + "\">" + yr + "</a>";
+                menu.addContent(url + " |");
+            }
+        }
+        if (nEntries > maxUrls)
+        {
+            if (curPos <= maxUrls / 2)
+            {
+                shortenMenuLeft(menu);
+            }
+            else if (curPos >= nEntries - 1 - maxUrls / 2)
+            {
+                shortenMenuRight(menu);
+            }
+            else
+            {
+                shortenMenu(menu, curPos);
+            }
+        }
+        return menu;
+    }
+
     void topMenu::addEllipsis(multipleStrings& rows)
     {
         rows.addContent(" ...  |");
