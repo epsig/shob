@@ -42,12 +42,16 @@ namespace shob::pages
         auto remarks = readers::csvAllSeasonsReader();
         remarks.init(dataFolderEkWkQf + "ekwk_qf_remarks.csv");
 
+        auto remarksMainTournement = readers::csvAllSeasonsReader();
+        remarksMainTournement.init(dataFolder + "/ekwk/ekwk_remarks.csv");
+        auto organizingCountries = remarksMainTournement.getAll("organising_country");
+
         auto national_teams = teams::clubTeams();
         national_teams.InitFromFile(dataFolder + "/landcodes.csv");
 
         auto menu = prepareTopMenu(dataFolderEkWkQf);
 
-        auto fmt = format_ekwk_qf(dataFolderEkWkQf, national_teams, remarks, settings, menu);
+        auto fmt = format_ekwk_qf(dataFolderEkWkQf, national_teams, remarks, settings, menu, organizingCountries);
 
         return fmt;
     }

@@ -32,5 +32,18 @@ namespace shob::readers
         return oneSeasonData;
     }
 
+    std::map<std::string, std::string> csvAllSeasonsReader::getAll(const std::string& id) const
+    {
+        auto retval = std::map<std::string, std::string>();
+        for (const auto& line : allData.body)
+        {
+            if (line.column[1] == id)
+            {
+                retval.insert({ line.column[0], line.column[2] });
+            }
+        }
+        return retval;
+    }
+
 }
 

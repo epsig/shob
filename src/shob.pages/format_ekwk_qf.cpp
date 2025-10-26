@@ -58,7 +58,7 @@ namespace shob::pages
         retVal.addContent(groupNL);
 
         auto hb = headBottumInput(dd);
-        hb.title = "Voorronde " + ekwk.shortName() + " " + std::to_string(year);
+        hb.title = "Voorronde " + ekwk.shortNameUpper() + " Voetbal " + std::to_string(year) + " te " + organizingCountries.at(ekwk.shortNameWithYear());
         std::swap(hb.body, retVal);
 
         return headBottum::getPage(hb);
