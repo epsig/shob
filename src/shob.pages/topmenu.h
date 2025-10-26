@@ -19,6 +19,7 @@ namespace shob::pages
         std::vector<std::string> archive;
         const int maxUrls;
         void shortenMenu(general::multipleStrings& menu, int curPos) const;
+        void shortenMenuCenter(general::multipleStrings& menu, int curPos) const;
         void shortenMenuLeft(general::multipleStrings& menu) const;
         void shortenMenuRight(general::multipleStrings& menu) const;
         static void addEllipsis(general::multipleStrings& rows);
