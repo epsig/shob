@@ -39,7 +39,7 @@ int main(int argc, char* argv[])
         settings.dateFormatShort = false;
         auto fmt_ec = format_ec_factory::build("sport", settings);
         auto fmt_ekwk_qf = format_ekwk_qf_factory::build("sport", settings);
-        const auto fmt_outfile = "../pages_new/sport_voetbal_{}_{}_voorronde.html";
+        constexpr auto fmt_outfile = "../pages_new/sport_voetbal_{}_{}_voorronde.html";
 
         for (int year = firstYear; year <= lastYear; year++)
         {
