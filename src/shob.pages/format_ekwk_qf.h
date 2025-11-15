@@ -18,7 +18,6 @@ namespace shob::pages
             dataSportFolder(std::move(folder)), teams(std::move(teams)), seasonsReader(std::move(reader)),
             settings(settings), menu(std::move(menu)), organizingCountries(std::move(organizingCountries)) {}
         general::multipleStrings get_pages(const int year) const;
-        general::multipleStrings get_group_nl(const ekwk_date& ekwk, int& dd, const int star) const;
         void get_pages_to_file(const int year, const std::string& filename) const;
         void get_pages_stdout(const int year) const;
     private:
@@ -28,6 +27,10 @@ namespace shob::pages
         html::settings settings;
         topMenu menu;
         std::map<std::string, std::string> organizingCountries;
+        general::multipleStrings get_group_nl(const ekwk_date& ekwk, int& dd, const int star) const;
+        std::pair<general::multipleStrings, general::multipleStrings> get_nationsLeague(const int& year, int& dd) const;
+        general::multipleStrings get_nationsLeagueFinals(const int& year, int& dd) const;
+        general::multipleStrings get_nationsLeagueGroupPhase(const int& year, int& dd) const;
         static int findStar(const std::vector<std::vector<std::string>>& remarks);
     };
 }

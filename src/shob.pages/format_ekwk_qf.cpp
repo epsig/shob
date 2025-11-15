@@ -4,13 +4,18 @@
 #include "../shob.html/updateIfNewer.h"
 #include "../shob.football/results2standings.h"
 #include "../shob.football/footballCompetition.h"
+#include "../shob.football/route2finalFactory.h"
+#include "../shob.general/glob.h"
 
+#include <filesystem>
 #include <format>
 #include <iostream>
 
 namespace shob::pages
 {
     using namespace shob::football;
+    using namespace shob::general;
+    namespace fs = std::filesystem;
 
     void format_ekwk_qf::get_pages_to_file(const int year, const std::string& filename) const
     {
@@ -40,7 +45,7 @@ namespace shob::pages
         return 0;
     }
 
-    general::multipleStrings format_ekwk_qf::get_pages(const int year) const
+    multipleStrings format_ekwk_qf::get_pages(const int year) const
     {
         const auto ekwk = ekwk_date(year);
 
@@ -57,6 +62,10 @@ namespace shob::pages
         auto groupNL = get_group_nl(ekwk, dd, star);
         retVal.addContent(groupNL);
 
+        auto nationsL = get_nationsLeague(year, dd);
+        retVal.addContent(nationsL.first);
+        retVal.addContent(nationsL.second);
+
         auto hb = headBottumInput(dd);
         hb.title = "Voorronde " + ekwk.shortNameUpper() + " Voetbal " + std::to_string(year) + " te " + organizingCountries.at(ekwk.shortNameWithYear());
         std::swap(hb.body, retVal);
@@ -64,7 +73,7 @@ namespace shob::pages
         return headBottum::getPage(hb);
     }
 
-    general::multipleStrings format_ekwk_qf::get_group_nl(const ekwk_date& ekwk, int& dd, const int star) const
+    multipleStrings format_ekwk_qf::get_group_nl(const ekwk_date& ekwk, int& dd, const int star) const
     {
         const auto csvInput = std::format("{}{}{}u.csv", dataSportFolder, ekwk.shortName(), ekwk.year);
         const auto csvData = readers::csvReader::readCsvFile(csvInput);
@@ -96,6 +105,66 @@ namespace shob::pages
 
         auto retVal = Table.tableOfTwoTables(leftPart, rightPart);
         return retVal;
+    }
+
+    multipleStrings format_ekwk_qf::get_nationsLeagueFinals(const int& year, int& dd) const
+    {
+        auto retVal = multipleStrings();
+        const auto csvInput = std::format("{}{}{}.csv", dataSportFolder, "../nationsLeague/NL_", year);
+        if (fs::exists(csvInput))
+        {
+            const auto finals = route2finaleFactory::create(csvInput);
+            auto prepTable = finals.prepareTable(teams, settings);
+            prepTable[0].header.addContent("Finals Nations League");
+            auto Table = html::table(settings);
+            Table.withBorder = false;
+            retVal = Table.buildTable(prepTable);
+            dd = std::max(dd, finals.lastDate().toInt());
+        }
+
+        return retVal;
+    }
+
+    multipleStrings format_ekwk_qf::get_nationsLeagueGroupPhase(const int& year, int& dd) const
+    {
+        auto retVal = multipleStrings();
+        const auto csvInput = std::format("{}{}.*.csv", "NL_", year);
+        auto list = glob::list(dataSportFolder + "../nationsLeague/", csvInput);
+        if ( ! list.empty())
+        {
+            auto competition = footballCompetition();
+            competition.readFromCsv(dataSportFolder + "../nationsLeague/" + list[0]);
+            auto Table = html::table(settings);
+
+            auto splitted = competition.split_matches("NL");
+
+            auto prepTableMatchesWithoutNL = splitted.second.prepareTable(teams, settings);
+            prepTableMatchesWithoutNL.title = "Overige uitslagen";
+
+            auto rightPart = Table.buildTable(prepTableMatchesWithoutNL);
+
+            auto stand = results2standings::u2s(competition);
+            auto prepTableStandings = stand.prepareTable(teams, settings);
+            prepTableStandings.title = "Stand Nations League groep Nederland";
+            auto content2 = Table.buildTable(prepTableStandings);
+
+            auto prepTableMatchesNL = splitted.first.prepareTable(teams, settings);
+            prepTableMatchesNL.title = "Uitslagen Nederland";
+
+            auto leftPart = Table.buildTable({ prepTableStandings, prepTableMatchesNL});
+
+            retVal = Table.tableOfTwoTables(leftPart, rightPart);
+            dd = std::max(dd, competition.lastDate().toInt());
+        }
+        return retVal;
+    }
+
+    std::pair<multipleStrings, multipleStrings> format_ekwk_qf::get_nationsLeague(const int& year, int& dd) const
+    {
+        auto retVal1 = get_nationsLeagueFinals(year - 1, dd);
+        auto retVal2 = get_nationsLeagueGroupPhase(year - 2, dd);
+
+        return { retVal1, retVal2 };
     }
 
 }
