@@ -57,7 +57,7 @@ namespace shob::football::test
         const auto prepTable = r2f.prepareTable(reader, html::settings());
 
         EXPECT_EQ(8, prepTable[0].body.size());
-        EXPECT_EQ(prepTable[0].body[0].data[0], "8 apr 2025 Arsenal (ENG) - Real Madrid 3-0<br>16 apr 2025 Real Madrid (ES) - Arsenal * 1-2")
+        EXPECT_EQ(prepTable[0].body[0].data[0], "8 apr 2025 Arsenal - Real Madrid 3-0<br>16 apr 2025 Real Madrid - Arsenal * 1-2")
             << "check star for winner and having two matches";
     }
 

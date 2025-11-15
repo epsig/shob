@@ -21,7 +21,7 @@ namespace shob::teams
     std::string clubTeams::expand(const std::string& club, const html::addCountryType addCountry) const
     {
         auto expanded = expand(club);
-        if (club.size() == 3) return expanded;
+        if (club.size() == 3 || landCodes.empty()) return expanded;
         auto land = club.substr(0, 2);
         if (addCountry != html::addCountryType::notAtAll && land != "NL")
         {
