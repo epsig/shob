@@ -3,7 +3,6 @@
 #include "../shob.football/filterResults.h"
 #include "../shob.html/updateIfNewer.h"
 #include "../shob.football/results2standings.h"
-#include "../shob.football/footballCompetition.h"
 #include "../shob.football/route2finalFactory.h"
 #include "../shob.general/glob.h"
 
@@ -73,22 +72,10 @@ namespace shob::pages
         return headBottum::getPage(hb);
     }
 
-    multipleStrings format_ekwk_qf::get_group_nl(const ekwk_date& ekwk, int& dd, const int star) const
+    multipleStrings format_ekwk_qf::print_splitted(const standings& stand, const footballCompetition& matches, const std::string& title) const
     {
-        const auto csvInput = std::format("{}{}{}u.csv", dataSportFolder, ekwk.shortName(), ekwk.year);
-        const auto csvData = readers::csvReader::readCsvFile(csvInput);
-
-        auto filter = filterInputList();
-        const auto parts = csvData.getParts();
-        const std::string part = parts.list()[0];
-
-        filter.filters.push_back({ 0, part });
-        const auto matches = filterResults::readFromCsvData(csvData, filter);
-
-        auto stand = results2standings::u2s(matches);
-        stand.wns_cl = star;
         auto prepTableStandings = stand.prepareTable(teams, settings);
-        prepTableStandings.title = "Stand groep Nederland";
+        prepTableStandings.title = title;
 
         auto splitted = matches.split_matches("NL");
 
@@ -101,9 +88,28 @@ namespace shob::pages
         prepTableMatchesWithoutNL.title = "Overige uitslagen";
         auto rightPart = Table.buildTable(prepTableMatchesWithoutNL);
 
+        const auto retVal = Table.tableOfTwoTables(leftPart, rightPart);
+        return retVal;
+    }
+
+    multipleStrings format_ekwk_qf::get_group_nl(const ekwk_date& ekwk, int& dd, const int star) const
+    {
+        const auto csvInput = std::format("{}{}{}u.csv", dataSportFolder, ekwk.shortName(), ekwk.year);
+        const auto csvData = readers::csvReader::readCsvFile(csvInput);
+
+        auto filter = filterInputList();
+        const auto parts = csvData.getParts();
+        const std::string part = parts.list()[0];
+
+        filter.filters.push_back({ 0, part });
+        const auto matches = filterResults::readFromCsvData(csvData, filter);
+
         dd = matches.lastDate().toInt();
 
-        auto retVal = Table.tableOfTwoTables(leftPart, rightPart);
+        auto stand = results2standings::u2s(matches);
+        stand.wns_cl = star;
+
+        auto retVal = print_splitted(stand, matches, "Stand groep Nederland");
         return retVal;
     }
 
@@ -134,27 +140,11 @@ namespace shob::pages
         {
             auto competition = footballCompetition();
             competition.readFromCsv(dataSportFolder + "../nationsLeague/" + list[0]);
-            auto Table = html::table(settings);
 
-            auto splitted = competition.split_matches("NL");
-
-            auto prepTableMatchesWithoutNL = splitted.second.prepareTable(teams, settings);
-            prepTableMatchesWithoutNL.title = "Overige uitslagen";
-
-            auto rightPart = Table.buildTable(prepTableMatchesWithoutNL);
-
-            auto stand = results2standings::u2s(competition);
-            auto prepTableStandings = stand.prepareTable(teams, settings);
-            prepTableStandings.title = "Stand Nations League groep Nederland";
-            auto content2 = Table.buildTable(prepTableStandings);
-
-            auto prepTableMatchesNL = splitted.first.prepareTable(teams, settings);
-            prepTableMatchesNL.title = "Uitslagen Nederland";
-
-            auto leftPart = Table.buildTable({ prepTableStandings, prepTableMatchesNL});
-
-            retVal = Table.tableOfTwoTables(leftPart, rightPart);
             dd = std::max(dd, competition.lastDate().toInt());
+
+            const auto stand = results2standings::u2s(competition);
+            retVal = print_splitted(stand, competition, "Stand Nations League groep Nederland");
         }
         return retVal;
     }

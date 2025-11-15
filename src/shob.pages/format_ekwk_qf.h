@@ -4,6 +4,8 @@
 #include "../shob.teams/clubTeams.h"
 #include "../shob.readers/csvAllSeasonsReader.h"
 #include "../shob.html/settings.h"
+#include "../shob.football/footballCompetition.h"
+#include "../shob.football/standings.h"
 #include "ekwk_date.h"
 #include "topmenu.h"
 #include <map>
@@ -28,6 +30,8 @@ namespace shob::pages
         topMenu menu;
         std::map<std::string, std::string> organizingCountries;
         general::multipleStrings get_group_nl(const ekwk_date& ekwk, int& dd, const int star) const;
+        general::multipleStrings print_splitted(const football::standings& stand, const football::footballCompetition& matches,
+            const std::string& title) const;
         std::pair<general::multipleStrings, general::multipleStrings> get_nationsLeague(const int& year, int& dd) const;
         general::multipleStrings get_nationsLeagueFinals(const int& year, int& dd) const;
         general::multipleStrings get_nationsLeagueGroupPhase(const int& year, int& dd) const;
