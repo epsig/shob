@@ -55,15 +55,18 @@ int main(int argc, char* argv[])
                     fmt_ec.get_season_to_file(season, "../pages/sport_voetbal_europacup_" + season.to_part_filename() + ".html");
                 }
             }
-            // ReSharper disable once CppDefaultCaseNotHandledInSwitchStatement
-            switch (year % 4)
+            if (year >= 1996)
             {
-            case 0:
-                fmt_ekwk_qf.get_pages_to_file(year, std::format(fmt_outfile, "EK", year));
-                break;
-            case 2:
-                fmt_ekwk_qf.get_pages_to_file(year, std::format(fmt_outfile, "WK", year));
-                break;
+                // ReSharper disable once CppDefaultCaseNotHandledInSwitchStatement
+                switch (year % 4)
+                {
+                case 0:
+                    fmt_ekwk_qf.get_pages_to_file(year, std::format(fmt_outfile, "EK", year));
+                    break;
+                case 2:
+                    fmt_ekwk_qf.get_pages_to_file(year, std::format(fmt_outfile, "WK", year));
+                    break;
+                }
             }
 
         }

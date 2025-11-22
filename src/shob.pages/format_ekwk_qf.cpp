@@ -101,16 +101,21 @@ namespace shob::pages
         const auto parts = csvData.getParts();
         const std::string part = parts.list()[0];
 
-        filter.filters.push_back({ 0, part });
-        const auto matches = filterResults::readFromCsvData(csvData, filter);
+        if (part.starts_with("g"))
+        {
+            filter.filters.push_back({ 0, part });
+            const auto matches = filterResults::readFromCsvData(csvData, filter);
 
-        dd = matches.lastDate().toInt();
+            dd = matches.lastDate().toInt();
 
-        auto stand = results2standings::u2s(matches);
-        stand.wns_cl = star;
+            auto stand = results2standings::u2s(matches);
+            stand.wns_cl = star;
 
-        auto retVal = print_splitted(stand, matches, "Stand groep Nederland");
-        return retVal;
+            auto retVal = print_splitted(stand, matches, "Stand groep Nederland");
+            return retVal;
+        }
+        dd = 20000101;
+        return multipleStrings();
     }
 
     multipleStrings format_ekwk_qf::get_nationsLeagueFinals(const int& year, int& dd) const
