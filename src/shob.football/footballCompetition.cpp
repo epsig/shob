@@ -95,6 +95,19 @@ namespace shob::football
         return { withTeam, withoutTeam };
     }
 
+    footballCompetition footballCompetition::filterDate(const itdate& date1, const itdate& date2) const
+    {
+        auto retVal = footballCompetition();
+        for (const auto& match : matches)
+        {
+            if (match.dd->toInt() >= date1.toInt() && match.dd->toInt() <= date2.toInt())
+            {
+                retVal.matches.push_back(match);
+            }
+        }
+        return retVal;
+    }
+
     html::tableContent footballCompetition::prepareTable(const teams::clubTeams& teams, const html::settings& settings) const
     {
         auto table = html::tableContent();

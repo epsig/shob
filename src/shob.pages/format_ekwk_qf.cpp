@@ -65,6 +65,9 @@ namespace shob::pages
         retVal.addContent(nationsL.first);
         retVal.addContent(nationsL.second);
 
+        auto oefenduels = get_Oefenduels(year);
+        retVal.addContent(oefenduels);
+
         auto hb = headBottumInput(dd);
         hb.title = "Voorronde " + ekwk.shortNameUpper() + " Voetbal " + std::to_string(year) + " te " + organizingCountries.at(ekwk.shortNameWithYear());
         std::swap(hb.body, retVal);
@@ -160,6 +163,24 @@ namespace shob::pages
         auto retVal2 = get_nationsLeagueGroupPhase(year - 2, dd);
 
         return { retVal1, retVal2 };
+    }
+
+    multipleStrings format_ekwk_qf::get_Oefenduels(const int& year) const
+    {
+        auto retVal = multipleStrings();
+        const auto csvInput = dataSportFolder + "../oefenduels.csv";
+        auto competition = footballCompetition();
+        competition.readFromCsv(csvInput); // TODO can be done in factory
+        auto date1 = itdate((year - 2) * 10000 + 700);
+        auto date2 = itdate(year * 10000 + 700);
+        const auto filtered = competition.filterDate(date1, date2);
+
+        auto prepTableMatchesNL = filtered.prepareTable(teams, settings);
+        prepTableMatchesNL.title = "Uitslagen Oefenduels Nederland";
+        const auto Table = html::table(settings);
+        retVal = Table.buildTable(prepTableMatchesNL);
+
+        return retVal;
     }
 
 }
