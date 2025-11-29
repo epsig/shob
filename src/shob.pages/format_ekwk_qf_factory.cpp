@@ -49,6 +49,10 @@ namespace shob::pages
         auto national_teams = teams::clubTeams();
         national_teams.InitFromFile(dataFolder + "/landcodes.csv");
 
+        auto teams = teams::clubTeams();
+        teams.InitFromFile(dataFolder + "/clubs.csv");
+        national_teams.MergeTeams(teams);
+
         auto menu = prepareTopMenu(dataFolderEkWkQf);
 
         auto fmt = format_ekwk_qf(dataFolderEkWkQf, national_teams, remarks, settings, menu, organizingCountries);

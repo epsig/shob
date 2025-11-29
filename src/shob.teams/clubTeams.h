@@ -13,6 +13,7 @@ namespace shob::teams
     public:
         void InitFromFile(const std::string& filename);
         void AddLandCodes(const nationalTeams& national_teams);
+        void MergeTeams(const clubTeams& other);
         std::string expand(const std::string& club) const;
         std::string expand(const std::string& club, const html::addCountryType addCountry) const;
     private:

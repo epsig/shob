@@ -18,6 +18,14 @@ namespace shob::teams
         landCodes = national_teams;
     }
 
+    void clubTeams::MergeTeams(const clubTeams& other)
+    {
+        for (const auto& team : other.clubs)
+        {
+            clubs.insert(team);
+        }
+    }
+
     std::string clubTeams::expand(const std::string& club, const html::addCountryType addCountry) const
     {
         auto expanded = expand(club);
