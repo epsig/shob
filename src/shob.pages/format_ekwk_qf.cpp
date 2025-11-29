@@ -51,11 +51,23 @@ namespace shob::pages
         auto remarks = seasonsReader.getSeason(ekwk.shortNameWithYear());
         auto star = findStar(remarks);
 
-        auto retVal = general::multipleStrings();
+        auto retVal = multipleStrings();
         retVal.addContent("<hr>");
         auto topMenu = menu.getMenu(std::to_string(year));
         retVal.addContent(topMenu);
         retVal.addContent("<hr>");
+
+        const auto csvMainTournament = std::format("{}{}{}{}.csv", dataSportFolder, "../ekwk/", ekwk.shortName(), ekwk.year);
+        auto submenu = multipleStrings();
+        submenu.addContent("<ul>");
+        if (fs::exists(csvMainTournament))
+        {
+            submenu.addContent("<li> <a href=\"../pages/sport_voetbal_" + ekwk.shortNameUpper() + "_" + std::to_string(year)
+                + ".html\">Eindronde " + std::to_string(year) + " in " + organizingCountries.at(ekwk.shortNameWithYear()) + "</a> </li>");
+        }
+        submenu.addContent("</ul> <hr>");
+
+        retVal.addContent(submenu);
 
         int dd = 0;
         auto groupNL = get_group_nl(ekwk, dd, star);
