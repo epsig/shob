@@ -57,6 +57,11 @@ namespace shob::pages
         retVal.addContent(topMenu);
         retVal.addContent("<hr>");
 
+        int dd = 0;
+        auto groupNL = get_group_nl(ekwk, dd, star);
+        auto nationsL = get_nationsLeague(year, dd);
+        auto oefenduels = get_Oefenduels(year);
+
         const auto csvMainTournament = std::format("{}{}{}{}.csv", dataSportFolder, "../ekwk/", ekwk.shortName(), ekwk.year);
         auto submenu = multipleStrings();
         submenu.addContent("<ul>");
@@ -65,19 +70,31 @@ namespace shob::pages
             submenu.addContent("<li> <a href=\"../pages/sport_voetbal_" + ekwk.shortNameUpper() + "_" + std::to_string(year)
                 + ".html\">Eindronde " + std::to_string(year) + " in " + organizingCountries.at(ekwk.shortNameWithYear()) + "</a> </li>");
         }
+        if ( ! groupNL.data.empty())
+        {
+            submenu.addContent("<li> <a href=\"#groepNL\">Stand en uitslagen groep van Nederland</a> </li>");
+        }
+        if ( ! nationsL.first.data.empty())
+        {
+            submenu.addContent("<li> <a href=\"#natleaguefinals\">Finale Nations League</a> </li>");
+        }
+        if (!nationsL.second.data.empty())
+        {
+            submenu.addContent("<li> <a href=\"#natleague\">Nations League groepsfase</a> </li>");
+        }
+        if (!oefenduels.data.empty())
+        {
+            submenu.addContent("<li> <a href=\"#keizersbaard\">Oefenduels</a> van Oranje</li>");
+        }
         submenu.addContent("</ul> <hr>");
 
         retVal.addContent(submenu);
 
-        int dd = 0;
-        auto groupNL = get_group_nl(ekwk, dd, star);
         retVal.addContent(groupNL);
 
-        auto nationsL = get_nationsLeague(year, dd);
         retVal.addContent(nationsL.first);
         retVal.addContent(nationsL.second);
 
-        auto oefenduels = get_Oefenduels(year);
         retVal.addContent(oefenduels);
 
         auto hb = headBottumInput(dd);
@@ -126,7 +143,10 @@ namespace shob::pages
             auto stand = results2standings::u2s(matches);
             stand.wns_cl = star;
 
-            auto retVal = print_splitted(stand, matches, "Stand groep Nederland");
+            auto retVal = multipleStrings();
+            retVal.addContent("<a name=\"groepNL\"/>");
+            auto standing_and_matches = print_splitted(stand, matches, "Stand groep Nederland");
+            retVal.addContent(standing_and_matches);
             return retVal;
         }
         dd = 20000101;
@@ -144,7 +164,9 @@ namespace shob::pages
             prepTable[0].header.addContent("Finals Nations League");
             auto Table = html::table(settings);
             Table.withBorder = false;
-            retVal = Table.buildTable(prepTable);
+            retVal.addContent("<a name=\"natleaguefinals\"/>");
+            auto matches = Table.buildTable(prepTable);
+            retVal.addContent(matches);
             dd = std::max(dd, finals.lastDate().toInt());
         }
 
@@ -164,7 +186,9 @@ namespace shob::pages
             dd = std::max(dd, competition.lastDate().toInt());
 
             const auto stand = results2standings::u2s(competition);
-            retVal = print_splitted(stand, competition, "Stand Nations League groep Nederland");
+            retVal.addContent("<a name=\"natleague\"/>");
+            auto matches = print_splitted(stand, competition, "Stand Nations League groep Nederland");
+            retVal.addContent(matches);
         }
         return retVal;
     }
@@ -188,9 +212,14 @@ namespace shob::pages
         const auto filtered = competition.filterDate(date1, date2);
 
         auto prepTableMatchesNL = filtered.prepareTable(teams, settings);
-        prepTableMatchesNL.title = "Uitslagen Oefenduels Nederland";
-        const auto Table = html::table(settings);
-        retVal = Table.buildTable(prepTableMatchesNL);
+        if (!prepTableMatchesNL.empty())
+        {
+            prepTableMatchesNL.title = "Uitslagen Oefenduels Nederland";
+            const auto Table = html::table(settings);
+            retVal.addContent("<a name=\"keizersbaard\"/>");
+            auto matches = Table.buildTable(prepTableMatchesNL);
+            retVal.addContent(matches);
+        }
 
         return retVal;
     }
