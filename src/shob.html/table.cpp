@@ -117,6 +117,7 @@ namespace shob::html
         retVal.addContent("</td> <td valign=""top""> ");
         retVal.addContent(right);
         retVal.addContent("</td> </tr>");
+        retVal.addContent("</table>");
 
         return retVal;
     }
