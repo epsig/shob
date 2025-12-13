@@ -329,6 +329,11 @@ namespace shob::football
         {
             table.header.data = { "club", "games", "points", "goal difference" };
         }
+        if (teams.getClubsOrCountries() == teams::clubsOrCountries::countries)
+        {
+            table.header.data[0] = "land";
+        }
+
         if (settings.isCompatible) table.header.data.clear();
         for (size_t i = 0; i < list.size(); i++)
         {

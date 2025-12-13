@@ -7,8 +7,9 @@ namespace shob::teams
 {
     using namespace shob::readers;
 
-    void clubTeams::InitFromFile(const std::string& filename)
+    void clubTeams::InitFromFile(const std::string& filename, clubsOrCountries team_type)
     {
+        teamType = team_type;
         auto data = csvReader::readCsvFile(filename);
         Init(data);
     }

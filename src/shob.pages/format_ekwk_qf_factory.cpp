@@ -47,10 +47,10 @@ namespace shob::pages
         auto organizingCountries = remarksMainTournement.getAll("organising_country");
 
         auto national_teams = teams::clubTeams();
-        national_teams.InitFromFile(dataFolder + "/landcodes.csv");
+        national_teams.InitFromFile(dataFolder + "/landcodes.csv", teams::clubsOrCountries::countries);
 
         auto teams = teams::clubTeams();
-        teams.InitFromFile(dataFolder + "/clubs.csv");
+        teams.InitFromFile(dataFolder + "/clubs.csv", teams::clubsOrCountries::unknownYet);
         national_teams.MergeTeams(teams);
 
         auto menu = prepareTopMenu(dataFolderEkWkQf);

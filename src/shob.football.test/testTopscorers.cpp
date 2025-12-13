@@ -37,7 +37,7 @@ namespace shob::football::test
         auto reader = teams::clubTeams();
         const std::string filename2 = testUtils::refFileWithPath(__FILE__, clubs);
 
-        reader.InitFromFile(filename2);
+        reader.InitFromFile(filename2, teams::clubsOrCountries::clubs);
         auto table2 = tp.prepareTable(reader, players, settings);
 
         EXPECT_EQ(table2.body.size(), 2);

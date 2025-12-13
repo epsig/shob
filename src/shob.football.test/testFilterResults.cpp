@@ -20,7 +20,7 @@ namespace shob::football::test
         const std::string clubs = "../../data/sport/clubs.csv";
         const std::string filename2 = testUtils::refFileWithPath(__FILE__, clubs);
         auto reader = teams::clubTeams();
-        reader.InitFromFile(filename2);
+        reader.InitFromFile(filename2, teams::clubsOrCountries::clubs);
 
         const auto r2f = route2finaleFactory::create(filename);
         const auto prepTable = r2f.prepareTable(reader, html::settings());
@@ -50,7 +50,7 @@ namespace shob::football::test
         const std::string clubs = "../../data/sport/clubs.csv";
         const std::string filename2 = testUtils::refFileWithPath(__FILE__, clubs);
         auto reader = teams::clubTeams();
-        reader.InitFromFile(filename2);
+        reader.InitFromFile(filename2, teams::clubsOrCountries::clubs);
 
         const auto data = csvReader::readCsvFile(filename);
         const auto r2f = route2finaleFactory::createEC(data, "CL");

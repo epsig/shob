@@ -15,7 +15,7 @@ namespace shob::teams::test
         const std::string clubs = "../../data/sport/clubs.csv";
         const std::string filename = testUtils::refFileWithPath(__FILE__, clubs);
         auto teams = clubTeams();
-        teams.InitFromFile(filename);
+        teams.InitFromFile(filename, clubsOrCountries::clubs);
         const auto fullName = teams.expand("NLfyn");
         EXPECT_EQ(fullName, "Feyenoord");
     }

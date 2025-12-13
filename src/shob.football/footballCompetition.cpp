@@ -121,12 +121,26 @@ namespace shob::football
 
         if (settings.lang == html::language::Dutch)
         {
-            table.header.data = { "dd", "team1 - team2", "uitslag" };
+            if (teams.getClubsOrCountries() == teams::clubsOrCountries::clubs)
+            {
+                table.header.data = { "dd", "team1 - team2", "uitslag" };
+            }
+            else
+            {
+                table.header.data = { "dd", "land1 - land2", "uitslag" };
+            }
             if (withRemarks) table.header.data.emplace_back("opm");
         }
         else
         {
-            table.header.data = { "dd", "team (home) - team (away)", "result" };
+            if (teams.getClubsOrCountries() == teams::clubsOrCountries::clubs)
+            {
+                table.header.data = { "dd", "team (home) - team (away)", "result" };
+            }
+            else
+            {
+                table.header.data = { "dd", "land (home) - land (away)", "result" };
+            }
             if (withRemarks) table.header.data.emplace_back("remark");
         }
         if (settings.isCompatible) table.header.data.clear();
