@@ -33,6 +33,18 @@ int main(int argc, char* argv[])
                 throw shobException("first two command line arguments must be years");
             }
         }
+        else if (argc == 2)
+        {
+            if (dateFactory::allDigits(argv[1]))
+            {
+                firstYear = std::atoi(argv[1]);
+                lastYear = firstYear;
+            }
+            else
+            {
+                throw shobException("first command line argument must be a year");
+            }
+        }
 
         auto fmt_nl = format_nl_factory::build("sport");
         auto settings = shob::html::settings();
