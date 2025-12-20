@@ -94,13 +94,22 @@ namespace shob::pages
     {
         std::vector<std::vector<std::string>> extraU2s = extras.getSeason(season);
         wns_cl.wns_cl = -1;
+        wns_cl.wns_cf = -1;
         wns_cl.scoring = 3; // default since 1995
 
         std::string summary_key = (settings.lang == language::Dutch ? "summary_NL" : "summary_UK");
 
         for (const auto& row : extraU2s)
         {
-            if (row[0] == "wns_CL")
+            if (row[0] == "wns_CF")
+            {
+                auto option = row[1];
+                if (dateFactory::allDigits(option))
+                {
+                    wns_cl.wns_cf = std::stoi(option);
+                }
+            }
+            else if (row[0] == "wns_CL")
             {
                 auto option = row[1];
                 if (dateFactory::allDigits(option))
