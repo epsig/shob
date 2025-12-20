@@ -35,7 +35,7 @@ namespace shob::pages
         std::pair<general::multipleStrings, general::multipleStrings> get_nationsLeague(const int& year, int& dd) const;
         general::multipleStrings get_nationsLeagueFinals(const int& year, int& dd) const;
         general::multipleStrings get_nationsLeagueGroupPhase(const int& year, int& dd) const;
-        general::multipleStrings get_Oefenduels(const int& year) const;
+        general::multipleStrings get_friendlies(const int& year, const std::vector<std::vector<std::string>>& remarks) const;
         static int findStar(const std::vector<std::vector<std::string>>& remarks);
     };
 }

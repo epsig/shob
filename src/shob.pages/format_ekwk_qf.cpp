@@ -60,7 +60,7 @@ namespace shob::pages
         int dd = 0;
         auto groupNL = get_group_nl(ekwk, dd, star);
         auto nationsL = get_nationsLeague(year, dd);
-        auto oefenduels = get_Oefenduels(year);
+        auto oefenduels = get_friendlies(year, remarks);
 
         const auto csvMainTournament = std::format("{}{}{}{}.csv", dataSportFolder, "../ekwk/", ekwk.shortName(), ekwk.year);
         auto submenu = multipleStrings();
@@ -201,14 +201,21 @@ namespace shob::pages
         return { retVal1, retVal2 };
     }
 
-    multipleStrings format_ekwk_qf::get_Oefenduels(const int& year) const
+    multipleStrings format_ekwk_qf::get_friendlies(const int& year, const std::vector<std::vector<std::string>>& remarks) const
     {
         auto retVal = multipleStrings();
         const auto csvInput = dataSportFolder + "../oefenduels.csv";
         auto competition = footballCompetition();
         competition.readFromCsv(csvInput); // TODO can be done in factory
-        auto date1 = itdate((year - 2) * 10000 + 700);
-        auto date2 = itdate(year * 10000 + 700);
+        int dd1kzb = (year - 2) * 10000 + 700;
+        int dd2kzb = year * 10000 + 700;
+        for(const auto& key_value : remarks)
+        {
+            if (key_value[0] == "dd1kzb") dd1kzb = std::atoi(key_value[1].c_str());
+            if (key_value[0] == "dd2kzb") dd2kzb = std::atoi(key_value[1].c_str());
+        }
+        auto date1 = itdate(dd1kzb);
+        auto date2 = itdate(dd2kzb);
         const auto filtered = competition.filterDate(date1, date2);
 
         auto prepTableMatchesNL = filtered.prepareTable(teams, settings);
