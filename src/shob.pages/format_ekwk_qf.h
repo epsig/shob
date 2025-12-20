@@ -30,12 +30,13 @@ namespace shob::pages
         topMenu menu;
         std::map<std::string, std::string> organizingCountries;
         general::multipleStrings get_group_nl(const ekwk_date& ekwk, int& dd, const int star) const;
+        general::multipleStrings get_play_offs(const ekwk_date& ekwk, int& dd) const;
         general::multipleStrings print_splitted(const football::standings& stand, const football::footballCompetition& matches,
             const std::string& title) const;
         std::pair<general::multipleStrings, general::multipleStrings> get_nationsLeague(const int& year, int& dd) const;
         general::multipleStrings get_nationsLeagueFinals(const int& year, int& dd) const;
         general::multipleStrings get_nationsLeagueGroupPhase(const int& year, int& dd) const;
-        general::multipleStrings get_friendlies(const int& year, const std::vector<std::vector<std::string>>& remarks) const;
+        general::multipleStrings get_friendlies(const int& year, const std::vector<std::vector<std::string>>& remarks, int& dd) const;
         static int findStar(const std::vector<std::vector<std::string>>& remarks);
     };
 }

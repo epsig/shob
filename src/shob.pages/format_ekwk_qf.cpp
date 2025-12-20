@@ -60,7 +60,8 @@ namespace shob::pages
         int dd = 0;
         auto groupNL = get_group_nl(ekwk, dd, star);
         auto nationsL = get_nationsLeague(year, dd);
-        auto oefenduels = get_friendlies(year, remarks);
+        auto playoffs = get_play_offs(year, dd);
+        auto oefenduels = get_friendlies(year, remarks, dd);
 
         const auto csvMainTournament = std::format("{}{}{}{}.csv", dataSportFolder, "../ekwk/", ekwk.shortName(), ekwk.year);
         auto submenu = multipleStrings();
@@ -82,6 +83,10 @@ namespace shob::pages
         {
             submenu.addContent("<li> <a href=\"#natleague\">Nations League groepsfase</a> </li>");
         }
+        if (!playoffs.data.empty())
+        {
+            submenu.addContent("<li> <a href=\"#playoffs\">Naar de play-offs</a> </li>");
+        }
         if (!oefenduels.data.empty())
         {
             submenu.addContent("<li> <a href=\"#keizersbaard\">Oefenduels</a> van Oranje</li>");
@@ -95,6 +100,7 @@ namespace shob::pages
         retVal.addContent(nationsL.first);
         retVal.addContent(nationsL.second);
 
+        retVal.addContent(playoffs);
         retVal.addContent(oefenduels);
 
         auto hb = headBottumInput(dd);
@@ -129,12 +135,12 @@ namespace shob::pages
         const auto csvInput = std::format("{}{}{}u.csv", dataSportFolder, ekwk.shortName(), ekwk.year);
         const auto csvData = readers::csvReader::readCsvFile(csvInput);
 
-        auto filter = filterInputList();
         const auto parts = csvData.getParts();
         const std::string part = parts.list()[0];
 
         if (part.starts_with("g"))
         {
+            auto filter = filterInputList();
             filter.filters.push_back({ 0, part });
             const auto matches = filterResults::readFromCsvData(csvData, filter);
 
@@ -144,13 +150,43 @@ namespace shob::pages
             stand.wns_cl = star;
 
             auto retVal = multipleStrings();
-            retVal.addContent("<a name=\"groepNL\"/>");
+            retVal.addContent("<p/> <a name=\"groepNL\"/>");
             auto standing_and_matches = print_splitted(stand, matches, "Stand groep Nederland");
             retVal.addContent(standing_and_matches);
             return retVal;
         }
         dd = 20000101;
         return multipleStrings();
+    }
+
+    multipleStrings format_ekwk_qf::get_play_offs(const ekwk_date& ekwk, int& dd) const
+    {
+        // TODO also read in get_group_nl
+        const auto csvInput = std::format("{}{}{}u.csv", dataSportFolder, ekwk.shortName(), ekwk.year);
+        const auto csvData = readers::csvReader::readCsvFile(csvInput);
+
+        const auto parts = csvData.getParts();
+        const std::string part = parts.list().back();
+
+        multipleStrings retVal;
+        if (part == "po")
+        {
+            auto filter = filterInputList();
+            filter.filters.push_back({ 0, part });
+            const auto matches = filterResults::readFromCsvData(csvData, filter);
+
+            dd = std::max(dd, matches.lastDate().toInt());
+
+            auto prepTableMatchesNL = matches.prepareTable(teams, settings);
+            prepTableMatchesNL.title = "naar de play-offs";
+            const auto Table = html::table(settings);
+            auto playoffs = Table.buildTable(prepTableMatchesNL);
+            retVal.addContent("<p/> <a name=\"playoffs\"/>");
+            retVal.addContent(playoffs);
+            return retVal;
+        }
+
+        return retVal;
     }
 
     multipleStrings format_ekwk_qf::get_nationsLeagueFinals(const int& year, int& dd) const
@@ -164,7 +200,7 @@ namespace shob::pages
             prepTable[0].header.addContent("Finals Nations League");
             auto Table = html::table(settings);
             Table.withBorder = false;
-            retVal.addContent("<a name=\"natleaguefinals\"/>");
+            retVal.addContent("<p/> <a name=\"natleaguefinals\"/>");
             auto matches = Table.buildTable(prepTable);
             retVal.addContent(matches);
             dd = std::max(dd, finals.lastDate().toInt());
@@ -186,7 +222,7 @@ namespace shob::pages
             dd = std::max(dd, competition.lastDate().toInt());
 
             const auto stand = results2standings::u2s(competition);
-            retVal.addContent("<a name=\"natleague\"/>");
+            retVal.addContent("<p/> <a name=\"natleague\"/>");
             auto matches = print_splitted(stand, competition, "Stand Nations League groep Nederland");
             retVal.addContent(matches);
         }
@@ -201,7 +237,7 @@ namespace shob::pages
         return { retVal1, retVal2 };
     }
 
-    multipleStrings format_ekwk_qf::get_friendlies(const int& year, const std::vector<std::vector<std::string>>& remarks) const
+    multipleStrings format_ekwk_qf::get_friendlies(const int& year, const std::vector<std::vector<std::string>>& remarks, int& dd) const
     {
         auto retVal = multipleStrings();
         const auto csvInput = dataSportFolder + "../oefenduels.csv";
@@ -221,9 +257,10 @@ namespace shob::pages
         auto prepTableMatchesNL = filtered.prepareTable(teams, settings);
         if (!prepTableMatchesNL.empty())
         {
+            dd = std::max(dd, filtered.lastDate().toInt());
             prepTableMatchesNL.title = "Uitslagen Oefenduels Nederland";
             const auto Table = html::table(settings);
-            retVal.addContent("<a name=\"keizersbaard\"/>");
+            retVal.addContent("<p/> <a name=\"keizersbaard\"/>");
             auto matches = Table.buildTable(prepTableMatchesNL);
             retVal.addContent(matches);
         }
