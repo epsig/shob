@@ -140,12 +140,13 @@ namespace shob::pages
         return extraU2s;
     }
 
-    multipleStrings format_ec::getSupercup(const csvContent& data) const
+    multipleStrings format_ec::getSupercup(const csvContent& data, int& dd) const
     {
         auto filter = filterInputList();
         const std::string part = "supercup";
         filter.filters.push_back({ 0, part });
         const auto matches = filterResults::readFromCsvData(data, filter);
+        dd = std::max(dd, matches.lastDate().toInt());
         auto adjSettings = settings;
         adjSettings.addCountry = addCountryType::withAcronym;
         auto prepTable = matches.prepareTable(teams, adjSettings);
@@ -173,7 +174,7 @@ namespace shob::pages
     }
 
     multipleStrings format_ec::getFirstHalfYear(const std::string& part, const csvContent& data, const wns_ec& wns_cl,
-        const std::vector<std::vector<std::string>>& extraU2s, const int sortRule) const
+        const std::vector<std::vector<std::string>>& extraU2s, const int sortRule, int& dd) const
     {
         auto tables = std::vector<tableContent>();
 
@@ -212,6 +213,7 @@ namespace shob::pages
                 prepTable.title.front() = qf.back();
             }
             tables.push_back(prepTable);
+            dd = std::max(dd, matches.lastDate().toInt());
         }
 
         for (const auto& group : groups)
@@ -246,6 +248,7 @@ namespace shob::pages
                 tables.push_back(prepTable3);
             }
             tables.push_back(prepTable2);
+            dd = std::max(dd, groupsPhase.lastDate().toInt());
         }
 
         const auto xtras = getXtra(part, data).list();
@@ -287,6 +290,7 @@ namespace shob::pages
                     prepTable.title = "8-ste finale " + leagueNames.getFullName(part);
                 }
                 tables.push_back(prepTable);
+                dd = std::max(dd, matches.lastDate().toInt());
             }
         }
 
@@ -394,13 +398,13 @@ namespace shob::pages
         {
             if (part == "supercup")
             {
-                auto sc = getSupercup(csvData);
+                auto sc = getSupercup(csvData, dd);
                 out.addContent(sc);
             }
             else
             {
                 out.addContent("<a name=\"" + leagueNames.getLinkName(part) + "\"/>");
-                auto content = getFirstHalfYear(part, csvData, wns_cl, extraU2s, sortRule);
+                auto content = getFirstHalfYear(part, csvData, wns_cl, extraU2s, sortRule, dd);
                 out.addContent(content);
                 const auto r2f = route2finaleFactory::createEC(csvData, part);
                 auto prepTable = r2f.prepareTable(teams, settings);
