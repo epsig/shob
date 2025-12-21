@@ -8,6 +8,7 @@
 
 #include <filesystem>
 #include <format>
+#include<array>
 #include <iostream>
 
 namespace shob::pages
@@ -46,6 +47,13 @@ namespace shob::pages
 
     multipleStrings format_ekwk_qf::get_pages(const int year) const
     {
+        struct pageBlock
+        {
+            multipleStrings data;
+            std::string linkName;
+            std::string description;
+        };
+
         const auto ekwk = ekwk_date(year);
 
         auto remarks = seasonsReader.getSeason(ekwk.shortNameWithYear());
@@ -59,10 +67,30 @@ namespace shob::pages
 
         int dd = 0;
         const auto matches_data = read_matches_data(ekwk);
-        auto groupNL = get_group_nl(ekwk, dd, star, matches_data);
-        auto nationsL = get_nationsLeague(year, dd);
-        auto playoffs = get_play_offs(year, dd, matches_data);
-        auto friendlies = get_friendlies(year, remarks, dd);
+
+        auto pageBlocks = std::array<pageBlock, 5>();
+
+        pageBlocks[0].data = get_group_nl(ekwk, dd, star, matches_data);
+        pageBlocks[0].linkName = "groepNL";
+        pageBlocks[0].description = "Stand en uitslagen groep van Nederland";
+
+        auto [nationsLeagueFinals, nationsLeagueGroups] = get_nationsLeague(year, dd);
+
+        std::swap(nationsLeagueFinals, pageBlocks[1].data);
+        pageBlocks[1].linkName = "natleaguefinals";
+        pageBlocks[1].description = "Finale Nations League";
+
+        std::swap(nationsLeagueGroups, pageBlocks[2].data);
+        pageBlocks[2].linkName = "natleague";
+        pageBlocks[2].description = "Nations League groepsfase";
+
+        pageBlocks[3].data = get_play_offs(year, dd, matches_data);
+        pageBlocks[3].linkName = "playoffs";
+        pageBlocks[3].description = "Naar de play-offs";
+
+        pageBlocks[4].data = get_friendlies(year, remarks, dd);
+        pageBlocks[4].linkName = "keizersbaard";
+        pageBlocks[4].description = "Oefenduels van Oranje";
 
         const auto csvMainTournament = std::format("{}{}{}{}.csv", dataSportFolder, "../ekwk/", ekwk.shortName(), ekwk.year);
         auto submenu = multipleStrings();
@@ -72,37 +100,24 @@ namespace shob::pages
             submenu.addContent("<li> <a href=\"../pages/sport_voetbal_" + ekwk.shortNameUpper() + "_" + std::to_string(year)
                 + ".html\">Eindronde " + std::to_string(year) + " in " + organizingCountries.at(ekwk.shortNameWithYear()) + "</a> </li>");
         }
-        if ( ! groupNL.data.empty())
+        for (const auto& block : pageBlocks)
         {
-            submenu.addContent("<li> <a href=\"#groepNL\">Stand en uitslagen groep van Nederland</a> </li>");
-        }
-        if ( ! nationsL.first.data.empty())
-        {
-            submenu.addContent("<li> <a href=\"#natleaguefinals\">Finale Nations League</a> </li>");
-        }
-        if (!nationsL.second.data.empty())
-        {
-            submenu.addContent("<li> <a href=\"#natleague\">Nations League groepsfase</a> </li>");
-        }
-        if (!playoffs.data.empty())
-        {
-            submenu.addContent("<li> <a href=\"#playoffs\">Naar de play-offs</a> </li>");
-        }
-        if (!friendlies.data.empty())
-        {
-            submenu.addContent("<li> <a href=\"#keizersbaard\">Oefenduels</a> van Oranje</li>");
+            if ( ! block.data.data.empty())
+            {
+                submenu.addContent("<li> <a href=\"#" + block.linkName + "\">" + block.description + "</a> </li>");
+            }
         }
         submenu.addContent("</ul> <hr>");
 
         retVal.addContent(submenu);
 
-        retVal.addContent(groupNL);
-
-        retVal.addContent(nationsL.first);
-        retVal.addContent(nationsL.second);
-
-        retVal.addContent(playoffs);
-        retVal.addContent(friendlies);
+        for (auto& block : pageBlocks)
+        {
+            if ( ! block.data.data.empty())
+            {
+                retVal.addContent(block.data);
+            }
+        }
 
         auto hb = headBottumInput(dd);
         hb.title = "Voorronde " + ekwk.shortNameUpper() + " Voetbal " + std::to_string(year) + " te " + organizingCountries.at(ekwk.shortNameWithYear());
