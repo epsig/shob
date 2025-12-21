@@ -68,29 +68,33 @@ namespace shob::pages
         int dd = 0;
         const auto matches_data = read_matches_data(ekwk);
 
-        auto pageBlocks = std::array<pageBlock, 5>();
+        auto pageBlocks = std::array<pageBlock, 6>();
 
         pageBlocks[0].data = get_group_nl(ekwk, dd, star, matches_data);
         pageBlocks[0].linkName = "groepNL";
         pageBlocks[0].description = "Stand en uitslagen groep van Nederland";
 
+        pageBlocks[1].data = get_other_standings(ekwk);
+        pageBlocks[1].linkName = "standen";
+        pageBlocks[1].description = "Standen overige groepen";
+
         auto [nationsLeagueFinals, nationsLeagueGroups] = get_nationsLeague(year, dd);
 
-        std::swap(nationsLeagueFinals, pageBlocks[1].data);
-        pageBlocks[1].linkName = "natleaguefinals";
-        pageBlocks[1].description = "Finale Nations League";
+        std::swap(nationsLeagueFinals, pageBlocks[2].data);
+        pageBlocks[2].linkName = "natleaguefinals";
+        pageBlocks[2].description = "Finale Nations League";
 
-        std::swap(nationsLeagueGroups, pageBlocks[2].data);
-        pageBlocks[2].linkName = "natleague";
-        pageBlocks[2].description = "Nations League groepsfase";
+        std::swap(nationsLeagueGroups, pageBlocks[3].data);
+        pageBlocks[3].linkName = "natleague";
+        pageBlocks[3].description = "Nations League groepsfase";
 
-        pageBlocks[3].data = get_play_offs(year, dd, matches_data);
-        pageBlocks[3].linkName = "playoffs";
-        pageBlocks[3].description = "Naar de play-offs";
+        pageBlocks[4].data = get_play_offs(year, dd, matches_data);
+        pageBlocks[4].linkName = "playoffs";
+        pageBlocks[4].description = "Naar de play-offs";
 
-        pageBlocks[4].data = get_friendlies(year, remarks, dd);
-        pageBlocks[4].linkName = "keizersbaard";
-        pageBlocks[4].description = "Oefenduels van Oranje";
+        pageBlocks[5].data = get_friendlies(year, remarks, dd);
+        pageBlocks[5].linkName = "keizersbaard";
+        pageBlocks[5].description = "Oefenduels van Oranje";
 
         const auto csvMainTournament = std::format("{}{}{}{}.csv", dataSportFolder, "../ekwk/", ekwk.shortName(), ekwk.year);
         auto submenu = multipleStrings();
@@ -279,6 +283,41 @@ namespace shob::pages
             retVal.addContent("<p/> <a name=\"keizersbaard\"/>");
             auto matches = Table.buildTable(prepTableMatchesNL);
             retVal.addContent(matches);
+        }
+
+        return retVal;
+    }
+
+    multipleStrings format_ekwk_qf::get_other_standings(const ekwk_date& ekwk) const
+    {
+        const auto csvInput = std::format("{}{}{}s.csv", dataSportFolder, ekwk.shortName(), ekwk.year);
+        const auto csvData = readers::csvReader::readCsvFile(csvInput);
+
+        auto retVal = multipleStrings();
+        if ( ! csvData.body.empty())
+        {
+            retVal.addContent(std::format("<p/> <a name=\"standen\"/> <h2> Overige {}groepen:", ekwk.isWk ? "Europese" : "" ));
+            const auto parts = csvData.getParts();
+            auto tables = std::vector<html::tableContent>();
+            for (const auto& part : parts.list())
+            {
+                auto csvStand = readers::csvContent();
+                for (auto line : csvData.body)
+                {
+                    if (line.column[0] == part)
+                    {
+                        csvStand.body.push_back(line);
+                    }
+                }
+                auto standing = standings();
+                standing.initFromData(csvStand, 1);
+                auto prepTableStandings = standing.prepareTable(teams, settings);
+                prepTableStandings.title = std::format("Groep {}", part[1]);
+                tables.push_back(prepTableStandings);
+            }
+            auto ftable = html::table(settings);
+            auto all = ftable.buildTable(tables);
+            retVal.addContent(all);
         }
 
         return retVal;

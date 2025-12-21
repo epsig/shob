@@ -12,8 +12,7 @@ namespace shob::pages
         std::string shortNameUpper() const;
         std::string shortNameWithYear() const;
         const int year;
-    private:
-        bool isWk;
+        const bool isWk;
     };
 
 }
