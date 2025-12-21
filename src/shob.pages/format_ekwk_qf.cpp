@@ -58,10 +58,11 @@ namespace shob::pages
         retVal.addContent("<hr>");
 
         int dd = 0;
-        auto groupNL = get_group_nl(ekwk, dd, star);
+        const auto matches_data = read_matches_data(ekwk);
+        auto groupNL = get_group_nl(ekwk, dd, star, matches_data);
         auto nationsL = get_nationsLeague(year, dd);
-        auto playoffs = get_play_offs(year, dd);
-        auto oefenduels = get_friendlies(year, remarks, dd);
+        auto playoffs = get_play_offs(year, dd, matches_data);
+        auto friendlies = get_friendlies(year, remarks, dd);
 
         const auto csvMainTournament = std::format("{}{}{}{}.csv", dataSportFolder, "../ekwk/", ekwk.shortName(), ekwk.year);
         auto submenu = multipleStrings();
@@ -87,7 +88,7 @@ namespace shob::pages
         {
             submenu.addContent("<li> <a href=\"#playoffs\">Naar de play-offs</a> </li>");
         }
-        if (!oefenduels.data.empty())
+        if (!friendlies.data.empty())
         {
             submenu.addContent("<li> <a href=\"#keizersbaard\">Oefenduels</a> van Oranje</li>");
         }
@@ -101,7 +102,7 @@ namespace shob::pages
         retVal.addContent(nationsL.second);
 
         retVal.addContent(playoffs);
-        retVal.addContent(oefenduels);
+        retVal.addContent(friendlies);
 
         auto hb = headBottumInput(dd);
         hb.title = "Voorronde " + ekwk.shortNameUpper() + " Voetbal " + std::to_string(year) + " te " + organizingCountries.at(ekwk.shortNameWithYear());
@@ -130,19 +131,23 @@ namespace shob::pages
         return retVal;
     }
 
-    multipleStrings format_ekwk_qf::get_group_nl(const ekwk_date& ekwk, int& dd, const int star) const
+    readers::csvContent format_ekwk_qf::read_matches_data(const ekwk_date& ekwk) const
     {
         const auto csvInput = std::format("{}{}{}u.csv", dataSportFolder, ekwk.shortName(), ekwk.year);
         const auto csvData = readers::csvReader::readCsvFile(csvInput);
+        return csvData;
+    }
 
-        const auto parts = csvData.getParts();
+    multipleStrings format_ekwk_qf::get_group_nl(const ekwk_date& ekwk, int& dd, const int star, const readers::csvContent& matches_data) const
+    {
+        const auto parts = matches_data.getParts();
         const std::string part = parts.list()[0];
 
         if (part.starts_with("g"))
         {
             auto filter = filterInputList();
             filter.filters.push_back({ 0, part });
-            const auto matches = filterResults::readFromCsvData(csvData, filter);
+            const auto matches = filterResults::readFromCsvData(matches_data, filter);
 
             dd = matches.lastDate().toInt();
 
@@ -159,13 +164,9 @@ namespace shob::pages
         return multipleStrings();
     }
 
-    multipleStrings format_ekwk_qf::get_play_offs(const ekwk_date& ekwk, int& dd) const
+    multipleStrings format_ekwk_qf::get_play_offs(const ekwk_date& ekwk, int& dd, const readers::csvContent& matches_data) const
     {
-        // TODO also read in get_group_nl
-        const auto csvInput = std::format("{}{}{}u.csv", dataSportFolder, ekwk.shortName(), ekwk.year);
-        const auto csvData = readers::csvReader::readCsvFile(csvInput);
-
-        const auto parts = csvData.getParts();
+        const auto parts = matches_data.getParts();
         const std::string part = parts.list().back();
 
         multipleStrings retVal;
@@ -173,7 +174,7 @@ namespace shob::pages
         {
             auto filter = filterInputList();
             filter.filters.push_back({ 0, part });
-            const auto matches = filterResults::readFromCsvData(csvData, filter);
+            const auto matches = filterResults::readFromCsvData(matches_data, filter);
 
             dd = std::max(dd, matches.lastDate().toInt());
 

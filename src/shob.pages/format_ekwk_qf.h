@@ -29,8 +29,10 @@ namespace shob::pages
         html::settings settings;
         topMenu menu;
         std::map<std::string, std::string> organizingCountries;
-        general::multipleStrings get_group_nl(const ekwk_date& ekwk, int& dd, const int star) const;
-        general::multipleStrings get_play_offs(const ekwk_date& ekwk, int& dd) const;
+        readers::csvContent read_matches_data(const ekwk_date& ekwk) const;
+        general::multipleStrings get_group_nl(const ekwk_date& ekwk, int& dd, const int star,
+            const readers::csvContent& matches_data) const;
+        general::multipleStrings get_play_offs(const ekwk_date& ekwk, int& dd, const readers::csvContent& matches_data) const;
         general::multipleStrings print_splitted(const football::standings& stand, const football::footballCompetition& matches,
             const std::string& title) const;
         std::pair<general::multipleStrings, general::multipleStrings> get_nationsLeague(const int& year, int& dd) const;
