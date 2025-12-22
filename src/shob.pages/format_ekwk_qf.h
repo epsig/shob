@@ -16,9 +16,10 @@ namespace shob::pages
     {
     public:
         format_ekwk_qf(std::string folder, teams::clubTeams teams, readers::csvAllSeasonsReader reader, html::settings settings,
-            topMenu menu, std::map<std::string, std::string> organizingCountries) :
+            topMenu menu, std::map<std::string, std::string> organizingCountries, football::footballCompetition allFriendlies) :
             dataSportFolder(std::move(folder)), teams(std::move(teams)), seasonsReader(std::move(reader)),
-            settings(settings), menu(std::move(menu)), organizingCountries(std::move(organizingCountries)) {}
+            settings(settings), menu(std::move(menu)), organizingCountries(std::move(organizingCountries)),
+            allFriendlies(std::move(allFriendlies)) {}
         general::multipleStrings get_pages(const int year) const;
         void get_pages_to_file(const int year, const std::string& filename) const;
         void get_pages_stdout(const int year) const;
@@ -29,6 +30,7 @@ namespace shob::pages
         html::settings settings;
         topMenu menu;
         std::map<std::string, std::string> organizingCountries;
+        football::footballCompetition allFriendlies;
         readers::csvContent read_matches_data(const ekwk_date& ekwk) const;
         general::multipleStrings get_group_nl(const ekwk_date& ekwk, int& dd, const int star,
             const readers::csvContent& matches_data) const;

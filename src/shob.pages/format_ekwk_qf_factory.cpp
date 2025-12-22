@@ -55,7 +55,11 @@ namespace shob::pages
 
         auto menu = prepareTopMenu(dataFolderEkWkQf);
 
-        auto fmt = format_ekwk_qf(dataFolderEkWkQf, national_teams, remarks, settings, menu, organizingCountries);
+        const auto csvInput = dataFolder + "/oefenduels.csv";
+        auto allFriendlies = football::footballCompetition();
+        allFriendlies.readFromCsv(csvInput);
+
+        auto fmt = format_ekwk_qf(dataFolderEkWkQf, national_teams, remarks, settings, menu, organizingCountries, allFriendlies);
 
         return fmt;
     }

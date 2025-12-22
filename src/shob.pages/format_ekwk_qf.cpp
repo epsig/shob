@@ -260,9 +260,6 @@ namespace shob::pages
     multipleStrings format_ekwk_qf::get_friendlies(const int& year, const std::vector<std::vector<std::string>>& remarks, int& dd) const
     {
         auto retVal = multipleStrings();
-        const auto csvInput = dataSportFolder + "../oefenduels.csv";
-        auto competition = footballCompetition();
-        competition.readFromCsv(csvInput); // TODO can be done in factory
         int dd1kzb = (year - 2) * 10000 + 700;
         int dd2kzb = year * 10000 + 700;
         for(const auto& key_value : remarks)
@@ -272,7 +269,7 @@ namespace shob::pages
         }
         auto date1 = itdate(dd1kzb);
         auto date2 = itdate(dd2kzb);
-        const auto filtered = competition.filterDate(date1, date2);
+        const auto filtered = allFriendlies.filterDate(date1, date2);
 
         auto prepTableMatchesNL = filtered.prepareTable(teams, settings);
         if (!prepTableMatchesNL.empty())
