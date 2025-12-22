@@ -16,6 +16,7 @@ int main(int argc, char* argv[])
     using namespace shob::pages;
     using namespace shob::general;
 
+    std::string part;
     try
     {
         int firstYear = 1993;
@@ -46,6 +47,7 @@ int main(int argc, char* argv[])
             }
         }
 
+        part = "running factories";
         auto fmt_nl = format_nl_factory::build("sport");
         auto settings = shob::html::settings();
         settings.dateFormatShort = false;
@@ -55,6 +57,7 @@ int main(int argc, char* argv[])
 
         for (int year = firstYear; year <= lastYear; year++)
         {
+            part = std::format("running year: {}", year);
             const auto season = shob::general::season(year);
             if (year < 2026)
             {
@@ -80,8 +83,8 @@ int main(int argc, char* argv[])
                     break;
                 }
             }
-
         }
+        part = "copy style sheets";
         if (std::filesystem::is_directory("../pages_new/"))
         {
             shob::html::updateIfDifferent::update("../code/test/epsig.css", "../pages_new/epsig.css");
@@ -93,6 +96,7 @@ int main(int argc, char* argv[])
     }
     catch (const std::exception& e)
     {
+        std::cout << part << std::endl;
         std::cout << e.what() << std::endl;
         return -1;
     }
