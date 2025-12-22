@@ -46,7 +46,7 @@ namespace shob::football
             row.points = std::stoi(rowCsv[5+offset]);
             row.goals = std::stoi(rowCsv[6+offset]);
             row.goalsAgainst = std::stoi(rowCsv[7+offset]);
-            if (!rowCsv[8+offset].empty())
+            if (static_cast<int>(rowCsv.size()) > 8+offset && !rowCsv[8+offset].empty())
             {
                 u2sExtra data;
                 data.extras = readers::csvReader::split(rowCsv[8+offset], ";").column;

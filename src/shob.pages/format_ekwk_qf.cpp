@@ -70,7 +70,7 @@ namespace shob::pages
 
         auto pageBlocks = std::array<pageBlock, 6>();
 
-        pageBlocks[0].data = get_group_nl(ekwk, dd, star, matches_data);
+        pageBlocks[0].data = get_group_nl(dd, star, matches_data);
         pageBlocks[0].linkName = "groepNL";
         pageBlocks[0].description = "Stand en uitslagen groep van Nederland";
 
@@ -88,7 +88,7 @@ namespace shob::pages
         pageBlocks[3].linkName = "natleague";
         pageBlocks[3].description = "Nations League groepsfase";
 
-        pageBlocks[4].data = get_play_offs(year, dd, matches_data);
+        pageBlocks[4].data = get_play_offs(dd, matches_data);
         pageBlocks[4].linkName = "playoffs";
         pageBlocks[4].description = "Naar de play-offs";
 
@@ -157,7 +157,7 @@ namespace shob::pages
         return csvData;
     }
 
-    multipleStrings format_ekwk_qf::get_group_nl(const ekwk_date& ekwk, int& dd, const int star, const readers::csvContent& matches_data) const
+    multipleStrings format_ekwk_qf::get_group_nl(int& dd, const int star, const readers::csvContent& matches_data) const
     {
         const auto parts = matches_data.getParts();
         const std::string part = parts.list()[0];
@@ -183,7 +183,7 @@ namespace shob::pages
         return multipleStrings();
     }
 
-    multipleStrings format_ekwk_qf::get_play_offs(const ekwk_date& ekwk, int& dd, const readers::csvContent& matches_data) const
+    multipleStrings format_ekwk_qf::get_play_offs(int& dd, const readers::csvContent& matches_data) const
     {
         const auto parts = matches_data.getParts();
         const std::string part = parts.list().back();
@@ -193,7 +193,8 @@ namespace shob::pages
         {
             auto filter = filterInputList();
             filter.filters.push_back({ 0, part });
-            const auto matches = filterResults::readFromCsvData(matches_data, filter);
+            auto matches = filterResults::readFromCsvData(matches_data, filter);
+            matches.doCoupleMatches = false;
 
             dd = std::max(dd, matches.lastDate().toInt());
 
@@ -293,7 +294,7 @@ namespace shob::pages
         auto retVal = multipleStrings();
         if ( ! csvData.body.empty())
         {
-            retVal.addContent(std::format("<p/> <a name=\"standen\"/> <h2> Overige {}groepen:", ekwk.isWk ? "Europese" : "" ));
+            retVal.addContent(std::format("<p/> <a name=\"standen\"/> <h2> Overige {}groepen:", ekwk.isWk ? "Europese " : "" ));
             const auto parts = csvData.getParts();
             auto tables = std::vector<html::tableContent>();
             for (const auto& part : parts.list())

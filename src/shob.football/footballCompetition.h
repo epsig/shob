@@ -33,6 +33,7 @@ namespace shob::football
         html::tableContent prepareTable(const teams::clubTeams& teams, const html::settings& settings) const;
         bool onlyKO = false;
         general::itdate lastDate() const;
+        bool doCoupleMatches = true;
     private:
         bool equalTeams(size_t i, size_t j) const;
     };
