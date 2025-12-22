@@ -300,6 +300,7 @@ namespace shob::pages
             for (const auto& part : parts.list())
             {
                 auto csvStand = readers::csvContent();
+                csvStand.header = csvData.header;
                 for (auto line : csvData.body)
                 {
                     if (line.column[0] == part)
@@ -308,7 +309,7 @@ namespace shob::pages
                     }
                 }
                 auto standing = standings();
-                standing.initFromData(csvStand, 1);
+                standing.initFromData(csvStand);
                 auto prepTableStandings = standing.prepareTable(teams, settings);
                 prepTableStandings.title = std::format("Groep {}", part[1]);
                 tables.push_back(prepTableStandings);
