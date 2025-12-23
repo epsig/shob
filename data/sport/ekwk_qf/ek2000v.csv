@@ -1,16 +1,10 @@
-key,value
-extra,<h2>Virtuele stand nummers twee</h2>
-extra,<table border cellspacing=0>
-extra,<tr> <td> Portugal </td> <td> 13 </td> <td> 10-2 </td> </tr>
-extra,<tr> <td> Turkije </td> <td> 13 </td> <td> 12-5 </td> </tr>
-extra,<tr> <td> Schotland </td> <td> 10 </td> <td> 9-6 </td> </tr>
-extra,<tr> <td> Denemarken </td> <td> 10 </td> <td> 10-8 </td> </tr>
-extra,<tr> <td> Oekra&iuml;ne </td> <td> 10 </td> <td> 6-4 </td> </tr>
-extra,<tr> <td> Ierland </td> <td> 10 </td> <td> 6-4 </td> </tr>
-extra,<tr> <td> Isra&euml;l </td> <td> 7 </td> <td> 12-9 </td> </tr>
-extra,<tr> <td> Engeland </td> <td> 7 </td> <td> 5-4 </td> </tr>
-extra,<tr> <td> Sloveni&euml; </td> <td> 7 </td> <td> 6-12 </td> </tr>
-extra,</table>
-extra,"Portugal is direct geplaatst voor de eindronde,"
-extra,de overige acht spelen een beslissingswedstrijd
-extra,om de vier laatste plaatsen.
+group,land,matches,points,goals_scored,goals_against
+s2,PT,6,13,10, 2
+s2,TR,6,13,12, 5
+s2,G2,6,10, 9, 6
+s2,DK,6,10,10, 8
+s2,UA,6,10, 6, 4
+s2,IE,6,10, 6, 4
+s2,IL,6, 7,12, 9
+s2,G1,6, 7, 5, 4
+s2,SI,6, 7, 6,12

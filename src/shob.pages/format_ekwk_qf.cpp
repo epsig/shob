@@ -28,8 +28,9 @@ namespace shob::pages
         const auto output = get_pages(year);
         for (const auto& row : output.data)
         {
-            std::cout << row << std::endl;
+            std::cout << row << '\n';
         }
+        std::cout.flush();
     }
 
     int format_ekwk_qf::findStar(const std::vector<std::vector<std::string>>& remarks)
@@ -66,9 +67,9 @@ namespace shob::pages
         retVal.addContent("<hr>");
 
         int dd = 0;
-        const auto matches_data = read_matches_data(ekwk);
+        const auto matches_data = read_matches_data(ekwk, 'u');
 
-        auto pageBlocks = std::array<pageBlock, 6>();
+        auto pageBlocks = std::array<pageBlock, 7>();
 
         pageBlocks[0].data = get_group_nl(dd, star, matches_data);
         pageBlocks[0].linkName = "groepNL";
@@ -88,13 +89,18 @@ namespace shob::pages
         pageBlocks[3].linkName = "natleague";
         pageBlocks[3].description = "Nations League groepsfase";
 
-        pageBlocks[4].data = get_play_offs(dd, matches_data);
-        pageBlocks[4].linkName = "playoffs";
-        pageBlocks[4].description = "Naar de play-offs";
+        auto opms_vstand = filter_remarks(remarks);
+        pageBlocks[4].data = get_virtual_standings(ekwk, opms_vstand);
+        pageBlocks[4].linkName = "vstandings";
+        pageBlocks[4].description = "Virtuele stand nummers 2";
 
-        pageBlocks[5].data = get_friendlies(year, remarks, dd);
-        pageBlocks[5].linkName = "keizersbaard";
-        pageBlocks[5].description = "Oefenduels van Oranje";
+        pageBlocks[5].data = get_play_offs(dd, matches_data);
+        pageBlocks[5].linkName = "playoffs";
+        pageBlocks[5].description = "Naar de play-offs";
+
+        pageBlocks[6].data = get_friendlies(year, remarks, dd);
+        pageBlocks[6].linkName = "keizersbaard";
+        pageBlocks[6].description = "Oefenduels van Oranje";
 
         const auto csvMainTournament = std::format("{}{}{}{}.csv", dataSportFolder, "../ekwk/", ekwk.shortName(), ekwk.year);
         auto submenu = multipleStrings();
@@ -150,9 +156,9 @@ namespace shob::pages
         return retVal;
     }
 
-    readers::csvContent format_ekwk_qf::read_matches_data(const ekwk_date& ekwk) const
+    readers::csvContent format_ekwk_qf::read_matches_data(const ekwk_date& ekwk, const char type) const
     {
-        const auto csvInput = std::format("{}{}{}u.csv", dataSportFolder, ekwk.shortName(), ekwk.year);
+        const auto csvInput = std::format("{}{}{}{}.csv", dataSportFolder, ekwk.shortName(), ekwk.year, type);
         const auto csvData = readers::csvReader::readCsvFile(csvInput);
         return csvData;
     }
@@ -183,6 +189,39 @@ namespace shob::pages
         return multipleStrings();
     }
 
+    multipleStrings format_ekwk_qf::filter_remarks(const std::vector<std::vector<std::string>>& remarks)
+    {
+        auto retVal = multipleStrings();
+        for (const auto& row : remarks)
+        {
+            if (row[0] == "vstand") retVal.addContent(row[1]);
+        }
+        return retVal;
+    }
+
+    multipleStrings format_ekwk_qf::get_virtual_standings(const ekwk_date& ekwk, multipleStrings& opms_vstand) const
+    {
+        const auto standings_data = read_matches_data(ekwk, 'v');
+        auto retVal = multipleStrings();
+        if ( ! standings_data.body.empty())
+        {
+            retVal.addContent("<p/> <a name=\"vstandings\"/>");
+            auto standing = standings();
+            standing.initFromData(standings_data);
+            auto prepTableStandings = standing.prepareTable(teams, settings);
+            prepTableStandings.title = "Virtuele stand nummers 2";
+            auto table = html::table(settings);
+            auto lines = table.buildTable(prepTableStandings);
+            retVal.addContent(lines);
+            if ( ! opms_vstand.data.empty())
+            {
+                retVal.addContent("<br/>");
+                retVal.addContent(opms_vstand);
+            }
+        }
+        return retVal;
+    }
+
     multipleStrings format_ekwk_qf::get_play_offs(int& dd, const readers::csvContent& matches_data) const
     {
         const auto parts = matches_data.getParts();
@@ -199,7 +238,7 @@ namespace shob::pages
             dd = std::max(dd, matches.lastDate().toInt());
 
             auto prepTableMatchesNL = matches.prepareTable(teams, settings);
-            prepTableMatchesNL.title = "naar de play-offs";
+            prepTableMatchesNL.title = "Naar de play-offs";
             const auto Table = html::table(settings);
             auto playoffs = Table.buildTable(prepTableMatchesNL);
             retVal.addContent("<p/> <a name=\"playoffs\"/>");
@@ -288,13 +327,12 @@ namespace shob::pages
 
     multipleStrings format_ekwk_qf::get_other_standings(const ekwk_date& ekwk) const
     {
-        const auto csvInput = std::format("{}{}{}s.csv", dataSportFolder, ekwk.shortName(), ekwk.year);
-        const auto csvData = readers::csvReader::readCsvFile(csvInput);
+        const auto csvData = read_matches_data(ekwk, 's');
 
         auto retVal = multipleStrings();
         if ( ! csvData.body.empty())
         {
-            retVal.addContent(std::format("<p/> <a name=\"standen\"/> <h2> Overige {}groepen:", ekwk.isWk ? "Europese " : "" ));
+            retVal.addContent(std::format("<p/> <a name=\"standen\"/> <h2> Overige {}groepen:</h2>", ekwk.isWk ? "Europese " : "" ));
             const auto parts = csvData.getParts();
             auto tables = std::vector<html::tableContent>();
             for (const auto& part : parts.list())
