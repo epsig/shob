@@ -302,15 +302,19 @@ namespace shob::pages
     multipleStrings format_ekwk_qf::get_friendlies(const int& year, const std::vector<std::vector<std::string>>& remarks, int& dd) const
     {
         auto retVal = multipleStrings();
+
+        // default dates for start and stop:
         int dd1kzb = (year - 2) * 10000 + 700;
         int dd2kzb = year * 10000 + 700;
+
+        // adjust defaults, needed for postponed EK-2020 (due to Corona)
         for(const auto& key_value : remarks)
         {
             if (key_value[0] == "dd1kzb") dd1kzb = std::atoi(key_value[1].c_str());
             if (key_value[0] == "dd2kzb") dd2kzb = std::atoi(key_value[1].c_str());
         }
-        auto date1 = itdate(dd1kzb);
-        auto date2 = itdate(dd2kzb);
+        const auto date1 = itdate(dd1kzb);
+        const auto date2 = itdate(dd2kzb);
         const auto filtered = allFriendlies.filterDate(date1, date2);
 
         auto prepTableMatchesNL = filtered.prepareTable(teams, settings);
