@@ -74,10 +74,12 @@ namespace shob::pages
         pageBlocks[0].data = get_group_nl(dd, star, matches_data);
         pageBlocks[0].linkName = "groepNL";
         pageBlocks[0].description = "Stand en uitslagen groep van Nederland";
+        const bool EKinBE_NL = pageBlocks[0].data.data.empty();
 
-        pageBlocks[1].data = get_other_standings(ekwk);
+        auto title = std::format("<h2> {} {}groepen: </h2>", EKinBE_NL ? "Alle":"Overige", ekwk.isWk ? "Europese " : "");
+        pageBlocks[1].data = get_other_standings(ekwk, title);
         pageBlocks[1].linkName = "standen";
-        pageBlocks[1].description = "Standen overige groepen";
+        pageBlocks[1].description = std::format("Standen {} groepen", EKinBE_NL ? "alle" : "overige");
 
         auto [nationsLeagueFinals, nationsLeagueGroups] = get_nationsLeague(year, dd);
 
@@ -325,14 +327,14 @@ namespace shob::pages
         return retVal;
     }
 
-    multipleStrings format_ekwk_qf::get_other_standings(const ekwk_date& ekwk) const
+    multipleStrings format_ekwk_qf::get_other_standings(const ekwk_date& ekwk, const std::string& title) const
     {
         const auto csvData = read_matches_data(ekwk, 's');
 
         auto retVal = multipleStrings();
         if ( ! csvData.body.empty())
         {
-            retVal.addContent(std::format("<p/> <a name=\"standen\"/> <h2> Overige {}groepen:</h2>", ekwk.isWk ? "Europese " : "" ));
+            retVal.addContent(std::format("<p/> <a name=\"standen\"/> {}", title));
             const auto parts = csvData.getParts();
             auto tables = std::vector<html::tableContent>();
             for (const auto& part : parts.list())
