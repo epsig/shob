@@ -32,12 +32,12 @@ namespace shob::pages
         std::map<std::string, std::string> organizingCountries;
         football::footballCompetition allFriendlies;
         readers::csvContent read_matches_data(const ekwk_date& ekwk, const char type) const;
-        static general::multipleStrings filter_remarks(const std::vector<std::vector<std::string>>& remarks);
-        general::multipleStrings get_group_nl(int& dd, const int star, const readers::csvContent& matches_data) const;
+        static general::multipleStrings filter_remarks(const std::vector<std::vector<std::string>>& remarks, const std::string& key);
+        general::multipleStrings get_group_nl(int& dd, const int star, const readers::csvContent& matches_data, const general::multipleStrings& remarks) const;
         general::multipleStrings get_virtual_standings(const ekwk_date& ekwk, general::multipleStrings& opms_vstand) const;
         general::multipleStrings get_play_offs(int& dd, const readers::csvContent& matches_data) const;
         general::multipleStrings print_splitted(const football::standings& stand, const football::footballCompetition& matches,
-            const std::string& title) const;
+            const general::multipleStrings& remarks, const std::string& title) const;
         std::pair<general::multipleStrings, general::multipleStrings> get_nationsLeague(const int& year, int& dd) const;
         general::multipleStrings get_nationsLeagueFinals(const int& year, int& dd) const;
         general::multipleStrings get_nationsLeagueGroupPhase(const int& year, int& dd) const;
