@@ -43,6 +43,7 @@ namespace shob::pages
         general::multipleStrings get_nationsLeagueGroupPhase(const int& year, int& dd) const;
         general::multipleStrings get_friendlies(const int& year, const std::vector<std::vector<std::string>>& remarks, int& dd) const;
         general::multipleStrings get_other_standings(const ekwk_date& ekwk, const std::string& title) const;
+        general::multipleStrings get_list_qualified_countries(const ekwk_date& ekwk, const std::string& title_qualified) const;
         static int findStar(const std::vector<std::vector<std::string>>& remarks);
     };
 }

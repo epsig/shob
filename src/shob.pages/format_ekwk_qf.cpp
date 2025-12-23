@@ -69,7 +69,7 @@ namespace shob::pages
         int dd = 0;
         const auto matches_data = read_matches_data(ekwk, 'u');
 
-        auto pageBlocks = std::array<pageBlock, 7>();
+        auto pageBlocks = std::array<pageBlock, 8>();
 
         pageBlocks[0].data = get_group_nl(dd, star, matches_data);
         pageBlocks[0].linkName = "groepNL";
@@ -100,9 +100,14 @@ namespace shob::pages
         pageBlocks[5].linkName = "playoffs";
         pageBlocks[5].description = "Naar de play-offs";
 
-        pageBlocks[6].data = get_friendlies(year, remarks, dd);
-        pageBlocks[6].linkName = "keizersbaard";
-        pageBlocks[6].description = "Oefenduels van Oranje";
+        const auto title_qualified = std::format("Overzicht deelnemende landen {}-{}", ekwk.shortNameUpper(), year);
+        pageBlocks[6].data = get_list_qualified_countries(ekwk, title_qualified);
+        pageBlocks[6].linkName = "deelnemers";
+        pageBlocks[6].description = title_qualified;
+
+        pageBlocks[7].data = get_friendlies(year, remarks, dd);
+        pageBlocks[7].linkName = "keizersbaard";
+        pageBlocks[7].description = "Oefenduels van Oranje";
 
         const auto csvMainTournament = std::format("{}{}{}{}.csv", dataSportFolder, "../ekwk/", ekwk.shortName(), ekwk.year);
         auto submenu = multipleStrings();
@@ -363,6 +368,24 @@ namespace shob::pages
             retVal.addContent(all);
         }
 
+        return retVal;
+    }
+
+    multipleStrings format_ekwk_qf::get_list_qualified_countries(const ekwk_date& ekwk, const std::string& title_qualified) const
+    {
+        const auto csvData = read_matches_data(ekwk, 'q');
+        auto retVal = multipleStrings();
+        if (!csvData.body.empty())
+        {
+            retVal.addContent(std::format("<p/> <a name=\"deelnemers\"> <h2> {} </h2> ", title_qualified));
+            retVal.addContent("<table>");
+            for (const auto& row : csvData.body)
+            {
+                auto country = teams.expand(row.column[1]);
+                retVal.addContent(std::format("<tr> <td> {} </td> <td> {} </td> </tr> ", country , row.column[2]));
+            }
+            retVal.addContent("</table>");
+        }
         return retVal;
     }
 
