@@ -377,14 +377,19 @@ namespace shob::pages
         auto retVal = multipleStrings();
         if (!csvData.body.empty())
         {
-            retVal.addContent(std::format("<p/> <a name=\"deelnemers\"> <h2> {} </h2> ", title_qualified));
-            retVal.addContent("<table>");
+            retVal.addContent(std::format("<p/> <a name=\"deelnemers\"> <h2> {} </h2>", title_qualified));
+            html::tableContent content;
+            content.header.data = { "land", "opm" };
             for (const auto& row : csvData.body)
             {
-                auto country = teams.expand(row.column[1]);
-                retVal.addContent(std::format("<tr> <td> {} </td> <td> {} </td> </tr> ", country , row.column[2]));
+                const auto country = teams.expand(row.column[1]);
+                multipleStrings body;
+                body.data = { country, row.column[2]};
+                content.body.push_back(body);
             }
-            retVal.addContent("</table>");
+            const auto Table = html::table(settings);
+            auto table = Table.buildTable(content);
+            retVal.addContent(table);
         }
         return retVal;
     }
