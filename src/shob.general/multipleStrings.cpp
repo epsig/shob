@@ -59,7 +59,7 @@ namespace shob::general
     {
         for (int i = 0; i < static_cast<int>(data.size()); i++)
         {
-            if (data[i] != s) return i;
+            if (data[i].find(s) != std::string::npos) return i;
         }
         return -1;
     }
