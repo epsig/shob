@@ -321,7 +321,15 @@ namespace shob::football
         {
             team = "<b>" + team + "</b>";
         }
-        team += " (" + joinStrings(extra1, extra2, "; ") + ")";
+        auto all_extras = joinStrings(extra1, extra2, "; ");
+        if (all_extras == "+" || all_extras == "*" || all_extras == "-")
+        {
+            team += " " + all_extras;
+        }
+        else
+        {
+            team += " (" + joinStrings(extra1, extra2, "; ") + ")";
+        }
     }
 
     void standings::updateTeamWithWnsCl(std::string& team, const size_t i) const

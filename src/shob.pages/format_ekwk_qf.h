@@ -37,7 +37,7 @@ namespace shob::pages
         general::multipleStrings get_virtual_standings(const ekwk_date& ekwk, general::multipleStrings& opms_vstand) const;
         general::multipleStrings get_play_offs(int& dd, const readers::csvContent& matches_data) const;
         general::multipleStrings print_splitted(const football::standings& stand, const football::footballCompetition& matches,
-            const general::multipleStrings& remarks, const std::string& title) const;
+            const general::multipleStrings& remarks, const std::string& title, const std::string& title2) const;
         std::pair<general::multipleStrings, general::multipleStrings> get_nationsLeague(const int& year, int& dd) const;
         general::multipleStrings get_nationsLeagueFinals(const int& year, int& dd) const;
         general::multipleStrings get_nationsLeagueGroupPhase(const int& year, int& dd) const;

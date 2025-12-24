@@ -145,7 +145,8 @@ namespace shob::pages
         return headBottum::getPage(hb);
     }
 
-    multipleStrings format_ekwk_qf::print_splitted(const standings& stand, const footballCompetition& matches, const multipleStrings& remarks, const std::string& title) const
+    multipleStrings format_ekwk_qf::print_splitted(const standings& stand, const footballCompetition& matches,
+        const multipleStrings& remarks, const std::string& title, const std::string& title2) const
     {
         auto prepTableStandings = stand.prepareTable(teams, settings);
         prepTableStandings.title = title;
@@ -167,12 +168,12 @@ namespace shob::pages
         auto splitted = matches.split_matches("NL");
 
         auto prepTableMatchesNL = splitted.first.prepareTable(teams, settings);
-        prepTableMatchesNL.title = "Uitslagen Nederland";
+        prepTableMatchesNL.title = "Uitslagen Nederlands Elftal";
         const auto Table = html::table(settings);
         auto leftPart = Table.buildTable({ prepTableStandings, beslissend, prepTableMatchesNL });
 
         auto prepTableMatchesWithoutNL = splitted.second.prepareTable(teams, settings);
-        prepTableMatchesWithoutNL.title = "Overige uitslagen";
+        prepTableMatchesWithoutNL.title = title2;
         auto rightPart = Table.buildTable(prepTableMatchesWithoutNL);
 
         const auto retVal = Table.tableOfTwoTables(leftPart, rightPart);
@@ -203,8 +204,10 @@ namespace shob::pages
             stand.wns_cl = star;
 
             auto retVal = multipleStrings();
-            retVal.addContent("<p/> <a name=\"groepNL\"/>");
-            auto standing_and_matches = print_splitted(stand, matches, remarks, "Stand groep Nederland");
+            retVal.addContent("<p/> <a name=\"groepNL\"/> <h2> Stand en uitslagen groep van Nederland </h2>");
+            auto standing_and_matches = print_splitted(stand, matches, remarks,
+                std::format("{}{}", "Stand Groep ", part.back()) ,
+                std::format("Overige uitslagen Groep {}", part.back()) );
             retVal.addContent(standing_and_matches);
             return retVal;
         }
@@ -306,7 +309,8 @@ namespace shob::pages
 
             const auto stand = results2standings::u2s(competition);
             retVal.addContent("<p/> <a name=\"natleague\"/>");
-            auto matches = print_splitted(stand, competition, multipleStrings(), "Stand Nations League groep Nederland");
+            auto matches = print_splitted(stand, competition, multipleStrings(),
+                "Stand Nations League groep Nederland", "Overige uitslagen");
             retVal.addContent(matches);
         }
         return retVal;
@@ -366,28 +370,31 @@ namespace shob::pages
             int i = 0;
             for (const auto& part : parts.list())
             {
-                auto csvStand = readers::csvContent();
-                csvStand.header = csvData.header;
-                for (auto line : csvData.body)
+                if ( part.find('_') == std::string::npos)
                 {
-                    if (line.column[0] == part)
+                    auto csvStand = readers::csvContent();
+                    csvStand.header = csvData.header;
+                    for (auto line : csvData.body)
                     {
-                        csvStand.body.push_back(line);
+                        if (line.column[0] == part)
+                        {
+                            csvStand.body.push_back(line);
+                        }
                     }
+                    auto standing = standings();
+                    standing.initFromData(csvStand);
+                    auto prepTableStandings = standing.prepareTable(teams, settings);
+                    prepTableStandings.title = std::format("Groep {}", part[1]);
+                    if (i % 2 == 0)
+                    {
+                        tablesLeft.push_back(prepTableStandings);
+                    }
+                    else
+                    {
+                        tablesRight.push_back(prepTableStandings);
+                    }
+                    i++;
                 }
-                auto standing = standings();
-                standing.initFromData(csvStand);
-                auto prepTableStandings = standing.prepareTable(teams, settings);
-                prepTableStandings.title = std::format("Groep {}", part[1]);
-                if (i % 2 == 0)
-                {
-                    tablesLeft.push_back(prepTableStandings);
-                }
-                else
-                {
-                    tablesRight.push_back(prepTableStandings);
-                }
-                i++;
             }
             const auto table = html::table(settings);
             auto leftPart = table.buildTable(tablesLeft);
@@ -407,12 +414,13 @@ namespace shob::pages
         {
             retVal.addContent(std::format("<p/> <a name=\"deelnemers\"> <h2> {} </h2>", title_qualified));
             html::tableContent content;
-            content.header.data = { "land", "opm" };
-            for (const auto& row : csvData.body)
+            content.header.data = { "nr", "land", "opm" };
+            for (size_t i = 0; i < csvData.body.size(); i++)
             {
+                const auto& row = csvData.body[i];
                 const auto country = teams.expand(row.column[1]);
                 multipleStrings body;
-                body.data = { country, row.column[2]};
+                body.data = { std::format("{}", i+1), country, row.column[2]};
                 content.body.push_back(body);
             }
             const auto Table = html::table(settings);
