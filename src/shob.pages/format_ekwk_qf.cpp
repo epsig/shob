@@ -83,13 +83,11 @@ namespace shob::pages
         pageBlocks[1].linkName = "standen";
         pageBlocks[1].description = std::format("Standen {} groepen", EKinBE_NL ? "alle" : "overige");
 
-        auto [nationsLeagueFinals, nationsLeagueGroups] = get_nationsLeague(year, dd);
-
-        std::swap(nationsLeagueFinals, pageBlocks[2].data);
+        pageBlocks[2].data = get_nationsLeagueFinals(year-1, dd);
         pageBlocks[2].linkName = "natleaguefinals";
         pageBlocks[2].description = "Finale Nations League";
 
-        std::swap(nationsLeagueGroups, pageBlocks[3].data);
+        pageBlocks[3].data = get_nationsLeagueGroupPhase(year-2, dd);
         pageBlocks[3].linkName = "natleague";
         pageBlocks[3].description = "Nations League groepsfase";
 
@@ -314,14 +312,6 @@ namespace shob::pages
             retVal.addContent(matches);
         }
         return retVal;
-    }
-
-    std::pair<multipleStrings, multipleStrings> format_ekwk_qf::get_nationsLeague(const int& year, int& dd) const
-    {
-        auto retVal1 = get_nationsLeagueFinals(year - 1, dd);
-        auto retVal2 = get_nationsLeagueGroupPhase(year - 2, dd);
-
-        return { retVal1, retVal2 };
     }
 
     multipleStrings format_ekwk_qf::get_friendlies(const int& year, const std::vector<std::vector<std::string>>& remarks, int& dd) const
