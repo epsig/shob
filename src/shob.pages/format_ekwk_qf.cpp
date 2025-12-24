@@ -361,7 +361,9 @@ namespace shob::pages
         {
             retVal.addContent(std::format("<p/> <a name=\"standen\"/> {}", title));
             const auto parts = csvData.getParts();
-            auto tables = std::vector<html::tableContent>();
+            auto tablesLeft = std::vector<html::tableContent>();
+            auto tablesRight = std::vector<html::tableContent>();
+            int i = 0;
             for (const auto& part : parts.list())
             {
                 auto csvStand = readers::csvContent();
@@ -377,10 +379,20 @@ namespace shob::pages
                 standing.initFromData(csvStand);
                 auto prepTableStandings = standing.prepareTable(teams, settings);
                 prepTableStandings.title = std::format("Groep {}", part[1]);
-                tables.push_back(prepTableStandings);
+                if (i % 2 == 0)
+                {
+                    tablesLeft.push_back(prepTableStandings);
+                }
+                else
+                {
+                    tablesRight.push_back(prepTableStandings);
+                }
+                i++;
             }
-            auto ftable = html::table(settings);
-            auto all = ftable.buildTable(tables);
+            const auto table = html::table(settings);
+            auto leftPart = table.buildTable(tablesLeft);
+            auto rightPart = table.buildTable(tablesRight);
+            auto all = table.tableOfTwoTables(leftPart, rightPart);
             retVal.addContent(all);
         }
 
