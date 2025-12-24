@@ -78,6 +78,13 @@ namespace shob::readers
             }
             else
             {
+                auto index = parts.column.back().find('#');
+                if (index != std::string::npos)
+                {
+                    auto size_comment = parts.column.back().size();
+                    parts.column.back().erase(index, size_comment);
+                    parts.column.back() = trim(parts.column.back(), " ");
+                }
                 result.body.push_back(parts);
             }
         }
