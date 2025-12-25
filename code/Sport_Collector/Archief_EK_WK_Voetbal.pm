@@ -39,7 +39,6 @@ $VERSION = '21.0';
 (#========================================================================
   '&set_laatste_speeldatum_ekwk',
   '&get_ekwk_gen',
-  '&get_ekwk_voorr_gen',
  #========================================================================
 );
 
@@ -213,32 +212,12 @@ sub get_ekwk_voorr_data($)
   return $ekwk_qf;
 }
 
-sub get_ekwk_voorr_gen($;$)
-{ # (c) Edwin Spee
-
-  my $id      = shift;
-  my $outtype = shift;
-
-  my $ekwk_qf = get_ekwk_voorr_data($id);
-
-  if (defined $outtype && $outtype eq 'dd')
-  {
-    return $ekwk_qf->{dd};
-  }
-
-  my $year = $id;
-     $year =~ s/[ew]kD?//;
-
-  $ekwk_qf->{yearTitle} = $all_remarks->{ekwk_qf}->get($id, 'year', $year);
-
-  my $html = format_voorronde_ekwk($year, $ekwk_qf);
-}
 
 sub set_laatste_speeldatum_ekwk
 {
   my $dd = 0;
 
-  my @subs = (\&get_ekwk_voorr_gen, \&get_ekwk_gen);
+  my @subs = (\&get_ekwk_gen);
   my @names = ('ekwk_qf', 'ekwk');
 
   for(my $i = 0; $i < 2; $i++)
