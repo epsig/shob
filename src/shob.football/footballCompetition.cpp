@@ -76,6 +76,38 @@ namespace shob::football
         return filtered;
     }
 
+    std::pair<footballCompetition, footballCompetition>
+        footballCompetition::split_matches(const std::string& team) const
+    {
+        auto withTeam = footballCompetition();
+        auto withoutTeam = footballCompetition();
+        for (const auto& match : matches)
+        {
+            if (match.team1 == team || match.team2 == team)
+            {
+                withTeam.matches.push_back(match);
+            }
+            else
+            {
+                withoutTeam.matches.push_back(match);
+            }
+        }
+        return { withTeam, withoutTeam };
+    }
+
+    footballCompetition footballCompetition::filterDate(const itdate& date1, const itdate& date2) const
+    {
+        auto retVal = footballCompetition();
+        for (const auto& match : matches)
+        {
+            if (match.dd->toInt() >= date1.toInt() && match.dd->toInt() <= date2.toInt())
+            {
+                retVal.matches.push_back(match);
+            }
+        }
+        return retVal;
+    }
+
     html::tableContent footballCompetition::prepareTable(const teams::clubTeams& teams, const html::settings& settings) const
     {
         auto table = html::tableContent();
@@ -89,12 +121,26 @@ namespace shob::football
 
         if (settings.lang == html::language::Dutch)
         {
-            table.header.data = { "dd", "team1 - team2", "uitslag" };
+            if (teams.getClubsOrCountries() == teams::clubsOrCountries::clubs)
+            {
+                table.header.data = { "dd", "team1 - team2", "uitslag" };
+            }
+            else
+            {
+                table.header.data = { "dd", "land1 - land2", "uitslag" };
+            }
             if (withRemarks) table.header.data.emplace_back("opm");
         }
         else
         {
-            table.header.data = { "dd", "team (home) - team (away)", "result" };
+            if (teams.getClubsOrCountries() == teams::clubsOrCountries::clubs)
+            {
+                table.header.data = { "dd", "team (home) - team (away)", "result" };
+            }
+            else
+            {
+                table.header.data = { "dd", "land (home) - land (away)", "result" };
+            }
             if (withRemarks) table.header.data.emplace_back("remark");
         }
         if (settings.isCompatible) table.header.data.clear();
@@ -166,14 +212,17 @@ namespace shob::football
     {
         coupledMatchesData coupledMatches;
         coupledMatches.isSecondMatch = std::vector(matches.size(), false);
-        for (size_t i = 0; i < matches.size(); i++)
+        if (doCoupleMatches)
         {
-            for (size_t j = i+1; j < matches.size(); j++)
+            for (size_t i = 0; i < matches.size(); i++)
             {
-                if (equalTeams(i,j))
+                for (size_t j = i + 1; j < matches.size(); j++)
                 {
-                    coupledMatches.couples.insert({ i,j });
-                    coupledMatches.isSecondMatch[j] = true;
+                    if (equalTeams(i, j))
+                    {
+                        coupledMatches.couples.insert({ i,j });
+                        coupledMatches.isSecondMatch[j] = true;
+                    }
                 }
             }
         }
@@ -185,7 +234,10 @@ namespace shob::football
         int date = 19000101;
         for (const auto& match : matches)
         {
-            date = std::max(date, match.dd->toInt());
+            if (match.result != "-")
+            {
+                date = std::max(date, match.dd->toInt());
+            }
         }
         auto dd = itdate(date);
         return dd;

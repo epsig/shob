@@ -101,6 +101,27 @@ namespace shob::html
         return table;
     }
 
+    multipleStrings table::tableOfTwoTables(multipleStrings& left, multipleStrings& right) const
+    {
+        auto retVal = multipleStrings();
+        if (withBorder)
+        {
+            retVal.addContent("<table border>");
+        }
+        else
+        {
+            retVal.addContent("<table>");
+        }
+        retVal.addContent("<tr><td valign=""top"">");
+        retVal.addContent(left);
+        retVal.addContent("</td> <td valign=""top""> ");
+        retVal.addContent(right);
+        retVal.addContent("</td> </tr>");
+        retVal.addContent("</table>");
+
+        return retVal;
+    }
+
     std::string table::buildRow(const multipleStrings& content, const std::vector<int>& colWidths)
     {
         std::vector<std::string> tag1;

@@ -58,6 +58,7 @@ namespace shob::football
         void addExtras(const readers::csvAllSeasonsReader& r, const general::season& season);
         void sort(const int sort_rule = 3);
         void initFromFile(const std::string& filename);
+        void initFromData(const readers::csvContent& stand);
         void handlePunishment(const std::string team, const int pnts);
         html::tableContent prepareTable(const teams::clubTeams & teams, const html::settings & settings) const;
         int wns_cl = -1;

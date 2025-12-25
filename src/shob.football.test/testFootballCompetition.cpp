@@ -60,7 +60,7 @@ namespace shob::football::test
         const std::string clubs = "../../data/sport/clubs.csv";
         const std::string filename2 = readers::test::testUtils::refFileWithPath(__FILE__, clubs);
         auto reader = teams::clubTeams();
-        reader.InitFromFile(filename2);
+        reader.InitFromFile(filename2, teams::clubsOrCountries::clubs);
 
         const auto table = filtered.prepareTable(reader, html::settings());
         EXPECT_EQ(6, table.body.size());

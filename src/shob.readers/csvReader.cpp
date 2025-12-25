@@ -78,6 +78,13 @@ namespace shob::readers
             }
             else
             {
+                auto index = parts.column.back().find('#');
+                if (index != std::string::npos)
+                {
+                    auto size_comment = parts.column.back().size();
+                    parts.column.back().erase(index, size_comment);
+                    parts.column.back() = trim(parts.column.back(), " ");
+                }
                 result.body.push_back(parts);
             }
         }
@@ -97,12 +104,23 @@ namespace shob::readers
     std::vector<std::string> csvContent::findColumnNamesTeams() const
     {
         auto names = std::vector<std::string>();
-        std::vector<std::string> possibilities = { "team1", "team2", "club1", "club2", "land1", "land2" };
+        std::vector<std::string> possibilities = { "team1", "team2", "club1", "club2", "land1", "land2", "club_id", "land" };
         for (const auto& name : possibilities)
         {
             if (findColumn(name) < 999) names.push_back(name);
         }
         return names;
+    }
+
+    general::uniqueStrings csvContent::getParts() const
+    {
+        auto parts = general::uniqueStrings();
+        for (const auto& row : body)
+        {
+            const auto& part = row.column[0];
+            parts.insert(part);
+        }
+        return parts;
     }
 
 }

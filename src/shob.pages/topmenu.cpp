@@ -8,7 +8,6 @@ namespace shob::pages
     multipleStrings topMenu::getMenu(const season& season) const
     {
         auto menu = multipleStrings();
-        const int nEntries = static_cast<int>(archive.size());
         int curPos = 0;
         for (const auto& row : archive)
         {
@@ -26,21 +25,32 @@ namespace shob::pages
                 year = "<a href=\"sport_voetbal_" + url + "\">" + curSeason.to_string_short() + "</a>";
             menu.addContent(year + " |");
         }
-        if (nEntries > maxUrls)
+        shortenMenu(menu, curPos);
+        return menu;
+    }
+
+    multipleStrings topMenu::getMenu(const std::string& year) const
+    {
+        auto menu = multipleStrings();
+        int curPos = 0;
+        for (const auto& row : archive)
         {
-            if (curPos <= maxUrls/2)
+            auto pos = row.find("K");
+            auto yr = row.substr(pos - 1, 7);
+            yr[2] = ' ';
+            if (row.find(year) != std::string::npos)
             {
-                shortenMenuLeft(menu);
-            }
-            else if (curPos >= nEntries - 1 - maxUrls/2)
-            {
-                shortenMenuRight(menu);
+                curPos = static_cast<int>(menu.data.size());
+                menu.addContent(yr + " |");
             }
             else
             {
-                shortenMenu(menu, curPos);
+                auto url = row + ".html";
+                url = "<a href=\"" + url + "\">" + yr + "</a>";
+                menu.addContent(url + " |");
             }
         }
+        shortenMenu(menu, curPos);
         return menu;
     }
 
@@ -50,6 +60,26 @@ namespace shob::pages
     }
 
     void topMenu::shortenMenu(multipleStrings& menu, int curPos) const
+    {
+        const int nEntries = static_cast<int>(archive.size());
+        if (nEntries > maxUrls)
+        {
+            if (curPos <= maxUrls / 2)
+            {
+                shortenMenuLeft(menu);
+            }
+            else if (curPos >= nEntries - 1 - maxUrls / 2)
+            {
+                shortenMenuRight(menu);
+            }
+            else
+            {
+                shortenMenuCenter(menu, curPos);
+            }
+        }
+    }
+
+    void topMenu::shortenMenuCenter(multipleStrings& menu, int curPos) const
     {
         auto newMenu = multipleStrings();
 

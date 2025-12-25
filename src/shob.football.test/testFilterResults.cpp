@@ -20,7 +20,7 @@ namespace shob::football::test
         const std::string clubs = "../../data/sport/clubs.csv";
         const std::string filename2 = testUtils::refFileWithPath(__FILE__, clubs);
         auto reader = teams::clubTeams();
-        reader.InitFromFile(filename2);
+        reader.InitFromFile(filename2, teams::clubsOrCountries::clubs);
 
         const auto r2f = route2finaleFactory::create(filename);
         const auto prepTable = r2f.prepareTable(reader, html::settings());
@@ -50,14 +50,14 @@ namespace shob::football::test
         const std::string clubs = "../../data/sport/clubs.csv";
         const std::string filename2 = testUtils::refFileWithPath(__FILE__, clubs);
         auto reader = teams::clubTeams();
-        reader.InitFromFile(filename2);
+        reader.InitFromFile(filename2, teams::clubsOrCountries::clubs);
 
         const auto data = csvReader::readCsvFile(filename);
         const auto r2f = route2finaleFactory::createEC(data, "CL");
         const auto prepTable = r2f.prepareTable(reader, html::settings());
 
         EXPECT_EQ(8, prepTable[0].body.size());
-        EXPECT_EQ(prepTable[0].body[0].data[0], "8 apr 2025 Arsenal (ENG) - Real Madrid 3-0<br>16 apr 2025 Real Madrid (ES) - Arsenal * 1-2")
+        EXPECT_EQ(prepTable[0].body[0].data[0], "8 apr 2025 Arsenal - Real Madrid 3-0<br>16 apr 2025 Real Madrid - Arsenal * 1-2")
             << "check star for winner and having two matches";
     }
 

@@ -3,6 +3,7 @@
 
 #include "test_format_nl.h"
 #include "test_format_ec.h"
+#include "test_format_ekwk_qf.h"
 #include "test_topmenu.h"
 
 using namespace shob::pages::test;
@@ -54,3 +55,12 @@ TEST(unitTest, test_top_menu_right)
     testTopMenu::test_right();
 }
 
+TEST(unitTest, test_voorr_ek_2000)
+{
+    testFormatEkWkQf::test_ek_2000();
+}
+
+TEST(unitTest, test_voorr_ek_2024)
+{
+    testFormatEkWkQf::test_ek_2024();
+}

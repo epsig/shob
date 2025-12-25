@@ -8,14 +8,18 @@ namespace shob::readers
     {
         allData = csvReader::readCsvFile(filename);
     }
-
     std::vector<std::vector<std::string>> csvAllSeasonsReader::getSeason(const general::season& season) const
+    {
+        return getSeason(season.to_string());
+    }
+
+    std::vector<std::vector<std::string>> csvAllSeasonsReader::getSeason(const std::string& id) const
     {
         std::vector<std::vector<std::string>> oneSeasonData;
         oneSeasonData.push_back(allData.header.column);
         for (const auto& rw : allData.body)
         {
-            if (rw.column[0] == season.to_string())
+            if (rw.column[0] == id)
             {
                 std::vector<std::string> row;
                 for (size_t j = 1; j < rw.column.size(); j++)
@@ -26,6 +30,19 @@ namespace shob::readers
             }
         }
         return oneSeasonData;
+    }
+
+    std::map<std::string, std::string> csvAllSeasonsReader::getAll(const std::string& id) const
+    {
+        auto retval = std::map<std::string, std::string>();
+        for (const auto& line : allData.body)
+        {
+            if (line.column[1] == id)
+            {
+                retval.insert({ line.column[0], line.column[2] });
+            }
+        }
+        return retval;
     }
 
 }

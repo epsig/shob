@@ -33,7 +33,6 @@ namespace shob::pages
         general::multipleStrings getFirstHalfYear(const std::string& part, const readers::csvContent& data, const wns_ec& wns_cl,
             const std::vector<std::vector<std::string>>& extraU2s, const int sortRule, int& dd) const;
         static general::uniqueStrings getGroups(const std::string& part, const readers::csvContent& data);
-        static general::uniqueStrings getParts(const readers::csvContent& data);
         static general::uniqueStrings getQualifiers(const std::string& part, const readers::csvContent& data);
         static general::uniqueStrings getXtra(const std::string& part, const readers::csvContent& data);
         static std::string getRemarks(const std::string& part, const std::string& group, const std::vector<std::vector<std::string>>& extraU2s);

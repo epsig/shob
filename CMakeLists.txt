@@ -115,7 +115,7 @@ target_link_libraries(shob.football shob.general shob.readers shob.teams)
 target_link_libraries(shob.readers shob.general)
 target_link_libraries(shob.readers.test shob.general shob.test.utils shob.readers gtest_main)
 target_link_libraries(shob.football.test shob.football shob.general shob.test.utils shob.readers gtest_main)
-target_link_libraries(shob.html.test shob.html gtest_main)
+target_link_libraries(shob.html.test shob.html shob.general gtest_main)
 target_link_libraries(shob.pages shob.football shob.general shob.readers shob.html shob.teams)
 target_link_libraries(shob shob.football shob.general shob.readers shob.html shob.teams shob.pages)
 target_link_libraries(shob.pages.test shob.football shob.general shob.readers shob.html

@@ -265,12 +265,6 @@ sub handle_sport_files($$$)
         my $page_name = "sport_voetbal_" . uc($ekwk) . "_$yr.html";
         push @pages, [$dl, 'all', sub {&get_ekwk_gen($ekwk . $yr);}, $page_name];
       }
-
-      if ($yr >= $ranges->{ekwk_qf}[0] && $yr <= $ranges->{ekwk_qf}[1])
-      {
-        my $page_name = "sport_voetbal_" . uc($ekwk) . "_${yr}_voorronde.html";
-        push @pages, [$dl, 'all', sub {&get_ekwk_voorr_gen($ekwk . $yr);}, $page_name];
-      }
     }
   }
 

@@ -40,7 +40,7 @@ namespace shob::football::test
 
         auto settings = html::settings();
         auto reader = teams::clubTeams();
-        reader.InitFromFile(filename2);
+        reader.InitFromFile(filename2, teams::clubsOrCountries::clubs);
         auto table2 = table.prepareTable(reader, settings);
 
         EXPECT_EQ(table2.body.size(), 18);
@@ -63,7 +63,7 @@ namespace shob::football::test
 
         auto settings = html::settings();
         auto reader = teams::clubTeams();
-        reader.InitFromFile(filename2);
+        reader.InitFromFile(filename2, teams::clubsOrCountries::clubs);
         auto table2 = table.prepareTable(reader, settings);
 
         EXPECT_EQ(table2.body.size(), 18);

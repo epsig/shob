@@ -8,6 +8,11 @@ namespace shob::general
     {
     public:
         std::vector<std::string> data;
+
+        /// <summary>
+        /// add content by moving the strings
+        /// </summary>
+        /// <param name="extra"> content to be added </param>
         void addContent(multipleStrings& extra);
         void addContent(std::string extra);
         bool areEqual(const multipleStrings& other) const;

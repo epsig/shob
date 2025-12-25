@@ -32,19 +32,62 @@ namespace shob::football
     void standings::initFromFile(const std::string& filename)
     {
         auto stand = readers::csvReader::readCsvFile(filename);
+        if ( ! stand.body.empty())
+        {
+            initFromData(stand);
+        }
+    }
+
+    void standings::initFromData(const readers::csvContent& stand)
+    {
+        const auto clubNames = stand.findColumnNamesTeams();
+        const auto teamColumn = stand.findColumn(clubNames[0]);
+        const auto matchesColumn = stand.findColumn("matches");
+        const auto pointsColumn = stand.findColumn("points");
+        const auto goalsScoredColumn = stand.findColumn("goals_scored");
+        const auto goalsAgainstColumn = stand.findColumn("goals_against");
+        const auto remarksColumn = stand.findColumn("remark");
+        const auto winsColumn = stand.findColumn("wins");
+        const auto drawsColumn = stand.findColumn("draws");
+        const auto lossesColumn = stand.findColumn("losses");
+
         for (const auto& col : stand.body)
         {
             auto row = standingsRow();
             auto& rowCsv = col.column;
-            row.team = rowCsv[0];
-            row.totalGames = std::stoi(rowCsv[1]);
-            row.points = std::stoi(rowCsv[5]);
-            row.goals = std::stoi(rowCsv[6]);
-            row.goalsAgainst = std::stoi(rowCsv[7]);
-            if ( ! rowCsv[8].empty())
+            row.team = rowCsv[teamColumn];
+            row.totalGames = std::stoi(rowCsv[matchesColumn]);
+            row.points = std::stoi(rowCsv[pointsColumn]);
+            row.goals = std::stoi(rowCsv[goalsScoredColumn]);
+            row.goalsAgainst = std::stoi(rowCsv[goalsAgainstColumn]);
+            if (winsColumn < rowCsv.size())
+            {
+                row.wins = std::stoi(rowCsv[winsColumn]);
+            }
+            else
+            {
+                row.wins = -1;
+            }
+            if (drawsColumn < rowCsv.size())
+            {
+                row.draws = std::stoi(rowCsv[drawsColumn]);
+            }
+            else
+            {
+                row.draws = -1;
+            }
+            if (lossesColumn < rowCsv.size())
+            {
+                row.losses = std::stoi(rowCsv[lossesColumn]);
+            }
+            else
+            {
+                row.losses = -1;
+            }
+            if (remarksColumn < rowCsv.size() && !rowCsv[remarksColumn].empty())
             {
                 u2sExtra data;
-                data.extras = readers::csvReader::split(rowCsv[8], ";").column;
+                data.extras = readers::csvReader::split(rowCsv[remarksColumn], ";").column;
                 extras.insert({ row.team, data });
             }
             list.push_back(row);
@@ -278,7 +321,15 @@ namespace shob::football
         {
             team = "<b>" + team + "</b>";
         }
-        team += " (" + joinStrings(extra1, extra2, "; ") + ")";
+        auto all_extras = joinStrings(extra1, extra2, "; ");
+        if (all_extras == "+" || all_extras == "*" || all_extras == "-")
+        {
+            team += " " + all_extras;
+        }
+        else
+        {
+            team += " (" + joinStrings(extra1, extra2, "; ") + ")";
+        }
     }
 
     void standings::updateTeamWithWnsCl(std::string& team, const size_t i) const
@@ -329,6 +380,11 @@ namespace shob::football
         {
             table.header.data = { "club", "games", "points", "goal difference" };
         }
+        if (teams.getClubsOrCountries() == teams::clubsOrCountries::countries)
+        {
+            table.header.data[0] = "land";
+        }
+
         if (settings.isCompatible) table.header.data.clear();
         for (size_t i = 0; i < list.size(); i++)
         {
@@ -347,8 +403,16 @@ namespace shob::football
             }
             updateTeamWithWnsCl(team, i);
 
-            auto points = html::funcs::acronym(std::to_string(row.points),
-                std::format("{:} x w, {:} x g en {:} x v => {:} pnt", row.wins, row.draws, row.losses, row.points ));
+            std::string points;
+            if (row.wins >= 0 && row.draws >= 0 && row.losses >= 0)
+            {
+                points = html::funcs::acronym(std::to_string(row.points),
+                    std::format("{:} x w, {:} x g en {:} x v => {:} pnt", row.wins, row.draws, row.losses, row.points));
+            }
+            else
+            {
+                points = std::format("{}", row.points);
+            }
             std::string goalDiff;
             if (row.goalDifference() == 0)
             {

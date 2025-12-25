@@ -28,9 +28,12 @@ namespace shob::football
         coupledMatchesData getReturns() const;
         footballCompetition filter(const std::set<std::string>& clubs) const;
         footballCompetition filterNL() const;
+        std::pair<footballCompetition, footballCompetition> split_matches(const std::string& team) const;
+        footballCompetition filterDate(const general::itdate& date1, const general::itdate& date2) const;
         html::tableContent prepareTable(const teams::clubTeams& teams, const html::settings& settings) const;
         bool onlyKO = false;
         general::itdate lastDate() const;
+        bool doCoupleMatches = true;
     private:
         bool equalTeams(size_t i, size_t j) const;
     };

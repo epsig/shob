@@ -3,6 +3,7 @@
 
 #include <string>
 #include <vector>
+#include "../shob.general/uniqueStrings.h"
 
 namespace shob::readers
 {
@@ -19,6 +20,7 @@ namespace shob::readers
         std::vector<csvColContent> body;
         size_t findColumn(const std::string& columnName) const;
         std::vector<std::string> findColumnNamesTeams() const;
+        general::uniqueStrings getParts() const;
     };
 
     class csvReader

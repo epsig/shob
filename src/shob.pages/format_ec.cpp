@@ -66,17 +66,6 @@ namespace shob::pages
         return parts;
     }
 
-    uniqueStrings format_ec::getParts(const csvContent& data)
-    {
-        auto parts = uniqueStrings();
-        for (const auto& row : data.body)
-        {
-            const auto& part = row.column[0];
-            parts.insert(part);
-        }
-        return parts;
-    }
-
     uniqueStrings format_ec::getGroups(const std::string& part, const csvContent& data)
     {
         auto groups = uniqueStrings();
@@ -379,7 +368,7 @@ namespace shob::pages
 
         out.addContent(menuOut);
 
-        const auto ECparts = getParts(csvData).list();
+        const auto ECparts = csvData.getParts().list();
         auto internalMenu = getInternalLinks(ECparts, csvData);
         out.addContent(internalMenu);
 

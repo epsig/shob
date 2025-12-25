@@ -61,7 +61,7 @@ namespace shob::pages
 
         auto teams = teams::clubTeams();
         auto file2 = sportDataFolder + "/clubs.csv";
-        teams.InitFromFile(file2);
+        teams.InitFromFile(file2, teams::clubsOrCountries::clubs);
 
         auto Table = html::table(settings);
 
