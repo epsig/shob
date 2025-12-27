@@ -35,7 +35,7 @@ namespace shob::pages
         int curPos = 0;
         for (const auto& row : archive)
         {
-            auto pos = row.find("K");
+            auto pos = row.find(id);
             auto yr = row.substr(pos - 1, 7);
             yr[2] = ' ';
             if (row.find(year) != std::string::npos)
