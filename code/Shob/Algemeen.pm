@@ -227,12 +227,7 @@ sub get_reactie
 {# (c) Edwin Spee
 
 my $out = << 'EOF';
-<form method="POST" action="/cgi-bin/mail-a-form">
-<input type="hidden" name="to" value="info@epsig.nl">
-<input type="hidden" name="subject" value="reactie op web-site">
-<input type="hidden" name="nextpage" value="/dank_u_wel.html">
-EOF
-$out .= << "EOF";
+<form method="POST" action="mailto:info@epsig.nl">
 Put your comments on my pages here:
 <p>
 Je opmerkingen kun je hier kwijt.
