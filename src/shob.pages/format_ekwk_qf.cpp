@@ -40,8 +40,8 @@ namespace shob::pages
         {
             if (remark[1].starts_with("star"))
             {
-                auto number = remark[1].substr(5, 1);
-                return std::atoi(number.c_str());
+                const auto number = remark[1].substr(5, 1);
+                return std::stoi(number);
             }
         }
         return 0;
@@ -325,8 +325,8 @@ namespace shob::pages
         // adjust defaults, needed for postponed EK-2020 (due to Corona)
         for(const auto& key_value : remarks)
         {
-            if (key_value[0] == "dd1kzb") dd1kzb = std::atoi(key_value[1].c_str());
-            if (key_value[0] == "dd2kzb") dd2kzb = std::atoi(key_value[1].c_str());
+            if (key_value[0] == "dd1kzb") dd1kzb = std::stoi(key_value[1]);
+            if (key_value[0] == "dd2kzb") dd2kzb = std::stoi(key_value[1]);
         }
         const auto date1 = itdate(dd1kzb);
         const auto date2 = itdate(dd2kzb);
