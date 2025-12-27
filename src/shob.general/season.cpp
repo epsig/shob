@@ -42,12 +42,12 @@ namespace shob::general
 
         for (; it != end; ++it)
         {
-            parts.push_back(std::atoi(it->str().c_str()));
+            parts.push_back(std::stoi(it->str()));
         }
 
         if (parts.size() == 2 && parts[0] == parts[1]-1)
         {
-            return season(parts[0]);
+            return { parts[0] };
         }
 
         throw shobException("season not found in: " + text);

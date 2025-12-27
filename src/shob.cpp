@@ -11,6 +11,39 @@
 #include "shob.general/shobException.h"
 #include "shob.html/updateIfNewer.h"
 
+void read_command_line(int argc, char* argv[], int& yr1, int&yr2)
+{
+    using namespace shob::general;
+    if (argc >= 3)
+    {
+        if (dateFactory::allDigits(argv[1]) && dateFactory::allDigits(argv[2]))
+        {
+            const std::string arg1 = argv[1];
+            const std::string arg2 = argv[2];
+            yr1 = std::stoi(arg1);
+            yr2 = std::stoi(arg2);
+        }
+        else
+        {
+            throw shobException("first two command line arguments must be years");
+        }
+    }
+    else if (argc == 2)
+    {
+        if (dateFactory::allDigits(argv[1]))
+        {
+            const std::string arg1 = argv[1];
+            yr1 = std::stoi(arg1);
+            yr2 = yr1;
+        }
+        else
+        {
+            throw shobException("first command line argument must be a year");
+        }
+    }
+}
+
+
 int main(int argc, char* argv[])
 {
     using namespace shob::pages;
@@ -22,30 +55,7 @@ int main(int argc, char* argv[])
         int firstYear = 1993;
         int lastYear = 2026; // TODO function of current date
 
-        if (argc >= 3)
-        {
-            if (dateFactory::allDigits(argv[1]) && dateFactory::allDigits(argv[2]))
-            {
-                firstYear = std::atoi(argv[1]);
-                lastYear = std::atoi(argv[2]);
-            }
-            else
-            {
-                throw shobException("first two command line arguments must be years");
-            }
-        }
-        else if (argc == 2)
-        {
-            if (dateFactory::allDigits(argv[1]))
-            {
-                firstYear = std::atoi(argv[1]);
-                lastYear = firstYear;
-            }
-            else
-            {
-                throw shobException("first command line argument must be a year");
-            }
-        }
+        read_command_line(argc, argv, firstYear, lastYear);
 
         part = "running factories";
         auto fmt_nl = format_nl_factory::build("sport");
@@ -96,8 +106,8 @@ int main(int argc, char* argv[])
     }
     catch (const std::exception& e)
     {
-        std::cout << part << std::endl;
-        std::cout << e.what() << std::endl;
+        std::cout << part << "\n";
+        std::cout << e.what() << "\n";
         return -1;
     }
 
