@@ -72,30 +72,12 @@ sub get_list_eredivisie_clubs()
   return @clubs;
 }
 
-sub get_sport_index($$$$$$$)
+sub get_sport_index($$$)
 {# (c) Edwin Spee
 
- my ($search_data, $c1, $c2, $dd1, $dd2, $both, $sort) = @_;
+ my ($search_data, $both, $sort) = @_;
 
  my $dd = $u_nl->{laatste_speeldatum};
- if ($dd1 < 0) {$dd1 = 20010101;}
- if ($dd2 < 0) {$dd2 = $dd;}
-
- my $ranges = get_sport_range();
- my $first_eredivisie_season = $ranges->{eredivisie}[0];
-
- my @clubs = get_list_eredivisie_clubs();
-
- my $input1 = create_input_club(\@clubs, $c1, 1);
- my $input2 = create_input_club(\@clubs, $c2, 2);
-
- my @checked_both = ('', '');
- $both = max(0, min($both, 1));
- $checked_both[$both] = 'checked';
-
- my @checked_sort = ('', '', '');
- $sort = max(0, min($sort, 2));
- $checked_sort[$sort] = 'checked';
 
  my $nl_list = get_voetbal_list('overzicht', 'NL');
  my $ec_list = get_voetbal_list('overzicht', 'EC');
@@ -120,28 +102,6 @@ $nl_list
   <li>Uitslagen schaatsen:
 $os_list
   <li>Zie verder: <a href="bookmarks_sport.html">sport links</a>
-  <li> Zoek Eredivisie uitslagen (vanaf seizoen $first_eredivisie_season):
-<form name="myForm" action=$host/cgi-bin/shob/sport_search.pl method=get onsubmit="return validateForm()">
-<p> clubs:
-$input1
-$input2
-</p>
-<p> start-datum: <input type=text name=dd1 size=9 value="$dd1">
-eind-datum: <input type=text name=dd2 size=9 value="$dd2"> (formaat datum = yyyymmdd) </p>
-<p>uit en thuis:
-<input type="radio" id="both" name="both" value="1" $checked_both[1]>
-<label for="1">beide wedstrijden</label>
-<input type="radio" id="both" name="both" value="0" $checked_both[0]>
-<label for="0">1e speelt thuis</label></p>
-<p> sorteren:
-<input type="radio" id="both" name="sort" value="0" $checked_sort[0]>
-<label for="0">datum</label>
-<input type="radio" id="both" name="sort" value="1" $checked_sort[1]>
-<label for="1">datum (recent eerst)</label>
-<input type="radio" id="both" name="sort" value="2" $checked_sort[2]>
-<label for="2">grote uitslagen eerst</label></p>
-<p> <input type=submit value="OK, verstuur!"> </p>
-</form>
  </ul>
 EOF
 
