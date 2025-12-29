@@ -23,6 +23,10 @@ namespace shob::pages
         const readers::csvContent heren;
         const topMenu menu;
         const html::settings settings;
+        readers::csvContent read_matches_data(const int year) const;
+        general::multipleStrings get_numbers_one(const readers::csvContent& allData) const;
+        static int findDate(const std::vector<std::vector<std::string>>& remarks);
+        static std::string findTitle(const std::vector<std::vector<std::string>>& remarks);
     };
 }
 
