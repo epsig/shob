@@ -1,17 +1,17 @@
 
 #include "format_os.h"
+#include "head_bottum.h"
 #include "../shob.html/updateIfNewer.h"
+#include "../shob.html/funcs.h"
 #include <format>
 #include <iostream>
-
-#include "head_bottum.h"
 
 namespace shob::pages
 {
     format_os::format_os(std::string folder, readers::csvAllSeasonsReader reader, readers::csvContent dames,
-        readers::csvContent heren, topMenu menu, html::settings settings) :
+        readers::csvContent heren, topMenu menu, teams::nationalTeams teams, html::settings settings) :
         folder(std::move(folder)), seasons_reader(std::move(reader)),
-        dames(std::move(dames)), heren(std::move(heren)), menu(std::move(menu)), settings(settings) {  }
+        dames(std::move(dames)), heren(std::move(heren)), menu(std::move(menu)), land_codes(std::move(teams)), settings(settings) {  }
 
     void format_os::get_pages_to_file(const int year, const std::string& filename) const
     {
@@ -91,6 +91,7 @@ namespace shob::pages
                 const auto DH = row.column[0];
                 const auto distance = row.column[1];
                 auto name = row.column[3];
+                auto country = name.substr(0, 2);
                 if (DH == "D")
                 {
                     name = findName(name, dames);
@@ -99,6 +100,7 @@ namespace shob::pages
                 {
                     name = findName(name, heren);
                 }
+                name +=  std::format(" ({})" , html::funcs::acronym( country, land_codes.expand(country)));
                 const auto time = row.column[5];
                 body.data = { std::format("{} - {}", DH,distance), name, time };
                 content.body.push_back(body);

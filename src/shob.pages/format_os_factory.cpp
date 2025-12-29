@@ -39,9 +39,12 @@ namespace shob::pages
         const auto dames = csvReader::readCsvFile(folder + "schaatsersD.csv");
         const auto heren = csvReader::readCsvFile(folder + "schaatsersH.csv");
 
+        auto national_teams = teams::nationalTeams();
+        national_teams.InitFromFile(folder + "../landcodes.csv");
+
         auto menu = prepareTopMenu(folder);
 
-        auto os = format_os(folder, remarks, dames, heren, menu, settings);
+        auto os = format_os(folder, remarks, dames, heren, menu, national_teams, settings);
         return os;
     }
 }
