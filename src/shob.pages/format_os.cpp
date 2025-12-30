@@ -58,15 +58,6 @@ namespace shob::pages
         return csvData;
     }
 
-    std::string findName(const std::string& name, const readers::csvContent& listNames)
-    {
-        for(const auto& row : listNames.body)
-        {
-            if (row.column[0] == name) return row.column[1];
-        }
-        return name;
-    }
-
     general::multipleStrings format_os::get_numbers_one(const readers::csvContent& allData) const
     {
         auto retVal = general::multipleStrings();
@@ -87,22 +78,16 @@ namespace shob::pages
             const auto rank = row.column[2];
             if (rank == "1")
             {
-                general::multipleStrings body;
                 const auto DH = row.column[0];
                 const auto distance = row.column[1];
-                auto name = row.column[3];
-                auto country = name.substr(0, 2);
-                if (DH == "D")
-                {
-                    name = findName(name, dames);
-                }
-                else
-                {
-                    name = findName(name, heren);
-                }
-                name +=  std::format(" ({})" , html::funcs::acronym( country, land_codes.expand(country)));
+                const auto name = row.column[3];
+                const auto country = name.substr(0, 2);
+                const auto full_name = (DH == "D" ? findName(name, dames) : findName(name, heren));
+                const auto land_code_and_name = html::funcs::acronym(country, land_codes.expand(country));
+                const auto name_with_country = std::format("{} ({})", full_name, land_code_and_name);
                 const auto time = row.column[5];
-                body.data = { std::format("{} - {}", DH,distance), name, time };
+                general::multipleStrings body;
+                body.data = { std::format("{} - {}", DH,distance), name_with_country, time };
                 content.body.push_back(body);
             }
         }
@@ -110,6 +95,15 @@ namespace shob::pages
         auto table = Table.buildTable(content);
         retVal.addContent(table);
         return retVal;
+    }
+
+    std::string format_os::findName(const std::string& name, const readers::csvContent& listNames)
+    {
+        for (const auto& row : listNames.body)
+        {
+            if (row.column[0] == name) return row.column[1];
+        }
+        return name;
     }
 
     int format_os::findDate(const std::vector<std::vector<std::string>>& remarks)

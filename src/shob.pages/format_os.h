@@ -29,6 +29,7 @@ namespace shob::pages
         general::multipleStrings get_numbers_one(const readers::csvContent& allData) const;
         static int findDate(const std::vector<std::vector<std::string>>& remarks);
         static std::string findTitle(const std::vector<std::vector<std::string>>& remarks);
+        static std::string findName(const std::string& name, const readers::csvContent& listNames);
     };
 }
 
