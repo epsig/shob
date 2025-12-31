@@ -92,8 +92,11 @@ namespace shob::pages
                 const auto land_code_and_name = html::funcs::acronym(country, land_codes.expand(country));
                 const auto name_with_country = std::format("{} ({})", full_name, land_code_and_name);
                 const auto time = row.column[5];
+                const auto linkName = std::format("{}{}", DH, distance);
+                const auto description = std::format("{} - {}", DH, distance);
+                const auto link = "<a href=\"#" + linkName + "\">" + description + "</a>";
                 general::multipleStrings body;
-                body.data = { std::format("{} - {}", DH,distance), name_with_country, print_result(time, row.column[6])};
+                body.data = { link, name_with_country, print_result(time, row.column[6])};
                 content.body.push_back(body);
             }
         }
@@ -106,6 +109,7 @@ namespace shob::pages
     general::multipleStrings format_os::get_one_distance(const std::string& distance, const char DH, const readers::csvContent& allData) const
     {
         auto retVal = general::multipleStrings();
+        retVal.addContent(std::format("<p/> <a name=\"{}{}\">", DH, distance));
         html::tableContent content;
 
         bool found_points = false;

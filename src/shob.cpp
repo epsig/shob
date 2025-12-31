@@ -95,7 +95,7 @@ int main(int argc, char* argv[])
                     break;
                 }
             }
-            if (year % 4 == 2)
+            if (year % 4 == 2 && year < 2026)
             {
                 fmt_os.get_pages_to_file(year, std::format("{}/sport_schaatsen_OS_{}.html", "../pages_new", year));
             }
