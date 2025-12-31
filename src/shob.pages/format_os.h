@@ -34,6 +34,7 @@ namespace shob::pages
         static std::string findName(const std::string& name, const readers::csvContent& listNames);
         static std::string print_result(const std::string& stime, const std::string& remark);
         static std::vector<std::string> find_distances(const char DH, const readers::csvContent& allData);
+        static std::string adj_team(const std::string& team);
     };
 }
 

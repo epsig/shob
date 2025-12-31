@@ -87,10 +87,19 @@ namespace shob::pages
                 const auto DH = row.column[0];
                 const auto distance = row.column[1];
                 const auto name = row.column[3];
+                const auto team = row.column[4];
                 const auto country = name.substr(0, 2);
                 const auto full_name = (DH == "D" ? findName(name, dames) : findName(name, heren));
                 const auto land_code_and_name = html::funcs::acronym(country, land_codes.expand(country));
-                const auto name_with_country = std::format("{} ({})", full_name, land_code_and_name);
+                std::string name_with_country;
+                if (team.empty())
+                {
+                    name_with_country = std::format("{} ({})", full_name, land_code_and_name);
+                }
+                else
+                {
+                    name_with_country = land_codes.expand(country) + " (" + adj_team(team) + ")";
+                }
                 const auto time = row.column[5];
                 const auto linkName = std::format("{}{}", DH, distance);
                 const auto description = std::format("{} - {}", DH, distance);
@@ -103,6 +112,16 @@ namespace shob::pages
         const auto Table = html::table(settings);
         auto table = Table.buildTable(content);
         retVal.addContent(table);
+        return retVal;
+    }
+
+    std::string format_os::adj_team(const std::string& team)
+    {
+        auto retVal = team;
+        for (size_t i = 0; i < retVal.size(); i++)
+        {
+            if (retVal.find(';') == i) retVal.replace(i, 1, ",");
+        }
         return retVal;
     }
 
@@ -121,10 +140,19 @@ namespace shob::pages
             {
                 const auto rank = row.column[2];
                 const auto name = row.column[3];
+                const auto team = row.column[4];
                 const auto country = name.substr(0, 2);
                 const auto full_name = (DH == 'D' ? findName(name, dames) : findName(name, heren));
                 const auto land_code_and_name = html::funcs::acronym(country, land_codes.expand(country));
-                const auto name_with_country = std::format("{} ({})", full_name, land_code_and_name);
+                std::string name_with_country;
+                if (team.empty())
+                {
+                    name_with_country = std::format("{} ({})", full_name, land_code_and_name);
+                }
+                else
+                {
+                    name_with_country = land_codes.expand(country) + " (" + adj_team(team) + ")";
+                }
                 const auto time = row.column[5];
                 if (time.ends_with(" p")) found_points = true;
                 general::multipleStrings body;
