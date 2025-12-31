@@ -32,7 +32,7 @@ namespace shob::pages
         static int findDate(const std::vector<std::vector<std::string>>& remarks);
         static std::string findTitle(const std::vector<std::vector<std::string>>& remarks);
         static std::string findName(const std::string& name, const readers::csvContent& listNames);
-        static std::string print_time(const std::string& stime, const std::string& remark);
+        static std::string print_result(const std::string& stime, const std::string& remark);
         static std::vector<std::string> find_distances(const char DH, const readers::csvContent& allData);
     };
 }

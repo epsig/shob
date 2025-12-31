@@ -93,7 +93,7 @@ namespace shob::pages
                 const auto name_with_country = std::format("{} ({})", full_name, land_code_and_name);
                 const auto time = row.column[5];
                 general::multipleStrings body;
-                body.data = { std::format("{} - {}", DH,distance), name_with_country, print_time(time, row.column[6])};
+                body.data = { std::format("{} - {}", DH,distance), name_with_country, print_result(time, row.column[6])};
                 content.body.push_back(body);
             }
         }
@@ -107,17 +107,8 @@ namespace shob::pages
     {
         auto retVal = general::multipleStrings();
         html::tableContent content;
-        if (settings.lang == html::language::English)
-        {
-            content.header.data = { "rank", "name", "time" };
-            content.title = distance + " " + (DH == 'H' ? "men" : "woman");
-        }
-        else
-        {
-            content.header.data = { "rank", "naam", "tijd" };
-            content.title = distance + " " + (DH == 'H' ? "Heren" : "Dames");
-        }
 
+        bool found_points = false;
         for (const auto& row : allData.body)
         {
             const auto cur_DH = row.column[0];
@@ -131,11 +122,24 @@ namespace shob::pages
                 const auto land_code_and_name = html::funcs::acronym(country, land_codes.expand(country));
                 const auto name_with_country = std::format("{} ({})", full_name, land_code_and_name);
                 const auto time = row.column[5];
+                if (time.ends_with(" p")) found_points = true;
                 general::multipleStrings body;
-                body.data = { rank, name_with_country, print_time(time, row.column[6]) };
+                body.data = { rank, name_with_country, print_result(time, row.column[6]) };
                 content.body.push_back(body);
             }
         }
+
+        if (settings.lang == html::language::English)
+        {
+            content.header.data = { "rank", "name", found_points ? "points" : "time" };
+            content.title = distance + " " + (DH == 'H' ? "men" : "woman");
+        }
+        else
+        {
+            content.header.data = { "rank", "naam", found_points ? "punten" : "tijd" };
+            content.title = distance + " " + (DH == 'H' ? "Heren" : "Dames");
+        }
+
         const auto Table = html::table(settings);
         auto table = Table.buildTable(content);
         retVal.addContent(table);
@@ -199,21 +203,48 @@ namespace shob::pages
         return retVal;
     }
 
-    std::string format_os::print_time(const std::string& stime, const std::string& remark)
+    std::string format_os::print_result(const std::string& stime, const std::string& remark)
     {
         const auto remark_with_par = remark.empty() ? "" : " (" + remark + ")";
+        if (stime.ends_with(" p")) return stime + remark_with_par;
+
         if (stime.find(';') != std::string::npos)
         {
             const auto stimes = readers::csvReader::split(stime, ";");
             const auto first_500m = stimes.column[0];
             const auto second_500m = stimes.column[1];
-            const auto sum = std::stod(first_500m) + std::stod(second_500m);
-            return std::format("{} s + {} s = {:.2f} s{}", first_500m, second_500m, sum, remark_with_par);
+            const auto parts1 = readers::csvReader::split(first_500m, " ");
+            const auto parts2 = readers::csvReader::split(second_500m, " ");
+            const auto remark1 = (parts1.column.size() > 1 ? " (" + parts1.column[1] + ")" : "");
+            const auto remark2 = (parts2.column.size() > 1 ? " (" + parts2.column[1] + ")" : "");
+            try
+            {
+                const auto sum = std::stod(parts1.column[0]) + std::stod(parts2.column[0]);
+                return std::format("{} s{} + {} s{} = {:.2f} s{}", first_500m, remark1, second_500m, remark2, sum, remark_with_par);
+            }
+            catch (const std::exception&)
+            {
+                return std::format("{} ; {}{}", first_500m, second_500m, remark_with_par);
+            }
         }
-        const auto time = std::stod(stime);
-        const auto minutes = static_cast<int>(time) / 60;
-        const auto seconds = time - 60.0 * static_cast<double>(minutes);
-        return std::format("{} min {:.2f} s{}", minutes, seconds, remark_with_par);
+        try
+        {
+            const auto time = std::stod(stime);
+            const auto minutes = static_cast<int>(time) / 60;
+            const auto seconds = time - 60.0 * static_cast<double>(minutes);
+            if (minutes > 0)
+            {
+                return std::format("{} min {:.2f} s{}", minutes, seconds, remark_with_par);
+            }
+            else
+            {
+                return std::format("{} s{}", stime, remark_with_par);
+            }
+        }
+        catch (const std::exception&)
+        {
+            return stime;
+        }
     }
 
 }
