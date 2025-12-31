@@ -44,6 +44,12 @@ namespace shob::pages
         auto part1 = get_numbers_one(allData);
         retVal.addContent(part1);
 
+        auto part2 = get_all_distances('H', allData);
+        retVal.addContent(part2);
+
+        auto part3 = get_all_distances('D', allData);
+        retVal.addContent(part3);
+
         auto hb = headBottumInput(findDate(remarks));
         hb.title = findTitle(remarks);
         std::swap(hb.body, retVal);
@@ -97,6 +103,57 @@ namespace shob::pages
         return retVal;
     }
 
+    general::multipleStrings format_os::get_one_distance(const std::string& distance, const char DH, const readers::csvContent& allData) const
+    {
+        auto retVal = general::multipleStrings();
+        html::tableContent content;
+        if (settings.lang == html::language::English)
+        {
+            content.header.data = { "rank", "name", "time" };
+            content.title = distance + " " + (DH == 'H' ? "men" : "woman");
+        }
+        else
+        {
+            content.header.data = { "rank", "naam", "tijd" };
+            content.title = distance + " " + (DH == 'H' ? "Heren" : "Dames");
+        }
+
+        for (const auto& row : allData.body)
+        {
+            const auto cur_DH = row.column[0];
+            const auto cur_distance = row.column[1];
+            if (cur_DH.find(DH) != std::string::npos && cur_distance == distance)
+            {
+                const auto rank = row.column[2];
+                const auto name = row.column[3];
+                const auto country = name.substr(0, 2);
+                const auto full_name = (DH == 'D' ? findName(name, dames) : findName(name, heren));
+                const auto land_code_and_name = html::funcs::acronym(country, land_codes.expand(country));
+                const auto name_with_country = std::format("{} ({})", full_name, land_code_and_name);
+                const auto time = row.column[5];
+                general::multipleStrings body;
+                body.data = { rank, name_with_country, print_time(time, row.column[6]) };
+                content.body.push_back(body);
+            }
+        }
+        const auto Table = html::table(settings);
+        auto table = Table.buildTable(content);
+        retVal.addContent(table);
+        return retVal;
+    }
+
+    general::multipleStrings format_os::get_all_distances(const char DH, const readers::csvContent& allData) const
+    {
+        auto retVal = general::multipleStrings();
+        const auto distances = find_distances(DH, allData);
+        for (const auto& distance : distances)
+        {
+            auto d = get_one_distance(distance, DH, allData);
+            retVal.addContent(d);
+        }
+        return retVal;
+    }
+
     std::string format_os::findName(const std::string& name, const readers::csvContent& listNames)
     {
         for (const auto& row : listNames.body)
@@ -122,6 +179,24 @@ namespace shob::pages
             if (row[0] == "title") return row[1];
         }
         return "";
+    }
+
+    std::vector<std::string> format_os::find_distances(const char DH, const readers::csvContent& allData)
+    {
+        auto retVal = std::vector<std::string>();
+        std::string previous;
+        for (const auto& row : allData.body)
+        {
+            if (row.column[0].find(DH) != std::string::npos)
+            {
+                if (row.column[1] != previous)
+                {
+                    previous = row.column[1];
+                    retVal.push_back(row.column[1]);
+                }
+            }
+        }
+        return retVal;
     }
 
     std::string format_os::print_time(const std::string& stime, const std::string& remark)

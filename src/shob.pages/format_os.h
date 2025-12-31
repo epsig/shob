@@ -27,10 +27,13 @@ namespace shob::pages
         const html::settings settings;
         readers::csvContent read_matches_data(const int year) const;
         general::multipleStrings get_numbers_one(const readers::csvContent& allData) const;
+        general::multipleStrings get_all_distances(const char DH, const readers::csvContent& allData) const;
+        general::multipleStrings get_one_distance(const std::string& distance, const char DH, const readers::csvContent& allData) const;
         static int findDate(const std::vector<std::vector<std::string>>& remarks);
         static std::string findTitle(const std::vector<std::vector<std::string>>& remarks);
         static std::string findName(const std::string& name, const readers::csvContent& listNames);
         static std::string print_time(const std::string& stime, const std::string& remark);
+        static std::vector<std::string> find_distances(const char DH, const readers::csvContent& allData);
     };
 }
 
