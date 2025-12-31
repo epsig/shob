@@ -87,7 +87,7 @@ namespace shob::pages
                 const auto name_with_country = std::format("{} ({})", full_name, land_code_and_name);
                 const auto time = row.column[5];
                 general::multipleStrings body;
-                body.data = { std::format("{} - {}", DH,distance), name_with_country, time };
+                body.data = { std::format("{} - {}", DH,distance), name_with_country, print_time(time, row.column[6])};
                 content.body.push_back(body);
             }
         }
@@ -122,6 +122,23 @@ namespace shob::pages
             if (row[0] == "title") return row[1];
         }
         return "";
+    }
+
+    std::string format_os::print_time(const std::string& stime, const std::string& remark)
+    {
+        const auto remark_with_par = remark.empty() ? "" : " (" + remark + ")";
+        if (stime.find(';') != std::string::npos)
+        {
+            const auto stimes = readers::csvReader::split(stime, ";");
+            const auto first_500m = stimes.column[0];
+            const auto second_500m = stimes.column[1];
+            const auto sum = std::stod(first_500m) + std::stod(second_500m);
+            return std::format("{} s + {} s = {:.2f} s{}", first_500m, second_500m, sum, remark_with_par);
+        }
+        const auto time = std::stod(stime);
+        const auto minutes = static_cast<int>(time) / 60;
+        const auto seconds = time - 60.0 * static_cast<double>(minutes);
+        return std::format("{} min {:.2f} s{}", minutes, seconds, remark_with_par);
     }
 
 }
