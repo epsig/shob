@@ -238,9 +238,18 @@ namespace shob::pages
     std::string format_os::print_result(const std::string& stime, const std::string& remark)
     {
         const auto remark_with_par = remark.empty() ? "" : " (" + remark + ")";
-        if (stime.ends_with(" p")) return stime + remark_with_par;
-
-        if (stime.find(';') != std::string::npos)
+        const auto pos_colon = stime.find(':');
+        if (stime.ends_with(" p"))
+        {
+            return stime + remark_with_par;
+        }
+        else if (pos_colon != std::string::npos)
+        {
+            auto minutes = stime.substr(0, pos_colon);
+            auto seconds = stime.substr(1+pos_colon, 5);
+            return std::format("{} min {} s{}", minutes, seconds, remark_with_par);
+        }
+        else if (stime.find(';') != std::string::npos)
         {
             const auto stimes = readers::csvReader::split(stime, ";");
             const auto first_500m = stimes.column[0];
@@ -266,7 +275,7 @@ namespace shob::pages
             const auto seconds = time - 60.0 * static_cast<double>(minutes);
             if (minutes > 0)
             {
-                return std::format("{} min {:.2f} s{}", minutes, seconds, remark_with_par);
+                return std::format("{} min {:05.2f} s{}", minutes, seconds, remark_with_par);
             }
             else
             {
