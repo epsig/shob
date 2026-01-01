@@ -18,7 +18,6 @@ use Shob::Klaverjas_Funcs;
 use Shob_Tools::Idate qw(&split_idate);
 use Sport_Collector::Archief_Voetbal_NL;
 use Sport_Collector::Archief_Europacup_Voetbal;
-use Sport_Collector::OS_Schaatsen;
 use Sport_Collector::Archief_EK_WK_Voetbal;
 use Sport_Collector::Stats_Eredivisie;
 use Sport_Collector::Bookmarks_Index;
@@ -250,11 +249,6 @@ sub handle_sport_files($$$)
     if ($szn1 ge $ranges->{voetbal_nl}[0] && $szn1 le $ranges->{voetbal_nl}[1])
     {
       push @pages, [$dl, 'all', sub {&get_betaald_voetbal_nl($yr);}, "sport_voetbal_nl_$szn2.html"];
-    }
-
-    if ($yr % 4 == 2 && $yr >= $ranges->{schaatsen}[0] && $yr <= $ranges->{schaatsen}[1])
-    {
-      push @pages, [$dl, 'all', sub {&get_OS($yr);}, "sport_schaatsen_OS_$yr.html"];
     }
 
     if ($yr % 2 == 0)
