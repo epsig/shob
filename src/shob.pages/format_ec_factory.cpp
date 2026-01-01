@@ -19,7 +19,7 @@ namespace shob::pages
         teams.AddLandCodes(national_teams);
 
         auto archive = general::glob::list(dataFolder + "/europacup", "europacup_[0-9].*csv");
-        auto menu = topMenu(archive);
+        auto menu = topMenu(archive, 'K');
 
         auto leagueNames = football::leagueNames(dataFolder + "/europacup/league_names.csv", settings.isCompatible);
 

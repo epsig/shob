@@ -30,7 +30,7 @@ namespace shob::pages
             filenames.insert(shortName);
         }
 
-        auto menu = topMenu(filenames.list());
+        auto menu = topMenu(filenames.list(), 'K');
 
         return menu;
     }

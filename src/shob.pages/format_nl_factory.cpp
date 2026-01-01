@@ -31,7 +31,7 @@ namespace shob::pages
         {
             replace_first(row, "eredivisie", "nl");
         }
-        auto menu = topMenu(archive);
+        auto menu = topMenu(archive, 'K');
 
         auto format = format_nl(dataFolder, extras, remarks, menu);
         return format;
