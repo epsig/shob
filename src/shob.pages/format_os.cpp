@@ -32,7 +32,14 @@ namespace shob::pages
     general::multipleStrings format_os::get_pages(const int year) const
     {
         auto retVal = general::multipleStrings();
-        retVal.addContent("<hr> andere winterspelen: |");
+        if (settings.lang == html::language::English)
+        {
+            retVal.addContent("<hr> other Winter Olympics: |");
+        }
+        else
+        {
+            retVal.addContent("<hr> andere winterspelen: |");
+        }
         auto topMenu = menu.getMenu(std::to_string(year));
         retVal.addContent(topMenu);
         retVal.addContent("<hr>");
