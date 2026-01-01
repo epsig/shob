@@ -79,15 +79,23 @@ namespace shob::pages
             content.title = "Gouden medaille winnaars";
         }
 
+        const auto DH_Column = allData.findColumn("DH");
+        const auto distanceColumn = allData.findColumn("distance");
+        const auto rankingColumn = allData.findColumn("ranking");
+        const auto nameColumn = allData.findColumn("name");
+        const auto teamColumn = allData.findColumn("team");
+        const auto resultColumn = allData.findColumn("result");
+        const auto remarkColumn = allData.findColumn("remark");
+
         for (const auto& row : allData.body)
         {
-            const auto rank = row.column[2];
+            const auto rank = row.column[rankingColumn];
             if (rank == "1")
             {
-                const auto DH = row.column[0];
-                const auto distance = row.column[1];
-                const auto name = row.column[3];
-                const auto team = row.column[4];
+                const auto DH = row.column[DH_Column];
+                const auto distance = row.column[distanceColumn];
+                const auto name = row.column[nameColumn];
+                const auto team = (teamColumn < row.column.size() ? row.column[teamColumn] : "");
                 const auto country = name.substr(0, 2);
                 const auto full_name = (DH == "D" ? findName(name, dames) : findName(name, heren));
                 const auto land_code_and_name = html::funcs::acronym(country, land_codes.expand(country));
@@ -100,12 +108,13 @@ namespace shob::pages
                 {
                     name_with_country = land_codes.expand(country) + " (" + adj_team(team) + ")";
                 }
-                const auto time = row.column[5];
+                const auto time = row.column[resultColumn];
                 const auto linkName = std::format("{}{}", DH, distance);
                 const auto description = std::format("{} - {}", DH, distance);
                 const auto link = "<a href=\"#" + linkName + "\">" + description + "</a>";
                 general::multipleStrings body;
-                body.data = { link, name_with_country, print_result(time, row.column[6])};
+                const auto remark = (remarkColumn < row.column.size() ? row.column[remarkColumn] : "");
+                body.data = { link, name_with_country, print_result(time, remark)};
                 content.body.push_back(body);
             }
         }
@@ -121,16 +130,24 @@ namespace shob::pages
         retVal.addContent(std::format("<p/> <a name=\"{}{}\">", DH, distance));
         html::tableContent content;
 
+        const auto DH_Column = allData.findColumn("DH");
+        const auto distanceColumn = allData.findColumn("distance");
+        const auto rankingColumn = allData.findColumn("ranking");
+        const auto nameColumn = allData.findColumn("name");
+        const auto teamColumn = allData.findColumn("team");
+        const auto resultColumn = allData.findColumn("result");
+        const auto remarkColumn = allData.findColumn("remark");
+
         bool found_points = false;
         for (const auto& row : allData.body)
         {
-            const auto cur_DH = row.column[0];
-            const auto cur_distance = row.column[1];
+            const auto cur_DH = row.column[DH_Column];
+            const auto cur_distance = row.column[distanceColumn];
             if (cur_DH.find(DH) != std::string::npos && cur_distance == distance)
             {
-                auto rank = row.column[2];
-                const auto name = row.column[3];
-                const auto team = row.column[4];
+                auto rank = row.column[rankingColumn];
+                const auto name = row.column[nameColumn];
+                const auto team = (teamColumn < row.column.size() ? row.column[teamColumn] : "");
                 const auto country = name.substr(0, 2);
                 const auto full_name = (DH == 'D' ? findName(name, dames) : findName(name, heren));
                 const auto land_code_and_name = html::funcs::acronym(country, land_codes.expand(country));
@@ -143,11 +160,12 @@ namespace shob::pages
                 {
                     name_with_country = land_codes.expand(country) + " (" + adj_team(team) + ")";
                 }
-                const auto time = row.column[5];
+                const auto time = row.column[resultColumn];
                 if (time.ends_with(" p")) found_points = true;
                 general::multipleStrings body;
                 if (rank == "-1") { rank = ""; }
-                body.data = { rank, name_with_country, print_result(time, row.column[6]) };
+                const auto remark = (remarkColumn < row.column.size() ? row.column[remarkColumn] : "");
+                body.data = { rank, name_with_country, print_result(time, remark) };
                 content.body.push_back(body);
             }
         }
@@ -282,15 +300,12 @@ namespace shob::pages
     std::string format_os::adj_team(const std::string& team)
     {
         auto retVal = team;
-        int ii = 0;
         for (size_t i = 0; i < retVal.size(); i++)
         {
             if (retVal.find("; ") == i)
             {
                 retVal.replace(i, 1, ",");
-                ii++;
             }
-            if (ii == 2) break;
         }
         return retVal;
     }
