@@ -118,9 +118,15 @@ namespace shob::pages
     std::string format_os::adj_team(const std::string& team)
     {
         auto retVal = team;
+        int ii = 0;
         for (size_t i = 0; i < retVal.size(); i++)
         {
-            if (retVal.find(';') == i) retVal.replace(i, 1, ",");
+            if (retVal.find("; ") == i)
+            {
+                retVal.replace(i, 1, ",");
+                ii++;
+            }
+            if (ii == 2) break;
         }
         return retVal;
     }
