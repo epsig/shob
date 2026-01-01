@@ -115,22 +115,6 @@ namespace shob::pages
         return retVal;
     }
 
-    std::string format_os::adj_team(const std::string& team)
-    {
-        auto retVal = team;
-        int ii = 0;
-        for (size_t i = 0; i < retVal.size(); i++)
-        {
-            if (retVal.find("; ") == i)
-            {
-                retVal.replace(i, 1, ",");
-                ii++;
-            }
-            if (ii == 2) break;
-        }
-        return retVal;
-    }
-
     general::multipleStrings format_os::get_one_distance(const std::string& distance, const char DH, const readers::csvContent& allData) const
     {
         auto retVal = general::multipleStrings();
@@ -292,6 +276,22 @@ namespace shob::pages
         {
             return stime;
         }
+    }
+
+    std::string format_os::adj_team(const std::string& team)
+    {
+        auto retVal = team;
+        int ii = 0;
+        for (size_t i = 0; i < retVal.size(); i++)
+        {
+            if (retVal.find("; ") == i)
+            {
+                retVal.replace(i, 1, ",");
+                ii++;
+            }
+            if (ii == 2) break;
+        }
+        return retVal;
     }
 
 }
