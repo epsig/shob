@@ -128,7 +128,7 @@ namespace shob::pages
             const auto cur_distance = row.column[1];
             if (cur_DH.find(DH) != std::string::npos && cur_distance == distance)
             {
-                const auto rank = row.column[2];
+                auto rank = row.column[2];
                 const auto name = row.column[3];
                 const auto team = row.column[4];
                 const auto country = name.substr(0, 2);
@@ -146,6 +146,7 @@ namespace shob::pages
                 const auto time = row.column[5];
                 if (time.ends_with(" p")) found_points = true;
                 general::multipleStrings body;
+                if (rank == "-1") { rank = ""; }
                 body.data = { rank, name_with_country, print_result(time, row.column[6]) };
                 content.body.push_back(body);
             }
@@ -251,7 +252,7 @@ namespace shob::pages
             try
             {
                 const auto sum = std::stod(parts1.column[0]) + std::stod(parts2.column[0]);
-                return std::format("{} s{} + {} s{} = {:.2f} s{}", first_500m, remark1, second_500m, remark2, sum, remark_with_par);
+                return std::format("{} s{} + {} s{} = {:.2f} s{}", parts1.column[0], remark1, parts2.column[0], remark2, sum, remark_with_par);
             }
             catch (const std::exception&)
             {
