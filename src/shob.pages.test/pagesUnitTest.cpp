@@ -70,3 +70,23 @@ TEST(unitTest, test_os_schaatsen)
 {
     testFormatOS::test_os_2002();
 }
+
+TEST(unitTest, test_os_print_result_points)
+{
+    testFormatOS::test_print_result_points();
+}
+
+TEST(unitTest, test_os_print_with_colon)
+{
+    testFormatOS::test_print_result_with_colon();
+}
+
+TEST(unitTest, test_os_print_two_runs)
+{
+    testFormatOS::test_print_result_with_two_runs();
+}
+
+TEST(unitTest, test_os_print_happy_flow)
+{
+    testFormatOS::test_print_result_happy_flow();
+}

@@ -3,6 +3,7 @@
 #include "head_bottum.h"
 #include "../shob.html/updateIfNewer.h"
 #include "../shob.html/funcs.h"
+#include "../shob.general/shobException.h"
 #include <format>
 #include <iostream>
 

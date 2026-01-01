@@ -17,6 +17,10 @@ namespace shob::pages
         general::multipleStrings get_pages(const int year) const;
         void get_pages_to_file(const int year, const std::string& filename) const;
         void get_pages_stdout(const int year) const;
+
+        // public for unit testing only:
+        static std::string print_result(const std::string& stime, const std::string& remark);
+
     private:
         const std::string folder;
         const readers::csvAllSeasonsReader seasons_reader;
@@ -32,7 +36,6 @@ namespace shob::pages
         static int findDate(const std::vector<std::vector<std::string>>& remarks);
         static std::string findTitle(const std::vector<std::vector<std::string>>& remarks);
         static std::string findName(const std::string& name, const readers::csvContent& listNames);
-        static std::string print_result(const std::string& stime, const std::string& remark);
         static std::vector<std::string> find_distances(const char DH, const readers::csvContent& allData);
         static std::string adj_team(const std::string& team);
     };
