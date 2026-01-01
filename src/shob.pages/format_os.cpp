@@ -214,7 +214,7 @@ namespace shob::pages
         {
             if (row[0] == "dd") return std::stoi(row[1]);
         }
-        return 20000101;
+        throw general::shobException("Date not found in remarks");
     }
 
     std::string format_os::findTitle(const std::vector<std::vector<std::string>>& remarks)
