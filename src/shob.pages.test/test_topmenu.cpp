@@ -15,8 +15,8 @@ namespace shob::pages::test
         auto archive = std::vector<std::string>();
         for (int i = 2010; i < 2020; i++)
         {
-            auto szn = general::season(i);
-            archive.push_back("test_" + szn.to_part_filename() + ".csv");
+            auto szn = general::Season(i);
+            archive.push_back("test_" + szn.toPartFilename() + ".csv");
         }
         return archive;
     }
@@ -25,7 +25,7 @@ namespace shob::pages::test
     {
         auto archive = getArchive();
         auto menu = topMenu(archive, 'K', 6);
-        auto tpmenu1 = menu.getMenu(general::season(2012));
+        auto tpmenu1 = menu.getMenu(general::Season(2012));
         EXPECT_EQ(tpmenu1.data.size(), 8);
         EXPECT_EQ(tpmenu1.data[2], "12-13 |");
         EXPECT_EQ(tpmenu1.data[6], " ...  |");
@@ -35,7 +35,7 @@ namespace shob::pages::test
     {
         auto archive = getArchive();
         auto menu = topMenu(archive, 'K',6);
-        auto tpmenu1 = menu.getMenu(general::season(2015));
+        auto tpmenu1 = menu.getMenu(general::Season(2015));
         EXPECT_EQ(tpmenu1.data.size(), 9);
         EXPECT_EQ(tpmenu1.data[1], " ...  |");
         EXPECT_EQ(tpmenu1.data[4], "15-16 |");
@@ -46,7 +46,7 @@ namespace shob::pages::test
     {
         auto archive = getArchive();
         auto menu = topMenu(archive, 'K',6);
-        auto tpmenu1 = menu.getMenu(general::season(2018));
+        auto tpmenu1 = menu.getMenu(general::Season(2018));
         EXPECT_EQ(tpmenu1.data.size(), 8);
         EXPECT_EQ(tpmenu1.data[6], "18-19 |");
         EXPECT_EQ(tpmenu1.data[1], " ...  |");

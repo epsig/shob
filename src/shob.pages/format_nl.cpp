@@ -14,13 +14,13 @@ namespace shob::pages
     namespace fs = std::filesystem;
     using namespace shob::general;
 
-    void format_nl::get_season_to_file(const general::season& season, const std::string& filename) const
+    void format_nl::get_season_to_file(const general::Season& season, const std::string& filename) const
     {
         auto output = get_season(season);
         html::updateIfDifferent::update(filename, output);
     }
 
-    void format_nl::get_season_stdout(const general::season& season) const
+    void format_nl::get_season_stdout(const general::Season& season) const
     {
         auto output = get_season(season);
         for (const auto& row : output.data)
@@ -29,7 +29,7 @@ namespace shob::pages
         }
     }
 
-    multipleStrings format_nl::getTopScorers(const std::string& file, const season& season,
+    multipleStrings format_nl::getTopScorers(const std::string& file, const Season& season,
         const teams::footballers& players, const teams::clubTeams& teams)
     {
         auto settings = html::settings();
@@ -45,11 +45,11 @@ namespace shob::pages
         return out;
     }
 
-    multipleStrings format_nl::get_season(const season& season) const
+    multipleStrings format_nl::get_season(const Season& season) const
     {
         auto settings = html::settings();
 
-        auto file1 = sportDataFolder + "/eredivisie/eredivisie_" + season.to_part_filename() + ".csv";
+        auto file1 = sportDataFolder + "/eredivisie/eredivisie_" + season.toPartFilename() + ".csv";
         auto competition = football::footballCompetition();
         competition.readFromCsv(file1);
 
@@ -82,7 +82,7 @@ namespace shob::pages
 
         auto table = football::results2standings::u2s(competition, scoring);
 
-        auto file3 = sportDataFolder + "/eerste_divisie/eerste_divisie_" + season.to_part_filename() + ".csv";
+        auto file3 = sportDataFolder + "/eerste_divisie/eerste_divisie_" + season.toPartFilename() + ".csv";
         auto standing_1e_div = football::standings();
         standing_1e_div.initFromFile(file3);
 
@@ -110,7 +110,7 @@ namespace shob::pages
         out.addContent(content);
 
         // beker:
-        const std::string bekerFilename = sportDataFolder + "/beker/beker_" + season.to_part_filename() +".csv";
+        const std::string bekerFilename = sportDataFolder + "/beker/beker_" + season.toPartFilename() +".csv";
         int dd = 19920101;
         if (fs::exists(bekerFilename))
         {
@@ -122,7 +122,7 @@ namespace shob::pages
         }
 
         auto hb = headBottumInput(dd);
-        hb.title = "Overzicht betaald voetbal in Nederland, seizoen " + season.to_string();
+        hb.title = "Overzicht betaald voetbal in Nederland, seizoen " + season.toString();
         std::swap(hb.body, out);
 
         return headBottum::getPage(hb);

@@ -5,7 +5,7 @@ namespace shob::football
 {
     using namespace shob::general;
 
-    void topscorers::initFromFile(const season& season)
+    void topscorers::initFromFile(const Season& season)
     {
         auto data = reader.getSeason(season);
 

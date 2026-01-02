@@ -59,7 +59,7 @@ namespace shob::football::test
         auto extras = readers::csvAllSeasonsReader();
         const std::string filename3 = testUtils::refFileWithPath(__FILE__, u2s);
         extras.init(filename3);
-        table.addExtras(extras, general::season(2023));
+        table.addExtras(extras, general::Season(2023));
 
         auto settings = html::settings();
         auto reader = teams::clubTeams();

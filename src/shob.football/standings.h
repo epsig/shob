@@ -8,7 +8,7 @@
 #include "../shob.html/settings.h"
 #include "../shob.teams/clubTeams.h"
 #include "../shob.readers/csvAllSeasonsReader.h"
-#include "../shob.general/season.h"
+#include "../shob.general/Season.h"
 
 namespace shob::football
 {
@@ -55,7 +55,7 @@ namespace shob::football
         standings();
         std::vector<standingsRow> list;
         void addResult(const std::string& team1, const std::string& team2, const int goals1, const int goals2);
-        void addExtras(const readers::csvAllSeasonsReader& r, const general::season& season);
+        void addExtras(const readers::csvAllSeasonsReader& r, const general::Season& season);
         void sort(const int sort_rule = 3);
         void initFromFile(const std::string& filename);
         void initFromData(const readers::csvContent& stand);

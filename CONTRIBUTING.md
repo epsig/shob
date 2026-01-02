@@ -176,36 +176,36 @@ A few well-written comments can save future contributors (including you!) a lot 
 
 Example:
 ```
-namespace shob::general
+namespace Shob::General
 {
     /// <summary>
-    /// class to hold a season starting in firstYear and continuing in the next year
+    /// class to hold a season starting in first_year and continuing in the next year
     /// </summary>
-    class season
+    class Season
     {
     public:
-        season(const int firstYear) : firstYear(firstYear){}
+        Season(const int first_year) : first_year(first_year){}
 
         /// <summary>
         /// returns e.g. 2020-2021
         /// </summary>
-        std::string to_string() const;
+        std::string toString() const;
 
         /// <summary>
         /// returns e.g. 20-21
         /// </summary>
-        std::string to_string_short() const;
+        std::string toStringShort() const;
 
         /// <summary>
         /// returns e.g. 2020_2021
         /// </summary>
-        std::string to_part_filename() const;
+        std::string toPartFilename() const;
 
-        static season findSeason(const std::string& text);
+        static Season findSeason(const std::string& text);
 
     private:
-        std::string to_string(const char separator) const;
-        const int firstYear;
+        std::string toString(const char separator) const;
+        const int first_year;
     };
 }
 
