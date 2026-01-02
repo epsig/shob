@@ -9,6 +9,9 @@
 
 namespace shob::pages
 {
+    /// <summary>
+    /// class for generating the OS (Olympic games in Dutch) ice skating pages
+    /// </summary>
     class FormatOs
     {
     public:
@@ -31,12 +34,12 @@ namespace shob::pages
         const html::settings settings;
         readers::csvContent readMatchesData(const int year) const;
         general::multipleStrings getNumbersOne(const readers::csvContent& all_data) const;
-        general::multipleStrings getAllDistances(const char DH, const readers::csvContent& all_data) const;
-        general::multipleStrings getOneDistance(const std::string& distance, const char DH, const readers::csvContent& all_data) const;
+        general::multipleStrings getAllDistances(const char gender, const readers::csvContent& all_data) const;
+        general::multipleStrings getOneDistance(const std::string& distance, const char gender, const readers::csvContent& all_data) const;
         static int findDate(const std::vector<std::vector<std::string>>& remarks);
         static std::string findTitle(const std::vector<std::vector<std::string>>& remarks);
         static std::string findName(const std::string& name, const readers::csvContent& listNames);
-        static std::vector<std::string> findDistances(const char DH, const readers::csvContent& all_data);
+        static std::vector<std::string> findDistances(const char gender, const readers::csvContent& all_data);
         static std::string adjustTeam(const std::string& team);
     };
 }

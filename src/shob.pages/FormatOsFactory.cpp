@@ -20,7 +20,7 @@ namespace shob::pages
         std::sort(archive.begin(), archive.end(), cmpFunc);
 
         auto filenames = general::uniqueStrings();
-        for (auto& name : archive)
+        for (const auto& name : archive)
         {
             const auto shortName = "sport_schaatsen_" + name.substr(0, 7);
             filenames.insert(shortName);
