@@ -7,7 +7,7 @@
 #include "shob.pages/format_ec_factory.h"
 #include "shob.pages/format_nl_factory.h"
 #include "shob.pages/format_ekwk_qf_factory.h"
-#include "shob.pages/format_os_factory.h"
+#include "shob.pages/FormatOsFactory.h"
 #include "shob.general/Season.h"
 #include "shob.general/shobException.h"
 #include "shob.html/updateIfNewer.h"

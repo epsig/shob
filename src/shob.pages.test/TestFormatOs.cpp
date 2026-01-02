@@ -1,10 +1,10 @@
 
-#include "test_format_os.h"
+#include "TestFormatOs.h"
 
 #include <gtest/gtest.h>
 
 #include "../shob.html/settings.h"
-#include "../shob.pages/format_os_factory.h"
+#include "../shob.pages/FormatOsFactory.h"
 #include "../shob.test.utils/testUtils.h"
 
 namespace shob::pages::test

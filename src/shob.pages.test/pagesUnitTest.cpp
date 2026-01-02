@@ -4,7 +4,7 @@
 #include "test_format_nl.h"
 #include "test_format_ec.h"
 #include "test_format_ekwk_qf.h"
-#include "test_format_os.h"
+#include "TestFormatOs.h"
 #include "test_topmenu.h"
 
 using namespace shob::pages::test;
