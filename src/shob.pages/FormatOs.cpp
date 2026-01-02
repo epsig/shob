@@ -9,18 +9,18 @@
 
 namespace shob::pages
 {
-    format_os::format_os(std::string folder, readers::csvAllSeasonsReader reader, readers::csvContent dames,
+    FormatOs::FormatOs(std::string folder, readers::csvAllSeasonsReader reader, readers::csvContent dames,
         readers::csvContent heren, topMenu menu, teams::nationalTeams teams, html::settings settings) :
         folder(std::move(folder)), seasons_reader(std::move(reader)),
         dames(std::move(dames)), heren(std::move(heren)), menu(std::move(menu)), land_codes(std::move(teams)), settings(settings) {  }
 
-    void format_os::get_pages_to_file(const int year, const std::string& filename) const
+    void FormatOs::get_pages_to_file(const int year, const std::string& filename) const
     {
         auto output = get_pages(year);
         html::updateIfDifferent::update(filename, output);
     }
 
-    void format_os::get_pages_stdout(const int year) const
+    void FormatOs::get_pages_stdout(const int year) const
     {
         const auto output = get_pages(year);
         for (const auto& row : output.data)
@@ -30,7 +30,7 @@ namespace shob::pages
         std::cout.flush();
     }
 
-    general::multipleStrings format_os::get_pages(const int year) const
+    general::multipleStrings FormatOs::get_pages(const int year) const
     {
         auto retVal = general::multipleStrings();
         if (settings.lang == html::language::English)
@@ -65,14 +65,14 @@ namespace shob::pages
         return headBottum::getPage(hb);
     }
 
-    readers::csvContent format_os::read_matches_data(const int year) const
+    readers::csvContent FormatOs::read_matches_data(const int year) const
     {
         const auto csvInput = std::format("{}/OS_{}.csv", folder, year);
         const auto csvData = readers::csvReader::readCsvFile(csvInput);
         return csvData;
     }
 
-    general::multipleStrings format_os::get_numbers_one(const readers::csvContent& allData) const
+    general::multipleStrings FormatOs::get_numbers_one(const readers::csvContent& allData) const
     {
         auto retVal = general::multipleStrings();
         html::tableContent content;
@@ -132,7 +132,7 @@ namespace shob::pages
         return retVal;
     }
 
-    general::multipleStrings format_os::get_one_distance(const std::string& distance, const char DH, const readers::csvContent& allData) const
+    general::multipleStrings FormatOs::get_one_distance(const std::string& distance, const char DH, const readers::csvContent& allData) const
     {
         auto retVal = general::multipleStrings();
         retVal.addContent(std::format("<p/> <a name=\"{}{}\">", DH, distance));
@@ -195,7 +195,7 @@ namespace shob::pages
         return retVal;
     }
 
-    general::multipleStrings format_os::get_all_distances(const char DH, const readers::csvContent& allData) const
+    general::multipleStrings FormatOs::get_all_distances(const char DH, const readers::csvContent& allData) const
     {
         auto retVal = general::multipleStrings();
         const auto distances = find_distances(DH, allData);
@@ -207,7 +207,7 @@ namespace shob::pages
         return retVal;
     }
 
-    std::string format_os::findName(const std::string& name, const readers::csvContent& listNames)
+    std::string FormatOs::findName(const std::string& name, const readers::csvContent& listNames)
     {
         for (const auto& row : listNames.body)
         {
@@ -216,7 +216,7 @@ namespace shob::pages
         return name;
     }
 
-    int format_os::findDate(const std::vector<std::vector<std::string>>& remarks)
+    int FormatOs::findDate(const std::vector<std::vector<std::string>>& remarks)
     {
         for (const auto& row : remarks)
         {
@@ -225,7 +225,7 @@ namespace shob::pages
         throw general::shobException("Date not found in remarks");
     }
 
-    std::string format_os::findTitle(const std::vector<std::vector<std::string>>& remarks)
+    std::string FormatOs::findTitle(const std::vector<std::vector<std::string>>& remarks)
     {
         for (const auto& row : remarks)
         {
@@ -234,7 +234,7 @@ namespace shob::pages
         return "";
     }
 
-    std::vector<std::string> format_os::find_distances(const char DH, const readers::csvContent& allData)
+    std::vector<std::string> FormatOs::find_distances(const char DH, const readers::csvContent& allData)
     {
         auto retVal = std::vector<std::string>();
         std::string previous;
@@ -252,7 +252,7 @@ namespace shob::pages
         return retVal;
     }
 
-    std::string format_os::print_result(const std::string& stime, const std::string& remark)
+    std::string FormatOs::print_result(const std::string& stime, const std::string& remark)
     {
         const auto remark_with_par = remark.empty() ? "" : " (" + remark + ")";
         const auto pos_colon = stime.find(':');
@@ -305,7 +305,7 @@ namespace shob::pages
         }
     }
 
-    std::string format_os::adj_team(const std::string& team)
+    std::string FormatOs::adj_team(const std::string& team)
     {
         auto retVal = team;
         for (size_t i = 0; i < retVal.size(); i++)

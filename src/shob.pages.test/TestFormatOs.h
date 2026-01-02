@@ -3,7 +3,7 @@
 
 namespace shob::pages::test
 {
-    class testFormatOS
+    class TestFormatOs
     {
     public:
         static void test_os_2002();

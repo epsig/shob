@@ -9,10 +9,10 @@
 
 namespace shob::pages
 {
-    class format_os
+    class FormatOs
     {
     public:
-        format_os(std::string folder, readers::csvAllSeasonsReader reader, readers::csvContent dames,
+        FormatOs(std::string folder, readers::csvAllSeasonsReader reader, readers::csvContent dames,
             readers::csvContent heren, topMenu menu, teams::nationalTeams teams, html::settings settings);
         general::multipleStrings get_pages(const int year) const;
         void get_pages_to_file(const int year, const std::string& filename) const;

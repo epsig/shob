@@ -5,10 +5,10 @@
 
 namespace shob::pages
 {
-    class format_os_factory
+    class FormatOsFactory
     {
     public:
-        static format_os build(const std::string& folder, const html::settings& settings);
+        static FormatOs build(const std::string& folder, const html::settings& settings);
     private:
         static topMenu prepareTopMenu(const std::string& dataFolderEkWkQf);
         static bool cmpFunc(const std::string& a, const std::string& b);

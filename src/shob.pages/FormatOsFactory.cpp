@@ -7,14 +7,14 @@ namespace shob::pages
 {
     using namespace shob::readers;
 
-    bool format_os_factory::cmpFunc(const std::string& a, const std::string& b)
+    bool FormatOsFactory::cmpFunc(const std::string& a, const std::string& b)
     {
         auto num1 = a.substr(2, 4);
         auto num2 = b.substr(2, 4);
         return num1 < num2;
     }
 
-    topMenu format_os_factory::prepareTopMenu(const std::string& dataFolder)
+    topMenu FormatOsFactory::prepareTopMenu(const std::string& dataFolder)
     {
         auto archive = general::glob::list(dataFolder, "OS_[0-9]{4}.csv");
         std::sort(archive.begin(), archive.end(), cmpFunc);
@@ -31,7 +31,7 @@ namespace shob::pages
         return menu;
     }
 
-    format_os format_os_factory::build(const std::string& folder, const html::settings& settings)
+    FormatOs FormatOsFactory::build(const std::string& folder, const html::settings& settings)
     {
         auto remarks = csvAllSeasonsReader();
         remarks.init(folder + "schaatsen_remarks.csv");
@@ -44,7 +44,7 @@ namespace shob::pages
 
         auto menu = prepareTopMenu(folder);
 
-        auto os = format_os(folder, remarks, dames, heren, menu, national_teams, settings);
+        auto os = FormatOs(folder, remarks, dames, heren, menu, national_teams, settings);
         return os;
     }
 }
