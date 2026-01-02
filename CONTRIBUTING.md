@@ -82,7 +82,8 @@ When using abbreviations, spell them as nouns: only the first character can be u
 | Constants | snake\_case | - |
 | File names | Match case of class name in file | In principle one class per file. A small helper struct, class or enum is allowed in the same file. |
 
-Function names are a verb (optionally followed by noun). For example: run, doWork, calculateReliability. All other names are noun (optionally preceded with adjective). For example: worker, reliabilityCalculator, reliability.
+Function names are a verb (optionally followed by noun). For example: run, doWork, sortStanding.
+All other names are noun (optionally preceded with adjective). For example: worker, sortMethod, csvReader.
 
 The naming convention for Google test cases is: TEST(CategoryName, testMethodName).
 
