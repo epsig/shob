@@ -6,7 +6,7 @@
 #include "../shob.readers/csvAllSeasonsReader.h"
 #include "../shob.teams/clubTeams.h"
 #include "../shob.html/settings.h"
-#include "../shob.general/season.h"
+#include "../shob.general/Season.h"
 #include "../shob.football/leagueNames.h"
 #include "topmenu.h"
 #include "wns_ec.h"
@@ -20,9 +20,9 @@ namespace shob::pages
             topMenu menu, football::leagueNames leagueNames) :
             sportDataFolder(std::move(folder)), extras(std::move(extras)), teams(std::move(teams)), settings(settings),
             menu(std::move(menu)), leagueNames(std::move(leagueNames)) {}
-        void get_season_stdout(const general::season& season) const;
-        void get_season_to_file(const general::season& season, const std::string& filename) const;
-        general::multipleStrings get_season(const general::season& season) const;
+        void get_season_stdout(const general::Season& season) const;
+        void get_season_to_file(const general::Season& season, const std::string& filename) const;
+        general::multipleStrings get_season(const general::Season& season) const;
     private:
         const std::string sportDataFolder;
         const readers::csvAllSeasonsReader extras;
@@ -37,7 +37,7 @@ namespace shob::pages
         static general::uniqueStrings getXtra(const std::string& part, const readers::csvContent& data);
         static std::string getRemarks(const std::string& part, const std::string& group, const std::vector<std::vector<std::string>>& extraU2s);
         general::multipleStrings getInternalLinks(const std::vector<std::string>& ECparts, const readers::csvContent& csvData) const;
-        std::vector<std::vector<std::string>> readExtras(const general::season& season, wns_ec& wns_cl, general::multipleStrings& summary) const;
+        std::vector<std::vector<std::string>> readExtras(const general::Season& season, wns_ec& wns_cl, general::multipleStrings& summary) const;
         static bool hasFinal(const std::string& part, const readers::csvContent& csvData);
         general::multipleStrings getSupercup(const readers::csvContent& data, int& dd) const;
         static void readSortRule(int& sortRule, const std::vector<std::vector<std::string>>& extraU2s);

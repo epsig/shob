@@ -8,7 +8,7 @@
 #include "shob.pages/format_nl_factory.h"
 #include "shob.pages/format_ekwk_qf_factory.h"
 #include "shob.pages/format_os_factory.h"
-#include "shob.general/season.h"
+#include "shob.general/Season.h"
 #include "shob.general/shobException.h"
 #include "shob.html/updateIfNewer.h"
 
@@ -70,16 +70,16 @@ int main(int argc, char* argv[])
         for (int year = firstYear; year <= lastYear; year++)
         {
             part = std::format("running year: {}", year);
-            const auto season = shob::general::season(year);
+            const auto season = shob::general::Season(year);
             if (year < 2026)
             {
                 if (std::filesystem::is_directory("../pages_new/"))
                 {
-                    fmt_nl.get_season_to_file(season, "../pages_new/sport_voetbal_nl_" + season.to_part_filename() + ".html");
+                    fmt_nl.get_season_to_file(season, "../pages_new/sport_voetbal_nl_" + season.toPartFilename() + ".html");
                 }
                 if (year >= 1994)
                 {
-                    fmt_ec.get_season_to_file(season, "../pages/sport_voetbal_europacup_" + season.to_part_filename() + ".html");
+                    fmt_ec.get_season_to_file(season, "../pages/sport_voetbal_europacup_" + season.toPartFilename() + ".html");
                 }
             }
             if (year >= 1996)

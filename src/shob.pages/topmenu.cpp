@@ -5,24 +5,24 @@ namespace shob::pages
 {
     using namespace shob::general;
 
-    multipleStrings topMenu::getMenu(const season& season) const
+    multipleStrings topMenu::getMenu(const Season& season) const
     {
         auto menu = multipleStrings();
         int curPos = 0;
         for (const auto& row : archive)
         {
-            auto curSeason = season::findSeason(row);
+            auto curSeason = Season::findSeason(row);
             auto url = row;
             auto pos = url.find(".csv");
             url.replace(pos, 4, ".html");
             auto year = std::string();
-            if (row.find(season.to_part_filename()) != std::string::npos)
+            if (row.find(season.toPartFilename()) != std::string::npos)
             {
-                year = curSeason.to_string_short();
+                year = curSeason.toStringShort();
                 curPos = static_cast<int>(menu.data.size());
             }
             else
-                year = "<a href=\"sport_voetbal_" + url + "\">" + curSeason.to_string_short() + "</a>";
+                year = "<a href=\"sport_voetbal_" + url + "\">" + curSeason.toStringShort() + "</a>";
             menu.addContent(year + " |");
         }
         shortenMenu(menu, curPos);

@@ -8,9 +8,9 @@ namespace shob::readers
     {
         allData = csvReader::readCsvFile(filename);
     }
-    std::vector<std::vector<std::string>> csvAllSeasonsReader::getSeason(const general::season& season) const
+    std::vector<std::vector<std::string>> csvAllSeasonsReader::getSeason(const general::Season& season) const
     {
-        return getSeason(season.to_string());
+        return getSeason(season.toString());
     }
 
     std::vector<std::vector<std::string>> csvAllSeasonsReader::getSeason(const std::string& id) const

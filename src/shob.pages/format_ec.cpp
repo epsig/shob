@@ -16,13 +16,13 @@ namespace shob::pages
     using namespace shob::html;
     using namespace shob::general;
 
-    void format_ec::get_season_to_file(const season& season, const std::string& filename) const
+    void format_ec::get_season_to_file(const Season& season, const std::string& filename) const
     {
         auto output = get_season(season);
         updateIfDifferent::update(filename, output);
     }
 
-    void format_ec::get_season_stdout(const season& season) const
+    void format_ec::get_season_stdout(const Season& season) const
     {
         const auto output = get_season(season);
         for (const auto& row : output.data)
@@ -79,7 +79,7 @@ namespace shob::pages
         return groups;
     }
 
-    std::vector<std::vector<std::string>> format_ec::readExtras(const season& season, wns_ec& wns_cl, multipleStrings& summary) const
+    std::vector<std::vector<std::string>> format_ec::readExtras(const Season& season, wns_ec& wns_cl, multipleStrings& summary) const
     {
         std::vector<std::vector<std::string>> extraU2s = extras.getSeason(season);
         wns_cl.wns_cl = -1;
@@ -340,9 +340,9 @@ namespace shob::pages
         }
     }
 
-    multipleStrings format_ec::get_season(const season& season) const
+    multipleStrings format_ec::get_season(const Season& season) const
     {
-        const auto file1 = sportDataFolder + "/europacup/europacup_" + season.to_part_filename() + ".csv";
+        const auto file1 = sportDataFolder + "/europacup/europacup_" + season.toPartFilename() + ".csv";
         const auto csvData = csvReader::readCsvFile(file1);
 
         wns_ec wns_cl;
@@ -357,12 +357,12 @@ namespace shob::pages
         std::string title;
         if (settings.lang == language::Dutch)
         {
-            title = "Europacup voetbal seizoen " + season.to_string();
+            title = "Europacup voetbal seizoen " + season.toString();
             menuOut.data[0] = "<hr> andere seizoenen: | " + menuOut.data[0];
         }
         else
         {
-            title = "Europa cup football season " + season.to_string();
+            title = "Europa cup football season " + season.toString();
             menuOut.data[0] = "<hr> other seasons: | " + menuOut.data[0];
         }
 
@@ -375,9 +375,9 @@ namespace shob::pages
         if ( ! summary.data.empty())
         {
             if (settings.lang == language::Dutch)
-                out.addContent("<h2>Samenvatting Europacup Seizoen " + season.to_string() + "</h2>");
+                out.addContent("<h2>Samenvatting Europacup Seizoen " + season.toString() + "</h2>");
             else
-                out.addContent("<h2>Summary Europa cup season " + season.to_string() + "</h2>");
+                out.addContent("<h2>Summary Europa cup season " + season.toString() + "</h2>");
             out.addContent(summary);
             out.addContent("<hr>");
         }

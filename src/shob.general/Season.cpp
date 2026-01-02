@@ -1,5 +1,5 @@
 
-#include "season.h"
+#include "Season.h"
 #include "shobException.h"
 
 #include <boost/regex.hpp>
@@ -7,29 +7,29 @@
 
 namespace shob::general
 {
-    std::string season::to_string() const
+    std::string Season::toString() const
     {
-        return to_string('-');
+        return toString('-');
     }
 
-    std::string season::to_string_short() const
+    std::string Season::toStringShort() const
     {
-        const int yp1 = firstYear + 1;
-        return std::format("{:02}-{:02}", firstYear % 100, yp1 % 100);
+        const int yp1 = first_year + 1;
+        return std::format("{:02}-{:02}", first_year % 100, yp1 % 100);
     }
 
-    std::string season::to_part_filename() const
+    std::string Season::toPartFilename() const
     {
-        return to_string('_');
+        return toString('_');
     }
 
-    std::string season::to_string(const char separator) const
+    std::string Season::toString(const char separator) const
     {
-        const int yp1 = firstYear + 1;
-        return std::to_string(firstYear) + separator + std::to_string(yp1);
+        const int yp1 = first_year + 1;
+        return std::to_string(first_year) + separator + std::to_string(yp1);
     }
 
-    season season::findSeason(const std::string& text)
+    Season Season::findSeason(const std::string& text)
     {
         const char* pattern = "\\d{4}";
 
