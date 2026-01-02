@@ -14,15 +14,15 @@ namespace shob::pages
         folder(std::move(folder)), seasons_reader(std::move(reader)),
         dames(std::move(dames)), heren(std::move(heren)), menu(std::move(menu)), land_codes(std::move(teams)), settings(settings) {  }
 
-    void FormatOs::get_pages_to_file(const int year, const std::string& filename) const
+    void FormatOs::getPagesToFile(const int year, const std::string& filename) const
     {
-        auto output = get_pages(year);
+        auto output = getPages(year);
         html::updateIfDifferent::update(filename, output);
     }
 
-    void FormatOs::get_pages_stdout(const int year) const
+    void FormatOs::getPagesStdout(const int year) const
     {
-        const auto output = get_pages(year);
+        const auto output = getPages(year);
         for (const auto& row : output.data)
         {
             std::cout << row << '\n';
@@ -30,7 +30,7 @@ namespace shob::pages
         std::cout.flush();
     }
 
-    general::multipleStrings FormatOs::get_pages(const int year) const
+    general::multipleStrings FormatOs::getPages(const int year) const
     {
         auto retVal = general::multipleStrings();
         if (settings.lang == html::language::English)
@@ -47,15 +47,15 @@ namespace shob::pages
 
         const auto remarks = seasons_reader.getSeason( std::to_string(year));
 
-        const auto allData = read_matches_data(year);
+        const auto allData = readMatchesData(year);
 
-        auto part1 = get_numbers_one(allData);
+        auto part1 = getNumbersOne(allData);
         retVal.addContent(part1);
 
-        auto part2 = get_all_distances('H', allData);
+        auto part2 = getAllDistances('H', allData);
         retVal.addContent(part2);
 
-        auto part3 = get_all_distances('D', allData);
+        auto part3 = getAllDistances('D', allData);
         retVal.addContent(part3);
 
         auto hb = headBottumInput(findDate(remarks));
@@ -65,14 +65,14 @@ namespace shob::pages
         return headBottum::getPage(hb);
     }
 
-    readers::csvContent FormatOs::read_matches_data(const int year) const
+    readers::csvContent FormatOs::readMatchesData(const int year) const
     {
         const auto csvInput = std::format("{}/OS_{}.csv", folder, year);
         const auto csvData = readers::csvReader::readCsvFile(csvInput);
         return csvData;
     }
 
-    general::multipleStrings FormatOs::get_numbers_one(const readers::csvContent& allData) const
+    general::multipleStrings FormatOs::getNumbersOne(const readers::csvContent& all_data) const
     {
         auto retVal = general::multipleStrings();
         html::tableContent content;
@@ -87,15 +87,15 @@ namespace shob::pages
             content.title = "Gouden medaille winnaars";
         }
 
-        const auto DH_Column = allData.findColumn("DH");
-        const auto distanceColumn = allData.findColumn("distance");
-        const auto rankingColumn = allData.findColumn("ranking");
-        const auto nameColumn = allData.findColumn("name");
-        const auto teamColumn = allData.findColumn("team");
-        const auto resultColumn = allData.findColumn("result");
-        const auto remarkColumn = allData.findColumn("remark");
+        const auto DH_Column = all_data.findColumn("DH");
+        const auto distanceColumn = all_data.findColumn("distance");
+        const auto rankingColumn = all_data.findColumn("ranking");
+        const auto nameColumn = all_data.findColumn("name");
+        const auto teamColumn = all_data.findColumn("team");
+        const auto resultColumn = all_data.findColumn("result");
+        const auto remarkColumn = all_data.findColumn("remark");
 
-        for (const auto& row : allData.body)
+        for (const auto& row : all_data.body)
         {
             const auto rank = row.column[rankingColumn];
             if (rank == "1")
@@ -114,7 +114,7 @@ namespace shob::pages
                 }
                 else
                 {
-                    name_with_country = land_codes.expand(country) + " (" + adj_team(team) + ")";
+                    name_with_country = land_codes.expand(country) + " (" + adjustTeam(team) + ")";
                 }
                 const auto time = row.column[resultColumn];
                 const auto linkName = std::format("{}{}", DH, distance);
@@ -122,7 +122,7 @@ namespace shob::pages
                 const auto link = "<a href=\"#" + linkName + "\">" + description + "</a>";
                 general::multipleStrings body;
                 const auto remark = (remarkColumn < row.column.size() ? row.column[remarkColumn] : "");
-                body.data = { link, name_with_country, print_result(time, remark)};
+                body.data = { link, name_with_country, printResult(time, remark)};
                 content.body.push_back(body);
             }
         }
@@ -132,22 +132,22 @@ namespace shob::pages
         return retVal;
     }
 
-    general::multipleStrings FormatOs::get_one_distance(const std::string& distance, const char DH, const readers::csvContent& allData) const
+    general::multipleStrings FormatOs::getOneDistance(const std::string& distance, const char DH, const readers::csvContent& all_data) const
     {
         auto retVal = general::multipleStrings();
         retVal.addContent(std::format("<p/> <a name=\"{}{}\">", DH, distance));
         html::tableContent content;
 
-        const auto DH_Column = allData.findColumn("DH");
-        const auto distanceColumn = allData.findColumn("distance");
-        const auto rankingColumn = allData.findColumn("ranking");
-        const auto nameColumn = allData.findColumn("name");
-        const auto teamColumn = allData.findColumn("team");
-        const auto resultColumn = allData.findColumn("result");
-        const auto remarkColumn = allData.findColumn("remark");
+        const auto DH_Column = all_data.findColumn("DH");
+        const auto distanceColumn = all_data.findColumn("distance");
+        const auto rankingColumn = all_data.findColumn("ranking");
+        const auto nameColumn = all_data.findColumn("name");
+        const auto teamColumn = all_data.findColumn("team");
+        const auto resultColumn = all_data.findColumn("result");
+        const auto remarkColumn = all_data.findColumn("remark");
 
         bool found_points = false;
-        for (const auto& row : allData.body)
+        for (const auto& row : all_data.body)
         {
             const auto cur_DH = row.column[DH_Column];
             const auto cur_distance = row.column[distanceColumn];
@@ -166,14 +166,14 @@ namespace shob::pages
                 }
                 else
                 {
-                    name_with_country = land_codes.expand(country) + " (" + adj_team(team) + ")";
+                    name_with_country = land_codes.expand(country) + " (" + adjustTeam(team) + ")";
                 }
                 const auto time = row.column[resultColumn];
                 if (time.ends_with(" p")) found_points = true;
                 general::multipleStrings body;
                 if (rank == "-1") { rank = ""; }
                 const auto remark = (remarkColumn < row.column.size() ? row.column[remarkColumn] : "");
-                body.data = { rank, name_with_country, print_result(time, remark) };
+                body.data = { rank, name_with_country, printResult(time, remark) };
                 content.body.push_back(body);
             }
         }
@@ -195,13 +195,13 @@ namespace shob::pages
         return retVal;
     }
 
-    general::multipleStrings FormatOs::get_all_distances(const char DH, const readers::csvContent& allData) const
+    general::multipleStrings FormatOs::getAllDistances(const char DH, const readers::csvContent& all_data) const
     {
         auto retVal = general::multipleStrings();
-        const auto distances = find_distances(DH, allData);
+        const auto distances = findDistances(DH, all_data);
         for (const auto& distance : distances)
         {
-            auto d = get_one_distance(distance, DH, allData);
+            auto d = getOneDistance(distance, DH, all_data);
             retVal.addContent(d);
         }
         return retVal;
@@ -234,11 +234,11 @@ namespace shob::pages
         return "";
     }
 
-    std::vector<std::string> FormatOs::find_distances(const char DH, const readers::csvContent& allData)
+    std::vector<std::string> FormatOs::findDistances(const char DH, const readers::csvContent& all_data)
     {
         auto retVal = std::vector<std::string>();
         std::string previous;
-        for (const auto& row : allData.body)
+        for (const auto& row : all_data.body)
         {
             if (row.column[0].find(DH) != std::string::npos)
             {
@@ -252,23 +252,23 @@ namespace shob::pages
         return retVal;
     }
 
-    std::string FormatOs::print_result(const std::string& stime, const std::string& remark)
+    std::string FormatOs::printResult(const std::string& time_as_string, const std::string& remark)
     {
         const auto remark_with_par = remark.empty() ? "" : " (" + remark + ")";
-        const auto pos_colon = stime.find(':');
-        if (stime.ends_with(" p"))
+        const auto pos_colon = time_as_string.find(':');
+        if (time_as_string.ends_with(" p"))
         {
-            return stime + remark_with_par;
+            return time_as_string + remark_with_par;
         }
         else if (pos_colon != std::string::npos)
         {
-            auto minutes = stime.substr(0, pos_colon);
-            auto seconds = stime.substr(1+pos_colon, 5);
+            auto minutes = time_as_string.substr(0, pos_colon);
+            auto seconds = time_as_string.substr(1+pos_colon, 5);
             return std::format("{} min {} s{}", minutes, seconds, remark_with_par);
         }
-        else if (stime.find(';') != std::string::npos)
+        else if (time_as_string.find(';') != std::string::npos)
         {
-            const auto stimes = readers::csvReader::split(stime, ";");
+            const auto stimes = readers::csvReader::split(time_as_string, ";");
             const auto first_500m = stimes.column[0];
             const auto second_500m = stimes.column[1];
             const auto parts1 = readers::csvReader::split(first_500m, " ");
@@ -287,7 +287,7 @@ namespace shob::pages
         }
         try
         {
-            const auto time = std::stod(stime);
+            const auto time = std::stod(time_as_string);
             const auto minutes = static_cast<int>(time) / 60;
             const auto seconds = time - 60.0 * static_cast<double>(minutes);
             if (minutes > 0)
@@ -296,16 +296,16 @@ namespace shob::pages
             }
             else
             {
-                return std::format("{} s{}", stime, remark_with_par);
+                return std::format("{} s{}", time_as_string, remark_with_par);
             }
         }
         catch (const std::exception&)
         {
-            return stime;
+            return time_as_string;
         }
     }
 
-    std::string FormatOs::adj_team(const std::string& team)
+    std::string FormatOs::adjustTeam(const std::string& team)
     {
         auto retVal = team;
         for (size_t i = 0; i < retVal.size(); i++)

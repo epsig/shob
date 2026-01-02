@@ -68,25 +68,25 @@ TEST(unitTest, test_voorr_ek_2024)
 
 TEST(unitTest, test_os_schaatsen)
 {
-    TestFormatOs::test_os_2002();
+    TestFormatOs::testOs2002();
 }
 
 TEST(unitTest, test_os_print_result_points)
 {
-    TestFormatOs::test_print_result_points();
+    TestFormatOs::testPrintResultPoints();
 }
 
 TEST(unitTest, test_os_print_with_colon)
 {
-    TestFormatOs::test_print_result_with_colon();
+    TestFormatOs::testPrintResultWithColon();
 }
 
 TEST(unitTest, test_os_print_two_runs)
 {
-    TestFormatOs::test_print_result_with_two_runs();
+    TestFormatOs::testPrintResultWithTwoRuns();
 }
 
 TEST(unitTest, test_os_print_happy_flow)
 {
-    TestFormatOs::test_print_result_happy_flow();
+    TestFormatOs::testPrintResultHappyFlow();
 }

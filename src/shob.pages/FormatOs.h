@@ -14,12 +14,12 @@ namespace shob::pages
     public:
         FormatOs(std::string folder, readers::csvAllSeasonsReader reader, readers::csvContent dames,
             readers::csvContent heren, topMenu menu, teams::nationalTeams teams, html::settings settings);
-        general::multipleStrings get_pages(const int year) const;
-        void get_pages_to_file(const int year, const std::string& filename) const;
-        void get_pages_stdout(const int year) const;
+        general::multipleStrings getPages(const int year) const;
+        void getPagesToFile(const int year, const std::string& filename) const;
+        void getPagesStdout(const int year) const;
 
         // public for unit testing only:
-        static std::string print_result(const std::string& stime, const std::string& remark);
+        static std::string printResult(const std::string& time_as_string, const std::string& remark);
 
     private:
         const std::string folder;
@@ -29,15 +29,15 @@ namespace shob::pages
         const topMenu menu;
         const teams::nationalTeams land_codes;
         const html::settings settings;
-        readers::csvContent read_matches_data(const int year) const;
-        general::multipleStrings get_numbers_one(const readers::csvContent& allData) const;
-        general::multipleStrings get_all_distances(const char DH, const readers::csvContent& allData) const;
-        general::multipleStrings get_one_distance(const std::string& distance, const char DH, const readers::csvContent& allData) const;
+        readers::csvContent readMatchesData(const int year) const;
+        general::multipleStrings getNumbersOne(const readers::csvContent& all_data) const;
+        general::multipleStrings getAllDistances(const char DH, const readers::csvContent& all_data) const;
+        general::multipleStrings getOneDistance(const std::string& distance, const char DH, const readers::csvContent& all_data) const;
         static int findDate(const std::vector<std::vector<std::string>>& remarks);
         static std::string findTitle(const std::vector<std::vector<std::string>>& remarks);
         static std::string findName(const std::string& name, const readers::csvContent& listNames);
-        static std::vector<std::string> find_distances(const char DH, const readers::csvContent& allData);
-        static std::string adj_team(const std::string& team);
+        static std::vector<std::string> findDistances(const char DH, const readers::csvContent& all_data);
+        static std::string adjustTeam(const std::string& team);
     };
 }
 
