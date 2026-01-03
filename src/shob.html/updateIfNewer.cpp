@@ -6,9 +6,9 @@ namespace shob::html
 {
     using namespace shob::general;
 
-    multipleStrings updateIfDifferent::readFile(const std::string& path)
+    MultipleStrings updateIfDifferent::readFile(const std::string& path)
     {
-        multipleStrings content;
+        MultipleStrings content;
 
         std::ifstream myFile(path);
         std::string line;
@@ -22,7 +22,7 @@ namespace shob::html
         return content;
     }
 
-    void updateIfDifferent::writeToFile(const std::string& path, const multipleStrings& data)
+    void updateIfDifferent::writeToFile(const std::string& path, const MultipleStrings& data)
     {
         auto fileOut = std::ofstream(path);
         for (const auto& row : data.data)
@@ -44,7 +44,7 @@ namespace shob::html
         }
     }
 
-    void updateIfDifferent::update(const std::string& path, const multipleStrings& content)
+    void updateIfDifferent::update(const std::string& path, const MultipleStrings& content)
     {
         auto previousVersion = readFile(path);
 

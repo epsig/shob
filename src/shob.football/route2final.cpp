@@ -13,7 +13,7 @@ namespace shob::football
         {
             for(size_t i = 0; i < positions.size(); i++)
             {
-                general::multipleStrings data;
+                general::MultipleStrings data;
                 for (size_t j = 0; j < offset; j++) data.data.emplace_back("");
                 data.data.push_back( matches.matches[i].printSimple(teams, false, settings.isCompatible, addCountry)) ;
                 for (size_t j = offset + 1; j < maxCols; j++) data.data.emplace_back("");
@@ -30,7 +30,7 @@ namespace shob::football
                 {
                     if ( ! returns.isSecondMatch[i])
                     {
-                        general::multipleStrings data;
+                        general::MultipleStrings data;
                         for (size_t j = 0; j < offset; j++) data.data.emplace_back("");
                         auto first = matches.matches[i].printSimple(teams, false, settings.isCompatible, addCountry);
                         auto ii = returns.couples[i];
@@ -61,7 +61,7 @@ namespace shob::football
             lineNrs8 = { 1, 5, 10, 14 };
             lineNrs4 = { 3, 12 };
             lineNrs2 = { 8 };
-            table.body = std::vector<general::multipleStrings>(16);
+            table.body = std::vector<general::MultipleStrings>(16);
             finalTextRow = 7;
             offsets = { 3,2,1,0 };
             maxCols = 4;
@@ -71,7 +71,7 @@ namespace shob::football
             lineNrs8 = { 0, 2, 5, 7 };
             lineNrs4 = { 1, 6 };
             lineNrs2 = { 4 };
-            table.body = std::vector<general::multipleStrings>(8);
+            table.body = std::vector<general::MultipleStrings>(8);
             finalTextRow = 3;
             offsets = { 2,1,0 };
             maxCols = 3;
@@ -79,7 +79,7 @@ namespace shob::football
 
         if ( ! final.matches.empty())
         {
-            auto row = general::multipleStrings();
+            auto row = general::MultipleStrings();
             for (int i = 0; i < (last16.matches.empty() ? 2 : 3); i++)
             {
                 row.data.emplace_back("");
@@ -113,7 +113,7 @@ namespace shob::football
             if (!final.matches[0].remark.empty())
             {
                 auto table2 = tableContent();
-                general::multipleStrings s;
+                general::MultipleStrings s;
                 auto remark = "(opm: " + final.matches[0].remark + ")";
                 s.addContent(remark);
                 table2.body.push_back(s);

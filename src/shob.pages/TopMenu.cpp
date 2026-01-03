@@ -5,9 +5,9 @@ namespace shob::pages
 {
     using namespace shob::general;
 
-    multipleStrings TopMenu::getMenu(const Season& season) const
+    MultipleStrings TopMenu::getMenu(const Season& season) const
     {
-        auto menu = multipleStrings();
+        auto menu = MultipleStrings();
         int curPos = 0;
         for (const auto& row : archive)
         {
@@ -29,9 +29,9 @@ namespace shob::pages
         return menu;
     }
 
-    multipleStrings TopMenu::getMenu(const std::string& year) const
+    MultipleStrings TopMenu::getMenu(const std::string& year) const
     {
-        auto menu = multipleStrings();
+        auto menu = MultipleStrings();
         int curPos = 0;
         for (const auto& row : archive)
         {
@@ -54,12 +54,12 @@ namespace shob::pages
         return menu;
     }
 
-    void TopMenu::addEllipsis(multipleStrings& rows)
+    void TopMenu::addEllipsis(MultipleStrings& rows)
     {
         rows.addContent(" ...  |");
     }
 
-    void TopMenu::shortenMenu(multipleStrings& menu, int curPos) const
+    void TopMenu::shortenMenu(MultipleStrings& menu, int curPos) const
     {
         const int nEntries = static_cast<int>(archive.size());
         if (nEntries > max_urls)
@@ -79,9 +79,9 @@ namespace shob::pages
         }
     }
 
-    void TopMenu::shortenMenuCenter(multipleStrings& menu, int curPos) const
+    void TopMenu::shortenMenuCenter(MultipleStrings& menu, int curPos) const
     {
-        auto newMenu = multipleStrings();
+        auto newMenu = MultipleStrings();
 
         newMenu.addContent(menu.data[0]);
         addEllipsis(newMenu);
@@ -98,9 +98,9 @@ namespace shob::pages
         std::swap(menu, newMenu);
     }
 
-    void TopMenu::shortenMenuLeft(multipleStrings& menu) const
+    void TopMenu::shortenMenuLeft(MultipleStrings& menu) const
     {
-        auto newMenu = multipleStrings();
+        auto newMenu = MultipleStrings();
 
         for (int i = 0; i < max_urls; i++)
         {
@@ -111,9 +111,9 @@ namespace shob::pages
         std::swap(menu, newMenu);
     }
 
-    void TopMenu::shortenMenuRight(multipleStrings& menu) const
+    void TopMenu::shortenMenuRight(MultipleStrings& menu) const
     {
-        auto newMenu = multipleStrings();
+        auto newMenu = MultipleStrings();
 
         const int nEntries = static_cast<int>(menu.data.size());
 

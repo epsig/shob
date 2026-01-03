@@ -1,6 +1,6 @@
 #pragma once
 
-#include "../shob.general/multipleStrings.h"
+#include "../shob.general/MultipleStrings.h"
 #include "../shob.teams/clubTeams.h"
 #include "../shob.readers/csvAllSeasonsReader.h"
 #include "../shob.html/settings.h"
@@ -20,7 +20,7 @@ namespace shob::pages
             dataSportFolder(std::move(folder)), teams(std::move(teams)), seasonsReader(std::move(reader)),
             settings(settings), menu(std::move(menu)), organizingCountries(std::move(organizingCountries)),
             allFriendlies(std::move(allFriendlies)) {}
-        general::multipleStrings get_pages(const int year) const;
+        general::MultipleStrings get_pages(const int year) const;
         void get_pages_to_file(const int year, const std::string& filename) const;
         void get_pages_stdout(const int year) const;
     private:
@@ -32,17 +32,17 @@ namespace shob::pages
         std::map<std::string, std::string> organizingCountries;
         football::footballCompetition allFriendlies;
         readers::csvContent read_matches_data(const ekwk_date& ekwk, const char type) const;
-        static general::multipleStrings filter_remarks(const std::vector<std::vector<std::string>>& remarks, const std::string& key);
-        general::multipleStrings get_group_nl(int& dd, const int star, const readers::csvContent& matches_data, const general::multipleStrings& remarks) const;
-        general::multipleStrings get_virtual_standings(const ekwk_date& ekwk, general::multipleStrings& opms_vstand) const;
-        general::multipleStrings get_play_offs(int& dd, const readers::csvContent& matches_data) const;
-        general::multipleStrings print_splitted(const football::standings& stand, const football::footballCompetition& matches,
-            const general::multipleStrings& remarks, const std::string& title, const std::string& title2) const;
-        general::multipleStrings get_nationsLeagueFinals(const int& year, int& dd) const;
-        general::multipleStrings get_nationsLeagueGroupPhase(const int& year, int& dd) const;
-        general::multipleStrings get_friendlies(const int& year, const std::vector<std::vector<std::string>>& remarks, int& dd) const;
-        general::multipleStrings get_other_standings(const ekwk_date& ekwk, const std::string& title) const;
-        general::multipleStrings get_list_qualified_countries(const ekwk_date& ekwk, const std::string& title_qualified) const;
+        static general::MultipleStrings filter_remarks(const std::vector<std::vector<std::string>>& remarks, const std::string& key);
+        general::MultipleStrings get_group_nl(int& dd, const int star, const readers::csvContent& matches_data, const general::MultipleStrings& remarks) const;
+        general::MultipleStrings get_virtual_standings(const ekwk_date& ekwk, general::MultipleStrings& opms_vstand) const;
+        general::MultipleStrings get_play_offs(int& dd, const readers::csvContent& matches_data) const;
+        general::MultipleStrings print_splitted(const football::standings& stand, const football::footballCompetition& matches,
+            const general::MultipleStrings& remarks, const std::string& title, const std::string& title2) const;
+        general::MultipleStrings get_nationsLeagueFinals(const int& year, int& dd) const;
+        general::MultipleStrings get_nationsLeagueGroupPhase(const int& year, int& dd) const;
+        general::MultipleStrings get_friendlies(const int& year, const std::vector<std::vector<std::string>>& remarks, int& dd) const;
+        general::MultipleStrings get_other_standings(const ekwk_date& ekwk, const std::string& title) const;
+        general::MultipleStrings get_list_qualified_countries(const ekwk_date& ekwk, const std::string& title_qualified) const;
         static int findStar(const std::vector<std::vector<std::string>>& remarks);
     };
 }

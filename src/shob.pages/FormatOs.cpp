@@ -30,9 +30,9 @@ namespace shob::pages
         std::cout.flush();
     }
 
-    general::multipleStrings FormatOs::getPages(const int year) const
+    general::MultipleStrings FormatOs::getPages(const int year) const
     {
-        auto return_value = general::multipleStrings();
+        auto return_value = general::MultipleStrings();
         if (settings.lang == html::language::English)
         {
             return_value.addContent("<hr> other Winter Olympics: |");
@@ -72,9 +72,9 @@ namespace shob::pages
         return csv_data;
     }
 
-    general::multipleStrings FormatOs::getNumbersOne(const readers::csvContent& all_data) const
+    general::MultipleStrings FormatOs::getNumbersOne(const readers::csvContent& all_data) const
     {
-        auto return_value = general::multipleStrings();
+        auto return_value = general::MultipleStrings();
         html::tableContent content;
         if (settings.lang == html::language::English)
         {
@@ -120,7 +120,7 @@ namespace shob::pages
                 const auto linkName = std::format("{}{}", DH, distance);
                 const auto description = std::format("{} - {}", DH, distance);
                 const auto link = "<a href=\"#" + linkName + "\">" + description + "</a>";
-                general::multipleStrings body;
+                general::MultipleStrings body;
                 const auto remark = (remark_column < row.column.size() ? row.column[remark_column] : "");
                 body.data = { link, name_with_country, printResult(time, remark)};
                 content.body.push_back(body);
@@ -132,9 +132,9 @@ namespace shob::pages
         return return_value;
     }
 
-    general::multipleStrings FormatOs::getOneDistance(const std::string& distance, const char gender, const readers::csvContent& all_data) const
+    general::MultipleStrings FormatOs::getOneDistance(const std::string& distance, const char gender, const readers::csvContent& all_data) const
     {
-        auto return_value = general::multipleStrings();
+        auto return_value = general::MultipleStrings();
         return_value.addContent(std::format("<p/> <a name=\"{}{}\">", gender, distance));
         html::tableContent content;
 
@@ -170,7 +170,7 @@ namespace shob::pages
                 }
                 const auto time = row.column[result_column];
                 if (time.ends_with(" p")) found_points = true;
-                general::multipleStrings body;
+                general::MultipleStrings body;
                 if (rank == "-1") { rank = ""; }
                 const auto remark = (remark_column < row.column.size() ? row.column[remark_column] : "");
                 body.data = { rank, name_with_country, printResult(time, remark) };
@@ -195,9 +195,9 @@ namespace shob::pages
         return return_value;
     }
 
-    general::multipleStrings FormatOs::getAllDistances(const char gender, const readers::csvContent& all_data) const
+    general::MultipleStrings FormatOs::getAllDistances(const char gender, const readers::csvContent& all_data) const
     {
-        auto return_value = general::multipleStrings();
+        auto return_value = general::MultipleStrings();
         const auto distances = findDistances(gender, all_data);
         for (const auto& distance : distances)
         {

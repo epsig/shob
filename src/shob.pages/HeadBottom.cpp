@@ -3,9 +3,9 @@
 
 namespace shob::pages
 {
-    general::multipleStrings HeadBottom::getStyleSheet()
+    general::MultipleStrings HeadBottom::getStyleSheet()
     {
-        general::multipleStrings out;
+        general::MultipleStrings out;
         out.addContent("<style type=\"text/css\">");
         out.addContent("body{background:white;color:black;font-family:\"Verdana\",\"Arial\";font-size:9pt}");
         out.addContent("h1{font-weight:bold;font-size:12pt}h2{font-weight:bold;font-size:11pt}acronym{font:italic;cursor:help;}");
@@ -16,17 +16,17 @@ namespace shob::pages
         return out;
     }
 
-    general::multipleStrings HeadBottom::getLinkToStyleSheet()
+    general::MultipleStrings HeadBottom::getLinkToStyleSheet()
     {
-        general::multipleStrings out;
+        general::MultipleStrings out;
         out.addContent("<meta name = \"viewport\" content = \"width = device-width, initial-scale = 1\">");
         out.addContent("<link rel = \"stylesheet\" type = \"text/css\" href = \"epsig.css\">");
         return out;
     }
 
-    general::multipleStrings HeadBottom::getFooter(const general::itdate& dd)
+    general::MultipleStrings HeadBottom::getFooter(const general::itdate& dd)
     {
-        general::multipleStrings out;
+        general::MultipleStrings out;
         out.addContent("<table width=100%> <tr> <td width=10%>&nbsp;</td>");
         out.addContent("<td width=80% align=center><table border cellspacing=0>");
         out.addContent("<tr><td><a href=\"reactie.html\">mail-me</a></td> ");
@@ -40,9 +40,9 @@ namespace shob::pages
         return out;
     }
 
-    general::multipleStrings HeadBottom::getPage(HeadBottomInput& input)
+    general::MultipleStrings HeadBottom::getPage(HeadBottomInput& input)
     {
-        general::multipleStrings out;
+        general::MultipleStrings out;
         out.addContent("<html lang=\"NL\"><head><title>" + input.title + "</title>");
         if (input.css == StyleSheetType::InlineInHead)
         {

@@ -165,7 +165,7 @@ namespace shob::football
         for (int i = 0; i < static_cast<int>(matches.size()); i++)
         {
             auto& row = matches[i];
-            auto out = multipleStrings();
+            auto out = MultipleStrings();
             std::string dd = settings.dateFormatShort ? row.dd->toShortString() : row.dd->toString(settings.isCompatible);
             if ( ! row.stadium.empty())
             {

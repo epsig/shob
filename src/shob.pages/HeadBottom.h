@@ -19,7 +19,7 @@ namespace shob::pages
     struct HeadBottomInput
     {
         HeadBottomInput(int d) : dd(general::itdate(d)) {}
-        general::multipleStrings body;
+        general::MultipleStrings body;
         std::string title;
         StyleSheetType css = StyleSheetType::InlineInHead;
         general::itdate dd;
@@ -31,11 +31,11 @@ namespace shob::pages
     class HeadBottom
     {
     public:
-        static general::multipleStrings getPage(HeadBottomInput& input);
+        static general::MultipleStrings getPage(HeadBottomInput& input);
     private:
-        static general::multipleStrings getStyleSheet();
-        static general::multipleStrings getLinkToStyleSheet();
-        static general::multipleStrings getFooter(const general::itdate& dd);
+        static general::MultipleStrings getStyleSheet();
+        static general::MultipleStrings getLinkToStyleSheet();
+        static general::MultipleStrings getFooter(const general::itdate& dd);
     };
 }
 

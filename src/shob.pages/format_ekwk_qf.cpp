@@ -47,11 +47,11 @@ namespace shob::pages
         return 0;
     }
 
-    multipleStrings format_ekwk_qf::get_pages(const int year) const
+    MultipleStrings format_ekwk_qf::get_pages(const int year) const
     {
         struct pageBlock
         {
-            multipleStrings data;
+            MultipleStrings data;
             std::string linkName;
             std::string description;
         };
@@ -61,7 +61,7 @@ namespace shob::pages
         auto remarks = seasonsReader.getSeason(ekwk.shortNameWithYear());
         auto star = findStar(remarks);
 
-        auto retVal = multipleStrings();
+        auto retVal = MultipleStrings();
         retVal.addContent("<hr>");
         auto topMenu = menu.getMenu(std::to_string(year));
         retVal.addContent(topMenu);
@@ -110,7 +110,7 @@ namespace shob::pages
         pageBlocks[7].description = "Oefenduels van Oranje";
 
         const auto csvMainTournament = std::format("{}{}{}{}.csv", dataSportFolder, "../ekwk/", ekwk.shortName(), ekwk.year);
-        auto submenu = multipleStrings();
+        auto submenu = MultipleStrings();
         submenu.addContent("<ul>");
         if (fs::exists(csvMainTournament))
         {
@@ -143,8 +143,8 @@ namespace shob::pages
         return HeadBottom::getPage(hb);
     }
 
-    multipleStrings format_ekwk_qf::print_splitted(const standings& stand, const footballCompetition& matches,
-        const multipleStrings& remarks, const std::string& title, const std::string& title2) const
+    MultipleStrings format_ekwk_qf::print_splitted(const standings& stand, const footballCompetition& matches,
+        const MultipleStrings& remarks, const std::string& title, const std::string& title2) const
     {
         auto prepTableStandings = stand.prepareTable(teams, settings);
         prepTableStandings.title = title;
@@ -185,7 +185,7 @@ namespace shob::pages
         return csvData;
     }
 
-    multipleStrings format_ekwk_qf::get_group_nl(int& dd, const int star, const readers::csvContent& matches_data, const multipleStrings& remarks) const
+    MultipleStrings format_ekwk_qf::get_group_nl(int& dd, const int star, const readers::csvContent& matches_data, const MultipleStrings& remarks) const
     {
         const auto parts = matches_data.getParts();
         const std::string part = parts.list()[0];
@@ -201,7 +201,7 @@ namespace shob::pages
             auto stand = results2standings::u2s(matches);
             stand.wns_cl = star;
 
-            auto retVal = multipleStrings();
+            auto retVal = MultipleStrings();
             retVal.addContent("<p/> <a name=\"groepNL\"/> <h2> Stand en uitslagen groep van Nederland </h2>");
             auto standing_and_matches = print_splitted(stand, matches, remarks,
                 std::format("{}{}", "Stand Groep ", part.back()) ,
@@ -210,12 +210,12 @@ namespace shob::pages
             return retVal;
         }
         dd = 20000101;
-        return multipleStrings();
+        return MultipleStrings();
     }
 
-    multipleStrings format_ekwk_qf::filter_remarks(const std::vector<std::vector<std::string>>& remarks, const std::string& key)
+    MultipleStrings format_ekwk_qf::filter_remarks(const std::vector<std::vector<std::string>>& remarks, const std::string& key)
     {
-        auto retVal = multipleStrings();
+        auto retVal = MultipleStrings();
         for (const auto& row : remarks)
         {
             if (row[0] == key) retVal.addContent(row[1]);
@@ -223,10 +223,10 @@ namespace shob::pages
         return retVal;
     }
 
-    multipleStrings format_ekwk_qf::get_virtual_standings(const ekwk_date& ekwk, multipleStrings& opms_vstand) const
+    MultipleStrings format_ekwk_qf::get_virtual_standings(const ekwk_date& ekwk, MultipleStrings& opms_vstand) const
     {
         const auto standings_data = read_matches_data(ekwk, 'v');
-        auto retVal = multipleStrings();
+        auto retVal = MultipleStrings();
         if ( ! standings_data.body.empty())
         {
             retVal.addContent("<p/> <a name=\"vstandings\"/>");
@@ -246,12 +246,12 @@ namespace shob::pages
         return retVal;
     }
 
-    multipleStrings format_ekwk_qf::get_play_offs(int& dd, const readers::csvContent& matches_data) const
+    MultipleStrings format_ekwk_qf::get_play_offs(int& dd, const readers::csvContent& matches_data) const
     {
         const auto parts = matches_data.getParts();
         const std::string part = parts.list().back();
 
-        multipleStrings retVal;
+        MultipleStrings retVal;
         if (part == "po")
         {
             auto filter = filterInputList();
@@ -273,9 +273,9 @@ namespace shob::pages
         return retVal;
     }
 
-    multipleStrings format_ekwk_qf::get_nationsLeagueFinals(const int& year, int& dd) const
+    MultipleStrings format_ekwk_qf::get_nationsLeagueFinals(const int& year, int& dd) const
     {
-        auto retVal = multipleStrings();
+        auto retVal = MultipleStrings();
         const auto csvInput = std::format("{}{}{}.csv", dataSportFolder, "../nationsLeague/NL_", year);
         if (fs::exists(csvInput))
         {
@@ -293,9 +293,9 @@ namespace shob::pages
         return retVal;
     }
 
-    multipleStrings format_ekwk_qf::get_nationsLeagueGroupPhase(const int& year, int& dd) const
+    MultipleStrings format_ekwk_qf::get_nationsLeagueGroupPhase(const int& year, int& dd) const
     {
-        auto retVal = multipleStrings();
+        auto retVal = MultipleStrings();
         const auto csvInput = std::format("{}{}.*.csv", "NL_", year);
         auto list = glob::list(dataSportFolder + "../nationsLeague/", csvInput);
         if ( ! list.empty())
@@ -307,16 +307,16 @@ namespace shob::pages
 
             const auto stand = results2standings::u2s(competition);
             retVal.addContent("<p/> <a name=\"natleague\"/>");
-            auto matches = print_splitted(stand, competition, multipleStrings(),
+            auto matches = print_splitted(stand, competition, MultipleStrings(),
                 "Stand Nations League groep Nederland", "Overige uitslagen");
             retVal.addContent(matches);
         }
         return retVal;
     }
 
-    multipleStrings format_ekwk_qf::get_friendlies(const int& year, const std::vector<std::vector<std::string>>& remarks, int& dd) const
+    MultipleStrings format_ekwk_qf::get_friendlies(const int& year, const std::vector<std::vector<std::string>>& remarks, int& dd) const
     {
-        auto retVal = multipleStrings();
+        auto retVal = MultipleStrings();
 
         // default dates for start and stop:
         int dd1kzb = (year - 2) * 10000 + 700;
@@ -346,11 +346,11 @@ namespace shob::pages
         return retVal;
     }
 
-    multipleStrings format_ekwk_qf::get_other_standings(const ekwk_date& ekwk, const std::string& title) const
+    MultipleStrings format_ekwk_qf::get_other_standings(const ekwk_date& ekwk, const std::string& title) const
     {
         const auto csvData = read_matches_data(ekwk, 's');
 
-        auto retVal = multipleStrings();
+        auto retVal = MultipleStrings();
         if ( ! csvData.body.empty())
         {
             retVal.addContent(std::format("<p/> <a name=\"standen\"/> {}", title));
@@ -396,10 +396,10 @@ namespace shob::pages
         return retVal;
     }
 
-    multipleStrings format_ekwk_qf::get_list_qualified_countries(const ekwk_date& ekwk, const std::string& title_qualified) const
+    MultipleStrings format_ekwk_qf::get_list_qualified_countries(const ekwk_date& ekwk, const std::string& title_qualified) const
     {
         const auto csvData = read_matches_data(ekwk, 'q');
-        auto retVal = multipleStrings();
+        auto retVal = MultipleStrings();
         if (!csvData.body.empty())
         {
             retVal.addContent(std::format("<p/> <a name=\"deelnemers\"> <h2> {} </h2>", title_qualified));
@@ -409,7 +409,7 @@ namespace shob::pages
             {
                 const auto& row = csvData.body[i];
                 const auto country = teams.expand(row.column[1]);
-                multipleStrings body;
+                MultipleStrings body;
                 body.data = { std::format("{}", i+1), country, row.column[2]};
                 content.body.push_back(body);
             }

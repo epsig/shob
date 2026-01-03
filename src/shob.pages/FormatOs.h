@@ -4,7 +4,7 @@
 #include "TopMenu.h"
 #include "../shob.readers/csvAllSeasonsReader.h"
 #include "../shob.html/settings.h"
-#include "../shob.general/multipleStrings.h"
+#include "../shob.general/MultipleStrings.h"
 #include "../shob.teams/clubTeams.h"
 
 namespace shob::pages
@@ -17,7 +17,7 @@ namespace shob::pages
     public:
         FormatOs(std::string folder, readers::csvAllSeasonsReader reader, readers::csvContent dames,
             readers::csvContent heren, TopMenu menu, teams::nationalTeams teams, html::settings settings);
-        general::multipleStrings getPages(const int year) const;
+        general::MultipleStrings getPages(const int year) const;
         void getPagesToFile(const int year, const std::string& filename) const;
         void getPagesStdout(const int year) const;
 
@@ -33,9 +33,9 @@ namespace shob::pages
         const teams::nationalTeams land_codes;
         const html::settings settings;
         readers::csvContent readMatchesData(const int year) const;
-        general::multipleStrings getNumbersOne(const readers::csvContent& all_data) const;
-        general::multipleStrings getAllDistances(const char gender, const readers::csvContent& all_data) const;
-        general::multipleStrings getOneDistance(const std::string& distance, const char gender, const readers::csvContent& all_data) const;
+        general::MultipleStrings getNumbersOne(const readers::csvContent& all_data) const;
+        general::MultipleStrings getAllDistances(const char gender, const readers::csvContent& all_data) const;
+        general::MultipleStrings getOneDistance(const std::string& distance, const char gender, const readers::csvContent& all_data) const;
         static int findDate(const std::vector<std::vector<std::string>>& remarks);
         static std::string findTitle(const std::vector<std::vector<std::string>>& remarks);
         static std::string findName(const std::string& name, const readers::csvContent& listNames);

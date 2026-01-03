@@ -22,7 +22,7 @@ namespace shob::pages
             menu(std::move(menu)), leagueNames(std::move(leagueNames)) {}
         void get_season_stdout(const general::Season& season) const;
         void get_season_to_file(const general::Season& season, const std::string& filename) const;
-        general::multipleStrings get_season(const general::Season& season) const;
+        general::MultipleStrings get_season(const general::Season& season) const;
     private:
         const std::string sportDataFolder;
         const readers::csvAllSeasonsReader extras;
@@ -30,16 +30,16 @@ namespace shob::pages
         const html::settings settings;
         const TopMenu menu;
         const football::leagueNames leagueNames;
-        general::multipleStrings getFirstHalfYear(const std::string& part, const readers::csvContent& data, const wns_ec& wns_cl,
+        general::MultipleStrings getFirstHalfYear(const std::string& part, const readers::csvContent& data, const wns_ec& wns_cl,
             const std::vector<std::vector<std::string>>& extraU2s, const int sortRule, int& dd) const;
         static general::uniqueStrings getGroups(const std::string& part, const readers::csvContent& data);
         static general::uniqueStrings getQualifiers(const std::string& part, const readers::csvContent& data);
         static general::uniqueStrings getXtra(const std::string& part, const readers::csvContent& data);
         static std::string getRemarks(const std::string& part, const std::string& group, const std::vector<std::vector<std::string>>& extraU2s);
-        general::multipleStrings getInternalLinks(const std::vector<std::string>& ECparts, const readers::csvContent& csvData) const;
-        std::vector<std::vector<std::string>> readExtras(const general::Season& season, wns_ec& wns_cl, general::multipleStrings& summary) const;
+        general::MultipleStrings getInternalLinks(const std::vector<std::string>& ECparts, const readers::csvContent& csvData) const;
+        std::vector<std::vector<std::string>> readExtras(const general::Season& season, wns_ec& wns_cl, general::MultipleStrings& summary) const;
         static bool hasFinal(const std::string& part, const readers::csvContent& csvData);
-        general::multipleStrings getSupercup(const readers::csvContent& data, int& dd) const;
+        general::MultipleStrings getSupercup(const readers::csvContent& data, int& dd) const;
         static void readSortRule(int& sortRule, const std::vector<std::vector<std::string>>& extraU2s);
     };
 }
