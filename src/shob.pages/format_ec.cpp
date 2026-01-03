@@ -2,7 +2,7 @@
 #include "format_ec.h"
 #include <iostream>
 
-#include "head_bottum.h"
+#include "HeadBottom.h"
 #include "../shob.football/results2standings.h"
 #include "../shob.football/route2finalFactory.h"
 #include "../shob.football/filterResults.h"
@@ -415,11 +415,11 @@ namespace shob::pages
             out.addContent("<p/>");
         }
 
-        auto hb = headBottumInput(dd);
+        auto hb = HeadBottomInput(dd);
         std::swap(hb.title, title);
         std::swap(hb.body, out);
 
-        return headBottum::getPage(hb);
+        return HeadBottom::getPage(hb);
     }
 
 }

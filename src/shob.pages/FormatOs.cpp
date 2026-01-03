@@ -1,6 +1,6 @@
 
 #include "FormatOs.h"
-#include "head_bottum.h"
+#include "HeadBottom.h"
 #include "../shob.html/updateIfNewer.h"
 #include "../shob.html/funcs.h"
 #include "../shob.general/shobException.h"
@@ -58,11 +58,11 @@ namespace shob::pages
         auto part3 = getAllDistances('D', allData);
         return_value.addContent(part3);
 
-        auto hb = headBottumInput(findDate(remarks));
+        auto hb = HeadBottomInput(findDate(remarks));
         hb.title = findTitle(remarks);
         std::swap(hb.body, return_value);
 
-        return headBottum::getPage(hb);
+        return HeadBottom::getPage(hb);
     }
 
     readers::csvContent FormatOs::readMatchesData(const int year) const

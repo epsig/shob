@@ -1,9 +1,9 @@
 
-#include "head_bottum.h"
+#include "HeadBottom.h"
 
 namespace shob::pages
 {
-    general::multipleStrings headBottum::getStyleSheet()
+    general::multipleStrings HeadBottom::getStyleSheet()
     {
         general::multipleStrings out;
         out.addContent("<style type=\"text/css\">");
@@ -16,7 +16,7 @@ namespace shob::pages
         return out;
     }
 
-    general::multipleStrings headBottum::getLinkToStyleSheet()
+    general::multipleStrings HeadBottom::getLinkToStyleSheet()
     {
         general::multipleStrings out;
         out.addContent("<meta name = \"viewport\" content = \"width = device-width, initial-scale = 1\">");
@@ -24,7 +24,7 @@ namespace shob::pages
         return out;
     }
 
-    general::multipleStrings headBottum::getFooter(const general::itdate& dd)
+    general::multipleStrings HeadBottom::getFooter(const general::itdate& dd)
     {
         general::multipleStrings out;
         out.addContent("<table width=100%> <tr> <td width=10%>&nbsp;</td>");
@@ -40,11 +40,11 @@ namespace shob::pages
         return out;
     }
 
-    general::multipleStrings headBottum::getPage(headBottumInput& input)
+    general::multipleStrings HeadBottom::getPage(HeadBottomInput& input)
     {
         general::multipleStrings out;
         out.addContent("<html lang=\"NL\"><head><title>" + input.title + "</title>");
-        if (input.css == styleSheetType::inlineInHead)
+        if (input.css == StyleSheetType::InlineInHead)
         {
             auto style = getStyleSheet();
             out.addContent(style);

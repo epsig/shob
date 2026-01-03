@@ -6,7 +6,7 @@
 #include "../shob.football/results2standings.h"
 #include "../shob.teams/clubTeams.h"
 #include "../shob.football/route2finalFactory.h"
-#include "../shob.pages/head_bottum.h"
+#include "../shob.pages/HeadBottom.h"
 #include "../shob.html/updateIfNewer.h"
 
 namespace shob::pages
@@ -121,11 +121,11 @@ namespace shob::pages
             dd = r2f.lastDate().toInt();
         }
 
-        auto hb = headBottumInput(dd);
+        auto hb = HeadBottomInput(dd);
         hb.title = "Overzicht betaald voetbal in Nederland, seizoen " + season.toString();
         std::swap(hb.body, out);
 
-        return headBottum::getPage(hb);
+        return HeadBottom::getPage(hb);
     }
 
 }

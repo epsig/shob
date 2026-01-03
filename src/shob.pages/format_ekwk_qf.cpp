@@ -1,5 +1,5 @@
 #include "format_ekwk_qf.h"
-#include "head_bottum.h"
+#include "HeadBottom.h"
 #include "../shob.football/filterResults.h"
 #include "../shob.html/updateIfNewer.h"
 #include "../shob.football/results2standings.h"
@@ -136,11 +136,11 @@ namespace shob::pages
             }
         }
 
-        auto hb = headBottumInput(dd);
+        auto hb = HeadBottomInput(dd);
         hb.title = "Voorronde " + ekwk.shortNameUpper() + " Voetbal " + std::to_string(year) + " te " + organizingCountries.at(ekwk.shortNameWithYear());
         std::swap(hb.body, retVal);
 
-        return headBottum::getPage(hb);
+        return HeadBottom::getPage(hb);
     }
 
     multipleStrings format_ekwk_qf::print_splitted(const standings& stand, const footballCompetition& matches,
