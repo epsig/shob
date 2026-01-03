@@ -114,7 +114,7 @@ namespace shob::pages
         submenu.addContent("<ul>");
         if (fs::exists(csvMainTournament))
         {
-            submenu.addContent("<li> <a href=\"../pages/sport_voetbal_" + ekwk.shortNameUpper() + "_" + std::to_string(year)
+            submenu.addContent("<li> <a href=\"sport_voetbal_" + ekwk.shortNameUpper() + "_" + std::to_string(year)
                 + ".html\">Eindronde " + std::to_string(year) + " in " + organizingCountries.at(ekwk.shortNameWithYear()) + "</a> </li>");
         }
         for (const auto& block : pageBlocks)
