@@ -7,7 +7,7 @@
 #include "shob.pages/format_ec_factory.h"
 #include "shob.pages/format_nl_factory.h"
 #include "shob.pages/format_ekwk_qf_factory.h"
-#include "shob.pages/format_os_factory.h"
+#include "shob.pages/FormatOsFactory.h"
 #include "shob.general/Season.h"
 #include "shob.general/shobException.h"
 #include "shob.html/updateIfNewer.h"
@@ -64,7 +64,7 @@ int main(int argc, char* argv[])
         settings.dateFormatShort = false;
         auto fmt_ec = format_ec_factory::build("sport", settings);
         auto fmt_ekwk_qf = format_ekwk_qf_factory::build("sport", settings);
-        auto fmt_os = format_os_factory::build("sport/schaatsen/", settings);
+        auto fmt_os = FormatOsFactory::build("sport/schaatsen/", settings);
         constexpr auto fmt_outfile = "../pages/sport_voetbal_{}_{}_voorronde.html";
 
         for (int year = firstYear; year <= lastYear; year++)
@@ -97,7 +97,7 @@ int main(int argc, char* argv[])
             }
             if (year % 4 == 2 && year < 2026)
             {
-                fmt_os.get_pages_to_file(year, std::format("{}/sport_schaatsen_OS_{}.html", "../pages", year));
+                fmt_os.getPagesToFile(year, std::format("{}/sport_schaatsen_OS_{}.html", "../pages", year));
             }
         }
         part = "copy style sheets";

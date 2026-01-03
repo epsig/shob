@@ -1,9 +1,9 @@
 
-#include "multipleStrings.h"
+#include "MultipleStrings.h"
 
 namespace shob::general
 {
-    void multipleStrings::addContent(multipleStrings& extra)
+    void MultipleStrings::addContent(MultipleStrings& extra)
     {
         for (auto& r : extra.data)
         {
@@ -12,12 +12,12 @@ namespace shob::general
         extra.data.clear();
     }
 
-    void multipleStrings::addContent(std::string extra)
+    void MultipleStrings::addContent(std::string extra)
     {
         data.emplace_back(std::move(extra));
     }
 
-    size_t multipleStrings::length() const
+    size_t MultipleStrings::length() const
     {
         size_t length = 0;
         for (auto& r : data)
@@ -27,7 +27,7 @@ namespace shob::general
         return length;
     }
 
-    std::string multipleStrings::to_string() const
+    std::string MultipleStrings::toString() const
     {
         std::string result;
         for (auto& r : data)
@@ -37,14 +37,14 @@ namespace shob::general
         return result;
     }
 
-    bool multipleStrings::areEqual(const multipleStrings& other) const
+    bool MultipleStrings::areEqual(const MultipleStrings& other) const
     {
         if (data.size() != other.data.size())
         {
             if (length() + data.size() == other.length() + other.data.size())
             {
                 // this comparison always works but is quite expensive
-                return to_string() == other.to_string();
+                return toString() == other.toString();
             }
             return false;
         }
@@ -55,7 +55,7 @@ namespace shob::general
         return true;
     }
 
-    int multipleStrings::findString(const std::string& s) const
+    int MultipleStrings::findString(const std::string& s) const
     {
         for (int i = 0; i < static_cast<int>(data.size()); i++)
         {

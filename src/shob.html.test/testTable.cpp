@@ -10,7 +10,7 @@ namespace shob::html::test
     {
         tableContent content;
         content.header.data = { "aap", "noot", "mies" };
-        general::multipleStrings body;
+        general::MultipleStrings body;
         body.data = { "boom", "roos", "vis" };
         content.body.push_back(body);
         auto Table = table(settings());

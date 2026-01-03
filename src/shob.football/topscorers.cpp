@@ -34,7 +34,7 @@ namespace shob::football
         }
         for (const auto& row : list_tp)
         {
-            multipleStrings data;
+            MultipleStrings data;
             auto team = teams.expand(row.club);
             auto name = players.expand(row.name);
             if (row.rank == 1)

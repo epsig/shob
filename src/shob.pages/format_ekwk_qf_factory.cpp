@@ -1,6 +1,6 @@
 #include "format_ekwk_qf_factory.h"
 
-#include "topMenu.h"
+#include "TopMenu.h"
 #include "../shob.readers/csvAllSeasonsReader.h"
 #include "../shob.general/glob.h"
 #include "../shob.general/uniqueStrings.h"
@@ -16,7 +16,7 @@ namespace shob::pages
         return num1 < num2;
     }
 
-    topMenu format_ekwk_qf_factory::prepareTopMenu(const std::string& dataFolderEkWkQf)
+    TopMenu format_ekwk_qf_factory::prepareTopMenu(const std::string& dataFolderEkWkQf)
     {
         auto archive = general::glob::list(dataFolderEkWkQf, "[ew]k[0-9]{4}.*csv");
         std::sort(archive.begin(), archive.end(), cmpFunc);
@@ -30,7 +30,7 @@ namespace shob::pages
             filenames.insert(shortName);
         }
 
-        auto menu = topMenu(filenames.list(), 'K');
+        auto menu = TopMenu(filenames.list(), 'K');
 
         return menu;
     }

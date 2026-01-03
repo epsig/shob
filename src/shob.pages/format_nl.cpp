@@ -6,7 +6,7 @@
 #include "../shob.football/results2standings.h"
 #include "../shob.teams/clubTeams.h"
 #include "../shob.football/route2finalFactory.h"
-#include "../shob.pages/head_bottum.h"
+#include "../shob.pages/HeadBottom.h"
 #include "../shob.html/updateIfNewer.h"
 
 namespace shob::pages
@@ -29,7 +29,7 @@ namespace shob::pages
         }
     }
 
-    multipleStrings format_nl::getTopScorers(const std::string& file, const Season& season,
+    MultipleStrings format_nl::getTopScorers(const std::string& file, const Season& season,
         const teams::footballers& players, const teams::clubTeams& teams)
     {
         auto settings = html::settings();
@@ -45,7 +45,7 @@ namespace shob::pages
         return out;
     }
 
-    multipleStrings format_nl::get_season(const Season& season) const
+    MultipleStrings format_nl::get_season(const Season& season) const
     {
         auto settings = html::settings();
 
@@ -53,7 +53,7 @@ namespace shob::pages
         auto competition = football::footballCompetition();
         competition.readFromCsv(file1);
 
-        auto out = multipleStrings();
+        auto out = MultipleStrings();
 
         auto menuOut = menu.getMenu(season);
         menuOut.data[0] = "<hr> andere seizoenen: | " + menuOut.data[0];
@@ -121,11 +121,11 @@ namespace shob::pages
             dd = r2f.lastDate().toInt();
         }
 
-        auto hb = headBottumInput(dd);
+        auto hb = HeadBottomInput(dd);
         hb.title = "Overzicht betaald voetbal in Nederland, seizoen " + season.toString();
         std::swap(hb.body, out);
 
-        return headBottum::getPage(hb);
+        return HeadBottom::getPage(hb);
     }
 
 }

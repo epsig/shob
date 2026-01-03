@@ -2,7 +2,7 @@
 #include "format_ec.h"
 #include <iostream>
 
-#include "head_bottum.h"
+#include "HeadBottom.h"
 #include "../shob.football/results2standings.h"
 #include "../shob.football/route2finalFactory.h"
 #include "../shob.football/filterResults.h"
@@ -79,7 +79,7 @@ namespace shob::pages
         return groups;
     }
 
-    std::vector<std::vector<std::string>> format_ec::readExtras(const Season& season, wns_ec& wns_cl, multipleStrings& summary) const
+    std::vector<std::vector<std::string>> format_ec::readExtras(const Season& season, wns_ec& wns_cl, MultipleStrings& summary) const
     {
         std::vector<std::vector<std::string>> extraU2s = extras.getSeason(season);
         wns_cl.wns_cl = -1;
@@ -129,7 +129,7 @@ namespace shob::pages
         return extraU2s;
     }
 
-    multipleStrings format_ec::getSupercup(const csvContent& data, int& dd) const
+    MultipleStrings format_ec::getSupercup(const csvContent& data, int& dd) const
     {
         auto filter = filterInputList();
         const std::string part = "supercup";
@@ -162,7 +162,7 @@ namespace shob::pages
         return remarks;
     }
 
-    multipleStrings format_ec::getFirstHalfYear(const std::string& part, const csvContent& data, const wns_ec& wns_cl,
+    MultipleStrings format_ec::getFirstHalfYear(const std::string& part, const csvContent& data, const wns_ec& wns_cl,
         const std::vector<std::vector<std::string>>& extraU2s, const int sortRule, int& dd) const
     {
         auto tables = std::vector<tableContent>();
@@ -231,7 +231,7 @@ namespace shob::pages
             {
                 auto prepTable3 = tableContent();
                 prepTable3.colWidths.push_back(4);
-                auto ms = multipleStrings();
+                auto ms = MultipleStrings();
                 ms.addContent(remarks);
                 prepTable3.body.push_back(ms);
                 tables.push_back(prepTable3);
@@ -299,9 +299,9 @@ namespace shob::pages
         return false;
     }
 
-    multipleStrings format_ec::getInternalLinks(const std::vector<std::string>& ECparts, const csvContent& csvData) const
+    MultipleStrings format_ec::getInternalLinks(const std::vector<std::string>& ECparts, const csvContent& csvData) const
     {
-        auto out = multipleStrings();
+        auto out = MultipleStrings();
         bool isFirst = true;
         for (const auto& part : ECparts)
         {
@@ -340,15 +340,15 @@ namespace shob::pages
         }
     }
 
-    multipleStrings format_ec::get_season(const Season& season) const
+    MultipleStrings format_ec::get_season(const Season& season) const
     {
         const auto file1 = sportDataFolder + "/europacup/europacup_" + season.toPartFilename() + ".csv";
         const auto csvData = csvReader::readCsvFile(file1);
 
         wns_ec wns_cl;
-        multipleStrings summary;
+        MultipleStrings summary;
         auto extraU2s = readExtras(season, wns_cl, summary);
-        auto out = multipleStrings();
+        auto out = MultipleStrings();
         auto menuOut = menu.getMenu(season);
 
         int sortRule = 0;
@@ -415,11 +415,11 @@ namespace shob::pages
             out.addContent("<p/>");
         }
 
-        auto hb = headBottumInput(dd);
+        auto hb = HeadBottomInput(dd);
         std::swap(hb.title, title);
         std::swap(hb.body, out);
 
-        return headBottum::getPage(hb);
+        return HeadBottom::getPage(hb);
     }
 
 }

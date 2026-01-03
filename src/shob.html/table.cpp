@@ -7,9 +7,9 @@ namespace shob::html
 {
     using namespace shob::general;
 
-    multipleStrings table::buildTable(const tableContent& content) const
+    MultipleStrings table::buildTable(const tableContent& content) const
     {
-        multipleStrings table;
+        MultipleStrings table;
 
         std::string zeroWidth = settings_.isCompatible ? "0" : "\"0\"";
 
@@ -38,9 +38,9 @@ namespace shob::html
         return table;
     }
 
-    multipleStrings table::buildTable(const std::vector<tableContent>& content) const
+    MultipleStrings table::buildTable(const std::vector<tableContent>& content) const
     {
-        multipleStrings table;
+        MultipleStrings table;
         if (content.empty()) { return table; }
 
         if (withBorder)
@@ -101,9 +101,9 @@ namespace shob::html
         return table;
     }
 
-    multipleStrings table::tableOfTwoTables(multipleStrings& left, multipleStrings& right) const
+    MultipleStrings table::tableOfTwoTables(MultipleStrings& left, MultipleStrings& right) const
     {
-        auto retVal = multipleStrings();
+        auto retVal = MultipleStrings();
         if (withBorder)
         {
             retVal.addContent("<table border>");
@@ -122,7 +122,7 @@ namespace shob::html
         return retVal;
     }
 
-    std::string table::buildRow(const multipleStrings& content, const std::vector<int>& colWidths)
+    std::string table::buildRow(const MultipleStrings& content, const std::vector<int>& colWidths)
     {
         std::vector<std::string> tag1;
         std::vector<std::string> tag2;
@@ -141,17 +141,17 @@ namespace shob::html
         return buildRow(content, tag1, tag2);
     }
 
-    std::string table::buildRow(const multipleStrings& content)
+    std::string table::buildRow(const MultipleStrings& content)
     {
         return buildRow(content, "<td>", "</td>");
     }
 
-    std::string table::buildHeader(const multipleStrings& content)
+    std::string table::buildHeader(const MultipleStrings& content)
     {
         return buildRow(content, "<th>", "</th>");
     }
 
-    std::string table::buildHeader(const multipleStrings& content, const std::vector<int>& colWidths)
+    std::string table::buildHeader(const MultipleStrings& content, const std::vector<int>& colWidths)
     {
         std::vector<std::string> tag1;
         std::vector<std::string> tag2;
@@ -172,12 +172,12 @@ namespace shob::html
 
     std::string table::buildHeader(const std::string& s, const size_t cols)
     {
-        multipleStrings content;
+        MultipleStrings content;
         content.data.push_back(s);
         return buildRow(content, "<th colspan=\"" + std::to_string(cols) + "\" class=h>", "</th>");
     }
 
-    std::string table::buildRow(const multipleStrings& content, const std::string& tag1, const std::string& tag2)
+    std::string table::buildRow(const MultipleStrings& content, const std::string& tag1, const std::string& tag2)
     {
         std::string row = "<tr>";
         boost::regex expression("\\d+-\\d+");
@@ -207,7 +207,7 @@ namespace shob::html
         return row;
     }
 
-    std::string table::buildRow(const multipleStrings& content, const std::vector<std::string>& tag1, const std::vector<std::string>& tag2)
+    std::string table::buildRow(const MultipleStrings& content, const std::vector<std::string>& tag1, const std::vector<std::string>& tag2)
     {
         std::string row = "<tr>";
         boost::regex expression("\\d+-\\d+");
