@@ -8,6 +8,7 @@
 #include "shob.pages/format_nl_factory.h"
 #include "shob.pages/format_ekwk_qf_factory.h"
 #include "shob.pages/FormatOsFactory.h"
+#include "shob.pages/FormatUnOfficialStandingsFactory.h"
 #include "shob.general/Season.h"
 #include "shob.general/shobException.h"
 #include "shob.html/updateIfNewer.h"
@@ -65,12 +66,13 @@ int main(int argc, char* argv[])
         auto fmt_ec = format_ec_factory::build("sport", settings);
         auto fmt_ekwk_qf = format_ekwk_qf_factory::build("sport", settings);
         auto fmt_os = FormatOsFactory::build("sport/schaatsen/", settings);
+        auto fmt_un_official = FormatUnOfficialStandingsFactory::build("sport/eredivisie/", settings);
         constexpr auto fmt_outfile = "../pages/sport_voetbal_{}_{}_voorronde.html";
 
         for (int year = firstYear; year <= lastYear; year++)
         {
             part = std::format("running year: {}", year);
-            const auto season = shob::general::Season(year);
+            const auto season = Season(year);
             if (year < 2026)
             {
                 if (std::filesystem::is_directory("../pages_new/"))
@@ -81,6 +83,7 @@ int main(int argc, char* argv[])
                 {
                     fmt_ec.get_season_to_file(season, "../pages/sport_voetbal_europacup_" + season.toPartFilename() + ".html");
                 }
+                fmt_un_official.getPagesToFile(year, std::format("{}/sport_voetbal_nl_jaarstanden_{}.html", "../pages_new", year));
             }
             if (year >= 1996)
             {
@@ -100,6 +103,7 @@ int main(int argc, char* argv[])
                 fmt_os.getPagesToFile(year, std::format("{}/sport_schaatsen_OS_{}.html", "../pages", year));
             }
         }
+
         part = "copy style sheets";
         if (std::filesystem::is_directory("../pages_new/"))
         {
