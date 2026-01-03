@@ -14,7 +14,7 @@ namespace shob::pages
         return num1 < num2;
     }
 
-    topMenu FormatOsFactory::prepareTopMenu(const std::string& dataFolder)
+    TopMenu FormatOsFactory::prepareTopMenu(const std::string& dataFolder)
     {
         auto archive = general::glob::list(dataFolder, "OS_[0-9]{4}.csv");
         std::sort(archive.begin(), archive.end(), cmpFunc);
@@ -26,7 +26,7 @@ namespace shob::pages
             filenames.insert(shortName);
         }
 
-        auto menu = topMenu(filenames.list(), 'S');
+        auto menu = TopMenu(filenames.list(), 'S');
 
         return menu;
     }

@@ -1,7 +1,7 @@
 #pragma once
 #include <string>
 
-#include "topmenu.h"
+#include "TopMenu.h"
 #include "../shob.readers/csvAllSeasonsReader.h"
 #include "../shob.html/settings.h"
 #include "../shob.general/multipleStrings.h"
@@ -16,7 +16,7 @@ namespace shob::pages
     {
     public:
         FormatOs(std::string folder, readers::csvAllSeasonsReader reader, readers::csvContent dames,
-            readers::csvContent heren, topMenu menu, teams::nationalTeams teams, html::settings settings);
+            readers::csvContent heren, TopMenu menu, teams::nationalTeams teams, html::settings settings);
         general::multipleStrings getPages(const int year) const;
         void getPagesToFile(const int year, const std::string& filename) const;
         void getPagesStdout(const int year) const;
@@ -29,7 +29,7 @@ namespace shob::pages
         const readers::csvAllSeasonsReader seasons_reader;
         const readers::csvContent dames;
         const readers::csvContent heren;
-        const topMenu menu;
+        const TopMenu menu;
         const teams::nationalTeams land_codes;
         const html::settings settings;
         readers::csvContent readMatchesData(const int year) const;

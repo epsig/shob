@@ -1,11 +1,11 @@
 
-#include "topmenu.h"
+#include "TopMenu.h"
 
 namespace shob::pages
 {
     using namespace shob::general;
 
-    multipleStrings topMenu::getMenu(const Season& season) const
+    multipleStrings TopMenu::getMenu(const Season& season) const
     {
         auto menu = multipleStrings();
         int curPos = 0;
@@ -29,7 +29,7 @@ namespace shob::pages
         return menu;
     }
 
-    multipleStrings topMenu::getMenu(const std::string& year) const
+    multipleStrings TopMenu::getMenu(const std::string& year) const
     {
         auto menu = multipleStrings();
         int curPos = 0;
@@ -54,21 +54,21 @@ namespace shob::pages
         return menu;
     }
 
-    void topMenu::addEllipsis(multipleStrings& rows)
+    void TopMenu::addEllipsis(multipleStrings& rows)
     {
         rows.addContent(" ...  |");
     }
 
-    void topMenu::shortenMenu(multipleStrings& menu, int curPos) const
+    void TopMenu::shortenMenu(multipleStrings& menu, int curPos) const
     {
         const int nEntries = static_cast<int>(archive.size());
-        if (nEntries > maxUrls)
+        if (nEntries > max_urls)
         {
-            if (curPos <= maxUrls / 2)
+            if (curPos <= max_urls / 2)
             {
                 shortenMenuLeft(menu);
             }
-            else if (curPos >= nEntries - 1 - maxUrls / 2)
+            else if (curPos >= nEntries - 1 - max_urls / 2)
             {
                 shortenMenuRight(menu);
             }
@@ -79,15 +79,15 @@ namespace shob::pages
         }
     }
 
-    void topMenu::shortenMenuCenter(multipleStrings& menu, int curPos) const
+    void TopMenu::shortenMenuCenter(multipleStrings& menu, int curPos) const
     {
         auto newMenu = multipleStrings();
 
         newMenu.addContent(menu.data[0]);
         addEllipsis(newMenu);
 
-        int first = curPos + 1 - maxUrls / 2;
-        int last = curPos + maxUrls / 2;
+        int first = curPos + 1 - max_urls / 2;
+        int last = curPos + max_urls / 2;
         for( int i = first; i < last; i++)
         {
             newMenu.addContent(menu.data[i]);
@@ -98,11 +98,11 @@ namespace shob::pages
         std::swap(menu, newMenu);
     }
 
-    void topMenu::shortenMenuLeft(multipleStrings& menu) const
+    void TopMenu::shortenMenuLeft(multipleStrings& menu) const
     {
         auto newMenu = multipleStrings();
 
-        for (int i = 0; i < maxUrls; i++)
+        for (int i = 0; i < max_urls; i++)
         {
             newMenu.addContent(menu.data[i]);
         }
@@ -111,7 +111,7 @@ namespace shob::pages
         std::swap(menu, newMenu);
     }
 
-    void topMenu::shortenMenuRight(multipleStrings& menu) const
+    void TopMenu::shortenMenuRight(multipleStrings& menu) const
     {
         auto newMenu = multipleStrings();
 
@@ -119,7 +119,7 @@ namespace shob::pages
 
         newMenu.addContent(menu.data[0]);
         addEllipsis(newMenu);
-        for (int i = nEntries - maxUrls; i < nEntries; i++)
+        for (int i = nEntries - max_urls; i < nEntries; i++)
         {
             newMenu.addContent(menu.data[i]);
         }

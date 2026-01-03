@@ -8,16 +8,16 @@
 
 namespace shob::pages
 {
-    class topMenu
+    class TopMenu
     {
     public:
-        topMenu(std::vector<std::string> archive, const char id, const int maxUrls=10) :
-            archive(std::move(archive)), maxUrls(maxUrls), id(id) {}
+        TopMenu(std::vector<std::string> archive, const char id, const int maxUrls=10) :
+            archive(std::move(archive)), max_urls(maxUrls), id(id) {}
         general::multipleStrings getMenu(const general::Season& season) const;
         general::multipleStrings getMenu(const std::string& year) const;
     private:
         std::vector<std::string> archive;
-        const int maxUrls;
+        const int max_urls;
         const char id;
         void shortenMenu(general::multipleStrings& menu, int curPos) const;
         void shortenMenuCenter(general::multipleStrings& menu, int curPos) const;

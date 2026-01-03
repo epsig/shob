@@ -2,7 +2,7 @@
 #include "format_nl_factory.h"
 
 #include "../shob.general/glob.h"
-#include "topmenu.h"
+#include "TopMenu.h"
 
 namespace shob::pages
 {
@@ -31,7 +31,7 @@ namespace shob::pages
         {
             replace_first(row, "eredivisie", "nl");
         }
-        auto menu = topMenu(archive, 'K');
+        auto menu = TopMenu(archive, 'K');
 
         auto format = format_nl(dataFolder, extras, remarks, menu);
         return format;

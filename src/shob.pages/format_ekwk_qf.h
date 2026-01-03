@@ -7,7 +7,7 @@
 #include "../shob.football/footballCompetition.h"
 #include "../shob.football/standings.h"
 #include "ekwk_date.h"
-#include "topmenu.h"
+#include "TopMenu.h"
 #include <map>
 
 namespace shob::pages
@@ -16,7 +16,7 @@ namespace shob::pages
     {
     public:
         format_ekwk_qf(std::string folder, teams::clubTeams teams, readers::csvAllSeasonsReader reader, html::settings settings,
-            topMenu menu, std::map<std::string, std::string> organizingCountries, football::footballCompetition allFriendlies) :
+            TopMenu menu, std::map<std::string, std::string> organizingCountries, football::footballCompetition allFriendlies) :
             dataSportFolder(std::move(folder)), teams(std::move(teams)), seasonsReader(std::move(reader)),
             settings(settings), menu(std::move(menu)), organizingCountries(std::move(organizingCountries)),
             allFriendlies(std::move(allFriendlies)) {}
@@ -28,7 +28,7 @@ namespace shob::pages
         teams::clubTeams teams;
         readers::csvAllSeasonsReader seasonsReader;
         html::settings settings;
-        topMenu menu;
+        TopMenu menu;
         std::map<std::string, std::string> organizingCountries;
         football::footballCompetition allFriendlies;
         readers::csvContent read_matches_data(const ekwk_date& ekwk, const char type) const;
