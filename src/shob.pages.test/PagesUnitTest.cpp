@@ -16,77 +16,77 @@ int main(int argc, char** argv)
     return RUN_ALL_TESTS();
 }
 
-TEST(unitTest, testFormatNL)
+TEST(IntegrationTest, testFormatNL)
 {
     testFormatNL::test1();
 }
 
-TEST(unitTest, testFormatEc_2024_2025)
+TEST(IntegrationTest, testFormatEc_2024_2025)
 {
     testFormatEc::test_2024_2025();
 }
 
-TEST(unitTest, testFormatEc_2023_2024)
+TEST(IntegrationTest, testFormatEc_2023_2024)
 {
     testFormatEc::test_2023_2024();
 }
 
-TEST(unitTest, testFormatEc_1994_1995)
+TEST(IntegrationTest, testFormatEc_1994_1995)
 {
     testFormatEc::test_1994_1995();
 }
 
-TEST(unitTest, test_2019_2020_UK)
+TEST(IntegrationTest, test_2019_2020_UK)
 {
     testFormatEc::test_2019_2020_UK();
 }
 
-TEST(unitTest, test_top_menu_left)
+TEST(UnitTest, testTopMenuLeft)
 {
     TestTopMenu::testLeft();
 }
 
-TEST(unitTest, test_top_menu_center)
+TEST(UnitTest, testTopMenuCenter)
 {
     TestTopMenu::testCenter();
 }
 
-TEST(unitTest, test_top_menu_right)
+TEST(UnitTest, testTopMenuRight)
 {
     TestTopMenu::testRight();
 }
 
-TEST(unitTest, test_voorr_ek_2000)
+TEST(IntegrationTest, testEkQf2000)
 {
     testFormatEkWkQf::test_ek_2000();
 }
 
-TEST(unitTest, test_voorr_ek_2024)
+TEST(IntegrationTest, testEkQf2024)
 {
     testFormatEkWkQf::test_ek_2024();
 }
 
-TEST(unitTest, test_os_schaatsen)
+TEST(IntegrationTest, testOsSchaatsen)
 {
     TestFormatOs::testOs2002();
 }
 
-TEST(unitTest, test_os_print_result_points)
+TEST(UnitTest, testOsPrintResultPoints)
 {
     TestFormatOs::testPrintResultPoints();
 }
 
-TEST(unitTest, test_os_print_with_colon)
+TEST(UnitTest, testOsPrintWithColon)
 {
     TestFormatOs::testPrintResultWithColon();
 }
 
-TEST(unitTest, test_os_print_two_runs)
+TEST(UnitTest, testOsPrintTwoRuns)
 {
     TestFormatOs::testPrintResultWithTwoRuns();
 }
 
-TEST(unitTest, test_os_print_happy_flow)
+TEST(UnitTest, testOsPrintHappyFlow)
 {
     TestFormatOs::testPrintResultHappyFlow();
 }
