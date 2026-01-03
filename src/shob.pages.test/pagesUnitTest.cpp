@@ -5,7 +5,7 @@
 #include "test_format_ec.h"
 #include "test_format_ekwk_qf.h"
 #include "TestFormatOs.h"
-#include "test_topmenu.h"
+#include "TestTopMenu.h"
 
 using namespace shob::pages::test;
 
@@ -43,17 +43,17 @@ TEST(unitTest, test_2019_2020_UK)
 
 TEST(unitTest, test_top_menu_left)
 {
-    testTopMenu::test_left();
+    TestTopMenu::testLeft();
 }
 
 TEST(unitTest, test_top_menu_center)
 {
-    testTopMenu::test_center();
+    TestTopMenu::testCenter();
 }
 
 TEST(unitTest, test_top_menu_right)
 {
-    testTopMenu::test_right();
+    TestTopMenu::testRight();
 }
 
 TEST(unitTest, test_voorr_ek_2000)

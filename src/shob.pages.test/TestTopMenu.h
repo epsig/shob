@@ -5,12 +5,12 @@
 
 namespace shob::pages::test
 {
-    class testTopMenu
+    class TestTopMenu
     {
     public:
-        static void test_left();
-        static void test_center();
-        static void test_right();
+        static void testLeft();
+        static void testCenter();
+        static void testRight();
     private:
         static std::vector<std::string> getArchive();
     };
