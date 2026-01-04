@@ -122,6 +122,29 @@ namespace shob::html
         return retVal;
     }
 
+    MultipleStrings table::tableOfThreeTables(MultipleStrings& left, MultipleStrings& middle, MultipleStrings& right) const
+    {
+        auto retVal = MultipleStrings();
+        if (withBorder)
+        {
+            retVal.addContent("<table border cellspacing=\"0\">");
+        }
+        else
+        {
+            retVal.addContent("<table>");
+        }
+        retVal.addContent("<tr><td valign=""top"">");
+        retVal.addContent(left);
+        retVal.addContent("</td> <td valign=""top""> ");
+        retVal.addContent(middle);
+        retVal.addContent("</td> <td valign=""top""> ");
+        retVal.addContent(right);
+        retVal.addContent("</td> </tr>");
+        retVal.addContent("</table>");
+
+        return retVal;
+    }
+
     std::string table::buildRow(const MultipleStrings& content, const std::vector<int>& colWidths)
     {
         std::vector<std::string> tag1;

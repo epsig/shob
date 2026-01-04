@@ -6,6 +6,7 @@
 #include "TopMenu.h"
 #include "../shob.html/settings.h"
 #include "../shob.teams/clubTeams.h"
+#include "../shob.general/Season.h"
 
 namespace shob::pages
 {
@@ -22,6 +23,7 @@ namespace shob::pages
         const TopMenu menu1;
         const html::settings settings;
         general::MultipleStrings getPages(const int year) const;
+        readers::csvContent readMatchesData(const general::Season& season) const;
     };
 }
 
