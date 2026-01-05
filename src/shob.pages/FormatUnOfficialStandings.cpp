@@ -26,12 +26,30 @@ namespace shob::pages
         std::cout.flush();
     }
 
+    int FormatUnOfficialStandings::getScoring(const general::Season & season) const
+    {
+        const auto currentRemarks = all_seasons_reader.getSeason(season);
+        int scoring = 3;
+        for (const auto& row : currentRemarks)
+        {
+            if (row[0] == "scoring")
+            {
+                scoring = std::stoi(row[1]);
+                break;
+            }
+        }
+        return scoring;
+    }
+
     general::MultipleStrings FormatUnOfficialStandings::getPages(const int year) const
     {
         auto return_value = general::MultipleStrings();
 
         auto season1 = general::Season(year - 1);
         auto season2 = general::Season(year);
+
+        const int scoring1 = getScoring(season1);
+        const int scoring2 = getScoring(season2);
 
         const auto matches1_csv = readMatchesData(season1);
         const auto matches2_csv = readMatchesData(season2);
@@ -58,9 +76,9 @@ namespace shob::pages
         const auto filtered3 = matches3.filterDate(date1, date2);
         const auto dd = filtered3.lastDate().toInt();
 
-        const auto stand1 = football::results2standings::u2s(filtered1);
-        const auto stand2 = football::results2standings::u2s(filtered2);
-        const auto stand3 = football::results2standings::u2s(filtered3);
+        const auto stand1 = football::results2standings::u2s(filtered1, scoring1);
+        const auto stand2 = football::results2standings::u2s(filtered2, scoring2);
+        const auto stand3 = football::results2standings::u2s(filtered3, scoring2);
 
         auto prep_table1 = stand1.prepareTable(teams, settings);
         prep_table1.title = "stand 1e helft " + std::to_string(year);
@@ -82,6 +100,11 @@ namespace shob::pages
         return_value.addContent("<hr>");
 
         return_value.addContent(joined);
+
+        if (scoring1 != scoring2)
+        {
+            return_value.addContent("<p/> Opm: puntentelling is halverwege het jaar veranderd. Tabel kalenderjaar rekent met nieuwe telling.");
+        }
 
         auto hb = HeadBottomInput(dd);
         hb.title = "Winterkampioen en jaarstanden eredivisie";

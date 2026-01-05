@@ -14,7 +14,10 @@ namespace shob::pages
         auto teams = teams::clubTeams();
         teams.InitFromFile(folder + "/../clubs.csv", teams::clubsOrCountries::clubs);
 
-        auto format = FormatUnOfficialStandings(folder, teams, menu, settings);
+        auto remarks = readers::csvAllSeasonsReader();
+        remarks.init(folder + "eredivisie_remarks.csv");
+
+        auto format = FormatUnOfficialStandings(folder, teams, menu, remarks, settings);
         return format;
     }
 
