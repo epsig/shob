@@ -53,4 +53,25 @@ namespace shob::football
         return table;
     }
 
+    void results2standings::u2s_home_away(const footballCompetition& matches, standings& home, standings& away, const int scoring)
+    {
+        home.scoring = scoring;
+        away.scoring = scoring;
+
+        for (const auto& match : matches.matches)
+        {
+            const auto& score = match.result;
+            if (score == "-" || match.team2 == "straf") continue;
+
+            const auto parts = readers::csvReader::split(score, "-").column;
+            const auto goals1 = std::stoi(parts[0]);
+            const auto goals2 = std::stoi(parts[1]);
+            home.addResultHome(match.team1, goals1, goals2);
+            away.addResultAway(match.team2, goals1, goals2);
+        }
+
+        home.sort();
+        away.sort();
+    }
+
 }

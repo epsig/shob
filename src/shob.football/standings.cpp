@@ -100,6 +100,16 @@ namespace shob::football
         addRow(team2, goals2, goals1, true);  // NOLINT(readability-suspicious-call-argument)
     }
 
+    void standings::addResultHome(const std::string& team, const int goals1, const int goals2)
+    {
+        addRow(team, goals1, goals2, false);
+    }
+
+    void standings::addResultAway(const std::string& team, const int goals1, const int goals2)
+    {
+        addRow(team, goals2, goals1, true);  // NOLINT(readability-suspicious-call-argument)
+    }
+
     size_t standings::findIndex(const std::string& team)
     {
         for (size_t i = 0; i < list.size(); i++)

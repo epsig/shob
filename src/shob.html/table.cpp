@@ -216,7 +216,7 @@ namespace shob::html
                 if (i < static_cast<int>(content.data.size()) - 1) row += "\n";
                 extraLine = false;
             }
-            else if (regex_search(col.c_str(), expression))
+            else if (regex_search(col.c_str(), expression) && tag1.find("class") == std::string::npos)
             {
                 row += "<td class=c>" + col + tag2;
             }
