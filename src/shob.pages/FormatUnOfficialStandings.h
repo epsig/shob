@@ -22,6 +22,8 @@ namespace shob::pages
         void getPagesStdout(const int year) const;
         void getPagesToFile(const general::Season& season, const std::string& filename) const;
         void getPagesStdout(const general::Season& season) const;
+        general::MultipleStrings getPages(const int year) const;
+        general::MultipleStrings getSeason(const general::Season& season) const;
     private:
         const std::string folder;
         const teams::clubTeams teams;
@@ -29,8 +31,6 @@ namespace shob::pages
         const TopMenu menu2;
         const readers::csvAllSeasonsReader all_seasons_reader;
         const html::settings settings;
-        general::MultipleStrings getPages(const int year) const;
-        general::MultipleStrings getSeason(const general::Season& season) const;
         readers::csvContent readMatchesData(const general::Season& season) const;
         int getScoring(const general::Season& season) const;
     };

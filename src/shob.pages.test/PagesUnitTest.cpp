@@ -5,6 +5,7 @@
 #include "test_format_ec.h"
 #include "test_format_ekwk_qf.h"
 #include "TestFormatOs.h"
+#include "TestFormatUnOfficial.h"
 #include "TestTopMenu.h"
 
 using namespace shob::pages::test;
@@ -89,4 +90,14 @@ TEST(UnitTest, testOsPrintTwoRuns)
 TEST(UnitTest, testOsPrintHappyFlow)
 {
     TestFormatOs::testPrintResultHappyFlow();
+}
+
+TEST(IntegrationTest, testHomeAndAway)
+{
+    TestFormatUnOfficial::testHomeAndAway2010();
+}
+
+TEST(IntegrationTest, testYearStandings)
+{
+    TestFormatUnOfficial::testYearStanding2010();
 }
