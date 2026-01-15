@@ -1,44 +1,27 @@
 
-#include "FormatUnOfficialStandings.h"
+#include "FormatSemestersAndYearStandings.h"
 #include "HeadBottom.h"
 #include "../shob.html/updateIfNewer.h"
 #include "../shob.football/footballCompetition.h"
 #include "../shob.football/results2standings.h"
 
-#include <iostream>
 #include <format>
 
 namespace shob::pages
 {
-    void FormatUnOfficialStandings::getPagesToFile(const int year, const std::string& filename) const
+    void FormatSemestersAndYearStandings::getPagesToFile(const int year, const std::string& filename) const
     {
         auto output = getPages(year);
         html::updateIfDifferent::update(filename, output);
     }
 
-    void FormatUnOfficialStandings::getPagesStdout(const int year) const
+    void FormatSemestersAndYearStandings::getPagesStdout(const int year) const
     {
         const auto output = getPages(year);
-        for (const auto& row : output.data)
-        {
-            std::cout << row << '\n';
-        }
-        std::cout.flush();
-    }
-
-    void FormatUnOfficialStandings::getPagesToFile(const general::Season& season, const std::string& filename) const
-    {
-        auto output = getSeason(season);
-        html::updateIfDifferent::update(filename, output);
-    }
-
-    void FormatUnOfficialStandings::getPagesStdout(const general::Season& season) const
-    {
-        const auto output = getSeason(season);
         output.toStdout();
     }
 
-    int FormatUnOfficialStandings::getScoring(const general::Season & season) const
+    int FormatSemestersAndYearStandings::getScoring(const general::Season & season) const
     {
         const auto currentRemarks = all_seasons_reader.getSeason(season);
         int scoring = 3;
@@ -53,7 +36,7 @@ namespace shob::pages
         return scoring;
     }
 
-    general::MultipleStrings FormatUnOfficialStandings::getPages(const int year) const
+    general::MultipleStrings FormatSemestersAndYearStandings::getPages(const int year) const
     {
         auto return_value = general::MultipleStrings();
 
@@ -106,7 +89,7 @@ namespace shob::pages
 
         auto joined = table.tableOfThreeTables(part1, part2, part3);
 
-        auto topMenu = menu1.getMenu(std::to_string(year), 29);
+        auto topMenu = menu.getMenu(std::to_string(year), 29);
         return_value.addContent("<hr> Ga naar andere jaren: ");
         return_value.addContent(topMenu);
         return_value.addContent("<hr>");
@@ -125,55 +108,7 @@ namespace shob::pages
         return HeadBottom::getPage(hb);
     }
 
-    /// get uit / thuis / uit + thuis
-    /// @param season
-    /// @return
-    general::MultipleStrings FormatUnOfficialStandings::getSeason(const general::Season& season) const
-    {
-        auto return_value = general::MultipleStrings();
-        const int scoring = getScoring(season);
-
-        const auto matches_csv = readMatchesData(season);
-
-        auto matches = football::footballCompetition();
-        matches.readFromCsvData(matches_csv);
-
-        const auto dd = matches.lastDate().toInt();
-
-        auto stand1 = football::standings();
-        auto stand2 = football::standings();
-        football::results2standings::u2s_home_away(matches, stand1, stand2, scoring);
-        const auto stand3 = football::results2standings::u2s(matches, scoring);
-
-        auto prep_table1 = stand1.prepareTable(teams, settings);
-        prep_table1.title = "thuis " + season.toString();
-        auto prep_table2 = stand2.prepareTable(teams, settings);
-        prep_table2.title = "uit " + season.toString();
-        auto prep_table3 = stand3.prepareTable(teams, settings);
-        prep_table3.title = "uit + thuis " + season.toString();
-
-        const auto table = html::table(settings);
-        auto part1 = table.buildTable(prep_table1);
-        auto part2 = table.buildTable(prep_table2);
-        auto part3 = table.buildTable(prep_table3);
-
-        auto joined = table.tableOfThreeTables(part1, part2, part3);
-
-        auto topMenu = menu2.getMenu(season);
-        return_value.addContent("<hr> Ga naar andere seizoenen: ");
-        return_value.addContent(topMenu);
-        return_value.addContent("<hr>");
-
-        return_value.addContent(joined);
-
-        auto hb = HeadBottomInput(dd);
-        hb.title = "Uit- en thuis standen eredivisie";
-        std::swap(hb.body, return_value);
-
-        return HeadBottom::getPage(hb);
-    }
-
-    readers::csvContent FormatUnOfficialStandings::readMatchesData(const general::Season& season) const
+    readers::csvContent FormatSemestersAndYearStandings::readMatchesData(const general::Season& season) const
     {
         const auto csv_input = std::format("{}/eredivisie_{}.csv", folder, season.toPartFilename());
         const auto csv_data = readers::csvReader::readCsvFile(csv_input);

@@ -4,7 +4,7 @@
 #include <gtest/gtest.h>
 
 #include "../shob.html/settings.h"
-#include "../shob.pages/FormatUnOfficialStandingsFactory.h"
+#include "../shob.pages/FormatSemestersAndYearStandingsFactory.h"
 #include "../shob.pages/FormatHomeAndAwayStandingsFactory.h"
 #include "../shob.test.utils/testUtils.h"
 
@@ -15,7 +15,7 @@ namespace shob::pages::test
     const std::string dataMap = "../../data/sport/eredivisie/";
     const std::string dataFolder = testUtils::refFileWithPath(__FILE__, dataMap);
     const html::settings settings = html::settings();
-    const auto fmt_un_off = FormatUnOfficialStandingsFactory::build(dataFolder, settings);
+    const auto fmt_un_off = FormatSemestersAndYearStandingsFactory::build(dataFolder, settings);
     const auto fmt_home_away = FormatHomeAndAwayStandingsFactory::build(dataFolder, settings);
 
     void TestFormatUnOfficial::testYearStanding2010()
