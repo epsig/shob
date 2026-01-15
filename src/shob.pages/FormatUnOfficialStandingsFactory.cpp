@@ -74,7 +74,7 @@ namespace shob::pages
 
     bool FormatUnOfficialStandingsFactory::cmpFunc(const std::string& a, const std::string& b)
     {
-        return false;
+        return a < b;
     }
 
 }

@@ -19,5 +19,6 @@ namespace shob::general
         int findString(const std::string& s) const;
         size_t length() const;
         std::string toString() const;
+        void toStdout() const;
     };
 }

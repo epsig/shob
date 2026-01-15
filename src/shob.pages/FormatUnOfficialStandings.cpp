@@ -35,11 +35,7 @@ namespace shob::pages
     void FormatUnOfficialStandings::getPagesStdout(const general::Season& season) const
     {
         const auto output = getSeason(season);
-        for (const auto& row : output.data)
-        {
-            std::cout << row << '\n';
-        }
-        std::cout.flush();
+        output.toStdout();
     }
 
     int FormatUnOfficialStandings::getScoring(const general::Season & season) const

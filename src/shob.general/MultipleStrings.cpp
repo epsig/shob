@@ -1,6 +1,8 @@
 
 #include "MultipleStrings.h"
 
+#include <iostream>
+
 namespace shob::general
 {
     void MultipleStrings::addContent(MultipleStrings& extra)
@@ -63,5 +65,15 @@ namespace shob::general
         }
         return -1;
     }
+
+    void MultipleStrings::toStdout() const
+    {
+        for (const auto& row : data)
+        {
+            std::cout << row << '\n';
+        }
+        std::cout.flush();
+    }
+
 
 }

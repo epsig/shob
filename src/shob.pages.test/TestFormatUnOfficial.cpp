@@ -5,6 +5,7 @@
 
 #include "../shob.html/settings.h"
 #include "../shob.pages/FormatUnOfficialStandingsFactory.h"
+#include "../shob.pages/FormatHomeAndAwayStandingsFactory.h"
 #include "../shob.test.utils/testUtils.h"
 
 namespace shob::pages::test
@@ -15,6 +16,7 @@ namespace shob::pages::test
     const std::string dataFolder = testUtils::refFileWithPath(__FILE__, dataMap);
     const html::settings settings = html::settings();
     const auto fmt_un_off = FormatUnOfficialStandingsFactory::build(dataFolder, settings);
+    const auto fmt_home_away = FormatHomeAndAwayStandingsFactory::build(dataFolder, settings);
 
     void TestFormatUnOfficial::testYearStanding2010()
     {
@@ -25,7 +27,7 @@ namespace shob::pages::test
     void TestFormatUnOfficial::testHomeAndAway2010()
     {
         auto season = general::Season(2010);
-        const auto lines = fmt_un_off.getSeason(season);
+        const auto lines = fmt_home_away.getSeason(season);
         ASSERT_EQ(lines.data.size(), 103);
     }
 
