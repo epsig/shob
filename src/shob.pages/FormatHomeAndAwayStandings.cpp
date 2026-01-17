@@ -8,6 +8,7 @@
 
 #include <format>
 #include <filesystem>
+#include <algorithm>
 
 namespace shob::pages
 {
