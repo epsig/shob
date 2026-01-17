@@ -6,9 +6,12 @@
 #include "../shob.football/results2standings.h"
 
 #include <format>
+#include <filesystem>
 
 namespace shob::pages
 {
+    namespace fs = std::filesystem;
+
     void FormatHomeAndAwayStandings::getPagesToFile(const general::Season& season, const std::string& filename) const
     {
         auto output = getSeason(season);
@@ -79,6 +82,12 @@ namespace shob::pages
         std::swap(hb.body, return_value);
 
         return HeadBottom::getPage(hb);
+    }
+
+    bool FormatHomeAndAwayStandings::isValidSeason(const general::Season& season) const
+    {
+        const auto csv_input = std::format("{}/eredivisie_{}.csv", folder, season.toPartFilename());
+        return fs::exists(csv_input);
     }
 
     readers::csvContent FormatHomeAndAwayStandings::readMatchesData(const general::Season& season) const

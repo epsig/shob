@@ -27,6 +27,8 @@ namespace shob::pages::test
     void TestFormatUnOfficial::testHomeAndAway2010()
     {
         auto season = general::Season(2010);
+        const bool exists = fmt_home_away.isValidSeason(season);
+        ASSERT_TRUE(exists);
         const auto lines = fmt_home_away.getSeason(season);
         ASSERT_EQ(lines.data.size(), 103);
     }

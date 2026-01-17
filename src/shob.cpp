@@ -86,6 +86,9 @@ int main(int argc, char* argv[])
                     fmt_ec.get_season_to_file(season, "../pages/sport_voetbal_europacup_" + season.toPartFilename() + ".html");
                 }
                 fmt_un_official.getPagesToFile(year, std::format("{}/sport_voetbal_nl_jaarstanden_{}.html", "../pages_new", year));
+            }
+            if (fmt_home_away.isValidSeason(season))
+            {
                 fmt_home_away.getPagesToFile(season, std::format("{}/sport_voetbal_nl_uit_thuis_{}.html", "../pages_new", season.toPartFilename()));
             }
             if (year >= 1996)
