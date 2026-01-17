@@ -23,6 +23,8 @@ namespace shob::pages
         general::MultipleStrings getSeason(const general::Season& season) const;
         bool isValidSeason(const general::Season& season) const;
         static std::string getOutputFilename(const std::string& folder, const general::Season& season);
+        static std::string getOutputFilename(const std::string& folder);
+        general::Season getLastSeason() const;
     private:
         const std::string folder;
         const teams::clubTeams teams;
@@ -31,6 +33,7 @@ namespace shob::pages
         const html::settings settings;
         readers::csvContent readMatchesData(const general::Season& season) const;
         int getScoring(const general::Season& season) const;
+        static bool cmpFunc(const std::string& a, const std::string& b);
     };
 }
 

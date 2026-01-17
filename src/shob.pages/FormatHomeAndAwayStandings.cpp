@@ -4,6 +4,7 @@
 #include "../shob.html/updateIfNewer.h"
 #include "../shob.football/footballCompetition.h"
 #include "../shob.football/results2standings.h"
+#include "../shob.general/glob.h"
 
 #include <format>
 #include <filesystem>
@@ -87,6 +88,24 @@ namespace shob::pages
     std::string FormatHomeAndAwayStandings::getOutputFilename(const std::string& folder, const general::Season& season)
     {
         return std::format("{}/sport_voetbal_nl_uit_thuis_{}.html", folder, season.toPartFilename());
+    }
+
+    std::string FormatHomeAndAwayStandings::getOutputFilename(const std::string& folder)
+    {
+        return std::format("{}/sport_voetbal_nl_uit_thuis.html", folder);
+    }
+
+    bool FormatHomeAndAwayStandings::cmpFunc(const std::string& a, const std::string& b)
+    {
+        return a < b;
+    }
+
+    general::Season FormatHomeAndAwayStandings::getLastSeason() const
+    {
+        auto archive = general::glob::list(folder, "eredivisie_[0-9]{4}_[0-9]{4}.csv");
+        std::sort(archive.begin(), archive.end(), cmpFunc);
+        auto last_year_in_filename = archive.back().substr(11, 4); // TODO with regex
+        return std::stoi(last_year_in_filename);
     }
 
     bool FormatHomeAndAwayStandings::isValidSeason(const general::Season& season) const
