@@ -22,6 +22,7 @@ namespace shob::pages
         void getPagesStdout(const general::Season& season) const;
         general::MultipleStrings getSeason(const general::Season& season) const;
         bool isValidSeason(const general::Season& season) const;
+        static std::string getOutputFilename(const std::string& folder, const general::Season& season);
     private:
         const std::string folder;
         const teams::clubTeams teams;

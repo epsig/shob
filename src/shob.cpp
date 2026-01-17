@@ -89,7 +89,7 @@ int main(int argc, char* argv[])
             }
             if (fmt_home_away.isValidSeason(season))
             {
-                fmt_home_away.getPagesToFile(season, std::format("{}/sport_voetbal_nl_uit_thuis_{}.html", "../pages_new", season.toPartFilename()));
+                fmt_home_away.getPagesToFile(season, FormatHomeAndAwayStandings::getOutputFilename("../pages_new", season));
             }
             if (year >= 1996)
             {

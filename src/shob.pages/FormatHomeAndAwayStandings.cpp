@@ -84,6 +84,11 @@ namespace shob::pages
         return HeadBottom::getPage(hb);
     }
 
+    std::string FormatHomeAndAwayStandings::getOutputFilename(const std::string& folder, const general::Season& season)
+    {
+        return std::format("{}/sport_voetbal_nl_uit_thuis_{}.html", folder, season.toPartFilename());
+    }
+
     bool FormatHomeAndAwayStandings::isValidSeason(const general::Season& season) const
     {
         const auto csv_input = std::format("{}/eredivisie_{}.csv", folder, season.toPartFilename());
