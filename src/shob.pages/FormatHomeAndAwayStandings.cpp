@@ -1,7 +1,6 @@
 
 #include "FormatHomeAndAwayStandings.h"
 #include "HeadBottom.h"
-#include "../shob.html/updateIfNewer.h"
 #include "../shob.football/footballCompetition.h"
 #include "../shob.football/results2standings.h"
 #include "../shob.general/glob.h"
@@ -13,18 +12,6 @@
 namespace shob::pages
 {
     namespace fs = std::filesystem;
-
-    void FormatHomeAndAwayStandings::getPagesToFile(const general::Season& season, const std::string& filename) const
-    {
-        auto output = getSeason(season);
-        html::updateIfDifferent::update(filename, output);
-    }
-
-    void FormatHomeAndAwayStandings::getPagesStdout(const general::Season& season) const
-    {
-        const auto output = getSeason(season);
-        output.toStdout();
-    }
 
     int FormatHomeAndAwayStandings::getScoring(const general::Season& season) const
     {
@@ -91,20 +78,15 @@ namespace shob::pages
         return std::format("{}/sport_voetbal_nl_uit_thuis_{}.html", folder, season.toPartFilename());
     }
 
-    std::string FormatHomeAndAwayStandings::getOutputFilename(const std::string& folder)
+    std::string FormatHomeAndAwayStandings::getOutputFilename(const std::string& folder) const
     {
         return std::format("{}/sport_voetbal_nl_uit_thuis.html", folder);
-    }
-
-    bool FormatHomeAndAwayStandings::cmpFunc(const std::string& a, const std::string& b)
-    {
-        return a < b;
     }
 
     general::Season FormatHomeAndAwayStandings::getLastSeason() const
     {
         auto archive = general::glob::list(folder, "eredivisie_[0-9]{4}_[0-9]{4}.csv");
-        std::sort(archive.begin(), archive.end(), cmpFunc);
+        sortArchive(archive);
         auto last_year_in_filename = archive.back().substr(11, 4); // TODO with regex
         return std::stoi(last_year_in_filename);
     }

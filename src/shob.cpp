@@ -67,7 +67,7 @@ int main(int argc, char* argv[])
         auto fmt_ec = format_ec_factory::build("sport", settings);
         auto fmt_ekwk_qf = format_ekwk_qf_factory::build("sport", settings);
         auto fmt_os = FormatOsFactory::build("sport/schaatsen/", settings);
-        auto fmt_un_official = FormatSemestersAndYearStandingsFactory::build("sport/eredivisie/", settings);
+        auto fmt_semesters_and_year = FormatSemestersAndYearStandingsFactory::build("sport/eredivisie/", settings);
         auto fmt_home_away = FormatHomeAndAwayStandingsFactory::build("sport/eredivisie/", settings);
         constexpr auto fmt_outfile = "../pages/sport_voetbal_{}_{}_voorronde.html";
 
@@ -85,11 +85,14 @@ int main(int argc, char* argv[])
                 {
                     fmt_ec.get_season_to_file(season, "../pages/sport_voetbal_europacup_" + season.toPartFilename() + ".html");
                 }
-                fmt_un_official.getPagesToFile(year, std::format("{}/sport_voetbal_nl_jaarstanden_{}.html", "../pages_new", year));
+            }
+            if (fmt_semesters_and_year.isValidYear(year))
+            {
+                fmt_semesters_and_year.getPagesToFile(year, fmt_semesters_and_year.getOutputFilename("../pages_new", year));
             }
             if (fmt_home_away.isValidSeason(season))
             {
-                fmt_home_away.getPagesToFile(season, FormatHomeAndAwayStandings::getOutputFilename("../pages_new", season));
+                fmt_home_away.getPagesToFile(season, fmt_home_away.getOutputFilename("../pages_new", season));
             }
             if (year >= 1996)
             {
@@ -112,7 +115,7 @@ int main(int argc, char* argv[])
 
         part = "last year/season unofficial standings";
         auto last_season = fmt_home_away.getLastSeason();
-        fmt_home_away.getPagesToFile(last_season, FormatHomeAndAwayStandings::getOutputFilename("../pages_new"));
+        fmt_home_away.getPagesToFile(last_season, fmt_home_away.getOutputFilename("../pages_new"));
 
         part = "copy style sheets";
         if (std::filesystem::is_directory("../pages_new/"))

@@ -1,25 +1,15 @@
 
 #include "FormatSemestersAndYearStandings.h"
 #include "HeadBottom.h"
-#include "../shob.html/updateIfNewer.h"
 #include "../shob.football/footballCompetition.h"
 #include "../shob.football/results2standings.h"
 
 #include <format>
+#include <filesystem>
 
 namespace shob::pages
 {
-    void FormatSemestersAndYearStandings::getPagesToFile(const int year, const std::string& filename) const
-    {
-        auto output = getPages(year);
-        html::updateIfDifferent::update(filename, output);
-    }
-
-    void FormatSemestersAndYearStandings::getPagesStdout(const int year) const
-    {
-        const auto output = getPages(year);
-        output.toStdout();
-    }
+    namespace fs = std::filesystem;
 
     int FormatSemestersAndYearStandings::getScoring(const general::Season & season) const
     {
@@ -108,11 +98,30 @@ namespace shob::pages
         return HeadBottom::getPage(hb);
     }
 
+    bool FormatSemestersAndYearStandings::isValidYear(const int year) const
+    {
+        auto season1 = general::Season(year - 1);
+        auto season2 = general::Season(year);
+        const auto csv_input1 = std::format("{}/eredivisie_{}.csv", folder, season1.toPartFilename());
+        const auto csv_input2 = std::format("{}/eredivisie_{}.csv", folder, season2.toPartFilename());
+        return fs::exists(csv_input1) && fs::exists(csv_input2);
+    }
+
     readers::csvContent FormatSemestersAndYearStandings::readMatchesData(const general::Season& season) const
     {
         const auto csv_input = std::format("{}/eredivisie_{}.csv", folder, season.toPartFilename());
         const auto csv_data = readers::csvReader::readCsvFile(csv_input);
         return csv_data;
+    }
+
+    std::string FormatSemestersAndYearStandings::getOutputFilename(const std::string& output_folder) const
+    {
+        return std::format("{}/sport_voetbal_nl_jaarstanden.html", output_folder);
+    }
+
+    std::string FormatSemestersAndYearStandings::getOutputFilename(const std::string& output_folder, const int year) const
+    {
+        return std::format("{}/sport_voetbal_nl_jaarstanden_{}.html", output_folder, year);
     }
 
 }

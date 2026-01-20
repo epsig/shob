@@ -1,8 +1,7 @@
 
 #pragma once
 
-#include <string>
-
+#include "FormatOnePageEachSeason.h"
 #include "TopMenu.h"
 #include "../shob.html/settings.h"
 #include "../shob.teams/clubTeams.h"
@@ -11,20 +10,18 @@
 
 namespace shob::pages
 {
-    class FormatHomeAndAwayStandings
+    class FormatHomeAndAwayStandings : public FormatOnePageEachSeason
     {
     public:
         FormatHomeAndAwayStandings(std::string folder, teams::clubTeams teams, TopMenu menu,
             readers::csvAllSeasonsReader all_seasons_reader, const html::settings settings)
             : folder(std::move(folder)), teams(std::move(teams)), menu(std::move(menu)),
             all_seasons_reader(std::move(all_seasons_reader)), settings(settings) {}
-        void getPagesToFile(const general::Season& season, const std::string& filename) const;
-        void getPagesStdout(const general::Season& season) const;
-        general::MultipleStrings getSeason(const general::Season& season) const;
-        bool isValidSeason(const general::Season& season) const;
-        static std::string getOutputFilename(const std::string& folder, const general::Season& season);
-        static std::string getOutputFilename(const std::string& folder);
-        general::Season getLastSeason() const;
+        general::MultipleStrings getSeason(const general::Season& season) const override;
+        bool isValidSeason(const general::Season& season) const override;
+        std::string getOutputFilename(const std::string& folder, const general::Season& season) override;
+        std::string getOutputFilename(const std::string& folder) const override;
+        general::Season getLastSeason() const override;
     private:
         const std::string folder;
         const teams::clubTeams teams;
@@ -33,7 +30,6 @@ namespace shob::pages
         const html::settings settings;
         readers::csvContent readMatchesData(const general::Season& season) const;
         int getScoring(const general::Season& season) const;
-        static bool cmpFunc(const std::string& a, const std::string& b);
     };
 }
 

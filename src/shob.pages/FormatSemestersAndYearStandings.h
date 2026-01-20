@@ -1,8 +1,7 @@
 
 #pragma once
 
-#include <string>
-
+#include "FormatOnePageEachYear.h"
 #include "TopMenu.h"
 #include "../shob.html/settings.h"
 #include "../shob.teams/clubTeams.h"
@@ -10,16 +9,17 @@
 
 namespace shob::pages
 {
-    class FormatSemestersAndYearStandings
+    class FormatSemestersAndYearStandings: public FormatOnePageEachYear
     {
     public:
         FormatSemestersAndYearStandings(std::string folder, teams::clubTeams teams, TopMenu menu,
           readers::csvAllSeasonsReader all_seasons_reader, const html::settings settings)
         : folder(std::move(folder)), teams(std::move(teams)), menu(std::move(menu)),
           all_seasons_reader(std::move(all_seasons_reader)), settings(settings) {}
-        void getPagesToFile(const int year, const std::string& filename) const;
-        void getPagesStdout(const int year) const;
-        general::MultipleStrings getPages(const int year) const;
+        general::MultipleStrings getPages(const int year) const override;
+        std::string getOutputFilename(const std::string& folder) const override;
+        bool isValidYear(const int year) const override;
+        std::string getOutputFilename(const std::string& folder, const int year) const override;
     private:
         const std::string folder;
         const teams::clubTeams teams;
