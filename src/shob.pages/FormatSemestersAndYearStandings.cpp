@@ -3,6 +3,7 @@
 #include "HeadBottom.h"
 #include "../shob.football/footballCompetition.h"
 #include "../shob.football/results2standings.h"
+#include "../shob.general/glob.h"
 
 #include <format>
 #include <filesystem>
@@ -128,12 +129,29 @@ namespace shob::pages
 
         // now check if there are matches in the current season in the new year:
         // TODO something to cache and/or move to factory
-        auto matches = readMatchesData(season2);
+        auto matches = readMatchesData(season1);
         auto competition = football::footballCompetition();
+        competition.readFromCsvData(matches);
         auto date = competition.lastDate().toInt();
         auto new_year = date / 10000;
 
         return new_year == year;
+    }
+
+    int FormatSemestersAndYearStandings::getLastYear() const
+    {
+        // TODO something to cache and/or move to factory
+        auto archive = general::glob::list(folder, "eredivisie_[0-9]{4}_[0-9]{4}.csv");
+        sortArchive(archive);
+        auto last_year_in_filename = archive.back().substr(11, 4); // TODO with regex
+        auto last_year = std::stoi(last_year_in_filename);
+        auto season = general::Season(last_year);
+        auto matches = readMatchesData(season);
+        auto competition = football::footballCompetition();
+        competition.readFromCsvData(matches);
+        auto date = competition.lastDate().toInt();
+        auto new_year = date / 10000;
+        return new_year;
     }
 
     readers::csvContent FormatSemestersAndYearStandings::readMatchesData(const general::Season& season) const

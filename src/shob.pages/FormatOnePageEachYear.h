@@ -15,7 +15,7 @@ namespace shob::pages
         virtual bool isValidYear(const int year) const = 0;
         virtual std::string getOutputFilename(const std::string& folder, const int year) const = 0;
         std::string getOutputFilename(const std::string& folder) const override = 0;
-        //virtual int getLastYear() const = 0;
+        virtual int getLastYear() const = 0;
         ~FormatOnePageEachYear() override = default;
     };
 

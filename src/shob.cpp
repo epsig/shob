@@ -116,6 +116,8 @@ int main(int argc, char* argv[])
         part = "last year/season unofficial standings";
         auto last_season = fmt_home_away.getLastSeason();
         fmt_home_away.getPagesToFile(last_season, fmt_home_away.getOutputFilename("../pages_new"));
+        auto last_year = fmt_semesters_and_year.getLastYear();
+        fmt_semesters_and_year.getPagesToFile(last_year, fmt_semesters_and_year.getOutputFilename("../pages_new"));
 
         part = "copy style sheets";
         if (std::filesystem::is_directory("../pages_new/"))
