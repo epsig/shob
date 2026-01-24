@@ -49,10 +49,15 @@ namespace shob::pages
 
         auto matches1 = football::footballCompetition();
         matches1.readFromCsvData(matches1_csv);
-        auto matches2 = football::footballCompetition();
-        matches2.readFromCsvData(matches2_csv);
-        auto matches3 = football::footballCompetition();
-        matches3.readFromCsvData(all_matches);
+        football::footballCompetition matches2;
+        football::footballCompetition matches3;
+        if ( ! matches2_csv.body.empty())
+        {
+            matches2 = football::footballCompetition();
+            matches2.readFromCsvData(matches2_csv);
+            matches3 = football::footballCompetition();
+            matches3.readFromCsvData(all_matches);
+        }
 
         const auto date1 = general::itdate(year * 10000);
         const auto date2 = general::itdate((year + 1) * 10000);
@@ -77,7 +82,15 @@ namespace shob::pages
         auto part2 = table.buildTable(prep_table2);
         auto part3 = table.buildTable(prep_table3);
 
-        auto joined = table.tableOfThreeTables(part1, part2, part3);
+        general::MultipleStrings joined;
+        if (matches2_csv.body.empty())
+        {
+            joined = part1;
+        }
+        else
+        {
+            joined = table.tableOfThreeTables(part1, part2, part3);
+        }
 
         auto topMenu = menu.getMenu(std::to_string(year), 29);
         return_value.addContent("<hr> Ga naar andere jaren: ");
@@ -104,7 +117,23 @@ namespace shob::pages
         auto season2 = general::Season(year);
         const auto csv_input1 = std::format("{}/eredivisie_{}.csv", folder, season1.toPartFilename());
         const auto csv_input2 = std::format("{}/eredivisie_{}.csv", folder, season2.toPartFilename());
-        return fs::exists(csv_input1) && fs::exists(csv_input2);
+        auto file1_exists = fs::exists(csv_input1);
+        auto file2_exists = fs::exists(csv_input2);
+
+        // if both seasons exist, we have the normal situation:
+        if (file1_exists && file2_exists) return true;
+
+        // if season1 does not exist, we are too far back in history:
+        if (!file1_exists) return false;
+
+        // now check if there are matches in the current season in the new year:
+        // TODO something to cache and/or move to factory
+        auto matches = readMatchesData(season2);
+        auto competition = football::footballCompetition();
+        auto date = competition.lastDate().toInt();
+        auto new_year = date / 10000;
+
+        return new_year == year;
     }
 
     readers::csvContent FormatSemestersAndYearStandings::readMatchesData(const general::Season& season) const
