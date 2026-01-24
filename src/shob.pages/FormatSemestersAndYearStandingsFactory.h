@@ -8,10 +8,13 @@ namespace shob::pages
     class FormatSemestersAndYearStandingsFactory
     {
     public:
-        static FormatSemestersAndYearStandings build(const std::string& folder, const html::settings& settings);
+        FormatSemestersAndYearStandings build(const std::string& folder, const html::settings& settings);
     private:
-        static TopMenu prepareTopMenu(const std::string& dataFolder);
+        TopMenu prepareTopMenu(const std::string& dataFolder) const;
         static bool cmpFunc(const std::string& a, const std::string& b);
+        static readers::csvContent readMatchesData(const std::string& folder, const general::Season& season);
+        void getLastYear(const std::string& folder);
+        int last_year = -1;
     };
 }
 

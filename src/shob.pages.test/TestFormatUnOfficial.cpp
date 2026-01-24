@@ -15,7 +15,7 @@ namespace shob::pages::test
     const std::string dataMap = "../../data/sport/eredivisie/";
     const std::string dataFolder = testUtils::refFileWithPath(__FILE__, dataMap);
     const html::settings settings = html::settings();
-    const auto fmt_un_off = FormatSemestersAndYearStandingsFactory::build(dataFolder, settings);
+    const auto fmt_un_off = FormatSemestersAndYearStandingsFactory().build(dataFolder, settings);
     const auto fmt_home_away = FormatHomeAndAwayStandingsFactory::build(dataFolder, settings);
 
     void TestFormatUnOfficial::testYearStanding2010()
