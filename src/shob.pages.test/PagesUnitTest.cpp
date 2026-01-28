@@ -101,3 +101,13 @@ TEST(IntegrationTest, testYearStandings)
 {
     TestFormatUnOfficial::testYearStanding2010();
 }
+
+TEST(IntegrationTest, testYearStandingsExtra1)
+{
+    TestFormatUnOfficial::testYearStandingTestData1();
+}
+
+TEST(IntegrationTest, testYearStandingsExtra2)
+{
+    TestFormatUnOfficial::testYearStandingTestData2();
+}

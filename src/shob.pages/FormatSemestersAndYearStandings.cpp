@@ -3,7 +3,6 @@
 #include "HeadBottom.h"
 #include "../shob.football/footballCompetition.h"
 #include "../shob.football/results2standings.h"
-#include "../shob.general/glob.h"
 
 #include <format>
 #include <filesystem>
