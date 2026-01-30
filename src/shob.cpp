@@ -69,7 +69,6 @@ int main(int argc, char* argv[])
         auto fmt_os = FormatOsFactory::build("sport/schaatsen/", settings);
         auto fmt_semesters_and_year = FormatSemestersAndYearStandingsFactory().build("sport/eredivisie/", settings);
         auto fmt_home_away = FormatHomeAndAwayStandingsFactory::build("sport/eredivisie/", settings);
-        constexpr auto fmt_outfile = "../pages/sport_voetbal_{}_{}_voorronde.html";
 
         for (int year = firstYear; year <= lastYear; year++)
         {
@@ -94,18 +93,9 @@ int main(int argc, char* argv[])
             {
                 fmt_home_away.getPagesToFile(season, fmt_home_away.getOutputFilename("../pages_new", season));
             }
-            if (year >= 1996)
+            if (fmt_ekwk_qf.isValidYear(year))
             {
-                // ReSharper disable once CppDefaultCaseNotHandledInSwitchStatement
-                switch (year % 4)
-                {
-                case 0:
-                    fmt_ekwk_qf.get_pages_to_file(year, std::format(fmt_outfile, "EK", year));
-                    break;
-                case 2:
-                    fmt_ekwk_qf.get_pages_to_file(year, std::format(fmt_outfile, "WK", year));
-                    break;
-                }
+                fmt_ekwk_qf.getPagesToFile(year, fmt_ekwk_qf.getOutputFilename("../pages", year));
             }
             if (year % 4 == 2 && year < 2026)
             {
