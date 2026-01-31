@@ -1,11 +1,9 @@
 
 #include "FormatOs.h"
 #include "HeadBottom.h"
-#include "../shob.html/updateIfNewer.h"
 #include "../shob.html/funcs.h"
 #include "../shob.general/shobException.h"
 #include <format>
-#include <iostream>
 
 namespace shob::pages
 {
@@ -14,20 +12,24 @@ namespace shob::pages
         folder(std::move(folder)), seasons_reader(std::move(reader)),
         dames(std::move(dames)), heren(std::move(heren)), menu(std::move(menu)), land_codes(std::move(teams)), settings(settings) {  }
 
-    void FormatOs::getPagesToFile(const int year, const std::string& filename) const
+    bool FormatOs::isValidYear(const int year) const
     {
-        auto output = getPages(year);
-        html::updateIfDifferent::update(filename, output);
+        return year % 4 == 2 && year < 2026;
     }
 
-    void FormatOs::getPagesStdout(const int year) const
+    std::string FormatOs::getOutputFilename(const std::string& output_folder, const int year) const
     {
-        const auto output = getPages(year);
-        for (const auto& row : output.data)
-        {
-            std::cout << row << '\n';
-        }
-        std::cout.flush();
+        return std::format("{}/sport_schaatsen_OS_{}.html", output_folder, year);
+    }
+
+    std::string FormatOs::getOutputFilename(const std::string& folder) const
+    {
+        return "";
+    }
+
+    int FormatOs::getLastYear() const
+    {
+        return 2022; // TODO make function of available csv input files
     }
 
     general::MultipleStrings FormatOs::getPages(const int year) const

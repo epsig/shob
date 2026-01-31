@@ -97,9 +97,9 @@ int main(int argc, char* argv[])
             {
                 fmt_ekwk_qf.getPagesToFile(year, fmt_ekwk_qf.getOutputFilename("../pages", year));
             }
-            if (year % 4 == 2 && year < 2026)
+            if (fmt_os.isValidYear(year))
             {
-                fmt_os.getPagesToFile(year, std::format("{}/sport_schaatsen_OS_{}.html", "../pages", year));
+                fmt_os.getPagesToFile(year, fmt_os.getOutputFilename("../pages", year));
             }
         }
 

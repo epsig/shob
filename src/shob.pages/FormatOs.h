@@ -2,6 +2,7 @@
 #include <string>
 
 #include "TopMenu.h"
+#include "FormatOnePageEachYear.h"
 #include "../shob.readers/csvAllSeasonsReader.h"
 #include "../shob.html/settings.h"
 #include "../shob.general/MultipleStrings.h"
@@ -12,18 +13,18 @@ namespace shob::pages
     /// <summary>
     /// class for generating the OS (Olympic games in Dutch) ice skating pages
     /// </summary>
-    class FormatOs
+    class FormatOs : public FormatOnePageEachYear
     {
     public:
         FormatOs(std::string folder, readers::csvAllSeasonsReader reader, readers::csvContent dames,
             readers::csvContent heren, TopMenu menu, teams::nationalTeams teams, html::settings settings);
-        general::MultipleStrings getPages(const int year) const;
-        void getPagesToFile(const int year, const std::string& filename) const;
-        void getPagesStdout(const int year) const;
-
+        general::MultipleStrings getPages(const int year) const override;
+        bool isValidYear(const int year) const override;
+        std::string getOutputFilename(const std::string& output_folder, const int year) const override;
+        std::string getOutputFilename(const std::string& folder) const override;
+        int getLastYear() const override;
         // public for unit testing only:
         static std::string printResult(const std::string& time_as_string, const std::string& remark);
-
     private:
         const std::string folder;
         const readers::csvAllSeasonsReader seasons_reader;
