@@ -1,5 +1,7 @@
 
 #include "format_ec.h"
+
+#include <format>
 #include <iostream>
 
 #include "HeadBottom.h"
@@ -16,19 +18,26 @@ namespace shob::pages
     using namespace shob::html;
     using namespace shob::general;
 
-    void format_ec::get_season_to_file(const Season& season, const std::string& filename) const
+    bool format_ec::isValidSeason(const Season& season) const
     {
-        auto output = get_season(season);
-        updateIfDifferent::update(filename, output);
+        auto year = season.getFirstYear();
+        return year >= 1994 && year < 2026;
     }
 
-    void format_ec::get_season_stdout(const Season& season) const
+    std::string format_ec::getOutputFilename(const std::string& folder, const Season& season)
     {
-        const auto output = get_season(season);
-        for (const auto& row : output.data)
-        {
-            std::cout << row << std::endl;
-        }
+        return std::format( "{}/sport_voetbal_europacup_{}.html", folder, season.toPartFilename());
+    }
+
+    std::string format_ec::getOutputFilename(const std::string& folder) const
+    {
+        return "";
+    }
+
+    Season format_ec::getLastSeason() const
+    {
+        auto s = Season(2025);
+        return s;
     }
 
     uniqueStrings format_ec::getQualifiers(const std::string& part, const csvContent& data)
@@ -340,7 +349,7 @@ namespace shob::pages
         }
     }
 
-    MultipleStrings format_ec::get_season(const Season& season) const
+    MultipleStrings format_ec::getSeason(const Season& season) const
     {
         const auto file1 = sportDataFolder + "/europacup/europacup_" + season.toPartFilename() + ".csv";
         const auto csvData = csvReader::readCsvFile(file1);

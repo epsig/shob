@@ -29,6 +29,8 @@ namespace shob::general
 
         static Season findSeason(const std::string& text);
 
+        int getFirstYear() const { return first_year; }
+
     private:
         std::string toString(const char separator) const;
         const int first_year;

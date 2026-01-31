@@ -2,6 +2,7 @@
 #pragma once
 #include <string>
 #include <vector>
+#include "FormatOnePageEachSeason.h"
 #include "../shob.general/uniqueStrings.h"
 #include "../shob.readers/csvAllSeasonsReader.h"
 #include "../shob.teams/clubTeams.h"
@@ -13,16 +14,18 @@
 
 namespace shob::pages
 {
-    class format_ec
+    class format_ec : public FormatOnePageEachSeason
     {
     public:
         format_ec(std::string folder, readers::csvAllSeasonsReader& extras, teams::clubTeams& teams, const html::settings& settings,
             TopMenu menu, football::leagueNames leagueNames) :
             sportDataFolder(std::move(folder)), extras(std::move(extras)), teams(std::move(teams)), settings(settings),
             menu(std::move(menu)), leagueNames(std::move(leagueNames)) {}
-        void get_season_stdout(const general::Season& season) const;
-        void get_season_to_file(const general::Season& season, const std::string& filename) const;
-        general::MultipleStrings get_season(const general::Season& season) const;
+        general::MultipleStrings getSeason(const general::Season& season) const override;
+        bool isValidSeason(const general::Season& season) const override;
+        std::string getOutputFilename(const std::string& folder, const general::Season& season) override;
+        std::string getOutputFilename(const std::string& folder) const override;
+        general::Season getLastSeason() const override;
     private:
         const std::string sportDataFolder;
         const readers::csvAllSeasonsReader extras;

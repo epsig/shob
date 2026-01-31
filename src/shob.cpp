@@ -80,10 +80,10 @@ int main(int argc, char* argv[])
                 {
                     fmt_nl.get_season_to_file(season, "../pages_new/sport_voetbal_nl_" + season.toPartFilename() + ".html");
                 }
-                if (year >= 1994)
-                {
-                    fmt_ec.get_season_to_file(season, "../pages/sport_voetbal_europacup_" + season.toPartFilename() + ".html");
-                }
+            }
+            if (fmt_ec.isValidSeason(season))
+            {
+                fmt_ec.getPagesToFile(season, fmt_ec.getOutputFilename("../pages", season));
             }
             if (fmt_semesters_and_year.isValidYear(year))
             {
