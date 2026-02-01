@@ -4,7 +4,7 @@
 #include <format>
 
 #include "shob.general/dateFactory.h"
-#include "shob.pages/format_ec_factory.h"
+#include "shob.pages/FormatEC_Factory.h"
 #include "shob.pages/format_nl_factory.h"
 #include "shob.pages/format_ekwk_qf_factory.h"
 #include "shob.pages/FormatOsFactory.h"
@@ -64,7 +64,7 @@ int main(int argc, char* argv[])
         auto fmt_nl = format_nl_factory::build("sport");
         auto settings = shob::html::settings();
         settings.dateFormatShort = false;
-        auto fmt_ec = format_ec_factory::build("sport", settings);
+        auto fmt_ec = FormatEC_Factory::build("sport", settings);
         auto fmt_ekwk_qf = format_ekwk_qf_factory::build("sport", settings);
         auto fmt_os = FormatOsFactory::build("sport/schaatsen/", settings);
         auto fmt_semesters_and_year = FormatSemestersAndYearStandingsFactory().build("sport/eredivisie/", settings);

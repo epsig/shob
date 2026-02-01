@@ -1,11 +1,11 @@
 
-#include "format_ec_factory.h"
+#include "FormatEC_Factory.h"
 #include "TopMenu.h"
 #include "../shob.general/glob.h"
 
 namespace shob::pages
 {
-    format_ec format_ec_factory::build(const std::string& dataFolder, const html::settings& settings)
+    FormatEC FormatEC_Factory::build(const std::string& dataFolder, const html::settings& settings)
     {
         auto remarks = readers::csvAllSeasonsReader();
         remarks.init(dataFolder + "/europacup/europacup_remarks.csv");
@@ -23,7 +23,7 @@ namespace shob::pages
 
         auto leagueNames = football::leagueNames(dataFolder + "/europacup/league_names.csv", settings.isCompatible);
 
-        auto format = format_ec(dataFolder, remarks, teams, settings, menu, leagueNames);
+        auto format = FormatEC(dataFolder, remarks, teams, settings, menu, leagueNames);
         return format;
     }
 }
