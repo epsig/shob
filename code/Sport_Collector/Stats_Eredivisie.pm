@@ -36,7 +36,6 @@ $VERSION = '20.0';
 @EXPORT =
 (#========================================================================
  '&get_stats_eredivisie',
- '&officieuze_standen',
  #========================================================================
 );
 
@@ -531,93 +530,6 @@ sub get_stats_eredivisie($$$)
 
 return maintxt2htmlpage($out, 'Statistieken eredivisie', 'title2h1',
  $dd, {type1 => 'std_menu', pjs => [2, '/sort_table.js']});
-}
-
-
-sub officieuze_standen($$)
-{
- my ($type, $yr) = @_;
-
- my $out = '';
- my $sz1 = yr2szn($yr - 1);
- my $sz2 = yr2szn($yr);
- my $datum_fixed = get_datum_fixed();
- my $yearlast = int($datum_fixed / 10000);
- my $dd =max($datum_fixed, $u_nl->{laatste_speeldatum});
- if (not defined $u_nl->{$sz1})
- {
-  $out = "Sorry, season $sz1 is not available.\n";
-  return maintxt2htmlpage($out, 'Error Message', 'title2h1', $dd, {type1 => 'std_menu'});
- }
-
- my $skip2 = not defined $u_nl->{$sz2};
- if ($type ne 'uit_thuis')
- {
-  my $u = $u_nl->{$sz1};
-  $u = combine_puus($u_nl->{$sz1}, $u_nl->{$sz2}) if not $skip2;
-# my $title = ($skip2 ? 'tussenstand' : 'eindstand');
-# my $s_echt  = u2s($u_nl->{$sz1}, 1, 1, "$title $sz1", -1);
-  my $s_total = u2s(filter_datum($yr*1E4, $yr*1E4 + 1300, $u), 1, 1, "kalenderjaar $yr", -1);
-  my $s_wintr = u2s(filter_datum(      0, $yr*1E4 + 1300, $u_nl->{$sz2}), 1, 1, "stand 2e helft $yr", -1) if not $skip2;
-  my $s_lente = u2s(filter_datum($yr*1E4, $yr*1E4 + 1300, $u_nl->{$sz1}), 1, 1, "stand 1e helft $yr", -1);
-# my $txt_echt  = get_stand($s_echt , 4, 0, [1]);
-  my $txt_total = ($skip2 ? '' : get_stand($s_total, 4, 0, [1]));
-  my $txt_wintr = ($skip2 ? '' : get_stand($s_wintr, 4, 0, [1]));
-  my $txt_lente = get_stand($s_lente, 4, 0, [1]);
-  $out = ftable('border',
-   ftr( ftdx('vtop', ftable('border', $txt_lente)) .
-#       ftdx('vtop', ftable('border', $txt_echt )) .
-        ($skip2 ? '' : ftdx('vtop', ftable('border', $txt_wintr))) .
-        ($skip2 ? '' : ftdx('vtop', ftable('border', $txt_total))) )) . "\n&nbsp;<p>&nbsp;\n" . $out;
- }
- else
- {
-  if (scalar @{$u_nl->{$sz2}} < 2*9+1)
-  { # if less than 2 rounds are played, fall back on previous season:
-    $sz2 = $sz1;
-    $yr--;
-  }
-  my $s_total = u2s($u_nl->{$sz2},   1, 1, "uit + thuis $sz2", -1);
-  my $s_home  = u2s($u_nl->{$sz2}, 101, 1, "thuis $sz2", -1);
-  my $s_away  = u2s($u_nl->{$sz2}, 201, 1, "uit $sz2", -1);
-  my $txt_total = get_stand($s_total, 4, 0, [1]);
-  my $txt_home  = get_stand($s_home , 4, 0, [1]);
-  my $txt_away  = get_stand($s_away , 4, 0, [1]);
-  $out = ftable('border',
-   ftr( ftdx('vtop', ftable('border', $txt_home )) .
-        ftdx('vtop', ftable('border', $txt_away )) .
-        ftdx('vtop', ftable('border', $txt_total)) )) . "\n&nbsp;<p>&nbsp;\n" . $out;
- }
-
- my $title = ($type ne 'uit_thuis' ? 'Winterkampioen en jaarstanden eredivisie' : 'Uit- en thuis standen eredivisie');
- #
- my $options = '';
- for (my $i = 1993; $i <= $yearlast; $i++)
- {
-  if ($i == $yr) {next;}
-  my $selected = ($i == $yr -1 ? 'selected ' : '');
-  if ($type eq 'uit_thuis')
-  {
-   my $szn = yr2szn($i);
-   my $szn2 = $szn;
-      $szn2 =~ s/-/_/;
-   $options .= qq(<a href="sport_voetbal_nl_uit_thuis_$szn2.html">$szn</a> | \n);
-  }
-  else
-  {
-   $options .= qq(<a href="sport_voetbal_nl_jaarstanden_$i.html">$i</a> | \n);
-  }
- }
- my $jaren = ($type eq 'uit_thuis' ? 'seizoenen' : 'jaren');
- $out = << "EOF";
-<hr>
-Ga naar andere $jaren:
-$options
-<hr>
-$out
-EOF
-
- return maintxt2htmlpage($out, $title, 'title2h1', $dd, {type1 => 'std_menu'});
 }
 
 return 1;
