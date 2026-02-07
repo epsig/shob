@@ -3,7 +3,7 @@
 
 namespace shob::pages::test
 {
-    class testFormatEc
+    class TestFormatEC
     {
     public:
         static void test_2024_2025();

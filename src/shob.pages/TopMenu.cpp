@@ -36,17 +36,40 @@ namespace shob::pages
         for (const auto& row : archive)
         {
             auto pos = row.find(id);
-            auto yr = row.substr(pos - 1, 7);
-            yr[2] = ' ';
+            auto short_name = row.substr(pos - 1, 7);
+            short_name[2] = ' ';
             if (row.find(year) != std::string::npos)
             {
                 curPos = static_cast<int>(menu.data.size());
-                menu.addContent(yr + " |");
+                menu.addContent(short_name + " |");
             }
             else
             {
                 auto url = row + ".html";
-                url = "<a href=\"" + url + "\">" + yr + "</a>";
+                url = "<a href=\"" + url + "\">" + short_name + "</a>";
+                menu.addContent(url + " |");
+            }
+        }
+        shortenMenu(menu, curPos);
+        return menu;
+    }
+
+    MultipleStrings TopMenu::getMenu(const std::string& year, const size_t pos) const
+    {
+        auto menu = MultipleStrings();
+        int curPos = 0;
+        for (const auto& row : archive)
+        {
+            auto short_name = row.substr(pos, 4);
+            if (row.find(year) != std::string::npos)
+            {
+                curPos = static_cast<int>(menu.data.size());
+                menu.addContent(short_name + " |");
+            }
+            else
+            {
+                auto url = row + ".html";
+                url = "<a href=\"" + url + "\">" + short_name + "</a>";
                 menu.addContent(url + " |");
             }
         }

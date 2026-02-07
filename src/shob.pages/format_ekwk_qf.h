@@ -1,6 +1,6 @@
 #pragma once
 
-#include "../shob.general/MultipleStrings.h"
+#include "FormatOnePageEachYear.h"
 #include "../shob.teams/clubTeams.h"
 #include "../shob.readers/csvAllSeasonsReader.h"
 #include "../shob.html/settings.h"
@@ -12,7 +12,7 @@
 
 namespace shob::pages
 {
-    class format_ekwk_qf
+    class format_ekwk_qf : public FormatOnePageEachYear
     {
     public:
         format_ekwk_qf(std::string folder, teams::clubTeams teams, readers::csvAllSeasonsReader reader, html::settings settings,
@@ -20,9 +20,11 @@ namespace shob::pages
             dataSportFolder(std::move(folder)), teams(std::move(teams)), seasonsReader(std::move(reader)),
             settings(settings), menu(std::move(menu)), organizingCountries(std::move(organizingCountries)),
             allFriendlies(std::move(allFriendlies)) {}
-        general::MultipleStrings get_pages(const int year) const;
-        void get_pages_to_file(const int year, const std::string& filename) const;
-        void get_pages_stdout(const int year) const;
+        general::MultipleStrings getPages(const int year) const override;
+        bool isValidYear(const int year) const override;
+        std::string getOutputFilename(const std::string& folder, const int year) const override;
+        std::string getOutputFilename(const std::string& folder) const override;
+        int getLastYear() const override;
     private:
         std::string dataSportFolder;
         teams::clubTeams teams;

@@ -4,10 +4,12 @@
 #include <format>
 
 #include "shob.general/dateFactory.h"
-#include "shob.pages/format_ec_factory.h"
+#include "shob.pages/FormatEC_Factory.h"
 #include "shob.pages/format_nl_factory.h"
 #include "shob.pages/format_ekwk_qf_factory.h"
 #include "shob.pages/FormatOsFactory.h"
+#include "shob.pages/FormatSemestersAndYearStandingsFactory.h"
+#include "shob.pages/FormatHomeAndAwayStandingsFactory.h"
 #include "shob.general/Season.h"
 #include "shob.general/shobException.h"
 #include "shob.html/updateIfNewer.h"
@@ -62,44 +64,51 @@ int main(int argc, char* argv[])
         auto fmt_nl = format_nl_factory::build("sport");
         auto settings = shob::html::settings();
         settings.dateFormatShort = false;
-        auto fmt_ec = format_ec_factory::build("sport", settings);
+        auto fmt_ec = FormatEC_Factory::build("sport", settings);
         auto fmt_ekwk_qf = format_ekwk_qf_factory::build("sport", settings);
         auto fmt_os = FormatOsFactory::build("sport/schaatsen/", settings);
-        constexpr auto fmt_outfile = "../pages/sport_voetbal_{}_{}_voorronde.html";
+        auto fmt_semesters_and_year = FormatSemestersAndYearStandingsFactory().build("sport/eredivisie/", settings);
+        auto fmt_home_away = FormatHomeAndAwayStandingsFactory::build("sport/eredivisie/", settings);
 
         for (int year = firstYear; year <= lastYear; year++)
         {
             part = std::format("running year: {}", year);
-            const auto season = shob::general::Season(year);
+            const auto season = Season(year);
             if (year < 2026)
             {
                 if (std::filesystem::is_directory("../pages_new/"))
                 {
                     fmt_nl.get_season_to_file(season, "../pages_new/sport_voetbal_nl_" + season.toPartFilename() + ".html");
                 }
-                if (year >= 1994)
-                {
-                    fmt_ec.get_season_to_file(season, "../pages/sport_voetbal_europacup_" + season.toPartFilename() + ".html");
-                }
             }
-            if (year >= 1996)
+            if (fmt_ec.isValidSeason(season))
             {
-                // ReSharper disable once CppDefaultCaseNotHandledInSwitchStatement
-                switch (year % 4)
-                {
-                case 0:
-                    fmt_ekwk_qf.get_pages_to_file(year, std::format(fmt_outfile, "EK", year));
-                    break;
-                case 2:
-                    fmt_ekwk_qf.get_pages_to_file(year, std::format(fmt_outfile, "WK", year));
-                    break;
-                }
+                fmt_ec.getPagesToFile(season, fmt_ec.getOutputFilename("../pages", season));
             }
-            if (year % 4 == 2 && year < 2026)
+            if (fmt_semesters_and_year.isValidYear(year))
             {
-                fmt_os.getPagesToFile(year, std::format("{}/sport_schaatsen_OS_{}.html", "../pages", year));
+                fmt_semesters_and_year.getPagesToFile(year, fmt_semesters_and_year.getOutputFilename("../pages", year));
+            }
+            if (fmt_home_away.isValidSeason(season))
+            {
+                fmt_home_away.getPagesToFile(season, fmt_home_away.getOutputFilename("../pages", season));
+            }
+            if (fmt_ekwk_qf.isValidYear(year))
+            {
+                fmt_ekwk_qf.getPagesToFile(year, fmt_ekwk_qf.getOutputFilename("../pages", year));
+            }
+            if (fmt_os.isValidYear(year))
+            {
+                fmt_os.getPagesToFile(year, fmt_os.getOutputFilename("../pages", year));
             }
         }
+
+        part = "last year/season unofficial standings";
+        auto last_season = fmt_home_away.getLastSeason();
+        fmt_home_away.getPagesToFile(last_season, fmt_home_away.getOutputFilename("../pages"));
+        auto last_year = fmt_semesters_and_year.getLastYear();
+        fmt_semesters_and_year.getPagesToFile(last_year, fmt_semesters_and_year.getOutputFilename("../pages"));
+
         part = "copy style sheets";
         if (std::filesystem::is_directory("../pages_new/"))
         {

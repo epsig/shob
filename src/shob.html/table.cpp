@@ -122,6 +122,29 @@ namespace shob::html
         return retVal;
     }
 
+    MultipleStrings table::tableOfThreeTables(MultipleStrings& left, MultipleStrings& middle, MultipleStrings& right) const
+    {
+        auto retVal = MultipleStrings();
+        if (withBorder)
+        {
+            retVal.addContent("<table border cellspacing=\"0\">");
+        }
+        else
+        {
+            retVal.addContent("<table>");
+        }
+        retVal.addContent("<tr><td valign=""top"">");
+        retVal.addContent(left);
+        retVal.addContent("</td> <td valign=""top""> ");
+        retVal.addContent(middle);
+        retVal.addContent("</td> <td valign=""top""> ");
+        retVal.addContent(right);
+        retVal.addContent("</td> </tr>");
+        retVal.addContent("</table>");
+
+        return retVal;
+    }
+
     std::string table::buildRow(const MultipleStrings& content, const std::vector<int>& colWidths)
     {
         std::vector<std::string> tag1;
@@ -193,7 +216,7 @@ namespace shob::html
                 if (i < static_cast<int>(content.data.size()) - 1) row += "\n";
                 extraLine = false;
             }
-            else if (regex_search(col.c_str(), expression))
+            else if (regex_search(col.c_str(), expression) && tag1.find("class") == std::string::npos)
             {
                 row += "<td class=c>" + col + tag2;
             }

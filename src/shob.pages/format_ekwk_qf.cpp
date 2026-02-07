@@ -1,7 +1,6 @@
 #include "format_ekwk_qf.h"
 #include "HeadBottom.h"
 #include "../shob.football/filterResults.h"
-#include "../shob.html/updateIfNewer.h"
 #include "../shob.football/results2standings.h"
 #include "../shob.football/route2finalFactory.h"
 #include "../shob.general/glob.h"
@@ -10,7 +9,6 @@
 #include <format>
 #include <array>
 #include <set>
-#include <iostream>
 
 namespace shob::pages
 {
@@ -18,21 +16,35 @@ namespace shob::pages
     using namespace shob::general;
     namespace fs = std::filesystem;
 
-    void format_ekwk_qf::get_pages_to_file(const int year, const std::string& filename) const
+    bool format_ekwk_qf::isValidYear(const int year) const
     {
-        auto output = get_pages(year);
-        html::updateIfDifferent::update(filename, output);
+        return year >= 1996 && year % 2 == 0;
     }
 
-    void format_ekwk_qf::get_pages_stdout(const int year) const
+    std::string format_ekwk_qf::getOutputFilename(const std::string& folder, const int year) const
     {
-        const auto output = get_pages(year);
-        for (const auto& row : output.data)
+        constexpr auto fmt_outfile = "../pages/sport_voetbal_{}_{}_voorronde.html";
+
+        switch (year % 4)
         {
-            std::cout << row << '\n';
+        case 0:
+            return std::format(fmt_outfile, "EK", year);
+        case 2:
+            return std::format(fmt_outfile, "WK", year);
+        default:
+            return "";
         }
-        std::cout.flush();
     }
+
+    std::string format_ekwk_qf::getOutputFilename(const std::string& folder) const
+    {
+        return "";
+    }
+
+    int format_ekwk_qf::getLastYear() const
+    {
+        return 2026; // TODO for the time being
+    };
 
     int format_ekwk_qf::findStar(const std::vector<std::vector<std::string>>& remarks)
     {
@@ -47,7 +59,7 @@ namespace shob::pages
         return 0;
     }
 
-    MultipleStrings format_ekwk_qf::get_pages(const int year) const
+    MultipleStrings format_ekwk_qf::getPages(const int year) const
     {
         struct pageBlock
         {

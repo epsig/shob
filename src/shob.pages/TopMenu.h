@@ -15,6 +15,7 @@ namespace shob::pages
             archive(std::move(archive)), max_urls(maxUrls), id(id) {}
         general::MultipleStrings getMenu(const general::Season& season) const;
         general::MultipleStrings getMenu(const std::string& year) const;
+        general::MultipleStrings getMenu(const std::string& year, const size_t pos) const;
     private:
         std::vector<std::string> archive;
         const int max_urls;

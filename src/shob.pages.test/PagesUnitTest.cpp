@@ -2,9 +2,10 @@
 #include <gtest/gtest.h>
 
 #include "test_format_nl.h"
-#include "test_format_ec.h"
+#include "TestFormatEC.h"
 #include "test_format_ekwk_qf.h"
 #include "TestFormatOs.h"
+#include "TestFormatUnOfficial.h"
 #include "TestTopMenu.h"
 
 using namespace shob::pages::test;
@@ -23,22 +24,22 @@ TEST(IntegrationTest, testFormatNL)
 
 TEST(IntegrationTest, testFormatEc_2024_2025)
 {
-    testFormatEc::test_2024_2025();
+    TestFormatEC::test_2024_2025();
 }
 
 TEST(IntegrationTest, testFormatEc_2023_2024)
 {
-    testFormatEc::test_2023_2024();
+    TestFormatEC::test_2023_2024();
 }
 
 TEST(IntegrationTest, testFormatEc_1994_1995)
 {
-    testFormatEc::test_1994_1995();
+    TestFormatEC::test_1994_1995();
 }
 
 TEST(IntegrationTest, test_2019_2020_UK)
 {
-    testFormatEc::test_2019_2020_UK();
+    TestFormatEC::test_2019_2020_UK();
 }
 
 TEST(UnitTest, testTopMenuLeft)
@@ -89,4 +90,24 @@ TEST(UnitTest, testOsPrintTwoRuns)
 TEST(UnitTest, testOsPrintHappyFlow)
 {
     TestFormatOs::testPrintResultHappyFlow();
+}
+
+TEST(IntegrationTest, testHomeAndAway)
+{
+    TestFormatUnOfficial::testHomeAndAway2010();
+}
+
+TEST(IntegrationTest, testYearStandings)
+{
+    TestFormatUnOfficial::testYearStanding2010();
+}
+
+TEST(IntegrationTest, testYearStandingsExtra1)
+{
+    TestFormatUnOfficial::testYearStandingTestData1();
+}
+
+TEST(IntegrationTest, testYearStandingsExtra2)
+{
+    TestFormatUnOfficial::testYearStandingTestData2();
 }
