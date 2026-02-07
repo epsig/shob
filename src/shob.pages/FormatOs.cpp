@@ -14,7 +14,7 @@ namespace shob::pages
 
     bool FormatOs::isValidYear(const int year) const
     {
-        return year % 4 == 2 && year < 2026;
+        return year % 4 == 2 && year <= 2026;
     }
 
     std::string FormatOs::getOutputFilename(const std::string& output_folder, const int year) const
@@ -29,7 +29,7 @@ namespace shob::pages
 
     int FormatOs::getLastYear() const
     {
-        return 2022; // TODO make function of available csv input files
+        return 2026; // TODO make function of available csv input files
     }
 
     general::MultipleStrings FormatOs::getPages(const int year) const
