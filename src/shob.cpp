@@ -87,11 +87,11 @@ int main(int argc, char* argv[])
             }
             if (fmt_semesters_and_year.isValidYear(year))
             {
-                fmt_semesters_and_year.getPagesToFile(year, fmt_semesters_and_year.getOutputFilename("../pages_new", year));
+                fmt_semesters_and_year.getPagesToFile(year, fmt_semesters_and_year.getOutputFilename("../pages", year));
             }
             if (fmt_home_away.isValidSeason(season))
             {
-                fmt_home_away.getPagesToFile(season, fmt_home_away.getOutputFilename("../pages_new", season));
+                fmt_home_away.getPagesToFile(season, fmt_home_away.getOutputFilename("../pages", season));
             }
             if (fmt_ekwk_qf.isValidYear(year))
             {
@@ -105,9 +105,9 @@ int main(int argc, char* argv[])
 
         part = "last year/season unofficial standings";
         auto last_season = fmt_home_away.getLastSeason();
-        fmt_home_away.getPagesToFile(last_season, fmt_home_away.getOutputFilename("../pages_new"));
+        fmt_home_away.getPagesToFile(last_season, fmt_home_away.getOutputFilename("../pages"));
         auto last_year = fmt_semesters_and_year.getLastYear();
-        fmt_semesters_and_year.getPagesToFile(last_year, fmt_semesters_and_year.getOutputFilename("../pages_new"));
+        fmt_semesters_and_year.getPagesToFile(last_year, fmt_semesters_and_year.getOutputFilename("../pages"));
 
         part = "copy style sheets";
         if (std::filesystem::is_directory("../pages_new/"))
