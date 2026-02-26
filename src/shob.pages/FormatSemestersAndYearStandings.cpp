@@ -64,7 +64,7 @@ namespace shob::pages
         const auto filtered1 = matches1.filterDate(date1, date2);
         const auto filtered2 = matches2.filterDate(date1, date2);
         const auto filtered3 = matches3.filterDate(date1, date2);
-        const auto dd = filtered3.lastDate().toInt();
+        const auto dd = matches2_csv.body.empty() ? filtered1.lastDate().toInt() : filtered3.lastDate().toInt();
 
         const auto stand1 = football::results2standings::u2s(filtered1, scoring1);
         const auto stand2 = football::results2standings::u2s(filtered2, scoring2);

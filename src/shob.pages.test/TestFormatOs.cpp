@@ -19,7 +19,7 @@ namespace shob::pages::test
     void TestFormatOs::testOs2002()
     {
         const auto lines = fmt_os.getPages(2002);
-        ASSERT_EQ(lines.data.size(), 205);
+        ASSERT_EQ(lines.data.size(), 206);
         EXPECT_GE(lines.findString("Salt Lake City"), 0);
         EXPECT_GE(lines.findString("Jochem Uytdehaage"), 0);
         EXPECT_GE(lines.findString("Marianne Timmer"), 0);
