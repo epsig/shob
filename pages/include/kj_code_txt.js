@@ -1,5 +1,5 @@
 /* Dit programma is geschreven door:
- * Edwin Spee, E-mail: info@epsig.nl, (c) 2001 - 2020.
+ * Edwin Spee, (c) 2001 - 2026.
  * Dit spel mag onbeperkt vaak gespeeld worden.
  * Alle overige rechten uitdrukkelijk voorbehouden.
  * Dit programma staat alleen legaal op:
@@ -125,7 +125,7 @@ this.HelpFunctie=function(bF)
 {
 var mB=m_adm.mB,
 a="Dit klavarjasspel is geschreven door Edwin Spee.",
-b='Opmerkingen ontvang ik graag per E-mail: info@epsig.nl';
+b='Opmerkingen ontvang ik graag op https://github.com/epsig/shob/discussions';
 c='Versie: ' + versie + ' d.d. ' + dd;
 m_adm.mB=-1;
 if(mB==-2)

@@ -66,7 +66,7 @@ this.HelpFunctie = function (optie)
 {
  var status = m_adm.status,
  a="Dit klavarjasspel is geschreven door Edwin Spee.",
- b='Opmerkingen ontvang ik graag per E-mail: info@epsig.nl';
+ b='Opmerkingen ontvang ik graag op: https://github.com/epsig/shob/discussions ';
  c='Versie: ' + versie + ' d.d. ' + dd;
  m_adm.status = -1;
  if (status == -2)

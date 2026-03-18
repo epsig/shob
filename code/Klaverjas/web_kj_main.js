@@ -1,5 +1,5 @@
 /* Dit programma is geschreven door:
- * Edwin Spee, E-mail: info@epsig.nl, (c) 2001 - 2020.
+ * Edwin Spee, (c) 2001 - 2026.
  * Dit spel mag onbeperkt vaak gespeeld worden.
  * Alle overige rechten uitdrukkelijk voorbehouden.
  * Dit programma staat alleen legaal op:
