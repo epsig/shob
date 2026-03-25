@@ -7,8 +7,8 @@
  * De Javascript-broncode is versleuteld om oneigenlijk gebruik te voorkomen.
  * De oorspronkelijke broncode staat op: github.com/epsig/shob .
  */
-var versie="6.2";
-var dd="04 sep 2020";
+var versie="6.3";
+var dd="25 mar 2026";
 var env,
 matchadm,
 vM=["Klaver","Ruiten","Schoppen","Harten"],
