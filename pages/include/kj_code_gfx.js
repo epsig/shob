@@ -125,7 +125,7 @@ this.HelpFunctie=function(bF)
 {
 var mB=m_adm.mB,
 a="Dit klavarjasspel is geschreven door Edwin Spee.",
-b='Opmerkingen ontvang ik graag op https://github.com/epsig/shob/discussions ';
+b='Opmerkingen ontvang ik graag op: https://github.com/epsig/shob/discussions ';
 c='Versie: ' + versie + ' d.d. ' + dd;
 m_adm.mB=-1;
 if(mB==-2)
