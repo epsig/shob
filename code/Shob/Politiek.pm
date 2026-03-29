@@ -105,7 +105,7 @@ Niet per se. Van belang is dat de rente die per jaar betaald moet worden
 slechts een klein percentage van de totale overheidsuitgaven zijn.
 Dat is overigens nu <u>niet</u> het geval. Daarvoor moet op de lange
 termijn de schuld afnemen tot circa 20&nbsp;% van het BNP.
-<p><a href="mailto:info@epsig.nl">Edwin Spee</a>.<p>&nbsp;
+<p>&nbsp;
 EOF
 return maintxt2htmlpage($out2, 'Ontwikkeling staatsschuld', 'title2h1',
  20070226, {type1 => 'std_menu', root => $www_epsig_nl});

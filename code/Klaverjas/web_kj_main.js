@@ -1,5 +1,5 @@
 /* Dit programma is geschreven door:
- * Edwin Spee, E-mail: info@epsig.nl, (c) 2001 - 2020.
+ * Edwin Spee, (c) 2001 - 2026.
  * Dit spel mag onbeperkt vaak gespeeld worden.
  * Alle overige rechten uitdrukkelijk voorbehouden.
  * Dit programma staat alleen legaal op:
@@ -7,8 +7,8 @@
  * De Javascript-broncode is versleuteld om oneigenlijk gebruik te voorkomen.
  * De oorspronkelijke broncode staat op: github.com/epsig/shob .
  */
-var versie = "6.2";
-var dd = "04 sep 2020";
+var versie = "6.3";
+var dd = "25 mar 2026";
 // -----------------------------------------------------------
 // versie overzicht
 // versie 6.2, 04 sep 2020: open source gegaan
