@@ -297,11 +297,15 @@ namespace shob::pages
 
     bool FormatEC::hasFinal(const std::string& part, const csvContent& csvData)
     {
+        const auto lookFor = { "4f", "2f", "f" };
         for (const auto& line : csvData.body)
         {
-            if (line.column[0] == part && line.column[1].find("f") != std::string::npos)
+            if (line.column[0] == part)
             {
-                return true;
+                for (const auto round : lookFor)
+                {
+                    if (round == line.column[1]) return true;
+                }
             }
         }
         return false;
@@ -403,22 +407,25 @@ namespace shob::pages
                 out.addContent("<a name=\"" + leagueNames.getLinkName(part) + "\"/>");
                 auto content = getFirstHalfYear(part, csvData, wns_cl, extraU2s, sortRule, dd);
                 out.addContent(content);
-                const auto r2f = route2finaleFactory::createEC(csvData, part);
-                auto prepTable = r2f.prepareTable(teams, settings);
-                prepTable[0].header.addContent(leagueNames.getFullName(part) + ": de laatste acht");
-                auto Table = table(settings);
-                Table.withBorder = false;
-                content = Table.buildTable(prepTable);
-                if (settings.isCompatible)
+                if (hasFinal(part, csvData))
                 {
-                    out.addContent("<p><a name=\"" + leagueNames.getLinkName(part) + "_last8\"></a><p>");
+                    const auto r2f = route2finaleFactory::createEC(csvData, part);
+                    auto prepTable = r2f.prepareTable(teams, settings);
+                    prepTable[0].header.addContent(leagueNames.getFullName(part) + ": de laatste acht");
+                    auto Table = table(settings);
+                    Table.withBorder = false;
+                    content = Table.buildTable(prepTable);
+                    if (settings.isCompatible)
+                    {
+                        out.addContent("<p><a name=\"" + leagueNames.getLinkName(part) + "_last8\"></a><p>");
+                    }
+                    else
+                    {
+                        out.addContent("<p><a name=\"" + leagueNames.getLinkName(part) + "_last8\"/>");
+                    }
+                    out.addContent(content);
+                    dd = std::max(dd, r2f.lastDate().toInt());
                 }
-                else
-                {
-                    out.addContent("<p><a name=\"" + leagueNames.getLinkName(part) + "_last8\"/>");
-                }
-                out.addContent(content);
-                dd = std::max(dd, r2f.lastDate().toInt());
             }
             out.addContent("<p/>");
         }
