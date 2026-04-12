@@ -75,11 +75,15 @@ int main(int argc, char* argv[])
         {
             // TODO : move to factory
             auto teams = shob::teams::clubTeams();
-            auto file2 = "sport/clubs.csv";
-            teams.InitFromFile(file2, shob::teams::clubsOrCountries::clubs);
+            auto file = "sport/clubs.csv";
+            teams.InitFromFile(file, shob::teams::clubsOrCountries::clubs);
 
             auto fmt_stats_eredivisie = FormatStatsEredivisie("sport/eredivisie/", teams, settings);
-            fmt_stats_eredivisie.getPagesToFile(false, FormatStatsEredivisie::getOutputFilename("../pages_new/", false));
+            for (const auto & extra : {true, false})
+            {
+                fmt_stats_eredivisie.getPagesToFile(extra,
+                    FormatStatsEredivisie::getOutputFilename("../pages_new/", extra));
+            }
         }
 
         for (int year = firstYear; year <= lastYear; year++)

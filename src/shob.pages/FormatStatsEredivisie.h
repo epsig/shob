@@ -42,14 +42,14 @@ namespace shob::pages
     public:
         FormatStatsEredivisie(std::string folder, teams::clubTeams& teams, const html::settings& settings) :
             sportDataFolder(std::move(folder)), teams(std::move(teams)), settings(settings) {}
-        void getPagesToFile(bool extraStats, const std::string& filename) const;
+        void getPagesToFile(const bool extraStats, const std::string& filename) const;
         general::MultipleStrings getStats(const bool extraStats) const;
         static std::string getOutputFilename(const std::string& folder, const bool extraStats);
     private:
         const std::string sportDataFolder;
         const teams::clubTeams teams;
         const html::settings settings;
-        static void updateOneResult(teamWithResult& result, int x, const std::string& team);
+        static void updateOneResult(teamWithResult& result, const int x, const std::string& team);
         goalsSummary getGoalsSummary(const football::standings& table) const;
         general::MultipleStrings table1_to_html(const std::vector<std::pair<int, goalsSummary>>& data) const;
     };

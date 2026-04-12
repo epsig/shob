@@ -1,12 +1,14 @@
 
 #include "FormatStatsEredivisie.h"
+
+#include "HeadBottom.h"
 #include "../shob.html/updateIfNewer.h"
 
 namespace shob::pages
 {
     using namespace shob::general;
 
-    void FormatStatsEredivisie::getPagesToFile(bool extraStats, const std::string& filename) const
+    void FormatStatsEredivisie::getPagesToFile(const bool extraStats, const std::string& filename) const
     {
         auto output = getStats(extraStats);
         html::updateIfDifferent::update(filename, output);
@@ -15,19 +17,28 @@ namespace shob::pages
     MultipleStrings FormatStatsEredivisie::getStats(const bool extraStats) const
     {
         auto table1 = std::vector<std::pair<int, goalsSummary>>();
+        int dd = 0;
 
-        for (int year = 2025; year >= 1993; year--)
+        int startYear = extraStats ? 2025 : 2024;
+        for (int year = startYear; year >= 1993; year--)
         {
             auto season = Season(year);
             auto file1 = sportDataFolder + "/eredivisie_" + season.toPartFilename() + ".csv";
             auto competition = football::footballCompetition();
             competition.readFromCsv(file1);
+            dd = std::max(dd, competition.lastDate().toInt());
             auto table = football::results2standings::u2s(competition);
             auto summary = getGoalsSummary(table);
             table1.emplace_back(year, summary);
         }
 
-        return table1_to_html(table1);
+        auto return_value = table1_to_html(table1);
+
+        auto hb = HeadBottomInput(dd);
+        hb.title = "Statistieken eredivisie";
+        std::swap(hb.body, return_value);
+
+        return HeadBottom::getPage(hb);
     }
 
     std::string FormatStatsEredivisie::getOutputFilename(const std::string& folder, const bool extraStats)
@@ -42,7 +53,7 @@ namespace shob::pages
         }
     }
 
-    void FormatStatsEredivisie::updateOneResult(teamWithResult& result, int x, const std::string& team )
+    void FormatStatsEredivisie::updateOneResult(teamWithResult& result, const int x, const std::string& team )
     {
         if (result.team_most.empty() || result.result_most < x)
         {
