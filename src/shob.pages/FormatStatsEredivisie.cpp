@@ -1,6 +1,8 @@
 
 #include "FormatStatsEredivisie.h"
 
+#include <format>
+
 #include "HeadBottom.h"
 #include "../shob.html/updateIfNewer.h"
 
@@ -36,6 +38,7 @@ namespace shob::pages
 
         auto hb = HeadBottomInput(dd);
         hb.title = "Statistieken eredivisie";
+        hb.js = JavaScriptType::SortTable;
         std::swap(hb.body, return_value);
 
         return HeadBottom::getPage(hb);
@@ -89,16 +92,29 @@ namespace shob::pages
         return summary;
     }
 
+    std::string getButton(std::string id, int col, int updown)
+    {
+        std::string arrow = updown == 1 ? "&darr;" : "&uarr;";
+        return std::format("<button onclick=\"sortTable('{}', {}, 1, {})\"> <b> {} </b> </button>", id, col, updown, arrow);
+    }
+
     MultipleStrings FormatStatsEredivisie::table1_to_html(const std::vector<std::pair<int, goalsSummary>>& data) const
     {
         html::tableContent content1;
+
         if (settings.lang == html::language::English)
         {
             content1.header.data = { "season", "most goals", "least goals", "most goals against", "least goals against", "highest goal difference", "lowest goal difference" };
         }
         else
         {
-            content1.header.data = { "seizoen", "meeste goals", "minste goals", "meeste tegengoals", "minste tegengoals", "hoogste doelsaldo", "laagste doelsaldo" };
+            content1.header.data = { "seizoen",
+                "meeste goals" + getButton("id2", 2, 1) + getButton("id2", 2, 2),
+                "minste goals" + getButton("id2", 4, 1) + getButton("id2", 4, 2),
+                "meeste tegengoals" + getButton("id2", 6, 1) + getButton("id2", 6, 2),
+                "minste tegengoals" + getButton("id2", 8, 1) + getButton("id2", 8, 2),
+                "hoogste doelsaldo" + getButton("id2", 10, 1) + getButton("id2", 10, 2),
+                "laagste doelsaldo" + getButton("id2", 12, 1) + getButton("id2", 12, 2) };
         }
         content1.colWidths = { 1, 2, 2, 2, 2, 2, 2 };
 
@@ -110,16 +126,17 @@ namespace shob::pages
             auto szn = Season(year);
             MultipleStrings body;
             body.data = { szn.toString(),
-                summary.goals.team_most_to_string(), std::to_string(summary.goals.result_most),
-                summary.goals.team_least_to_string(), std::to_string(summary.goals.result_least),
-                summary.goals_against.team_most_to_string(), std::to_string(summary.goals_against.result_most),
-                summary.goals_against.team_least_to_string(), std::to_string(summary.goals_against.result_least),
-                summary.difference.team_most_to_string(), "+" + std::to_string(summary.difference.result_most),
-                summary.difference.team_least_to_string(), std::to_string(summary.difference.result_least)
+                summary.goals.team_most_to_string(), std::format("{:3}", summary.goals.result_most),
+                summary.goals.team_least_to_string(), std::format("{:3}",summary.goals.result_least),
+                summary.goals_against.team_most_to_string(), std::format("{:3}",summary.goals_against.result_most),
+                summary.goals_against.team_least_to_string(), std::format("{:3}",summary.goals_against.result_least),
+                summary.difference.team_most_to_string(), "+" + std::format("{:3}",summary.difference.result_most),
+                summary.difference.team_least_to_string(), std::format("{:3}",summary.difference.result_least)
             };
             content.body.push_back(body);
         }
-        const auto Table = html::table(settings);
+        auto Table = html::table(settings);
+        Table.id = "id2";
         auto table = Table.buildTable({ content1, content });
         auto return_value = MultipleStrings();
         return_value.addContent(table);
