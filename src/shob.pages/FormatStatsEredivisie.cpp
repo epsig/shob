@@ -34,11 +34,11 @@ namespace shob::pages
     {
         if (extraStats)
         {
-            return folder + "sport_voetbal_nl_stats.html";
+            return folder + "sport_voetbal_nl_stats_more.html";
         }
         else
         {
-            return folder + "sport_voetbal_nl_stats_more.html";
+            return folder + "sport_voetbal_nl_stats.html";
         }
     }
 
@@ -65,48 +65,51 @@ namespace shob::pages
         }
     }
 
-    goalsSummary FormatStatsEredivisie::getGoalsSummary(const football::standings& table)
+    goalsSummary FormatStatsEredivisie::getGoalsSummary(const football::standings& table) const
     {
         auto summary = goalsSummary();
         for (const auto& result : table.list)
         {
-            updateOneResult(summary.goals, result.goals, result.team);
-            updateOneResult(summary.goals_against, result.goalsAgainst, result.team);
-            updateOneResult(summary.difference, result.goalDifference(), result.team);
+            auto team = teams.expand(result.team);
+            updateOneResult(summary.goals, result.goals, team);
+            updateOneResult(summary.goals_against, result.goalsAgainst, team);
+            updateOneResult(summary.difference, result.goalDifference(), team);
         }
         return summary;
     }
 
     MultipleStrings FormatStatsEredivisie::table1_to_html(const std::vector<std::pair<int, goalsSummary>>& data) const
     {
-        html::tableContent content;
+        html::tableContent content1;
         if (settings.lang == html::language::English)
         {
-            content.header.data = { "season", "most goals", "least goals", "most goals against", "least goals against", "highest goal difference", "lowest goal difference" };
-            content.title = "Min / max Totals of the goals ";
+            content1.header.data = { "season", "most goals", "least goals", "most goals against", "least goals against", "highest goal difference", "lowest goal difference" };
         }
         else
         {
-            content.header.data = { "seizoen", "meeste goals", "minste goals", "meeste tegengoals", "minste tegengoals", "hoogste doelsaldo", "laagste doelsaldo" };
-            content.title = "Min / max Totalen van de doelpunten ";
+            content1.header.data = { "seizoen", "meeste goals", "minste goals", "meeste tegengoals", "minste tegengoals", "hoogste doelsaldo", "laagste doelsaldo" };
         }
+        content1.colWidths = { 1, 2, 2, 2, 2, 2, 2 };
+
+        html::tableContent content;
+        content.header.data = {};
 
         for (const auto& [year, summary] : data)
         {
             auto szn = Season(year);
             MultipleStrings body;
-            body.data = { szn.toStringShort(),
-                summary.goals.team_most_to_string() + " " + std::to_string(summary.goals.result_most),
-                summary.goals.team_least_to_string() + " " + std::to_string(summary.goals.result_least),
-                summary.goals_against.team_most_to_string() + " " + std::to_string(summary.goals_against.result_most),
-                summary.goals_against.team_least_to_string() + " " + std::to_string(summary.goals_against.result_least),
-                summary.difference.team_most_to_string() + " " + std::to_string(summary.difference.result_most),
-                summary.difference.team_least_to_string() + " " + std::to_string(summary.difference.result_least)
+            body.data = { szn.toString(),
+                summary.goals.team_most_to_string(), std::to_string(summary.goals.result_most),
+                summary.goals.team_least_to_string(), std::to_string(summary.goals.result_least),
+                summary.goals_against.team_most_to_string(), std::to_string(summary.goals_against.result_most),
+                summary.goals_against.team_least_to_string(), std::to_string(summary.goals_against.result_least),
+                summary.difference.team_most_to_string(), "+" + std::to_string(summary.difference.result_most),
+                summary.difference.team_least_to_string(), std::to_string(summary.difference.result_least)
             };
             content.body.push_back(body);
         }
         const auto Table = html::table(settings);
-        auto table = Table.buildTable(content);
+        auto table = Table.buildTable({ content1, content });
         auto return_value = MultipleStrings();
         return_value.addContent(table);
         return return_value;

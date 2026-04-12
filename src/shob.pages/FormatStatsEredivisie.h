@@ -50,7 +50,7 @@ namespace shob::pages
         const teams::clubTeams teams;
         const html::settings settings;
         static void updateOneResult(teamWithResult& result, int x, const std::string& team);
-        static goalsSummary getGoalsSummary(const football::standings& table);
+        goalsSummary getGoalsSummary(const football::standings& table) const;
         general::MultipleStrings table1_to_html(const std::vector<std::pair<int, goalsSummary>>& data) const;
     };
 }
