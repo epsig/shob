@@ -2,7 +2,6 @@
 #include "FormatStatsEredivisie.h"
 
 #include <format>
-
 #include "HeadBottom.h"
 #include "../shob.html/updateIfNewer.h"
 
@@ -22,7 +21,8 @@ namespace shob::pages
         int dd = 0;
 
         int startYear = extraStats ? 2025 : 2024;
-        for (int year = startYear; year >= 1993; year--)
+        int lastYear = extraStats ? 1992 : 1993;
+        for (int year = startYear; year >= lastYear; year--)
         {
             auto season = Season(year);
             auto file1 = sportDataFolder + "/eredivisie_" + season.toPartFilename() + ".csv";
@@ -32,6 +32,18 @@ namespace shob::pages
             auto table = football::results2standings::u2s(competition);
             auto summary = getGoalsSummary(table);
             table1.emplace_back(year, summary);
+        }
+        if (extraStats)
+        {
+            for (int year = 1991; year >= 1956; year--)
+            {
+                auto season = Season(year);
+                auto file1 = sportDataFolder + "/eindstand_eredivisie_" + season.toPartFilename() + ".csv";
+                auto stand = football::standings();
+                stand.initFromFile(file1);
+                auto summary = getGoalsSummary(stand);
+                table1.emplace_back(year, summary);
+            }
         }
 
         auto return_value = table1_to_html(table1);
