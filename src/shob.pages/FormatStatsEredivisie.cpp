@@ -2,11 +2,14 @@
 #include "FormatStatsEredivisie.h"
 
 #include <format>
+#include <filesystem>
 #include "HeadBottom.h"
 #include "../shob.html/updateIfNewer.h"
 
 namespace shob::pages
 {
+    namespace fs = std::filesystem;
+
     using namespace shob::general;
 
     void FormatStatsEredivisie::getPagesToFile(const bool extraStats, const std::string& filename) const
@@ -21,29 +24,27 @@ namespace shob::pages
         int dd = 0;
 
         int startYear = extraStats ? 2025 : 2024;
-        int lastYear = extraStats ? 1992 : 1993;
+        int lastYear = extraStats ? 1956 : 1993;
         for (int year = startYear; year >= lastYear; year--)
         {
-            auto season = Season(year);
-            auto file1 = sportDataFolder + "/eredivisie_" + season.toPartFilename() + ".csv";
-            auto competition = football::footballCompetition();
-            competition.readFromCsv(file1);
-            dd = std::max(dd, competition.lastDate().toInt());
-            auto table = football::results2standings::u2s(competition);
+            const auto season = Season(year);
+            football::standings table;
+            const auto file1 = sportDataFolder + "/eredivisie_" + season.toPartFilename() + ".csv";
+            const auto file2 = sportDataFolder + "/eindstand_eredivisie_" + season.toPartFilename() + ".csv";
+            if (fs::exists(file1))
+            {
+                auto competition = football::footballCompetition();
+                competition.readFromCsv(file1);
+                dd = std::max(dd, competition.lastDate().toInt());
+                table = football::results2standings::u2s(competition);
+            }
+            else if (fs::exists(file2))
+            {
+                table = football::standings();
+                table.initFromFile(file2);
+            }
             auto summary = getGoalsSummary(table);
             table1.emplace_back(year, summary);
-        }
-        if (extraStats)
-        {
-            for (int year = 1991; year >= 1956; year--)
-            {
-                auto season = Season(year);
-                auto file1 = sportDataFolder + "/eindstand_eredivisie_" + season.toPartFilename() + ".csv";
-                auto stand = football::standings();
-                stand.initFromFile(file1);
-                auto summary = getGoalsSummary(stand);
-                table1.emplace_back(year, summary);
-            }
         }
 
         auto return_value = table1_to_html(table1);
