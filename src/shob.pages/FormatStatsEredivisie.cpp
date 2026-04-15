@@ -1,10 +1,9 @@
 
 #include "FormatStatsEredivisie.h"
-
-#include <format>
-#include <filesystem>
 #include "HeadBottom.h"
 #include "../shob.html/updateIfNewer.h"
+#include <format>
+#include <filesystem>
 
 namespace shob::pages
 {
@@ -14,17 +13,17 @@ namespace shob::pages
 
     void FormatStatsEredivisie::getPagesToFile(const bool extraStats, const std::string& filename) const
     {
-        auto output = getStats(extraStats);
+        const auto output = getStats(extraStats);
         html::updateIfDifferent::update(filename, output);
     }
 
     MultipleStrings FormatStatsEredivisie::getStats(const bool extraStats) const
     {
-        auto table1 = std::vector<std::pair<int, goalsSummary>>();
+        auto table1 = std::vector<std::pair<Season, goalsSummary>>();
         int dd = 0;
 
-        int startYear = extraStats ? 2025 : 2024;
-        int lastYear = extraStats ? 1956 : 1993;
+        const int startYear = extraStats ? 2025 : 2024;
+        const int lastYear = extraStats ? 1956 : 1993;
         for (int year = startYear; year >= lastYear; year--)
         {
             const auto season = Season(year);
@@ -43,8 +42,12 @@ namespace shob::pages
                 table = football::standings();
                 table.initFromFile(file2);
             }
-            auto summary = getGoalsSummary(table);
-            table1.emplace_back(year, summary);
+            else
+            {
+                continue;
+            }
+            const auto summary = getGoalsSummary(table);
+            table1.emplace_back(season, summary);
         }
 
         auto return_value = table1_to_html(table1);
@@ -105,38 +108,42 @@ namespace shob::pages
         return summary;
     }
 
-    std::string getButton(std::string id, int col, int updown)
+    std::string FormatStatsEredivisie::getButton(const std::string& id, const int col, const int updown)
     {
-        std::string arrow = updown == 1 ? "&darr;" : "&uarr;";
+        const std::string arrow = updown == 1 ? "&darr;" : "&uarr;";
         return std::format("<button onclick=\"sortTable('{}', {}, 1, {})\"> <b> {} </b> </button>", id, col, updown, arrow);
     }
 
-    MultipleStrings FormatStatsEredivisie::table1_to_html(const std::vector<std::pair<int, goalsSummary>>& data) const
+    MultipleStrings FormatStatsEredivisie::table1_to_html(const std::vector<std::pair<Season, goalsSummary>>& data) const
     {
         html::tableContent content1;
 
         if (settings.lang == html::language::English)
         {
-            content1.header.data = { "season", "most goals", "least goals", "most goals against", "least goals against", "highest goal difference", "lowest goal difference" };
+            content1.header.data = { "season", "most goals", "least goals", "most goals against", "least goals against",
+                "highest goal difference", "lowest goal difference" };
         }
         else
         {
-            content1.header.data = { "seizoen",
-                "meeste goals" + getButton("id2", 2, 1) + getButton("id2", 2, 2),
-                "minste goals" + getButton("id2", 4, 1) + getButton("id2", 4, 2),
-                "meeste tegengoals" + getButton("id2", 6, 1) + getButton("id2", 6, 2),
-                "minste tegengoals" + getButton("id2", 8, 1) + getButton("id2", 8, 2),
-                "hoogste doelsaldo" + getButton("id2", 10, 1) + getButton("id2", 10, 2),
-                "laagste doelsaldo" + getButton("id2", 12, 1) + getButton("id2", 12, 2) };
+            content1.header.data = { "seizoen", "meeste goals", "minste goals", "meeste tegengoals", "minste tegengoals",
+                "hoogste doelsaldo", "laagste doelsaldo" };
         }
+
+        for (int updown = 1; updown <= 2; updown++)
+        {
+            for (int i = 1; i < static_cast<int>(content1.header.data.size()); i++)
+            {
+                content1.header.data[i] += getButton("id2", 2 * i, updown);
+            }
+        }
+
         content1.colWidths = { 1, 2, 2, 2, 2, 2, 2 };
 
         html::tableContent content;
         content.header.data = {};
 
-        for (const auto& [year, summary] : data)
+        for (const auto& [szn, summary] : data)
         {
-            auto szn = Season(year);
             MultipleStrings body;
             body.data = { szn.toString(),
                 summary.goals.team_most_to_string(), std::format("{:3}", summary.goals.result_most),

@@ -51,6 +51,7 @@ namespace shob::pages
         const html::settings settings;
         static void updateOneResult(teamWithResult& result, const int x, const std::string& team);
         goalsSummary getGoalsSummary(const football::standings& table) const;
-        general::MultipleStrings table1_to_html(const std::vector<std::pair<int, goalsSummary>>& data) const;
+        static std::string getButton(const std::string& id, const int col, const int updown);
+        general::MultipleStrings table1_to_html(const std::vector<std::pair<general::Season, goalsSummary>>& data) const;
     };
 }
