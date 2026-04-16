@@ -2,6 +2,7 @@
 #include "FormatStatsEredivisie.h"
 #include "HeadBottom.h"
 #include "../shob.html/updateIfNewer.h"
+#include "../shob.football/topscorers.h"
 #include <format>
 #include <filesystem>
 
@@ -21,7 +22,16 @@ namespace shob::pages
     {
         auto table1 = std::vector<std::pair<Season, goalsSummary>>();
         auto table2 = std::vector<std::pair<Season, sumGoalsAndMatches>>();
+        auto table2b = std::vector<std::pair<Season, std::vector<MultipleStrings>>>();
         int dd = 0;
+
+        auto players = teams::footballers();
+        const std::string filename3 = sportDataFolder + "/../voetballers.csv";
+        players.initFromFile(filename3);
+
+        auto file_tp_eredivisie = sportDataFolder + "/topscorers_eredivisie.csv";
+        auto allTp = readers::csvAllSeasonsReader();
+        allTp.init(file_tp_eredivisie);
 
         const int startYear = extraStats ? 2025 : 2024;
         const int lastYear = extraStats ? 1956 : 1993;
@@ -51,6 +61,11 @@ namespace shob::pages
             table1.emplace_back(season, summary);
             const auto summary2 = getSumGoalsAndMatches(table);
             table2.emplace_back(season, summary2);
+
+            auto tp = football::topscorers(allTp);
+            tp.initFromFile(season);
+            const auto tpSummary = tp.getNumbers1(teams, players);
+            table2b.emplace_back(season, tpSummary);
         }
 
         auto return_value = table1_to_html(table1);

@@ -25,6 +25,7 @@ namespace shob::football
         topscorers(const readers::csvAllSeasonsReader& reader) : reader(reader) {}
         void initFromFile(const general::Season& season);
         html::tableContent prepareTable(const teams::clubTeams& teams, const teams::footballers& players, const html::settings& settings) const;
+        std::vector<general::MultipleStrings> getNumbers1(const teams::clubTeams& teams, const teams::footballers& players) const;
     private:
         const readers::csvAllSeasonsReader& reader;
         std::vector<topscorer> list_tp;

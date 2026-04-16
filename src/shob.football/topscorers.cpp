@@ -48,5 +48,24 @@ namespace shob::football
         return table;
     }
 
+    std::vector<MultipleStrings> topscorers::getNumbers1(const teams::clubTeams& teams, const teams::footballers& players) const
+    {
+        auto table = std::vector<MultipleStrings>();
+        for (const auto& row : list_tp)
+        {
+            if (row.rank == 1)
+            {
+                const auto team = teams.expand(row.club);
+                const auto name = players.expand(row.name);
+                MultipleStrings data;
+                data.data = { name + " (" + team + ")", std::to_string(row.goals) };
+                table.push_back(data);
+            }
+        }
+
+        return table;
+    }
+
+
 }
 
