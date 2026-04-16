@@ -20,6 +20,7 @@ namespace shob::pages
     MultipleStrings FormatStatsEredivisie::getStats(const bool extraStats) const
     {
         auto table1 = std::vector<std::pair<Season, goalsSummary>>();
+        auto table2 = std::vector<std::pair<Season, sumGoalsAndMatches>>();
         int dd = 0;
 
         const int startYear = extraStats ? 2025 : 2024;
@@ -48,6 +49,8 @@ namespace shob::pages
             }
             const auto summary = getGoalsSummary(table);
             table1.emplace_back(season, summary);
+            const auto summary2 = getSumGoalsAndMatches(table);
+            table2.emplace_back(season, summary2);
         }
 
         auto return_value = table1_to_html(table1);
@@ -105,6 +108,18 @@ namespace shob::pages
             updateOneResult(summary.goals_against, result.goalsAgainst, team);
             updateOneResult(summary.difference, result.goalDifference(), team);
         }
+        return summary;
+    }
+
+    sumGoalsAndMatches FormatStatsEredivisie::getSumGoalsAndMatches(const football::standings& table)
+    {
+        auto summary = sumGoalsAndMatches();
+        for (const auto& result : table.list)
+        {
+            summary.sumGoals += result.goals;
+            summary.sumMatches += result.totalGames;
+        }
+        summary.sumMatches /= 2; // the sum counts everything double
         return summary;
     }
 

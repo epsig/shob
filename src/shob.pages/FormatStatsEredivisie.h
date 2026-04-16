@@ -12,9 +12,9 @@ namespace shob::pages
     struct teamWithResult
     {
         std::vector<std::string> team_most;
-        int result_most;
+        int result_most = 0;
         std::vector<std::string> team_least;
-        int result_least;
+        int result_least = 0;
         std::string team_most_to_string() const { return to_string(team_most); }
         std::string team_least_to_string() const { return to_string(team_least); }
     private:
@@ -37,6 +37,12 @@ namespace shob::pages
         teamWithResult difference;
     };
 
+    struct sumGoalsAndMatches
+    {
+        int sumGoals = 0;
+        int sumMatches = 0;
+    };
+
     class FormatStatsEredivisie
     {
     public:
@@ -51,6 +57,7 @@ namespace shob::pages
         const html::settings settings;
         static void updateOneResult(teamWithResult& result, const int x, const std::string& team);
         goalsSummary getGoalsSummary(const football::standings& table) const;
+        static sumGoalsAndMatches getSumGoalsAndMatches(const football::standings& table);
         static std::string getButton(const std::string& id, const int col, const int updown);
         general::MultipleStrings table1_to_html(const std::vector<std::pair<general::Season, goalsSummary>>& data) const;
     };
