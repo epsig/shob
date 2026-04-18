@@ -68,13 +68,29 @@ namespace shob::pages
             table2b.emplace_back(season, tpSummary);
         }
 
+        auto topmenu = MultipleStrings();
+        topmenu.addContent("<hr>| <a href=\"#extr_goals\">meeste/minste goals</a>");
+        topmenu.addContent("| <a href=\"#tot_goals\">totaal goals/topscorers</a>");
+        // | <a href="#extr_uitsl">opvallende uitslagen</a>
+        // | <a href="#toesch">toeschouwersaantallen</a>
+        if (extraStats)
+        {
+            topmenu.addContent("| <a href=\"sport_voetbal_nl_stats.html\">samengevat</a>");
+        }
+        else
+        {
+            topmenu.addContent("| <a href=\"sport_voetbal_nl_stats_more.html\">meer stats</a>");
+        }
+        topmenu.addContent("|<hr>");
+
         auto return_value1 = table1_to_html(table1);
         auto return_value2 = table2_to_html(table2, table2b);
 
         auto hb = HeadBottomInput(dd);
         hb.title = "Statistieken eredivisie";
         hb.js = JavaScriptType::SortTable;
-        std::swap(hb.body, return_value1);
+        std::swap(hb.body, topmenu);
+        hb.body.addContent(return_value1);
         hb.body.addContent(return_value2);
 
         return HeadBottom::getPage(hb);
@@ -189,8 +205,20 @@ namespace shob::pages
         }
         auto Table = html::table(settings);
         Table.id = "id2";
+        auto return_value = MultipleStrings();
+        return_value.addContent("<a name=\"extr_goals\">");
+        return_value.addContent("<p>Gebruik pijltje om te sorteren</p>");
         auto table = Table.buildTable({ content1, content });
-        return table;
+        return_value.addContent(table);
+        if (data.back().first.getFirstYear() == 1956)
+        {
+            return_value.addContent("<p>seizoen 2019-2020 is over 232 wedstrijden; seizoenen 1962-1963 t/m 1965-1966 over 240 wedstrijden en de overige seizoenen over 306 wedstrijden.</p>");
+        }
+        else
+        {
+            return_value.addContent("<p>seizoen 2019-2020 is over 232 wedstrijden; overige over 306.</p>");
+        }
+        return return_value;
     }
 
     double divide(int a, int b)
@@ -199,8 +227,7 @@ namespace shob::pages
     }
 
     MultipleStrings FormatStatsEredivisie::table2_to_html(const std::vector<std::pair<Season, sumGoalsAndMatches>>& data,
-        const std::vector<std::pair<Season, std::vector<MultipleStrings>>>& topscorers
-        ) const
+        const std::vector<std::pair<Season, std::vector<MultipleStrings>>>& topscorers) const
     {
         html::tableContent content;
 
@@ -243,9 +270,13 @@ namespace shob::pages
                 content.body.push_back(body);
             }
         }
+
+        auto return_value = MultipleStrings();
+        return_value.addContent("<a name=\"tot_goals\">");
         auto Table = html::table(settings);
         Table.id = "id3";
         auto table = Table.buildTable( content);
-        return table;
+        return_value.addContent(table);
+        return return_value;
     }
 }
