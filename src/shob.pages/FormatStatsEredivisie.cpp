@@ -68,12 +68,14 @@ namespace shob::pages
             table2b.emplace_back(season, tpSummary);
         }
 
-        auto return_value = table1_to_html(table1);
+        auto return_value1 = table1_to_html(table1);
+        auto return_value2 = table2_to_html(table2, table2b);
 
         auto hb = HeadBottomInput(dd);
         hb.title = "Statistieken eredivisie";
         hb.js = JavaScriptType::SortTable;
-        std::swap(hb.body, return_value);
+        std::swap(hb.body, return_value1);
+        hb.body.addContent(return_value2);
 
         return HeadBottom::getPage(hb);
     }
@@ -90,7 +92,7 @@ namespace shob::pages
         }
     }
 
-    void FormatStatsEredivisie::updateOneResult(teamWithResult& result, const int x, const std::string& team )
+    void FormatStatsEredivisie::updateOneResult(teamWithResult& result, const int x, const std::string& team)
     {
         if (result.team_most.empty() || result.result_most < x)
         {
@@ -188,8 +190,62 @@ namespace shob::pages
         auto Table = html::table(settings);
         Table.id = "id2";
         auto table = Table.buildTable({ content1, content });
-        auto return_value = MultipleStrings();
-        return_value.addContent(table);
-        return return_value;
+        return table;
+    }
+
+    double divide(int a, int b)
+    {
+        return static_cast<double>(a) / static_cast<double>(b);
+    }
+
+    MultipleStrings FormatStatsEredivisie::table2_to_html(const std::vector<std::pair<Season, sumGoalsAndMatches>>& data,
+        const std::vector<std::pair<Season, std::vector<MultipleStrings>>>& topscorers
+        ) const
+    {
+        html::tableContent content;
+
+        if (settings.lang == html::language::English)
+        {
+            content.header.data = { "season", "goals", "average", "name topscorer", "number of goals" };
+        }
+        else
+        {
+            content.header.data = { "seizoen", "doelpunten", "gemiddelde", "naam topscorer", "aantal goals" };
+        }
+
+        for (int updown = 1; updown <= 2; updown++)
+        {
+            for (const int i : {1, 2, 4})
+            {
+                if (updown == 1) content.header.data[i] += "<br>";
+                content.header.data[i] += getButton("id3", i, updown);
+            }
+        }
+
+        for (size_t i = 0; i < data.size(); i++)
+        {
+            const auto& szn = data[i].first;
+            const auto& summary = data[i].second;
+            const auto& tp = topscorers[i].second;
+            if ( ! tp.empty())
+            {
+                MultipleStrings body;
+                auto names = tp[0].data[0];
+                if (tp.size() > 1)
+                {
+                    names += "<br>" + tp[1].data[0];
+                }
+                body.data = { szn.toString(),
+                    std::format("{:4}", summary.sumGoals),
+                    std::format("{:5.03f}", divide(summary.sumGoals, summary.sumMatches)),
+                    names, tp[0].data[1]
+                };
+                content.body.push_back(body);
+            }
+        }
+        auto Table = html::table(settings);
+        Table.id = "id3";
+        auto table = Table.buildTable( content);
+        return table;
     }
 }

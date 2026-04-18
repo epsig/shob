@@ -60,5 +60,7 @@ namespace shob::pages
         static sumGoalsAndMatches getSumGoalsAndMatches(const football::standings& table);
         static std::string getButton(const std::string& id, const int col, const int updown);
         general::MultipleStrings table1_to_html(const std::vector<std::pair<general::Season, goalsSummary>>& data) const;
+        general::MultipleStrings table2_to_html(const std::vector<std::pair<general::Season, sumGoalsAndMatches>>& data,
+            const std::vector<std::pair<general::Season, std::vector<general::MultipleStrings>>>& topscorers) const;
     };
 }
