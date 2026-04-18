@@ -22,7 +22,7 @@ namespace shob::pages
     {
         auto table1 = std::vector<std::pair<Season, goalsSummary>>();
         auto table2 = std::vector<std::pair<Season, sumGoalsAndMatches>>();
-        auto table2b = std::vector<std::pair<Season, std::vector<MultipleStrings>>>();
+        auto table2b = std::vector<std::pair<Season, football::numbers1>>();
         int dd = 0;
 
         auto players = teams::footballers();
@@ -227,7 +227,7 @@ namespace shob::pages
     }
 
     MultipleStrings FormatStatsEredivisie::table2_to_html(const std::vector<std::pair<Season, sumGoalsAndMatches>>& data,
-        const std::vector<std::pair<Season, std::vector<MultipleStrings>>>& topscorers) const
+        const std::vector<std::pair<Season, football::numbers1>>& topscorers) const
     {
         html::tableContent content;
 
@@ -254,18 +254,18 @@ namespace shob::pages
             const auto& szn = data[i].first;
             const auto& summary = data[i].second;
             const auto& tp = topscorers[i].second;
-            if ( ! tp.empty())
+            if ( ! tp.ListNamesWithClubs.empty())
             {
                 MultipleStrings body;
-                auto names = tp[0].data[0];
-                if (tp.size() > 1)
+                auto names = tp.ListNamesWithClubs[0];
+                if (tp.ListNamesWithClubs.size() > 1)
                 {
-                    names += "<br>" + tp[1].data[0];
+                    names += "<br>" + tp.ListNamesWithClubs[1];
                 }
                 body.data = { szn.toString(),
                     std::format("{:4}", summary.sumGoals),
                     std::format("{:5.03f}", divide(summary.sumGoals, summary.sumMatches)),
-                    names, tp[0].data[1]
+                    names, std::format("{:2}", tp.goals)
                 };
                 content.body.push_back(body);
             }

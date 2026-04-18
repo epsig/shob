@@ -6,6 +6,7 @@
 #include "../shob.html/settings.h"
 #include "../shob.general/MultipleStrings.h"
 #include "../shob.football/results2standings.h"
+#include "../shob.football/topscorers.h"
 
 namespace shob::pages
 {
@@ -61,6 +62,6 @@ namespace shob::pages
         static std::string getButton(const std::string& id, const int col, const int updown);
         general::MultipleStrings table1_to_html(const std::vector<std::pair<general::Season, goalsSummary>>& data) const;
         general::MultipleStrings table2_to_html(const std::vector<std::pair<general::Season, sumGoalsAndMatches>>& data,
-            const std::vector<std::pair<general::Season, std::vector<general::MultipleStrings>>>& topscorers) const;
+            const std::vector<std::pair<general::Season, football::numbers1>>& topscorers) const;
     };
 }
