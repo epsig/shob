@@ -7,6 +7,7 @@
 #include "TestFormatOs.h"
 #include "TestFormatUnOfficial.h"
 #include "TestTopMenu.h"
+#include "TestFormatStatsEredivisie.h"
 
 using namespace shob::pages::test;
 
@@ -110,4 +111,14 @@ TEST(IntegrationTest, testYearStandingsExtra1)
 TEST(IntegrationTest, testYearStandingsExtra2)
 {
     TestFormatUnOfficial::testYearStandingTestData2();
+}
+
+TEST(IntegrationTest, testStatsEredivisieCompact)
+{
+    TestFormatStatsEredivisie::test1();
+}
+
+TEST(IntegrationTest, testStatsEredivisieExtra)
+{
+    TestFormatStatsEredivisie::test2();
 }
