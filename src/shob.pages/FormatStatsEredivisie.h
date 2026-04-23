@@ -12,17 +12,12 @@ namespace shob::pages
 {
     struct teamWithResult
     {
-        std::vector<std::string> team_most;
-        int result_most = 0;
-        std::vector<std::string> team_least;
-        int result_least = 0;
-        std::string team_most_to_string() const { return to_string(team_most); }
-        std::string team_least_to_string() const { return to_string(team_least); }
-    private:
-        static std::string to_string(const std::vector<std::string>& data)
+        std::vector<std::string> teams;
+        int result = 0;
+        std::string to_string() const
         {
             std::string retval;
-            for (const auto& s : data)
+            for (const auto& s : teams)
             {
                 if (!retval.empty()) retval += "; ";
                 retval += s;
@@ -31,11 +26,17 @@ namespace shob::pages
         }
     };
 
+    struct teamWithMinMaxResults
+    {
+        teamWithResult min;
+        teamWithResult max;
+    };
+
     struct goalsSummary
     {
-        teamWithResult goals;
-        teamWithResult goals_against;
-        teamWithResult difference;
+        teamWithMinMaxResults goals;
+        teamWithMinMaxResults goals_against;
+        teamWithMinMaxResults difference;
     };
 
     struct sumGoalsAndMatches
@@ -56,7 +57,7 @@ namespace shob::pages
         const std::string sportDataFolder;
         const teams::clubTeams teams;
         const html::settings settings;
-        static void updateOneResult(teamWithResult& result, const int x, const std::string& team);
+        static void updateOneResult(teamWithMinMaxResults& result, const int x, const std::string& team);
         goalsSummary getGoalsSummary(const football::standings& table) const;
         static sumGoalsAndMatches getSumGoalsAndMatches(const football::standings& table);
         static std::string getButton(const std::string& id, const int col, const int updown);

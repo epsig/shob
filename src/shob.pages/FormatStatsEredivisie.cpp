@@ -109,26 +109,26 @@ namespace shob::pages
         }
     }
 
-    void FormatStatsEredivisie::updateOneResult(teamWithResult& result, const int x, const std::string& team)
+    void FormatStatsEredivisie::updateOneResult(teamWithMinMaxResults& result, const int x, const std::string& team)
     {
-        if (result.team_most.empty() || result.result_most < x)
+        if (result.max.teams.empty() || result.max.result < x)
         {
-            result.result_most = x;
-            result.team_most = { team };
+            result.max.result = x;
+            result.max.teams = { team };
         }
-        else if (result.result_most == x)
+        else if (result.max.result == x)
         {
-            result.team_most.push_back(team);
+            result.max.teams.push_back(team);
         }
 
-        if (result.team_least.empty() || result.result_least > x)
+        if (result.min.teams.empty() || result.min.result > x)
         {
-            result.result_least = x;
-            result.team_least = { team };
+            result.min.result = x;
+            result.min.teams = { team };
         }
-        else if (result.result_least == x)
+        else if (result.min.result == x)
         {
-            result.team_least.push_back(team);
+            result.min.teams.push_back(team);
         }
     }
 
@@ -195,12 +195,12 @@ namespace shob::pages
         {
             MultipleStrings body;
             body.data = { szn.toString(),
-                summary.goals.team_most_to_string(), std::format("{:3}", summary.goals.result_most),
-                summary.goals.team_least_to_string(), std::format("{:3}",summary.goals.result_least),
-                summary.goals_against.team_most_to_string(), std::format("{:3}",summary.goals_against.result_most),
-                summary.goals_against.team_least_to_string(), std::format("{:3}",summary.goals_against.result_least),
-                summary.difference.team_most_to_string(), "+" + std::format("{:3}",summary.difference.result_most),
-                summary.difference.team_least_to_string(), std::format("{:3}",summary.difference.result_least)
+                summary.goals.max.to_string(), std::format("{:3}", summary.goals.max.result),
+                summary.goals.min.to_string(), std::format("{:3}",summary.goals.min.result),
+                summary.goals_against.max.to_string(), std::format("{:3}",summary.goals_against.max.result),
+                summary.goals_against.min.to_string(), std::format("{:3}",summary.goals_against.min.result),
+                summary.difference.max.to_string(), "+" + std::format("{:3}",summary.difference.max.result),
+                summary.difference.min.to_string(), std::format("{:3}",summary.difference.min.result)
             };
             content.body.push_back(body);
         }
