@@ -3,6 +3,7 @@
 #include "HeadBottom.h"
 #include "../shob.html/updateIfNewer.h"
 #include "../shob.football/topscorers.h"
+#include "../shob.general/MathSupport.h"
 #include <format>
 #include <filesystem>
 
@@ -221,10 +222,6 @@ namespace shob::pages
         return return_value;
     }
 
-    double divide(int a, int b)
-    {
-        return static_cast<double>(a) / static_cast<double>(b);
-    }
 
     MultipleStrings FormatStatsEredivisie::table2_to_html(const std::vector<std::pair<Season, sumGoalsAndMatches>>& data,
         const std::vector<std::pair<Season, football::numbers1>>& topscorers) const
@@ -264,7 +261,7 @@ namespace shob::pages
                 }
                 body.data = { szn.toString(),
                     std::format("{:4}", summary.sumGoals),
-                    std::format("{:5.03f}", divide(summary.sumGoals, summary.sumMatches)),
+                    std::format("{:5.03f}", MathSupport::divide(summary.sumGoals, summary.sumMatches)),
                     names, std::format("{:2}", tp.goals)
                 };
                 content.body.push_back(body);
