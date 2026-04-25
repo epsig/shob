@@ -73,6 +73,7 @@ namespace shob::pages
             {
                 const auto striking_results = getStrikingResults(competition);
                 table3.emplace_back(season, striking_results);
+                auto spectatorsStats = getSpectatorStats(competition);
             }
         }
 
@@ -213,6 +214,50 @@ namespace shob::pages
                 results.mostGoalsPerMatch.push_back(match);
             }
         }
+        return results;
+    }
+
+    spectatorResults FormatStatsEredivisie::getSpectatorStats(const football::footballCompetition& competition)
+    {
+        spectatorResults results;
+        int total = 0;
+        auto resultsPerTeam = std::map < std::string, std::pair<int, int>>();
+        for (const auto& match : competition.matches)
+        {
+            if (match.team2 == "straf") continue;
+            if (match.result == "-") continue;
+
+            total += match.spectators;
+
+            if (results.mostSpectators.empty() || results.mostSpectators[0].spectators < match.spectators)
+            {
+                results.mostSpectators = { match };
+            }
+            else if (results.mostSpectators[0].spectators == match.spectators)
+            {
+                results.mostSpectators.push_back(match);
+            }
+
+            if (results.leastSpectators.empty() || results.leastSpectators[0].spectators > match.spectators)
+            {
+                results.leastSpectators = { match };
+            }
+            else if (results.leastSpectators[0].spectators == match.spectators)
+            {
+                results.leastSpectators.push_back(match);
+            }
+
+            if (const auto it = resultsPerTeam.find(match.team1); it == resultsPerTeam.end())
+            {
+                resultsPerTeam.insert({ match.team1, { match.spectators, 1 } });
+            }
+            else
+            {
+                it->second.first += match.spectators;
+                it->second.second++;
+            }
+        }
+        results.totalSpectators = total;
         return results;
     }
 
