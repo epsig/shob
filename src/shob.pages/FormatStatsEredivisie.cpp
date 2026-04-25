@@ -93,6 +93,7 @@ namespace shob::pages
 
         auto return_value1 = table1_to_html(table1);
         auto return_value2 = table2_to_html(table2, table2b);
+        auto return_value3 = table3_to_html(table3);
 
         auto hb = HeadBottomInput(dd);
         hb.title = "Statistieken eredivisie";
@@ -100,6 +101,7 @@ namespace shob::pages
         std::swap(hb.body, topmenu);
         hb.body.addContent(return_value1);
         hb.body.addContent(return_value2);
+        hb.body.addContent(return_value3);
 
         return HeadBottom::getPage(hb);
     }
@@ -330,6 +332,48 @@ namespace shob::pages
         auto Table = html::table(settings);
         Table.id = "id3";
         auto table = Table.buildTable( content);
+        return_value.addContent(table);
+        return return_value;
+    }
+
+    MultipleStrings FormatStatsEredivisie::table3_to_html(const std::vector<std::pair<Season, strikingResults>>& results) const
+    {
+        html::tableContent content1;
+
+        if (settings.lang == html::language::English)
+        {
+            content1.header.data = { "season", "biggest victory", "most goals per team", "most goals per match" };
+        }
+        else
+        {
+            content1.header.data = { "seizoen", "ruimste zege", "meeste treffers <br> (&eacute;&eacute;n van beide)", "hoogste totaal" };
+        }
+
+        content1.colWidths = { 1, 2, 2, 2 };
+
+        html::tableContent content;
+        content.header.data = {};
+
+        for (const auto& result : results)
+        {
+            const auto& szn = result.first;
+            const auto& data = result.second;
+
+            MultipleStrings body;
+            body.data = { szn.toString(),
+                data.biggestVictory[0].matchName(teams), data.biggestVictory[0].result,
+                data.mostGoalsPerTeam[0].matchName(teams), data.mostGoalsPerTeam[0].result,
+                data.mostGoalsPerMatch[0].matchName(teams), data.mostGoalsPerMatch[0].result
+            };
+            content.body.push_back(body);
+
+        }
+
+        auto Table = html::table(settings);
+        Table.id = "id3";
+        auto return_value = MultipleStrings();
+        return_value.addContent("<a name=\"extr_goals\">");
+        auto table = Table.buildTable({ content1, content });
         return_value.addContent(table);
         return return_value;
     }
