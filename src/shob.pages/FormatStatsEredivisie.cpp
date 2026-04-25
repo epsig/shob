@@ -79,7 +79,7 @@ namespace shob::pages
         auto topmenu = MultipleStrings();
         topmenu.addContent("<hr>| <a href=\"#extr_goals\">meeste/minste goals</a>");
         topmenu.addContent("| <a href=\"#tot_goals\">totaal goals/topscorers</a>");
-        // | <a href="#extr_uitsl">opvallende uitslagen</a>
+        topmenu.addContent("| <a href=\"#extr_uitsl\">opvallende uitslagen</a>");
         // | <a href="#toesch">toeschouwersaantallen</a>
         if (extraStats)
         {
@@ -197,7 +197,7 @@ namespace shob::pages
                 results.mostGoalsPerTeam = { match };
                 maxMax = maxGoals;
             }
-            else if (diff == maxMax)
+            else if (maxGoals == maxMax)
             {
                 results.mostGoalsPerTeam.push_back(match);
             }
@@ -336,6 +336,20 @@ namespace shob::pages
         return return_value;
     }
 
+    void FormatStatsEredivisie::getFieldsTable3(const std::vector<football::footballMatch>& matches, std::string& matchNames, std::string& results) const
+    {
+        for (size_t i = 0; i < matches.size(); i++)
+        {
+            if (i > 0)
+            {
+                matchNames += "<br>";
+                results += "<br>";
+            }
+            matchNames += matches[i].matchName(teams);
+            results += matches[i].result;
+        }
+    }
+
     MultipleStrings FormatStatsEredivisie::table3_to_html(const std::vector<std::pair<Season, strikingResults>>& results) const
     {
         html::tableContent content1;
@@ -346,7 +360,7 @@ namespace shob::pages
         }
         else
         {
-            content1.header.data = { "seizoen", "ruimste zege", "meeste treffers <br> (&eacute;&eacute;n van beide)", "hoogste totaal" };
+            content1.header.data = { "seizoen", "ruimste zege", "meeste treffers (&eacute;&eacute;n van beide)", "hoogste totaal" };
         }
 
         content1.colWidths = { 1, 2, 2, 2 };
@@ -360,19 +374,18 @@ namespace shob::pages
             const auto& data = result.second;
 
             MultipleStrings body;
-            body.data = { szn.toString(),
-                data.biggestVictory[0].matchName(teams), data.biggestVictory[0].result,
-                data.mostGoalsPerTeam[0].matchName(teams), data.mostGoalsPerTeam[0].result,
-                data.mostGoalsPerMatch[0].matchName(teams), data.mostGoalsPerMatch[0].result
-            };
+            body.data = std::vector<std::string>(7);
+            body.data[0] = szn.toString();
+            getFieldsTable3(data.biggestVictory, body.data[1], body.data[2]);
+            getFieldsTable3(data.mostGoalsPerTeam, body.data[3], body.data[4]);
+            getFieldsTable3(data.mostGoalsPerMatch, body.data[5], body.data[6]);
             content.body.push_back(body);
-
         }
 
         auto Table = html::table(settings);
         Table.id = "id3";
         auto return_value = MultipleStrings();
-        return_value.addContent("<a name=\"extr_goals\">");
+        return_value.addContent("<p/> <a name=\"extr_uitsl\">");
         auto table = Table.buildTable({ content1, content });
         return_value.addContent(table);
         return return_value;

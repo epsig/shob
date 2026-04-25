@@ -72,6 +72,8 @@ namespace shob::pages
         general::MultipleStrings table1_to_html(const std::vector<std::pair<general::Season, goalsSummary>>& data) const;
         general::MultipleStrings table2_to_html(const std::vector<std::pair<general::Season, sumGoalsAndMatches>>& data,
             const std::vector<std::pair<general::Season, football::numbers1>>& topscorers) const;
+        void getFieldsTable3(const std::vector<football::footballMatch>& matches, std::string& matchNames,
+                             std::string& results) const;
         general::MultipleStrings table3_to_html(const std::vector<std::pair<general::Season, strikingResults>>& results) const;
     };
 }
