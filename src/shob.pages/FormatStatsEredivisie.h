@@ -45,6 +45,13 @@ namespace shob::pages
         int sumMatches = 0;
     };
 
+    struct strikingResults
+    {
+        std::vector<football::footballMatch> biggestVictory;
+        std::vector<football::footballMatch> mostGoalsPerTeam;
+        std::vector<football::footballMatch> mostGoalsPerMatch;
+    };
+
     class FormatStatsEredivisie
     {
     public:
@@ -60,6 +67,7 @@ namespace shob::pages
         static void updateOneResult(teamWithMinMaxResults& result, const int x, const std::string& team);
         goalsSummary getGoalsSummary(const football::standings& table) const;
         static sumGoalsAndMatches getSumGoalsAndMatches(const football::standings& table);
+        static strikingResults getStrikingResults(const football::footballCompetition& competition);
         static std::string getButton(const std::string& id, const int col, const int updown);
         general::MultipleStrings table1_to_html(const std::vector<std::pair<general::Season, goalsSummary>>& data) const;
         general::MultipleStrings table2_to_html(const std::vector<std::pair<general::Season, sumGoalsAndMatches>>& data,

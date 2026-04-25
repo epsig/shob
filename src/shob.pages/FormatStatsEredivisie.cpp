@@ -24,6 +24,7 @@ namespace shob::pages
         auto table1 = std::vector<std::pair<Season, goalsSummary>>();
         auto table2 = std::vector<std::pair<Season, sumGoalsAndMatches>>();
         auto table2b = std::vector<std::pair<Season, football::numbers1>>();
+        auto table3 = std::vector<std::pair<Season, strikingResults>>();
         int dd = 0;
 
         auto players = teams::footballers();
@@ -42,9 +43,9 @@ namespace shob::pages
             football::standings table;
             const auto file1 = sportDataFolder + "/eredivisie_" + season.toPartFilename() + ".csv";
             const auto file2 = sportDataFolder + "/eindstand_eredivisie_" + season.toPartFilename() + ".csv";
+            auto competition = football::footballCompetition();
             if (fs::exists(file1))
             {
-                auto competition = football::footballCompetition();
                 competition.readFromCsv(file1);
                 dd = std::max(dd, competition.lastDate().toInt());
                 table = football::results2standings::u2s(competition);
@@ -67,6 +68,12 @@ namespace shob::pages
             tp.initFromFile(season);
             const auto tpSummary = tp.getNumbers1(teams, players);
             table2b.emplace_back(season, tpSummary);
+
+            if ( ! competition.matches.empty())
+            {
+                const auto striking_results = getStrikingResults(competition);
+                table3.emplace_back(season, striking_results);
+            }
         }
 
         auto topmenu = MultipleStrings();
@@ -155,6 +162,56 @@ namespace shob::pages
         }
         summary.sumMatches /= 2; // the sum counts everything double
         return summary;
+    }
+
+    strikingResults FormatStatsEredivisie::getStrikingResults(const football::footballCompetition& competition)
+    {
+        strikingResults results;
+        int maxDiff = 0;
+        int maxMax = 0;
+        int maxSum = 0;
+        for ( const auto& match : competition.matches)
+        {
+            if (match.team2 == "straf") continue;
+            if (match.result == "-") continue;
+            const auto parts = readers::csvReader::split(match.result, "-").column;
+            const auto goals1 = std::stoi(parts[0]);
+            const auto goals2 = std::stoi(parts[1]);
+
+            const auto diff = abs(goals1 - goals2);
+            if (diff > maxDiff)
+            {
+                results.biggestVictory = { match };
+                maxDiff = diff;
+            }
+            else if (diff == maxDiff)
+            {
+                results.biggestVictory.push_back(match);
+            }
+
+            const auto maxGoals = std::max(goals1, goals2);
+            if (maxGoals > maxMax)
+            {
+                results.mostGoalsPerTeam = { match };
+                maxMax = maxGoals;
+            }
+            else if (diff == maxMax)
+            {
+                results.mostGoalsPerTeam.push_back(match);
+            }
+
+            const auto sum = goals1 + goals2;
+            if (sum > maxSum)
+            {
+                results.mostGoalsPerMatch = { match };
+                maxSum = sum;
+            }
+            else if (sum == maxSum)
+            {
+                results.mostGoalsPerMatch.push_back(match);
+            }
+        }
+        return results;
     }
 
     std::string FormatStatsEredivisie::getButton(const std::string& id, const int col, const int updown)
