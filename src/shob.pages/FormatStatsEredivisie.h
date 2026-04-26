@@ -89,5 +89,7 @@ namespace shob::pages
         void getFieldsTable3(const std::vector<football::footballMatch>& matches, std::string& matchNames,
                              std::string& results) const;
         general::MultipleStrings table3_to_html(const std::vector<std::pair<general::Season, strikingResults>>& results) const;
+        general::MultipleStrings
+        table4a_to_html(const std::vector<std::pair<general::Season, spectatorResults>>& results) const;
     };
 }

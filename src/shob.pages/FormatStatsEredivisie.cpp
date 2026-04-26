@@ -26,6 +26,7 @@ namespace shob::pages
         auto table2 = std::vector<std::pair<Season, sumGoalsAndMatches>>();
         auto table2b = std::vector<std::pair<Season, football::numbers1>>();
         auto table3 = std::vector<std::pair<Season, strikingResults>>();
+        auto table4 = std::vector<std::pair<Season, spectatorResults>>();
         int dd = 0;
 
         auto players = teams::footballers();
@@ -74,7 +75,8 @@ namespace shob::pages
             {
                 const auto striking_results = getStrikingResults(competition);
                 table3.emplace_back(season, striking_results);
-                auto spectatorsStats = getSpectatorStats(competition);
+                const auto spectatorsStats = getSpectatorStats(competition);
+                table4.emplace_back(season, spectatorsStats);
             }
         }
 
@@ -82,7 +84,7 @@ namespace shob::pages
         topmenu.addContent("<hr>| <a href=\"#extr_goals\">meeste/minste goals</a>");
         topmenu.addContent("| <a href=\"#tot_goals\">totaal goals/topscorers</a>");
         topmenu.addContent("| <a href=\"#extr_uitsl\">opvallende uitslagen</a>");
-        // | <a href="#toesch">toeschouwersaantallen</a>
+        topmenu.addContent("| <a href=\"#toesch\">toeschouwersaantallen</a>");
         if (extraStats)
         {
             topmenu.addContent("| <a href=\"sport_voetbal_nl_stats.html\">samengevat</a>");
@@ -96,6 +98,7 @@ namespace shob::pages
         auto return_value1 = table1_to_html(table1);
         auto return_value2 = table2_to_html(table2, table2b);
         auto return_value3 = table3_to_html(table3);
+        auto return_value4 = table4a_to_html(table4);
 
         auto hb = HeadBottomInput(dd);
         hb.title = "Statistieken eredivisie";
@@ -104,6 +107,7 @@ namespace shob::pages
         hb.body.addContent(return_value1);
         hb.body.addContent(return_value2);
         hb.body.addContent(return_value3);
+        hb.body.addContent(return_value4);
 
         return HeadBottom::getPage(hb);
     }
@@ -463,6 +467,44 @@ namespace shob::pages
         auto return_value = MultipleStrings();
         return_value.addContent("<p/> <a name=\"extr_uitsl\">");
         auto table = Table.buildTable({ content1, content });
+        return_value.addContent(table);
+        return return_value;
+    }
+
+    MultipleStrings FormatStatsEredivisie::table4a_to_html(const std::vector<std::pair<Season, spectatorResults>>& results) const
+    {
+        html::tableContent content;
+
+        if (settings.lang == html::language::English)
+        {
+            content.header.data = { "season", "" };
+        }
+        else
+        {
+            content.header.data = { "seizoen", "totaal aantal toeschouwers", "gemiddelde per wedstrijd",
+                "hoogste gemiddelde per club", "laagste gemiddelde per club" };
+        }
+
+        for (const auto& result : results)
+        {
+            const auto& szn = result.first;
+            const auto& data = result.second;
+
+            MultipleStrings body;
+            body.data = std::vector<std::string>(5);
+            body.data[0] = szn.toString();
+            body.data[1] = std::format("{:4.2f} M", static_cast<double>(data.totalSpectators) * 1e-6);
+            body.data[2] = std::format("{:04.1f} k", data.meanSpectators * 1e-3);
+            body.data[3] = std::format("{:} {:04.1f} k", teams.expand(data.teamsWithMostSpectators[0].first), data.teamsWithMostSpectators[0].second * 1e-3);
+            body.data[4] = std::format("{:} {:3.1f} k", teams.expand(data.teamsWithLeastSpectators[0].first), data.teamsWithLeastSpectators[0].second * 1e-3);
+            content.body.push_back(body);
+        }
+
+        auto Table = html::table(settings);
+        Table.id = "id3";
+        auto return_value = MultipleStrings();
+        return_value.addContent("<p/> <a name=\"toesch\">");
+        auto table = Table.buildTable(content);
         return_value.addContent(table);
         return return_value;
     }
