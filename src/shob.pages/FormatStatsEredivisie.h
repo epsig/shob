@@ -1,6 +1,7 @@
 
 #pragma once
 #include <string>
+#include <unordered_map>
 #include <vector>
 #include "../shob.teams/clubTeams.h"
 #include "../shob.html/settings.h"
@@ -55,8 +56,11 @@ namespace shob::pages
     struct spectatorResults
     {
         int totalSpectators;
+        double meanSpectators;
         std::vector<football::footballMatch> mostSpectators;
         std::vector<football::footballMatch> leastSpectators;
+        std::vector<std::pair<std::string, double>> teamsWithMostSpectators;
+        std::vector<std::pair<std::string, double>> teamsWithLeastSpectators;
     };
 
     class FormatStatsEredivisie
@@ -75,6 +79,8 @@ namespace shob::pages
         goalsSummary getGoalsSummary(const football::standings& table) const;
         static sumGoalsAndMatches getSumGoalsAndMatches(const football::standings& table);
         static strikingResults getStrikingResults(const football::footballCompetition& competition);
+        static std::vector<std::pair<std::string, double>> findExtremeValueInMap(const std::unordered_map<std::string, double>& data,
+                                                                double factor);
         static spectatorResults getSpectatorStats(const football::footballCompetition& competition);
         static std::string getButton(const std::string& id, const int col, const int updown);
         general::MultipleStrings table1_to_html(const std::vector<std::pair<general::Season, goalsSummary>>& data) const;

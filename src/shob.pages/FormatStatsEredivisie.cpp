@@ -6,6 +6,7 @@
 #include "../shob.general/MathSupport.h"
 #include <format>
 #include <filesystem>
+#include <unordered_map>
 
 namespace shob::pages
 {
@@ -217,17 +218,38 @@ namespace shob::pages
         return results;
     }
 
+    std::vector<std::pair<std::string, double>> FormatStatsEredivisie::findExtremeValueInMap(const std::unordered_map<std::string, double>& data, double factor)
+    {
+        auto return_value = std::vector<std::pair<std::string, double>>();
+        for (const auto& x : data)
+        {
+            if (return_value.empty() || return_value[0].second == x.second)  // NOLINT(clang-diagnostic-float-equal)
+            {
+                return_value.emplace_back(x);
+            }
+            else if (return_value[0].second * factor < x.second * factor)
+            {
+                return_value = { x };
+            }
+
+        }
+        return return_value;
+    }
+
     spectatorResults FormatStatsEredivisie::getSpectatorStats(const football::footballCompetition& competition)
     {
         spectatorResults results;
         int total = 0;
-        auto resultsPerTeam = std::map < std::string, std::pair<int, int>>();
+        int nMatches = 0;
+        auto resultsPerTeam = std::unordered_map<std::string, std::pair<int, int>>();
+        auto meanSpectatorsPerTeam = std::unordered_map<std::string, double>();
         for (const auto& match : competition.matches)
         {
             if (match.team2 == "straf") continue;
             if (match.result == "-") continue;
 
             total += match.spectators;
+            nMatches++;
 
             if (results.mostSpectators.empty() || results.mostSpectators[0].spectators < match.spectators)
             {
@@ -257,7 +279,16 @@ namespace shob::pages
                 it->second.second++;
             }
         }
+
+        for (const auto& result : resultsPerTeam)
+        {
+            meanSpectatorsPerTeam.insert({ result.first, MathSupport::divide(result.second.first, result.second.second) });
+        }
+
         results.totalSpectators = total;
+        results.meanSpectators = MathSupport::divide(total, nMatches);
+        results.teamsWithMostSpectators = findExtremeValueInMap(meanSpectatorsPerTeam, 1.0);
+        results.teamsWithLeastSpectators = findExtremeValueInMap(meanSpectatorsPerTeam, -1.0);
         return results;
     }
 
