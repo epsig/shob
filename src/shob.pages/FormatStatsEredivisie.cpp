@@ -1,5 +1,6 @@
 
 #include "FormatStatsEredivisie.h"
+
 #include "HeadBottom.h"
 #include "../shob.html/updateIfNewer.h"
 #include "../shob.football/topscorers.h"
@@ -33,9 +34,13 @@ namespace shob::pages
         const std::string filename3 = sportDataFolder + "/../voetballers.csv";
         players.initFromFile(filename3);
 
-        auto file_tp_eredivisie = sportDataFolder + "/topscorers_eredivisie.csv";
+        const auto file_tp_eredivisie = sportDataFolder + "/topscorers_eredivisie.csv";
         auto allTp = readers::csvAllSeasonsReader();
         allTp.init(file_tp_eredivisie);
+
+        const auto file_remarks = sportDataFolder + "/eredivisie_remarks.csv";
+        auto remarks = readers::csvAllSeasonsReader();
+        remarks.init(file_remarks);
 
         const int startYear = extraStats ? 2025 : 2024;
         const int lastYear = extraStats ? 1956 : 1993;
@@ -71,15 +76,18 @@ namespace shob::pages
             const auto tpSummary = tp.getNumbers1(teams, players);
             table2b.emplace_back(season, tpSummary);
 
+            const auto current_remarks = remarks.getSeason(season);
+            auto spectatorsStats = spectatorResults();
             if ( ! competition.matches.empty())
             {
                 const auto striking_results = getStrikingResults(competition);
                 table3.emplace_back(season, striking_results);
-                const auto spectatorsStats = getSpectatorStats(competition);
-                if (spectatorsStats.totalSpectators > 0)
-                {
-                    table4.emplace_back(season, spectatorsStats);
-                }
+                spectatorsStats = getSpectatorStats(competition);
+            }
+            updateStatsFromRemarks(spectatorsStats, current_remarks);
+            if (spectatorsStats.totalSpectators > 0)
+            {
+                table4.emplace_back(season, spectatorsStats);
             }
         }
 
@@ -300,6 +308,33 @@ namespace shob::pages
         return results;
     }
 
+    void FormatStatsEredivisie::updateStatsFromRemarks(spectatorResults& spectatorsStats, const std::vector<std::vector<std::string>>& current_remarks)
+    {
+        for (const auto& line: current_remarks)
+        {
+            if (line[0] == "max_spectators")
+            {
+                auto parts = readers::csvReader::split(line[1], ":");
+                auto spectators = std::stoi(parts.column[1]);
+                spectatorsStats.teamsWithMostSpectators.clear();
+                spectatorsStats.teamsWithMostSpectators.emplace_back(parts.column[0], spectators);
+            }
+            else if (line[0] == "min_spectators")
+            {
+                auto parts = readers::csvReader::split(line[1], ":");
+                auto spectators = std::stoi(parts.column[1]);
+                spectatorsStats.teamsWithLeastSpectators.clear();
+                spectatorsStats.teamsWithLeastSpectators.emplace_back(parts.column[0], spectators);
+            }
+            else if (line[0] == "tot_spectators")
+            {
+                auto spectators = std::stoi(line[1]);
+                spectatorsStats.totalSpectators = spectators;
+                spectatorsStats.meanSpectators = MathSupport::divide(spectators, 306);
+            }
+        }
+    }
+
     std::string FormatStatsEredivisie::getButton(const std::string& id, const int col, const int updown)
     {
         const std::string arrow = updown == 1 ? "&darr;" : "&uarr;";
@@ -499,7 +534,9 @@ namespace shob::pages
             body.data[0] = szn.toString();
             body.data[1] = std::format("{:4.2f} M", static_cast<double>(data.totalSpectators) * 1e-6);
             body.data[2] = std::format("{:04.1f} k", data.meanSpectators * 1e-3);
+            if ( ! data.teamsWithMostSpectators.empty())
             body.data[3] = std::format("{:} {:04.1f} k", teams.expand(data.teamsWithMostSpectators[0].first), data.teamsWithMostSpectators[0].second * 1e-3);
+            if ( ! data.teamsWithLeastSpectators.empty())
             body.data[4] = std::format("{:} {:3.1f} k", teams.expand(data.teamsWithLeastSpectators[0].first), data.teamsWithLeastSpectators[0].second * 1e-3);
             content.body.push_back(body);
         }
@@ -512,4 +549,5 @@ namespace shob::pages
         return_value.addContent(table);
         return return_value;
     }
+
 }

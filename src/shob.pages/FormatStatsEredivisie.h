@@ -55,8 +55,8 @@ namespace shob::pages
 
     struct spectatorResults
     {
-        int totalSpectators;
-        double meanSpectators;
+        int totalSpectators = 0;
+        double meanSpectators = 0.0;
         std::vector<football::footballMatch> mostSpectators;
         std::vector<football::footballMatch> leastSpectators;
         std::vector<std::pair<std::string, double>> teamsWithMostSpectators;
@@ -82,6 +82,8 @@ namespace shob::pages
         static std::vector<std::pair<std::string, double>> findExtremeValueInMap(const std::unordered_map<std::string, double>& data,
                                                                 double factor);
         static spectatorResults getSpectatorStats(const football::footballCompetition& competition);
+        static void updateStatsFromRemarks(spectatorResults& spectatorsStats,
+                                    const std::vector<std::vector<std::string>>& current_remarks);
         static std::string getButton(const std::string& id, const int col, const int updown);
         general::MultipleStrings table1_to_html(const std::vector<std::pair<general::Season, goalsSummary>>& data) const;
         general::MultipleStrings table2_to_html(const std::vector<std::pair<general::Season, sumGoalsAndMatches>>& data,
