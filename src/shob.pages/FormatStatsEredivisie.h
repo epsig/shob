@@ -93,5 +93,7 @@ namespace shob::pages
         general::MultipleStrings table3_to_html(const std::vector<std::pair<general::Season, strikingResults>>& results) const;
         general::MultipleStrings table4a_to_html(const std::vector<std::pair<general::Season, spectatorResults>>& results) const;
         general::MultipleStrings table4b_to_html(const std::vector<std::pair<general::Season, spectatorResults>>& results) const;
+        general::MultipleStrings table5_to_html(
+            const std::vector<std::pair<general::Season, football::numbers1>>& topscorers) const;
     };
 }

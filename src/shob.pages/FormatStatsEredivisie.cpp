@@ -121,6 +121,11 @@ namespace shob::pages
         hb.body.addContent(return_value3);
         hb.body.addContent(return_value4a);
         hb.body.addContent(return_value4b);
+        if (extraStats)
+        {
+            auto return_value5 = table5_to_html(table2b);
+            hb.body.addContent(return_value5);
+        }
 
         return HeadBottom::getPage(hb);
     }
@@ -649,6 +654,65 @@ namespace shob::pages
         auto return_value = MultipleStrings();
         return_value.addContent("<p/> <a name=\"toesch\">");
         auto table = Table.buildTable({ content1, content });
+        return_value.addContent(table);
+        return return_value;
+    }
+
+    MultipleStrings FormatStatsEredivisie::table5_to_html(const std::vector<std::pair<Season, football::numbers1>>& topscorers) const
+    {
+        constexpr int threshold = 30;
+        struct tpSummary
+        {
+            std::string season;
+            std::string name;
+            int goals = 0;
+        };
+
+        auto sortedTp = std::vector<tpSummary>();
+        for (const auto & tp : topscorers)
+        {
+            // copy into a more simple data structure; sort does not work on vector<pair<Season, football::numbers1>>
+            // related a missing default constructor in Season
+            // side effect : input topscorers is still const and the filtering before sort gives a shorter vector to sort
+            if (tp.second.goals > threshold)
+            {
+                tpSummary newTp;
+                newTp.season = tp.first.toString();
+                newTp.name = tp.second.ListNamesWithClubs[0];
+                newTp.goals = tp.second.goals;
+                sortedTp.push_back(newTp);
+            }
+        }
+
+        html::tableContent content;
+
+        if (settings.lang == html::language::English)
+        {
+            content.header.data = { "season", "name topscorer", "number of goals" };
+        }
+        else
+        {
+            content.header.data = { "seizoen", "naam topscorer", "aantal goals" };
+        }
+
+        std::sort(sortedTp.begin(), sortedTp.end(), [](const tpSummary& val1, const tpSummary& val2)
+            {return val1.goals > val2.goals; });
+
+        for (const auto& data : sortedTp)
+        {
+            MultipleStrings body;
+            body.data = { data.season,
+                std::format("{:}", data.name),
+                std::format("{:}", data.goals),
+            };
+            content.body.push_back(body);
+        }
+
+        auto return_value = MultipleStrings();
+        return_value.addContent("<a name=\"all_time_tp\">  <h2> All time Topscorers. </h2>");
+        auto Table = html::table(settings);
+        Table.id = "id3";
+        auto table = Table.buildTable(content);
         return_value.addContent(table);
         return return_value;
     }
