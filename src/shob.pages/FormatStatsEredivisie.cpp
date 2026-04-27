@@ -109,7 +109,8 @@ namespace shob::pages
         auto return_value1 = table1_to_html(table1);
         auto return_value2 = table2_to_html(table2, table2b);
         auto return_value3 = table3_to_html(table3);
-        auto return_value4 = table4a_to_html(table4);
+        auto return_value4a = table4a_to_html(table4);
+        auto return_value4b = table4b_to_html(table4);
 
         auto hb = HeadBottomInput(dd);
         hb.title = "Statistieken eredivisie";
@@ -118,7 +119,8 @@ namespace shob::pages
         hb.body.addContent(return_value1);
         hb.body.addContent(return_value2);
         hb.body.addContent(return_value3);
-        hb.body.addContent(return_value4);
+        hb.body.addContent(return_value4a);
+        hb.body.addContent(return_value4b);
 
         return HeadBottom::getPage(hb);
     }
@@ -516,7 +518,8 @@ namespace shob::pages
 
         if (settings.lang == html::language::English)
         {
-            content1.header.data = { "season", "" };
+            content1.header.data = { "season", "total number of spectators", "mean per match", "highest mean per team",
+                "lowest mean per team"};
         }
         else
         {
@@ -567,6 +570,75 @@ namespace shob::pages
 
         auto Table = html::table(settings);
         Table.id = "id5";
+        auto return_value = MultipleStrings();
+        return_value.addContent("<p/> <a name=\"toesch\">");
+        auto table = Table.buildTable({ content1, content });
+        return_value.addContent(table);
+        return return_value;
+    }
+
+    MultipleStrings FormatStatsEredivisie::table4b_to_html(const std::vector<std::pair<Season, spectatorResults>>& results) const
+    {
+        html::tableContent content1;
+
+        if (settings.lang == html::language::English)
+        {
+            content1.header.data = { "season"};
+        }
+        else
+        {
+            content1.header.data = { "seizoen", "best bezocht", "minst bezocht"};
+        }
+
+        for (int updown = 1; updown <= 2; updown++)
+        {
+            for (const int i : {1, 2})
+            {
+                if (updown == 1) content1.header.data[i] += "<br>";
+
+                auto ii = i*2;
+                content1.header.data[i] += getButton("id6", ii, updown);
+            }
+        }
+
+        content1.colWidths = { 1, 2, 2 };
+
+        html::tableContent content;
+        content.header.data = {};
+
+        for (const auto& result : results)
+        {
+            const auto& szn = result.first;
+            const auto& data = result.second;
+            if ( data.leastSpectators.empty() && data.mostSpectators.empty()) continue;
+
+            MultipleStrings body;
+            body.data = std::vector<std::string>(5);
+            body.data[0] = szn.toString();
+            for (size_t i = 0 ; i < data.mostSpectators.size(); i++)
+            {
+                if (i > 0) body.data[1] += "<br>";
+                body.data[1] += data.mostSpectators[i].matchName(teams);
+            }
+            body.data[2] = std::format("{:5}", data.mostSpectators[0].spectators);
+            if (data.leastSpectators.size() > 3)
+            {
+                body.data[3] = std::format("Geen publiek bij {} duels.", data.leastSpectators.size());
+            }
+            else
+            {
+                for (size_t i = 0; i < data.leastSpectators.size(); i++)
+                {
+                    if (i > 0) body.data[3] += "<br>";
+                    body.data[3] = data.leastSpectators[0].matchName(teams);
+                }
+            }
+            body.data[4] = std::format("{:4}", data.leastSpectators[0].spectators);
+            content.body.push_back(body);
+        }
+
+        auto Table = html::table(settings);
+        Table.id = "id6";
         auto return_value = MultipleStrings();
         return_value.addContent("<p/> <a name=\"toesch\">");
         auto table = Table.buildTable({ content1, content });
