@@ -583,7 +583,7 @@ namespace shob::pages
 
         if (settings.lang == html::language::English)
         {
-            content1.header.data = { "season"};
+            content1.header.data = { "season", "most visitors", "least visitors"};
         }
         else
         {
@@ -623,7 +623,14 @@ namespace shob::pages
             body.data[2] = std::format("{:04.1f} k", static_cast<double>(data.mostSpectators[0].spectators) * 1e-3);
             if (data.leastSpectators.size() > 3 && data.leastSpectators[0].spectators == 0)
             {
-                body.data[3] = std::format("Geen publiek bij {} duels.", data.leastSpectators.size());
+                if (settings.lang == html::language::Dutch)
+                {
+                    body.data[3] = std::format("Geen publiek bij {} duels.", data.leastSpectators.size());
+                }
+                else
+                {
+                    body.data[3] = std::format("No spectators at {} matches.", data.leastSpectators.size());
+                }
             }
             else
             {
