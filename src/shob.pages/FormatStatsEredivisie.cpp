@@ -76,7 +76,10 @@ namespace shob::pages
                 const auto striking_results = getStrikingResults(competition);
                 table3.emplace_back(season, striking_results);
                 const auto spectatorsStats = getSpectatorStats(competition);
-                table4.emplace_back(season, spectatorsStats);
+                if (spectatorsStats.totalSpectators > 0)
+                {
+                    table4.emplace_back(season, spectatorsStats);
+                }
             }
         }
 
@@ -251,6 +254,7 @@ namespace shob::pages
         {
             if (match.team2 == "straf") continue;
             if (match.result == "-") continue;
+            if (match.spectators < 0) continue;
 
             total += match.spectators;
             nMatches++;

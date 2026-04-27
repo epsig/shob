@@ -28,10 +28,10 @@ namespace shob::readers
     public:
         static csvContent readCsvFile(const std::string& filename);
         static csvColContent split(const std::string& s, const std::string& delimiter);
+        static std::string trim(const std::string& s, const char* t);
     private:
         static std::string rtrim(const std::string& s, const char* t);
         static std::string ltrim(const std::string& s, const char* t);
-        static std::string trim(const std::string& s, const char* t);
     };
 
 }

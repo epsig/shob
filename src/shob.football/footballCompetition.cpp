@@ -31,14 +31,15 @@ namespace shob::football
         for (const auto& col : csvData.body)
         {
             const auto& line = col.column;
-            int spectators = 0;
+            int spectators = -1;
             if (spectatorsColumn < line.size())
             {
                 if (!line[spectatorsColumn].empty())
                 {
-                    if (dateFactory::allDigits(line[spectatorsColumn]))
+                    const auto spectatorsAsStr = csvReader::trim(line[spectatorsColumn], " ");
+                    if (dateFactory::allDigits(spectatorsAsStr))
                     {
-                        spectators = std::stoi(line[spectatorsColumn]);
+                        spectators = std::stoi(spectatorsAsStr);
                     }
                 }
             }
