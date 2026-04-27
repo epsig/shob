@@ -620,8 +620,8 @@ namespace shob::pages
                 if (i > 0) body.data[1] += "<br>";
                 body.data[1] += data.mostSpectators[i].matchName(teams);
             }
-            body.data[2] = std::format("{:5}", data.mostSpectators[0].spectators);
-            if (data.leastSpectators.size() > 3)
+            body.data[2] = std::format("{:04.1f} k", static_cast<double>(data.mostSpectators[0].spectators) * 1e-3);
+            if (data.leastSpectators.size() > 3 && data.leastSpectators[0].spectators == 0)
             {
                 body.data[3] = std::format("Geen publiek bij {} duels.", data.leastSpectators.size());
             }
@@ -630,10 +630,10 @@ namespace shob::pages
                 for (size_t i = 0; i < data.leastSpectators.size(); i++)
                 {
                     if (i > 0) body.data[3] += "<br>";
-                    body.data[3] = data.leastSpectators[0].matchName(teams);
+                    body.data[3] += data.leastSpectators[i].matchName(teams);
                 }
             }
-            body.data[4] = std::format("{:4}", data.leastSpectators[0].spectators);
+            body.data[4] = std::format("{:03.1f} k", static_cast<double>(data.leastSpectators[0].spectators)*1e-3);
             content.body.push_back(body);
         }
 
