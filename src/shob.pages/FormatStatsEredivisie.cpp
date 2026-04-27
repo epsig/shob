@@ -502,7 +502,7 @@ namespace shob::pages
         }
 
         auto Table = html::table(settings);
-        Table.id = "id3";
+        Table.id = "id4";
         auto return_value = MultipleStrings();
         return_value.addContent("<p/> <a name=\"extr_uitsl\">");
         auto table = Table.buildTable({ content1, content });
@@ -512,17 +512,35 @@ namespace shob::pages
 
     MultipleStrings FormatStatsEredivisie::table4a_to_html(const std::vector<std::pair<Season, spectatorResults>>& results) const
     {
-        html::tableContent content;
+        html::tableContent content1;
 
         if (settings.lang == html::language::English)
         {
-            content.header.data = { "season", "" };
+            content1.header.data = { "season", "" };
         }
         else
         {
-            content.header.data = { "seizoen", "totaal aantal toeschouwers", "gemiddelde per wedstrijd",
+            content1.header.data = { "seizoen", "totaal aantal toeschouwers", "gemiddelde per wedstrijd",
                 "hoogste gemiddelde per club", "laagste gemiddelde per club" };
         }
+
+        for (int updown = 1; updown <= 2; updown++)
+        {
+            for (const int i : {1, 2, 3, 4})
+            {
+                if (updown == 1) content1.header.data[i] += "<br>";
+
+                auto ii = i;
+                if (i == 3) ii = 4;
+                if (i == 4) ii = 6;
+                content1.header.data[i] += getButton("id5", ii, updown);
+            }
+        }
+
+        content1.colWidths = { 1, 1, 1, 2, 2 };
+
+        html::tableContent content;
+        content.header.data = {};
 
         for (const auto& result : results)
         {
@@ -530,22 +548,28 @@ namespace shob::pages
             const auto& data = result.second;
 
             MultipleStrings body;
-            body.data = std::vector<std::string>(5);
+            body.data = std::vector<std::string>(7);
             body.data[0] = szn.toString();
             body.data[1] = std::format("{:4.2f} M", static_cast<double>(data.totalSpectators) * 1e-6);
             body.data[2] = std::format("{:04.1f} k", data.meanSpectators * 1e-3);
-            if ( ! data.teamsWithMostSpectators.empty())
-            body.data[3] = std::format("{:} {:04.1f} k", teams.expand(data.teamsWithMostSpectators[0].first), data.teamsWithMostSpectators[0].second * 1e-3);
-            if ( ! data.teamsWithLeastSpectators.empty())
-            body.data[4] = std::format("{:} {:3.1f} k", teams.expand(data.teamsWithLeastSpectators[0].first), data.teamsWithLeastSpectators[0].second * 1e-3);
+            if (!data.teamsWithMostSpectators.empty())
+            {
+                body.data[3] = teams.expand(data.teamsWithMostSpectators[0].first);
+                body.data[4] = std::format("{:04.1f} k", data.teamsWithMostSpectators[0].second * 1e-3);
+            }
+            if (!data.teamsWithLeastSpectators.empty())
+            {
+                body.data[5] = teams.expand(data.teamsWithLeastSpectators[0].first);
+                body.data[6] = std::format("{:3.1f} k", data.teamsWithLeastSpectators[0].second * 1e-3);
+            }
             content.body.push_back(body);
         }
 
         auto Table = html::table(settings);
-        Table.id = "id3";
+        Table.id = "id5";
         auto return_value = MultipleStrings();
         return_value.addContent("<p/> <a name=\"toesch\">");
-        auto table = Table.buildTable(content);
+        auto table = Table.buildTable({ content1, content });
         return_value.addContent(table);
         return return_value;
     }
