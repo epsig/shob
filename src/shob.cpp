@@ -10,7 +10,7 @@
 #include "shob.pages/FormatOsFactory.h"
 #include "shob.pages/FormatSemestersAndYearStandingsFactory.h"
 #include "shob.pages/FormatHomeAndAwayStandingsFactory.h"
-#include "shob.pages/FormatStatsEredivisie.h"
+#include "shob.pages/FormatStatsEredivisieFactory.h"
 #include "shob.general/Season.h"
 #include "shob.general/shobException.h"
 #include "shob.html/updateIfNewer.h"
@@ -73,12 +73,7 @@ int main(int argc, char* argv[])
 
         if (std::filesystem::is_directory("../pages_new/"))
         {
-            // TODO : move to factory
-            auto teams = shob::teams::clubTeams();
-            auto file = "sport/clubs.csv";
-            teams.InitFromFile(file, shob::teams::clubsOrCountries::clubs);
-
-            auto fmt_stats_eredivisie = FormatStatsEredivisie("sport/eredivisie/", teams, settings);
+            auto fmt_stats_eredivisie = FormatStatsEredivisieFactory::build("sport/", settings);
             for (const auto & extra : {true, false})
             {
                 fmt_stats_eredivisie.getPagesToFile(extra,

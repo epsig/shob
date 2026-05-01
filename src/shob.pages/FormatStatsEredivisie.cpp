@@ -8,6 +8,7 @@
 #include <format>
 #include <filesystem>
 #include <unordered_map>
+#include <algorithm>
 
 namespace shob::pages
 {
