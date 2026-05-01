@@ -98,6 +98,7 @@ namespace shob::pages
         topmenu.addContent("| <a href=\"#toesch\">toeschouwersaantallen</a>");
         if (extraStats)
         {
+            topmenu.addContent("| <a href=\"#all_time_tp\">all time topscorers</a>");
             topmenu.addContent("| <a href=\"sport_voetbal_nl_stats.html\">samengevat</a>");
         }
         else
@@ -666,6 +667,7 @@ namespace shob::pages
             std::string season;
             std::string name;
             int goals = 0;
+            int rank = 0;
         };
 
         auto sortedTp = std::vector<tpSummary>();
@@ -688,20 +690,33 @@ namespace shob::pages
 
         if (settings.lang == html::language::English)
         {
-            content.header.data = { "season", "name topscorer", "number of goals" };
+            content.header.data = { "rank", "season", "name topscorer", "number of goals" };
         }
         else
         {
-            content.header.data = { "seizoen", "naam topscorer", "aantal goals" };
+            content.header.data = { "positie", "seizoen", "naam topscorer", "aantal goals" };
         }
 
         std::sort(sortedTp.begin(), sortedTp.end(), [](const tpSummary& val1, const tpSummary& val2)
             {return val1.goals > val2.goals; });
 
+        sortedTp[0].rank = 1;
+        for (int i = 1; i < static_cast<int>(sortedTp.size()); i++)
+        {
+            if (sortedTp[i-1].goals == sortedTp[i].goals)
+            {
+                sortedTp[i].rank = sortedTp[i - 1].rank;
+            }
+            else
+            {
+                sortedTp[i].rank = i+1;
+            }
+        }
+
         for (const auto& data : sortedTp)
         {
             MultipleStrings body;
-            body.data = { data.season,
+            body.data = { std::to_string(data.rank), data.season,
                 std::format("{:}", data.name),
                 std::format("{:}", data.goals),
             };
