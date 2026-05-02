@@ -369,6 +369,7 @@ namespace shob::pages
         {
             for (int i = 1; i < static_cast<int>(content1.header.data.size()); i++)
             {
+                if (updown == 1) content1.header.data[i] += "<br>";
                 content1.header.data[i] += getButton("id2", 2 * i, updown);
             }
         }
@@ -386,8 +387,8 @@ namespace shob::pages
                 summary.goals.min.to_string(), std::format("{:3}",summary.goals.min.result),
                 summary.goals_against.max.to_string(), std::format("{:3}",summary.goals_against.max.result),
                 summary.goals_against.min.to_string(), std::format("{:3}",summary.goals_against.min.result),
-                summary.difference.max.to_string(), "+" + std::format("{:3}",summary.difference.max.result),
-                summary.difference.min.to_string(), std::format("{:3}",summary.difference.min.result)
+                summary.difference.max.to_string(), "+" + std::format("{:2}",summary.difference.max.result),
+                summary.difference.min.to_string(), std::format("{:2}",summary.difference.min.result)
             };
             content.body.push_back(body);
         }
