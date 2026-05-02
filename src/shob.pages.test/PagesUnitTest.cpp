@@ -122,3 +122,18 @@ TEST(IntegrationTest, testStatsEredivisieExtra)
 {
     TestFormatStatsEredivisie::test2();
 }
+
+TEST(IntegrationTest, testStatsEredivisieCompactVirtualData)
+{
+    TestFormatStatsEredivisie::test3();
+}
+
+TEST(IntegrationTest, testStatsEredivisieCompactVirtualDataHalfSeason)
+{
+    TestFormatStatsEredivisie::test4();
+}
+
+TEST(IntegrationTest, testStatsEredivisieExtraVirtualDataHalfSeason)
+{
+    TestFormatStatsEredivisie::test5();
+}

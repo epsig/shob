@@ -73,7 +73,7 @@ int main(int argc, char* argv[])
 
         if (std::filesystem::is_directory("../pages_new/"))
         {
-            auto fmt_stats_eredivisie = FormatStatsEredivisieFactory::build("sport/", settings);
+            auto fmt_stats_eredivisie = FormatStatsEredivisieFactory::build("sport/eredivisie/", settings);
             for (const auto & extra : {true, false})
             {
                 fmt_stats_eredivisie.getPagesToFile(extra,
