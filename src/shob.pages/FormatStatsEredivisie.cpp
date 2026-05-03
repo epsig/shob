@@ -90,7 +90,7 @@ namespace shob::pages
                 continue;
             }
 
-            if (table.isFinished())
+            if (year != startYear || table.isFinished())
             {
                 const auto summary = getGoalsSummary(table);
                 table1.emplace_back(season, summary);
