@@ -458,5 +458,18 @@ namespace shob::football
         }
     }
 
+    bool standings::isFinished() const
+    {
+        const auto expectedMatches = 2 * (static_cast<int>(list.size()) - 1);
+        for (const auto& row : list)
+        {
+            if (row.totalGames != expectedMatches)
+            {
+                return false;
+            }
+        }
+        return true;
+    }
+
 }
 

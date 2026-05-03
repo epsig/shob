@@ -66,15 +66,20 @@ namespace shob::pages
     class FormatStatsEredivisie
     {
     public:
-        FormatStatsEredivisie(std::string folder, teams::clubTeams& teams, const html::settings& settings) :
-            sportDataFolder(std::move(folder)), teams(std::move(teams)), settings(settings) {}
+        FormatStatsEredivisie(std::string folder, teams::clubTeams& teams, std::vector<std::string>& list_matches,
+            std::vector<std::string>& list_standings, const html::settings& settings);
         void getPagesToFile(const bool extraStats, const std::string& filename) const;
         general::MultipleStrings getStats(const bool extraStats) const;
         static std::string getOutputFilename(const std::string& folder, const bool extraStats);
     private:
         const std::string sportDataFolder;
         const teams::clubTeams teams;
+        std::vector<std::string> list_matches;
+        std::vector<std::string> list_standings;
         const html::settings settings;
+        int last_year_matches = 0;
+        int first_year_matches = 0;
+        int first_year_standings = 0;
         static void updateOneResult(teamWithMinMaxResults& result, const int x, const std::string& team);
         goalsSummary getGoalsSummary(const football::standings& table) const;
         static sumGoalsAndMatches getSumGoalsAndMatches(const football::standings& table);

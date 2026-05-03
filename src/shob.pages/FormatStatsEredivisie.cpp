@@ -16,6 +16,27 @@ namespace shob::pages
 
     using namespace shob::general;
 
+    FormatStatsEredivisie::FormatStatsEredivisie(std::string folder, teams::clubTeams& teams, std::vector<std::string>& list_matches,
+        std::vector<std::string>& list_standings, const html::settings& settings) :
+        sportDataFolder(std::move(folder)), teams(std::move(teams)), list_matches(std::move(list_matches)),
+        list_standings(std::move(list_standings)), settings(settings)
+    {
+        std::sort(this->list_matches.begin(), this->list_matches.end(), [](const std::string& val1, const std::string& val2)
+            {return val1 < val2; });
+
+        last_year_matches = std::stoi(this->list_matches.back().substr(11, 4));
+        first_year_matches = std::stoi(this->list_matches.front().substr(11, 4));
+
+        std::sort(this->list_standings.begin(), this->list_standings.end(), [](const std::string& val1, const std::string& val2)
+            {return val1 < val2; });
+
+        if (! this->list_standings.empty())
+        {
+            first_year_standings = std::stoi(this->list_standings.front().substr(21, 4));
+        }
+
+    }
+
     void FormatStatsEredivisie::getPagesToFile(const bool extraStats, const std::string& filename) const
     {
         const auto output = getStats(extraStats);
@@ -43,8 +64,9 @@ namespace shob::pages
         auto remarks = readers::csvAllSeasonsReader();
         remarks.init(file_remarks);
 
-        const int startYear = extraStats ? 2025 : 2024;
-        const int lastYear = extraStats ? 1956 : 1993;
+        const int startYear = last_year_matches;
+        int lastYear = first_year_matches;
+        if (extraStats && first_year_standings > 0) lastYear = first_year_standings;
         for (int year = startYear; year >= lastYear; year--)
         {
             const auto season = Season(year);
@@ -67,15 +89,19 @@ namespace shob::pages
             {
                 continue;
             }
-            const auto summary = getGoalsSummary(table);
-            table1.emplace_back(season, summary);
-            const auto summary2 = getSumGoalsAndMatches(table);
-            table2.emplace_back(season, summary2);
 
-            auto tp = football::topscorers(allTp);
-            tp.initFromFile(season);
-            const auto tpSummary = tp.getNumbers1(teams, players);
-            table2b.emplace_back(season, tpSummary);
+            if (table.isFinished())
+            {
+                const auto summary = getGoalsSummary(table);
+                table1.emplace_back(season, summary);
+                const auto summary2 = getSumGoalsAndMatches(table);
+                table2.emplace_back(season, summary2);
+
+                auto tp = football::topscorers(allTp);
+                tp.initFromFile(season);
+                const auto tpSummary = tp.getNumbers1(teams, players);
+                table2b.emplace_back(season, tpSummary);
+            }
 
             const auto current_remarks = remarks.getSeason(season);
             auto spectatorsStats = spectatorResults();
