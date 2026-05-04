@@ -61,6 +61,7 @@ namespace shob::pages
         std::vector<football::footballMatch> leastSpectators;
         std::vector<std::pair<std::string, double>> teamsWithMostSpectators;
         std::vector<std::pair<std::string, double>> teamsWithLeastSpectators;
+        std::unordered_map<std::string, double> meanSpectatorsPerTeam;
     };
 
     struct StatFilesSummary

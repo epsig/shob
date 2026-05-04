@@ -96,6 +96,24 @@ namespace shob::pages
                 const auto striking_results = getStrikingResults(competition);
                 table3.emplace_back(season, striking_results);
                 spectatorsStats = getSpectatorStats(competition);
+                if (year == startYear && ! table.isFinished())
+                {
+                    // TODO in method
+                    if (spectatorsStats.meanSpectatorsPerTeam.size() == table.list.size())
+                    {
+                        double sum = 0.0;
+                        for (const auto& row : spectatorsStats.meanSpectatorsPerTeam)
+                        {
+                            sum += row.second;
+                        }
+                        spectatorsStats.totalSpectators = sum * (spectatorsStats.meanSpectatorsPerTeam.size() - 1);
+                        spectatorsStats.meanSpectators = sum / spectatorsStats.meanSpectatorsPerTeam.size();
+                    }
+                    else
+                    {
+                        spectatorsStats.totalSpectators = 0;
+                    }
+                }
             }
             updateStatsFromRemarks(spectatorsStats, current_remarks);
             if (spectatorsStats.totalSpectators > 0)
@@ -278,7 +296,6 @@ namespace shob::pages
         int total = 0;
         int nMatches = 0;
         auto resultsPerTeam = std::unordered_map<std::string, std::pair<int, int>>();
-        auto meanSpectatorsPerTeam = std::unordered_map<std::string, double>();
         for (const auto& match : competition.matches)
         {
             if (match.team2 == "straf") continue;
@@ -319,13 +336,13 @@ namespace shob::pages
 
         for (const auto& result : resultsPerTeam)
         {
-            meanSpectatorsPerTeam.insert({ result.first, MathSupport::divide(result.second.first, result.second.second) });
+            results.meanSpectatorsPerTeam.insert({ result.first, MathSupport::divide(result.second.first, result.second.second) });
         }
 
         results.totalSpectators = total;
         results.meanSpectators = MathSupport::divide(total, nMatches);
-        results.teamsWithMostSpectators = findExtremeValueInMap(meanSpectatorsPerTeam, 1.0);
-        results.teamsWithLeastSpectators = findExtremeValueInMap(meanSpectatorsPerTeam, -1.0);
+        results.teamsWithMostSpectators = findExtremeValueInMap(results.meanSpectatorsPerTeam, 1.0);
+        results.teamsWithLeastSpectators = findExtremeValueInMap(results.meanSpectatorsPerTeam, -1.0);
         return results;
     }
 
