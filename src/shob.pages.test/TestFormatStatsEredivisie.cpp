@@ -49,7 +49,7 @@ namespace shob::pages::test
         constexpr auto settings = html::settings();
         const auto fmt_stats_eredivisie = FormatStatsEredivisieFactory::build(dataFolder, settings);
         const auto lines = fmt_stats_eredivisie.getStats(false);
-        EXPECT_EQ(lines.data.size(), 89);
+        EXPECT_EQ(lines.data.size(), 90);
     }
 
     void TestFormatStatsEredivisie::test5()
@@ -59,7 +59,7 @@ namespace shob::pages::test
         constexpr auto settings = html::settings();
         const auto fmt_stats_eredivisie = FormatStatsEredivisieFactory::build(dataFolder, settings);
         const auto lines = fmt_stats_eredivisie.getStats(true);
-        EXPECT_EQ(lines.data.size(), 96);
+        EXPECT_EQ(lines.data.size(), 97);
     }
 }
 

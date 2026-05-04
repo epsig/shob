@@ -50,6 +50,8 @@ namespace shob::pages
         auto remarks = readers::csvAllSeasonsReader();
         remarks.init(file_remarks);
 
+        bool estimateSpectatorsCurrentSeason = false;
+
         const int startYear = list_matches.last_year_matches;
         int lastYear = list_matches.first_year_matches;
         if (extraStats && list_matches.first_year_standings > 0) lastYear = list_matches.first_year_standings;
@@ -108,6 +110,7 @@ namespace shob::pages
                         }
                         spectatorsStats.totalSpectators = sum * (spectatorsStats.meanSpectatorsPerTeam.size() - 1);
                         spectatorsStats.meanSpectators = sum / spectatorsStats.meanSpectatorsPerTeam.size();
+                        estimateSpectatorsCurrentSeason = true;
                     }
                     else
                     {
@@ -151,6 +154,12 @@ namespace shob::pages
         hb.body.addContent(return_value1);
         hb.body.addContent(return_value2);
         hb.body.addContent(return_value3);
+        if (estimateSpectatorsCurrentSeason)
+        {   // TODO part of table4a_to_html
+            auto szn = Season(startYear);
+            hb.body.addContent(std::format("<p>Schatting van het totaal aantal toeschouwers voor {}: {:.1f} miljoen.</p>",
+                szn.toString(), static_cast<double>(table4[0].second.totalSpectators) * 1e-6));
+        }
         hb.body.addContent(return_value4a);
         hb.body.addContent(return_value4b);
         if (extraStats)
