@@ -144,7 +144,7 @@ namespace shob::pages
         auto return_value1 = table1_to_html(table1);
         auto return_value2 = table2_to_html(table2, table2b);
         auto return_value3 = table3_to_html(table3);
-        auto return_value4a = table4a_to_html(table4);
+        auto return_value4a = table4a_to_html(table4, estimateSpectatorsCurrentSeason);
         auto return_value4b = table4b_to_html(table4);
 
         auto hb = HeadBottomInput(dd);
@@ -154,12 +154,6 @@ namespace shob::pages
         hb.body.addContent(return_value1);
         hb.body.addContent(return_value2);
         hb.body.addContent(return_value3);
-        if (estimateSpectatorsCurrentSeason)
-        {   // TODO part of table4a_to_html
-            auto szn = Season(startYear);
-            hb.body.addContent(std::format("<p>Schatting van het totaal aantal toeschouwers voor {}: {:.1f} miljoen.</p>",
-                szn.toString(), static_cast<double>(table4[0].second.totalSpectators) * 1e-6));
-        }
         hb.body.addContent(return_value4a);
         hb.body.addContent(return_value4b);
         if (extraStats)
@@ -558,7 +552,8 @@ namespace shob::pages
         return return_value;
     }
 
-    MultipleStrings FormatStatsEredivisie::table4a_to_html(const std::vector<std::pair<Season, spectatorResults>>& results) const
+    MultipleStrings FormatStatsEredivisie::table4a_to_html(const std::vector<std::pair<Season, spectatorResults>>& results,
+        bool estimateSpectatorsCurrentSeason) const
     {
         html::tableContent content1;
 
@@ -590,6 +585,7 @@ namespace shob::pages
 
         html::tableContent content;
         content.header.data = {};
+        bool isFirst = true;
 
         for (const auto& result : results)
         {
@@ -599,7 +595,15 @@ namespace shob::pages
             MultipleStrings body;
             body.data = std::vector<std::string>(7);
             body.data[0] = szn.toString();
-            body.data[1] = std::format("{:4.2f} M", static_cast<double>(data.totalSpectators) * 1e-6);
+            if (isFirst && estimateSpectatorsCurrentSeason)
+            {
+                body.data[1] = std::format("{:3.1f} M", static_cast<double>(data.totalSpectators) * 1e-6);
+            }
+            else
+            {
+                body.data[1] = std::format("{:4.2f} M", static_cast<double>(data.totalSpectators) * 1e-6);
+            }
+            isFirst = false;
             body.data[2] = std::format("{:04.1f} k", data.meanSpectators * 1e-3);
             if (!data.teamsWithMostSpectators.empty())
             {
@@ -617,7 +621,17 @@ namespace shob::pages
         auto Table = html::table(settings);
         Table.id = "id5";
         auto return_value = MultipleStrings();
-        return_value.addContent("<p/> <a name=\"toesch\">");
+        return_value.addContent("<a name=\"toesch\">");
+        if (estimateSpectatorsCurrentSeason)
+        {
+            auto szn = results.front().first;
+            return_value.addContent(std::format("<p>Schatting van het totaal aantal toeschouwers voor {}: {:.1f} miljoen.</p>",
+                szn.toString(), static_cast<double>(results.front().second.totalSpectators) * 1e-6));
+        }
+        else
+        {
+            return_value.addContent("<p/>");
+        }
         auto table = Table.buildTable({ content1, content });
         return_value.addContent(table);
         return return_value;
