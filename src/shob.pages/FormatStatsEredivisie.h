@@ -1,8 +1,6 @@
 
 #pragma once
-#include <string>
-#include <unordered_map>
-#include <vector>
+#include "SpectatorResults.h"
 #include "../shob.teams/clubTeams.h"
 #include "../shob.html/settings.h"
 #include "../shob.general/MultipleStrings.h"
@@ -53,19 +51,6 @@ namespace shob::pages
         std::vector<football::footballMatch> mostGoalsPerMatch;
     };
 
-    struct spectatorResults
-    {
-        int totalSpectators = 0;
-        double meanSpectators = 0.0;
-        std::vector<football::footballMatch> mostSpectators;
-        std::vector<football::footballMatch> leastSpectators;
-        std::vector<std::pair<std::string, double>> teamsWithMostSpectators;
-        std::vector<std::pair<std::string, double>> teamsWithLeastSpectators;
-        std::unordered_map<std::string, double> meanSpectatorsPerTeam;
-        bool estimateSpectatorsCurrentSeason = false;
-        void estimateSpectators(size_t tableSize);
-    };
-
     struct StatFilesSummary
     {
         std::vector<std::string> list_matches;
@@ -94,8 +79,8 @@ namespace shob::pages
         static strikingResults getStrikingResults(const football::footballCompetition& competition);
         static std::vector<std::pair<std::string, double>> findExtremeValueInMap(const std::unordered_map<std::string, double>& data,
                                                                 double factor);
-        static spectatorResults getSpectatorStats(const football::footballCompetition& competition);
-        static void updateStatsFromRemarks(spectatorResults& spectatorsStats,
+        static SpectatorResults getSpectatorStats(const football::footballCompetition& competition);
+        static void updateStatsFromRemarks(SpectatorResults& spectatorsStats,
                                     const std::vector<std::vector<std::string>>& current_remarks);
         static std::string getButton(const std::string& id, const int col, const int updown);
         general::MultipleStrings table1_to_html(const std::vector<std::pair<general::Season, goalsSummary>>& data) const;
@@ -105,8 +90,8 @@ namespace shob::pages
                              std::string& results) const;
         general::MultipleStrings table3_to_html(const std::vector<std::pair<general::Season, strikingResults>>& results) const;
         general::MultipleStrings table4a_to_html(
-            const std::vector<std::pair<general::Season, spectatorResults>>& results) const;
-        general::MultipleStrings table4b_to_html(const std::vector<std::pair<general::Season, spectatorResults>>& results) const;
+            const std::vector<std::pair<general::Season, SpectatorResults>>& results) const;
+        general::MultipleStrings table4b_to_html(const std::vector<std::pair<general::Season, SpectatorResults>>& results) const;
         general::MultipleStrings table5_to_html(
             const std::vector<std::pair<general::Season, football::numbers1>>& topscorers) const;
     };

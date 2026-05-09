@@ -35,7 +35,7 @@ namespace shob::pages
         auto table2 = std::vector<std::pair<Season, sumGoalsAndMatches>>();
         auto table2b = std::vector<std::pair<Season, football::numbers1>>();
         auto table3 = std::vector<std::pair<Season, strikingResults>>();
-        auto table4 = std::vector<std::pair<Season, spectatorResults>>();
+        auto table4 = std::vector<std::pair<Season, SpectatorResults>>();
         int dd = 0;
 
         auto players = teams::footballers();
@@ -90,7 +90,7 @@ namespace shob::pages
             }
 
             const auto current_remarks = remarks.getSeason(season);
-            auto spectatorsStats = spectatorResults();
+            auto spectatorsStats = SpectatorResults();
             if ( ! competition.matches.empty())
             {
                 const auto striking_results = getStrikingResults(competition);
@@ -146,26 +146,6 @@ namespace shob::pages
         }
 
         return HeadBottom::getPage(hb);
-    }
-
-    void spectatorResults::estimateSpectators(const size_t tableSize)
-    {
-        if (meanSpectatorsPerTeam.size() == tableSize)
-        {
-            double sum = 0.0;
-            for (const auto& [fst, snd] : meanSpectatorsPerTeam)
-            {
-                sum += snd;
-            }
-           constexpr size_t one = 1;
-            totalSpectators = static_cast<int>(sum * static_cast<double>(meanSpectatorsPerTeam.size() - one));
-            meanSpectators = sum / static_cast<double>(meanSpectatorsPerTeam.size());
-            estimateSpectatorsCurrentSeason = true;
-        }
-        else
-        {
-            totalSpectators = 0;
-        }
     }
 
     std::string FormatStatsEredivisie::getOutputFilename(const std::string& folder, const bool extraStats)
@@ -296,9 +276,9 @@ namespace shob::pages
         return return_value;
     }
 
-    spectatorResults FormatStatsEredivisie::getSpectatorStats(const football::footballCompetition& competition)
+    SpectatorResults FormatStatsEredivisie::getSpectatorStats(const football::footballCompetition& competition)
     {
-        spectatorResults results;
+        SpectatorResults results;
         int total = 0;
         int nMatches = 0;
         auto resultsPerTeam = std::unordered_map<std::string, std::pair<int, int>>();
@@ -352,7 +332,7 @@ namespace shob::pages
         return results;
     }
 
-    void FormatStatsEredivisie::updateStatsFromRemarks(spectatorResults& spectatorsStats, const std::vector<std::vector<std::string>>& current_remarks)
+    void FormatStatsEredivisie::updateStatsFromRemarks(SpectatorResults& spectatorsStats, const std::vector<std::vector<std::string>>& current_remarks)
     {
         for (const auto& line: current_remarks)
         {
@@ -555,7 +535,7 @@ namespace shob::pages
         return return_value;
     }
 
-    MultipleStrings FormatStatsEredivisie::table4a_to_html(const std::vector<std::pair<Season, spectatorResults>>& results) const
+    MultipleStrings FormatStatsEredivisie::table4a_to_html(const std::vector<std::pair<Season, SpectatorResults>>& results) const
     {
         html::tableContent content1;
 
@@ -637,7 +617,7 @@ namespace shob::pages
         return return_value;
     }
 
-    MultipleStrings FormatStatsEredivisie::table4b_to_html(const std::vector<std::pair<Season, spectatorResults>>& results) const
+    MultipleStrings FormatStatsEredivisie::table4b_to_html(const std::vector<std::pair<Season, SpectatorResults>>& results) const
     {
         html::tableContent content1;
 
