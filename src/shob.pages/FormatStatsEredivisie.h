@@ -77,8 +77,6 @@ namespace shob::pages
         goalsSummary getGoalsSummary(const football::standings& table) const;
         static sumGoalsAndMatches getSumGoalsAndMatches(const football::standings& table);
         static strikingResults getStrikingResults(const football::footballCompetition& competition);
-        static std::vector<std::pair<std::string, double>> findExtremeValueInMap(const std::unordered_map<std::string, double>& data,
-                                                                double factor);
         static SpectatorResults getSpectatorStats(const football::footballCompetition& competition);
         static void updateStatsFromRemarks(SpectatorResults& spectatorsStats,
                                     const std::vector<std::vector<std::string>>& current_remarks);

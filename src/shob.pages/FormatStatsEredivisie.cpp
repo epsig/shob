@@ -258,24 +258,6 @@ namespace shob::pages
         return results;
     }
 
-    std::vector<std::pair<std::string, double>> FormatStatsEredivisie::findExtremeValueInMap(const std::unordered_map<std::string, double>& data, double factor)
-    {
-        auto return_value = std::vector<std::pair<std::string, double>>();
-        for (const auto& x : data)
-        {
-            if (return_value.empty() || return_value[0].second == x.second)  // NOLINT(clang-diagnostic-float-equal)
-            {
-                return_value.emplace_back(x);
-            }
-            else if (return_value[0].second * factor < x.second * factor)
-            {
-                return_value = { x };
-            }
-
-        }
-        return return_value;
-    }
-
     SpectatorResults FormatStatsEredivisie::getSpectatorStats(const football::footballCompetition& competition)
     {
         SpectatorResults results;
@@ -327,8 +309,7 @@ namespace shob::pages
 
         results.totalSpectators = total;
         results.meanSpectators = MathSupport::divide(total, nMatches);
-        results.teamsWithMostSpectators = findExtremeValueInMap(results.meanSpectatorsPerTeam, 1.0);
-        results.teamsWithLeastSpectators = findExtremeValueInMap(results.meanSpectatorsPerTeam, -1.0);
+        results.findExtremesValueInMap();
         return results;
     }
 

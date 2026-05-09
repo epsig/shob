@@ -18,5 +18,8 @@ namespace shob::pages
         bool estimateSpectatorsCurrentSeason = false;
         int totalSpectators = 0;
         void estimateSpectators(size_t tableSize);
+        void findExtremesValueInMap();
+    private:
+        void findExtremeValueInMap(const double factor);
     };
 }
