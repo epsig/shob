@@ -63,6 +63,11 @@ namespace shob::football
         }
         return datum + " " + expanded[0] + " - " + expanded[1] + " " + result + nvns();
     }
-};
 
+    std::string footballMatch::matchName(const teams::clubTeams& teams) const
+    {
+        std::vector expanded = { teams.expand(team1), teams.expand(team2) };
+        return expanded[0] + " - " + expanded[1];
+    }
+};
 

@@ -54,6 +54,11 @@ namespace shob::pages
             auto style = getLinkToStyleSheet();
             out.addContent(style);
         }
+        if (input.js == JavaScriptType::SortTable)
+        {
+            auto js = getJsSortTable();
+            out.addContent(js);
+        }
         out.data.back() += "</head><body>";
 
         out.addContent("<h1>" + input.title + "</h1>");
@@ -65,6 +70,44 @@ namespace shob::pages
 
         out.addContent("</body></html>");
 
+        return out;
+    }
+
+    general::MultipleStrings HeadBottom::getJsSortTable()
+    {
+        general::MultipleStrings out;
+        out.addContent("<script type=\"text/javascript\">");
+        out.addContent("function sortTable(tableId, col, headerSize, upDown) {");
+        out.addContent("var table, rows, switching, i, x, y, shouldSwitch;");
+        out.addContent("table = document.getElementById(tableId);");
+        out.addContent("switching = true;");
+        //Make a loop that will continue until no switching has been done:
+        out.addContent("while (switching) {");
+        //start by saying: no switching is done:
+        out.addContent("switching = false;");
+        out.addContent("rows = table.rows;");
+        //Loop through all table rows (except the first, which contains table headers):
+        out.addContent("for (i = headerSize; i < (rows.length - 1); i++) {");
+        //start by saying there should be no switching:
+        out.addContent("shouldSwitch = false;");
+        //Get the two elements you want to compare, one from current row and one from the next:
+        out.addContent("x = rows[i].getElementsByTagName(\"TD\")[col];");
+        out.addContent("y = rows[i + 1].getElementsByTagName(\"TD\")[col];");
+        //check if the two rows should switch place:
+        out.addContent("var compare;");
+        out.addContent("if (upDown == 2) { compare = (x.innerHTML.toLowerCase() > y.innerHTML.toLowerCase()); }");
+        out.addContent("else { compare = (x.innerHTML.toLowerCase() < y.innerHTML.toLowerCase()); }");
+        out.addContent("if (compare) {");
+        //if so, mark as a switch and break the loop:
+        out.addContent("shouldSwitch = true;");
+        out.addContent("break;");
+        out.addContent("}}");
+        out.addContent("if (shouldSwitch) {");
+        //If a switch has been marked, make the switch and mark that a switch has been done:
+        out.addContent("rows[i].parentNode.insertBefore(rows[i + 1], rows[i]);");
+        out.addContent("switching = true;");
+        out.addContent("}}}");
+        out.addContent("</script>");
         return out;
     }
 }

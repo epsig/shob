@@ -48,5 +48,22 @@ namespace shob::football
         return table;
     }
 
+    numbers1 topscorers::getNumbers1(const teams::clubTeams& teams, const teams::footballers& players) const
+    {
+        auto table = numbers1();
+        for (const auto& row : list_tp)
+        {
+            if (row.rank == 1)
+            {
+                const auto team = teams.expand(row.club);
+                const auto name = players.expand(row.name);
+                const auto nameWithClub = name + " (" + team + ")";
+                table.ListNamesWithClubs.push_back(nameWithClub);
+                table.goals = row.goals;
+            }
+        }
+        return table;
+    }
+
 }
 

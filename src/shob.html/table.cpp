@@ -13,17 +13,27 @@ namespace shob::html
 
         std::string zeroWidth = settings_.isCompatible ? "0" : "\"0\"";
 
+        std::string idTag;
+        if (!id.empty()) idTag = " id=\"" + id + "\"";
+
         if (content.empty()) { return table; }
 
         if (content.title.empty())
         {
-            table.data.emplace_back("<table>");
+            if (withBorder)
+            {
+                table.data.emplace_back("<table border cellspacing=" + zeroWidth + idTag + ">");
+            }
+            else
+            {
+                table.data.emplace_back("<table" + idTag + ">");
+            }
         }
         else
         {
             size_t cols = 1;
             if (!content.header.data.empty()) cols = content.header.data.size();
-            table.data.emplace_back("<table border cellspacing=" + zeroWidth+">" + buildHeader(content.title, cols));
+            table.data.emplace_back("<table border cellspacing=" + zeroWidth+idTag+">" + buildHeader(content.title, cols));
         }
 
         if ( ! content.header.data.empty())
@@ -43,14 +53,17 @@ namespace shob::html
         MultipleStrings table;
         if (content.empty()) { return table; }
 
+        std::string idTag;
+        if (!id.empty()) idTag = " id=\"" + id + "\"";
+
         if (withBorder)
         {
             const std::string zeroWidth = settings_.isCompatible ? "0" : "\"0\"";
-            table.data.emplace_back("<table border cellspacing=" + zeroWidth + ">");
+            table.data.emplace_back("<table border cellspacing=" + zeroWidth + idTag + ">");
         }
         else
         {
-            table.data.emplace_back("<table frame=\"box\">");
+            table.data.emplace_back("<table frame=\"box\"" + idTag + ">");
         }
 
         for (const auto& subTable : content)

@@ -8,7 +8,6 @@ use Sport_Functions::Search;
 use Shob_Tools::Settings;
 use Sport_Functions::InitSport;
 use Sport_Collector::Archief_Voetbal_NL;
-use Sport_Collector::Stats_Eredivisie;
 
 print header;
 

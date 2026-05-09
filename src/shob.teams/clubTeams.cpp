@@ -65,7 +65,8 @@ namespace shob::teams
         if (club.size() == 3)
         {
             auto nlClub = "NL" + club;
-            return clubs.at(nlClub);
+            if (clubs.contains(nlClub)) return clubs.at(nlClub);
+            return nlClub;
         }
         else if (clubs.contains(club))
         {

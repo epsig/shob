@@ -10,6 +10,7 @@
 #include "shob.pages/FormatOsFactory.h"
 #include "shob.pages/FormatSemestersAndYearStandingsFactory.h"
 #include "shob.pages/FormatHomeAndAwayStandingsFactory.h"
+#include "shob.pages/FormatStatsEredivisieFactory.h"
 #include "shob.general/Season.h"
 #include "shob.general/shobException.h"
 #include "shob.html/updateIfNewer.h"
@@ -69,6 +70,13 @@ int main(int argc, char* argv[])
         auto fmt_os = FormatOsFactory::build("sport/schaatsen/", settings);
         auto fmt_semesters_and_year = FormatSemestersAndYearStandingsFactory().build("sport/eredivisie/", settings);
         auto fmt_home_away = FormatHomeAndAwayStandingsFactory::build("sport/eredivisie/", settings);
+
+        auto fmt_stats_eredivisie = FormatStatsEredivisieFactory::build("sport/eredivisie/", settings);
+        for (const auto & extra : {true, false})
+        {
+            fmt_stats_eredivisie.getPagesToFile(extra,
+                FormatStatsEredivisie::getOutputFilename("../pages/", extra));
+        }
 
         for (int year = firstYear; year <= lastYear; year++)
         {

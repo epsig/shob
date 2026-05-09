@@ -13,6 +13,12 @@ namespace shob::pages
         SeparateFile,
     };
 
+    enum class JavaScriptType
+    {
+        None,
+        SortTable,
+    };
+
     /// <summary>
     /// Input struct for class HeadBottom
     /// </summary>
@@ -22,6 +28,7 @@ namespace shob::pages
         general::MultipleStrings body;
         std::string title;
         StyleSheetType css = StyleSheetType::InlineInHead;
+        JavaScriptType js = JavaScriptType::None;
         general::itdate dd;
     };
 
@@ -36,6 +43,7 @@ namespace shob::pages
         static general::MultipleStrings getStyleSheet();
         static general::MultipleStrings getLinkToStyleSheet();
         static general::MultipleStrings getFooter(const general::itdate& dd);
+        static general::MultipleStrings getJsSortTable();
     };
 }
 
