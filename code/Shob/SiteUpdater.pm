@@ -19,7 +19,6 @@ use Shob_Tools::Idate qw(&split_idate);
 use Sport_Collector::Archief_Voetbal_NL;
 use Sport_Collector::Archief_Europacup_Voetbal;
 use Sport_Collector::Archief_EK_WK_Voetbal;
-use Sport_Collector::Stats_Eredivisie;
 use Sport_Collector::Bookmarks_Index;
 use Sport_Functions::Seasons;
 use Sport_Functions::Range_Available_Seasons qw(&get_sport_range);
@@ -269,9 +268,6 @@ sub handle_sport_files($$$)
        $szn2 =~ s/-/_/;
     my $dl = ($yr == $curYrB ? $fast : 2);
   }
-
-  push @pages, [$fast, 'all', sub {&get_stats_eredivisie($szn1, $szn2, 0);}, 'sport_voetbal_nl_stats.html'];
-  push @pages, [$fast, 'all', sub {&get_stats_eredivisie($szn1, $szn2, 2);}, 'sport_voetbal_nl_stats_more.html'];
 
   do_all_text_dir ($lop, '', \@pages);
 }
