@@ -50,8 +50,6 @@ namespace shob::pages
         auto remarks = readers::csvAllSeasonsReader();
         remarks.init(file_remarks);
 
-        bool estimateSpectatorsCurrentSeason = false;
-
         const int startYear = list_matches.last_year_matches;
         int lastYear = list_matches.first_year_matches;
         if (extraStats && list_matches.first_year_standings > 0) lastYear = list_matches.first_year_standings;
@@ -100,22 +98,7 @@ namespace shob::pages
                 spectatorsStats = getSpectatorStats(competition);
                 if (year == startYear && ! table.isFinished())
                 {
-                    // TODO in method
-                    if (spectatorsStats.meanSpectatorsPerTeam.size() == table.list.size())
-                    {
-                        double sum = 0.0;
-                        for (const auto& row : spectatorsStats.meanSpectatorsPerTeam)
-                        {
-                            sum += row.second;
-                        }
-                        spectatorsStats.totalSpectators = sum * (spectatorsStats.meanSpectatorsPerTeam.size() - 1);
-                        spectatorsStats.meanSpectators = sum / spectatorsStats.meanSpectatorsPerTeam.size();
-                        estimateSpectatorsCurrentSeason = true;
-                    }
-                    else
-                    {
-                        spectatorsStats.totalSpectators = 0;
-                    }
+                    spectatorsStats.estimateSpectators(table.list.size());
                 }
             }
             updateStatsFromRemarks(spectatorsStats, current_remarks);
@@ -144,7 +127,7 @@ namespace shob::pages
         auto return_value1 = table1_to_html(table1);
         auto return_value2 = table2_to_html(table2, table2b);
         auto return_value3 = table3_to_html(table3);
-        auto return_value4a = table4a_to_html(table4, estimateSpectatorsCurrentSeason);
+        auto return_value4a = table4a_to_html(table4);
         auto return_value4b = table4b_to_html(table4);
 
         auto hb = HeadBottomInput(dd);
@@ -163,6 +146,26 @@ namespace shob::pages
         }
 
         return HeadBottom::getPage(hb);
+    }
+
+    void spectatorResults::estimateSpectators(const size_t tableSize)
+    {
+        if (meanSpectatorsPerTeam.size() == tableSize)
+        {
+            double sum = 0.0;
+            for (const auto& [fst, snd] : meanSpectatorsPerTeam)
+            {
+                sum += snd;
+            }
+           constexpr size_t one = 1;
+            totalSpectators = static_cast<int>(sum * static_cast<double>(meanSpectatorsPerTeam.size() - one));
+            meanSpectators = sum / static_cast<double>(meanSpectatorsPerTeam.size());
+            estimateSpectatorsCurrentSeason = true;
+        }
+        else
+        {
+            totalSpectators = 0;
+        }
     }
 
     std::string FormatStatsEredivisie::getOutputFilename(const std::string& folder, const bool extraStats)
@@ -552,8 +555,7 @@ namespace shob::pages
         return return_value;
     }
 
-    MultipleStrings FormatStatsEredivisie::table4a_to_html(const std::vector<std::pair<Season, spectatorResults>>& results,
-        bool estimateSpectatorsCurrentSeason) const
+    MultipleStrings FormatStatsEredivisie::table4a_to_html(const std::vector<std::pair<Season, spectatorResults>>& results) const
     {
         html::tableContent content1;
 
@@ -585,7 +587,6 @@ namespace shob::pages
 
         html::tableContent content;
         content.header.data = {};
-        bool isFirst = true;
 
         for (const auto& result : results)
         {
@@ -595,7 +596,7 @@ namespace shob::pages
             MultipleStrings body;
             body.data = std::vector<std::string>(7);
             body.data[0] = szn.toString();
-            if (isFirst && estimateSpectatorsCurrentSeason)
+            if (data.estimateSpectatorsCurrentSeason)
             {
                 body.data[1] = std::format("{:3.1f} M", static_cast<double>(data.totalSpectators) * 1e-6);
             }
@@ -603,7 +604,6 @@ namespace shob::pages
             {
                 body.data[1] = std::format("{:4.2f} M", static_cast<double>(data.totalSpectators) * 1e-6);
             }
-            isFirst = false;
             body.data[2] = std::format("{:04.1f} k", data.meanSpectators * 1e-3);
             if (!data.teamsWithMostSpectators.empty())
             {
@@ -622,7 +622,7 @@ namespace shob::pages
         Table.id = "id5";
         auto return_value = MultipleStrings();
         return_value.addContent("<a name=\"toesch\">");
-        if (estimateSpectatorsCurrentSeason)
+        if (results.front().second.estimateSpectatorsCurrentSeason)
         {
             auto szn = results.front().first;
             return_value.addContent(std::format("<p>Schatting van het totaal aantal toeschouwers voor {}: {:.1f} miljoen.</p>",

@@ -39,7 +39,7 @@ namespace shob::pages::test
         constexpr auto settings = html::settings();
         const auto fmt_stats_eredivisie = FormatStatsEredivisieFactory::build(dataFolder, settings);
         const auto lines = fmt_stats_eredivisie.getStats(false);
-        EXPECT_EQ(lines.data.size(), 91);
+        EXPECT_EQ(lines.data.size(), 92);
     }
 
     void TestFormatStatsEredivisie::test4()

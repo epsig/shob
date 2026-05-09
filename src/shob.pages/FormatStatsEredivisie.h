@@ -62,6 +62,8 @@ namespace shob::pages
         std::vector<std::pair<std::string, double>> teamsWithMostSpectators;
         std::vector<std::pair<std::string, double>> teamsWithLeastSpectators;
         std::unordered_map<std::string, double> meanSpectatorsPerTeam;
+        bool estimateSpectatorsCurrentSeason = false;
+        void estimateSpectators(size_t tableSize);
     };
 
     struct StatFilesSummary
@@ -103,8 +105,7 @@ namespace shob::pages
                              std::string& results) const;
         general::MultipleStrings table3_to_html(const std::vector<std::pair<general::Season, strikingResults>>& results) const;
         general::MultipleStrings table4a_to_html(
-            const std::vector<std::pair<general::Season, spectatorResults>>& results,
-            bool estimateSpectatorsCurrentSeason) const;
+            const std::vector<std::pair<general::Season, spectatorResults>>& results) const;
         general::MultipleStrings table4b_to_html(const std::vector<std::pair<general::Season, spectatorResults>>& results) const;
         general::MultipleStrings table5_to_html(
             const std::vector<std::pair<general::Season, football::numbers1>>& topscorers) const;
