@@ -71,14 +71,11 @@ int main(int argc, char* argv[])
         auto fmt_semesters_and_year = FormatSemestersAndYearStandingsFactory().build("sport/eredivisie/", settings);
         auto fmt_home_away = FormatHomeAndAwayStandingsFactory::build("sport/eredivisie/", settings);
 
-        if (std::filesystem::is_directory("../pages_new/"))
+        auto fmt_stats_eredivisie = FormatStatsEredivisieFactory::build("sport/eredivisie/", settings);
+        for (const auto & extra : {true, false})
         {
-            auto fmt_stats_eredivisie = FormatStatsEredivisieFactory::build("sport/eredivisie/", settings);
-            for (const auto & extra : {true, false})
-            {
-                fmt_stats_eredivisie.getPagesToFile(extra,
-                    FormatStatsEredivisie::getOutputFilename("../pages_new/", extra));
-            }
+            fmt_stats_eredivisie.getPagesToFile(extra,
+                FormatStatsEredivisie::getOutputFilename("../pages/", extra));
         }
 
         for (int year = firstYear; year <= lastYear; year++)
