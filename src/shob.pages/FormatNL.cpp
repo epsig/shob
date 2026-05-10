@@ -33,22 +33,29 @@ namespace shob::pages
     MultipleStrings FormatNL::getTopScorers(const std::string& file, const Season& season,
         const teams::footballers& players, const teams::clubTeams& teams)
     {
-        auto settings = html::settings();
+        constexpr auto settings = html::settings();
 
         auto allTp = readers::csvAllSeasonsReader();
         allTp.init(file);
 
         auto tp = football::topscorers(allTp);
         tp.initFromFile(season);
-        auto table = tp.prepareTable(teams, players, settings);
-        auto Table = html::table(settings);
-        auto out = Table.buildTable(table);
-        return out;
+        if (tp.getSizeList() > 0)
+        {
+            auto table = tp.prepareTable(teams, players, settings);
+            auto Table = html::table(settings);
+            auto out = Table.buildTable(table);
+            return out;
+        }
+        else
+        {
+            return {};
+        }
     }
 
     MultipleStrings FormatNL::get_season(const Season& season) const
     {
-        auto settings = html::settings();
+        constexpr auto settings = html::settings();
 
         auto file1 = sportDataFolder + "/eredivisie/eredivisie_" + season.toPartFilename() + ".csv";
         auto competition = football::footballCompetition();
