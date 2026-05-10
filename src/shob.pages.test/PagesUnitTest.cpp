@@ -1,7 +1,7 @@
 
 #include <gtest/gtest.h>
 
-#include "test_format_nl.h"
+#include "TestFormatNL.h"
 #include "TestFormatEC.h"
 #include "test_format_ekwk_qf.h"
 #include "TestFormatOs.h"
@@ -20,7 +20,7 @@ int main(int argc, char** argv)
 
 TEST(IntegrationTest, testFormatNL)
 {
-    testFormatNL::test1();
+    TestFormatNL::test1();
 }
 
 TEST(IntegrationTest, testFormatEc_2024_2025)

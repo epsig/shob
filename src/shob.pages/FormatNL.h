@@ -8,10 +8,10 @@
 
 namespace shob::pages
 {
-    class format_nl
+    class FormatNL
     {
     public:
-        format_nl(std::string folder, readers::csvAllSeasonsReader extras, readers::csvAllSeasonsReader remarks, TopMenu menu) :
+        FormatNL(std::string folder, readers::csvAllSeasonsReader extras, readers::csvAllSeasonsReader remarks, TopMenu menu) :
             sportDataFolder(std::move(folder)), extras(std::move(extras)), remarks(std::move(remarks)), menu(std::move(menu)) {}
         void get_season_stdout(const general::Season& season) const;
         void get_season_to_file(const general::Season& season, const std::string& filename) const;

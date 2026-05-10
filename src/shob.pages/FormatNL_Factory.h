@@ -1,13 +1,13 @@
 
 #pragma once
 #include <string>
-#include "format_nl.h"
+#include "FormatNL.h"
 
 namespace shob::pages
 {
     class format_nl_factory
     {
     public:
-        static format_nl build(const std::string& dataFolder);
+        static FormatNL build(const std::string& dataFolder);
     };
 }

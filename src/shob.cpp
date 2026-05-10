@@ -5,7 +5,7 @@
 
 #include "shob.general/dateFactory.h"
 #include "shob.pages/FormatEC_Factory.h"
-#include "shob.pages/format_nl_factory.h"
+#include "shob.pages/FormatNL_Factory.h"
 #include "shob.pages/format_ekwk_qf_factory.h"
 #include "shob.pages/FormatOsFactory.h"
 #include "shob.pages/FormatSemestersAndYearStandingsFactory.h"

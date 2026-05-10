@@ -1,5 +1,5 @@
 
-#include "format_nl_factory.h"
+#include "FormatNL_Factory.h"
 
 #include "../shob.general/glob.h"
 #include "TopMenu.h"
@@ -17,7 +17,7 @@ namespace shob::pages
         s.replace(pos, toReplace.length(), replaceWith);
     }
 
-    format_nl format_nl_factory::build(const std::string& dataFolder)
+    FormatNL format_nl_factory::build(const std::string& dataFolder)
     {
         auto extras = readers::csvAllSeasonsReader();
         extras.init(dataFolder + "/eredivisie/eredivisie_u2s.csv");
@@ -33,7 +33,7 @@ namespace shob::pages
         }
         auto menu = TopMenu(archive, 'K');
 
-        auto format = format_nl(dataFolder, extras, remarks, menu);
+        auto format = FormatNL(dataFolder, extras, remarks, menu);
         return format;
     }
 }

@@ -1,5 +1,5 @@
 
-#include "format_nl.h"
+#include "FormatNL.h"
 #include <iostream>
 #include <filesystem>
 
@@ -14,22 +14,23 @@ namespace shob::pages
     namespace fs = std::filesystem;
     using namespace shob::general;
 
-    void format_nl::get_season_to_file(const general::Season& season, const std::string& filename) const
+    void FormatNL::get_season_to_file(const Season& season, const std::string& filename) const
     {
         auto output = get_season(season);
         html::updateIfDifferent::update(filename, output);
     }
 
-    void format_nl::get_season_stdout(const general::Season& season) const
+    void FormatNL::get_season_stdout(const Season& season) const
     {
         auto output = get_season(season);
         for (const auto& row : output.data)
         {
-            std::cout << row << std::endl;
+            std::cout << row << "\n";
         }
+        std::cout.flush();
     }
 
-    MultipleStrings format_nl::getTopScorers(const std::string& file, const Season& season,
+    MultipleStrings FormatNL::getTopScorers(const std::string& file, const Season& season,
         const teams::footballers& players, const teams::clubTeams& teams)
     {
         auto settings = html::settings();
@@ -45,7 +46,7 @@ namespace shob::pages
         return out;
     }
 
-    MultipleStrings format_nl::get_season(const Season& season) const
+    MultipleStrings FormatNL::get_season(const Season& season) const
     {
         auto settings = html::settings();
 
