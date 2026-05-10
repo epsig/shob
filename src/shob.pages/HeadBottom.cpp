@@ -43,6 +43,7 @@ namespace shob::pages
     general::MultipleStrings HeadBottom::getPage(HeadBottomInput& input)
     {
         general::MultipleStrings out;
+        out.addContent("<!doctype html>");
         out.addContent("<html lang=\"NL\"><head><title>" + input.title + "</title>");
         if (input.css == StyleSheetType::InlineInHead)
         {

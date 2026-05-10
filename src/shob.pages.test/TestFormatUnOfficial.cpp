@@ -19,7 +19,7 @@ namespace shob::pages::test
         const html::settings settings = html::settings();
         const auto fmt_un_off = FormatSemestersAndYearStandingsFactory().build(dataFolder, settings);
         const auto lines = fmt_un_off.getPages(2010);
-        ASSERT_EQ(lines.data.size(), 105);
+        ASSERT_EQ(lines.data.size(), 106);
     }
 
     void TestFormatUnOfficial::testHomeAndAway2010()
@@ -32,7 +32,7 @@ namespace shob::pages::test
         const bool exists = fmt_home_away.isValidSeason(season);
         ASSERT_TRUE(exists);
         const auto lines = fmt_home_away.getSeason(season);
-        ASSERT_EQ(lines.data.size(), 103);
+        ASSERT_EQ(lines.data.size(), 104);
     }
 
     void TestFormatUnOfficial::testYearStandingTestData1()
@@ -44,7 +44,7 @@ namespace shob::pages::test
         const auto last_year = fmt_un_off.getLastYear();
         EXPECT_EQ(last_year, 2014);
         const auto lines = fmt_un_off.getPages(2011);
-        ASSERT_EQ(lines.data.size(), 95);
+        ASSERT_EQ(lines.data.size(), 96);
     }
 
     void TestFormatUnOfficial::testYearStandingTestData2()
@@ -56,7 +56,7 @@ namespace shob::pages::test
         const auto last_year = fmt_un_off.getLastYear();
         EXPECT_EQ(last_year, 2013);
         const auto lines = fmt_un_off.getPages(2011);
-        ASSERT_EQ(lines.data.size(), 94);
+        ASSERT_EQ(lines.data.size(), 95);
     }
 
 }
