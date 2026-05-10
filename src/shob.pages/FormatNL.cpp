@@ -65,6 +65,11 @@ namespace shob::pages
 
         auto menuOut = menu.getMenu(season);
         menuOut.data[0] = "<hr> andere seizoenen: | " + menuOut.data[0];
+        menuOut.data.push_back("<hr>| supercup | klassiekers | eredivisie | beker-tournooi | eerste divisie | topscorers |");
+        std::string links = "<hr><a href=\"sport_voetbal_nl_stats.html\">Statistieken Eredivisie vanaf 1993</a> | ";
+        links += "<a href=\"sport_voetbal_nl_jaarstanden.html\"> Winterkampioen en jaarstanden vanaf 1993 </a> | ";
+        links += "<a href=\"sport_voetbal_nl_uit_thuis.html\">uit - en thuis standen vanaf 1993 </a> <hr>";
+        menuOut.data.push_back(links);
         out.addContent(menuOut);
 
         auto teams = teams::clubTeams();
