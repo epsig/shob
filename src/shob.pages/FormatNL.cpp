@@ -1,13 +1,16 @@
 
 #include "FormatNL.h"
 #include <iostream>
+#include <array>
 #include <filesystem>
 
+#include "PageBlock.h"
 #include "../shob.football/results2standings.h"
 #include "../shob.teams/clubTeams.h"
 #include "../shob.football/route2finalFactory.h"
 #include "../shob.pages/HeadBottom.h"
 #include "../shob.html/updateIfNewer.h"
+#include "../shob.football/filterResults.h"
 
 namespace shob::pages
 {
@@ -63,20 +66,60 @@ namespace shob::pages
 
         auto out = MultipleStrings();
 
-        auto menuOut = menu.getMenu(season);
-        menuOut.data[0] = "<hr> andere seizoenen: | " + menuOut.data[0];
-        menuOut.data.push_back("<hr>| supercup | klassiekers | eredivisie | beker-tournooi | eerste divisie | topscorers |");
-        std::string links = "<hr><a href=\"sport_voetbal_nl_stats.html\">Statistieken Eredivisie vanaf 1993</a> | ";
-        links += "<a href=\"sport_voetbal_nl_jaarstanden.html\"> Winterkampioen en jaarstanden vanaf 1993 </a> | ";
-        links += "<a href=\"sport_voetbal_nl_uit_thuis.html\">uit - en thuis standen vanaf 1993 </a> <hr>";
-        menuOut.data.push_back(links);
-        out.addContent(menuOut);
 
         auto teams = teams::clubTeams();
         auto file2 = sportDataFolder + "/clubs.csv";
         teams.InitFromFile(file2, teams::clubsOrCountries::clubs);
 
         auto Table = html::table(settings);
+
+        auto pageBlocks = std::array<pageBlock, 1>();
+
+        // beker/supercup:
+        const std::string bekerFilename = sportDataFolder + "/beker/beker_" + season.toPartFilename() + ".csv";
+        readers::csvContent dataBekerAndSupercup;
+        if (fs::exists(bekerFilename))
+        {
+            dataBekerAndSupercup = readers::csvReader::readCsvFile(bekerFilename);
+            auto filter = football::filterInputList();
+            const std::string part = "supercup";
+            filter.filters.push_back({ 0, part });
+            const auto matches = football::filterResults::readFromCsvData(dataBekerAndSupercup, filter);
+            if (!matches.matches.empty())
+            {
+                auto prepTable = matches.prepareTable(teams, settings);
+                prepTable.title = std::format("<a name=\"JC\"/>Johan Cruijff schaal {}", season.getFirstYear());
+                auto table = Table.buildTable(prepTable);
+                pageBlocks[0].data = table;
+                pageBlocks[0].linkName = "JC";
+                pageBlocks[0].description = "supercup";
+            }
+        }
+
+        auto menuOut = menu.getMenu(season);
+        menuOut.data[0] = "<hr> andere seizoenen: | " + menuOut.data[0];
+        menuOut.data.push_back("<hr>| ");
+        for (const auto& block : pageBlocks)
+        {
+            if (!block.data.data.empty())
+            {
+                menuOut.addContent(" <a href=\"#" + block.linkName + "\">" + block.description + "</a> |");
+            }
+        }
+        menuOut.data.push_back(" klassiekers | eredivisie | beker-tournooi | eerste divisie | topscorers |");
+        std::string links = "<hr><a href=\"sport_voetbal_nl_stats.html\">Statistieken Eredivisie vanaf 1993</a> | ";
+        links += "<a href=\"sport_voetbal_nl_jaarstanden.html\"> Winterkampioen en jaarstanden vanaf 1993 </a> | ";
+        links += "<a href=\"sport_voetbal_nl_uit_thuis.html\">uit - en thuis standen vanaf 1993 </a> <hr>";
+        menuOut.data.push_back(links);
+        out.addContent(menuOut);
+
+        for (auto& block : pageBlocks)
+        {
+            if (!block.data.data.empty())
+            {
+                out.addContent(block.data);
+            }
+        }
 
         const std::set<std::string> toppers = { "ajx", "fyn", "psv" };
         const auto filtered = competition.filter(toppers);
@@ -123,11 +166,10 @@ namespace shob::pages
         out.addContent(content);
 
         // beker:
-        const std::string bekerFilename = sportDataFolder + "/beker/beker_" + season.toPartFilename() +".csv";
         int dd = 19920101;
         if (fs::exists(bekerFilename))
         {
-            const auto r2f = football::route2finaleFactory::create(bekerFilename);
+            const auto r2f = football::route2finaleFactory::create(dataBekerAndSupercup);
             const auto prepTable = r2f.prepareTable(teams, settings);
             content = Table.buildTable(prepTable);
             out.addContent(content);

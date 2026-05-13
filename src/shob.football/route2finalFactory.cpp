@@ -9,7 +9,11 @@ namespace shob::football
     route2final route2finaleFactory::create(const std::string& filename)
     {
         const auto data = readers::csvReader::readCsvFile(filename);
+        return create(data);
+    }
 
+    route2final route2finaleFactory::create(const readers::csvContent& data)
+    {
         auto filter = filterInputList();
         filter.filters.push_back({ 0, "f" });
         const auto finale = filterResults::readFromCsvData(data, filter);
