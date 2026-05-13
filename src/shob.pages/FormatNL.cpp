@@ -3,6 +3,7 @@
 #include <iostream>
 #include <array>
 #include <filesystem>
+#include <format>
 
 #include "PageBlock.h"
 #include "../shob.football/results2standings.h"
@@ -81,20 +82,8 @@ namespace shob::pages
         if (fs::exists(bekerFilename))
         {
             dataBekerAndSupercup = readers::csvReader::readCsvFile(bekerFilename);
-            auto filter = football::filterInputList();
-            const std::string part = "supercup";
-            filter.filters.push_back({ 0, part });
-            const auto matches = football::filterResults::readFromCsvData(dataBekerAndSupercup, filter);
-            if (!matches.matches.empty())
-            {
-                auto prepTable = matches.prepareTable(teams, settings);
-                prepTable.title = std::format("<a name=\"JC\"/>Johan Cruijff schaal {}", season.getFirstYear());
-                auto table = Table.buildTable(prepTable);
-                pageBlocks[0].data = table;
-                pageBlocks[0].linkName = "JC";
-                pageBlocks[0].description = "supercup";
-            }
         }
+        pageBlocks[0] = getSupercup(dataBekerAndSupercup, teams, settings, season);
 
         auto menuOut = menu.getMenu(season);
         menuOut.data[0] = "<hr> andere seizoenen: | " + menuOut.data[0];
@@ -181,6 +170,28 @@ namespace shob::pages
         std::swap(hb.body, out);
 
         return HeadBottom::getPage(hb);
+
+    }
+
+    pageBlock FormatNL::getSupercup(const readers::csvContent& dataBekerAndSupercup, const teams::clubTeams& teams,
+        const html::settings& settings, const Season& season) const
+    {
+        pageBlock retval;
+        auto Table = html::table(settings);
+        auto filter = football::filterInputList();
+        const std::string part = "supercup";
+        filter.filters.push_back({ 0, part });
+        const auto matches = football::filterResults::readFromCsvData(dataBekerAndSupercup, filter);
+        if (!matches.matches.empty())
+        {
+            auto prepTable = matches.prepareTable(teams, settings);
+            prepTable.title = std::format("<a name=\"JC\"/>Johan Cruijff schaal {}", season.getFirstYear());
+            auto table = Table.buildTable(prepTable);
+            retval.data = table;
+            retval.linkName = "JC";
+            retval.description = "supercup";
+        }
+        return retval;
     }
 
 }

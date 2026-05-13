@@ -1,6 +1,8 @@
 
 #pragma once
 #include <string>
+
+#include "PageBlock.h"
 #include "../shob.readers/csvAllSeasonsReader.h"
 #include "../shob.football/topscorers.h"
 #include "../shob.general/Season.h"
@@ -23,5 +25,7 @@ namespace shob::pages
         const TopMenu menu;
         static general::MultipleStrings getTopScorers(const std::string& file, const general::Season& season,
             const teams::footballers& players, const teams::clubTeams& teams);
+        pageBlock getSupercup(const readers::csvContent& dataBekerAndSupercup, const teams::clubTeams& teams,
+            const html::settings& settings, const general::Season& season) const;
     };
 }
