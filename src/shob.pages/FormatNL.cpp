@@ -65,7 +65,7 @@ namespace shob::pages
 
         auto Table = html::table(settings);
 
-        auto pageBlocks = std::array<pageBlock, 1>();
+        auto pageBlocks = std::array<pageBlock, 2>();
 
         // beker/supercup:
         const std::string bekerFilename = sportDataFolder + "/beker/beker_" + season.toPartFilename() + ".csv";
@@ -75,6 +75,7 @@ namespace shob::pages
             dataBekerAndSupercup = readers::csvReader::readCsvFile(bekerFilename);
         }
         pageBlocks[0] = getSupercup(dataBekerAndSupercup, season);
+        pageBlocks[1] = getKlassiekers(competition);
 
         auto menuOut = menu.getMenu(season);
         menuOut.data[0] = "<hr> andere seizoenen: | " + menuOut.data[0];
@@ -86,7 +87,7 @@ namespace shob::pages
                 menuOut.addContent(" <a href=\"#" + block.linkName + "\">" + block.description + "</a> |");
             }
         }
-        menuOut.data.push_back(" klassiekers | eredivisie | beker-tournooi | eerste divisie | topscorers |");
+        menuOut.data.push_back(" eredivisie | beker-tournooi | eerste divisie | topscorers |");
         std::string links = "<hr><a href=\"sport_voetbal_nl_stats.html\">Statistieken Eredivisie vanaf 1993</a> | ";
         links += "<a href=\"sport_voetbal_nl_jaarstanden.html\"> Winterkampioen en jaarstanden vanaf 1993 </a> | ";
         links += "<a href=\"sport_voetbal_nl_uit_thuis.html\">uit - en thuis standen vanaf 1993 </a> <hr>";
@@ -100,11 +101,6 @@ namespace shob::pages
                 out.addContent(block.data);
             }
         }
-
-        const std::set<std::string> toppers = { "ajx", "fyn", "psv" };
-        const auto filtered = competition.filter(toppers);
-        auto content = Table.buildTable(filtered.prepareTable(teams, settings));
-        out.addContent(content);
 
         const auto currentRemarks = remarks.getSeason(season);
         int scoring = 3;
@@ -127,7 +123,7 @@ namespace shob::pages
         auto htmlTable = table.prepareTable(teams, settings);
         auto htmlTable2 = standing_1e_div.prepareTable(teams, settings);
 
-        content = Table.buildTable(htmlTable);
+        auto content = Table.buildTable(htmlTable);
         out.addContent(content);
         content = Table.buildTable(htmlTable2);
         out.addContent(content);
@@ -176,10 +172,28 @@ namespace shob::pages
         {
             auto prepTable = matches.prepareTable(teams, settings);
             prepTable.title = std::format("<a name=\"JC\"/>Johan Cruijff schaal {}", season.getFirstYear());
-            auto table = Table.buildTable(prepTable);
-            retval.data = table;
+            retval.data = Table.buildTable(prepTable);
             retval.linkName = "JC";
             retval.description = "supercup";
+        }
+        return retval;
+    }
+
+    pageBlock FormatNL::getKlassiekers(const football::footballCompetition& competition) const
+    {
+        pageBlock retval;
+        const std::set<std::string> toppers = { "ajx", "fyn", "psv" };
+        const auto filtered = competition.filter(toppers);
+        if ( ! filtered.matches.empty())
+        {
+            auto Table = html::table(settings);
+            auto prepTable = filtered.prepareTable(teams, settings);
+            prepTable.title = "<a name=\"klassiekers\"/>De traditionele toppers";
+            retval.data.addContent("<p/>");
+            auto content = Table.buildTable(prepTable);
+            retval.data.addContent(content);
+            retval.linkName = "klassiekers";
+            retval.description = retval.linkName;
         }
         return retval;
     }

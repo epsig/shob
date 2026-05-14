@@ -6,6 +6,7 @@
 #include "../shob.readers/csvAllSeasonsReader.h"
 #include "../shob.football/topscorers.h"
 #include "../shob.general/Season.h"
+#include "../shob.football/footballCompetition.h"
 #include "TopMenu.h"
 
 namespace shob::pages
@@ -30,5 +31,6 @@ namespace shob::pages
         general::MultipleStrings getTopScorers(const std::string& file, const general::Season& season,
             const teams::footballers& players) const;
         pageBlock getSupercup(const readers::csvContent& dataBekerAndSupercup, const general::Season& season) const;
+        pageBlock getKlassiekers(const football::footballCompetition& competition) const;
     };
 }
