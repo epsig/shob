@@ -18,20 +18,17 @@ namespace shob::pages
     namespace fs = std::filesystem;
     using namespace shob::general;
 
-    void FormatNL::get_season_to_file(const Season& season, const std::string& filename) const
+    bool FormatNL::isValidSeason(const Season& season) const
     {
-        auto output = get_season(season);
-        html::updateIfDifferent::update(filename, output);
+        std::string file_eredivisie = sportDataFolder + "/eredivisie/eredivisie_" + season.toPartFilename() + ".csv";
+        std::string file_1e_divisie = sportDataFolder + "/eerste_divisie/eerste_divisie_" + season.toPartFilename() + ".csv";
+        std::string file_beker      = sportDataFolder + "/beker/beker_" + season.toPartFilename() + ".csv";
+        return fs::exists(file_eredivisie) || fs::exists(file_1e_divisie) || fs::exists(file_beker);
     }
 
-    void FormatNL::get_season_stdout(const Season& season) const
+    std::string FormatNL::getOutputFilename(const std::string& folder, const Season& season)
     {
-        auto output = get_season(season);
-        for (const auto& row : output.data)
-        {
-            std::cout << row << "\n";
-        }
-        std::cout.flush();
+        return std::format("{}/sport_voetbal_nl_{}.html", folder, season.toPartFilename());
     }
 
     MultipleStrings FormatNL::getTopScorers(const std::string& file, const std::string& name_competition, const Season& season,
@@ -56,7 +53,7 @@ namespace shob::pages
         }
     }
 
-    MultipleStrings FormatNL::get_season(const Season& season) const
+    MultipleStrings FormatNL::getSeason(const Season& season) const
     {
         auto file1 = sportDataFolder + "/eredivisie/eredivisie_" + season.toPartFilename() + ".csv";
         auto competition = football::footballCompetition();

@@ -16,7 +16,7 @@ namespace shob::pages::test
         const std::string dataFolder = testUtils::refFileWithPath(__FILE__, dataMap);
         auto settings = html::settings();
         auto fmt_nl = format_nl_factory::build(dataFolder, settings);
-        auto lines = fmt_nl.get_season(general::Season(2023));
+        auto lines = fmt_nl.getSeason(general::Season(2023));
         EXPECT_EQ(lines.data.size(), 147);
     }
 }
