@@ -104,6 +104,8 @@ namespace shob::pages
     PageBlock FormatNL::getSupercup(const readers::csvContent& dataBekerAndSupercup, const Season& season) const
     {
         PageBlock retval;
+        if (dataBekerAndSupercup.body.empty()) return retval;
+
         auto Table = html::table(settings);
         auto filter = football::filterInputList();
         const std::string part = "supercup";
