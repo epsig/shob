@@ -34,7 +34,7 @@ namespace shob::pages
         std::cout.flush();
     }
 
-    MultipleStrings FormatNL::getTopScorers(const std::string& file, const Season& season,
+    MultipleStrings FormatNL::getTopScorers(const std::string& file, const std::string& name_competition, const Season& season,
         const teams::footballers& players) const
     {
         auto allTp = readers::csvAllSeasonsReader();
@@ -45,6 +45,7 @@ namespace shob::pages
         if (tp.getSizeList() > 0)
         {
             auto table = tp.prepareTable(teams, players, settings);
+            table.title = "Topscorers " + name_competition;
             auto Table = html::table(settings);
             auto out = Table.buildTable(table);
             return out;
@@ -83,11 +84,12 @@ namespace shob::pages
             }
         }
 
-        auto pageBlocks = std::array<PageBlock, 4>();
+        auto pageBlocks = std::array<PageBlock, 5>();
         pageBlocks[0] = getSupercup(dataBekerAndSupercup, season);
         pageBlocks[1] = getKlassiekers(competition);
         pageBlocks[2] = getStandEredivisie(competition, scoring, season, currentRemarks);
         pageBlocks[3] = getEersteDivisie(season);
+        pageBlocks[4] = getBothTopScorers(season);
 
         auto menuOut = menu.getMenu(season);
         menuOut.data[0] = "<hr> andere seizoenen: | " + menuOut.data[0];
@@ -99,7 +101,7 @@ namespace shob::pages
                 menuOut.addContent(" <a href=\"#" + block.linkName + "\">" + block.description + "</a> |");
             }
         }
-        menuOut.data.push_back(" beker-tournooi | topscorers |");
+        menuOut.data.push_back(" beker-tournooi |");
         std::string links = "<hr><a href=\"sport_voetbal_nl_stats.html\">Statistieken Eredivisie vanaf 1993</a> | ";
         links += "<a href=\"sport_voetbal_nl_jaarstanden.html\"> Winterkampioen en jaarstanden vanaf 1993 </a> | ";
         links += "<a href=\"sport_voetbal_nl_uit_thuis.html\">uit - en thuis standen vanaf 1993 </a> <hr>";
@@ -114,26 +116,13 @@ namespace shob::pages
             }
         }
 
-        // topscorers:
-        auto players = teams::footballers();
-        const std::string filename3 = sportDataFolder + "/voetballers.csv";
-        players.initFromFile(filename3);
-
-        auto file_tp_eredivisie = sportDataFolder + "/eredivisie/topscorers_eredivisie.csv";
-        auto content = getTopScorers(file_tp_eredivisie, season, players);
-        out.addContent(content);
-
-        auto file_tp_eerste_divisie = sportDataFolder + "/eerste_divisie/topscorers_eerste_divisie.csv";
-        content = getTopScorers(file_tp_eerste_divisie, season, players);
-        out.addContent(content);
-
         // beker:
         int dd = 19920101;
         if (fs::exists(bekerFilename))
         {
             const auto r2f = football::route2finaleFactory::create(dataBekerAndSupercup);
             const auto prepTable = r2f.prepareTable(teams, settings);
-            content = Table.buildTable(prepTable);
+            auto content = Table.buildTable(prepTable);
             out.addContent(content);
             dd = r2f.lastDate().toInt();
         }
@@ -143,7 +132,6 @@ namespace shob::pages
         std::swap(hb.body, out);
 
         return HeadBottom::getPage(hb);
-
     }
 
     PageBlock FormatNL::getSupercup(const readers::csvContent& dataBekerAndSupercup, const Season& season) const
@@ -254,6 +242,29 @@ namespace shob::pages
             retval.data.addContent(content);
             retval.linkName = "1ste_div";
             retval.description = "eerste divisie";
+        }
+        return retval;
+    }
+
+    PageBlock FormatNL::getBothTopScorers(const Season& season) const
+    {
+        PageBlock retval;
+        const auto file_tp_eredivisie = sportDataFolder + "/eredivisie/topscorers_eredivisie.csv";
+        const auto file_tp_eerste_divisie = sportDataFolder + "/eerste_divisie/topscorers_eerste_divisie.csv";
+        if (fs::exists(file_tp_eredivisie) || fs::exists(file_tp_eerste_divisie))
+        {
+            auto players = teams::footballers();
+            const std::string filename = sportDataFolder + "/voetballers.csv";
+            players.initFromFile(filename);
+
+            retval.data.addContent("<p/> <a name=\"topscorers\"/>");
+            auto content = getTopScorers(file_tp_eredivisie, "Eredivisie", season, players);
+            retval.data.addContent(content);
+
+            content = getTopScorers(file_tp_eerste_divisie, "Eerste Divisie", season, players);
+            retval.data.addContent(content);
+            retval.description = "topscorers";
+            retval.linkName = retval.description;
         }
         return retval;
     }

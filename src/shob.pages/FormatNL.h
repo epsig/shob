@@ -28,12 +28,13 @@ namespace shob::pages
         const TopMenu menu;
         const teams::clubTeams teams;
         const html::settings settings;
-        general::MultipleStrings getTopScorers(const std::string& file, const general::Season& season,
+        general::MultipleStrings getTopScorers(const std::string& file, const std::string& name_competition, const general::Season& season,
             const teams::footballers& players) const;
         PageBlock getSupercup(const readers::csvContent& dataBekerAndSupercup, const general::Season& season) const;
         PageBlock getKlassiekers(const football::footballCompetition& competition) const;
         PageBlock getStandEredivisie(const football::footballCompetition& competition, int scoring,
             const general::Season& season, const std::vector<std::vector<std::string>>& remarks_this_season) const;
         PageBlock getEersteDivisie(const general::Season& season) const;
+        PageBlock getBothTopScorers(const general::Season& season) const;
     };
 }
