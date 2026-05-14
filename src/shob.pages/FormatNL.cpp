@@ -65,8 +65,6 @@ namespace shob::pages
 
         auto Table = html::table(settings);
 
-        auto pageBlocks = std::array<PageBlock, 3>();
-
         // beker/supercup:
         const std::string bekerFilename = sportDataFolder + "/beker/beker_" + season.toPartFilename() + ".csv";
         readers::csvContent dataBekerAndSupercup;
@@ -85,9 +83,11 @@ namespace shob::pages
             }
         }
 
+        auto pageBlocks = std::array<PageBlock, 4>();
         pageBlocks[0] = getSupercup(dataBekerAndSupercup, season);
         pageBlocks[1] = getKlassiekers(competition);
         pageBlocks[2] = getStandEredivisie(competition, scoring, season, currentRemarks);
+        pageBlocks[3] = getEersteDivisie(season);
 
         auto menuOut = menu.getMenu(season);
         menuOut.data[0] = "<hr> andere seizoenen: | " + menuOut.data[0];
@@ -99,7 +99,7 @@ namespace shob::pages
                 menuOut.addContent(" <a href=\"#" + block.linkName + "\">" + block.description + "</a> |");
             }
         }
-        menuOut.data.push_back(" beker-tournooi | eerste divisie | topscorers |");
+        menuOut.data.push_back(" beker-tournooi | topscorers |");
         std::string links = "<hr><a href=\"sport_voetbal_nl_stats.html\">Statistieken Eredivisie vanaf 1993</a> | ";
         links += "<a href=\"sport_voetbal_nl_jaarstanden.html\"> Winterkampioen en jaarstanden vanaf 1993 </a> | ";
         links += "<a href=\"sport_voetbal_nl_uit_thuis.html\">uit - en thuis standen vanaf 1993 </a> <hr>";
@@ -114,22 +114,13 @@ namespace shob::pages
             }
         }
 
-        auto file3 = sportDataFolder + "/eerste_divisie/eerste_divisie_" + season.toPartFilename() + ".csv";
-        auto standing_1e_div = football::standings();
-        standing_1e_div.initFromFile(file3);
-
-        auto htmlTable2 = standing_1e_div.prepareTable(teams, settings);
-
-        auto content = Table.buildTable(htmlTable2);
-        out.addContent(content);
-
         // topscorers:
         auto players = teams::footballers();
         const std::string filename3 = sportDataFolder + "/voetballers.csv";
         players.initFromFile(filename3);
 
         auto file_tp_eredivisie = sportDataFolder + "/eredivisie/topscorers_eredivisie.csv";
-        content = getTopScorers(file_tp_eredivisie, season, players);
+        auto content = getTopScorers(file_tp_eredivisie, season, players);
         out.addContent(content);
 
         auto file_tp_eerste_divisie = sportDataFolder + "/eerste_divisie/topscorers_eerste_divisie.csv";
@@ -228,6 +219,42 @@ namespace shob::pages
         retval.data.addContent(content);
         retval.linkName = "eredivisie";
         retval.description = retval.linkName;
+        return retval;
+    }
+
+    PageBlock FormatNL::getEersteDivisie(const Season& season) const
+    {
+        PageBlock retval;
+        const auto filename = sportDataFolder + "/eerste_divisie/eerste_divisie_" + season.toPartFilename() + ".csv";
+        if (fs::exists(filename))
+        {
+            auto remarks_1e_div = readers::csvAllSeasonsReader();
+            remarks_1e_div.init(sportDataFolder + "/eerste_divisie/eerste_divisie_remarks.csv");
+            const auto currentRemarks = remarks_1e_div.getSeason(season);
+
+            std::string title = "Eerste Divisie";
+            for (const auto& row : currentRemarks)
+            {
+                if (row[0] == "title")
+                {
+                    title = html::funcs::acronym("Eerste Divisie", row[1]);
+                }
+            }
+
+            auto standing_1e_div = football::standings();
+            standing_1e_div.initFromFile(filename);
+
+            auto prepTable = standing_1e_div.prepareTable(teams, settings);
+            prepTable.title = std::format("<a name=\"1ste_div\"/>Stand {}", title);
+
+            auto Table = html::table(settings);
+            auto content = Table.buildTable(prepTable);
+
+            retval.data.addContent("<p/>");
+            retval.data.addContent(content);
+            retval.linkName = "1ste_div";
+            retval.description = "eerste divisie";
+        }
         return retval;
     }
 
