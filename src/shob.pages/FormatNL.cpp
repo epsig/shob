@@ -84,12 +84,16 @@ namespace shob::pages
             }
         }
 
-        auto pageBlocks = std::array<PageBlock, 5>();
+        int dd = 19920101;
+        dd = std::max(dd, competition.lastDate().toInt());
+
+        auto pageBlocks = std::array<PageBlock, 6>();
         pageBlocks[0] = getSupercup(dataBekerAndSupercup, season);
         pageBlocks[1] = getKlassiekers(competition);
         pageBlocks[2] = getStandEredivisie(competition, scoring, season, currentRemarks);
         pageBlocks[3] = getEersteDivisie(season);
         pageBlocks[4] = getBothTopScorers(season);
+        pageBlocks[5] = getBeker(dataBekerAndSupercup, dd);
 
         auto menuOut = menu.getMenu(season);
         menuOut.data[0] = "<hr> andere seizoenen: | " + menuOut.data[0];
@@ -101,7 +105,6 @@ namespace shob::pages
                 menuOut.addContent(" <a href=\"#" + block.linkName + "\">" + block.description + "</a> |");
             }
         }
-        menuOut.data.push_back(" beker-tournooi |");
         std::string links = "<hr><a href=\"sport_voetbal_nl_stats.html\">Statistieken Eredivisie vanaf 1993</a> | ";
         links += "<a href=\"sport_voetbal_nl_jaarstanden.html\"> Winterkampioen en jaarstanden vanaf 1993 </a> | ";
         links += "<a href=\"sport_voetbal_nl_uit_thuis.html\">uit - en thuis standen vanaf 1993 </a> <hr>";
@@ -114,17 +117,6 @@ namespace shob::pages
             {
                 out.addContent(block.data);
             }
-        }
-
-        // beker:
-        int dd = 19920101;
-        if (fs::exists(bekerFilename))
-        {
-            const auto r2f = football::route2finaleFactory::create(dataBekerAndSupercup);
-            const auto prepTable = r2f.prepareTable(teams, settings);
-            auto content = Table.buildTable(prepTable);
-            out.addContent(content);
-            dd = r2f.lastDate().toInt();
         }
 
         auto hb = HeadBottomInput(dd);
@@ -265,6 +257,29 @@ namespace shob::pages
             retval.data.addContent(content);
             retval.description = "topscorers";
             retval.linkName = retval.description;
+        }
+        return retval;
+    }
+
+    PageBlock FormatNL::getBeker(const readers::csvContent& dataBekerAndSupercup, int& dd) const
+    {
+        PageBlock retval;
+        auto Table = html::table(settings);
+        Table.withBorder = false;
+        if (!dataBekerAndSupercup.body.empty())
+        {
+            const auto r2f = football::route2finaleFactory::create(dataBekerAndSupercup);
+            if (!r2f.empty())
+            {
+                auto prepTable = r2f.prepareTable(teams, settings);
+                prepTable[0].header.addContent("KNVB Beker: de laatste 16");
+                auto content = Table.buildTable(prepTable);
+                retval.data.addContent("<p/> <a name=\"beker\"/>");
+                retval.data.addContent(content);
+                retval.linkName = "beker";
+                retval.description = "beker-tournooi";
+                dd = std::max(dd, r2f.lastDate().toInt());
+            }
         }
         return retval;
     }

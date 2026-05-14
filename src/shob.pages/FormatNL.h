@@ -36,5 +36,6 @@ namespace shob::pages
             const general::Season& season, const std::vector<std::vector<std::string>>& remarks_this_season) const;
         PageBlock getEersteDivisie(const general::Season& season) const;
         PageBlock getBothTopScorers(const general::Season& season) const;
+        PageBlock getBeker(const readers::csvContent& dataBekerAndSupercup, int& dd) const;
     };
 }
