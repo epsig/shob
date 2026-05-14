@@ -31,28 +31,6 @@ namespace shob::pages
         return std::format("{}/sport_voetbal_nl_{}.html", folder, season.toPartFilename());
     }
 
-    MultipleStrings FormatNL::getTopScorers(const std::string& file, const std::string& name_competition, const Season& season,
-        const teams::footballers& players) const
-    {
-        auto allTp = readers::csvAllSeasonsReader();
-        allTp.init(file);
-
-        auto tp = football::topscorers(allTp);
-        tp.initFromFile(season);
-        if (tp.getSizeList() > 0)
-        {
-            auto table = tp.prepareTable(teams, players, settings);
-            table.title = "Topscorers " + name_competition;
-            auto Table = html::table(settings);
-            auto out = Table.buildTable(table);
-            return out;
-        }
-        else
-        {
-            return {};
-        }
-    }
-
     MultipleStrings FormatNL::getSeason(const Season& season) const
     {
         auto file1 = sportDataFolder + "/eredivisie/eredivisie_" + season.toPartFilename() + ".csv";
@@ -256,6 +234,28 @@ namespace shob::pages
             retval.linkName = retval.description;
         }
         return retval;
+    }
+
+    MultipleStrings FormatNL::getTopScorers(const std::string& file, const std::string& name_competition, const Season& season,
+        const teams::footballers& players) const
+    {
+        auto allTp = readers::csvAllSeasonsReader();
+        allTp.init(file);
+
+        auto tp = football::topscorers(allTp);
+        tp.initFromFile(season);
+        if (tp.getSizeList() > 0)
+        {
+            auto table = tp.prepareTable(teams, players, settings);
+            table.title = "Topscorers " + name_competition;
+            auto Table = html::table(settings);
+            auto out = Table.buildTable(table);
+            return out;
+        }
+        else
+        {
+            return {};
+        }
     }
 
     PageBlock FormatNL::getBeker(const readers::csvContent& dataBekerAndSupercup, int& dd) const
