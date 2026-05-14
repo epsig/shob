@@ -5,7 +5,7 @@
 
 namespace shob::pages
 {
-    struct pageBlock
+    struct PageBlock
     {
         general::MultipleStrings data;
         std::string linkName;

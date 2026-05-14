@@ -30,7 +30,7 @@ namespace shob::pages
         const html::settings settings;
         general::MultipleStrings getTopScorers(const std::string& file, const general::Season& season,
             const teams::footballers& players) const;
-        pageBlock getSupercup(const readers::csvContent& dataBekerAndSupercup, const general::Season& season) const;
-        pageBlock getKlassiekers(const football::footballCompetition& competition) const;
+        PageBlock getSupercup(const readers::csvContent& dataBekerAndSupercup, const general::Season& season) const;
+        PageBlock getKlassiekers(const football::footballCompetition& competition) const;
     };
 }

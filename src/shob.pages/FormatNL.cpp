@@ -65,7 +65,7 @@ namespace shob::pages
 
         auto Table = html::table(settings);
 
-        auto pageBlocks = std::array<pageBlock, 2>();
+        auto pageBlocks = std::array<PageBlock, 2>();
 
         // beker/supercup:
         const std::string bekerFilename = sportDataFolder + "/beker/beker_" + season.toPartFilename() + ".csv";
@@ -160,9 +160,9 @@ namespace shob::pages
 
     }
 
-    pageBlock FormatNL::getSupercup(const readers::csvContent& dataBekerAndSupercup, const Season& season) const
+    PageBlock FormatNL::getSupercup(const readers::csvContent& dataBekerAndSupercup, const Season& season) const
     {
-        pageBlock retval;
+        PageBlock retval;
         auto Table = html::table(settings);
         auto filter = football::filterInputList();
         const std::string part = "supercup";
@@ -179,9 +179,9 @@ namespace shob::pages
         return retval;
     }
 
-    pageBlock FormatNL::getKlassiekers(const football::footballCompetition& competition) const
+    PageBlock FormatNL::getKlassiekers(const football::footballCompetition& competition) const
     {
-        pageBlock retval;
+        PageBlock retval;
         const std::set<std::string> toppers = { "ajx", "fyn", "psv" };
         const auto filtered = competition.filter(toppers);
         if ( ! filtered.matches.empty())
