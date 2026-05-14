@@ -17,7 +17,7 @@ namespace shob::pages::test
         auto settings = html::settings();
         auto fmt_nl = format_nl_factory::build(dataFolder, settings);
         auto lines = fmt_nl.get_season(general::Season(2023));
-        EXPECT_EQ(lines.data.size(), 139);
+        EXPECT_EQ(lines.data.size(), 141);
     }
 }
 

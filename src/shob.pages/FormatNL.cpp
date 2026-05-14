@@ -7,10 +7,10 @@
 
 #include "PageBlock.h"
 #include "../shob.football/results2standings.h"
-#include "../shob.teams/clubTeams.h"
 #include "../shob.football/route2finalFactory.h"
 #include "../shob.pages/HeadBottom.h"
 #include "../shob.html/updateIfNewer.h"
+#include "../shob.html/funcs.h"
 #include "../shob.football/filterResults.h"
 
 namespace shob::pages
@@ -65,7 +65,7 @@ namespace shob::pages
 
         auto Table = html::table(settings);
 
-        auto pageBlocks = std::array<PageBlock, 2>();
+        auto pageBlocks = std::array<PageBlock, 3>();
 
         // beker/supercup:
         const std::string bekerFilename = sportDataFolder + "/beker/beker_" + season.toPartFilename() + ".csv";
@@ -74,8 +74,20 @@ namespace shob::pages
         {
             dataBekerAndSupercup = readers::csvReader::readCsvFile(bekerFilename);
         }
+
+        const auto currentRemarks = remarks.getSeason(season);
+        int scoring = 3;
+        for (const auto& row : currentRemarks)
+        {
+            if (row[0] == "scoring")
+            {
+                scoring = std::stoi(row[1]);
+            }
+        }
+
         pageBlocks[0] = getSupercup(dataBekerAndSupercup, season);
         pageBlocks[1] = getKlassiekers(competition);
+        pageBlocks[2] = getStandEredivisie(competition, scoring, season, currentRemarks);
 
         auto menuOut = menu.getMenu(season);
         menuOut.data[0] = "<hr> andere seizoenen: | " + menuOut.data[0];
@@ -87,7 +99,7 @@ namespace shob::pages
                 menuOut.addContent(" <a href=\"#" + block.linkName + "\">" + block.description + "</a> |");
             }
         }
-        menuOut.data.push_back(" eredivisie | beker-tournooi | eerste divisie | topscorers |");
+        menuOut.data.push_back(" beker-tournooi | eerste divisie | topscorers |");
         std::string links = "<hr><a href=\"sport_voetbal_nl_stats.html\">Statistieken Eredivisie vanaf 1993</a> | ";
         links += "<a href=\"sport_voetbal_nl_jaarstanden.html\"> Winterkampioen en jaarstanden vanaf 1993 </a> | ";
         links += "<a href=\"sport_voetbal_nl_uit_thuis.html\">uit - en thuis standen vanaf 1993 </a> <hr>";
@@ -102,30 +114,13 @@ namespace shob::pages
             }
         }
 
-        const auto currentRemarks = remarks.getSeason(season);
-        int scoring = 3;
-        for (const auto& row: currentRemarks)
-        {
-            if (row[0] == "scoring")
-            {
-                scoring = std::stoi(row[1]);
-            }
-        }
-
-        auto table = football::results2standings::u2s(competition, scoring);
-
         auto file3 = sportDataFolder + "/eerste_divisie/eerste_divisie_" + season.toPartFilename() + ".csv";
         auto standing_1e_div = football::standings();
         standing_1e_div.initFromFile(file3);
 
-        table.addExtras(extras, season);
-
-        auto htmlTable = table.prepareTable(teams, settings);
         auto htmlTable2 = standing_1e_div.prepareTable(teams, settings);
 
-        auto content = Table.buildTable(htmlTable);
-        out.addContent(content);
-        content = Table.buildTable(htmlTable2);
+        auto content = Table.buildTable(htmlTable2);
         out.addContent(content);
 
         // topscorers:
@@ -195,6 +190,44 @@ namespace shob::pages
             retval.linkName = "klassiekers";
             retval.description = retval.linkName;
         }
+        return retval;
+    }
+
+    PageBlock FormatNL::getStandEredivisie(const football::footballCompetition& competition, int scoring, const Season& season,
+        const std::vector<std::vector<std::string>>& remarks_this_season) const
+    {
+        PageBlock retval;
+        auto Table = html::table(settings);
+
+        std::string title = "Eredivisie";
+        for (const auto& row : remarks_this_season)
+        {
+            if (row[0] == "title")
+            {
+                title = html::funcs::acronym("Eredivisie", row[1]);
+            }
+        }
+
+        auto table = football::results2standings::u2s(competition, scoring);
+
+        table.addExtras(extras, season);
+
+        auto prepTable = table.prepareTable(teams, settings);
+        if (table.isFinished())
+        {
+            prepTable.title = std::format("<a name=\"eredivisie\"/>Stand {} {}", title, season.toString());
+        }
+        else
+        {
+            const auto date = competition.lastDate().toString(false);
+            prepTable.title = std::format("<a name=\"eredivisie\"/>Stand {} (per {})", title, date);
+        }
+
+        auto content = Table.buildTable(prepTable);
+        retval.data.addContent("<p/>");
+        retval.data.addContent(content);
+        retval.linkName = "eredivisie";
+        retval.description = retval.linkName;
         return retval;
     }
 
