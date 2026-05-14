@@ -62,9 +62,9 @@ int main(int argc, char* argv[])
         read_command_line(argc, argv, firstYear, lastYear);
 
         part = "running factories";
-        auto fmt_nl = format_nl_factory::build("sport");
         auto settings = shob::html::settings();
         settings.dateFormatShort = false;
+        auto fmt_nl = format_nl_factory::build("sport", settings);
         auto fmt_ec = FormatEC_Factory::build("sport", settings);
         auto fmt_ekwk_qf = format_ekwk_qf_factory::build("sport", settings);
         auto fmt_os = FormatOsFactory::build("sport/schaatsen/", settings);

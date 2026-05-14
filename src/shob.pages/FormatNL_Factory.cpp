@@ -17,7 +17,7 @@ namespace shob::pages
         s.replace(pos, toReplace.length(), replaceWith);
     }
 
-    FormatNL format_nl_factory::build(const std::string& dataFolder)
+    FormatNL format_nl_factory::build(const std::string& dataFolder, const html::settings& settings)
     {
         auto extras = readers::csvAllSeasonsReader();
         extras.init(dataFolder + "/eredivisie/eredivisie_u2s.csv");
@@ -33,7 +33,11 @@ namespace shob::pages
         }
         auto menu = TopMenu(archive, 'K');
 
-        auto format = FormatNL(dataFolder, extras, remarks, menu);
+        auto teams = teams::clubTeams();
+        auto file2 = dataFolder + "/clubs.csv";
+        teams.InitFromFile(file2, teams::clubsOrCountries::clubs);
+
+        auto format = FormatNL(dataFolder, extras, remarks, menu, teams, settings);
         return format;
     }
 }

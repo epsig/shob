@@ -35,10 +35,8 @@ namespace shob::pages
     }
 
     MultipleStrings FormatNL::getTopScorers(const std::string& file, const Season& season,
-        const teams::footballers& players, const teams::clubTeams& teams)
+        const teams::footballers& players) const
     {
-        constexpr auto settings = html::settings();
-
         auto allTp = readers::csvAllSeasonsReader();
         allTp.init(file);
 
@@ -59,18 +57,11 @@ namespace shob::pages
 
     MultipleStrings FormatNL::get_season(const Season& season) const
     {
-        constexpr auto settings = html::settings();
-
         auto file1 = sportDataFolder + "/eredivisie/eredivisie_" + season.toPartFilename() + ".csv";
         auto competition = football::footballCompetition();
         competition.readFromCsv(file1);
 
         auto out = MultipleStrings();
-
-
-        auto teams = teams::clubTeams();
-        auto file2 = sportDataFolder + "/clubs.csv";
-        teams.InitFromFile(file2, teams::clubsOrCountries::clubs);
 
         auto Table = html::table(settings);
 
@@ -83,7 +74,7 @@ namespace shob::pages
         {
             dataBekerAndSupercup = readers::csvReader::readCsvFile(bekerFilename);
         }
-        pageBlocks[0] = getSupercup(dataBekerAndSupercup, teams, settings, season);
+        pageBlocks[0] = getSupercup(dataBekerAndSupercup, season);
 
         auto menuOut = menu.getMenu(season);
         menuOut.data[0] = "<hr> andere seizoenen: | " + menuOut.data[0];
@@ -147,11 +138,11 @@ namespace shob::pages
         players.initFromFile(filename3);
 
         auto file_tp_eredivisie = sportDataFolder + "/eredivisie/topscorers_eredivisie.csv";
-        content = getTopScorers(file_tp_eredivisie, season, players, teams);
+        content = getTopScorers(file_tp_eredivisie, season, players);
         out.addContent(content);
 
         auto file_tp_eerste_divisie = sportDataFolder + "/eerste_divisie/topscorers_eerste_divisie.csv";
-        content = getTopScorers(file_tp_eerste_divisie, season, players, teams);
+        content = getTopScorers(file_tp_eerste_divisie, season, players);
         out.addContent(content);
 
         // beker:
@@ -173,8 +164,7 @@ namespace shob::pages
 
     }
 
-    pageBlock FormatNL::getSupercup(const readers::csvContent& dataBekerAndSupercup, const teams::clubTeams& teams,
-        const html::settings& settings, const Season& season) const
+    pageBlock FormatNL::getSupercup(const readers::csvContent& dataBekerAndSupercup, const Season& season) const
     {
         pageBlock retval;
         auto Table = html::table(settings);
