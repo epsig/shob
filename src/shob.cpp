@@ -84,10 +84,7 @@ int main(int argc, char* argv[])
             const auto season = Season(year);
             if (fmt_nl.isValidSeason(season))
             {
-                if (std::filesystem::is_directory("../pages_new/"))
-                {
-                    fmt_nl.getPagesToFile(season, fmt_nl.getOutputFilename("../pages_new", season));
-                }
+                fmt_nl.getPagesToFile(season, fmt_nl.getOutputFilename("../pages", season));
             }
             if (fmt_ec.isValidSeason(season))
             {
