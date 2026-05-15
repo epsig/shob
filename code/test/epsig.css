@@ -54,6 +54,9 @@ body {
     text-align: center;
 }
 
+.h{background:navy;color:white;font-weight:bold;font-size:11pt}
+.r{text-align:right}.c{text-align:center}
+
 /* Responsive layout - makes the columns stack on top of each other instead of next to each other */
 @media (max-width: 600px) {
     .column {

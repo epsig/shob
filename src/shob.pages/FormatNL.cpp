@@ -97,6 +97,7 @@ namespace shob::pages
 
         auto hb = HeadBottomInput(dd);
         hb.title = "Overzicht betaald voetbal in Nederland, seizoen " + season.toString();
+        hb.css = StyleSheetType::SeparateFile;
         std::swap(hb.body, out);
 
         return HeadBottom::getPage(hb);
@@ -227,12 +228,27 @@ namespace shob::pages
             const std::string filename = sportDataFolder + "/voetballers.csv";
             players.initFromFile(filename);
 
+            auto tpL = getTopScorers(file_tp_eredivisie, "Eredivisie", season, players);
+            auto tpR = getTopScorers(file_tp_eerste_divisie, "Eerste Divisie", season, players);
+            if (tpL.data.empty() && tpR.data.empty())
+            {
+                return retval;
+            }
             retval.data.addContent("<p/> <a name=\"topscorers\"/>");
-            auto content = getTopScorers(file_tp_eredivisie, "Eredivisie", season, players);
-            retval.data.addContent(content);
-
-            content = getTopScorers(file_tp_eerste_divisie, "Eerste Divisie", season, players);
-            retval.data.addContent(content);
+            if (tpL.data.empty()|| tpR.data.empty())
+            {
+                retval.data.addContent(tpL);
+                retval.data.addContent(tpR);
+            }
+            else
+            {
+                retval.data.addContent(R"(<div class="row"><div class="column">)");
+                retval.data.addContent(tpL);
+                retval.data.addContent("</div>");
+                retval.data.addContent(R"(<div class="column">)");
+                retval.data.addContent(tpR);
+                retval.data.addContent("</div> </div>");
+            }
             retval.description = "topscorers";
             retval.linkName = retval.description;
         }
