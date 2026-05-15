@@ -40,5 +40,6 @@ namespace shob::pages
         PageBlock getEersteDivisie(const general::Season& season) const;
         PageBlock getBothTopScorers(const general::Season& season) const;
         PageBlock getBeker(const readers::csvContent& dataBekerAndSupercup, int& dd) const;
+        PageBlock getToEuropacup(const general::Season& season) const;
     };
 }

@@ -62,13 +62,14 @@ namespace shob::pages
         int dd = 19920101;
         dd = std::max(dd, competition.lastDate().toInt());
 
-        auto pageBlocks = std::array<PageBlock, 6>();
+        auto pageBlocks = std::array<PageBlock, 7>();
         pageBlocks[0] = getSupercup(dataBekerAndSupercup, season);
         pageBlocks[1] = getKlassiekers(competition);
         pageBlocks[2] = getStandEredivisie(competition, scoring, season, currentRemarks);
-        pageBlocks[3] = getEersteDivisie(season);
-        pageBlocks[4] = getBothTopScorers(season);
-        pageBlocks[5] = getBeker(dataBekerAndSupercup, dd);
+        pageBlocks[3] = getBeker(dataBekerAndSupercup, dd);
+        pageBlocks[4] = getToEuropacup(season);
+        pageBlocks[5] = getEersteDivisie(season);
+        pageBlocks[6] = getBothTopScorers(season);
 
         auto menuOut = menu.getMenu(season);
         menuOut.data[0] = "<hr> andere seizoenen: | " + menuOut.data[0];
@@ -278,6 +279,61 @@ namespace shob::pages
                 retval.linkName = "beker";
                 retval.description = "beker-tournooi";
                 dd = std::max(dd, r2f.lastDate().toInt());
+            }
+        }
+        return retval;
+    }
+
+    PageBlock FormatNL::getToEuropacup(const Season& season) const
+    {
+        PageBlock retval;
+        const auto extraU2s = extras.getSeason(season);
+
+        auto mapEcClubs = std::map<std::string, std::vector<std::string>>();
+        const std::vector<std::string> tournements = { "CL", "vCL", "EL", "vEL", "vCF", "UEFA", "EC2" };
+        const std::vector<std::string> full_names = { "Champions League", "voorronde Champions League", "Europa League",
+            "voorronde Europa League", "voorronde Conference League", "UEFA cup", "Europacup II" };
+
+        for (const auto& row : extraU2s)
+        {
+            auto splittedTeams = readers::csvReader::split(row[0], ";").column;
+            auto splittedBatches = readers::csvReader::split(row[1], ";").column;
+
+            for (const auto& t : tournements)
+            {
+                for (const auto& b : splittedBatches)
+                {
+                    if (b == t)
+                    {
+                        if (!mapEcClubs.contains(t))
+                        {
+                            mapEcClubs.insert({ t, {} });
+                        }
+                        for (const auto& team : splittedTeams)
+                        {
+                            mapEcClubs.at(t).push_back(team);
+                        }
+                    }
+                }
+            }
+        }
+
+        retval.data.addContent("<a name=\"ec\"/> <h2> Geplaatst voor de europacup </h2>");
+        retval.linkName = "ec";
+        retval.description = "europa in";
+        for (size_t i = 0; i < tournements.size(); i++)
+        {
+            const auto& t = tournements[i];
+            const auto& f = full_names[i];
+            if (mapEcClubs.contains(t))
+            {
+                std::string clubs;
+                for (const auto& c : mapEcClubs.at(t))
+                {
+                    if (!clubs.empty()) clubs += ", ";
+                    clubs += teams.expand(c);
+                }
+                retval.data.addContent(f + ": " + clubs + "<br/>");
             }
         }
         return retval;
