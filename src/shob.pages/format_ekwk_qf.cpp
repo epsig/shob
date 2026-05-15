@@ -1,5 +1,6 @@
 #include "format_ekwk_qf.h"
 #include "HeadBottom.h"
+#include "PageBlock.h"
 #include "../shob.football/filterResults.h"
 #include "../shob.football/results2standings.h"
 #include "../shob.football/route2finalFactory.h"
@@ -61,13 +62,6 @@ namespace shob::pages
 
     MultipleStrings format_ekwk_qf::getPages(const int year) const
     {
-        struct pageBlock
-        {
-            MultipleStrings data;
-            std::string linkName;
-            std::string description;
-        };
-
         const auto ekwk = ekwk_date(year);
 
         auto remarks = seasonsReader.getSeason(ekwk.shortNameWithYear());
@@ -82,7 +76,7 @@ namespace shob::pages
         int dd = 0;
         const auto matches_data = read_matches_data(ekwk, 'u');
 
-        auto pageBlocks = std::array<pageBlock, 8>();
+        auto pageBlocks = std::array<PageBlock, 8>();
 
         auto opms_beslissend = filter_remarks(remarks, "beslissend");
         pageBlocks[0].data = get_group_nl(dd, star, matches_data, opms_beslissend);

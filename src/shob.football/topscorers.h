@@ -32,6 +32,7 @@ namespace shob::football
         void initFromFile(const general::Season& season);
         html::tableContent prepareTable(const teams::clubTeams& teams, const teams::footballers& players, const html::settings& settings) const;
         numbers1 getNumbers1(const teams::clubTeams& teams, const teams::footballers& players) const;
+        size_t getSizeList() const { return list_tp.size(); }
     private:
         const readers::csvAllSeasonsReader& reader;
         std::vector<topscorer> list_tp;

@@ -3,7 +3,7 @@
 
 namespace shob::pages::test
 {
-    class testFormatNL
+    class TestFormatNL
     {
     public:
         static void test1();

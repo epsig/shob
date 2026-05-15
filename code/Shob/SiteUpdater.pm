@@ -245,11 +245,6 @@ sub handle_sport_files($$$)
 
     my $dl = ($yr >= $curYrB ? $fast : 2);
 
-    if ($szn1 ge $ranges->{voetbal_nl}[0] && $szn1 le $ranges->{voetbal_nl}[1])
-    {
-      push @pages, [$dl, 'all', sub {&get_betaald_voetbal_nl($yr);}, "sport_voetbal_nl_$szn2.html"];
-    }
-
     if ($yr % 2 == 0)
     {
       my $ekwk = ($yr % 4 == 0 ? 'ek' : 'wk');

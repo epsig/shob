@@ -15,7 +15,14 @@ namespace shob::general
             std::string sday = isCompatible ? std::format("{:02}", day) : std::to_string(day);
             return sday + " " + monthsDutch[mon - 1] + " " + std::to_string(year);
         }
-        return std::to_string(dd);
+        else if (dd > 0)
+        {
+            return std::to_string(dd);
+        }
+        else
+        {
+            return "";
+        }
     }
 
     bool itdate::splitAndValidate(size_t& year, size_t& mon, size_t& day) const

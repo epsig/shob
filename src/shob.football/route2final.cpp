@@ -143,6 +143,11 @@ namespace shob::football
         return date;
     }
 
+    bool route2final::empty() const
+    {
+        return final.matches.empty() && semiFinal.matches.empty() && quarterFinal.matches.empty() && last16.matches.empty();
+    }
+
 }
 
 

@@ -11,5 +11,6 @@ namespace shob::general
     public:
         static std::shared_ptr<shobDate> getDate(const std::string& dd);
         static bool allDigits(const std::string& date);
+        static bool isInt(const std::string& date);
     };
 }

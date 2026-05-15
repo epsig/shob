@@ -5,7 +5,7 @@
 
 #include "shob.general/dateFactory.h"
 #include "shob.pages/FormatEC_Factory.h"
-#include "shob.pages/format_nl_factory.h"
+#include "shob.pages/FormatNL_Factory.h"
 #include "shob.pages/format_ekwk_qf_factory.h"
 #include "shob.pages/FormatOsFactory.h"
 #include "shob.pages/FormatSemestersAndYearStandingsFactory.h"
@@ -62,9 +62,9 @@ int main(int argc, char* argv[])
         read_command_line(argc, argv, firstYear, lastYear);
 
         part = "running factories";
-        auto fmt_nl = format_nl_factory::build("sport");
         auto settings = shob::html::settings();
         settings.dateFormatShort = false;
+        auto fmt_nl = format_nl_factory::build("sport", settings);
         auto fmt_ec = FormatEC_Factory::build("sport", settings);
         auto fmt_ekwk_qf = format_ekwk_qf_factory::build("sport", settings);
         auto fmt_os = FormatOsFactory::build("sport/schaatsen/", settings);
@@ -82,12 +82,9 @@ int main(int argc, char* argv[])
         {
             part = std::format("running year: {}", year);
             const auto season = Season(year);
-            if (year < 2026)
+            if (fmt_nl.isValidSeason(season))
             {
-                if (std::filesystem::is_directory("../pages_new/"))
-                {
-                    fmt_nl.get_season_to_file(season, "../pages_new/sport_voetbal_nl_" + season.toPartFilename() + ".html");
-                }
+                fmt_nl.getPagesToFile(season, fmt_nl.getOutputFilename("../pages", season));
             }
             if (fmt_ec.isValidSeason(season))
             {
