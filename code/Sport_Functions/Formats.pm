@@ -36,7 +36,6 @@ $VERSION = '21.0';
 @EXPORT =
 (#========================================================================
  '&format_ekwk',
- '&format_eindstanden',
  #========================================================================
 );
 
@@ -264,130 +263,6 @@ EOF
  if ( not $DH ) { $topmenu = EkWkTopMenu($year);}
  return maintxt2htmlpage($topmenu . $out, $title, 'title2h1',
   $dd, {type1 => 'std_menu'});
-}
-
-sub format_eindstanden($$$$$)
-{# (c) Edwin Spee
-
-my ($yr, $opm_ered, $ec, $nc, $datum) = @_;
-
-my $szn = yr2szn($yr);
-my $title = "Overzicht betaald voetbal in Nederland, seizoen $szn";
-my $ere = standen_eredivisie($szn);
-my $div1 = standen_eerstedivisie($szn);
-my $tpA = get_topscorers_competitie($szn, 'eredivisie', 'Eredivisie');
-my $tpB = get_topscorers_competitie($szn, 'eerste_divisie', 'Eerste Divisie');
-my $kls = get_klassiekers($szn);
-my $beker_jc = knvb_beker($szn);
-my $knvb = $beker_jc->{beker};
-my $jc = $beker_jc->{extra}{supercup};
-
-my $some_ered = (scalar @$ere or $opm_ered ne '');
-my $some_tpsc = (scalar @$tpA or scalar @$tpB);
-
-my $skip = $yr - $global_first_year;
-
-my $menu = get_voetbal_list('menu_format', 'NL');
-my $out = '<hr> andere seizoenen: ' . get_menu ('', $skip, 2, -1, @{$menu});
-
-my $otp = ''; # OnThisPage
-if (defined $jc)
-{$otp .= qq(<a href="#JC">supercup</a> |\n);
- $jc->[0][0] = '<a name="JC">' . $jc->[0][0] . "</a>";}
-if (scalar @$kls > 1)
-{$otp .= qq(<a href="#klassiekers">klassiekers</a> |\n);
- $kls->[0][0] = '<a name="klassiekers">' . $kls->[0][0] . "</a>";}
-if ($some_ered)
-{$otp .= qq(<a href="#ere_div">eredivisie</a> |\n);}
-if (defined $knvb)
-{$otp .= qq(<a href="#beker">beker-tournooi</a> |\n);}
-if ($ec ne '')
-{$otp .= qq(<a href="#ec">europa in</a> |\n);}
-if (scalar @$div1)
-{$otp .= qq(<a href="#1ste_div">eerste divisie</a> |\n);}
-if ($some_tpsc)
-{$otp .= qq(<a href="#topscorers">topscorers</a> |\n);}
-if ($nc ne '')
-{$otp .= qq(<a href="#pd">na-competitie</a> |\n);}
-if ($otp ne '') {$out .= '<hr> | ' . $otp;}
-
-$out .= qq(<hr>$link_stats_eredivisie | \n);
-$out .=     qq($link_jaarstanden | \n);
-$out .=     qq($link_uit_thuis<hr>\n);
-
-if (defined $jc or (scalar @$kls > 1))
-{my $tmp_out = '';
- if (defined $jc)  {$tmp_out .= get_uitslag($jc, {opt_expand => 0});}
- if (scalar @$kls > 1) {$tmp_out .= get_uitslag($kls, {opt_expand => 0});}
- $out .= ftable('border', $tmp_out);
-}
-
-if ($some_ered)
-{$out .= qq(<a name="ere_div"><p></a>\n);
- if (scalar @$ere)
- {$out .= get_table_border(ftable('tabs', get_stand($ere, 2, 0, [1])));}
- if ($opm_ered ne '')
-  {
-   $out .= "<p> $opm_ered </p> \n";
-  }
-}
-
-if (defined $knvb)
-{$out .= qq(<a name="beker"><p></a>\n);
- if (defined $knvb->{round_of_16} or defined $knvb->{quarterfinal} or defined $knvb->{semifinal})
- {
-  my $sponsor;
-  if ($yr >= 2007) {$sponsor = '';}
-  elsif ($yr >= 2005) {$sponsor = ' (Gatorade cup)';}
-  else {$sponsor = ' (Amstel cup)';}
-
-  my $acht_zestien = (defined $knvb->{round_of_16} ? '16' : 'acht');
-  my $title = "KNVB Beker$sponsor: de laatste $acht_zestien";
-  $out .= get_last16(
-  {u16 => $knvb->{round_of_16}, uk => $knvb->{quarterfinal}, uh => $knvb->{semifinal},
-   uf => $knvb->{final}, u34 =>$knvb->{u34}, title => $title});
- }
- if ($all_data and defined $knvb->{round2})
- {$out .= '<p>'. ftable('border', get_uitslag($knvb->{round2}, {opt_expand => 0}));
- }
- my $bopm = $knvb->{beker_opm};
- if (defined $bopm) {$out .= $bopm;}
-}
-
-if ($ec ne '')
-{$out .= qq(<a name="ec"><p></a>\n) .
-  get_table_border(
-   ftable('tabs', ftr(fth({class => 'h'}, 'Geplaatst voor de europacup')) . ftr(ftdl($ec)) ));
-}
-
-if (scalar @$div1)
-{$out .= qq(<a name="1ste_div"><p></a>\n);
- $out .= get_table_border(ftable('tabs', get_stand($div1, 2, 0, [1])));}
-
-if ($some_tpsc)
-{$out .= qq(<a name="topscorers"><p></a>\n);
- if (scalar @$tpA and scalar @$tpB)
- {$out .= get2tables(get_tpsc(10, $tpA, 1), get_tpsc(10, $tpB, 1));}  # was 9 voor eerste divisie 01/02
- elsif (scalar @$tpA)
- {$out .= get_table_border(ftable('tabs', get_tpsc(10, $tpA, 1)));}
- elsif (scalar @$tpB)
- {$out .= get_table_border(ftable('tabs', get_tpsc(10, $tpB, 1)));}
-}
-
-if ($nc ne '')
-{
-  $out .= qq(<a name="pd"><p></a>\n);
-  if ($nc !~ m/table/)
-  {
-    $out .= '<h2>Promotie/degradatie</h2>';
-  }
-  $out .= "$nc\n";
-}
-
-$out .= "<p>\n";
-
-return maintxt2htmlpage($out, $title, 'title2h1',
- max(20081230, $datum), {type1 => 'std_menu'});
 }
 
 return 1;
