@@ -176,6 +176,18 @@ namespace shob::pages
         auto content = Table.buildTable(prepTable);
         retval.data.addContent("<p/>");
         retval.data.addContent(content);
+
+        auto opms = MultipleStrings();
+        for (const auto& row: remarks_this_season)
+        {
+            if (row[0] == "opm") opms.addContent(row[1]);
+        }
+        if (!opms.data.empty())
+        {
+            retval.data.addContent("<p/>");
+            retval.data.addContent(opms);
+        }
+
         retval.linkName = "eredivisie";
         retval.description = retval.linkName;
         return retval;
