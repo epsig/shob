@@ -62,6 +62,7 @@ namespace shob::pages
 
         auto hb = HeadBottomInput(findDate(remarks));
         hb.title = findTitle(remarks);
+        hb.css = StyleSheetType::SeparateFile;
         std::swap(hb.body, return_value);
 
         return HeadBottom::getPage(hb);
