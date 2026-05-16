@@ -431,6 +431,7 @@ namespace shob::pages
         }
 
         auto hb = HeadBottomInput(dd);
+        hb.css = StyleSheetType::SeparateFile;
         std::swap(hb.title, title);
         std::swap(hb.body, out);
 
