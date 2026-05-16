@@ -133,6 +133,7 @@ namespace shob::pages
         auto hb = HeadBottomInput(dd);
         hb.title = "Statistieken eredivisie";
         hb.js = JavaScriptType::SortTable;
+        hb.css = StyleSheetType::SeparateFile;
         std::swap(hb.body, topmenu);
         hb.body.addContent(return_value1);
         hb.body.addContent(return_value2);
