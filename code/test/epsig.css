@@ -54,7 +54,7 @@ body {
     text-align: center;
 }
 
-.h{background:navy;color:white;font-weight:bold;font-size:11pt}
+.h{background:navy;color:white;font-weight:bold;font-size:20px}
 .r{text-align:right}.c{text-align:center}
 
 /* Responsive layout - makes the columns stack on top of each other instead of next to each other */
@@ -64,7 +64,7 @@ body {
     }
 }
 
-h1{font-weight:bold;font-size:12pt}
+h1{font-weight:bold;font-size:35px}
 
-h2{font-weight:bold;font-size:11pt}
+h2{font-weight:bold;font-size:25px}
 

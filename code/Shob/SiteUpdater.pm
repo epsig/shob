@@ -59,11 +59,6 @@ sub handle_gen_files($$$)
   [2, 'all', sub {&file2str(File::Spec->catfile('Shob', 'search_setup.pl'));}, 'search.setup'],
  ]);
 
- my $style = 'epsig.css';
- do_all_text_dir ($lop, '', [
-  [$fast, 'all', sub {&file2str(File::Spec->catfile('test', $style));}, $style],
- ]);
-
  do_all_text_dir ($lop, '', [
   [$fast, 'all', sub {&get_hopa;}, 'index.html'],
   [2, 'all', sub {&file2str(File::Spec->catfile('my_scripts', 'validate_sport.js'));}, 'validate_sport.js'],
