@@ -106,6 +106,7 @@ namespace shob::pages
 
         auto hb = HeadBottomInput(dd);
         hb.title = "Winterkampioen en jaarstanden eredivisie";
+        hb.css = StyleSheetType::SeparateFile;
         std::swap(hb.body, return_value);
 
         return HeadBottom::getPage(hb);

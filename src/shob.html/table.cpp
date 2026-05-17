@@ -138,22 +138,13 @@ namespace shob::html
     MultipleStrings table::tableOfThreeTables(MultipleStrings& left, MultipleStrings& middle, MultipleStrings& right) const
     {
         auto retVal = MultipleStrings();
-        if (withBorder)
-        {
-            retVal.addContent("<table border cellspacing=\"0\">");
-        }
-        else
-        {
-            retVal.addContent("<table>");
-        }
-        retVal.addContent("<tr><td valign=""top"">");
+        retVal.addContent(R"(<div class="row"><div class="column3">)");
         retVal.addContent(left);
-        retVal.addContent("</td> <td valign=""top""> ");
+        retVal.addContent("</div><div class=\"column3\">");
         retVal.addContent(middle);
-        retVal.addContent("</td> <td valign=""top""> ");
+        retVal.addContent("</div><div class=\"column3\">");
         retVal.addContent(right);
-        retVal.addContent("</td> </tr>");
-        retVal.addContent("</table>");
+        retVal.addContent("</div> </div>");
 
         return retVal;
     }

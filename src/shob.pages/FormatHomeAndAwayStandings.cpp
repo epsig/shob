@@ -68,6 +68,7 @@ namespace shob::pages
 
         auto hb = HeadBottomInput(dd);
         hb.title = "Uit- en thuis standen eredivisie";
+        hb.css = StyleSheetType::SeparateFile;
         std::swap(hb.body, return_value);
 
         return HeadBottom::getPage(hb);
