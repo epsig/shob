@@ -24,7 +24,7 @@ namespace shob::html
         general::MultipleStrings buildTable(const tableContent& content) const;
         general::MultipleStrings buildTable(const std::vector<tableContent>& content) const;
         general::MultipleStrings tableOfTwoTables(general::MultipleStrings& left, general::MultipleStrings& right) const;
-        general::MultipleStrings tableOfThreeTables(general::MultipleStrings& left, general::MultipleStrings& middle, general::MultipleStrings& right) const;
+        static general::MultipleStrings tableOfThreeTables(general::MultipleStrings& left, general::MultipleStrings& middle, general::MultipleStrings& right);
         bool withBorder = true;
         std::string id;
     private:

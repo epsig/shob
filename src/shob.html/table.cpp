@@ -135,7 +135,7 @@ namespace shob::html
         return retVal;
     }
 
-    MultipleStrings table::tableOfThreeTables(MultipleStrings& left, MultipleStrings& middle, MultipleStrings& right) const
+    MultipleStrings table::tableOfThreeTables(MultipleStrings& left, MultipleStrings& middle, MultipleStrings& right)
     {
         auto retVal = MultipleStrings();
         retVal.addContent(R"(<div class="row"><div class="column3">)");
