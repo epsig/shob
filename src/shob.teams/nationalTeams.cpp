@@ -30,6 +30,17 @@ namespace shob::teams
         return countries.contains(landcode);
     }
 
+    bool nationalTeams::contains(const std::string& landcode, std::string& expanded) const
+    {
+        auto retval = countries.find(landcode);
+        if (retval != countries.end())
+        {
+            expanded = retval->second;
+            return true;
+        }
+        return false;
+    }
+
     std::string nationalTeams::shortName(const std::string& land)
     {
         auto shortName = land;

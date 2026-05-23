@@ -13,9 +13,10 @@ namespace shob::teams
         std::string expand(const std::string& landcode) const;
         static std::string shortName(const std::string& land);
         bool contains(const std::string& landcode) const;
+        bool contains(const std::string& landcode, std::string& expanded) const;
         bool empty() const { return countries.empty(); }
     private:
         void Init(const readers::csvContent& data);
-        std::map<std::string, std::string> countries;
+        std::map<std::string, std::string, std::less<>> countries;
     };
 }

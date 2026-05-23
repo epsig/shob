@@ -316,7 +316,7 @@ namespace shob::pages
         PageBlock retval;
         const auto extraU2s = extras.getSeason(season);
 
-        auto mapEcClubs = std::map<std::string, std::vector<std::string>>();
+        auto mapEcClubs = std::map<std::string, std::vector<std::string>, std::less<>>();
         const std::vector<std::string> tournements = { "CL", "vCL", "EL", "vEL", "vCF", "UEFA", "EC2" };
         const std::vector<std::string> full_names = { "Champions League", "voorronde Champions League", "Europa League",
             "voorronde Europa League", "voorronde Conference League", "UEFA cup", "Europacup II" };
@@ -332,13 +332,15 @@ namespace shob::pages
                 {
                     if (b == t)
                     {
-                        if (!mapEcClubs.contains(t))
+                        auto it = mapEcClubs.find(t);
+                        if (it == mapEcClubs.end())
                         {
-                            mapEcClubs.insert({ t, {} });
+                            const auto result = mapEcClubs.insert({ t, {} });
+                            it = result.first;
                         }
                         for (const auto& team : splittedTeams)
                         {
-                            mapEcClubs.at(t).push_back(team);
+                            it->second.push_back(team);
                         }
                     }
                 }

@@ -35,9 +35,9 @@ namespace shob::teams
         if (addCountry != html::addCountryType::notAtAll && land != "NL")
         {
             auto shortName = nationalTeams::shortName(land);
-            if (landCodes.contains(land))
+            std::string fullNameLand;
+            if (landCodes.contains(land, fullNameLand))
             {
-                auto fullNameLand = landCodes.expand(land);
                 if (addCountry == html::addCountryType::withAcronym)
                 {
                     expanded += " (" + html::funcs::acronym(shortName, fullNameLand) + ")";
@@ -65,12 +65,15 @@ namespace shob::teams
         if (club.size() == 3)
         {
             auto nlClub = "NL" + club;
-            if (clubs.contains(nlClub)) return clubs.at(nlClub);
+            const auto it1 = clubs.find(nlClub);
+            if (it1 != clubs.end()) return it1->second;
             return nlClub;
         }
-        else if (clubs.contains(club))
+
+        const auto it2 = clubs.find(club);
+        if (it2 != clubs.end())
         {
-            return clubs.at(club);
+            return it2->second;
         }
         return club;
     }
