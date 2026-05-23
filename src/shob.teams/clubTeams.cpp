@@ -35,9 +35,9 @@ namespace shob::teams
         if (addCountry != html::addCountryType::notAtAll && land != "NL")
         {
             auto shortName = nationalTeams::shortName(land);
-            std::string fullNameLand;
-            if (landCodes.contains(land, fullNameLand))
+            if (const auto it = landCodes.find(land); it != landCodes.end())
             {
+                const auto& fullNameLand = it->second;
                 if (addCountry == html::addCountryType::withAcronym)
                 {
                     expanded += " (" + html::funcs::acronym(shortName, fullNameLand) + ")";
