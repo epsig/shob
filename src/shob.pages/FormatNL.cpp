@@ -347,9 +347,9 @@ namespace shob::pages
             }
         }
 
-        retval.data.addContent("<a name=\"ec\"/> <h2> Geplaatst voor de europacup </h2>");
+        retval.data.addContent("<a name=\"ec\"/> <h2> Geplaatst voor de Europacup </h2>");
         retval.linkName = "ec";
-        retval.description = "europa in";
+        retval.description = "Europa in";
         for (size_t i = 0; i < tournements.size(); i++)
         {
             const auto& t = tournements[i];
