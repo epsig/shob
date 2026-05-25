@@ -23,7 +23,7 @@ namespace shob::html
         table(settings s) : settings_(s){}
         general::MultipleStrings buildTable(const tableContent& content) const;
         general::MultipleStrings buildTable(const std::vector<tableContent>& content) const;
-        general::MultipleStrings tableOfTwoTables(general::MultipleStrings& left, general::MultipleStrings& right) const;
+        static general::MultipleStrings tableOfTwoTables(general::MultipleStrings& left, general::MultipleStrings& right);
         static general::MultipleStrings tableOfThreeTables(general::MultipleStrings& left, general::MultipleStrings& middle, general::MultipleStrings& right);
         bool withBorder = true;
         std::string id;

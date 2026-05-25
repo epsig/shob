@@ -144,6 +144,7 @@ namespace shob::pages
 
         auto hb = HeadBottomInput(dd);
         hb.title = "Voorronde " + ekwk.shortNameUpper() + " Voetbal " + std::to_string(year) + " te " + organizingCountries.at(ekwk.shortNameWithYear());
+        hb.css = StyleSheetType::SeparateFile;
         std::swap(hb.body, retVal);
 
         return HeadBottom::getPage(hb);

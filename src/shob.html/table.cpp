@@ -114,23 +114,14 @@ namespace shob::html
         return table;
     }
 
-    MultipleStrings table::tableOfTwoTables(MultipleStrings& left, MultipleStrings& right) const
+    MultipleStrings table::tableOfTwoTables(MultipleStrings& left, MultipleStrings& right)
     {
         auto retVal = MultipleStrings();
-        if (withBorder)
-        {
-            retVal.addContent("<table border>");
-        }
-        else
-        {
-            retVal.addContent("<table>");
-        }
-        retVal.addContent("<tr><td valign=""top"">");
+        retVal.addContent(R"(<div class="row"><div class="column">)");
         retVal.addContent(left);
-        retVal.addContent("</td> <td valign=""top""> ");
+        retVal.addContent("</div><div class=\"column\">");
         retVal.addContent(right);
-        retVal.addContent("</td> </tr>");
-        retVal.addContent("</table>");
+        retVal.addContent("</div> </div>");
 
         return retVal;
     }
