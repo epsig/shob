@@ -4,10 +4,10 @@
 
 namespace shob::pages
 {
-    class ekwk_date
+    class EkWkDate
     {
     public:
-        ekwk_date(const int year);
+        EkWkDate(const int year);
         std::string shortName() const;
         std::string shortNameUpper() const;
         std::string shortNameWithYear() const;

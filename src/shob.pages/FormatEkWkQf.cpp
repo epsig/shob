@@ -1,4 +1,4 @@
-#include "format_ekwk_qf.h"
+#include "FormatEkWkQf.h"
 #include "HeadBottom.h"
 #include "PageBlock.h"
 #include "../shob.football/filterResults.h"
@@ -17,12 +17,12 @@ namespace shob::pages
     using namespace shob::general;
     namespace fs = std::filesystem;
 
-    bool format_ekwk_qf::isValidYear(const int year) const
+    bool FormatEkWkQf::isValidYear(const int year) const
     {
         return year >= 1996 && year % 2 == 0;
     }
 
-    std::string format_ekwk_qf::getOutputFilename(const std::string& folder, const int year) const
+    std::string FormatEkWkQf::getOutputFilename(const std::string& folder, const int year) const
     {
         constexpr auto fmt_outfile = "../pages/sport_voetbal_{}_{}_voorronde.html";
 
@@ -37,17 +37,17 @@ namespace shob::pages
         }
     }
 
-    std::string format_ekwk_qf::getOutputFilename(const std::string& folder) const
+    std::string FormatEkWkQf::getOutputFilename(const std::string& folder) const
     {
         return "";
     }
 
-    int format_ekwk_qf::getLastYear() const
+    int FormatEkWkQf::getLastYear() const
     {
         return 2026; // TODO for the time being
     };
 
-    int format_ekwk_qf::findStar(const std::vector<std::vector<std::string>>& remarks)
+    int FormatEkWkQf::findStar(const std::vector<std::vector<std::string>>& remarks)
     {
         for(const auto& remark : remarks)
         {
@@ -60,9 +60,9 @@ namespace shob::pages
         return 0;
     }
 
-    MultipleStrings format_ekwk_qf::getPages(const int year) const
+    MultipleStrings FormatEkWkQf::getPages(const int year) const
     {
-        const auto ekwk = ekwk_date(year);
+        const auto ekwk = EkWkDate(year);
 
         auto remarks = seasonsReader.getSeason(ekwk.shortNameWithYear());
         auto star = findStar(remarks);
@@ -150,7 +150,7 @@ namespace shob::pages
         return HeadBottom::getPage(hb);
     }
 
-    MultipleStrings format_ekwk_qf::print_splitted(const standings& stand, const footballCompetition& matches,
+    MultipleStrings FormatEkWkQf::print_splitted(const standings& stand, const footballCompetition& matches,
         const MultipleStrings& remarks, const std::string& title, const std::string& title2) const
     {
         auto prepTableStandings = stand.prepareTable(teams, settings);
@@ -185,14 +185,14 @@ namespace shob::pages
         return retVal;
     }
 
-    readers::csvContent format_ekwk_qf::read_matches_data(const ekwk_date& ekwk, const char type) const
+    readers::csvContent FormatEkWkQf::read_matches_data(const EkWkDate& ekwk, const char type) const
     {
         const auto csvInput = std::format("{}{}{}{}.csv", dataSportFolder, ekwk.shortName(), ekwk.year, type);
         const auto csvData = readers::csvReader::readCsvFile(csvInput);
         return csvData;
     }
 
-    MultipleStrings format_ekwk_qf::get_group_nl(int& dd, const int star, const readers::csvContent& matches_data, const MultipleStrings& remarks) const
+    MultipleStrings FormatEkWkQf::get_group_nl(int& dd, const int star, const readers::csvContent& matches_data, const MultipleStrings& remarks) const
     {
         const auto parts = matches_data.getParts();
         const std::string part = parts.list()[0];
@@ -220,7 +220,7 @@ namespace shob::pages
         return MultipleStrings();
     }
 
-    MultipleStrings format_ekwk_qf::filter_remarks(const std::vector<std::vector<std::string>>& remarks, const std::string& key)
+    MultipleStrings FormatEkWkQf::filter_remarks(const std::vector<std::vector<std::string>>& remarks, const std::string& key)
     {
         auto retVal = MultipleStrings();
         for (const auto& row : remarks)
@@ -230,7 +230,7 @@ namespace shob::pages
         return retVal;
     }
 
-    MultipleStrings format_ekwk_qf::get_virtual_standings(const ekwk_date& ekwk, MultipleStrings& opms_vstand) const
+    MultipleStrings FormatEkWkQf::get_virtual_standings(const EkWkDate& ekwk, MultipleStrings& opms_vstand) const
     {
         const auto standings_data = read_matches_data(ekwk, 'v');
         auto retVal = MultipleStrings();
@@ -253,7 +253,7 @@ namespace shob::pages
         return retVal;
     }
 
-    MultipleStrings format_ekwk_qf::get_play_offs(int& dd, const readers::csvContent& matches_data) const
+    MultipleStrings FormatEkWkQf::get_play_offs(int& dd, const readers::csvContent& matches_data) const
     {
         const auto parts = matches_data.getParts();
         const std::string part = parts.list().back();
@@ -280,7 +280,7 @@ namespace shob::pages
         return retVal;
     }
 
-    MultipleStrings format_ekwk_qf::get_nationsLeagueFinals(const int& year, int& dd) const
+    MultipleStrings FormatEkWkQf::get_nationsLeagueFinals(const int& year, int& dd) const
     {
         auto retVal = MultipleStrings();
         const auto csvInput = std::format("{}{}{}.csv", dataSportFolder, "../nationsLeague/NL_", year);
@@ -300,7 +300,7 @@ namespace shob::pages
         return retVal;
     }
 
-    MultipleStrings format_ekwk_qf::get_nationsLeagueGroupPhase(const int& year, int& dd) const
+    MultipleStrings FormatEkWkQf::get_nationsLeagueGroupPhase(const int& year, int& dd) const
     {
         auto retVal = MultipleStrings();
         const auto csvInput = std::format("{}{}.*.csv", "NL_", year);
@@ -321,7 +321,7 @@ namespace shob::pages
         return retVal;
     }
 
-    MultipleStrings format_ekwk_qf::get_friendlies(const int& year, const std::vector<std::vector<std::string>>& remarks, int& dd) const
+    MultipleStrings FormatEkWkQf::get_friendlies(const int& year, const std::vector<std::vector<std::string>>& remarks, int& dd) const
     {
         auto retVal = MultipleStrings();
 
@@ -353,7 +353,7 @@ namespace shob::pages
         return retVal;
     }
 
-    MultipleStrings format_ekwk_qf::get_other_standings(const ekwk_date& ekwk, const std::string& title) const
+    MultipleStrings FormatEkWkQf::get_other_standings(const EkWkDate& ekwk, const std::string& title) const
     {
         const auto csvData = read_matches_data(ekwk, 's');
 
@@ -403,7 +403,7 @@ namespace shob::pages
         return retVal;
     }
 
-    MultipleStrings format_ekwk_qf::get_list_qualified_countries(const ekwk_date& ekwk, const std::string& title_qualified) const
+    MultipleStrings FormatEkWkQf::get_list_qualified_countries(const EkWkDate& ekwk, const std::string& title_qualified) const
     {
         const auto csvData = read_matches_data(ekwk, 'q');
         auto retVal = MultipleStrings();

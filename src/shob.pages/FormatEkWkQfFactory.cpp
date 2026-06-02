@@ -1,4 +1,4 @@
-#include "format_ekwk_qf_factory.h"
+#include "FormatEkWkQfFactory.h"
 
 #include "TopMenu.h"
 #include "../shob.readers/csvAllSeasonsReader.h"
@@ -9,14 +9,14 @@
 
 namespace shob::pages
 {
-    bool format_ekwk_qf_factory::cmpFunc(const std::string& a, const std::string& b)
+    bool FormatEkWkQfFactory::cmpFunc(const std::string& a, const std::string& b)
     {
         auto num1 = a.substr(2, 4);
         auto num2 = b.substr(2, 4);
         return num1 < num2;
     }
 
-    TopMenu format_ekwk_qf_factory::prepareTopMenu(const std::string& dataFolderEkWkQf)
+    TopMenu FormatEkWkQfFactory::prepareTopMenu(const std::string& dataFolderEkWkQf)
     {
         auto archive = general::glob::list(dataFolderEkWkQf, "[ew]k[0-9]{4}.*csv");
         std::sort(archive.begin(), archive.end(), cmpFunc);
@@ -35,7 +35,7 @@ namespace shob::pages
         return menu;
     }
 
-    format_ekwk_qf format_ekwk_qf_factory::build(const std::string& dataFolder, const html::settings& settings)
+    FormatEkWkQf FormatEkWkQfFactory::build(const std::string& dataFolder, const html::settings& settings)
     {
         auto dataFolderEkWkQf = dataFolder + "/ekwk_qf/";
 
@@ -59,7 +59,7 @@ namespace shob::pages
         auto allFriendlies = football::footballCompetition();
         allFriendlies.readFromCsv(csvInput);
 
-        auto fmt = format_ekwk_qf(dataFolderEkWkQf, national_teams, remarks, settings, menu, organizingCountries, allFriendlies);
+        auto fmt = FormatEkWkQf(dataFolderEkWkQf, national_teams, remarks, settings, menu, organizingCountries, allFriendlies);
 
         return fmt;
     }
