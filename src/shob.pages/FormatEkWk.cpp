@@ -15,21 +15,21 @@ namespace shob::pages
 
     bool FormatEkWk::isValidYear(const int year) const
     {
-        const std::string ekFile = std::format("{}{}{}{}", dataSportFolder, "/ekwk/ek", year, ".csv");
-        const std::string wkFile = std::format("{}{}{}{}", dataSportFolder, "/ekwk/wk", year, ".csv");
-        return fs::exists(ekFile) || fs::exists(wkFile);
+        const std::string ek_file = std::format("{}{}{}{}", data_sport_folder, "/ekwk/ek", year, ".csv");
+        const std::string wk_file = std::format("{}{}{}{}", data_sport_folder, "/ekwk/wk", year, ".csv");
+        return fs::exists(ek_file) || fs::exists(wk_file);
     }
 
     std::string FormatEkWk::getOutputFilename(const std::string& folder, const int year) const
     {
-        constexpr auto fmt_outfile = "../pages/sport_voetbal_{}_{}.html";
+        constexpr auto fmt_out_file = "../pages/sport_voetbal_{}_{}.html";
 
         switch (year % 4)
         {
         case 0:
-            return std::format(fmt_outfile, "EK", year);
+            return std::format(fmt_out_file, "EK", year);
         case 2:
-            return std::format(fmt_outfile, "WK", year);
+            return std::format(fmt_out_file, "WK", year);
         default:
             return "";
         }
