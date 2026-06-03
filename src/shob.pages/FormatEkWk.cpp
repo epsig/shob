@@ -8,11 +8,6 @@ namespace shob::pages
     namespace fs = std::filesystem;
     using namespace shob::general;
 
-    MultipleStrings FormatEkWk::getPages(const int year) const
-    {
-        return {};
-    }
-
     bool FormatEkWk::isValidYear(const int year) const
     {
         const std::string ek_file = std::format("{}{}{}{}", data_sport_folder, "/ekwk/ek", year, ".csv");
@@ -43,6 +38,11 @@ namespace shob::pages
     int FormatEkWk::getLastYear() const
     {
         return 2026;
+    }
+
+    MultipleStrings FormatEkWk::getPages(const int year) const
+    {
+        return {};
     }
 
 }
