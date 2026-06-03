@@ -42,7 +42,13 @@ namespace shob::pages
 
     MultipleStrings FormatEkWk::getPages(const int year) const
     {
-        return {};
+        auto retVal = MultipleStrings();
+        retVal.addContent("<hr>");
+        auto topMenu = top_menu.getMenu(std::to_string(year));
+        retVal.addContent(topMenu);
+        retVal.addContent("<hr>");
+
+        return retVal;
     }
 
 }
