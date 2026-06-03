@@ -3,7 +3,7 @@
 
 #include "TestFormatNL.h"
 #include "TestFormatEC.h"
-#include "test_format_ekwk_qf.h"
+#include "TestFormatEkWkQf.h"
 #include "TestFormatOs.h"
 #include "TestFormatUnOfficial.h"
 #include "TestTopMenu.h"
@@ -60,12 +60,12 @@ TEST(UnitTest, testTopMenuRight)
 
 TEST(IntegrationTest, testEkQf2000)
 {
-    testFormatEkWkQf::test_ek_2000();
+    TestFormatEkWkQf::test_ek_2000();
 }
 
 TEST(IntegrationTest, testEkQf2024)
 {
-    testFormatEkWkQf::test_ek_2024();
+    TestFormatEkWkQf::test_ek_2024();
 }
 
 TEST(IntegrationTest, testOsSchaatsen)

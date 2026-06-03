@@ -1,5 +1,5 @@
 
-#include "test_format_ekwk_qf.h"
+#include "TestFormatEkWkQf.h"
 
 #include <gtest/gtest.h>
 
@@ -15,7 +15,7 @@ namespace shob::pages::test
     const html::settings settings = html::settings();
     const auto fmt_ekwk_qf = FormatEkWkQfFactory::build(dataFolder, settings);
 
-    void testFormatEkWkQf::test_ek_2000()
+    void TestFormatEkWkQf::test_ek_2000()
     {
         const auto lines = fmt_ekwk_qf.getPages(2000);
         ASSERT_EQ(lines.data.size(), 183);
@@ -23,7 +23,7 @@ namespace shob::pages::test
         EXPECT_GE(lines.findString("<tr><td>Andorra -</td><td>10</td>"), 0);
     }
 
-    void testFormatEkWkQf::test_ek_2024()
+    void TestFormatEkWkQf::test_ek_2024()
     {
         const auto lines = fmt_ekwk_qf.getPages(2024);
         EXPECT_EQ(lines.data.size(), 123);

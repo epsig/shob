@@ -3,7 +3,7 @@
 
 namespace shob::pages::test
 {
-    class testFormatEkWkQf
+    class TestFormatEkWkQf
     {
     public:
         static void test_ek_2024();
