@@ -22,14 +22,14 @@ namespace shob::pages
 
     std::string FormatEkWk::getOutputFilename(const std::string& folder, const int year) const
     {
-        constexpr auto fmt_out_file = "../pages/sport_voetbal_{}_{}.html";
+        constexpr auto fmt_out_file = "{}/sport_voetbal_{}_{}.html";
 
         switch (year % 4)
         {
         case 0:
-            return std::format(fmt_out_file, "EK", year);
+            return std::format(fmt_out_file, folder, "EK", year);
         case 2:
-            return std::format(fmt_out_file, "WK", year);
+            return std::format(fmt_out_file, folder, "WK", year);
         default:
             return "";
         }
