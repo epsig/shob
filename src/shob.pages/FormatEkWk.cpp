@@ -1,5 +1,8 @@
 
 #include "FormatEkWk.h"
+#include "EkWkDate.h"
+#include "HeadBottom.h"
+
 #include <format>
 #include <filesystem>
 
@@ -42,13 +45,21 @@ namespace shob::pages
 
     MultipleStrings FormatEkWk::getPages(const int year) const
     {
+        const auto ekwk = EkWkDate(year);
         auto retVal = MultipleStrings();
         retVal.addContent("<hr>");
         auto topMenu = top_menu.getMenu(std::to_string(year));
         retVal.addContent(topMenu);
         retVal.addContent("<hr>");
 
-        return retVal;
+        int dd = 19920101;
+        auto hb = HeadBottomInput(dd);
+        const auto organizingCountries = remarks.getAll("organising_country");
+        hb.title = ekwk.shortNameUpper() + " Voetbal " + std::to_string(year) + " te " + organizingCountries.at(ekwk.shortNameWithYear());
+        hb.css = StyleSheetType::SeparateFile;
+        std::swap(hb.body, retVal);
+
+        return HeadBottom::getPage(hb);
     }
 
 }
