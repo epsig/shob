@@ -17,9 +17,12 @@ namespace shob::pages
         auto topScorers = readers::csvAllSeasonsReader();
         topScorers.init(dataFolder + "/ekwk/topscorers_ekwk.csv");
 
+        auto national_teams = teams::clubTeams();
+        national_teams.InitFromFile(dataFolder + "/landcodes.csv", teams::clubsOrCountries::countries);
+
         auto menu = prepareTopMenu(data_folder_ek_wk);
 
-        auto retval = FormatEkWk(dataFolder, settings, remarks, topScorers, menu);
+        auto retval = FormatEkWk(dataFolder, national_teams, settings, remarks, topScorers, menu);
         return retval;
     }
 

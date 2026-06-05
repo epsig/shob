@@ -2,6 +2,7 @@
 #include "FormatEkWk.h"
 #include "EkWkDate.h"
 #include "HeadBottom.h"
+#include "../shob.football/route2finalFactory.h"
 
 #include <format>
 #include <filesystem>
@@ -53,6 +54,15 @@ namespace shob::pages
         retVal.addContent("<hr>");
 
         int dd = 19920101;
+        const std::string filename = data_sport_folder + "/ekwk/" + ekwk.shortName() + std::to_string(year) + ".csv";
+        readers::csvContent csv_content;
+        if (fs::exists(filename))
+        {
+            csv_content = readers::csvReader::readCsvFile(filename);
+            auto pb = getLast16(csv_content, dd);
+            retVal.addContent(pb.data);
+        }
+
         auto hb = HeadBottomInput(dd);
         const auto organizingCountries = remarks.getAll("organising_country");
         hb.title = ekwk.shortNameUpper() + " Voetbal " + std::to_string(year) + " te " + organizingCountries.at(ekwk.shortNameWithYear());
@@ -61,5 +71,29 @@ namespace shob::pages
 
         return HeadBottom::getPage(hb);
     }
+
+    PageBlock FormatEkWk::getLast16(const readers::csvContent& csv_content, int& dd) const
+    {
+        PageBlock retval;
+        auto Table = html::table(settings);
+        Table.withBorder = false;
+        if (!csv_content.body.empty())
+        {
+            const auto r2f = football::route2finaleFactory::create(csv_content);
+            if (!r2f.empty())
+            {
+                auto prepTable = r2f.prepareTable(teams, settings);
+                prepTable[0].header.addContent("de laatste 16");
+                auto content = Table.buildTable(prepTable);
+                retval.data.addContent("<p/> <a name=\"last16\"/>");
+                retval.data.addContent(content);
+                retval.linkName = "last16";
+                retval.description = "last16";
+                dd = std::max(dd, r2f.lastDate().toInt());
+            }
+        }
+        return retval;
+    }
+
 
 }
