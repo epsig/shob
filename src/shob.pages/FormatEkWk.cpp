@@ -3,6 +3,8 @@
 #include "EkWkDate.h"
 #include "HeadBottom.h"
 #include "../shob.football/route2finalFactory.h"
+#include "../shob.football/filterResults.h"
+#include "../shob.football/results2standings.h"
 
 #include <format>
 #include <filesystem>
@@ -55,13 +57,11 @@ namespace shob::pages
 
         int dd = 19920101;
         const std::string filename = data_sport_folder + "/ekwk/" + ekwk.shortName() + std::to_string(year) + ".csv";
-        readers::csvContent csv_content;
-        if (fs::exists(filename))
-        {
-            csv_content = readers::csvReader::readCsvFile(filename);
-            auto pb = getLast16(csv_content, dd);
-            retVal.addContent(pb.data);
-        }
+        const readers::csvContent csv_content = readers::csvReader::readCsvFile(filename);
+        auto pb = getLast16(csv_content, dd);
+        retVal.addContent(pb.data);
+        auto pb2 = getGroupResults(csv_content, dd);
+        retVal.addContent(pb2.data);
 
         auto hb = HeadBottomInput(dd);
         const auto organizingCountries = remarks.getAll("organising_country");
@@ -95,5 +95,44 @@ namespace shob::pages
         return retval;
     }
 
+    uniqueStrings FormatEkWk::getGroups(const readers::csvContent& data)
+    {
+        auto groups = uniqueStrings();
+        for (const auto& row : data.body)
+        {
+            if (row.column[0].at(0) == 'g')
+            {
+                groups.insert(row.column[0]);
+            }
+        }
+        return groups;
+    }
+
+    PageBlock FormatEkWk::getGroupResults(const readers::csvContent& data, int& dd) const
+    {
+        const auto groups = getGroups(data).list();
+        auto tables = std::vector<html::tableContent>();
+
+        for (const auto& group : groups)
+        {
+            auto filter = football::filterInputList();
+            filter.filters.push_back({ 0, group });
+            const auto groupsPhase = football::filterResults::readFromCsvData(data, filter);
+            auto stand = football::results2standings::u2s(groupsPhase);
+            auto prepTable = stand.prepareTable(teams, settings);
+            prepTable.title = std::format("Groep {}", group.back());
+            const auto prepTable2 = groupsPhase.prepareTable(teams, settings);
+            tables.push_back(prepTable);
+            tables.push_back(prepTable2);
+            dd = std::max(dd, groupsPhase.lastDate().toInt());
+        }
+
+        auto Table = html::table(settings);
+        auto ret_val = PageBlock();
+        ret_val.data = Table.buildTable(tables);
+        ret_val.linkName = "groepsfase";
+        ret_val.description = "de groepswedstrijden";
+        return ret_val;
+    }
 
 }
