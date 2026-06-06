@@ -8,6 +8,7 @@
 
 #include <format>
 #include <filesystem>
+#include <array>
 
 namespace shob::pages
 {
@@ -58,10 +59,30 @@ namespace shob::pages
         int dd = 19920101;
         const std::string filename = data_sport_folder + "/ekwk/" + ekwk.shortName() + std::to_string(year) + ".csv";
         const readers::csvContent csv_content = readers::csvReader::readCsvFile(filename);
-        auto pb = getLast16(csv_content, dd);
-        retVal.addContent(pb.data);
-        auto pb2 = getGroupResults(csv_content, dd);
-        retVal.addContent(pb2.data);
+
+        auto pageBlocks = std::array<PageBlock, 2>();
+        pageBlocks[0] = getLast16(csv_content, dd);
+        pageBlocks[1] = getGroupResults(csv_content, dd);
+
+        retVal.addContent("<ul>");
+        retVal.addContent("<li> <a href=\"sport_voetbal_" + ekwk.shortNameUpper() + "_" + std::to_string(year)
+            + "_voorronde.html\">voorrondes en oefenduels</a> </li>");
+        for (const auto& block : pageBlocks)
+        {
+            if (!block.data.data.empty())
+            {
+                retVal.addContent("<li> <a href=\"#" + block.linkName + "\">" + block.description + "</a> </li>");
+            }
+        }
+        retVal.addContent("</ul> <hr>");
+
+        for (auto& block : pageBlocks)
+        {
+            if (!block.data.data.empty())
+            {
+                retVal.addContent(block.data);
+            }
+        }
 
         auto hb = HeadBottomInput(dd);
         const auto organizingCountries = remarks.getAll("organising_country");
@@ -88,7 +109,7 @@ namespace shob::pages
                 retval.data.addContent("<p/> <a name=\"last16\"/>");
                 retval.data.addContent(content);
                 retval.linkName = "last16";
-                retval.description = "last16";
+                retval.description = "de laatste 16";
                 dd = std::max(dd, r2f.lastDate().toInt());
             }
         }
@@ -113,6 +134,7 @@ namespace shob::pages
         const auto groups = getGroups(data).list();
         auto tables = std::vector<html::tableContent>();
 
+
         for (const auto& group : groups)
         {
             auto filter = football::filterInputList();
@@ -129,7 +151,12 @@ namespace shob::pages
 
         auto Table = html::table(settings);
         auto ret_val = PageBlock();
-        ret_val.data = Table.buildTable(tables);
+        if (!groups.empty())
+        {
+            ret_val.data.addContent("<p/> <a name=\"groepsfase\"/>");
+        }
+        auto content = Table.buildTable(tables);
+        ret_val.data.addContent(content);
         ret_val.linkName = "groepsfase";
         ret_val.description = "de groepswedstrijden";
         return ret_val;
