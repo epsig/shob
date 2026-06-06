@@ -10,14 +10,14 @@ namespace shob::pages::test
 {
     using namespace readers::test;
 
-    const std::string dataMap = "../../data/sport/";
-    const std::string dataFolder = testUtils::refFileWithPath(__FILE__, dataMap);
-    const html::settings settings = html::settings();
-    const auto fmt_ekwk = FormatEkWkFactory::build(dataFolder, settings);
+    const std::string data_map = "../../data/sport/";
+    const std::string data_folder = testUtils::refFileWithPath(__FILE__, data_map);
+    constexpr auto settings = html::settings();
+    const auto format_ek_wk = FormatEkWkFactory::build(data_folder, settings);
 
     void TestFormatEkWk::test_wk_2022()
     {
-        const auto lines = fmt_ekwk.getPages(2022);
+        const auto lines = format_ek_wk.getPages(2022);
         ASSERT_EQ(lines.data.size(), 155);
         //EXPECT_GE(lines.findString("Alle groepen:"), 0);
         //EXPECT_GE(lines.findString("<tr><td>Andorra -</td><td>10</td>"), 0);
