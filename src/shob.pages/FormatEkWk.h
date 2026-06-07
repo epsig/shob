@@ -1,5 +1,6 @@
 #pragma once
 
+#include "EkWkDate.h"
 #include "FormatOnePageEachYear.h"
 #include "../shob.teams/clubTeams.h"
 #include "../shob.readers/csvAllSeasonsReader.h"
@@ -32,5 +33,6 @@ namespace shob::pages
         PageBlock getLast16(const readers::csvContent& csv_content, int& dd) const;
         static general::uniqueStrings getGroups(const readers::csvContent& data);
         PageBlock getGroupResults(const readers::csvContent& data, int& dd) const;
+        PageBlock getTopscorers(const EkWkDate& ekwk) const;
     };
 }

@@ -5,6 +5,7 @@
 #include "../shob.football/route2finalFactory.h"
 #include "../shob.football/filterResults.h"
 #include "../shob.football/results2standings.h"
+#include "../shob.football/topscorers.h"
 
 #include <format>
 #include <filesystem>
@@ -60,9 +61,10 @@ namespace shob::pages
         const std::string filename = data_sport_folder + "/ekwk/" + ekwk.shortName() + std::to_string(year) + ".csv";
         const readers::csvContent csv_content = readers::csvReader::readCsvFile(filename);
 
-        auto pageBlocks = std::array<PageBlock, 2>();
+        auto pageBlocks = std::array<PageBlock, 3>();
         pageBlocks[0] = getLast16(csv_content, dd);
         pageBlocks[1] = getGroupResults(csv_content, dd);
+        pageBlocks[2] = getTopscorers(ekwk);
 
         retVal.addContent("<ul>");
         retVal.addContent("<li> <a href=\"sport_voetbal_" + ekwk.shortNameUpper() + "_" + std::to_string(year)
@@ -160,6 +162,29 @@ namespace shob::pages
         ret_val.linkName = "groepsfase";
         ret_val.description = "de groepswedstrijden";
         return ret_val;
+    }
+
+    PageBlock FormatEkWk::getTopscorers(const EkWkDate& ekwk) const
+    {
+        auto retval = PageBlock();
+        auto tp = football::topscorers(top_scorers);
+        tp.initFromFile(ekwk.shortNameWithYear());
+        if (tp.getSizeList() > 0)
+        {
+            auto players = teams::footballers();
+            const std::string filename = data_sport_folder + "/voetballers.csv";
+            players.initFromFile(filename);
+
+            auto table = tp.prepareTable(teams, players, settings);
+            table.title = "Topscorers " + ekwk.shortName();
+            auto Table = html::table(settings);
+            auto out = Table.buildTable(table);
+            retval.data.addContent("<p/> <a name =\"topscorers\"/>");
+            retval.data.addContent(out);
+            retval.description = "topscorers";
+            retval.linkName = retval.description;
+        }
+        return retval;
     }
 
 }

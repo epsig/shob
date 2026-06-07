@@ -9,6 +9,18 @@ namespace shob::football
     {
         auto data = reader.getSeason(season);
 
+        initFromFile(data);
+    }
+
+    void topscorers::initFromFile(const std::string& season)
+    {
+        auto data = reader.getSeason(season);
+
+        initFromFile(data);
+    }
+
+    void topscorers::initFromFile(const std::vector<std::vector<std::string>>& data)
+    {
         for (size_t i = 1; i < data.size(); i++)
         {
             const auto& row = data[i];
