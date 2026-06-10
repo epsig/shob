@@ -17,12 +17,16 @@ namespace shob::pages
         auto topScorers = readers::csvAllSeasonsReader();
         topScorers.init(dataFolder + "/ekwk/topscorers_ekwk.csv");
 
+        auto players = teams::footballers();
+        const std::string filename = dataFolder + "/voetballers.csv";
+        players.initFromFile(filename);
+
         auto national_teams = teams::clubTeams();
         national_teams.InitFromFile(dataFolder + "/landcodes.csv", teams::clubsOrCountries::countries);
 
         auto menu = prepareTopMenu(data_folder_ek_wk);
 
-        auto retval = FormatEkWk(dataFolder, national_teams, settings, remarks, topScorers, menu);
+        auto retval = FormatEkWk(dataFolder, national_teams, settings, remarks, topScorers, players, menu);
         return retval;
     }
 

@@ -171,10 +171,6 @@ namespace shob::pages
         tp.initFromFile(ekwk.shortNameWithYear());
         if (tp.getSizeList() > 0)
         {
-            auto players = teams::footballers();
-            const std::string filename = data_sport_folder + "/voetballers.csv";
-            players.initFromFile(filename);
-
             auto table = tp.prepareTable(teams, players, settings);
             table.title = "Topscorers " + ekwk.shortName();
             auto Table = html::table(settings);
