@@ -18,6 +18,12 @@ namespace shob::football
         std::vector<bool> isSecondMatch;
     };
 
+    struct linkInfo
+    {
+        std::string link_name;
+        std::string match_name;
+    };
+
     class footballCompetition
     {
     public:
@@ -33,7 +39,7 @@ namespace shob::football
         html::tableContent prepareTable(const teams::clubTeams& teams, const html::settings& settings) const;
         bool onlyKO = false;
         general::itdate lastDate() const;
-        std::vector<std::string> getLinks() const;
+        std::vector<linkInfo> getLinks(const teams::clubTeams& teams) const;
         bool doCoupleMatches = true;
     private:
         bool equalTeams(size_t i, size_t j) const;

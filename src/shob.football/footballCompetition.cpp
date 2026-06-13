@@ -244,14 +244,14 @@ namespace shob::football
         return dd;
     }
 
-    std::vector<std::string> footballCompetition::getLinks() const
+    std::vector<linkInfo> footballCompetition::getLinks(const teams::clubTeams& teams) const
     {
-        auto retval = std::vector<std::string>();
+        auto retval = std::vector<linkInfo>();
 
         for (const auto& match : matches)
         {
             if (match.link_name.empty()) continue;
-            retval.push_back(match.link_name);
+            retval.push_back({ match.link_name, match.matchName(teams) });
         }
 
         return retval;

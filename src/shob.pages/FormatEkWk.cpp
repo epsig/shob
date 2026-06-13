@@ -71,7 +71,10 @@ namespace shob::pages
         pageBlocks[0] = getLast16(csv_content, dd);
         pageBlocks[1] = getGroupResults(groups, dd);
         pageBlocks[2] = getTopscorers(ekwk);
-        pageBlocks[3] = printExtras(groups, filename_xml);
+        if (fs::exists(filename_xml))
+        {
+            pageBlocks[3] = printExtras(groups, filename_xml);
+        }
 
         retVal.addContent("<ul>");
         retVal.addContent("<li> <a href=\"sport_voetbal_" + ekwk.shortNameUpper() + "_" + std::to_string(year)
@@ -183,32 +186,57 @@ namespace shob::pages
         return ret_val;
     }
 
-    PageBlock FormatEkWk::printExtras(const groupList& groups, const std::string& filename_xml)
+    MultipleStrings FormatEkWk::getExtraForOneMatch(const groupData& g, const football::linkInfo& link, const boost::property_tree::ptree& pt ) const
     {
-        auto retval = PageBlock();
+        auto retval = MultipleStrings();
+
+        retval.addContent("<a name=\"" + link.link_name + "\"/> ");
+        retval.addContent(std::format("Groep {}: {}<br/>", g.name.back(), link.match_name));
+        const std::string  path = "games.group_phase." + g.long_name + "." + link.link_name + ".stats.chronological";
+        const auto games = loadPairs(pt, path, "min");
+        for (const auto& [time, remark] : games)
+        {
+            const auto trimmed = readers::csvReader::trim(remark, " ");
+            const auto splitted = readers::csvReader::split(trimmed, " ");
+            if (splitted.column.size() == 2)
+            {
+                auto expanded = players.expand(splitted.column[1]);
+                retval.addContent(time + " min " + splitted.column[0] + " " + expanded + "<br/>");
+            }
+            else
+            {
+                retval.addContent(time + " min" + remark + "<br/>");
+            }
+        }
+        return retval;
+    }
+
+    PageBlock FormatEkWk::printExtras(const groupList& groups, const std::string& filename_xml) const
+    {
+        auto subBlocks = std::vector<MultipleStrings>();
 
         boost::property_tree::ptree pt;
         read_xml(filename_xml, pt);
 
         for (const auto& g : groups.data)
         {
-            auto links = g.matches.getLinks();
+            auto links = g.matches.getLinks(teams);
             for (const auto& link : links)
             {
-                retval.data.addContent(g.name + "." + link + "<br/>");
-                const std::string  path = "games.group_phase." + g.long_name + "." + link +".stats.chronological";
-                const auto games = loadPairs(pt, path, "min");
-                for (const auto& game : games)
-                {
-                    retval.data.addContent(game.first + " min" + game.second + "<br/>");
-                }
+                subBlocks.push_back(getExtraForOneMatch(g, link, pt));
             }
         }
 
-        if (!retval.data.data.empty())
+        if (subBlocks.empty()) return {};
+
+        auto retval = PageBlock();
+        retval.description = "details enkele wedstrijden";
+        retval.linkName = "details";
+        retval.data.addContent("<p/> <a name=\"details\"/> <h2> Details enkele wedstrijden </h2> <hr>");
+        for (auto& subBlock : subBlocks)
         {
-            retval.description = "extra";
-            retval.linkName = retval.description;
+            retval.data.addContent(subBlock);
+            retval.data.addContent("<hr>");
         }
 
         return retval;

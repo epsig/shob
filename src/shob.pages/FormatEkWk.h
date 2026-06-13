@@ -1,5 +1,7 @@
 #pragma once
 
+#include <boost/property_tree/ptree.hpp>
+
 #include "EkWkDate.h"
 #include "FormatOnePageEachYear.h"
 #include "../shob.teams/clubTeams.h"
@@ -51,7 +53,9 @@ namespace shob::pages
         static general::uniqueStrings getGroups(const readers::csvContent& data);
         static groupList getGroupData(const readers::csvContent& data);
         PageBlock getGroupResults(const groupList& groups, int& dd) const;
-        static PageBlock printExtras(const groupList& groups, const std::string& filename_xml);
+        general::MultipleStrings getExtraForOneMatch(const groupData& g, const football::linkInfo& link,
+                                                     const boost::property_tree::ptree& pt) const;
+        PageBlock printExtras(const groupList& groups, const std::string& filename_xml) const;
         PageBlock getTopscorers(const EkWkDate& ekwk) const;
     };
 }
