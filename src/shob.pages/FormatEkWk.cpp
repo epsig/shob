@@ -6,6 +6,7 @@
 #include "../shob.football/filterResults.h"
 #include "../shob.football/results2standings.h"
 #include "../shob.football/topscorers.h"
+#include "../shob.readers/xmlReader.h"
 
 #include <format>
 #include <filesystem>
@@ -61,12 +62,15 @@ namespace shob::pages
         const std::string filename = data_sport_folder + "/ekwk/" + ekwk.shortName() + std::to_string(year) + ".csv";
         const readers::csvContent csv_content = readers::csvReader::readCsvFile(filename);
 
+        const std::string filename_xml = data_sport_folder + "/ekwk/" + ekwk.shortNameUpper() + "_" + std::to_string(year) + ".xml";
+
         const auto groups = getGroupData(csv_content);
 
-        auto pageBlocks = std::array<PageBlock, 3>();
+        auto pageBlocks = std::array<PageBlock, 4>();
         pageBlocks[0] = getLast16(csv_content, dd);
         pageBlocks[1] = getGroupResults(groups, dd);
         pageBlocks[2] = getTopscorers(ekwk);
+        pageBlocks[3] = printExtras(groups, filename_xml);
 
         retVal.addContent("<ul>");
         retVal.addContent("<li> <a href=\"sport_voetbal_" + ekwk.shortNameUpper() + "_" + std::to_string(year)
@@ -144,7 +148,8 @@ namespace shob::pages
             filter.filters.push_back({ 0, group });
             const auto groupsPhase = football::filterResults::readFromCsvData(data, filter);
             const auto stand = football::results2standings::u2s(groupsPhase);
-            retval.data.push_back({group, groupsPhase, stand});
+            std::string long_name = std::format("group{}", group.back());
+            retval.data.push_back({group, long_name, groupsPhase, stand});
         }
         return retval;
     }
@@ -175,6 +180,34 @@ namespace shob::pages
         ret_val.linkName = "groepsfase";
         ret_val.description = "de groepswedstrijden";
         return ret_val;
+    }
+
+    PageBlock FormatEkWk::printExtras(const groupList& groups, const std::string& filename_xml)
+    {
+        auto retval = PageBlock();
+
+        for (const auto& g : groups.data)
+        {
+            auto links = g.matches.getLinks();
+            for (const auto& link : links)
+            {
+                retval.data.addContent(g.name + "." + link + "<br/>");
+                const std::string  path = "games.group_phase." + g.long_name + "." + link +".stats.chronological";
+                const auto games = loadPairs(filename_xml, path, "min");
+                for (const auto& game : games)
+                {
+                    retval.data.addContent(game.first + " min" + game.second + "<br/>");
+                }
+            }
+        }
+
+        if (!retval.data.data.empty())
+        {
+            retval.description = "extra";
+            retval.linkName = retval.description;
+        }
+
+        return retval;
     }
 
     PageBlock FormatEkWk::getTopscorers(const EkWkDate& ekwk) const

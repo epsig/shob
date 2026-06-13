@@ -244,4 +244,17 @@ namespace shob::football
         return dd;
     }
 
+    std::vector<std::string> footballCompetition::getLinks() const
+    {
+        auto retval = std::vector<std::string>();
+
+        for (const auto& match : matches)
+        {
+            if (match.link_name.empty()) continue;
+            retval.push_back(match.link_name);
+        }
+
+        return retval;
+    }
+
 }

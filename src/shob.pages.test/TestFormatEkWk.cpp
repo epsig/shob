@@ -18,7 +18,7 @@ namespace shob::pages::test
     void TestFormatEkWk::test_wk_2022()
     {
         const auto lines = format_ek_wk.getPages(2022);
-        ASSERT_EQ(lines.data.size(), 161);
+        ASSERT_EQ(lines.data.size(), 171);
         //EXPECT_GE(lines.findString("Alle groepen:"), 0);
         //EXPECT_GE(lines.findString("<tr><td>Andorra -</td><td>10</td>"), 0);
     }

@@ -28,7 +28,10 @@ std::vector<std::pair<std::string,std::string>> loadPairs(const std::string& fil
 
     std::vector<std::pair<std::string, std::string>> Pairs;
 
-    for (const auto& i : pt.get_child(path))
+    auto check = pt.get_child_optional(path);
+    if (!check) return Pairs;
+
+    for (const auto& i : check.value())
     {
         const auto & sub_pt = i.second;
         const auto first = sub_pt.get<std::string>("<xmlattr>." + attr);

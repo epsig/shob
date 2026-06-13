@@ -16,6 +16,7 @@ namespace shob::pages
     struct groupData
     {
         std::string name;
+        std::string long_name;
         football::footballCompetition matches;
         football::standings standings;
     };
@@ -50,6 +51,7 @@ namespace shob::pages
         static general::uniqueStrings getGroups(const readers::csvContent& data);
         static groupList getGroupData(const readers::csvContent& data);
         PageBlock getGroupResults(const groupList& groups, int& dd) const;
+        static PageBlock printExtras(const groupList& groups, const std::string& filename_xml);
         PageBlock getTopscorers(const EkWkDate& ekwk) const;
     };
 }
