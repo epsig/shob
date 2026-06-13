@@ -61,9 +61,11 @@ namespace shob::pages
         const std::string filename = data_sport_folder + "/ekwk/" + ekwk.shortName() + std::to_string(year) + ".csv";
         const readers::csvContent csv_content = readers::csvReader::readCsvFile(filename);
 
+        const auto groups = getGroupData(csv_content);
+
         auto pageBlocks = std::array<PageBlock, 3>();
         pageBlocks[0] = getLast16(csv_content, dd);
-        pageBlocks[1] = getGroupResults(csv_content, dd);
+        pageBlocks[1] = getGroupResults(groups, dd);
         pageBlocks[2] = getTopscorers(ekwk);
 
         retVal.addContent("<ul>");
@@ -131,29 +133,40 @@ namespace shob::pages
         return groups;
     }
 
-    PageBlock FormatEkWk::getGroupResults(const readers::csvContent& data, int& dd) const
+    groupList FormatEkWk::getGroupData(const readers::csvContent& data)
     {
         const auto groups = getGroups(data).list();
-        auto tables = std::vector<html::tableContent>();
-
+        auto retval = groupList();
 
         for (const auto& group : groups)
         {
             auto filter = football::filterInputList();
             filter.filters.push_back({ 0, group });
             const auto groupsPhase = football::filterResults::readFromCsvData(data, filter);
-            auto stand = football::results2standings::u2s(groupsPhase);
-            auto prepTable = stand.prepareTable(teams, settings);
+            const auto stand = football::results2standings::u2s(groupsPhase);
+            retval.data.push_back({group, groupsPhase, stand});
+        }
+        return retval;
+    }
+
+    PageBlock FormatEkWk::getGroupResults(const groupList& groups, int& dd) const
+    {
+        auto tables = std::vector<html::tableContent>();
+
+        for (const auto& g : groups.data)
+        {
+            auto group = g.name;
+            auto prepTable = g.standings.prepareTable(teams, settings);
             prepTable.title = std::format("Groep {}", group.back());
-            const auto prepTable2 = groupsPhase.prepareTable(teams, settings);
+            const auto prepTable2 = g.matches.prepareTable(teams, settings);
             tables.push_back(prepTable);
             tables.push_back(prepTable2);
-            dd = std::max(dd, groupsPhase.lastDate().toInt());
+            dd = std::max(dd, g.matches.lastDate().toInt());
         }
 
         auto Table = html::table(settings);
         auto ret_val = PageBlock();
-        if (!groups.empty())
+        if (!groups.data.empty())
         {
             ret_val.data.addContent("<p/> <a name=\"groepsfase\"/>");
         }

@@ -32,6 +32,7 @@ namespace shob::football
         int spectators;
         bool isFinal = false;
         std::string remark;
+        std::string link_name;
         int winner() const;
     private:
         std::string nvns() const;

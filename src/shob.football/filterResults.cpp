@@ -65,7 +65,18 @@ namespace shob::football
                 auto match = footballMatch(line[team1Column], line[team2Column], date, line[resultColumn],
                     spectators, star, isFinal);
                 match.stadium = stadium;
-                if (remarkColumn < line.size()) match.remark = line[remarkColumn];
+                if (remarkColumn < line.size())
+                {
+                    auto remark = line[remarkColumn];
+                    if (remark.starts_with("ref="))
+                    {
+                        match.link_name = remark.substr(4, remark.size()-4);
+                    }
+                    else
+                    {
+                        match.remark = remark;
+                    }
+                }
                 comp.matches.push_back(match);
             }
         }

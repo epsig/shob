@@ -8,9 +8,23 @@
 #include "../shob.teams/footballer.h"
 #include "TopMenu.h"
 #include "PageBlock.h"
+#include "../shob.football/standings.h"
+#include "../shob.football/footballCompetition.h"
 
 namespace shob::pages
 {
+    struct groupData
+    {
+        std::string name;
+        football::footballCompetition matches;
+        football::standings standings;
+    };
+
+    struct groupList
+    {
+        std::vector<groupData> data;
+    };
+
     class FormatEkWk : public FormatOnePageEachYear
     {
     public:
@@ -34,7 +48,8 @@ namespace shob::pages
         TopMenu top_menu;
         PageBlock getLast16(const readers::csvContent& csv_content, int& dd) const;
         static general::uniqueStrings getGroups(const readers::csvContent& data);
-        PageBlock getGroupResults(const readers::csvContent& data, int& dd) const;
+        static groupList getGroupData(const readers::csvContent& data);
+        PageBlock getGroupResults(const groupList& groups, int& dd) const;
         PageBlock getTopscorers(const EkWkDate& ekwk) const;
     };
 }
