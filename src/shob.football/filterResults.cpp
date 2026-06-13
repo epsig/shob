@@ -30,7 +30,7 @@ namespace shob::football
         return star;
     }
 
-    footballCompetition filterResults::readFromCsvData(const csvContent & csvData, const filterInputList& filter)
+    footballCompetition filterResults::readFromCsvData(const csvContent & csvData, const filterInputList& filter, const std::string& ko_phase)
     {
         auto comp = footballCompetition();
 
@@ -77,6 +77,7 @@ namespace shob::football
                         match.remark = remark;
                     }
                 }
+                match.ko_phase = ko_phase;
                 comp.matches.push_back(match);
             }
         }

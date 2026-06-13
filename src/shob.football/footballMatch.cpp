@@ -61,7 +61,14 @@ namespace shob::football
         {
             datum = html::funcs::acronym(datum, "te: " + stadium);
         }
-        return datum + " " + expanded[0] + " - " + expanded[1] + " " + result + nvns();
+        if (link_name.empty())
+        {
+            return datum + " " + expanded[0] + " - " + expanded[1] + " " + result + nvns();
+        }
+        else
+        {
+            return datum + " <a href=#" + link_name + ">" + expanded[0] + " - " + expanded[1] + "</a> " + result + nvns();
+        }
     }
 
     std::string footballMatch::matchName(const teams::clubTeams& teams) const

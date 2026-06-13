@@ -17,6 +17,7 @@ namespace shob::football
         std::vector<html::tableContent> prepareTable(const teams::clubTeams& teams, const html::settings& settings) const;
         general::itdate lastDate() const;
         bool empty() const;
+        footballCompetition getAllMatches() const;
     private:
         footballCompetition final;
         footballCompetition semiFinal;

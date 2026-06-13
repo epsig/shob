@@ -12,6 +12,7 @@
 #include "PageBlock.h"
 #include "../shob.football/standings.h"
 #include "../shob.football/footballCompetition.h"
+#include "../shob.football/route2final.h"
 
 namespace shob::pages
 {
@@ -49,13 +50,13 @@ namespace shob::pages
         readers::csvAllSeasonsReader top_scorers;
         teams::footballers players;
         TopMenu top_menu;
-        PageBlock getLast16(const readers::csvContent& csv_content, int& dd) const;
+        PageBlock getLast16(const football::route2final& r2f, int& dd) const;
         static general::uniqueStrings getGroups(const readers::csvContent& data);
         static groupList getGroupData(const readers::csvContent& data);
         PageBlock getGroupResults(const groupList& groups, int& dd) const;
         general::MultipleStrings getExtraForOneMatch(const groupData& g, const football::linkInfo& link,
-                                                     const boost::property_tree::ptree& pt) const;
-        PageBlock printExtras(const groupList& groups, const std::string& filename_xml) const;
+            const std::string& ko_phase, const boost::property_tree::ptree& pt) const;
+        PageBlock printExtras(const groupList& groups, const football::route2final& r2f, const std::string& filename_xml) const;
         PageBlock getTopscorers(const EkWkDate& ekwk) const;
     };
 }

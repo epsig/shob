@@ -187,13 +187,19 @@ namespace shob::football
             auto result = row.result;
             if (row.star == starEnum::homeWinsXt || row.star == starEnum::awayWinsXt) result += "&nbsp;n.v.";
             if (row.star == starEnum::homeWinsPenalties || row.star == starEnum::awayWinsPenalties) result += "&nbsp;n.s.";
+            const auto match_name = teams.expand(row.team1, addCountry) + stars[0] + " - " + teams.expand(row.team2, addCountry) + stars[1];
             if (settings.isCompatible)
             {
-                out.data = { dd + " " + teams.expand(row.team1, addCountry) + stars[0] + " - " + teams.expand(row.team2, addCountry) + stars[1], result};
+                out.data = { dd + " " + match_name, result};
+            }
+            else if (row.link_name.empty())
+            {
+                out.data = { dd, match_name, result };
             }
             else
             {
-                out.data = { dd, teams.expand(row.team1, addCountry) + stars[0] + " - " + teams.expand(row.team2, addCountry) + stars[1], result};
+                const auto with_link = "<a href=#" + row.link_name + ">" + match_name + "</a>";
+                out.data = { dd, with_link, result};
             }
             if (withRemarks) out.data.emplace_back(row.remark);
             table.body.push_back(out);
@@ -251,7 +257,7 @@ namespace shob::football
         for (const auto& match : matches)
         {
             if (match.link_name.empty()) continue;
-            retval.push_back({ match.link_name, match.matchName(teams) });
+            retval.push_back({ match.link_name, match.matchName(teams), match.ko_phase });
         }
 
         return retval;

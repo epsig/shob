@@ -33,6 +33,7 @@ namespace shob::football
         bool isFinal = false;
         std::string remark;
         std::string link_name;
+        std::string ko_phase;
         int winner() const;
     private:
         std::string nvns() const;

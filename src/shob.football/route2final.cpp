@@ -148,6 +148,18 @@ namespace shob::football
         return final.matches.empty() && semiFinal.matches.empty() && quarterFinal.matches.empty() && last16.matches.empty();
     }
 
-}
+    footballCompetition route2final::getAllMatches() const
+    {
+        auto retval = footballCompetition();
+        for (const auto& part : {last16, quarterFinal, semiFinal, final} )
+        {
+            for (const auto& m : part.matches)
+            {
+                retval.matches.push_back(m);
+            }
+        }
+        return retval;
+    }
 
+}
 

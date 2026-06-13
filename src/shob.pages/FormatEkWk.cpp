@@ -66,14 +66,15 @@ namespace shob::pages
         const std::string filename_xml = data_sport_folder + "/ekwk/" + ekwk.shortNameUpper() + "_" + std::to_string(year) + ".xml";
 
         const auto groups = getGroupData(csv_content);
+        const auto r2f = football::route2finaleFactory::create(csv_content);
 
         auto pageBlocks = std::array<PageBlock, 4>();
-        pageBlocks[0] = getLast16(csv_content, dd);
+        pageBlocks[0] = getLast16(r2f, dd);
         pageBlocks[1] = getGroupResults(groups, dd);
         pageBlocks[2] = getTopscorers(ekwk);
         if (fs::exists(filename_xml))
         {
-            pageBlocks[3] = printExtras(groups, filename_xml);
+            pageBlocks[3] = printExtras(groups, r2f, filename_xml);
         }
 
         retVal.addContent("<ul>");
@@ -105,25 +106,21 @@ namespace shob::pages
         return HeadBottom::getPage(hb);
     }
 
-    PageBlock FormatEkWk::getLast16(const readers::csvContent& csv_content, int& dd) const
+    PageBlock FormatEkWk::getLast16(const football::route2final& r2f, int& dd) const
     {
         PageBlock retval;
         auto Table = html::table(settings);
         Table.withBorder = false;
-        if (!csv_content.body.empty())
+        if (!r2f.empty())
         {
-            const auto r2f = football::route2finaleFactory::create(csv_content);
-            if (!r2f.empty())
-            {
-                auto prepTable = r2f.prepareTable(teams, settings);
-                prepTable[0].header.addContent("de laatste 16");
-                auto content = Table.buildTable(prepTable);
-                retval.data.addContent("<p/> <a name=\"last16\"/>");
-                retval.data.addContent(content);
-                retval.linkName = "last16";
-                retval.description = "de laatste 16";
-                dd = std::max(dd, r2f.lastDate().toInt());
-            }
+            auto prepTable = r2f.prepareTable(teams, settings);
+            prepTable[0].header.addContent("de laatste 16");
+            auto content = Table.buildTable(prepTable);
+            retval.data.addContent("<p/> <a name=\"last16\"/>");
+            retval.data.addContent(content);
+            retval.linkName = "last16";
+            retval.description = "de laatste 16";
+            dd = std::max(dd, r2f.lastDate().toInt());
         }
         return retval;
     }
@@ -186,13 +183,23 @@ namespace shob::pages
         return ret_val;
     }
 
-    MultipleStrings FormatEkWk::getExtraForOneMatch(const groupData& g, const football::linkInfo& link, const boost::property_tree::ptree& pt ) const
+    MultipleStrings FormatEkWk::getExtraForOneMatch(const groupData& g, const football::linkInfo& link, const std::string& ko_phase,
+        const boost::property_tree::ptree& pt ) const
     {
         auto retval = MultipleStrings();
 
         retval.addContent("<a name=\"" + link.link_name + "\"/> ");
-        retval.addContent(std::format("Groep {}: {}<br/>", g.name.back(), link.match_name));
-        const std::string  path = "games.group_phase." + g.long_name + "." + link.link_name + ".stats.chronological";
+        std::string path;
+        if (ko_phase.empty())
+        {
+            retval.addContent(std::format("Groep {}: {}<br/>", g.name.back(), link.match_name));
+            path = "games.group_phase." + g.long_name + "." + link.link_name + ".stats.chronological";
+        }
+        else
+        {
+            retval.addContent(std::format("{}: {}<br/>", ko_phase, link.match_name));
+            path = "games.ko." + ko_phase + "." + link.link_name + ".stats.chronological";
+        }
         const auto games = loadPairs(pt, path, "min");
         for (const auto& [time, remark] : games)
         {
@@ -211,7 +218,7 @@ namespace shob::pages
         return retval;
     }
 
-    PageBlock FormatEkWk::printExtras(const groupList& groups, const std::string& filename_xml) const
+    PageBlock FormatEkWk::printExtras(const groupList& groups, const football::route2final& r2f, const std::string& filename_xml) const
     {
         auto subBlocks = std::vector<MultipleStrings>();
 
@@ -223,8 +230,15 @@ namespace shob::pages
             auto links = g.matches.getLinks(teams);
             for (const auto& link : links)
             {
-                subBlocks.push_back(getExtraForOneMatch(g, link, pt));
+                subBlocks.push_back(getExtraForOneMatch(g, link, "", pt));
             }
+        }
+
+        auto m = r2f.getAllMatches();
+        auto links = m.getLinks(teams);
+        for (const auto& link : links)
+        {
+            subBlocks.push_back(getExtraForOneMatch(groupData(), link, link.ko_phase, pt));
         }
 
         if (subBlocks.empty()) return {};

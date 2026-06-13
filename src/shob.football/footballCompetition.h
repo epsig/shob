@@ -22,6 +22,7 @@ namespace shob::football
     {
         std::string link_name;
         std::string match_name;
+        std::string ko_phase;
     };
 
     class footballCompetition
