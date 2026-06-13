@@ -46,3 +46,14 @@ std::vector<std::pair<std::string, std::string>> loadPairs(boost::property_tree:
 
     return Pairs;
 }
+
+std::string loadSingleValue(boost::property_tree::ptree pt, const std::string& path)
+{
+
+    auto check = pt.get_child_optional(path);
+    if (!check) return "";
+
+    auto x = check->get_value<std::string>();
+
+    return x;
+}

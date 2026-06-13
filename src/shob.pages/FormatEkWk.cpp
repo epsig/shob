@@ -189,17 +189,32 @@ namespace shob::pages
         auto retval = MultipleStrings();
 
         retval.addContent("<a name=\"" + link.link_name + "\"/> ");
-        std::string path;
+        std::string base_path;
         if (ko_phase.empty())
         {
             retval.addContent(std::format("Groep {}: {}<br/>", g.name.back(), link.match_name));
-            path = "games.group_phase." + g.long_name + "." + link.link_name + ".stats.chronological";
+            base_path = "games.group_phase." + g.long_name + "." + link.link_name;
         }
         else
         {
             retval.addContent(std::format("{}: {}<br/>", ko_phase, link.match_name));
-            path = "games.ko." + ko_phase + "." + link.link_name + ".stats.chronological";
+            base_path = "games.ko." + ko_phase + "." + link.link_name ;
         }
+        std::string path = base_path + ".stats.stadium";
+        const auto stadium = loadSingleValue(pt, path);
+
+        path = base_path + ".stats.arbiter";
+        const auto arbiter = loadSingleValue(pt, path);
+
+        path = base_path + ".stats.spectators";
+        const auto spectators = loadSingleValue(pt, path);
+
+        if (!stadium.empty() && !spectators.empty())
+        retval.addContent(std::format("Gespeeld te {} voor {} toeschouwers. </br>", stadium, spectators));
+        if (!arbiter.empty())
+        retval.addContent(std::format("Scheidsrechter: {}. </br>", arbiter));
+
+        path = base_path + ".stats.chronological";
         const auto games = loadPairs(pt, path, "min");
         for (const auto& [time, remark] : games)
         {
@@ -215,6 +230,7 @@ namespace shob::pages
                 retval.addContent(time + " min" + remark + "<br/>");
             }
         }
+
         return retval;
     }
 

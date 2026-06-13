@@ -15,4 +15,5 @@ Catowner load(const std::string& file);
 
 std::vector<std::pair<std::string, std::string>> loadPairs(const std::string& file, const std::string& path, const std::string& attr);
 std::vector<std::pair<std::string, std::string>> loadPairs(boost::property_tree::ptree pt, const std::string& path, const std::string& attr);
+std::string loadSingleValue(boost::property_tree::ptree pt, const std::string& path);
 

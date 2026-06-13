@@ -18,9 +18,9 @@ namespace shob::pages::test
     void TestFormatEkWk::test_wk_2022()
     {
         const auto lines = format_ek_wk.getPages(2022);
-        ASSERT_EQ(lines.data.size(), 193);
-        //EXPECT_GE(lines.findString("Alle groepen:"), 0);
-        //EXPECT_GE(lines.findString("<tr><td>Andorra -</td><td>10</td>"), 0);
+        ASSERT_EQ(lines.data.size(), 198);
+        EXPECT_GE(lines.findString("Scheidsrechter:  Ghorbal (DZ) . </br>"), 0);
+        EXPECT_GE(lines.findString("81 min 3-1 Denzel Dumfries<br/>"), 0);
     }
 
 }
