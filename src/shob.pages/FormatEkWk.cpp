@@ -11,6 +11,7 @@
 #include <format>
 #include <filesystem>
 #include <array>
+#include <boost/property_tree/xml_parser.hpp>
 
 namespace shob::pages
 {
@@ -186,6 +187,9 @@ namespace shob::pages
     {
         auto retval = PageBlock();
 
+        boost::property_tree::ptree pt;
+        read_xml(filename_xml, pt);
+
         for (const auto& g : groups.data)
         {
             auto links = g.matches.getLinks();
@@ -193,7 +197,7 @@ namespace shob::pages
             {
                 retval.data.addContent(g.name + "." + link + "<br/>");
                 const std::string  path = "games.group_phase." + g.long_name + "." + link +".stats.chronological";
-                const auto games = loadPairs(filename_xml, path, "min");
+                const auto games = loadPairs(pt, path, "min");
                 for (const auto& game : games)
                 {
                     retval.data.addContent(game.first + " min" + game.second + "<br/>");

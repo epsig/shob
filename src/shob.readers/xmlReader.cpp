@@ -26,6 +26,11 @@ std::vector<std::pair<std::string,std::string>> loadPairs(const std::string& fil
     boost::property_tree::ptree pt;
     read_xml(file, pt);
 
+    return loadPairs(pt, path, attr);
+}
+
+std::vector<std::pair<std::string, std::string>> loadPairs(boost::property_tree::ptree pt, const std::string& path, const std::string& attr)
+{
     std::vector<std::pair<std::string, std::string>> Pairs;
 
     auto check = pt.get_child_optional(path);
@@ -33,7 +38,7 @@ std::vector<std::pair<std::string,std::string>> loadPairs(const std::string& fil
 
     for (const auto& i : check.value())
     {
-        const auto & sub_pt = i.second;
+        const auto& sub_pt = i.second;
         const auto first = sub_pt.get<std::string>("<xmlattr>." + attr);
         const auto second = sub_pt.data();
         Pairs.emplace_back(first, second);
