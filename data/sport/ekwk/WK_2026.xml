@@ -26,6 +26,23 @@
 <spectators> 69285 </spectators>
 </stats>
 </NL_JP>
+<NL_SE>
+<stats>
+<stadium> Houston </stadium>
+<itdate> 20260620 </itdate> <dow> zaterdag </dow>
+<final_result> NL - SE 5-1 </final_result>
+<chronological>
+ <data min="5"> 1-0 Brobbey </data>
+ <data min="17"> 2-0 Brobbey </data>
+ <data min="47"> 3-0 Gakpo </data>
+ <data min="54"> 4-0 Gakpo </data>
+ <data min="59"> 4-1 Elanga </data>
+ <data min="89"> 5-1 Summerville </data>
+</chronological>
+<arbiter> Oliver (ENG) </arbiter>
+<spectators> 68777 </spectators>
+</stats>
+</NL_SE>
 </groupF>
 </group_phase>
 </games>
