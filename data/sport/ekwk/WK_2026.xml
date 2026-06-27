@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<!DOCTYPE names [
+<!ENTITY uuml "&#252;">
+<!ENTITY iacute "&#237;">
+<!ENTITY eacute "&#xE9;">
+<!ENTITY atilde "&#227;">
+<!ENTITY auml "&#228;">
+<!ENTITY aelig "&#xE6;">
+]>
+
+<games>
+<group_phase>
+<groupF>
+<NL_JP>
+<stats>
+<stadium> Dallas </stadium>
+<itdate> 20260614 </itdate> <dow> zondag </dow>
+<final_result> NL - JP 2-2 </final_result>
+<chronological>
+ <data min="51"> 1-0 vdijk </data>
+ <data min="57"> 1-1 Nakamura </data>
+ <data min="64"> 2-1 summerville </data>
+ <data min="89"> 2-2 Kamada </data>
+</chronological>
+<arbiter> Elfath (US) </arbiter>
+<spectators> 69285 </spectators>
+</stats>
+</NL_JP>
+<NL_SE>
+<stats>
+<stadium> Houston </stadium>
+<itdate> 20260620 </itdate> <dow> zaterdag </dow>
+<final_result> NL - SE 5-1 </final_result>
+<chronological>
+ <data min="5"> 1-0 brobbey </data>
+ <data min="17"> 2-0 brobbey </data>
+ <data min="47"> 3-0 gakpo </data>
+ <data min="54"> 4-0 gakpo </data>
+ <data min="59"> 4-1 Elanga </data>
+ <data min="89"> 5-1 summerville </data>
+</chronological>
+<arbiter> Oliver (ENG) </arbiter>
+<spectators> 68777 </spectators>
+</stats>
+</NL_SE>
+<TN_NL>
+<stats>
+<stadium> Kansas City </stadium>
+<itdate> 20260626 </itdate> <dow> vrijdag </dow>
+<final_result> TN - NL 1-3 </final_result>
+<chronological>
+ <data min="3"> 0-1 Skhiri (og) </data>
+ <data min="7"> 0-2 brobbey </data>
+ <data min="54"> 1-2 Mastouri </data>
+ <data min="62"> 1-3 vhecke </data>
+</chronological>
+<arbiter> Garcia (MX) </arbiter>
+<spectators> 68391 </spectators>
+</stats>
+</TN_NL>
+</groupF>
+</group_phase>
+</games>
