@@ -267,9 +267,7 @@ namespace shob::pages
         auto resultsPerTeam = std::unordered_map<std::string, std::pair<int, int>>();
         for (const auto& match : competition.matches)
         {
-            if (match.team2 == "straf") continue;
-            if (match.result == "-") continue;
-            if (match.spectators < 0) continue;
+            if (!match.withSpectator()) continue;
 
             total += match.spectators;
             nMatches++;

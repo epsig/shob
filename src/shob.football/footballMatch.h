@@ -35,6 +35,7 @@ namespace shob::football
         std::string link_name;
         std::string ko_phase;
         int winner() const;
+        bool withSpectator() const;
     private:
         std::string nvns() const;
     };

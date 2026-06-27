@@ -210,20 +210,17 @@ namespace shob::football
 
     std::pair<int, int> footballCompetition::getStatsSpectators() const
     {
-        int total1 = 0;
-        int total2 = 0;
+        int total_spectators = 0;
+        int total_matches = 0;
         for (const auto& match : matches)
         {
+            if (match.withSpectator())
             {
-                if (match.team2 == "straf") continue;
-                if (match.result == "-") continue;
-                if (match.spectators < 0) continue;
-
-                total1 += match.spectators;
-                total2++;
+                total_spectators += match.spectators;
+                total_matches++;
             }
         }
-        return { total1, total2 };
+        return { total_spectators, total_matches };
     }
 
     bool footballCompetition::equalTeams(size_t i, size_t j) const

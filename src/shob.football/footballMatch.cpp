@@ -21,6 +21,14 @@ namespace shob::football
         }
     }
 
+    bool footballMatch::withSpectator() const
+    {
+        if (team2 == "straf") return false;
+        if (result == "-") return false;
+        if (spectators < 0) return false;
+        return true;
+    }
+
     std::string footballMatch::nvns() const
     {
         switch (star)  // NOLINT(clang-diagnostic-switch-enum)
