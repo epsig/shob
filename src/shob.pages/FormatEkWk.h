@@ -55,8 +55,9 @@ namespace shob::pages
         static general::uniqueStrings getGroups(const readers::csvContent& data);
         static groupList getGroupData(const readers::csvContent& data);
         PageBlock getGroupResults(const groupList& groups, int& dd) const;
+        PageBlock getStats(const football::route2final& r2f, const groupList& groups) const;
         general::MultipleStrings getExtraForOneMatch(const groupData& g, const football::linkInfo& link,
-            const std::string& ko_phase, const boost::property_tree::ptree& pt) const;
+                                                     const std::string& ko_phase, const boost::property_tree::ptree& pt) const;
         PageBlock printExtras(const groupList& groups, const football::route2final& r2f, const std::string& filename_xml) const;
         PageBlock getTopscorers(const EkWkDate& ekwk) const;
     };

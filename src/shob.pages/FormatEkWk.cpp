@@ -6,6 +6,7 @@
 #include "../shob.football/filterResults.h"
 #include "../shob.football/results2standings.h"
 #include "../shob.football/topscorers.h"
+#include "../shob.general/MathSupport.h"
 #include "../shob.readers/xmlReader.h"
 
 #include <format>
@@ -68,14 +69,15 @@ namespace shob::pages
         const auto groups = getGroupData(csv_content);
         const auto r2f = football::route2finaleFactory::create(csv_content);
 
-        auto pageBlocks = std::array<PageBlock, 5>();
+        auto pageBlocks = std::array<PageBlock, 6>();
         pageBlocks[0] = getLast16(r2f, dd);
         pageBlocks[1] = getRound2(csv_content, dd);
         pageBlocks[2] = getGroupResults(groups, dd);
-        pageBlocks[3] = getTopscorers(ekwk);
+        pageBlocks[3] = getStats(r2f, groups);
+        pageBlocks[4] = getTopscorers(ekwk);
         if (fs::exists(filename_xml))
         {
-            pageBlocks[4] = printExtras(groups, r2f, filename_xml);
+            pageBlocks[5] = printExtras(groups, r2f, filename_xml);
         }
 
         retVal.addContent("<ul>");
@@ -200,6 +202,50 @@ namespace shob::pages
         ret_val.data.addContent(content);
         ret_val.linkName = "groepsfase";
         ret_val.description = "de groepswedstrijden";
+        return ret_val;
+    }
+
+    PageBlock FormatEkWk::getStats(const football::route2final& r2f, const groupList& groups) const
+    {
+        auto ret_val = PageBlock();
+
+        int total = 0;
+        int matches = 0;
+        for (const auto& group : groups.data)
+        {
+            for (const auto& match : group.matches.matches)
+            {
+                if (match.team2 == "straf") continue;
+                if (match.result == "-") continue;
+                if (match.spectators < 0) continue;
+
+                total += match.spectators;
+                matches++;
+            }
+        }
+        auto all_r2f_matches = r2f.getAllMatches();
+        for (const auto& match : all_r2f_matches.matches)
+        {
+            {
+                if (match.team2 == "straf") continue;
+                if (match.result == "-") continue;
+                if (match.spectators < 0) continue;
+
+                total += match.spectators;
+                matches++;
+            }
+        }
+
+        ret_val.data.addContent(" <a name=\"stats\"/> <h2> Statistieken </h2>");
+
+        const auto mean = MathSupport::divide(total, matches);
+        const auto spectators = std::format("Na {} wedstrijden: {:.2f} miljoen toeschouwers; gemiddeld = {:.0f} duizend",
+            matches,  1e-6 * (double)total, 1e-3 * mean);
+        ret_val.data.addContent(spectators);
+
+        ret_val.linkName = "stats";
+        ret_val.description = "statistieken";
+
         return ret_val;
     }
 
