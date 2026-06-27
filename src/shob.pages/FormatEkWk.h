@@ -50,6 +50,7 @@ namespace shob::pages
         readers::csvAllSeasonsReader top_scorers;
         teams::footballers players;
         TopMenu top_menu;
+        PageBlock getRound2(const readers::csvContent& data, int& dd) const;
         PageBlock getLast16(const football::route2final& r2f, int& dd) const;
         static general::uniqueStrings getGroups(const readers::csvContent& data);
         static groupList getGroupData(const readers::csvContent& data);

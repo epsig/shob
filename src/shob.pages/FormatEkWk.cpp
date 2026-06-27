@@ -68,13 +68,14 @@ namespace shob::pages
         const auto groups = getGroupData(csv_content);
         const auto r2f = football::route2finaleFactory::create(csv_content);
 
-        auto pageBlocks = std::array<PageBlock, 4>();
+        auto pageBlocks = std::array<PageBlock, 5>();
         pageBlocks[0] = getLast16(r2f, dd);
-        pageBlocks[1] = getGroupResults(groups, dd);
-        pageBlocks[2] = getTopscorers(ekwk);
+        pageBlocks[1] = getRound2(csv_content, dd);
+        pageBlocks[2] = getGroupResults(groups, dd);
+        pageBlocks[3] = getTopscorers(ekwk);
         if (fs::exists(filename_xml))
         {
-            pageBlocks[3] = printExtras(groups, r2f, filename_xml);
+            pageBlocks[4] = printExtras(groups, r2f, filename_xml);
         }
 
         retVal.addContent("<ul>");
@@ -104,6 +105,25 @@ namespace shob::pages
         std::swap(hb.body, retVal);
 
         return HeadBottom::getPage(hb);
+    }
+
+    PageBlock FormatEkWk::getRound2(const readers::csvContent& data, int& dd) const
+    {
+        PageBlock ret_val;
+
+        auto filter = football::filterInputList();
+        filter.filters.push_back({ 0, "round2" });
+        const auto round2 = football::filterResults::readFromCsvData(data, filter);
+        auto prepTable = round2.prepareTable(teams, settings);
+        prepTable.title = "Tussenronde";
+        dd = std::max(dd, round2.lastDate().toInt());
+
+        auto Table = html::table(settings);
+        auto content = Table.buildTable(prepTable);
+        ret_val.data.addContent(content);
+        ret_val.linkName = "round2";
+        ret_val.description = "tussenronde";
+        return ret_val;
     }
 
     PageBlock FormatEkWk::getLast16(const football::route2final& r2f, int& dd) const
