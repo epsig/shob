@@ -208,6 +208,24 @@ namespace shob::football
         return table;
     }
 
+    std::pair<int, int> footballCompetition::getStatsSpectators() const
+    {
+        int total1 = 0;
+        int total2 = 0;
+        for (const auto& match : matches)
+        {
+            {
+                if (match.team2 == "straf") continue;
+                if (match.result == "-") continue;
+                if (match.spectators < 0) continue;
+
+                total1 += match.spectators;
+                total2++;
+            }
+        }
+        return { total1, total2 };
+    }
+
     bool footballCompetition::equalTeams(size_t i, size_t j) const
     {
         if (matches[i].team1 == matches[j].team2 && matches[i].team2 == matches[j].team1) return true;

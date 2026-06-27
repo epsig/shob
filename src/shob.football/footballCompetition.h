@@ -42,6 +42,7 @@ namespace shob::football
         general::itdate lastDate() const;
         std::vector<linkInfo> getLinks(const teams::clubTeams& teams) const;
         bool doCoupleMatches = true;
+        std::pair<int, int> getStatsSpectators() const;
     private:
         bool equalTeams(size_t i, size_t j) const;
     };

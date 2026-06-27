@@ -69,11 +69,13 @@ namespace shob::pages
         const auto groups = getGroupData(csv_content);
         const auto r2f = football::route2finaleFactory::create(csv_content);
 
+        const auto round2 = getRound2data(csv_content);
+
         auto pageBlocks = std::array<PageBlock, 6>();
         pageBlocks[0] = getLast16(r2f, dd);
-        pageBlocks[1] = getRound2(csv_content, dd);
+        pageBlocks[1] = getRound2(round2, dd);
         pageBlocks[2] = getGroupResults(groups, dd);
-        pageBlocks[3] = getStats(r2f, groups);
+        pageBlocks[3] = getStats(r2f, groups, round2);
         pageBlocks[4] = getTopscorers(ekwk);
         if (fs::exists(filename_xml))
         {
@@ -109,13 +111,19 @@ namespace shob::pages
         return HeadBottom::getPage(hb);
     }
 
-    PageBlock FormatEkWk::getRound2(const readers::csvContent& data, int& dd) const
+    football::footballCompetition FormatEkWk::getRound2data(const readers::csvContent& data)
     {
-        PageBlock ret_val;
-
         auto filter = football::filterInputList();
         filter.filters.push_back({ 0, "round2" });
         const auto round2 = football::filterResults::readFromCsvData(data, filter);
+
+        return round2;
+    }
+
+    PageBlock FormatEkWk::getRound2(const football::footballCompetition& round2, int& dd) const
+    {
+        PageBlock ret_val;
+
         auto prepTable = round2.prepareTable(teams, settings);
         prepTable.title = "Tussenronde";
         dd = std::max(dd, round2.lastDate().toInt());
@@ -205,42 +213,30 @@ namespace shob::pages
         return ret_val;
     }
 
-    PageBlock FormatEkWk::getStats(const football::route2final& r2f, const groupList& groups) const
+    PageBlock FormatEkWk::getStats(const football::route2final& r2f, const groupList& groups, const football::footballCompetition& round2) const
     {
         auto ret_val = PageBlock();
 
-        int total = 0;
-        int matches = 0;
+        auto all_matches = r2f.getAllMatches();
         for (const auto& group : groups.data)
         {
-            for (const auto& match : group.matches.matches)
+            for (auto& m : group.matches.matches)
             {
-                if (match.team2 == "straf") continue;
-                if (match.result == "-") continue;
-                if (match.spectators < 0) continue;
-
-                total += match.spectators;
-                matches++;
+                all_matches.matches.push_back(m);
             }
         }
-        auto all_r2f_matches = r2f.getAllMatches();
-        for (const auto& match : all_r2f_matches.matches)
+        for (const auto& m : round2.matches)
         {
-            {
-                if (match.team2 == "straf") continue;
-                if (match.result == "-") continue;
-                if (match.spectators < 0) continue;
-
-                total += match.spectators;
-                matches++;
-            }
+            all_matches.matches.push_back(m);
         }
+
+        const auto [total, matches] = all_matches.getStatsSpectators();
 
         ret_val.data.addContent(" <a name=\"stats\"/> <h2> Statistieken </h2>");
 
         const auto mean = MathSupport::divide(total, matches);
-        const auto spectators = std::format("Na {} wedstrijden: {:.2f} miljoen toeschouwers; gemiddeld = {:.0f} duizend",
-            matches,  1e-6 * (double)total, 1e-3 * mean);
+        const auto spectators = std::format("Na {} wedstrijden: {:.2f} miljoen toeschouwers; gemiddeld = {:.0f} duizend.",
+            matches,  1e-6 * static_cast<double>(total), 1e-3 * mean);
         ret_val.data.addContent(spectators);
 
         ret_val.linkName = "stats";

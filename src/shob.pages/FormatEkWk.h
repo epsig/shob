@@ -50,12 +50,13 @@ namespace shob::pages
         readers::csvAllSeasonsReader top_scorers;
         teams::footballers players;
         TopMenu top_menu;
-        PageBlock getRound2(const readers::csvContent& data, int& dd) const;
+        PageBlock getRound2(const football::footballCompetition& round2, int& dd) const;
         PageBlock getLast16(const football::route2final& r2f, int& dd) const;
         static general::uniqueStrings getGroups(const readers::csvContent& data);
         static groupList getGroupData(const readers::csvContent& data);
+        static football::footballCompetition getRound2data(const readers::csvContent& data);
         PageBlock getGroupResults(const groupList& groups, int& dd) const;
-        PageBlock getStats(const football::route2final& r2f, const groupList& groups) const;
+        PageBlock getStats(const football::route2final& r2f, const groupList& groups, const football::footballCompetition& round2) const;
         general::MultipleStrings getExtraForOneMatch(const groupData& g, const football::linkInfo& link,
                                                      const std::string& ko_phase, const boost::property_tree::ptree& pt) const;
         PageBlock printExtras(const groupList& groups, const football::route2final& r2f, const std::string& filename_xml) const;
