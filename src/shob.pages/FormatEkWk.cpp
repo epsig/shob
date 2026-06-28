@@ -234,8 +234,12 @@ namespace shob::pages
 
         ret_val.data.addContent(" <a name=\"stats\"/> <h2> Statistieken </h2>");
 
+        const auto results = all_matches.getStrikingResults();
+        auto lines = table3_to_html(results);
+        ret_val.data.addContent(lines);
+
         const auto mean = MathSupport::divide(total, matches);
-        const auto spectators = std::format("Na {} wedstrijden: {:.2f} miljoen toeschouwers; gemiddeld = {:.0f} duizend.",
+        const auto spectators = std::format("<p/> Na {} wedstrijden: {:.2f} miljoen toeschouwers; gemiddeld = {:.0f} duizend.",
             matches,  1e-6 * static_cast<double>(total), 1e-3 * mean);
         ret_val.data.addContent(spectators);
 
@@ -243,6 +247,53 @@ namespace shob::pages
         ret_val.description = "statistieken";
 
         return ret_val;
+    }
+
+    void FormatEkWk::getFieldsTable3(const std::vector<football::footballMatch>& matches, std::string& matchNames, std::string& results) const
+    {   // copied from getFieldsTable3 in FormatStatsEredivisie
+        // TODO avoid duplication
+        for (size_t i = 0; i < matches.size(); i++)
+        {
+            if (i > 0)
+            {
+                matchNames += "<br>";
+                results += "<br>";
+            }
+            matchNames += matches[i].matchName(teams);
+            results += matches[i].result;
+        }
+    }
+
+    MultipleStrings FormatEkWk::table3_to_html(const football::strikingResults& data) const
+    {   // based on table3_to_html in FormatStatsEredivisie
+        html::tableContent content1;
+
+        if (settings.lang == html::language::English)
+        {
+            content1.header.data = { "biggest victory", "most goals per team", "most goals per match" };
+        }
+        else
+        {
+            content1.header.data = { "ruimste zege", "meeste treffers (&eacute;&eacute;n van beide)", "hoogste totaal" };
+        }
+
+        content1.colWidths = { 2, 2, 2 };
+
+        html::tableContent content;
+        content.header.data = {};
+
+        MultipleStrings body;
+        body.data = std::vector<std::string>(6);
+        getFieldsTable3(data.biggestVictory, body.data[0], body.data[1]);
+        getFieldsTable3(data.mostGoalsPerTeam, body.data[2], body.data[3]);
+        getFieldsTable3(data.mostGoalsPerMatch, body.data[4], body.data[5]);
+        content.body.push_back(body);
+
+        auto Table = html::table(settings);
+        auto return_value = MultipleStrings();
+        auto table = Table.buildTable({ content1, content });
+        return_value.addContent(table);
+        return return_value;
     }
 
     MultipleStrings FormatEkWk::getExtraForOneMatch(const groupData& g, const football::linkInfo& link, const std::string& ko_phase,

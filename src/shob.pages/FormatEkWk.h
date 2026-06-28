@@ -57,6 +57,9 @@ namespace shob::pages
         static football::footballCompetition getRound2data(const readers::csvContent& data);
         PageBlock getGroupResults(const groupList& groups, int& dd) const;
         PageBlock getStats(const football::route2final& r2f, const groupList& groups, const football::footballCompetition& round2) const;
+        void getFieldsTable3(const std::vector<football::footballMatch>& matches, std::string& matchNames,
+                             std::string& results) const;
+        general::MultipleStrings table3_to_html(const football::strikingResults& data) const;
         general::MultipleStrings getExtraForOneMatch(const groupData& g, const football::linkInfo& link,
                                                      const std::string& ko_phase, const boost::property_tree::ptree& pt) const;
         PageBlock printExtras(const groupList& groups, const football::route2final& r2f, const std::string& filename_xml) const;
