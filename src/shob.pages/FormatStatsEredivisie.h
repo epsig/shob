@@ -44,13 +44,6 @@ namespace shob::pages
         int sumMatches = 0;
     };
 
-    struct strikingResults
-    {
-        std::vector<football::footballMatch> biggestVictory;
-        std::vector<football::footballMatch> mostGoalsPerTeam;
-        std::vector<football::footballMatch> mostGoalsPerMatch;
-    };
-
     struct StatFilesSummary
     {
         std::vector<std::string> list_matches;
@@ -76,7 +69,6 @@ namespace shob::pages
         static void updateOneResult(teamWithMinMaxResults& result, const int x, const std::string& team);
         goalsSummary getGoalsSummary(const football::standings& table) const;
         static sumGoalsAndMatches getSumGoalsAndMatches(const football::standings& table);
-        static strikingResults getStrikingResults(const football::footballCompetition& competition);
         static SpectatorResults getSpectatorStats(const football::footballCompetition& competition);
         static void updateStatsFromRemarks(SpectatorResults& spectatorsStats,
                                     const std::vector<std::vector<std::string>>& current_remarks);
@@ -86,7 +78,7 @@ namespace shob::pages
             const std::vector<std::pair<general::Season, football::numbers1>>& topscorers) const;
         void getFieldsTable3(const std::vector<football::footballMatch>& matches, std::string& matchNames,
                              std::string& results) const;
-        general::MultipleStrings table3_to_html(const std::vector<std::pair<general::Season, strikingResults>>& results) const;
+        general::MultipleStrings table3_to_html(const std::vector<std::pair<general::Season, football::strikingResults>>& results) const;
         general::MultipleStrings table4a_to_html(
             const std::vector<std::pair<general::Season, SpectatorResults>>& results) const;
         general::MultipleStrings table4b_to_html(const std::vector<std::pair<general::Season, SpectatorResults>>& results) const;

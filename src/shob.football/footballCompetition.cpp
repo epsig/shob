@@ -278,4 +278,54 @@ namespace shob::football
         return retval;
     }
 
+    strikingResults footballCompetition::getStrikingResults() const
+    {
+        strikingResults results;
+        int maxDiff = 0;
+        int maxMax = 0;
+        int maxSum = 0;
+        for (const auto& match : matches)
+        {
+            if (match.team2 == "straf") continue;
+            if (match.result == "-") continue;
+            const auto parts = readers::csvReader::split(match.result, "-").column;
+            const auto goals1 = std::stoi(parts[0]);
+            const auto goals2 = std::stoi(parts[1]);
+
+            const auto diff = abs(goals1 - goals2);
+            if (diff > maxDiff)
+            {
+                results.biggestVictory = { match };
+                maxDiff = diff;
+            }
+            else if (diff == maxDiff)
+            {
+                results.biggestVictory.push_back(match);
+            }
+
+            const auto maxGoals = std::max(goals1, goals2);
+            if (maxGoals > maxMax)
+            {
+                results.mostGoalsPerTeam = { match };
+                maxMax = maxGoals;
+            }
+            else if (maxGoals == maxMax)
+            {
+                results.mostGoalsPerTeam.push_back(match);
+            }
+
+            const auto sum = goals1 + goals2;
+            if (sum > maxSum)
+            {
+                results.mostGoalsPerMatch = { match };
+                maxSum = sum;
+            }
+            else if (sum == maxSum)
+            {
+                results.mostGoalsPerMatch.push_back(match);
+            }
+        }
+        return results;
+    }
+
 }

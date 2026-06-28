@@ -34,7 +34,7 @@ namespace shob::pages
         auto table1 = std::vector<std::pair<Season, goalsSummary>>();
         auto table2 = std::vector<std::pair<Season, sumGoalsAndMatches>>();
         auto table2b = std::vector<std::pair<Season, football::numbers1>>();
-        auto table3 = std::vector<std::pair<Season, strikingResults>>();
+        auto table3 = std::vector<std::pair<Season, football::strikingResults>>();
         auto table4 = std::vector<std::pair<Season, SpectatorResults>>();
         int dd = 0;
 
@@ -93,7 +93,7 @@ namespace shob::pages
             auto spectatorsStats = SpectatorResults();
             if ( ! competition.matches.empty())
             {
-                const auto striking_results = getStrikingResults(competition);
+                const auto striking_results = competition.getStrikingResults();
                 table3.emplace_back(season, striking_results);
                 spectatorsStats = getSpectatorStats(competition);
                 if (year == startYear && ! table.isFinished())
@@ -207,56 +207,6 @@ namespace shob::pages
         }
         summary.sumMatches /= 2; // the sum counts everything double
         return summary;
-    }
-
-    strikingResults FormatStatsEredivisie::getStrikingResults(const football::footballCompetition& competition)
-    {
-        strikingResults results;
-        int maxDiff = 0;
-        int maxMax = 0;
-        int maxSum = 0;
-        for ( const auto& match : competition.matches)
-        {
-            if (match.team2 == "straf") continue;
-            if (match.result == "-") continue;
-            const auto parts = readers::csvReader::split(match.result, "-").column;
-            const auto goals1 = std::stoi(parts[0]);
-            const auto goals2 = std::stoi(parts[1]);
-
-            const auto diff = abs(goals1 - goals2);
-            if (diff > maxDiff)
-            {
-                results.biggestVictory = { match };
-                maxDiff = diff;
-            }
-            else if (diff == maxDiff)
-            {
-                results.biggestVictory.push_back(match);
-            }
-
-            const auto maxGoals = std::max(goals1, goals2);
-            if (maxGoals > maxMax)
-            {
-                results.mostGoalsPerTeam = { match };
-                maxMax = maxGoals;
-            }
-            else if (maxGoals == maxMax)
-            {
-                results.mostGoalsPerTeam.push_back(match);
-            }
-
-            const auto sum = goals1 + goals2;
-            if (sum > maxSum)
-            {
-                results.mostGoalsPerMatch = { match };
-                maxSum = sum;
-            }
-            else if (sum == maxSum)
-            {
-                results.mostGoalsPerMatch.push_back(match);
-            }
-        }
-        return results;
     }
 
     SpectatorResults FormatStatsEredivisie::getSpectatorStats(const football::footballCompetition& competition)
@@ -474,7 +424,7 @@ namespace shob::pages
         }
     }
 
-    MultipleStrings FormatStatsEredivisie::table3_to_html(const std::vector<std::pair<Season, strikingResults>>& results) const
+    MultipleStrings FormatStatsEredivisie::table3_to_html(const std::vector<std::pair<Season, football::strikingResults>>& results) const
     {
         html::tableContent content1;
 

@@ -25,6 +25,13 @@ namespace shob::football
         std::string ko_phase;
     };
 
+    struct strikingResults
+    {
+        std::vector<footballMatch> biggestVictory;
+        std::vector<footballMatch> mostGoalsPerTeam;
+        std::vector<footballMatch> mostGoalsPerMatch;
+    };
+
     class footballCompetition
     {
     public:
@@ -41,6 +48,7 @@ namespace shob::football
         bool onlyKO = false;
         general::itdate lastDate() const;
         std::vector<linkInfo> getLinks(const teams::clubTeams& teams) const;
+        strikingResults getStrikingResults() const;
         bool doCoupleMatches = true;
         std::pair<int, int> getStatsSpectators() const;
     private:
