@@ -246,7 +246,7 @@ sub handle_sport_files($$$)
       if ($yr >= $ranges->{ekwk}[0] && $yr <= $ranges->{ekwk}[1])
       {
         my $page_name = "sport_voetbal_" . uc($ekwk) . "_$yr.html";
-        push @pages, [$dl, 'all', sub {&get_ekwk_gen($ekwk . $yr);}, $page_name];
+        #push @pages, [$dl, 'all', sub {&get_ekwk_gen($ekwk . $yr);}, $page_name];
       }
     }
   }
