@@ -100,9 +100,18 @@ int main(int argc, char* argv[])
             {
                 fmt_home_away.getPagesToFile(season, fmt_home_away.getOutputFilename("../pages", season));
             }
-            if (std::filesystem::exists("../pages_new") && fmt_ekwk.isValidYear(year))
+            if (fmt_ekwk.isValidYear(year))
             {
-                fmt_ekwk.getPagesToFile(year, fmt_ekwk.getOutputFilename("../pages_new", year));
+                std::vector<std::string> all = { "../pages", "../pages_new" };
+                std::vector<std::string> under_construction = {"../pages_new" };
+                const auto target_dirs = year == 2026 ? all : under_construction;
+                for (const auto& target_dir : target_dirs)
+                {
+                    if (std::filesystem::exists(target_dir))
+                    {
+                        fmt_ekwk.getPagesToFile(year, fmt_ekwk.getOutputFilename(target_dir, year));
+                    }
+                }
             }
             if (fmt_ekwk_qf.isValidYear(year))
             {
