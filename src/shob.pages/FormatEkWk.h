@@ -62,7 +62,8 @@ namespace shob::pages
         general::MultipleStrings table3_to_html(const football::strikingResults& data) const;
         general::MultipleStrings getExtraForOneMatch(const groupData& g, const football::linkInfo& link,
                                                      const std::string& ko_phase, const boost::property_tree::ptree& pt) const;
-        PageBlock printExtras(const groupList& groups, const football::route2final& r2f, const std::string& filename_xml) const;
+        PageBlock printExtras(const groupList& groups, const football::footballCompetition& round2,
+            const football::route2final& r2f, const std::string& filename_xml) const;
         PageBlock getTopscorers(const EkWkDate& ekwk) const;
     };
 }

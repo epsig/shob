@@ -79,7 +79,7 @@ namespace shob::pages
         pageBlocks[4] = getTopscorers(ekwk);
         if (fs::exists(filename_xml))
         {
-            pageBlocks[5] = printExtras(groups, r2f, filename_xml);
+            pageBlocks[5] = printExtras(groups, round2, r2f, filename_xml);
         }
 
         retVal.addContent("<ul>");
@@ -347,9 +347,10 @@ namespace shob::pages
         return retval;
     }
 
-    PageBlock FormatEkWk::printExtras(const groupList& groups, const football::route2final& r2f, const std::string& filename_xml) const
+    PageBlock FormatEkWk::printExtras(const groupList& groups, const football::footballCompetition& round2,
+        const football::route2final& r2f, const std::string& filename_xml) const
     {
-        auto subBlocks = std::vector<MultipleStrings>();
+        auto sub_blocks = std::vector<MultipleStrings>();
 
         boost::property_tree::ptree pt;
         read_xml(filename_xml, pt);
@@ -359,24 +360,30 @@ namespace shob::pages
             auto links = g.matches.getLinks(teams);
             for (const auto& link : links)
             {
-                subBlocks.push_back(getExtraForOneMatch(g, link, "", pt));
+                sub_blocks.push_back(getExtraForOneMatch(g, link, "", pt));
             }
         }
 
-        auto m = r2f.getAllMatches();
-        auto links = m.getLinks(teams);
-        for (const auto& link : links)
+        const auto links2 = round2.getLinks(teams);
+        for (const auto& link : links2)
         {
-            subBlocks.push_back(getExtraForOneMatch(groupData(), link, link.ko_phase, pt));
+            sub_blocks.push_back(getExtraForOneMatch(groupData(), link, "last32", pt));
         }
 
-        if (subBlocks.empty()) return {};
+        const auto m = r2f.getAllMatches();
+        const auto links = m.getLinks(teams);
+        for (const auto& link : links)
+        {
+            sub_blocks.push_back(getExtraForOneMatch(groupData(), link, link.ko_phase, pt));
+        }
+
+        if (sub_blocks.empty()) return {};
 
         auto retval = PageBlock();
         retval.description = "details enkele wedstrijden";
         retval.linkName = "details";
         retval.data.addContent("<p/> <a name=\"details\"/> <h2> Details enkele wedstrijden </h2> <hr>");
-        for (auto& subBlock : subBlocks)
+        for (auto& subBlock : sub_blocks)
         {
             retval.data.addContent(subBlock);
             retval.data.addContent("<hr>");
