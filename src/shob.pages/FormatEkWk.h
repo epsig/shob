@@ -53,7 +53,7 @@ namespace shob::pages
         PageBlock getRound2(const football::footballCompetition& round2, int& dd) const;
         PageBlock getLast16(const football::route2final& r2f, int& dd) const;
         static general::uniqueStrings getGroups(const readers::csvContent& data);
-        static groupList getGroupData(const readers::csvContent& data);
+        groupList getGroupData(const readers::csvContent& data, const EkWkDate& ekwk) const;
         static football::footballCompetition getRound2data(const readers::csvContent& data);
         PageBlock getGroupResults(const groupList& groups, int& dd) const;
         PageBlock getStats(const football::route2final& r2f, const groupList& groups, const football::footballCompetition& round2) const;

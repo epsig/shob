@@ -66,7 +66,7 @@ namespace shob::pages
 
         const std::string filename_xml = data_sport_folder + "/ekwk/" + ekwk.shortNameUpper() + "_" + std::to_string(year) + ".xml";
 
-        const auto groups = getGroupData(csv_content);
+        const auto groups = getGroupData(csv_content, ekwk);
         const auto r2f = football::route2finaleFactory::create(csv_content);
 
         const auto round2 = getRound2data(csv_content);
@@ -168,17 +168,30 @@ namespace shob::pages
         return groups;
     }
 
-    groupList FormatEkWk::getGroupData(const readers::csvContent& data)
+    groupList FormatEkWk::getGroupData(const readers::csvContent& data, const EkWkDate& ekwk) const
     {
         const auto groups = getGroups(data).list();
         auto retval = groupList();
+
+        const auto current_remarks = remarks.getSeason( ekwk.shortNameWithYear()); // TODO earlier?
+        int ster_default = 0;
+        for (const auto& cur_rem : current_remarks)
+        {
+            if (cur_rem[0] == "allgroups") ster_default = std::stoi(cur_rem[1].substr(5,1));
+        }
 
         for (const auto& group : groups)
         {
             auto filter = football::filterInputList();
             filter.filters.push_back({ 0, group });
             const auto groupsPhase = football::filterResults::readFromCsvData(data, filter);
-            const auto stand = football::results2standings::u2s(groupsPhase);
+            auto stand = football::results2standings::u2s(groupsPhase);
+            int ster_cur_group = ster_default;
+            for (const auto& cur_rem : current_remarks)
+            {
+                if (cur_rem[0] == group) ster_cur_group = std::stoi(cur_rem[1].substr(5, 1));
+            }
+            stand.wns_cl = ster_cur_group;
             std::string long_name = std::format("group{}", group.back());
             retval.data.push_back({group, long_name, groupsPhase, stand});
         }
