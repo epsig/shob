@@ -66,7 +66,9 @@ namespace shob::pages
 
         const std::string filename_xml = data_sport_folder + "/ekwk/" + ekwk.shortNameUpper() + "_" + std::to_string(year) + ".xml";
 
-        const auto groups = getGroupData(csv_content, ekwk);
+        const auto current_remarks = remarks.getSeason(ekwk.shortNameWithYear());
+
+        const auto groups = getGroupData(csv_content, current_remarks);
         const auto r2f = football::route2finaleFactory::create(csv_content);
 
         const auto round2 = getRound2data(csv_content);
@@ -103,8 +105,12 @@ namespace shob::pages
         }
 
         auto hb = HeadBottomInput(dd);
-        const auto organizingCountries = remarks.getAll("organising_country");
-        hb.title = ekwk.shortNameUpper() + " Voetbal " + std::to_string(year) + " te " + organizingCountries.at(ekwk.shortNameWithYear());
+        std::string organizing_country;
+        for (const auto& row: current_remarks)
+        {
+            if (row[0] == "organising_country") organizing_country = row[1];
+        }
+        hb.title = ekwk.shortNameUpper() + " Voetbal " + std::to_string(year) + " te " + organizing_country;
         hb.css = StyleSheetType::SeparateFile;
         std::swap(hb.body, retVal);
 
@@ -168,12 +174,11 @@ namespace shob::pages
         return groups;
     }
 
-    groupList FormatEkWk::getGroupData(const readers::csvContent& data, const EkWkDate& ekwk) const
+    groupList FormatEkWk::getGroupData(const readers::csvContent& data, const std::vector<std::vector<std::string>>& current_remarks)
     {
         const auto groups = getGroups(data).list();
         auto retval = groupList();
 
-        const auto current_remarks = remarks.getSeason( ekwk.shortNameWithYear()); // TODO earlier?
         int ster_default = 0;
         for (const auto& cur_rem : current_remarks)
         {
