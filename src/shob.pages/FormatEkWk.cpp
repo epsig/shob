@@ -224,7 +224,21 @@ namespace shob::pages
         {
             ret_val.data.addContent("<p/> <a name=\"groepsfase\"/>");
         }
-        auto content = Table.buildTable(tables);
+
+        MultipleStrings content;
+        for (size_t i = 0; i < tables.size()/4; i ++)
+        {
+            auto left = Table.buildTable({ tables[4 * i] , tables[4 * i + 1] });
+            auto right = Table.buildTable({ tables[4 * i+2] , tables[4 * i + 3] });
+            auto combined = html::table::tableOfTwoTables(left, right);
+            content.addContent(combined);
+        }
+        if (tables.size() % 4 != 0)
+        {
+            auto last = Table.buildTable({ tables[tables.size()-2], tables.back() });
+            content.addContent(last);
+        }
+
         ret_val.data.addContent(content);
         ret_val.linkName = "groepsfase";
         ret_val.description = "de groepswedstrijden";
