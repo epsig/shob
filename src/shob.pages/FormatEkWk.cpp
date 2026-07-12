@@ -2,9 +2,7 @@
 #include "FormatEkWk.h"
 #include "EkWkDate.h"
 #include "HeadBottom.h"
-#include "../shob.football/route2finalFactory.h"
 #include "PageBlock.h"
-#include "../shob.football/route2final.h"
 
 #include "EkWkOneYear.h"
 
@@ -59,29 +57,21 @@ namespace shob::pages
         retVal.addContent("<hr>");
 
         int dd = 19920101;
-        const std::string filename = data_sport_folder + "/ekwk/" + ekwk.shortName() + std::to_string(year) + ".csv";
-        const readers::csvContent csv_content = readers::csvReader::readCsvFile(filename);
 
-        const std::string filename_xml = data_sport_folder + "/ekwk/" + ekwk.shortNameUpper() + "_" + std::to_string(year) + ".xml";
-
-        auto helper = EkWkOneYear(settings, teams, top_scorers, players);
+        auto helper = EkWkOneYear(ekwk, settings, teams, top_scorers, players, data_sport_folder);
         const auto current_remarks = remarks.getSeason(ekwk.shortNameWithYear());
 
-        const auto groups = helper.getGroupData(csv_content, current_remarks);
-        const auto r2f = football::route2finaleFactory::create(csv_content);
+        const auto groups = helper.getGroupData(current_remarks);
 
-        const auto round2 = helper.getRound2data(csv_content);
+        const auto round2 = helper.getRound2data();
 
         auto pageBlocks = std::array<PageBlock, 6>();
-        pageBlocks[0] = helper.getLast16(r2f, dd);
+        pageBlocks[0] = helper.getLast16(dd);
         pageBlocks[1] = helper.getRound2(round2, dd);
         pageBlocks[2] = helper.getGroupResults(groups, dd);
-        pageBlocks[3] = helper.getStats(r2f, groups, round2);
+        pageBlocks[3] = helper.getStats(groups, round2);
         pageBlocks[4] = helper.getTopscorers(ekwk);
-        if (fs::exists(filename_xml))
-        {
-            pageBlocks[5] = helper.printExtras(groups, round2, r2f, filename_xml);
-        }
+        pageBlocks[5] = helper.printExtras(groups, round2);
 
         retVal.addContent("<ul>");
         retVal.addContent("<li> <a href=\"sport_voetbal_" + ekwk.shortNameUpper() + "_" + std::to_string(year)

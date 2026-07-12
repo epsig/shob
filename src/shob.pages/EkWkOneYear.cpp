@@ -2,12 +2,15 @@
 #include "EkWkOneYear.h"
 
 #include <format>
+#include <filesystem>
 
 #include "../shob.football/filterResults.h"
 #include "../shob.football/results2standings.h"
 #include "../shob.general/MathSupport.h"
 #include "../shob.football/topscorers.h"
 #include "../shob.readers/xmlReader.h"
+#include "../shob.football/route2finalFactory.h"
+#include "../shob.football/route2final.h"
 
 #include <boost/property_tree/xml_parser.hpp>
 
@@ -15,14 +18,26 @@
 
 namespace shob::pages
 {
-    //namespace fs = std::filesystem;
+    namespace fs = std::filesystem;
     using namespace shob::general;
 
-    football::footballCompetition EkWkOneYear::getRound2data(const readers::csvContent& data)
+    EkWkOneYear::EkWkOneYear(const EkWkDate ekwk, const html::settings settings, const teams::clubTeams& teams,
+        const readers::csvAllSeasonsReader& top_scorers, const teams::footballers& players, const std::string& data_sport_folder)
+        : ekwk(ekwk), settings(settings), teams(teams), top_scorers(top_scorers), players(players)
+    {
+        int year = ekwk.year;
+        const std::string filename = data_sport_folder + "/ekwk/" + ekwk.shortName() + std::to_string(year) + ".csv";
+        csv_content = readers::csvReader::readCsvFile(filename);
+
+        filename_xml = data_sport_folder + "/ekwk/" + ekwk.shortNameUpper() + "_" + std::to_string(year) + ".xml";
+        r2f = std::make_shared<football::route2final>(football::route2finaleFactory::create(csv_content));
+    }
+
+    football::footballCompetition EkWkOneYear::getRound2data() const
     {
         auto filter = football::filterInputList();
         filter.filters.push_back({ 0, "round2" });
-        const auto round2 = football::filterResults::readFromCsvData(data, filter);
+        const auto round2 = football::filterResults::readFromCsvData(csv_content, filter);
 
         return round2;
     }
@@ -43,10 +58,10 @@ namespace shob::pages
         return ret_val;
     }
 
-    uniqueStrings EkWkOneYear::getGroups(const readers::csvContent& data)
+    uniqueStrings EkWkOneYear::getGroups()
     {
         auto groups = uniqueStrings();
-        for (const auto& row : data.body)
+        for (const auto& row : csv_content.body)
         {
             if (row.column[0].at(0) == 'g')
             {
@@ -56,9 +71,9 @@ namespace shob::pages
         return groups;
     }
 
-    groupList EkWkOneYear::getGroupData(const readers::csvContent& data, const std::vector<std::vector<std::string>>& current_remarks)
+    groupList EkWkOneYear::getGroupData(const std::vector<std::vector<std::string>>& current_remarks)
     {
-        const auto groups = getGroups(data).list();
+        const auto groups = getGroups().list();
         auto retval = groupList();
 
         int ster_default = 0;
@@ -71,7 +86,7 @@ namespace shob::pages
         {
             auto filter = football::filterInputList();
             filter.filters.push_back({ 0, group });
-            const auto groupsPhase = football::filterResults::readFromCsvData(data, filter);
+            const auto groupsPhase = football::filterResults::readFromCsvData(csv_content, filter);
             auto stand = football::results2standings::u2s(groupsPhase);
             int ster_cur_group = ster_default;
             for (const auto& cur_rem : current_remarks)
@@ -85,21 +100,21 @@ namespace shob::pages
         return retval;
     }
 
-    PageBlock EkWkOneYear::getLast16(const football::route2final& r2f, int& dd) const
+    PageBlock EkWkOneYear::getLast16(int& dd) const
     {
         PageBlock retval;
         auto Table = html::table(settings);
         Table.withBorder = false;
-        if (!r2f.empty())
+        if (!r2f->empty())
         {
-            auto prepTable = r2f.prepareTable(teams, settings);
+            auto prepTable = r2f->prepareTable(teams, settings);
             prepTable[0].header.addContent("de laatste 16");
             auto content = Table.buildTable(prepTable);
             retval.data.addContent("<p/> <a name=\"last16\"/>");
             retval.data.addContent(content);
             retval.linkName = "last16";
             retval.description = "de laatste 16";
-            dd = std::max(dd, r2f.lastDate().toInt());
+            dd = std::max(dd, r2f->lastDate().toInt());
         }
         return retval;
     }
@@ -146,11 +161,11 @@ namespace shob::pages
         return ret_val;
     }
 
-    PageBlock EkWkOneYear::getStats(const football::route2final& r2f, const groupList& groups, const football::footballCompetition& round2) const
+    PageBlock EkWkOneYear::getStats(const groupList& groups, const football::footballCompetition& round2) const
     {
         auto ret_val = PageBlock();
 
-        auto all_matches = r2f.getAllMatches();
+        auto all_matches = r2f->getAllMatches();
         for (const auto& group : groups.data)
         {
             for (auto& m : group.matches.matches)
@@ -299,10 +314,10 @@ namespace shob::pages
         return retval;
     }
 
-    PageBlock EkWkOneYear::printExtras(const groupList& groups, const football::footballCompetition& round2,
-        const football::route2final& r2f, const std::string& filename_xml) const
+    PageBlock EkWkOneYear::printExtras(const groupList& groups, const football::footballCompetition& round2) const
     {
         auto sub_blocks = std::vector<MultipleStrings>();
+        if (!fs::exists(filename_xml)) return PageBlock();
 
         boost::property_tree::ptree pt;
         read_xml(filename_xml, pt);
@@ -322,7 +337,7 @@ namespace shob::pages
             sub_blocks.push_back(getExtraForOneMatch(groupData(), link, "last32", pt));
         }
 
-        const auto m = r2f.getAllMatches();
+        const auto m = r2f->getAllMatches();
         const auto links = m.getLinks(teams);
         for (const auto& link : links)
         {
@@ -343,6 +358,5 @@ namespace shob::pages
 
         return retval;
     }
-
 
 }
