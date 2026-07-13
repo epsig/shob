@@ -58,10 +58,10 @@ namespace shob::pages
 
         int dd = 19920101;
 
-        auto helper = EkWkOneYear(ekwk, settings, teams, top_scorers, players, data_sport_folder);
-        const auto current_remarks = remarks.getSeason(ekwk.shortNameWithYear());
+        const std::vector<std::vector<std::string>> current_remarks = remarks.getSeason(ekwk.shortNameWithYear());
+        auto helper = EkWkOneYear(ekwk, settings, teams, top_scorers, players, current_remarks, data_sport_folder);
 
-        const auto groups = helper.getGroupData(current_remarks);
+        const auto groups = helper.getGroupData();
 
         const auto round2 = helper.getRound2data();
 

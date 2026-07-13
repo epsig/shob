@@ -22,8 +22,9 @@ namespace shob::pages
     using namespace shob::general;
 
     EkWkOneYear::EkWkOneYear(const EkWkDate ekwk, const html::settings settings, const teams::clubTeams& teams,
-        const readers::csvAllSeasonsReader& top_scorers, const teams::footballers& players, const std::string& data_sport_folder)
-        : ekwk(ekwk), settings(settings), teams(teams), top_scorers(top_scorers), players(players)
+        const readers::csvAllSeasonsReader& top_scorers, const teams::footballers& players,
+        const std::vector<std::vector<std::string>>& current_remarks, const std::string& data_sport_folder)
+        : ekwk(ekwk), settings(settings), teams(teams), top_scorers(top_scorers), players(players), current_remarks(current_remarks)
     {
         int year = ekwk.year;
         const std::string filename = data_sport_folder + "/ekwk/" + ekwk.shortName() + std::to_string(year) + ".csv";
@@ -58,7 +59,7 @@ namespace shob::pages
         return ret_val;
     }
 
-    uniqueStrings EkWkOneYear::getGroups()
+    uniqueStrings EkWkOneYear::getGroups() const
     {
         auto groups = uniqueStrings();
         for (const auto& row : csv_content.body)
@@ -71,7 +72,7 @@ namespace shob::pages
         return groups;
     }
 
-    groupList EkWkOneYear::getGroupData(const std::vector<std::vector<std::string>>& current_remarks)
+    groupList EkWkOneYear::getGroupData() const
     {
         const auto groups = getGroups().list();
         auto retval = groupList();
