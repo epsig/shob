@@ -1,30 +1,15 @@
 #pragma once
 
-
 #include "FormatOnePageEachYear.h"
 #include "../shob.teams/clubTeams.h"
 #include "../shob.readers/csvAllSeasonsReader.h"
 #include "../shob.html/settings.h"
 #include "../shob.teams/footballer.h"
 #include "TopMenu.h"
-#include "../shob.football/standings.h"
 #include "../shob.football/footballCompetition.h"
 
 namespace shob::pages
 {
-    struct groupData
-    {
-        std::string name;
-        std::string long_name;
-        football::footballCompetition matches;
-        football::standings standings;
-    };
-
-    struct groupList
-    {
-        std::vector<groupData> data;
-    };
-
     class FormatEkWk : public FormatOnePageEachYear
     {
     public:

@@ -32,18 +32,21 @@ namespace shob::pages
 
         filename_xml = data_sport_folder + "/ekwk/" + ekwk.shortNameUpper() + "_" + std::to_string(year) + ".xml";
         r2f = std::make_shared<football::route2final>(football::route2finaleFactory::create(csv_content));
+
+        groups = getGroupData();
+        round2 = getRound2data();
     }
 
     football::footballCompetition EkWkOneYear::getRound2data() const
     {
         auto filter = football::filterInputList();
         filter.filters.push_back({ 0, "round2" });
-        const auto round2 = football::filterResults::readFromCsvData(csv_content, filter);
+        const auto round_2 = football::filterResults::readFromCsvData(csv_content, filter);
 
-        return round2;
+        return round_2;
     }
 
-    PageBlock EkWkOneYear::getRound2(const football::footballCompetition& round2, int& dd) const
+    PageBlock EkWkOneYear::getRound2(int& dd) const
     {
         PageBlock ret_val;
 
@@ -120,7 +123,7 @@ namespace shob::pages
         return retval;
     }
 
-    PageBlock EkWkOneYear::getGroupResults(const groupList& groups, int& dd) const
+    PageBlock EkWkOneYear::getGroupResults(int& dd) const
     {
         auto tables = std::vector<html::tableContent>();
 
@@ -162,7 +165,7 @@ namespace shob::pages
         return ret_val;
     }
 
-    PageBlock EkWkOneYear::getStats(const groupList& groups, const football::footballCompetition& round2) const
+    PageBlock EkWkOneYear::getStats() const
     {
         auto ret_val = PageBlock();
 
@@ -245,7 +248,7 @@ namespace shob::pages
         return return_value;
     }
 
-    PageBlock EkWkOneYear::getTopscorers(const EkWkDate& ekwk) const
+    PageBlock EkWkOneYear::getTopscorers() const
     {
         auto retval = PageBlock();
         auto tp = football::topscorers(top_scorers);
@@ -315,7 +318,7 @@ namespace shob::pages
         return retval;
     }
 
-    PageBlock EkWkOneYear::printExtras(const groupList& groups, const football::footballCompetition& round2) const
+    PageBlock EkWkOneYear::printExtras() const
     {
         auto sub_blocks = std::vector<MultipleStrings>();
         if (!fs::exists(filename_xml)) return PageBlock();

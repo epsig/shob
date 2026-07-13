@@ -58,20 +58,16 @@ namespace shob::pages
 
         int dd = 19920101;
 
-        const std::vector<std::vector<std::string>> current_remarks = remarks.getSeason(ekwk.shortNameWithYear());
+        const auto current_remarks = remarks.getSeason(ekwk.shortNameWithYear());
         auto helper = EkWkOneYear(ekwk, settings, teams, top_scorers, players, current_remarks, data_sport_folder);
-
-        const auto groups = helper.getGroupData();
-
-        const auto round2 = helper.getRound2data();
 
         auto pageBlocks = std::array<PageBlock, 6>();
         pageBlocks[0] = helper.getLast16(dd);
-        pageBlocks[1] = helper.getRound2(round2, dd);
-        pageBlocks[2] = helper.getGroupResults(groups, dd);
-        pageBlocks[3] = helper.getStats(groups, round2);
-        pageBlocks[4] = helper.getTopscorers(ekwk);
-        pageBlocks[5] = helper.printExtras(groups, round2);
+        pageBlocks[1] = helper.getRound2(dd);
+        pageBlocks[2] = helper.getGroupResults(dd);
+        pageBlocks[3] = helper.getStats();
+        pageBlocks[4] = helper.getTopscorers();
+        pageBlocks[5] = helper.printExtras();
 
         retVal.addContent("<ul>");
         retVal.addContent("<li> <a href=\"sport_voetbal_" + ekwk.shortNameUpper() + "_" + std::to_string(year)

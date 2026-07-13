@@ -1,10 +1,13 @@
 #pragma once
 
-#include "FormatEkWk.h"
+//#include "FormatEkWk.h"
 #include "EkWkDate.h"
 #include "PageBlock.h"
 #include "../shob.readers/csvReader.h"
 #include "../shob.football/route2final.h"
+#include "../shob.readers/csvAllSeasonsReader.h"
+#include "../shob.football/standings.h"
+#include "../shob.teams/footballer.h"
 
 #include <string>
 #include <vector>
@@ -13,6 +16,19 @@
 
 namespace shob::pages
 {
+    struct groupData
+    {
+        std::string name;
+        std::string long_name;
+        football::footballCompetition matches;
+        football::standings standings;
+    };
+
+    struct groupList
+    {
+        std::vector<groupData> data;
+    };
+
     class EkWkOneYear
     {
     public:
@@ -22,12 +38,12 @@ namespace shob::pages
         general::uniqueStrings getGroups() const;
         groupList getGroupData() const;
         football::footballCompetition getRound2data() const;
-        PageBlock getRound2(const football::footballCompetition& round2, int& dd) const;
+        PageBlock getRound2(int& dd) const;
         PageBlock getLast16(int& dd) const;
-        PageBlock getGroupResults(const groupList& groups, int& dd) const;
-        PageBlock getStats(const groupList& groups, const football::footballCompetition& round2) const;
-        PageBlock getTopscorers(const EkWkDate& ekwk) const;
-        PageBlock printExtras(const groupList& groups, const football::footballCompetition& round2) const;
+        PageBlock getGroupResults(int& dd) const;
+        PageBlock getStats() const;
+        PageBlock getTopscorers() const;
+        PageBlock printExtras() const;
 
     private:
         const EkWkDate ekwk;
@@ -38,6 +54,8 @@ namespace shob::pages
         const std::vector<std::vector<std::string>>& current_remarks;
         readers::csvContent csv_content;
         std::shared_ptr<football::route2final> r2f;
+        groupList groups;
+        football::footballCompetition round2;
         std::string filename_xml;
         void getFieldsTable3(const std::vector<football::footballMatch>& matches, std::string& matchNames,
             std::string& results) const;
