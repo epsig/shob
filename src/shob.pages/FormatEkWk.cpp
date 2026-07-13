@@ -1,14 +1,10 @@
 
 #include "FormatEkWk.h"
-#include "EkWkDate.h"
 #include "HeadBottom.h"
-#include "PageBlock.h"
-
 #include "EkWkOneYear.h"
 
 #include <format>
 #include <filesystem>
-#include <array>
 
 namespace shob::pages
 {
@@ -61,13 +57,7 @@ namespace shob::pages
         const auto current_remarks = remarks.getSeason(ekwk.shortNameWithYear());
         auto helper = EkWkOneYear(ekwk, settings, teams, top_scorers, players, current_remarks, data_sport_folder);
 
-        auto pageBlocks = std::array<PageBlock, 6>();
-        pageBlocks[0] = helper.getLast16(dd);
-        pageBlocks[1] = helper.getRound2(dd);
-        pageBlocks[2] = helper.getGroupResults(dd);
-        pageBlocks[3] = helper.getStats();
-        pageBlocks[4] = helper.getTopscorers();
-        pageBlocks[5] = helper.printExtras();
+        auto pageBlocks = helper.getAllPageBlocks(dd);
 
         retVal.addContent("<ul>");
         retVal.addContent("<li> <a href=\"sport_voetbal_" + ekwk.shortNameUpper() + "_" + std::to_string(year)

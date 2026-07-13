@@ -1,6 +1,5 @@
 #pragma once
 
-//#include "FormatEkWk.h"
 #include "EkWkDate.h"
 #include "PageBlock.h"
 #include "../shob.readers/csvReader.h"
@@ -35,15 +34,7 @@ namespace shob::pages
         EkWkOneYear(const EkWkDate ekwk, const html::settings settings, const teams::clubTeams& teams,
             const readers::csvAllSeasonsReader& top_scorers, const teams::footballers& players,
             const std::vector<std::vector<std::string>>& current_remarks, const std::string& data_sport_folder);
-        general::uniqueStrings getGroups() const;
-        groupList getGroupData() const;
-        football::footballCompetition getRound2data() const;
-        PageBlock getRound2(int& dd) const;
-        PageBlock getLast16(int& dd) const;
-        PageBlock getGroupResults(int& dd) const;
-        PageBlock getStats() const;
-        PageBlock getTopscorers() const;
-        PageBlock printExtras() const;
+        std::vector<PageBlock> getAllPageBlocks(int& dd) const;
 
     private:
         const EkWkDate ekwk;
@@ -57,6 +48,17 @@ namespace shob::pages
         groupList groups;
         football::footballCompetition round2;
         std::string filename_xml;
+
+        general::uniqueStrings getGroups() const;
+        groupList getGroupData() const;
+        football::footballCompetition getRound2data() const;
+        PageBlock getRound2(int& dd) const;
+        PageBlock getLast16(int& dd) const;
+        PageBlock getGroupResults(int& dd) const;
+        PageBlock getStats() const;
+        PageBlock getTopscorers() const;
+        PageBlock printExtras() const;
+
         void getFieldsTable3(const std::vector<football::footballMatch>& matches, std::string& matchNames,
             std::string& results) const;
         general::MultipleStrings table3_to_html(const football::strikingResults& data) const;

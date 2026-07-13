@@ -37,6 +37,18 @@ namespace shob::pages
         round2 = getRound2data();
     }
 
+    std::vector<PageBlock> EkWkOneYear::getAllPageBlocks(int& dd) const
+    {
+        auto pageBlocks = std::vector<PageBlock>(6);
+        pageBlocks[0] = getLast16(dd);
+        pageBlocks[1] = getRound2(dd);
+        pageBlocks[2] = getGroupResults(dd);
+        pageBlocks[3] = getStats();
+        pageBlocks[4] = getTopscorers();
+        pageBlocks[5] = printExtras();
+        return pageBlocks;
+    }
+
     football::footballCompetition EkWkOneYear::getRound2data() const
     {
         auto filter = football::filterInputList();
