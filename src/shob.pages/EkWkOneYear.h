@@ -33,7 +33,11 @@ namespace shob::pages
     public:
         EkWkOneYear(const EkWkDate ekwk, const html::settings settings, const teams::clubTeams& teams,
             const readers::csvAllSeasonsReader& top_scorers, const teams::footballers& players,
-            const std::vector<std::vector<std::string>>& current_remarks, const std::string& data_sport_folder);
+            const std::vector<std::vector<std::string>>& current_remarks, const std::string& data_sport_folder,
+            football::route2final r2f,
+            groupList groups,
+            football::footballCompetition round2
+            );
         std::vector<PageBlock> getAllPageBlocks(int& dd) const;
 
     private:
@@ -44,14 +48,12 @@ namespace shob::pages
         const teams::footballers& players;
         const std::vector<std::vector<std::string>>& current_remarks;
         readers::csvContent csv_content;
-        std::shared_ptr<football::route2final> r2f;
+        football::route2final r2f;
         groupList groups;
         football::footballCompetition round2;
         std::string filename_xml;
 
         general::uniqueStrings getGroups() const;
-        groupList getGroupData() const;
-        football::footballCompetition getRound2data() const;
         PageBlock getRound2(int& dd) const;
         PageBlock getLast16(int& dd) const;
         PageBlock getGroupResults(int& dd) const;
