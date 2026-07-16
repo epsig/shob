@@ -87,16 +87,34 @@ namespace shob::football
             if (settings.lang == language::Dutch)
             {
                 row.data.emplace_back("<b>F I N A L E:</b>");
+                if ( ! bronze.matches.empty())
+                {
+                    row.data[1] = "<i>3e/4e plaats:</i>";
+                }
             }
             else
             {
                 row.data.emplace_back("<b>F I N A L:</b>");
+                if ( ! bronze.matches.empty())
+                {
+                    row.data[1] = "<i>3rd/4th place:</i>";
+                }
             }
             table.body[finalTextRow] = row;
         }
         std::vector addCountries1 = { addCountryType::withAcronym, addCountryType::notAtAll };
         std::vector addCountries2 = { addCountryType::notAtAll, addCountryType::notAtAll };
+        std::string keep;
+        if ( ! bronze.matches.empty())
+        {
+            addOneRound(table, bronze, lineNrs2, teams, offsets[0], maxCols, settings, addCountries2);
+            keep = table.body[lineNrs2[0]].data[offsets[0]];
+        }
         addOneRound(table, final, lineNrs2, teams, offsets[0], maxCols, settings, addCountries2);
+        if ( ! keep.empty())
+        {
+            table.body[lineNrs2[0]].data[1] = keep;
+        }
         addOneRound(table, semiFinal, lineNrs4, teams, offsets[1], maxCols, settings, addCountries2);
         if (!last16.matches.empty())
         {

@@ -23,8 +23,10 @@ namespace shob::football
         const auto quarterFinal = filterResults::readFromCsvData(data, filter, "last8");
         filter.filters[0].name = "8f";
         const auto last16 = filterResults::readFromCsvData(data, filter, "last16");
+        filter.filters[0].name = "f34";
+        const auto bronze = filterResults::readFromCsvData(data, filter, "final");
 
-        const auto r2f = route2final(finale, semiFinal, quarterFinal, last16);
+        const auto r2f = route2final(finale, semiFinal, quarterFinal, last16, bronze);
         return r2f;
     }
 
