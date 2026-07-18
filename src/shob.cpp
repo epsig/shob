@@ -7,6 +7,7 @@
 #include "shob.pages/FormatEC_Factory.h"
 #include "shob.pages/FormatNL_Factory.h"
 #include "shob.pages/FormatEkWkFactory.h"
+#include "shob.pages/FormatEkWkDFactory.h"
 #include "shob.pages/FormatEkWkQfFactory.h"
 #include "shob.pages/FormatOsFactory.h"
 #include "shob.pages/FormatSemestersAndYearStandingsFactory.h"
@@ -68,6 +69,7 @@ int main(int argc, char* argv[])
         auto fmt_nl = format_nl_factory::build("sport", settings);
         auto fmt_ec = FormatEC_Factory::build("sport", settings);
         auto fmt_ekwk = FormatEkWkFactory::build("sport", settings);
+        auto fmt_ekwkD = FormatEkWkDFactory::build("sport", settings);
         auto fmt_ekwk_qf = FormatEkWkQfFactory::build("sport", settings);
         auto fmt_os = FormatOsFactory::build("sport/schaatsen/", settings);
         auto fmt_semesters_and_year = FormatSemestersAndYearStandingsFactory().build("sport/eredivisie/", settings);
@@ -112,6 +114,10 @@ int main(int argc, char* argv[])
                         fmt_ekwk.getPagesToFile(year, fmt_ekwk.getOutputFilename(target_dir, year));
                     }
                 }
+            }
+            if (fmt_ekwkD.isValidYear(year))
+            {
+                fmt_ekwkD.getPagesToFile(year, fmt_ekwkD.getOutputFilename("../pages_new", year));
             }
             if (fmt_ekwk_qf.isValidYear(year))
             {

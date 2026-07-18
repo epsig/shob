@@ -84,7 +84,7 @@ namespace shob::pages
         pageBlocks[0].description = "Stand en uitslagen groep van Nederland";
         const bool EKinBE_NL = pageBlocks[0].data.data.empty();
 
-        auto title = std::format("<h2> {} {}groepen: </h2>", EKinBE_NL ? "Alle":"Overige", ekwk.isWk ? "Europese " : "");
+        auto title = std::format("<h2> {} {}groepen: </h2>", EKinBE_NL ? "Alle":"Overige", ekwk.isWk() ? "Europese " : "");
         pageBlocks[1].data = get_other_standings(ekwk, title);
         pageBlocks[1].linkName = "standen";
         pageBlocks[1].description = std::format("Standen {} groepen", EKinBE_NL ? "alle" : "overige");
