@@ -160,15 +160,17 @@ namespace shob::pages
     void EkWkOneYear::getFieldsTable3(const std::vector<football::footballMatch>& matches, std::string& matchNames, std::string& results) const
     {   // copied from getFieldsTable3 in FormatStatsEredivisie
         // TODO avoid duplication
+        const std::string sp = "&nbsp;";
+
         for (size_t i = 0; i < matches.size(); i++)
         {
             if (i > 0)
             {
-                matchNames += "<br>";
-                results += "<br>";
+                matchNames += "<br/>";
+                results += "<br/>";
             }
-            matchNames += matches[i].matchName(teams);
-            results += matches[i].result;
+            matchNames += sp + matches[i].matchName(teams) + sp;
+            results += sp + matches[i].result + sp;
         }
     }
 
@@ -182,7 +184,7 @@ namespace shob::pages
         }
         else
         {
-            content1.header.data = { "ruimste zege", "meeste treffers (&eacute;&eacute;n van beide)", "hoogste totaal" };
+            content1.header.data = { "ruimste zege", "&nbsp;meeste treffers (&eacute;&eacute;n van beide)&nbsp;", "hoogste totaal" };
         }
 
         content1.colWidths = { 2, 2, 2 };
