@@ -154,6 +154,7 @@ namespace shob::football
     general::itdate route2final::lastDate() const
     {
         auto dd = final.lastDate().toInt();
+        dd = std::max(dd, bronze.lastDate().toInt());
         dd = std::max(dd, semiFinal.lastDate().toInt());
         dd = std::max(dd, quarterFinal.lastDate().toInt());
         dd = std::max(dd, last16.lastDate().toInt());
@@ -163,20 +164,20 @@ namespace shob::football
 
     bool route2final::empty() const
     {
-        return final.matches.empty() && semiFinal.matches.empty() && quarterFinal.matches.empty() && last16.matches.empty();
+        return final.matches.empty() && bronze.matches.empty() && semiFinal.matches.empty() && quarterFinal.matches.empty() && last16.matches.empty();
     }
 
     footballCompetition route2final::getAllMatches() const
     {
-        auto retval = footballCompetition();
-        for (const auto& part : {last16, quarterFinal, semiFinal, final} )
+        auto return_value = footballCompetition();
+        for (const auto& part : {last16, quarterFinal, semiFinal, bronze, final} )
         {
             for (const auto& m : part.matches)
             {
-                retval.matches.push_back(m);
+                return_value.matches.push_back(m);
             }
         }
-        return retval;
+        return return_value;
     }
 
 }
