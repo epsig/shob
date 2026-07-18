@@ -19,6 +19,7 @@ namespace shob::football
         general::itdate lastDate() const;
         bool empty() const;
         footballCompetition getAllMatches() const;
+        bool has_round(const std::string& round) const;
     private:
         footballCompetition final;
         footballCompetition semiFinal;

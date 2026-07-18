@@ -1,6 +1,8 @@
 
 #include "route2final.h"
 
+#include "../shob.general/shobException.h"
+
 namespace shob::football
 {
     using namespace shob::html;
@@ -160,6 +162,12 @@ namespace shob::football
         dd = std::max(dd, last16.lastDate().toInt());
         auto date = general::itdate(dd);
         return date;
+    }
+
+    bool route2final::has_round(const std::string& round) const
+    {
+        if (round == "last16") return !last16.matches.empty();
+        throw general::shobException("not implemented yet");
     }
 
     bool route2final::empty() const

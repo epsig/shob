@@ -58,21 +58,22 @@ namespace shob::pages
 
     PageBlock EkWkOneYear::getLast16(int& dd) const
     {
-        PageBlock retval;
+        PageBlock return_value;
         auto Table = html::table(settings);
         Table.withBorder = false;
         if (!r2f.empty())
         {
             auto prepTable = r2f.prepareTable(teams, settings);
-            prepTable[0].header.addContent("de laatste 16");
+            const std::string title = (r2f.has_round("last16") ? "de laatste 16" : "de laatste 8");
+            prepTable[0].header.addContent(title);
             auto content = Table.buildTable(prepTable);
-            retval.data.addContent("<p/> <a name=\"last16\"/>");
-            retval.data.addContent(content);
-            retval.linkName = "last16";
-            retval.description = "de laatste 16";
+            return_value.data.addContent("<p/> <a name=\"r2f\"/>");
+            return_value.data.addContent(content);
+            return_value.linkName = "r2f";
+            return_value.description = title;
             dd = std::max(dd, r2f.lastDate().toInt());
         }
-        return retval;
+        return return_value;
     }
 
     PageBlock EkWkOneYear::getGroupResults(int& dd) const
