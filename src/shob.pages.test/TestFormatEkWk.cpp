@@ -19,11 +19,12 @@ namespace shob::pages::test
     {
         const auto format_ek_wk = FormatEkWkFactory::build(data_folder, settings);
         const auto lines = format_ek_wk.getPages(2022);
-        ASSERT_EQ(lines.data.size(), 232);
+        ASSERT_EQ(lines.data.size(), 233);
         EXPECT_GE(lines.findString("Scheidsrechter:  Ghorbal (DZ) . </br>"), 0);
         EXPECT_GE(lines.findString("81 min 3-1 Denzel Dumfries<br/>"), 0);
         EXPECT_GE(lines.findString("Na 64 wedstrijden: 3.45 miljoen toeschouwers; gemiddeld = 54 duizend."), 0);
         EXPECT_GE(lines.findString("<tr><td>Spanje - Costa Rica</td><td class=c>7-0</td><td>Spanje - Costa Rica</td><td class=c>7-0</td><td>Engeland - Iran</td><td class=c>6-2</td></tr>"), 0);
+        EXPECT_GE(lines.findString("Strafschoppenserie: 3-4"), 0);
     }
 
     void TestFormatEkWk::test_ekD_2022()

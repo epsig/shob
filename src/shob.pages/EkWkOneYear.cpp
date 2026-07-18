@@ -226,18 +226,18 @@ namespace shob::pages
     MultipleStrings EkWkOneYear::getExtraForOneMatch(const groupData& g, const football::linkInfo& link, const std::string& ko_phase,
         const boost::property_tree::ptree& pt) const
     {
-        auto retval = MultipleStrings();
+        auto return_value = MultipleStrings();
 
-        retval.addContent("<a name=\"" + link.link_name + "\"/> ");
+        return_value.addContent("<a name=\"" + link.link_name + "\"/> ");
         std::string base_path;
         if (ko_phase.empty())
         {
-            retval.addContent(std::format("Groep {}: {}<br/>", g.name.back(), link.match_name));
+            return_value.addContent(std::format("Groep {}: {}<br/>", g.name.back(), link.match_name));
             base_path = "games.group_phase." + g.long_name + "." + link.link_name;
         }
         else
         {
-            retval.addContent(std::format("{}: {}<br/>", ko_phase, link.match_name));
+            return_value.addContent(std::format("{}: {}<br/>", ko_phase, link.match_name));
             base_path = "games.ko." + ko_phase + "." + link.link_name;
         }
         std::string path = base_path + ".stats.stadium";
@@ -250,9 +250,9 @@ namespace shob::pages
         const auto spectators = loadSingleValue(pt, path);
 
         if (!stadium.empty() && !spectators.empty())
-            retval.addContent(std::format("Gespeeld te {} voor {} toeschouwers. </br>", stadium, spectators));
+            return_value.addContent(std::format("Gespeeld te {} voor {} toeschouwers. </br>", stadium, spectators));
         if (!arbiter.empty())
-            retval.addContent(std::format("Scheidsrechter: {}. </br>", arbiter));
+            return_value.addContent(std::format("Scheidsrechter: {}. </br>", arbiter));
 
         path = base_path + ".stats.chronological";
         const auto games = loadPairs(pt, path, "min");
@@ -276,22 +276,29 @@ namespace shob::pages
                 if (splitted.column.size() == 2)
                 {
                     auto expanded = players.expand(splitted.column[1]);
-                    retval.addContent(time + " min " + splitted.column[0] + " " + expanded + "<br/>");
+                    return_value.addContent(time + " min " + splitted.column[0] + " " + expanded + "<br/>");
                 }
                 else
                 {
-                    retval.addContent(time + " min" + remark + "<br/>");
+                    return_value.addContent(time + " min" + remark + "<br/>");
                 }
             }
         }
 
         if ( ! red_cards.data.empty())
         {
-            retval.addContent("<font color=\"red\">rood:</font> </br>");
-            retval.addContent(red_cards);
+            return_value.addContent("<font color=\"red\">rood:</font> </br>");
+            return_value.addContent(red_cards);
         }
 
-        return retval;
+        path = base_path + ".stats.wns_short";
+        const auto wns_short = loadSingleValue(pt, path);
+        if ( !wns_short.empty())
+        {
+            return_value.addContent("Strafschoppenserie:" + wns_short);
+        }
+
+        return return_value;
     }
 
     PageBlock EkWkOneYear::printExtras() const
