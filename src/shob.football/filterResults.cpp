@@ -50,7 +50,7 @@ namespace shob::football
             if (filter.checkLine(col))
             {
                 const auto& line = col.column;
-                int spectators = 0;
+                int spectators = -1;
                 if (spectatorsColumn < line.size())
                 {
                     if (!line[spectatorsColumn].empty())

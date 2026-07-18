@@ -30,7 +30,7 @@ namespace shob::pages::test
     {
         const auto format_ek_wk_d = FormatEkWkDFactory::build(data_folder, settings);
         const auto lines = format_ek_wk_d.getPages(2022);
-        ASSERT_EQ(lines.data.size(), 127);
+        ASSERT_EQ(lines.data.size(), 126);
     }
 
 }

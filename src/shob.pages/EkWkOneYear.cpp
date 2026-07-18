@@ -142,10 +142,13 @@ namespace shob::pages
         auto lines = table3_to_html(results);
         ret_val.data.addContent(lines);
 
-        const auto mean = MathSupport::divide(total, matches);
-        const auto spectators = std::format("<p/> Na {} wedstrijden: {:.2f} miljoen toeschouwers; gemiddeld = {:.0f} duizend.",
-            matches, 1e-6 * static_cast<double>(total), 1e-3 * mean);
-        ret_val.data.addContent(spectators);
+        if (matches > 0)
+        {
+            const auto mean = MathSupport::divide(total, matches);
+            const auto spectators = std::format("<p/> Na {} wedstrijden: {:.2f} miljoen toeschouwers; gemiddeld = {:.0f} duizend.",
+                matches, 1e-6 * static_cast<double>(total), 1e-3 * mean);
+            ret_val.data.addContent(spectators);
+        }
 
         ret_val.linkName = "stats";
         ret_val.description = "statistieken";
