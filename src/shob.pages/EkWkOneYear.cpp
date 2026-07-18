@@ -214,7 +214,7 @@ namespace shob::pages
         if (tp.getSizeList() > 0)
         {
             auto table = tp.prepareTable(teams, players, settings);
-            table.title = "Topscorers " + ekwk.shortName();
+            table.title = "Topscorers";
             auto Table = html::table(settings);
             auto out = Table.buildTable(table);
             retval.data.addContent("<p/> <a name =\"topscorers\"/>");
