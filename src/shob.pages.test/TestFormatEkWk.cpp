@@ -19,7 +19,7 @@ namespace shob::pages::test
     {
         const auto format_ek_wk = FormatEkWkFactory::build(data_folder, settings);
         const auto lines = format_ek_wk.getPages(2022);
-        ASSERT_EQ(lines.data.size(), 231);
+        ASSERT_EQ(lines.data.size(), 232);
         EXPECT_GE(lines.findString("Scheidsrechter:  Ghorbal (DZ) . </br>"), 0);
         EXPECT_GE(lines.findString("81 min 3-1 Denzel Dumfries<br/>"), 0);
         EXPECT_GE(lines.findString("Na 64 wedstrijden: 3.45 miljoen toeschouwers; gemiddeld = 54 duizend."), 0);

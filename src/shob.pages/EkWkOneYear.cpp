@@ -256,19 +256,39 @@ namespace shob::pages
 
         path = base_path + ".stats.chronological";
         const auto games = loadPairs(pt, path, "min");
+        MultipleStrings red_cards;
         for (const auto& [time, remark] : games)
         {
             const auto trimmed = readers::csvReader::trim(remark, " ");
             const auto splitted = readers::csvReader::split(trimmed, " ");
-            if (splitted.column.size() == 2)
+            if (trimmed.starts_with("Rood"))
             {
-                auto expanded = players.expand(splitted.column[1]);
-                retval.addContent(time + " min " + splitted.column[0] + " " + expanded + "<br/>");
+                std::string line = time + " min";
+                for (size_t i = 1; i < splitted.column.size(); i++)
+                {
+                    line += " " + players.expand(splitted.column[i]);
+                }
+                line += "<br/>";
+                red_cards.addContent(line);
             }
             else
             {
-                retval.addContent(time + " min" + remark + "<br/>");
+                if (splitted.column.size() == 2)
+                {
+                    auto expanded = players.expand(splitted.column[1]);
+                    retval.addContent(time + " min " + splitted.column[0] + " " + expanded + "<br/>");
+                }
+                else
+                {
+                    retval.addContent(time + " min" + remark + "<br/>");
+                }
             }
+        }
+
+        if ( ! red_cards.data.empty())
+        {
+            retval.addContent("<font color=\"red\">rood:</font> </br>");
+            retval.addContent(red_cards);
         }
 
         return retval;
