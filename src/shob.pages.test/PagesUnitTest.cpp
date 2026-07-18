@@ -64,6 +64,11 @@ TEST(IntegrationTest, testWk2022)
     TestFormatEkWk::test_wk_2022();
 }
 
+TEST(IntegrationTest, testEkD2022)
+{
+    TestFormatEkWk::test_ekD_2022();
+}
+
 TEST(IntegrationTest, testEkQf2000)
 {
     TestFormatEkWkQf::test_ek_2000();

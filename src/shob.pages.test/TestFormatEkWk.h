@@ -7,6 +7,7 @@ namespace shob::pages::test
     {
     public:
         static void test_wk_2022();
+        static void test_ekD_2022();
     };
 
 }
