@@ -2,39 +2,35 @@
 #include "EkWkOneYear.h"
 
 #include <format>
-#include <filesystem>
 
 #include "../shob.general/MathSupport.h"
 #include "../shob.football/topscorers.h"
 
-
-#include "PageBlock.h"
-
 namespace shob::pages
 {
-    namespace fs = std::filesystem;
     using namespace shob::general;
 
     EkWkOneYear::EkWkOneYear(const EkWkDate ekwk, const html::settings settings, const teams::clubTeams& teams,
         const readers::csvAllSeasonsReader& top_scorers, const teams::footballers& players,
-        const std::vector<std::vector<std::string>>& current_remarks, const std::string& data_sport_folder,
-        football::route2final r2f, groupList groups, football::footballCompetition round2)
+        const std::vector<std::vector<std::string>>& current_remarks,
+        football::route2final r2f, groupList groups, football::footballCompetition round2, readers::xmlReader reader)
         : ekwk(ekwk), settings(settings), teams(teams), top_scorers(top_scorers), players(players), current_remarks(current_remarks),
-        r2f(std::move(r2f)), groups(std::move(groups)), round2(std::move(round2))
+        r2f(std::move(r2f)), groups(std::move(groups)), round2(std::move(round2)), reader(std::move(reader))
     {
-        int year = ekwk.year;
-        filename_xml = data_sport_folder + "/ekwk/" + ekwk.shortNameUpper() + "_" + std::to_string(year) + ".xml";
     }
 
     std::vector<PageBlock> EkWkOneYear::getAllPageBlocks(int& dd)
     {
-        auto pageBlocks = std::vector<PageBlock>(6);
+        auto pageBlocks = std::vector<PageBlock>(5);
         pageBlocks[0] = getLast16(dd);
         pageBlocks[1] = getRound2(dd);
         pageBlocks[2] = getGroupResults(dd);
         pageBlocks[3] = getStats();
         pageBlocks[4] = getTopscorers();
-        pageBlocks[5] = printExtras();
+        if (reader.isReady())
+        {
+            pageBlocks.push_back(printExtras());
+        }
         return pageBlocks;
     }
 
@@ -303,11 +299,6 @@ namespace shob::pages
     PageBlock EkWkOneYear::printExtras()
     {
         auto sub_blocks = std::vector<MultipleStrings>();
-        if (!fs::exists(filename_xml)) return PageBlock();
-
-        //boost::property_tree::ptree pt;
-        reader = readers::xmlReader(filename_xml);
-
         for (const auto& g : groups.data)
         {
             auto links = g.matches.getLinks(teams);

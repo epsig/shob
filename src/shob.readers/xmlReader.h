@@ -11,6 +11,7 @@ namespace shob::readers
     public:
         xmlReader() = default;
         xmlReader(const std::string& file);
+        bool isReady() const { return !pt.empty(); }
         std::vector<std::pair<std::string, std::string>> loadPairs(const std::string& path, const std::string& attr);
         std::string loadSingleValue(const std::string& path);
     private:

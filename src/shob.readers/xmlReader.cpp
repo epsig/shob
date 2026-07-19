@@ -13,7 +13,6 @@ namespace shob::readers
     std::vector<std::pair<std::string, std::string>> xmlReader:: loadPairs(const std::string& path, const std::string& attr)
     {
         std::vector<std::pair<std::string, std::string>> Pairs;
-
         auto check = pt.get_child_optional(path);
         if (!check) return Pairs;
 

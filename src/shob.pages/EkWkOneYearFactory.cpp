@@ -1,6 +1,7 @@
 #include "EkWkOneYearFactory.h"
 
 #include <format>
+#include <filesystem>
 
 #include "../shob.football/route2finalFactory.h"
 #include "../shob.football/route2final.h"
@@ -9,6 +10,7 @@
 
 namespace shob::pages
 {
+    namespace fs = std::filesystem;
     EkWkOneYear EkWkOneYearFactory::Factory(const EkWkDate ekwk, const html::settings settings, const teams::clubTeams& teams,
             const readers::csvAllSeasonsReader& top_scorers, const teams::footballers& players,
             const std::vector<std::vector<std::string>>& current_remarks, const std::string& data_sport_folder)
@@ -22,7 +24,15 @@ namespace shob::pages
         auto groups = getGroupData(csv_content, current_remarks);
         auto round2 = getRound2data(csv_content);
 
-        auto result = EkWkOneYear(ekwk, settings, teams, top_scorers, players, current_remarks, data_sport_folder, r2f, groups, round2);
+        auto filename_xml = data_sport_folder + "/ekwk/" + ekwk.shortNameUpper() + "_" + std::to_string(year) + ".xml";
+        readers::xmlReader reader;
+        if (fs::exists(filename_xml))
+        {
+            reader = readers::xmlReader(filename_xml);
+        }
+
+        auto result = EkWkOneYear(ekwk, settings, teams, top_scorers, players, current_remarks,
+            r2f, groups, round2, reader);
         return result;
     }
 
