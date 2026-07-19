@@ -6,9 +6,7 @@
 
 #include "../shob.general/MathSupport.h"
 #include "../shob.football/topscorers.h"
-#include "../shob.readers/xmlReader.h"
 
-#include <boost/property_tree/xml_parser.hpp>
 
 #include "PageBlock.h"
 
@@ -28,7 +26,7 @@ namespace shob::pages
         filename_xml = data_sport_folder + "/ekwk/" + ekwk.shortNameUpper() + "_" + std::to_string(year) + ".xml";
     }
 
-    std::vector<PageBlock> EkWkOneYear::getAllPageBlocks(int& dd) const
+    std::vector<PageBlock> EkWkOneYear::getAllPageBlocks(int& dd)
     {
         auto pageBlocks = std::vector<PageBlock>(6);
         pageBlocks[0] = getLast16(dd);
@@ -225,8 +223,7 @@ namespace shob::pages
         return retval;
     }
 
-    MultipleStrings EkWkOneYear::getExtraForOneMatch(const groupData& g, const football::linkInfo& link, const std::string& ko_phase,
-        const boost::property_tree::ptree& pt) const
+    MultipleStrings EkWkOneYear::getExtraForOneMatch(const groupData& g, const football::linkInfo& link, const std::string& ko_phase)
     {
         auto return_value = MultipleStrings();
 
@@ -243,13 +240,13 @@ namespace shob::pages
             base_path = "games.ko." + ko_phase + "." + link.link_name;
         }
         std::string path = base_path + ".stats.stadium";
-        const auto stadium = loadSingleValue(pt, path);
+        const auto stadium = reader.loadSingleValue(path);
 
         path = base_path + ".stats.arbiter";
-        const auto arbiter = loadSingleValue(pt, path);
+        const auto arbiter = reader.loadSingleValue(path);
 
         path = base_path + ".stats.spectators";
-        const auto spectators = loadSingleValue(pt, path);
+        const auto spectators = reader.loadSingleValue(path);
 
         if (!stadium.empty() && !spectators.empty())
             return_value.addContent(std::format("Gespeeld te {} voor {} toeschouwers. </br>", stadium, spectators));
@@ -257,7 +254,7 @@ namespace shob::pages
             return_value.addContent(std::format("Scheidsrechter: {}. </br>", arbiter));
 
         path = base_path + ".stats.chronological";
-        const auto games = loadPairs(pt, path, "min");
+        const auto games = reader.loadPairs(path, "min");
         MultipleStrings red_cards;
         for (const auto& [time, remark] : games)
         {
@@ -294,7 +291,7 @@ namespace shob::pages
         }
 
         path = base_path + ".stats.wns_short";
-        const auto wns_short = loadSingleValue(pt, path);
+        const auto wns_short = reader.loadSingleValue(path);
         if ( !wns_short.empty())
         {
             return_value.addContent("Strafschoppenserie:" + wns_short);
@@ -303,34 +300,34 @@ namespace shob::pages
         return return_value;
     }
 
-    PageBlock EkWkOneYear::printExtras() const
+    PageBlock EkWkOneYear::printExtras()
     {
         auto sub_blocks = std::vector<MultipleStrings>();
         if (!fs::exists(filename_xml)) return PageBlock();
 
-        boost::property_tree::ptree pt;
-        read_xml(filename_xml, pt);
+        //boost::property_tree::ptree pt;
+        reader = readers::xmlReader(filename_xml);
 
         for (const auto& g : groups.data)
         {
             auto links = g.matches.getLinks(teams);
             for (const auto& link : links)
             {
-                sub_blocks.push_back(getExtraForOneMatch(g, link, "", pt));
+                sub_blocks.push_back(getExtraForOneMatch(g, link, ""));
             }
         }
 
         const auto links2 = round2.getLinks(teams);
         for (const auto& link : links2)
         {
-            sub_blocks.push_back(getExtraForOneMatch(groupData(), link, "last32", pt));
+            sub_blocks.push_back(getExtraForOneMatch(groupData(), link, "last32"));
         }
 
         const auto m = r2f.getAllMatches();
         const auto links = m.getLinks(teams);
         for (const auto& link : links)
         {
-            sub_blocks.push_back(getExtraForOneMatch(groupData(), link, link.ko_phase, pt));
+            sub_blocks.push_back(getExtraForOneMatch(groupData(), link, link.ko_phase));
         }
 
         if (sub_blocks.empty()) return {};

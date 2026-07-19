@@ -7,11 +7,10 @@
 #include "../shob.readers/csvAllSeasonsReader.h"
 #include "../shob.football/standings.h"
 #include "../shob.teams/footballer.h"
+#include "../shob.readers/xmlReader.h"
 
 #include <string>
 #include <vector>
-#include <memory>
-#include <boost/property_tree/ptree.hpp>
 
 namespace shob::pages
 {
@@ -38,7 +37,7 @@ namespace shob::pages
             groupList groups,
             football::footballCompetition round2
             );
-        std::vector<PageBlock> getAllPageBlocks(int& dd) const;
+        std::vector<PageBlock> getAllPageBlocks(int& dd);
 
     private:
         const EkWkDate ekwk;
@@ -52,6 +51,7 @@ namespace shob::pages
         groupList groups;
         football::footballCompetition round2;
         std::string filename_xml;
+        readers::xmlReader reader;
 
         general::uniqueStrings getGroups() const;
         PageBlock getRound2(int& dd) const;
@@ -59,13 +59,13 @@ namespace shob::pages
         PageBlock getGroupResults(int& dd) const;
         PageBlock getStats() const;
         PageBlock getTopscorers() const;
-        PageBlock printExtras() const;
+        PageBlock printExtras();
 
         void getFieldsTable3(const std::vector<football::footballMatch>& matches, std::string& matchNames,
             std::string& results) const;
         general::MultipleStrings table3_to_html(const football::strikingResults& data) const;
         general::MultipleStrings getExtraForOneMatch(const groupData& g, const football::linkInfo& link,
-            const std::string& ko_phase, const boost::property_tree::ptree& pt) const;
+            const std::string& ko_phase);
     };
 }
 

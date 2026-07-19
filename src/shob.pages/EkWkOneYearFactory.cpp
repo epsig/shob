@@ -17,7 +17,6 @@ namespace shob::pages
         const std::string filename = data_sport_folder + "/ekwk/" + ekwk.shortName() + std::to_string(year) + ".csv";
         auto csv_content = readers::csvReader::readCsvFile(filename);
 
-        auto filename_xml = data_sport_folder + "/ekwk/" + ekwk.shortNameUpper() + "_" + std::to_string(year) + ".xml";
         auto r2f = football::route2finaleFactory::create(csv_content);
 
         auto groups = getGroupData(csv_content, current_remarks);
