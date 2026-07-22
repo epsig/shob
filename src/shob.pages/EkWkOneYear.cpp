@@ -202,7 +202,7 @@ namespace shob::pages
 
     PageBlock EkWkOneYear::getTopscorers() const
     {
-        auto retval = PageBlock();
+        auto return_value = PageBlock();
         auto tp = football::topscorers(top_scorers);
         tp.initFromFile(ekwk.shortNameWithYear());
         if (tp.getSizeList() > 0)
@@ -211,12 +211,12 @@ namespace shob::pages
             table.title = "Topscorers";
             auto Table = html::table(settings);
             auto out = Table.buildTable(table);
-            retval.data.addContent("<p/> <a name =\"topscorers\"/>");
-            retval.data.addContent(out);
-            retval.description = "topscorers";
-            retval.linkName = retval.description;
+            return_value.data.addContent("<p/> <a name =\"topscorers\"/>");
+            return_value.data.addContent(out);
+            return_value.description = "topscorers";
+            return_value.linkName = return_value.description;
         }
-        return retval;
+        return return_value;
     }
 
     MultipleStrings EkWkOneYear::getExtraForOneMatch(const groupData& g, const football::linkInfo& link, const std::string& ko_phase)
