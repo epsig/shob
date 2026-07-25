@@ -64,9 +64,17 @@ namespace shob::pages
         auto retval = groupList();
 
         int ster_default = 0;
+        int sort_rule = 5;
         for (const auto& cur_rem : current_remarks)
         {
-            if (cur_rem[0] == "allgroups") ster_default = std::stoi(cur_rem[1].substr(5, 1));
+            if (cur_rem[0] == "allgroups")
+            {
+                ster_default = std::stoi(cur_rem[1].substr(5, 1));
+            }
+            else if (cur_rem[0] == "sort_rule")
+            {
+                sort_rule = std::stoi(cur_rem[1]);
+            }
         }
 
         for (const auto& group : groups)
@@ -74,7 +82,7 @@ namespace shob::pages
             auto filter = football::filterInputList();
             filter.filters.push_back({ 0, group });
             const auto groupsPhase = football::filterResults::readFromCsvData(csv_content, filter);
-            auto stand = football::results2standings::u2s(groupsPhase);
+            auto stand = football::results2standings::u2s(groupsPhase, 3, sort_rule);
             int ster_cur_group = ster_default;
             for (const auto& cur_rem : current_remarks)
             {
