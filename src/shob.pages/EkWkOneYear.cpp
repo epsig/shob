@@ -236,18 +236,25 @@ namespace shob::pages
             base_path = "games.ko." + ko_phase + "." + link.link_name;
         }
         std::string path = base_path + ".stats.stadium";
-        const auto stadium = reader.loadSingleValue(path);
+        auto stadium = reader.loadSingleValue(path);
 
         path = base_path + ".stats.arbiter";
-        const auto arbiter = reader.loadSingleValue(path);
+        auto arbiter = reader.loadSingleValue(path);
 
         path = base_path + ".stats.spectators";
-        const auto spectators = reader.loadSingleValue(path);
+        auto spectators = reader.loadSingleValue(path);
 
         if (!stadium.empty() && !spectators.empty())
+        {
+            stadium = readers::csvReader::trim(stadium, " ");
+            spectators = readers::csvReader::trim(spectators, " ");
             return_value.addContent(std::format("Gespeeld te {} voor {} toeschouwers. </br>", stadium, spectators));
+        }
         if (!arbiter.empty())
+        {
+            arbiter = readers::csvReader::trim(arbiter, " ");
             return_value.addContent(std::format("Scheidsrechter: {}. </br>", arbiter));
+        }
 
         path = base_path + ".stats.chronological";
         const auto games = reader.loadPairs(path, "min");
@@ -258,7 +265,7 @@ namespace shob::pages
             const auto splitted = readers::csvReader::split(trimmed, " ");
             if (trimmed.starts_with("Rood"))
             {
-                std::string line = time + " min";
+                std::string line = time + "'";
                 for (size_t i = 1; i < splitted.column.size(); i++)
                 {
                     line += " " + players.expand(splitted.column[i]);
@@ -271,16 +278,16 @@ namespace shob::pages
                 if (splitted.column.size() == 2)
                 {
                     auto expanded = players.expand(splitted.column[1]);
-                    return_value.addContent(std::format("{} min {} {}<br/>", time, splitted.column[0], expanded));
+                    return_value.addContent(std::format("{}' {} {}<br/>", time, splitted.column[0], expanded));
                 }
                 else if (splitted.column.back() == "(p)")
                 {
                     auto expanded = players.expand(splitted.column[1]);
-                    return_value.addContent(std::format("{} min {} {} (p) <br/>", time, splitted.column[0], expanded));
+                    return_value.addContent(std::format("{}' {} {} (p) <br/>", time, splitted.column[0], expanded));
                 }
                 else
                 {
-                    return_value.addContent(std::format("{} min{}<br/>", time, remark));
+                    return_value.addContent(std::format("{}'{}<br/>", time, remark));
                 }
             }
         }

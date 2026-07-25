@@ -66,7 +66,7 @@
 <stats>
 <stadium> Monterrey </stadium>
 <itdate> 20260630 </itdate> <dow> dinsdag </dow>
-<final_result> NL - MA wns 1-1  </final_result>
+<final_result> NL - MA wns 1-1 </final_result>
 <chronological>
  <data min="72"> 1-0 gakpo </data>
  <data min="90+1"> 1-1 Diop </data>
@@ -77,5 +77,18 @@
 </stats>
 </NL_MA>
 </last32>
+<final>
+<ES_AR>
+<stats>
+<stadium> New York </stadium>
+<final_result> ES - AR 1-0 nv </final_result>
+<chronological>
+ <data min="106"> 1-0 Torres </data>
+</chronological>
+<arbiter> Vincic (SK) </arbiter>
+<spectators> 80663 </spectators>
+</stats>
+</ES_AR>
+</final>
 </ko>
 </games>
