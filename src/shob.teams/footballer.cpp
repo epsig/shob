@@ -33,9 +33,10 @@ namespace shob::teams
 
     std::string footballers::expand(const std::string& name) const
     {
-        if (all.contains(name))
+        const auto it = all.find(name);
+        if (it != all.end())
         {
-            return all.at(name).fullName();
+            return it->second.fullName();
         }
         return name;
     }

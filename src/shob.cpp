@@ -6,7 +6,9 @@
 #include "shob.general/dateFactory.h"
 #include "shob.pages/FormatEC_Factory.h"
 #include "shob.pages/FormatNL_Factory.h"
-#include "shob.pages/format_ekwk_qf_factory.h"
+#include "shob.pages/FormatEkWkFactory.h"
+#include "shob.pages/FormatEkWkDFactory.h"
+#include "shob.pages/FormatEkWkQfFactory.h"
 #include "shob.pages/FormatOsFactory.h"
 #include "shob.pages/FormatSemestersAndYearStandingsFactory.h"
 #include "shob.pages/FormatHomeAndAwayStandingsFactory.h"
@@ -66,7 +68,9 @@ int main(int argc, char* argv[])
         settings.dateFormatShort = false;
         auto fmt_nl = format_nl_factory::build("sport", settings);
         auto fmt_ec = FormatEC_Factory::build("sport", settings);
-        auto fmt_ekwk_qf = format_ekwk_qf_factory::build("sport", settings);
+        auto fmt_ekwk = FormatEkWkFactory::build("sport", settings);
+        auto fmt_ekwkD = FormatEkWkDFactory::build("sport", settings);
+        auto fmt_ekwk_qf = FormatEkWkQfFactory::build("sport", settings);
         auto fmt_os = FormatOsFactory::build("sport/schaatsen/", settings);
         auto fmt_semesters_and_year = FormatSemestersAndYearStandingsFactory().build("sport/eredivisie/", settings);
         auto fmt_home_away = FormatHomeAndAwayStandingsFactory::build("sport/eredivisie/", settings);
@@ -97,6 +101,14 @@ int main(int argc, char* argv[])
             if (fmt_home_away.isValidSeason(season))
             {
                 fmt_home_away.getPagesToFile(season, fmt_home_away.getOutputFilename("../pages", season));
+            }
+            if (fmt_ekwk.isValidYear(year))
+            {
+                fmt_ekwk.getPagesToFile(year, fmt_ekwk.getOutputFilename("../pages", year));
+            }
+            if (fmt_ekwkD.isValidYear(year))
+            {
+                fmt_ekwkD.getPagesToFile(year, fmt_ekwkD.getOutputFilename("../pages", year));
             }
             if (fmt_ekwk_qf.isValidYear(year))
             {

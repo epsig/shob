@@ -187,19 +187,40 @@ namespace shob::football
             auto result = row.result;
             if (row.star == starEnum::homeWinsXt || row.star == starEnum::awayWinsXt) result += "&nbsp;n.v.";
             if (row.star == starEnum::homeWinsPenalties || row.star == starEnum::awayWinsPenalties) result += "&nbsp;n.s.";
+            const auto match_name = teams.expand(row.team1, addCountry) + stars[0] + " - " + teams.expand(row.team2, addCountry) + stars[1];
             if (settings.isCompatible)
             {
-                out.data = { dd + " " + teams.expand(row.team1, addCountry) + stars[0] + " - " + teams.expand(row.team2, addCountry) + stars[1], result};
+                out.data = { dd + " " + match_name, result};
+            }
+            else if (row.link_name.empty())
+            {
+                out.data = { dd, match_name, result };
             }
             else
             {
-                out.data = { dd, teams.expand(row.team1, addCountry) + stars[0] + " - " + teams.expand(row.team2, addCountry) + stars[1], result};
+                const auto with_link = "<a href=#" + row.link_name + ">" + match_name + "</a>";
+                out.data = { dd, with_link, result};
             }
             if (withRemarks) out.data.emplace_back(row.remark);
             table.body.push_back(out);
         }
 
         return table;
+    }
+
+    std::pair<int, int> footballCompetition::getStatsSpectators() const
+    {
+        int total_spectators = 0;
+        int total_matches = 0;
+        for (const auto& match : matches)
+        {
+            if (match.withSpectator())
+            {
+                total_spectators += match.spectators;
+                total_matches++;
+            }
+        }
+        return { total_spectators, total_matches };
     }
 
     bool footballCompetition::equalTeams(size_t i, size_t j) const
@@ -242,6 +263,69 @@ namespace shob::football
         }
         auto dd = itdate(date);
         return dd;
+    }
+
+    std::vector<linkInfo> footballCompetition::getLinks(const teams::clubTeams& teams) const
+    {
+        auto retval = std::vector<linkInfo>();
+
+        for (const auto& match : matches)
+        {
+            if (match.link_name.empty()) continue;
+            retval.push_back({ match.link_name, match.matchName(teams), match.ko_phase });
+        }
+
+        return retval;
+    }
+
+    strikingResults footballCompetition::getStrikingResults() const
+    {
+        strikingResults results;
+        int maxDiff = 0;
+        int maxMax = 0;
+        int maxSum = 0;
+        for (const auto& match : matches)
+        {
+            if (match.team2 == "straf") continue;
+            if (match.result == "-") continue;
+            const auto parts = readers::csvReader::split(match.result, "-").column;
+            const auto goals1 = std::stoi(parts[0]);
+            const auto goals2 = std::stoi(parts[1]);
+
+            const auto diff = abs(goals1 - goals2);
+            if (diff > maxDiff)
+            {
+                results.biggestVictory = { match };
+                maxDiff = diff;
+            }
+            else if (diff == maxDiff)
+            {
+                results.biggestVictory.push_back(match);
+            }
+
+            const auto maxGoals = std::max(goals1, goals2);
+            if (maxGoals > maxMax)
+            {
+                results.mostGoalsPerTeam = { match };
+                maxMax = maxGoals;
+            }
+            else if (maxGoals == maxMax)
+            {
+                results.mostGoalsPerTeam.push_back(match);
+            }
+
+            const auto sum = goals1 + goals2;
+            if (sum > maxSum)
+            {
+                results.mostGoalsPerMatch = { match };
+                maxSum = sum;
+            }
+            else if (sum == maxSum)
+            {
+                results.mostGoalsPerMatch.push_back(match);
+            }
+        }
+        return results;
     }
 
 }

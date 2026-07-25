@@ -1,15 +1,21 @@
 #pragma once
 
 #include <string>
-#include <set>
 #include <vector>
+#include <boost/property_tree/ptree.hpp>
 
-struct Catowner
+namespace shob::readers
 {
-    std::string           owner;
-    std::set<std::string> cats;
-};
+    class xmlReader
+    {
+    public:
+        xmlReader() = default;
+        xmlReader(const std::string& file);
+        bool isReady() const { return !pt.empty(); }
+        std::vector<std::pair<std::string, std::string>> loadPairs(const std::string& path, const std::string& attr);
+        std::string loadSingleValue(const std::string& path);
+    private:
+        boost::property_tree::ptree pt;
+    };
+}
 
-Catowner load(const std::string& file);
-
-std::vector<std::pair<std::string, std::string>> loadPairs(const std::string& file, const std::string& path, const std::string& attr);

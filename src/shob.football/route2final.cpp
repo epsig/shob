@@ -1,6 +1,8 @@
 
 #include "route2final.h"
 
+#include "../shob.general/shobException.h"
+
 namespace shob::football
 {
     using namespace shob::html;
@@ -87,16 +89,34 @@ namespace shob::football
             if (settings.lang == language::Dutch)
             {
                 row.data.emplace_back("<b>F I N A L E:</b>");
+                if ( ! bronze.matches.empty())
+                {
+                    row.data[1] = "<i>3e/4e plaats:</i>";
+                }
             }
             else
             {
                 row.data.emplace_back("<b>F I N A L:</b>");
+                if ( ! bronze.matches.empty())
+                {
+                    row.data[1] = "<i>3rd/4th place:</i>";
+                }
             }
             table.body[finalTextRow] = row;
         }
         std::vector addCountries1 = { addCountryType::withAcronym, addCountryType::notAtAll };
         std::vector addCountries2 = { addCountryType::notAtAll, addCountryType::notAtAll };
+        std::string keep;
+        if ( ! bronze.matches.empty())
+        {
+            addOneRound(table, bronze, lineNrs2, teams, offsets[0], maxCols, settings, addCountries2);
+            keep = table.body[lineNrs2[0]].data[offsets[0]];
+        }
         addOneRound(table, final, lineNrs2, teams, offsets[0], maxCols, settings, addCountries2);
+        if ( ! keep.empty())
+        {
+            table.body[lineNrs2[0]].data[1] = keep;
+        }
         addOneRound(table, semiFinal, lineNrs4, teams, offsets[1], maxCols, settings, addCountries2);
         if (!last16.matches.empty())
         {
@@ -136,6 +156,7 @@ namespace shob::football
     general::itdate route2final::lastDate() const
     {
         auto dd = final.lastDate().toInt();
+        dd = std::max(dd, bronze.lastDate().toInt());
         dd = std::max(dd, semiFinal.lastDate().toInt());
         dd = std::max(dd, quarterFinal.lastDate().toInt());
         dd = std::max(dd, last16.lastDate().toInt());
@@ -143,11 +164,29 @@ namespace shob::football
         return date;
     }
 
+    bool route2final::has_round(const std::string& round) const
+    {
+        if (round == "last16") return !last16.matches.empty();
+        throw general::shobException("not implemented yet");
+    }
+
     bool route2final::empty() const
     {
-        return final.matches.empty() && semiFinal.matches.empty() && quarterFinal.matches.empty() && last16.matches.empty();
+        return final.matches.empty() && bronze.matches.empty() && semiFinal.matches.empty() && quarterFinal.matches.empty() && last16.matches.empty();
+    }
+
+    footballCompetition route2final::getAllMatches() const
+    {
+        auto return_value = footballCompetition();
+        for (const auto& part : {last16, quarterFinal, semiFinal, bronze, final} )
+        {
+            for (const auto& m : part.matches)
+            {
+                return_value.matches.push_back(m);
+            }
+        }
+        return return_value;
     }
 
 }
-
 

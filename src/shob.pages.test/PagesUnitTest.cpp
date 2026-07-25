@@ -3,7 +3,8 @@
 
 #include "TestFormatNL.h"
 #include "TestFormatEC.h"
-#include "test_format_ekwk_qf.h"
+#include "TestFormatEkWk.h"
+#include "TestFormatEkWkQf.h"
 #include "TestFormatOs.h"
 #include "TestFormatUnOfficial.h"
 #include "TestTopMenu.h"
@@ -58,14 +59,24 @@ TEST(UnitTest, testTopMenuRight)
     TestTopMenu::testRight();
 }
 
+TEST(IntegrationTest, testWk2022)
+{
+    TestFormatEkWk::test_wk_2022();
+}
+
+TEST(IntegrationTest, testEkD2022)
+{
+    TestFormatEkWk::test_ekD_2022();
+}
+
 TEST(IntegrationTest, testEkQf2000)
 {
-    testFormatEkWkQf::test_ek_2000();
+    TestFormatEkWkQf::test_ek_2000();
 }
 
 TEST(IntegrationTest, testEkQf2024)
 {
-    testFormatEkWkQf::test_ek_2024();
+    TestFormatEkWkQf::test_ek_2024();
 }
 
 TEST(IntegrationTest, testOsSchaatsen)

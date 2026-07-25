@@ -47,7 +47,6 @@ my $fast = 1; # set to 2 during debugging
 sub handle_all_files($$$)
 {
   handle_gen_files(@_);
-  handle_sport_files(@_);
 }
 
 sub handle_gen_files($$$)
@@ -212,54 +211,6 @@ sub handle_vimrc($)
    [2, ' rw', sub {&file2str($fortran_plugin)},
    File::Spec->catfile($vim_dir2, 'ftplugin', 'fortran.vim')] ]);
  }
-}
-
-sub handle_sport_files($$$)
-{
-  my ($opt, $lv, $lop) = @_;
-
-  my $ranges = get_sport_range();
-
-  my $datum_fixed = get_datum_fixed();
-
-  my $szn1 = $ranges->{topscorers_eredivisie}[1];
-  my $szn2 = $ranges->{voetbal_nl}[1];
-  my $curYrA = int($datum_fixed * 1E-4); # current calender year
-  my $curYrB = szn2yr($szn2);            # year current season started
-
-  my @pages = ([2, 'all', sub {&get_ekwk_gen('wkD2019');}, 'sport_voetbal_WKD2019.html'],
-               [2, 'all', sub {&get_ekwk_gen('ekD2022');}, 'sport_voetbal_EKD2022.html'],
-               [2, 'all', sub {&get_ekwk_gen('wkD2023');}, 'sport_voetbal_WKD2023.html'],
-               [1, 'all', sub {&get_ekwk_gen('ekD2025');}, 'sport_voetbal_EKD2025.html']);
-
-  foreach my $yr ($ranges->{global_first_year} .. $curYrB + 2)
-  {
-    my $szn1 = yr2szn($yr);
-    my $szn2 = $szn1;
-       $szn2 =~ s/-/_/;
-
-    my $dl = ($yr >= $curYrB ? $fast : 2);
-
-    if ($yr % 2 == 0)
-    {
-      my $ekwk = ($yr % 4 == 0 ? 'ek' : 'wk');
-      if ($yr >= $ranges->{ekwk}[0] && $yr <= $ranges->{ekwk}[1])
-      {
-        my $page_name = "sport_voetbal_" . uc($ekwk) . "_$yr.html";
-        #push @pages, [$dl, 'all', sub {&get_ekwk_gen($ekwk . $yr);}, $page_name];
-      }
-    }
-  }
-
-  foreach my $yr ($ranges->{global_first_year} .. $curYrB)
-  {
-    my $szn1 = yr2szn($yr);
-    my $szn2 = $szn1;
-       $szn2 =~ s/-/_/;
-    my $dl = ($yr == $curYrB ? $fast : 2);
-  }
-
-  do_all_text_dir ($lop, '', \@pages);
 }
 
 return 1;

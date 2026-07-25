@@ -32,7 +32,10 @@ namespace shob::football
         int spectators;
         bool isFinal = false;
         std::string remark;
+        std::string link_name;
+        std::string ko_phase;
         int winner() const;
+        bool withSpectator() const;
     private:
         std::string nvns() const;
     };

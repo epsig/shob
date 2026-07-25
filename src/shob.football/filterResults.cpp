@@ -30,7 +30,7 @@ namespace shob::football
         return star;
     }
 
-    footballCompetition filterResults::readFromCsvData(const csvContent & csvData, const filterInputList& filter)
+    footballCompetition filterResults::readFromCsvData(const csvContent & csvData, const filterInputList& filter, const std::string& ko_phase)
     {
         auto comp = footballCompetition();
 
@@ -50,7 +50,7 @@ namespace shob::football
             if (filter.checkLine(col))
             {
                 const auto& line = col.column;
-                int spectators = 0;
+                int spectators = -1;
                 if (spectatorsColumn < line.size())
                 {
                     if (!line[spectatorsColumn].empty())
@@ -65,7 +65,19 @@ namespace shob::football
                 auto match = footballMatch(line[team1Column], line[team2Column], date, line[resultColumn],
                     spectators, star, isFinal);
                 match.stadium = stadium;
-                if (remarkColumn < line.size()) match.remark = line[remarkColumn];
+                if (remarkColumn < line.size())
+                {
+                    auto remark = line[remarkColumn];
+                    if (remark.starts_with("ref="))
+                    {
+                        match.link_name = remark.substr(4, remark.size()-4);
+                    }
+                    else
+                    {
+                        match.remark = remark;
+                    }
+                }
+                match.ko_phase = ko_phase;
                 comp.matches.push_back(match);
             }
         }

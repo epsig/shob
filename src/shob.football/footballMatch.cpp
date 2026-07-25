@@ -21,6 +21,14 @@ namespace shob::football
         }
     }
 
+    bool footballMatch::withSpectator() const
+    {
+        if (team2 == "straf") return false;
+        if (result == "-") return false;
+        if (spectators < 0) return false;
+        return true;
+    }
+
     std::string footballMatch::nvns() const
     {
         switch (star)  // NOLINT(clang-diagnostic-switch-enum)
@@ -61,7 +69,14 @@ namespace shob::football
         {
             datum = html::funcs::acronym(datum, "te: " + stadium);
         }
-        return datum + " " + expanded[0] + " - " + expanded[1] + " " + result + nvns();
+        if (link_name.empty())
+        {
+            return datum + " " + expanded[0] + " - " + expanded[1] + " " + result + nvns();
+        }
+        else
+        {
+            return datum + " <a href=#" + link_name + ">" + expanded[0] + " - " + expanded[1] + "</a> " + result + nvns();
+        }
     }
 
     std::string footballMatch::matchName(const teams::clubTeams& teams) const

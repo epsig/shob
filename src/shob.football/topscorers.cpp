@@ -9,6 +9,18 @@ namespace shob::football
     {
         auto data = reader.getSeason(season);
 
+        initFromFile(data);
+    }
+
+    void topscorers::initFromFile(const std::string& season)
+    {
+        auto data = reader.getSeason(season);
+
+        initFromFile(data);
+    }
+
+    void topscorers::initFromFile(const std::vector<std::vector<std::string>>& data)
+    {
         for (size_t i = 1; i < data.size(); i++)
         {
             const auto& row = data[i];
@@ -26,11 +38,17 @@ namespace shob::football
         auto table = html::tableContent();
         if (settings.lang == html::language::Dutch)
         {
-            table.header.data = { "positie", "naam (club)", "doelpunten" };
+            if (teams.getClubsOrCountries() == teams::clubsOrCountries::countries)
+                table.header.data = { "positie", "naam (land)", "doelpunten" };
+            else
+                table.header.data = { "positie", "naam (club)", "doelpunten" };
         }
         else
         {
-            table.header.data = { "rank", "player (club)", "goals" };
+            if (teams.getClubsOrCountries() == teams::clubsOrCountries::countries)
+                table.header.data = { "rank", "player (country)", "goals" };
+            else
+                table.header.data = { "rank", "player (club)", "goals" };
         }
         for (const auto& row : list_tp)
         {
