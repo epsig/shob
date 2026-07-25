@@ -104,20 +104,11 @@ int main(int argc, char* argv[])
             }
             if (fmt_ekwk.isValidYear(year))
             {
-                std::vector<std::string> all = { "../pages", "../pages_new" };
-                std::vector<std::string> under_construction = {"../pages_new" };
-                const auto target_dirs = year == 2026 ? all : under_construction;
-                for (const auto& target_dir : target_dirs)
-                {
-                    if (std::filesystem::exists(target_dir))
-                    {
-                        fmt_ekwk.getPagesToFile(year, fmt_ekwk.getOutputFilename(target_dir, year));
-                    }
-                }
+                fmt_ekwk.getPagesToFile(year, fmt_ekwk.getOutputFilename("../pages", year));
             }
             if (fmt_ekwkD.isValidYear(year))
             {
-                fmt_ekwkD.getPagesToFile(year, fmt_ekwkD.getOutputFilename("../pages_new", year));
+                fmt_ekwkD.getPagesToFile(year, fmt_ekwkD.getOutputFilename("../pages", year));
             }
             if (fmt_ekwk_qf.isValidYear(year))
             {
