@@ -8,7 +8,11 @@
 #include "../shob.general/dateFactory.h"
 #include "../shob.html/updateIfNewer.h"
 
+#include <chrono>
 #include <format>
+#include <filesystem>
+
+#include "../shob.general/shobException.h"
 
 namespace shob::pages
 {
@@ -17,10 +21,12 @@ namespace shob::pages
     using namespace shob::html;
     using namespace shob::general;
 
+    namespace fs = std::filesystem;
+
     bool FormatEC::isValidSeason(const Season& season) const
     {
-        auto year = season.getFirstYear();
-        return year >= 1994 && year < 2026;
+        const auto file1 = sportDataFolder + "/europacup/europacup_" + season.toPartFilename() + ".csv";
+        return fs::exists(file1);
     }
 
     std::string FormatEC::getOutputFilename(const std::string& folder, const Season& season)
@@ -33,10 +39,23 @@ namespace shob::pages
         return "";
     }
 
+    int get_current_year() {
+        using namespace std::chrono;
+        auto now = system_clock::now();           // 1. get time_point for now
+        auto today = time_point_cast<days>(now);  // 2. cast to time_point for today
+        auto ymd = year_month_day(today);         // 3. convert to year_month_day 
+        auto year = ymd.year();                   // 4. get year from year_month_day
+        return static_cast<int>(year);            // 5. an explicit cast is required 
+    }
+
     Season FormatEC::getLastSeason() const
     {
-        auto s = Season(2025);
-        return s;
+        auto y = get_current_year();
+        auto s = Season(y);
+        if (isValidSeason(s)) return s;
+        auto s2 = Season(y - 1);
+        if (isValidSeason(s2)) return s2;
+        throw shobException("Season not found for EC");
     }
 
     uniqueStrings FormatEC::getQualifiers(const std::string& part, const csvContent& data)
