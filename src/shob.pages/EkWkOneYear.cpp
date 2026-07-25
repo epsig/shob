@@ -271,11 +271,16 @@ namespace shob::pages
                 if (splitted.column.size() == 2)
                 {
                     auto expanded = players.expand(splitted.column[1]);
-                    return_value.addContent(time + " min " + splitted.column[0] + " " + expanded + "<br/>");
+                    return_value.addContent(std::format("{} min {} {}<br/>", time, splitted.column[0], expanded));
+                }
+                else if (splitted.column.back() == "(p)")
+                {
+                    auto expanded = players.expand(splitted.column[1]);
+                    return_value.addContent(std::format("{} min {} {} (p) <br/>", time, splitted.column[0], expanded));
                 }
                 else
                 {
-                    return_value.addContent(time + " min" + remark + "<br/>");
+                    return_value.addContent(std::format("{} min{}<br/>", time, remark));
                 }
             }
         }
