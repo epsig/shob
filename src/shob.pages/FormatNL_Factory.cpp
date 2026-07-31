@@ -1,6 +1,8 @@
 
 #include "FormatNL_Factory.h"
 
+#include <algorithm>
+
 #include "../shob.general/glob.h"
 #include "TopMenu.h"
 
@@ -17,6 +19,13 @@ namespace shob::pages
         s.replace(pos, toReplace.length(), replaceWith);
     }
 
+    bool format_nl_factory::cmpFunc(const std::string& a, const std::string& b)
+    {
+        const auto num1 = a.substr(11, 4);
+        const auto num2 = b.substr(11, 4);
+        return num1 < num2;
+    }
+
     FormatNL format_nl_factory::build(const std::string& dataFolder, const html::settings& settings)
     {
         auto extras = readers::csvAllSeasonsReader();
@@ -27,6 +36,7 @@ namespace shob::pages
 
         auto archive = general::glob::list(dataFolder + "/eredivisie", "eredivisie_[0-9].*csv");
         archive.erase(archive.begin()); // there is one more csv input file than html output
+        std::sort(archive.begin(), archive.end(), cmpFunc);
         for (auto& row : archive)
         {
             replace_first(row, "eredivisie", "nl");

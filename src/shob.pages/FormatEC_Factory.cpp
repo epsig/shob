@@ -10,8 +10,8 @@ namespace shob::pages
 {
     bool FormatEC_Factory::cmpFunc(const std::string& a, const std::string& b)
     {
-        auto num1 = a.substr(10, 4);
-        auto num2 = b.substr(10, 4);
+        const auto num1 = a.substr(10, 4);
+        const auto num2 = b.substr(10, 4);
         return num1 < num2;
     }
 

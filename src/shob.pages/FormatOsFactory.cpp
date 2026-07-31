@@ -9,8 +9,8 @@ namespace shob::pages
 
     bool FormatOsFactory::cmpFunc(const std::string& a, const std::string& b)
     {
-        auto num1 = a.substr(2, 4);
-        auto num2 = b.substr(2, 4);
+        const auto num1 = a.substr(2, 4);
+        const auto num2 = b.substr(2, 4);
         return num1 < num2;
     }
 
