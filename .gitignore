@@ -2,3 +2,5 @@
 doit.sh
 build*
 pages_*
+.vs
+CMakeSettings.json
