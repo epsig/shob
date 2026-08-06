@@ -33,7 +33,7 @@ namespace shob::pages
         const html::settings settings;
         general::MultipleStrings getTopScorers(const std::string& file, const std::string& name_competition, const general::Season& season,
             const teams::footballers& players) const;
-        PageBlock getSupercup(const readers::csvContent& dataBekerAndSupercup, const general::Season& season) const;
+        PageBlock getSupercup(const readers::csvContent& dataBekerAndSupercup, const general::Season& season, int& dd) const;
         PageBlock getKlassiekers(const football::footballCompetition& competition) const;
         PageBlock getStandEredivisie(const football::footballCompetition& competition, int scoring,
             const general::Season& season, const std::vector<std::vector<std::string>>& remarks_this_season) const;

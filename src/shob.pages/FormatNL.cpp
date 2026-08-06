@@ -34,7 +34,10 @@ namespace shob::pages
     {
         auto file1 = sportDataFolder + "/eredivisie/eredivisie_" + season.toPartFilename() + ".csv";
         auto competition = football::footballCompetition();
-        competition.readFromCsv(file1);
+        if (fs::exists(file1))
+        {
+            competition.readFromCsv(file1);
+        }
 
         auto out = MultipleStrings();
 
@@ -62,7 +65,7 @@ namespace shob::pages
         dd = std::max(dd, competition.lastDate().toInt());
 
         auto pageBlocks = std::array<PageBlock, 7>();
-        pageBlocks[0] = getSupercup(dataBekerAndSupercup, season);
+        pageBlocks[0] = getSupercup(dataBekerAndSupercup, season, dd);
         pageBlocks[1] = getKlassiekers(competition);
         pageBlocks[2] = getStandEredivisie(competition, scoring, season, currentRemarks);
         pageBlocks[3] = getBeker(dataBekerAndSupercup, dd);
@@ -102,7 +105,7 @@ namespace shob::pages
         return HeadBottom::getPage(hb);
     }
 
-    PageBlock FormatNL::getSupercup(const readers::csvContent& dataBekerAndSupercup, const Season& season) const
+    PageBlock FormatNL::getSupercup(const readers::csvContent& dataBekerAndSupercup, const Season& season, int& dd) const
     {
         PageBlock retval;
         if (dataBekerAndSupercup.body.empty()) return retval;
@@ -119,6 +122,7 @@ namespace shob::pages
             retval.data = Table.buildTable(prepTable);
             retval.linkName = "JC";
             retval.description = "supercup";
+            dd = std::max(dd, matches.lastDate().toInt());
         }
         return retval;
     }
@@ -315,6 +319,7 @@ namespace shob::pages
     {
         PageBlock retval;
         const auto extraU2s = extras.getSeason(season);
+        if (extraU2s.size() == 1) return retval;
 
         auto mapEcClubs = std::map<std::string, std::vector<std::string>, std::less<>>();
         const std::vector<std::string> tournements = { "CL", "vCL", "EL", "vEL", "vCF", "UEFA", "EC2" };
