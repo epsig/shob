@@ -84,7 +84,7 @@ namespace shob::pages
         auto matches = readMatchesData(folder, season);
         auto competition = football::footballCompetition();
         competition.readFromCsvData(matches);
-        auto date = competition.lastDate().toInt();
+        auto date = competition.lastDate(true).toInt();
         last_year = date / 10000;
     }
 

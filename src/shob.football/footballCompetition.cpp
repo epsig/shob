@@ -251,12 +251,12 @@ namespace shob::football
         return coupledMatches;
     }
 
-    itdate footballCompetition::lastDate() const
+    itdate footballCompetition::lastDate(bool all) const
     {
         int date = 19000101;
         for (const auto& match : matches)
         {
-            if (match.result != "-")
+            if (all || match.result != "-")
             {
                 date = std::max(date, match.dd->toInt());
             }

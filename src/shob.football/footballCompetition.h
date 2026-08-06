@@ -46,7 +46,7 @@ namespace shob::football
         footballCompetition filterDate(const general::itdate& date1, const general::itdate& date2) const;
         html::tableContent prepareTable(const teams::clubTeams& teams, const html::settings& settings) const;
         bool onlyKO = false;
-        general::itdate lastDate() const;
+        general::itdate lastDate(bool all=false) const;
         std::vector<linkInfo> getLinks(const teams::clubTeams& teams) const;
         strikingResults getStrikingResults() const;
         bool doCoupleMatches = true;
