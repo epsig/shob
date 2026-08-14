@@ -3,6 +3,7 @@
 #include <array>
 #include <filesystem>
 #include <format>
+#include <chrono>
 
 #include "PageBlock.h"
 #include "../shob.football/results2standings.h"
@@ -11,6 +12,7 @@
 #include "../shob.html/updateIfNewer.h"
 #include "../shob.html/funcs.h"
 #include "../shob.football/filterResults.h"
+#include "../shob.general/shobException.h"
 
 namespace shob::pages
 {
@@ -30,7 +32,40 @@ namespace shob::pages
         return std::format("{}/sport_voetbal_nl_{}.html", folder, season.toPartFilename());
     }
 
+    int get_current_year2() {
+        using namespace std::chrono;
+        auto now = system_clock::now();           // 1. get time_point for now
+        auto today = time_point_cast<days>(now);  // 2. cast to time_point for today
+        auto ymd = year_month_day(today);         // 3. convert to year_month_day 
+        auto year = ymd.year();                   // 4. get year from year_month_day
+        return static_cast<int>(year);            // 5. an explicit cast is required 
+    }
+
+    Season FormatNL::getLastSeason() const
+    {
+        auto y = get_current_year2();
+        auto s = Season(y);
+        if (isValidSeason(s)) return s;
+        auto s2 = Season(y - 1);
+        if (isValidSeason(s2)) return s2;
+        throw shobException("Season not found for EC");
+    }
+
+    int FormatNL::get_dd() const
+    {
+        const auto last_season = getLastSeason();
+        int dd = 0;
+        const auto text = getSeason(last_season, dd);
+        return dd;
+    }
+
     MultipleStrings FormatNL::getSeason(const Season& season) const
+    {
+        int dd = 19920101;
+        return getSeason(season, dd);
+    }
+
+    MultipleStrings FormatNL::getSeason(const Season& season, int& dd) const
     {
         auto file1 = sportDataFolder + "/eredivisie/eredivisie_" + season.toPartFilename() + ".csv";
         auto competition = football::footballCompetition();
@@ -61,7 +96,6 @@ namespace shob::pages
             }
         }
 
-        int dd = 19920101;
         dd = std::max(dd, competition.lastDate().toInt());
 
         auto pageBlocks = std::array<PageBlock, 7>();

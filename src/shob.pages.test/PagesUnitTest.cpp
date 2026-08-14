@@ -24,6 +24,11 @@ TEST(IntegrationTest, testFormatNL)
     TestFormatNL::test1();
 }
 
+TEST(IntegrationTest, testFormatNlDate)
+{
+    TestFormatNL::test_last_dd();
+}
+
 TEST(IntegrationTest, testFormatEc_2024_2025)
 {
     TestFormatEC::test_2024_2025();
