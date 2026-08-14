@@ -22,10 +22,12 @@ namespace shob::pages
             sportDataFolder(std::move(folder)), extras(std::move(extras)), teams(std::move(teams)), settings(settings),
             menu(std::move(menu)), leagueNames(std::move(leagueNames)) {}
         general::MultipleStrings getSeason(const general::Season& season) const override;
+        general::MultipleStrings getSeason(const general::Season& season, int& dd) const;
         bool isValidSeason(const general::Season& season) const override;
         std::string getOutputFilename(const std::string& folder, const general::Season& season) override;
         std::string getOutputFilename(const std::string& folder) const override;
         general::Season getLastSeason() const override;
+        int get_dd() const override;
     private:
         const std::string sportDataFolder;
         const readers::csvAllSeasonsReader extras;

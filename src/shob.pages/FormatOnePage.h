@@ -11,6 +11,7 @@ namespace shob::pages
     public:
         virtual ~FormatOnePage() = default;
         virtual std::string getOutputFilename(const std::string& folder) const = 0;
+        virtual int get_dd() const { return 0; }
     protected:
         static void sortArchive(std::vector<std::string>& archive);
     };

@@ -58,6 +58,14 @@ namespace shob::pages
         throw shobException("Season not found for EC");
     }
 
+    int FormatEC::get_dd() const
+    {
+        const auto last_season = getLastSeason();
+        int dd = 0;
+        const auto text = getSeason(last_season, dd);        
+        return dd;
+    }
+
     uniqueStrings FormatEC::getQualifiers(const std::string& part, const csvContent& data)
     {
         auto parts = uniqueStrings();
@@ -373,6 +381,12 @@ namespace shob::pages
 
     MultipleStrings FormatEC::getSeason(const Season& season) const
     {
+        int dd = 0;
+		return getSeason(season, dd);
+    }
+
+    MultipleStrings FormatEC::getSeason(const Season& season, int& dd) const
+    {
         const auto file1 = sportDataFolder + "/europacup/europacup_" + season.toPartFilename() + ".csv";
         const auto csvData = csvReader::readCsvFile(file1);
 
@@ -413,7 +427,6 @@ namespace shob::pages
             out.addContent("<hr>");
         }
 
-        int dd = 0;
         for (const auto& part : ECparts)
         {
             if (part == "supercup")

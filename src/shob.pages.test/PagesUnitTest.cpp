@@ -44,6 +44,11 @@ TEST(IntegrationTest, test_2019_2020_UK)
     TestFormatEC::test_2019_2020_UK();
 }
 
+TEST(IntegrationTest, test_ec_last_dd)
+{
+    TestFormatEC::test_last_dd();
+}
+
 TEST(UnitTest, testTopMenuLeft)
 {
     TestTopMenu::testLeft();

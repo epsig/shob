@@ -45,5 +45,11 @@ namespace shob::pages::test
         EXPECT_GE(lines.findString("<br>Sevilla wins the Europa League with two goals of Luuk de Jong."), 0) << "check UK summary";
         EXPECT_GE(lines.findString("<b>F I N A L:</b>"), 0) << "check language in route2final";
     }
+
+    void TestFormatEC::test_last_dd()
+    {
+        int dd = format_ec.get_dd();
+        EXPECT_GE(dd, 20260101);
+    }
 }
 

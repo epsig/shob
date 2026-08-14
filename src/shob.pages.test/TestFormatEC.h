@@ -10,6 +10,7 @@ namespace shob::pages::test
         static void test_2023_2024();
         static void test_1994_1995();
         static void test_2019_2020_UK();
+        static void test_last_dd();
     };
 
 }
