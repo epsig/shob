@@ -24,6 +24,11 @@ TEST(IntegrationTest, testFormatNL)
     TestFormatNL::test1();
 }
 
+TEST(IntegrationTest, testFormatNlDate)
+{
+    TestFormatNL::test_last_dd();
+}
+
 TEST(IntegrationTest, testFormatEc_2024_2025)
 {
     TestFormatEC::test_2024_2025();
@@ -42,6 +47,11 @@ TEST(IntegrationTest, testFormatEc_1994_1995)
 TEST(IntegrationTest, test_2019_2020_UK)
 {
     TestFormatEC::test_2019_2020_UK();
+}
+
+TEST(IntegrationTest, test_ec_last_dd)
+{
+    TestFormatEC::test_last_dd();
 }
 
 TEST(UnitTest, testTopMenuLeft)

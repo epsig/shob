@@ -45,7 +45,14 @@ namespace shob::pages
     int FormatEkWkQf::getLastYear() const
     {
         return 2026; // TODO for the time being
-    };
+    }
+
+    int FormatEkWkQf::get_dd() const
+    {
+        int dd = 0;
+        getPages(getLastYear(), dd);
+        return dd;
+    }
 
     int FormatEkWkQf::findStar(const std::vector<std::vector<std::string>>& remarks)
     {
@@ -62,6 +69,12 @@ namespace shob::pages
 
     MultipleStrings FormatEkWkQf::getPages(const int year) const
     {
+        int dd = 0;
+        return getPages(year, dd);
+    }
+
+    MultipleStrings FormatEkWkQf::getPages(const int year, int& dd) const
+    {
         const auto ekwk = EkWkDate(year);
 
         auto remarks = seasonsReader.getSeason(ekwk.shortNameWithYear());
@@ -73,7 +86,6 @@ namespace shob::pages
         retVal.addContent(topMenu);
         retVal.addContent("<hr>");
 
-        int dd = 0;
         const auto matches_data = read_matches_data(ekwk, 'u');
 
         auto pageBlocks = std::array<PageBlock, 8>();

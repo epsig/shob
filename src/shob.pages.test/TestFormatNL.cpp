@@ -19,5 +19,16 @@ namespace shob::pages::test
         auto lines = fmt_nl.getSeason(general::Season(2023));
         EXPECT_EQ(lines.data.size(), 158);
     }
+
+    void TestFormatNL::test_last_dd()
+    {
+        const std::string dataMap = "../../data/sport/";
+        const std::string dataFolder = testUtils::refFileWithPath(__FILE__, dataMap);
+        auto settings = html::settings();
+        auto fmt_nl = format_nl_factory::build(dataFolder, settings);
+        int dd = fmt_nl.get_dd();
+        EXPECT_GE(dd, 20260101);
+    }
+
 }
 

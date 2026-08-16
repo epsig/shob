@@ -1,5 +1,6 @@
 
 #include "FormatEC.h"
+#include "../shob.general/CurrentDateTime.h"
 
 #include "HeadBottom.h"
 #include "../shob.football/results2standings.h"
@@ -8,7 +9,6 @@
 #include "../shob.general/dateFactory.h"
 #include "../shob.html/updateIfNewer.h"
 
-#include <chrono>
 #include <format>
 #include <filesystem>
 
@@ -39,23 +39,22 @@ namespace shob::pages
         return "";
     }
 
-    int get_current_year() {
-        using namespace std::chrono;
-        auto now = system_clock::now();           // 1. get time_point for now
-        auto today = time_point_cast<days>(now);  // 2. cast to time_point for today
-        auto ymd = year_month_day(today);         // 3. convert to year_month_day 
-        auto year = ymd.year();                   // 4. get year from year_month_day
-        return static_cast<int>(year);            // 5. an explicit cast is required 
-    }
-
     Season FormatEC::getLastSeason() const
     {
-        auto y = get_current_year();
+        auto y = CurrentDateTime::getCurrentYear();
         auto s = Season(y);
         if (isValidSeason(s)) return s;
         auto s2 = Season(y - 1);
         if (isValidSeason(s2)) return s2;
         throw shobException("Season not found for EC");
+    }
+
+    int FormatEC::get_dd() const
+    {
+        const auto last_season = getLastSeason();
+        int dd = 0;
+        const auto text = getSeason(last_season, dd);        
+        return dd;
     }
 
     uniqueStrings FormatEC::getQualifiers(const std::string& part, const csvContent& data)
@@ -373,6 +372,12 @@ namespace shob::pages
 
     MultipleStrings FormatEC::getSeason(const Season& season) const
     {
+        int dd = 0;
+		return getSeason(season, dd);
+    }
+
+    MultipleStrings FormatEC::getSeason(const Season& season, int& dd) const
+    {
         const auto file1 = sportDataFolder + "/europacup/europacup_" + season.toPartFilename() + ".csv";
         const auto csvData = csvReader::readCsvFile(file1);
 
@@ -413,7 +418,6 @@ namespace shob::pages
             out.addContent("<hr>");
         }
 
-        int dd = 0;
         for (const auto& part : ECparts)
         {
             if (part == "supercup")

@@ -11,6 +11,8 @@
 #include "../shob.html/updateIfNewer.h"
 #include "../shob.html/funcs.h"
 #include "../shob.football/filterResults.h"
+#include "../shob.general/shobException.h"
+#include "../shob.general/CurrentDateTime.h"
 
 namespace shob::pages
 {
@@ -30,7 +32,31 @@ namespace shob::pages
         return std::format("{}/sport_voetbal_nl_{}.html", folder, season.toPartFilename());
     }
 
+    Season FormatNL::getLastSeason() const
+    {
+        auto y = CurrentDateTime::getCurrentYear();
+        auto s = Season(y);
+        if (isValidSeason(s)) return s;
+        auto s2 = Season(y - 1);
+        if (isValidSeason(s2)) return s2;
+        throw shobException("Season not found for EC");
+    }
+
+    int FormatNL::get_dd() const
+    {
+        const auto last_season = getLastSeason();
+        int dd = 0;
+        const auto text = getSeason(last_season, dd);
+        return dd;
+    }
+
     MultipleStrings FormatNL::getSeason(const Season& season) const
+    {
+        int dd = 19920101;
+        return getSeason(season, dd);
+    }
+
+    MultipleStrings FormatNL::getSeason(const Season& season, int& dd) const
     {
         auto file1 = sportDataFolder + "/eredivisie/eredivisie_" + season.toPartFilename() + ".csv";
         auto competition = football::footballCompetition();
@@ -61,7 +87,6 @@ namespace shob::pages
             }
         }
 
-        int dd = 19920101;
         dd = std::max(dd, competition.lastDate().toInt());
 
         auto pageBlocks = std::array<PageBlock, 7>();

@@ -7,6 +7,7 @@ namespace shob::pages::test
     {
     public:
         static void test1();
+        static void test_last_dd();
     };
 
 }
