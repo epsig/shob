@@ -50,8 +50,8 @@ namespace shob::pages
     int FormatEkWkQf::get_dd() const
     {
         int dd = 0;
-		getPages(getLastYear(), dd);
-		return dd;
+        getPages(getLastYear(), dd);
+        return dd;
     }
 
     int FormatEkWkQf::findStar(const std::vector<std::vector<std::string>>& remarks)
@@ -69,7 +69,7 @@ namespace shob::pages
 
     MultipleStrings FormatEkWkQf::getPages(const int year) const
     {
-		int dd = 0;
+        int dd = 0;
         return getPages(year, dd);
     }
 
