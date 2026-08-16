@@ -21,10 +21,12 @@ namespace shob::pages
             settings(settings), menu(std::move(menu)), organizingCountries(std::move(organizingCountries)),
             allFriendlies(std::move(allFriendlies)) {}
         general::MultipleStrings getPages(const int year) const override;
+        general::MultipleStrings getPages(const int year, int& dd) const;
         bool isValidYear(const int year) const override;
         std::string getOutputFilename(const std::string& folder, const int year) const override;
         std::string getOutputFilename(const std::string& folder) const override;
         int getLastYear() const override;
+		int get_dd() const override;
     private:
         std::string dataSportFolder;
         teams::clubTeams teams;

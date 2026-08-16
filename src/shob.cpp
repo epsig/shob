@@ -128,6 +128,7 @@ int main(int argc, char* argv[])
 
 		auto dd = fmt_nl.get_dd();
 		dd = std::max(dd, fmt_ec.get_dd());
+		dd = std::max(dd, fmt_ekwk_qf.get_dd());
 		part = std::format("pages with last dd: {}", dd);
 
         part = "copy style sheets";
