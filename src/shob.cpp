@@ -126,6 +126,10 @@ int main(int argc, char* argv[])
         auto last_year = fmt_semesters_and_year.getLastYear();
         fmt_semesters_and_year.getPagesToFile(last_year, fmt_semesters_and_year.getOutputFilename("../pages"));
 
+		auto dd = fmt_nl.get_dd();
+		dd = std::max(dd, fmt_ec.get_dd());
+		part = std::format("pages with last dd: {}", dd);
+
         part = "copy style sheets";
         shob::html::updateIfDifferent::update("../code/test/epsig.css", "../pages/epsig.css");
         if (std::filesystem::is_directory("../pages_new/"))
