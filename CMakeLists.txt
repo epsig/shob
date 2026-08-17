@@ -25,6 +25,10 @@ file(GLOB football_files "src/shob.football/*.*")
 add_library(shob.football STATIC ${football_files})
 set_target_properties(shob.football PROPERTIES CXX_STANDARD 20)
 
+file(GLOB bookmark_files "src/shob.bookmarks/*.*")
+add_library(shob.bookmarks STATIC ${bookmark_files})
+set_target_properties(shob.bookmarks PROPERTIES CXX_STANDARD 20)
+
 file(GLOB general_files "src/shob.general/*.*")
 add_library(shob.general STATIC ${general_files})
 set_target_properties(shob.general PROPERTIES CXX_STANDARD 20)
@@ -112,6 +116,7 @@ if(NOT googletest_POPULATED)
 endif()
 
 target_link_libraries(shob.football shob.general shob.readers shob.teams)
+target_link_libraries(shob.bookmarks shob.general shob.readers)
 target_link_libraries(shob.readers shob.general)
 target_link_libraries(shob.readers.test shob.general shob.test.utils shob.readers gtest_main)
 target_link_libraries(shob.football.test shob.football shob.general shob.test.utils shob.readers gtest_main)
