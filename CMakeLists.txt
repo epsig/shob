@@ -60,6 +60,10 @@ file(GLOB football_test_files "src/shob.football.test/*.*")
 add_executable(shob.football.test ${football_test_files})
 set_target_properties(shob.football.test PROPERTIES CXX_STANDARD 20)
 
+file(GLOB bookmark_test_files "src/shob.bookmarks.test/*.*")
+add_executable(shob.bookmarks.test ${bookmark_test_files})
+set_target_properties(shob.bookmarks.test PROPERTIES CXX_STANDARD 20)
+
 file(GLOB general_test_files "src/shob.general.test/*.*")
 add_executable(shob.general.test ${general_test_files})
 set_target_properties(shob.general.test PROPERTIES CXX_STANDARD 20)
@@ -120,6 +124,7 @@ target_link_libraries(shob.bookmarks shob.general shob.readers)
 target_link_libraries(shob.readers shob.general)
 target_link_libraries(shob.readers.test shob.general shob.test.utils shob.readers gtest_main)
 target_link_libraries(shob.football.test shob.football shob.general shob.test.utils shob.readers gtest_main)
+target_link_libraries(shob.bookmarks.test shob.bookmarks shob.general shob.test.utils shob.readers gtest_main)
 target_link_libraries(shob.html.test shob.html shob.general gtest_main)
 target_link_libraries(shob.pages shob.football shob.general shob.readers shob.html shob.teams)
 target_link_libraries(shob shob.football shob.general shob.readers shob.html shob.teams shob.pages)
@@ -140,6 +145,12 @@ add_test(
 add_test(
   NAME shob-football-unit-tests
   COMMAND $<TARGET_FILE:shob.football.test>
+  WORKING_DIRECTORY ${CMAKE_CURRENT_LIST_DIR}
+)
+
+add_test(
+  NAME shob-bookmarks-unit-tests
+  COMMAND $<TARGET_FILE:shob.bookmarks.test>
   WORKING_DIRECTORY ${CMAKE_CURRENT_LIST_DIR}
 )
 
