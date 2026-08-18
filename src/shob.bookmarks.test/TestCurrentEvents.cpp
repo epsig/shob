@@ -12,6 +12,7 @@ namespace shob::bookmarks::test
 
 	void TestCurrentEvent::test1()
 	{
-		auto result = CurrentEvents::getCurrentBookmarks(data_folder, 20251225);
+		const auto result = CurrentEvents::getCurrentBookmarks(data_folder, 20251225);
+		EXPECT_EQ(result.size(), 2);
 	}
 }
