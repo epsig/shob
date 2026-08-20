@@ -1,15 +1,9 @@
 #pragma once
+#include "Event.h"
 #include <vector>
-#include <string>
 
 namespace shob::bookmarks
 {
-    struct Event
-    {
-        std::string name;
-        std::string url;
-    };
-
     class CurrentEvents
     {
     public:
