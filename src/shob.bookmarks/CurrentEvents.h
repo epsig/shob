@@ -1,5 +1,5 @@
 #pragma once
-#include "Event.h"
+#include "ListOfEvents.h"
 #include <vector>
 
 namespace shob::bookmarks
@@ -7,6 +7,6 @@ namespace shob::bookmarks
     class CurrentEvents
     {
     public:
-        static std::vector<Event> getCurrentBookmarks(const std::string& folder, const int dd);
+        static ListOfEvents getCurrentBookmarks(const std::string& folder, const int dd);
     };
 }

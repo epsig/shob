@@ -8,7 +8,7 @@ namespace shob::bookmarks
     using namespace shob::general;
     using namespace shob::readers;
 
-    std::vector<Event> CurrentEvents::getCurrentBookmarks(const std::string& folder, const int dd)
+    ListOfEvents CurrentEvents::getCurrentBookmarks(const std::string& folder, const int dd)
     {
         const auto date = itdate(dd);
         size_t year; size_t month; size_t day;
@@ -19,7 +19,7 @@ namespace shob::bookmarks
         const double date_cmp = static_cast<double>(month) + static_cast<double>(day) / 30.0;
         const auto content_file = csvReader::readCsvFile(folder + "/current.csv");
 
-        auto return_value = std::vector<Event>();
+        auto return_value = ListOfEvents();
         for (const auto& row : content_file.body)
         {
             if (row.column.size() < 4)
@@ -33,7 +33,7 @@ namespace shob::bookmarks
                 Event event;
                 event.name = row.column[1];
                 event.url = row.column[0];
-                return_value.push_back(event);
+                return_value.add(event);
             }
         }
         return return_value;
