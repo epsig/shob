@@ -35,4 +35,20 @@ namespace shob::bookmarks
         }
         return return_value;
     }
+
+    ListOfEvents OwnSportPages::getEuropacupSoccer()
+    {
+        constexpr int first_year = 1994;
+        constexpr int last_year = 2026;
+        ListOfEvents return_value;
+        for (int i = first_year; i <= last_year; i++)
+        {
+            auto szn = general::Season(i);
+            Event e;
+            e.name = szn.toString();
+            e.url = std::format("sport_voetbal_europacup_{}.html", szn.toPartFilename());
+            return_value.add(e);
+        }
+        return return_value;
+    }
 }

@@ -8,5 +8,6 @@ namespace shob::bookmarks
     public:
         static ListOfEvents getOlympicIceSkating();
         static ListOfEvents getDutchSoccer();
+        static ListOfEvents getEuropacupSoccer();
     };
 }

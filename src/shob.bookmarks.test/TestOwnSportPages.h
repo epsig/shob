@@ -7,5 +7,6 @@ namespace shob::bookmarks::test
     public:
         static void test1();
         static void test2();
+        static void test3();
     };
 }
