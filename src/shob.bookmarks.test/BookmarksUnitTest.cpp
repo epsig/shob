@@ -1,5 +1,6 @@
 #include <gtest/gtest.h>
 #include "TestCurrentEvents.h"
+#include "TestOwnSportPages.h"
 
 using namespace shob::bookmarks::test;
 
@@ -13,4 +14,14 @@ int main(int argc, char** argv)
 TEST(unitTest, testCurrentEvents1)
 {
     TestCurrentEvent::test1();
+}
+
+TEST(unitTest, testOwnSportPages1)
+{
+    TestOwnSportPages::test1();
+}
+
+TEST(unitTest, testOwnSportPages2)
+{
+    TestOwnSportPages::test2();
 }

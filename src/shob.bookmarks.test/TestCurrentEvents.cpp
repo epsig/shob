@@ -5,14 +5,14 @@
 
 namespace shob::bookmarks::test
 {
-	using namespace readers::test;
+    using namespace readers::test;
 
-	const std::string data_map = "../../data/bookmarks/";
-	const std::string data_folder = testUtils::refFileWithPath(__FILE__, data_map);
+    const std::string data_map = "../../data/bookmarks/";
+    const std::string data_folder = testUtils::refFileWithPath(__FILE__, data_map);
 
-	void TestCurrentEvent::test1()
-	{
-		const auto result = CurrentEvents::getCurrentBookmarks(data_folder, 20251225);
-		EXPECT_EQ(result.size(), 2);
-	}
+    void TestCurrentEvent::test1()
+    {
+        const auto result = CurrentEvents::getCurrentBookmarks(data_folder, 20251225);
+        EXPECT_EQ(result.size(), 2);
+    }
 }

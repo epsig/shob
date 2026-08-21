@@ -2,9 +2,10 @@
 
 namespace shob::bookmarks::test
 {
-    class TestCurrentEvent
+    class TestOwnSportPages
     {
     public:
         static void test1();
+        static void test2();
     };
 }
