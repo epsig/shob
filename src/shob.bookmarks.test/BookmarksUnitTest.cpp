@@ -30,3 +30,8 @@ TEST(unitTest, testOwnSportPages3)
 {
     TestOwnSportPages::test3();
 }
+
+TEST(unitTest, testOwnSportPages4)
+{
+    TestOwnSportPages::test4();
+}

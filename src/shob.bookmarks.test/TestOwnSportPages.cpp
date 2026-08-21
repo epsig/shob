@@ -27,4 +27,10 @@ namespace shob::bookmarks::test
         const auto result = OwnSportPages::getEuropacupSoccer();
         EXPECT_EQ(result.size(), 33);
     }
+
+    void TestOwnSportPages::test4()
+    {
+        const auto result = OwnSportPages::getEkWkSoccer();
+        EXPECT_EQ(result.size(), 16);
+    }
 }
