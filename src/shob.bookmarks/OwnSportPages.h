@@ -7,6 +7,7 @@ namespace shob::bookmarks
     {
     public:
         static ListOfEvents getOlympicIceSkating();
+        static ListOfEvents getEkWkSoccerWoman();
         static ListOfEvents getEkWkSoccer();
         static ListOfEvents getDutchSoccer();
         static ListOfEvents getEuropacupSoccer();

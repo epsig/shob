@@ -35,3 +35,8 @@ TEST(unitTest, testOwnSportPages4)
 {
     TestOwnSportPages::test4();
 }
+
+TEST(unitTest, testOwnSportPages5)
+{
+    TestOwnSportPages::test5();
+}

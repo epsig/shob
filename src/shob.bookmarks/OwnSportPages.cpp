@@ -20,6 +20,33 @@ namespace shob::bookmarks
         return return_value;
     }
 
+    ListOfEvents OwnSportPages::getEkWkSoccerWoman()
+    {
+        constexpr auto fmt_out_file = "sport_voetbal_{}D{}.html";
+        constexpr int first_year = 2019;
+        constexpr int last_year = 2025;
+        ListOfEvents return_value;
+        for (int i = first_year; i <= last_year; i++)
+        {
+            Event e;
+            switch (i)
+            {
+            case 2022: case 2025:
+                e.name = std::format("EK {}", i);
+                e.url = std::format(fmt_out_file, "EK", i);
+                break;
+            case 2019: case 2023:
+                e.name = std::format("WK {}", i);
+                e.url = std::format(fmt_out_file, "WK", i);
+                break;
+            default:
+                continue;
+            }
+            return_value.add(e);
+        }
+        return return_value;
+    }
+
     ListOfEvents OwnSportPages::getEkWkSoccer()
     {
         constexpr int first_year = 1996;

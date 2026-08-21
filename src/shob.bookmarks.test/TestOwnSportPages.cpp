@@ -33,4 +33,10 @@ namespace shob::bookmarks::test
         const auto result = OwnSportPages::getEkWkSoccer();
         EXPECT_EQ(result.size(), 16);
     }
+
+    void TestOwnSportPages::test5()
+    {
+        const auto result = OwnSportPages::getEkWkSoccerWoman();
+        EXPECT_EQ(result.size(), 4);
+    }
 }
