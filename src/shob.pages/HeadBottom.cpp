@@ -62,7 +62,10 @@ namespace shob::pages
         }
         out.data.back() += "</head><body>";
 
-        out.addContent("<h1>" + input.title + "</h1>");
+        if (input.copyTitleToH1)
+        {
+            out.addContent("<h1>" + input.title + "</h1>");
+        }
 
         out.addContent(input.body);
 

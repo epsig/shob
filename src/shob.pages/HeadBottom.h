@@ -30,6 +30,7 @@ namespace shob::pages
         StyleSheetType css = StyleSheetType::InlineInHead;
         JavaScriptType js = JavaScriptType::None;
         general::itdate dd;
+        bool copyTitleToH1 = true;
     };
 
     /// <summary>

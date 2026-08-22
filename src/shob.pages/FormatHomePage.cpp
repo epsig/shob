@@ -16,13 +16,15 @@ namespace shob::pages
         auto blockTopLeft = BlockTopLeft();
         auto blockBottomRight = BlockBottomRight();
 
+        auto top = html::table::yellowRed(blockTopLeft, currentEvents, "Deze site", "Actueel");
+        auto bottom = html::table::yellowRed(content, blockBottomRight, "Eigen sportpagina's", "Links");
+
         auto hb = HeadBottomInput(dd);
         hb.title = "Welkom op epsig.nl!";
         hb.css = StyleSheetType::SeparateFile;
-        std::swap(hb.body, content);
-        hb.body.addContent(blockTopLeft);
-        hb.body.addContent(currentEvents);
-        hb.body.addContent(blockBottomRight);
+        hb.copyTitleToH1 = false;
+        std::swap(hb.body, top);
+        hb.body.addContent(bottom);
 
         auto page = HeadBottom::getPage(hb);
         html::updateIfDifferent::update("../pages/index_new.html", page);
@@ -42,7 +44,6 @@ namespace shob::pages
         auto europacup_links = europacup.printFirstAndLast();
 
         auto content = MultipleStrings();
-        content.addContent("<h2>Eigen sportpagina's:</h2>");
         content.addContent("<ul> <li> Schaatsen op de Olympische Spelen in: ");
         content.addContent(os_links);
         content.addContent("</li> <li> EK/WK voetbal in: ");
@@ -64,7 +65,6 @@ namespace shob::pages
 
         auto events = currentEvents.printAll();
         auto return_value = MultipleStrings();
-        return_value.addContent("<h2>Actueel</h2>");
         if (events.length() == 0)
         {
             return_value.addContent("<p>geen grote evenementen deze maand.</p>");
@@ -80,8 +80,7 @@ namespace shob::pages
     MultipleStrings FormatHomePage::BlockTopLeft()
     {
         auto return_value = MultipleStrings();
-        return_value.addContent("<h2>Deze site</h2><ul>");
-        return_value.addContent("<li> <a href=\"reactie.html\">reageer</a> </li>");
+        return_value.addContent("<ul><li> <a href=\"reactie.html\">reageer</a> </li>");
         return_value.addContent("<li> hoe zo, <a href=\"epsig.html\">epsig?</a> </li>");
         return_value.addContent("<li> en, veel <a href=\"stats.html\">hits?</a> </li>");
         return_value.addContent("<li>");
@@ -98,8 +97,7 @@ namespace shob::pages
     MultipleStrings FormatHomePage::BlockBottomRight()
     {
         auto return_value = MultipleStrings();
-        return_value.addContent("<h2>Bookmarks</h2> <ul>");
-        return_value.addContent("<li> <a href=\"bookmarks_sport.html\">Sport</a> </li>");
+        return_value.addContent("<ul> <li> <a href=\"bookmarks_sport.html\">Sport</a> </li>");
         return_value.addContent("<li> <a href=\"bookmarks_treinen.html\">Treinen</a> </li>");
         return_value.addContent("<li> <a href=\"bookmarks_computers.html\">Computers</a> </li>");
         return_value.addContent("</ul>");
