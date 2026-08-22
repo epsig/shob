@@ -9,5 +9,8 @@ namespace shob::pages
         static void RebuildHomePage(const int dd);
     private:
         static general::MultipleStrings OwnSportLinks();
+        static general::MultipleStrings CurrentEventsLinks(const int dd);
+        static general::MultipleStrings BlockTopLeft();
+        static general::MultipleStrings BlockBottomRight();
     };
 }
