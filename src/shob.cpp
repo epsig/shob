@@ -13,6 +13,7 @@
 #include "shob.pages/FormatSemestersAndYearStandingsFactory.h"
 #include "shob.pages/FormatHomeAndAwayStandingsFactory.h"
 #include "shob.pages/FormatStatsEredivisieFactory.h"
+#include "shob.pages/FormatHomePage.h"
 #include "shob.general/Season.h"
 #include "shob.general/shobException.h"
 #include "shob.html/updateIfNewer.h"
@@ -126,10 +127,11 @@ int main(int argc, char* argv[])
         auto last_year = fmt_semesters_and_year.getLastYear();
         fmt_semesters_and_year.getPagesToFile(last_year, fmt_semesters_and_year.getOutputFilename("../pages"));
 
-		auto dd = fmt_nl.get_dd();
-		dd = std::max(dd, fmt_ec.get_dd());
-		dd = std::max(dd, fmt_ekwk_qf.get_dd());
-		part = std::format("pages with last dd: {}", dd);
+        auto dd = fmt_nl.get_dd();
+        dd = std::max(dd, fmt_ec.get_dd());
+        dd = std::max(dd, fmt_ekwk_qf.get_dd());
+        part = std::format("pages with last dd: {}", dd);
+        FormatHomePage::RebuildHomePage(dd);
 
         part = "copy style sheets";
         shob::html::updateIfDifferent::update("../code/test/epsig.css", "../pages/epsig.css");
