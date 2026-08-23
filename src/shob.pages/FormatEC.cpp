@@ -53,7 +53,7 @@ namespace shob::pages
     {
         const auto last_season = getLastSeason();
         int dd = 0;
-        const auto text = getSeason(last_season, dd);        
+        getSeason(last_season, dd);        
         return dd;
     }
 
@@ -373,7 +373,7 @@ namespace shob::pages
     MultipleStrings FormatEC::getSeason(const Season& season) const
     {
         int dd = 0;
-		return getSeason(season, dd);
+        return getSeason(season, dd);
     }
 
     MultipleStrings FormatEC::getSeason(const Season& season, int& dd) const
