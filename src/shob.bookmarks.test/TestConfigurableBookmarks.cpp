@@ -13,6 +13,10 @@ namespace shob::bookmarks::test
     void TestConfigurableBookmarks::test1()
     {
         ConfigurableBookmarks bookmarks(data_folder);
-        // Add assertions to test the behavior of ConfigurableBookmarks
+        PageProperties props;
+        auto result = bookmarks.getProperties(props, "media");
+        ASSERT_TRUE(result);
+        ASSERT_EQ(props.title, "Bookmarks: media");
+        ASSERT_EQ(props.dd, 0);
     }
 }
