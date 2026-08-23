@@ -26,7 +26,7 @@ namespace shob::pages
         std::string getOutputFilename(const std::string& folder, const int year) const override;
         std::string getOutputFilename(const std::string& folder) const override;
         int getLastYear() const override;
-		int get_dd() const override;
+        int get_dd() const override;
     private:
         std::string dataSportFolder;
         teams::clubTeams teams;
