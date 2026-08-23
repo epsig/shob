@@ -28,7 +28,7 @@ namespace shob::pages
         hb.body.addContent(bottom);
 
         auto page = HeadBottom::getPage(hb);
-        html::updateIfDifferent::update("../pages/index_new.html", page);
+        html::updateIfDifferent::update("../pages/index.html", page);
     }
 
     MultipleStrings FormatHomePage::OwnSportLinks()
