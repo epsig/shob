@@ -31,6 +31,7 @@ namespace shob::pages
         JavaScriptType js = JavaScriptType::None;
         general::itdate dd;
         bool copyTitleToH1 = true;
+        bool withFooter = true;
     };
 
     /// <summary>

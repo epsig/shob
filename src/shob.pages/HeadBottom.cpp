@@ -69,8 +69,11 @@ namespace shob::pages
 
         out.addContent(input.body);
 
-        auto footer = getFooter(input.dd);
-        out.addContent(footer);
+        if (input.withFooter)
+        {
+            auto footer = getFooter(input.dd);
+            out.addContent(footer);
+        }
 
         out.addContent("</body></html>");
 

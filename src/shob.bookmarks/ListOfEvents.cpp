@@ -24,6 +24,7 @@ namespace shob::bookmarks
     {
         MultipleStrings return_value;
         return_value.addContent(events.front().link());
+        return_value.addContent(" t/m ");
         return_value.addContent(events.back().link());
         return return_value;
     }
