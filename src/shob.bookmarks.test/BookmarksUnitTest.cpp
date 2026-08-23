@@ -1,6 +1,7 @@
 #include <gtest/gtest.h>
 #include "TestCurrentEvents.h"
 #include "TestOwnSportPages.h"
+#include "TestConfigurableBookmarks.h"
 
 using namespace shob::bookmarks::test;
 
@@ -39,4 +40,9 @@ TEST(unitTest, testOwnSportPages4)
 TEST(unitTest, testOwnSportPages5)
 {
     TestOwnSportPages::test5();
+}
+
+TEST(unitTest, testConfigurableBookmarks1)
+{
+    TestConfigurableBookmarks::test1();
 }
