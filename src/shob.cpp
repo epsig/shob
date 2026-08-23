@@ -2,6 +2,7 @@
 #include <filesystem>
 #include <iostream>
 #include <format>
+#include <algorithm>
 
 #include "shob.general/dateFactory.h"
 #include "shob.pages/FormatEC_Factory.h"

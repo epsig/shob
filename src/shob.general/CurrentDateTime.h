@@ -2,9 +2,9 @@
 
 namespace shob::general
 {
-	class CurrentDateTime
-	{
-	public:
-		static int getCurrentYear();
-	};
+    class CurrentDateTime
+    {
+    public:
+        static int getCurrentYear();
+    };
 }

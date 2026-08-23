@@ -39,14 +39,14 @@ namespace shob::pages
         if (isValidSeason(s)) return s;
         auto s2 = Season(y - 1);
         if (isValidSeason(s2)) return s2;
-        throw shobException("Season not found for EC");
+        throw shobException("Season not found for NL");
     }
 
     int FormatNL::get_dd() const
     {
         const auto last_season = getLastSeason();
         int dd = 0;
-        const auto text = getSeason(last_season, dd);
+        getSeason(last_season, dd);
         return dd;
     }
 
