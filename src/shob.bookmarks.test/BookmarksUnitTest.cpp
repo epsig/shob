@@ -46,3 +46,13 @@ TEST(unitTest, testConfigurableBookmarks1)
 {
     TestConfigurableBookmarks::test1();
 }
+
+TEST(unitTest, testConfigurableBookmarks2)
+{
+    TestConfigurableBookmarks::test2();
+}
+
+TEST(unitTest, testConfigurableBookmarks3)
+{
+    TestConfigurableBookmarks::test3();
+}

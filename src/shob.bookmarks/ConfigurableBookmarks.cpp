@@ -31,4 +31,47 @@ namespace shob::bookmarks
         }
         return return_value;
     }
+
+    std::vector<BlockProperties> ConfigurableBookmarks::getAllParts(const std::string& page) const
+    {
+        std::vector<BlockProperties> return_value;
+        for (const auto& row : config.body)
+        {
+            if (row.column.size() >= 3 && row.column[0] == page)
+            {
+                if (row.column[1] == "title")
+                {
+                    continue;
+                }
+                else if (row.column[1] == "dd")
+                {
+                    continue;
+                }
+                else
+                {
+                    BlockProperties block;
+                    block.title = row.column[1];
+                    block.name = row.column[2];
+                    return_value.push_back(block);
+                }
+            }
+        }
+        return return_value;
+    }
+
+    ListOfEvents ConfigurableBookmarks::getEventsForBlock(const std::string& block) const
+    {
+        auto return_value = ListOfEvents();
+        for (const auto& row : archive.body)
+        {
+            if (row.column.size() >= 3 && row.column[0] == block)
+            {
+                Event event;
+                event.url = row.column[1];
+                event.name = row.column[2];
+                return_value.add(event);
+            }
+        }
+        return return_value;
+    }
 }
