@@ -38,4 +38,9 @@ namespace shob::bookmarks
         }
         return return_value;
     }
+
+    std::string CurrentEvents::getMessageEmpty()
+    {
+        return "geen grote evenementen deze maand.";
+    }
 }

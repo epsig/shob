@@ -3,6 +3,7 @@
 #include "../shob.bookmarks/CurrentEvents.h"
 #include "../shob.bookmarks/OwnSportPages.h"
 #include "../shob.html/updateIfNewer.h"
+#include "../shob.html/List.h"
 
 namespace shob::pages
 {
@@ -68,24 +69,12 @@ namespace shob::pages
         auto currentEvents = CurrentEvents::getCurrentBookmarks("bookmarks", dd);
 
         auto events = currentEvents.printAll();
-        auto return_value = MultipleStrings();
-        return_value.addContent("<ul>");
         if (events.length() == 0)
         {
-            return_value.addContent("<li>geen grote evenementen deze maand.</li>");
+            events.addContent(CurrentEvents::getMessageEmpty());
         }
-        else
-        {
-            for (const auto& line : events.data)
-            {
-                return_value.addContent("<li>");
-                return_value.addContent(line);
-                return_value.addContent("</li>");
-            }
-        }
-        return_value.addContent("</ul>");
 
-        return return_value;
+        return html::List::inUnorderedList(events);
     }
 
     MultipleStrings FormatHomePage::blockTopLeft()

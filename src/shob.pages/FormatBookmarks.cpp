@@ -85,7 +85,7 @@ namespace shob::pages
         auto events = currentEvents.printAll();
         if (events.length() == 0)
         {
-            events.addContent("geen grote evenementen deze maand.");
+            events.addContent(CurrentEvents::getMessageEmpty());
         }
 
         return List::inUnorderedList(events);
