@@ -12,7 +12,6 @@ namespace shob::pages
     private:
         bookmarks::ConfigurableBookmarks bookmarks;
         int dd;
-        static general::MultipleStrings inList(const general::MultipleStrings& data);
         general::MultipleStrings currentEventsLinks() const;
     };
 }
