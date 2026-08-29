@@ -135,10 +135,12 @@ int main(int argc, char* argv[])
         part = std::format("pages with last dd: {}", dd);
         FormatHomePage::RebuildHomePage(dd);
 
-        auto fmt_bookmarks = FormatBookmarks("bookmarks/", dd);
+        const auto fmt_bookmarks = FormatBookmarks("bookmarks/", dd);
         fmt_bookmarks.RebuildBookmarks("media");
         fmt_bookmarks.RebuildBookmarks("treinen");
-        fmt_bookmarks.RebuildBookmarks("html");
+        fmt_bookmarks.RebuildBookmarks("computers");
+        fmt_bookmarks.RebuildBookmarks("science", true);
+        fmt_bookmarks.RebuildBookmarks("milieu", true);
 
         part = "copy style sheets";
         shob::html::updateIfDifferent::update("../code/test/epsig.css", "../pages/epsig.css");

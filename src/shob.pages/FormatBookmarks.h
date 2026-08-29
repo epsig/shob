@@ -8,11 +8,11 @@ namespace shob::pages
     {
     public:
         FormatBookmarks(const std::string& folder, const int dd);
-        void RebuildBookmarks(const std::string& page);
+        void RebuildBookmarks(const std::string& page, const bool is_tmp = false) const;
     private:
         bookmarks::ConfigurableBookmarks bookmarks;
         int dd;
         static general::MultipleStrings InList(const general::MultipleStrings& data);
-        general::MultipleStrings CurrentEventsLinks();
+        general::MultipleStrings CurrentEventsLinks() const;
     };
 }

@@ -21,15 +21,13 @@ namespace shob::pages
         return_value.addContent("<ul>");
         for (const auto& line : data.data)
         {
-            return_value.addContent("<li>");
-            return_value.addContent(line);
-            return_value.addContent("</li>");
+            return_value.addContent("<li>" + line + "</li>");
         }
         return_value.addContent("</ul>");
         return return_value;
     }
 
-    void FormatBookmarks::RebuildBookmarks(const std::string& page)
+    void FormatBookmarks::RebuildBookmarks(const std::string& page, const bool is_tmp) const
     {
         auto props = PageProperties();
         if (!bookmarks.getProperties(props, page))
@@ -42,7 +40,7 @@ namespace shob::pages
 
         for (int i = 0; i < content.size(); i+= 2)
         {
-            MultipleStrings left, right;
+            MultipleStrings left, right, row;
             if (content[i].title == "reserved")
             {
                 left = CurrentEventsLinks();
@@ -52,12 +50,25 @@ namespace shob::pages
             {
                 left = InList(bookmarks.getEventsForBlock(content[i].name).printAll());
             }
-            right = InList(bookmarks.getEventsForBlock(content[i+1].name).printAll());
-            auto row = html::table::yellowRed(left, right, content[i].title, content[i+1].title);
+            if (i + 1 >= (int)content.size())
+            {
+                right = MultipleStrings();
+                row = html::table::yellowRed(left, right, content[i].title, "");
+            }
+            else
+            {
+                right = InList(bookmarks.getEventsForBlock(content[i + 1].name).printAll());
+                row = html::table::yellowRed(left, right, content[i].title, content[i + 1].title);
+            }
             blocks.push_back(row);
         }
 
-        auto hb = HeadBottomInput(dd);
+        int dd_page = props.dd;
+        if (dd_page == 0)
+        {
+            dd_page = dd;
+        }
+        auto hb = HeadBottomInput(dd_page);
         hb.title = props.title;
         hb.css = StyleSheetType::SeparateFile;
         hb.copyTitleToH1 = false;
@@ -67,32 +78,28 @@ namespace shob::pages
             hb.body.addContent(blocks[i]);
         }
         auto pageContent = HeadBottom::getPage(hb);
-        html::updateIfDifferent::update("../pages/bookmarks_" + page + "_new.html", pageContent);
+
+        if (is_tmp)
+        {
+            html::updateIfDifferent::update("../pages/tmp_bookmarks_" + page + ".html", pageContent);
+        }
+        else
+        {
+            html::updateIfDifferent::update("../pages/bookmarks_" + page + ".html", pageContent);
+        }
     }
 
-    MultipleStrings FormatBookmarks::CurrentEventsLinks()
+    MultipleStrings FormatBookmarks::CurrentEventsLinks() const
     {
         auto currentEvents = CurrentEvents::getCurrentBookmarks("bookmarks", dd);
 
         auto events = currentEvents.printAll();
-        auto return_value = MultipleStrings();
-        return_value.addContent("<ul>");
         if (events.length() == 0)
         {
-            return_value.addContent("<li>geen grote evenementen deze maand.</li>");
+            events.addContent("geen grote evenementen deze maand.");
         }
-        else
-        {
-            for (const auto& line : events.data)
-            {
-                return_value.addContent("<li>");
-                return_value.addContent(line);
-                return_value.addContent("</li>");
-            }
-        }
-        return_value.addContent("</ul>");
 
-        return return_value;
+        return InList(events);
     }
 
 }
