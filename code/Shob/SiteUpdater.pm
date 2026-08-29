@@ -73,7 +73,6 @@ sub handle_gen_files($$$)
   [2, 'all', sub {&get_overzicht;}, 'overzicht.html'],
   [2, 'all', sub {&get_letters();}, 'anybrowser.html'],
   [2, 'all', sub {&get_ascii_codes;}, 'tmp_ascii_codes.html'],
-  [2, 'all', sub {&get_sport_links;}, 'bookmarks_sport.html'],
   [2, 'all', sub {&get_klaverjas_faq;}, 'klaverjas_faq.html']]);
 # [1, ' rl', sub {&get_klaverjas_beta_versies;}, 'kj_beta_versies.html'],
 

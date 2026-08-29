@@ -139,6 +139,7 @@ int main(int argc, char* argv[])
         fmt_bookmarks.rebuildBookmarks("media");
         fmt_bookmarks.rebuildBookmarks("treinen");
         fmt_bookmarks.rebuildBookmarks("computers");
+        fmt_bookmarks.rebuildBookmarks("sport");
         fmt_bookmarks.rebuildBookmarks("science", true);
         fmt_bookmarks.rebuildBookmarks("milieu", true);
 
