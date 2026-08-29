@@ -9,15 +9,15 @@ namespace shob::pages
     using namespace shob::bookmarks;
     using namespace shob::general;
 
-    void FormatHomePage::RebuildHomePage(const int dd)
+    void FormatHomePage::rebuildHomePage(const int dd)
     {
-        auto content = OwnSportLinks();
-        auto currentEvents = CurrentEventsLinks(dd);
-        auto blockTopLeft = BlockTopLeft();
-        auto blockBottomRight = BlockBottomRight();
+        auto content = ownSportLinks();
+        auto current_events = currentEventsLinks(dd);
+        auto block_top_left = blockTopLeft();
+        auto block_bottom_right = blockBottomRight();
 
-        auto top = html::table::yellowRed(blockTopLeft, currentEvents, "Deze site", "Actueel");
-        auto bottom = html::table::yellowRed(content, blockBottomRight, "Sport en spel", "Links");
+        auto top = html::table::yellowRed(block_top_left, current_events, "Deze site", "Actueel");
+        auto bottom = html::table::yellowRed(content, block_bottom_right, "Sport en spel", "Links");
 
         auto hb = HeadBottomInput(dd);
         hb.title = "Welkom op epsig.nl!";
@@ -31,7 +31,7 @@ namespace shob::pages
         html::updateIfDifferent::update("../pages/index.html", page);
     }
 
-    MultipleStrings FormatHomePage::OwnSportLinks()
+    MultipleStrings FormatHomePage::ownSportLinks()
     {
         const auto os = OwnSportPages::getOlympicIceSkating();
         const auto ekwk = OwnSportPages::getEkWkSoccer();
@@ -63,7 +63,7 @@ namespace shob::pages
         return content;
     }
 
-    MultipleStrings FormatHomePage::CurrentEventsLinks(const int dd)
+    MultipleStrings FormatHomePage::currentEventsLinks(const int dd)
     {
         auto currentEvents = CurrentEvents::getCurrentBookmarks("bookmarks", dd);
 
@@ -88,7 +88,7 @@ namespace shob::pages
         return return_value;
     }
 
-    MultipleStrings FormatHomePage::BlockTopLeft()
+    MultipleStrings FormatHomePage::blockTopLeft()
     {
         auto return_value = MultipleStrings();
         return_value.addContent("<ul><li> <a href=\"reactie.html\">reageer</a> </li>");
@@ -105,7 +105,7 @@ namespace shob::pages
         return return_value;
     }
 
-    MultipleStrings FormatHomePage::BlockBottomRight()
+    MultipleStrings FormatHomePage::blockBottomRight()
     {
         auto return_value = MultipleStrings();
         return_value.addContent("<ul> <li> <a href=\"bookmarks_sport.html\">Sport</a> </li>");

@@ -6,11 +6,11 @@ namespace shob::pages
     class FormatHomePage
     {
     public:
-        static void RebuildHomePage(const int dd);
+        static void rebuildHomePage(const int dd);
     private:
-        static general::MultipleStrings OwnSportLinks();
-        static general::MultipleStrings CurrentEventsLinks(const int dd);
-        static general::MultipleStrings BlockTopLeft();
-        static general::MultipleStrings BlockBottomRight();
+        static general::MultipleStrings ownSportLinks();
+        static general::MultipleStrings currentEventsLinks(const int dd);
+        static general::MultipleStrings blockTopLeft();
+        static general::MultipleStrings blockBottomRight();
     };
 }

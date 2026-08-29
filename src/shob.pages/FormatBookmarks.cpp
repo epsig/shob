@@ -15,7 +15,7 @@ namespace shob::pages
     {
     }
 
-    MultipleStrings FormatBookmarks::InList(const MultipleStrings& data)
+    MultipleStrings FormatBookmarks::inList(const MultipleStrings& data)
     {
         MultipleStrings return_value;
         return_value.addContent("<ul>");
@@ -27,7 +27,7 @@ namespace shob::pages
         return return_value;
     }
 
-    void FormatBookmarks::RebuildBookmarks(const std::string& page, const bool is_tmp) const
+    void FormatBookmarks::rebuildBookmarks(const std::string& page, const bool is_tmp) const
     {
         auto props = PageProperties();
         if (!bookmarks.getProperties(props, page))
@@ -43,12 +43,12 @@ namespace shob::pages
             MultipleStrings left, right, row;
             if (content[i].title == "reserved")
             {
-                left = CurrentEventsLinks();
+                left = currentEventsLinks();
                 content[i].title = "Actueel";
             }
             else
             {
-                left = InList(bookmarks.getEventsForBlock(content[i].name).printAll());
+                left = inList(bookmarks.getEventsForBlock(content[i].name).printAll());
             }
             if (i + 1 >= (int)content.size())
             {
@@ -57,7 +57,7 @@ namespace shob::pages
             }
             else
             {
-                right = InList(bookmarks.getEventsForBlock(content[i + 1].name).printAll());
+                right = inList(bookmarks.getEventsForBlock(content[i + 1].name).printAll());
                 row = html::table::yellowRed(left, right, content[i].title, content[i + 1].title);
             }
             blocks.push_back(row);
@@ -89,7 +89,7 @@ namespace shob::pages
         }
     }
 
-    MultipleStrings FormatBookmarks::CurrentEventsLinks() const
+    MultipleStrings FormatBookmarks::currentEventsLinks() const
     {
         auto currentEvents = CurrentEvents::getCurrentBookmarks("bookmarks", dd);
 
@@ -99,7 +99,7 @@ namespace shob::pages
             events.addContent("geen grote evenementen deze maand.");
         }
 
-        return InList(events);
+        return inList(events);
     }
 
 }
