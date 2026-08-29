@@ -10,7 +10,7 @@ namespace shob::bookmarks::test
     const std::string data_map = "../../data/bookmarks/";
     const std::string data_folder = testUtils::refFileWithPath(__FILE__, data_map);
 
-    void TestConfigurableBookmarks::test1()
+    void TestConfigurableBookmarks::testGetProperties()
     {
         ConfigurableBookmarks bookmarks(data_folder);
         PageProperties props;
@@ -20,14 +20,14 @@ namespace shob::bookmarks::test
         ASSERT_EQ(props.dd, 0);
     }
 
-    void TestConfigurableBookmarks::test2()
+    void TestConfigurableBookmarks::testGetAllParts()
     {
         ConfigurableBookmarks bookmarks(data_folder);
         auto result = bookmarks.getAllParts("media");
         ASSERT_EQ(result.size(), 6);
     }
 
-    void TestConfigurableBookmarks::test3()
+    void TestConfigurableBookmarks::testGetEventsForBlock()
     {
         ConfigurableBookmarks bookmarks(data_folder);
         auto result = bookmarks.getEventsForBlock("radio");

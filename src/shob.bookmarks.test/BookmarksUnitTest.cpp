@@ -42,17 +42,17 @@ TEST(unitTest, testOwnSportPages5)
     TestOwnSportPages::test5();
 }
 
-TEST(unitTest, testConfigurableBookmarks1)
+TEST(unitTest, testConfigurableBookmarksGetProperties)
 {
-    TestConfigurableBookmarks::test1();
+    TestConfigurableBookmarks::testGetProperties();
 }
 
-TEST(unitTest, testConfigurableBookmarks2)
+TEST(unitTest, testConfigurableBookmarksGetAllParts)
 {
-    TestConfigurableBookmarks::test2();
+    TestConfigurableBookmarks::testGetAllParts();
 }
 
-TEST(unitTest, testConfigurableBookmarks3)
+TEST(unitTest, testConfigurableBookmarksGetEventsForBlock)
 {
-    TestConfigurableBookmarks::test3();
+    TestConfigurableBookmarks::testGetEventsForBlock();
 }

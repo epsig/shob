@@ -5,8 +5,8 @@ namespace shob::bookmarks::test
     class TestConfigurableBookmarks
     {
     public:
-        static void test1();
-        static void test2();
-        static void test3();
+        static void testGetProperties();
+        static void testGetAllParts();
+        static void testGetEventsForBlock();
     };
 }
