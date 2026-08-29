@@ -1,5 +1,6 @@
 #include "ConfigurableBookmarks.h"
 #include "../shob.general/dateFactory.h"
+#include <format>
 
 namespace shob::bookmarks
 {
@@ -67,7 +68,14 @@ namespace shob::bookmarks
             if (row.column.size() >= 3 && row.column[0] == block)
             {
                 Event event;
-                event.url = row.column[1];
+                if (row.column[1].starts_with("ttpage"))
+                {
+                    event.url = std::format("https://teletekst-data.nos.nl/webplus?p={}", row.column[1].substr(7, 3));
+                }
+                else
+                {
+                    event.url = row.column[1];
+                }
                 event.name = row.column[2];
                 return_value.add(event);
             }
