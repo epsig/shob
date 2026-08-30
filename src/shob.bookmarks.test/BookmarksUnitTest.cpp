@@ -2,6 +2,7 @@
 #include "TestCurrentEvents.h"
 #include "TestOwnSportPages.h"
 #include "TestConfigurableBookmarks.h"
+#include "TestListOfEvents.h"
 
 using namespace shob::bookmarks::test;
 
@@ -55,4 +56,14 @@ TEST(unitTest, testConfigurableBookmarksGetAllParts)
 TEST(unitTest, testConfigurableBookmarksGetEventsForBlock)
 {
     TestConfigurableBookmarks::testGetEventsForBlock();
+}
+
+TEST(unitTest, testListOfEventsEmpty)
+{
+    TestListOfEvents::testEmpty();
+}
+
+TEST(unitTest, testListOfEventsSingleEvent)
+{
+    TestListOfEvents::testSingleEvent();
 }

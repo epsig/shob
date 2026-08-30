@@ -61,10 +61,13 @@ namespace shob::pages
         hb.title = props.title;
         hb.css = StyleSheetType::SeparateFile;
         hb.copyTitleToH1 = false;
-        std::swap(hb.body, blocks[0]);
-        for (int i = 1; i < blocks.size(); i++)
+        if (!blocks.empty())
         {
-            hb.body.addContent(blocks[i]);
+            std::swap(hb.body, blocks[0]);
+            for (int i = 1; i < blocks.size(); i++)
+            {
+                hb.body.addContent(blocks[i]);
+            }
         }
         auto pageContent = HeadBottom::getPage(hb);
 

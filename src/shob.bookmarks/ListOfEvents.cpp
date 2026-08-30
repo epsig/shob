@@ -23,7 +23,15 @@ namespace shob::bookmarks
     MultipleStrings ListOfEvents::printFirstAndLast() const
     {
         MultipleStrings return_value;
+        if (events.empty())
+        {
+            return return_value;
+        }
         return_value.addContent(events.front().link());
+        if (events.size() == 1)
+        {
+            return return_value;
+        }
         return_value.addContent(" t/m ");
         return_value.addContent(events.back().link());
         return return_value;

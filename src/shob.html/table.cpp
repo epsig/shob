@@ -135,7 +135,7 @@ namespace shob::html
     /// <param name="title_left"> The title for the left column. </param>
     /// <param name="title_right"> The title for the right column. </param>
     /// <returns> A MultipleStrings object containing the formatted HTML for the two columns. </returns>
-    MultipleStrings table::yellowRed(MultipleStrings& left, MultipleStrings& right, std::string title_left, std::string title_right)
+    MultipleStrings table::yellowRed(const MultipleStrings& left, const MultipleStrings& right, const std::string& title_left, const std::string& title_right)
     {
         auto retVal = MultipleStrings();
         retVal.addContent(R"(<div class="row"><div class="column">)");
@@ -143,14 +143,20 @@ namespace shob::html
         retVal.addContent(title_left);
         retVal.addContent("</div>");
         retVal.addContent(R"(<div class="colb">)");
-        retVal.addContent(left);
+        for (const auto& row : left.data)
+        {
+            retVal.addContent(row);
+        }
         retVal.addContent("</div>");
         retVal.addContent("</div><div class=\"column\">");
         retVal.addContent(R"(<div class="colh">)");
         retVal.addContent(title_right);
         retVal.addContent("</div>");
         retVal.addContent(R"(<div class="colb">)");
-        retVal.addContent(right);
+        for (const auto& row : right.data)
+        {
+            retVal.addContent(row);
+        }
         retVal.addContent("</div>");
         retVal.addContent("</div> </div>");
         return retVal;
