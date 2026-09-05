@@ -142,6 +142,7 @@ int main(int argc, char* argv[])
         fmt_bookmarks.rebuildBookmarks("sport");
         fmt_bookmarks.rebuildBookmarks("science", true);
         fmt_bookmarks.rebuildBookmarks("milieu", true);
+        fmt_bookmarks.rebuildOwnSportLinks();
 
         part = "copy style sheets";
         shob::html::updateIfDifferent::update("../code/test/epsig.css", "../pages/epsig.css");

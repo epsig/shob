@@ -9,6 +9,7 @@ namespace shob::pages
     public:
         FormatBookmarks(const std::string& folder, const int dd);
         void rebuildBookmarks(const std::string& page, const bool is_tmp = false) const;
+        void rebuildOwnSportLinks() const;
     private:
         bookmarks::ConfigurableBookmarks bookmarks;
         int dd;
