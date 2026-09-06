@@ -42,8 +42,7 @@ namespace shob::pages
             }
             if (i + 1 >= (int)content.size())
             {
-                right = MultipleStrings();
-                row = table::yellowRed(left, right, content[i].title, "");
+                row = table::yellowRed(left, content[i].title);
             }
             else
             {
