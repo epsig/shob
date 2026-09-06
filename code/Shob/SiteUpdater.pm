@@ -18,7 +18,6 @@ use Shob_Tools::Idate qw(&split_idate);
 use Sport_Collector::Archief_Voetbal_NL;
 use Sport_Collector::Archief_Europacup_Voetbal;
 use Sport_Collector::Archief_EK_WK_Voetbal;
-use Sport_Collector::Bookmarks_Index;
 use Sport_Functions::Seasons;
 use Sport_Functions::Range_Available_Seasons qw(&get_sport_range);
 use Exporter;
@@ -65,7 +64,6 @@ sub handle_gen_files($$$)
   [2, 'all', sub {&get_tech_doc_kj;}, 'tech_doc_kj.html'],
   [2, 'all', sub {&get_tech_doc_shob;}, 'tech_doc_shob.html'],
   [2, 'all', sub {&get_tech_doc_adressen;}, 'tech_doc_adressen.html'],
-  [$fast, 'all', sub {&get_sport_index('', 0, 0);}, 'sport.html'],
   [2, 'all', sub {&get_reactie;}, 'reactie.html'],
   [2, 'all', sub {&get_dank();}, 'dank_u_wel.html'],
   [2, 'all', sub {&get_std_search_page;}, 'search.html'],

@@ -132,6 +132,6 @@ namespace shob::pages
         hb.body = table::yellowRed(content, hb.title);
         auto pageContent = HeadBottom::getPage(hb);
 
-        updateIfDifferent::update("../pages/sport_new.html", pageContent);
+        updateIfDifferent::update("../pages/sport.html", pageContent);
     }
 }
