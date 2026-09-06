@@ -126,13 +126,11 @@ namespace shob::pages
         content.addContentReversed(os_links);
         content.addContent(". </li> <li>Zie verder: <a href=\"bookmarks_sport.html\">sport links</a> </li> </ul>");
 
-        auto right = MultipleStrings();
-
         auto hb = HeadBottomInput(20260905); // TODO: use current dd
         hb.title = "Sportpagina's op www.epsig.nl";
         hb.css = StyleSheetType::SeparateFile;
         hb.copyTitleToH1 = false;
-        hb.body = table::yellowRed(content, right, hb.title, "");
+        hb.body = table::yellowRed(content, hb.title);
         auto pageContent = HeadBottom::getPage(hb);
 
         updateIfDifferent::update("../pages/sport_new.html", pageContent);

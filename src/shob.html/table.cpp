@@ -162,6 +162,30 @@ namespace shob::html
         return retVal;
     }
 
+    /// <summary>
+    /// The style sheet makes the title red on yellow background and the main text in the column black on a light yellow background.
+    /// The title is in a separate row above the content.
+    /// </summary>
+    /// <param name="left"> The content for the left column. </param>
+    /// <param name="title"> The title for the column. </param>
+    /// <returns> A MultipleStrings object containing the formatted HTML for the column. </returns>
+    MultipleStrings table::yellowRed(const MultipleStrings& left, const std::string& title)
+    {
+        auto retVal = MultipleStrings();
+        retVal.addContent(R"(<div class="row"><div class="column1000">)");
+        retVal.addContent(R"(<div class="colh">)");
+        retVal.addContent(title);
+        retVal.addContent("</div>");
+        retVal.addContent(R"(<div class="colb">)");
+        for (const auto& row : left.data)
+        {
+            retVal.addContent(row);
+        }
+        retVal.addContent("</div>");
+        retVal.addContent("</div> </div>");
+        return retVal;
+    }
+
     MultipleStrings table::tableOfThreeTables(MultipleStrings& left, MultipleStrings& middle, MultipleStrings& right)
     {
         auto retVal = MultipleStrings();
