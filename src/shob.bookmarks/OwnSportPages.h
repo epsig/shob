@@ -9,7 +9,7 @@ namespace shob::bookmarks
         static ListOfEvents getOlympicIceSkating();
         static ListOfEvents getEkWkSoccerWoman();
         static ListOfEvents getEkWkSoccer();
-        static ListOfEvents getDutchSoccer();
-        static ListOfEvents getEuropacupSoccer();
+        static ListOfEvents getDutchSoccer(const bool short_format = false);
+        static ListOfEvents getEuropacupSoccer(const bool short_format = false);
     };
 }

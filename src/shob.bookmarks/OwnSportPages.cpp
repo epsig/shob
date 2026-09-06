@@ -71,7 +71,7 @@ namespace shob::bookmarks
         return return_value;
     }
 
-    ListOfEvents OwnSportPages::getDutchSoccer()
+    ListOfEvents OwnSportPages::getDutchSoccer(const bool short_format)
     {
         constexpr int first_year = 1993;
         constexpr int last_year = 2026;
@@ -80,14 +80,21 @@ namespace shob::bookmarks
         {
             auto szn = general::Season(i);
             Event e;
-            e.name = szn.toString();
+            if (short_format)
+            {
+                e.name = szn.toStringShort();
+            }
+            else
+            {
+                e.name = szn.toString();
+            }
             e.url = std::format("sport_voetbal_nl_{}.html", szn.toPartFilename());
             return_value.add(e);
         }
         return return_value;
     }
 
-    ListOfEvents OwnSportPages::getEuropacupSoccer()
+    ListOfEvents OwnSportPages::getEuropacupSoccer(const bool short_format)
     {
         constexpr int first_year = 1994;
         constexpr int last_year = 2026;
@@ -96,7 +103,14 @@ namespace shob::bookmarks
         {
             auto szn = general::Season(i);
             Event e;
-            e.name = szn.toString();
+            if (short_format)
+            {
+                e.name = szn.toStringShort();
+            }
+            else
+            {
+                e.name = szn.toString();
+            }
             e.url = std::format("sport_voetbal_europacup_{}.html", szn.toPartFilename());
             return_value.add(e);
         }
