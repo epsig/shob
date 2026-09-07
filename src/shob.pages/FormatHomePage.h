@@ -12,5 +12,6 @@ namespace shob::pages
         static general::MultipleStrings currentEventsLinks(const int dd);
         static general::MultipleStrings blockTopLeft();
         static general::MultipleStrings blockBottomRight();
+        static void AddPunctuation(general::MultipleStrings& extra);
     };
 }

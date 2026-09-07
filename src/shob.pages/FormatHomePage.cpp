@@ -32,6 +32,13 @@ namespace shob::pages
         html::updateIfDifferent::update("../pages/index.html", page);
     }
 
+    void FormatHomePage::AddPunctuation(MultipleStrings& extra)
+    {
+        if (extra.data.empty()) return;
+
+        extra.data.back() += ".";
+    }
+
     MultipleStrings FormatHomePage::ownSportLinks()
     {
         const auto os = OwnSportPages::getOlympicIceSkating();
@@ -46,20 +53,26 @@ namespace shob::pages
         auto eredivisie_links = eredivisie.printFirstAndLast();
         auto europacup_links = europacup.printFirstAndLast();
 
+        AddPunctuation(os_links);
+        AddPunctuation(ekwk_links);
+        AddPunctuation(ekwk_D_links);
+        AddPunctuation(eredivisie_links);
+        AddPunctuation(europacup_links);
+
         auto content = MultipleStrings();
         content.addContent("<ul> <li> Een <a href=\"klaverjas_faq.html\">klaverjasspel</a>. </li>");
         content.addContent("<li> Een <a href=\"sport.html\">sport-archief</a> met onder andere: </li>");
         content.addContent("<ul> <li> Schaatsen op de Olympische Spelen van: ");
         content.addContent(os_links);
-        content.addContent(". </li> <li> EK en WK voetbal: <br> mannen van: ");
+        content.addContent("</li> <li> EK en WK voetbal: <br> mannen van: ");
         content.addContent(ekwk_links);
-        content.addContent(". <br> vrouwen van: ");
+        content.addContent("<br> vrouwen van: ");
         content.addContent(ekwk_D_links);
-        content.addContent(". </li> <li> Nederlandse clubs in het Europacup voetbal van: ");
+        content.addContent("</li> <li> Nederlandse clubs in het Europacup voetbal van: ");
         content.addContent(europacup_links);
-        content.addContent(". </li> <li> Betaald voetbal in Nederland van: ");
+        content.addContent("</li> <li> Betaald voetbal in Nederland van: ");
         content.addContent(eredivisie_links);
-        content.addContent(". </li> </ul> </ul>");
+        content.addContent("</li> </ul> </ul>");
 
         return content;
     }
