@@ -62,12 +62,18 @@ namespace shob::pages
         }
         out.data.back() += "</head><body>";
 
-        out.addContent("<h1>" + input.title + "</h1>");
+        if (input.copyTitleToH1)
+        {
+            out.addContent("<h1>" + input.title + "</h1>");
+        }
 
         out.addContent(input.body);
 
-        auto footer = getFooter(input.dd);
-        out.addContent(footer);
+        if (input.withFooter)
+        {
+            auto footer = getFooter(input.dd);
+            out.addContent(footer);
+        }
 
         out.addContent("</body></html>");
 

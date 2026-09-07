@@ -10,7 +10,6 @@ use Shob_Tools::Html_Stuff;
 use Shob_Tools::Idate;
 use Shob_Tools::Html_Head_Bottum;
 use Sport_Functions::List_Available_Pages;
-use Shob::Bookmarks;
 use Shob::Klaverjas_Funcs;
 use Exporter;
 use vars qw($VERSION @ISA @EXPORT);
@@ -25,7 +24,6 @@ $VERSION = '21.0';
 
 @EXPORT =
 (#========================================================================
- '&get_hopa',
  '&get_epsig',
  '&get_std_search_page',
  '&get_overzicht',
@@ -39,83 +37,6 @@ $VERSION = '21.0';
  '&get_tech_doc_adressen',
  #========================================================================
 );
-
-sub get_hopa()
-{# (c) Edwin Spee
-
- my $voetbal_nl_list = get_voetbal_list('hopa', 'NL');
- my $voetbal_ec_list = get_voetbal_list('hopa', 'EC');
- my @ekwkPages       = get_first_and_last_page('ekwk');
- my @OSpages         = get_first_and_last_page('OS');
- my $sport = [
-'Sport en spel',
-<< "EOF"
-<ul>
- <li> Een <a href="klaverjas_faq.html">klaverjasspel</a> </li>
- <li> Een <a href="sport.html">sport-archief</a> met onder andere: </li>
-  <ul>
-   <li> Schaatsen op de Olympische Spelen in:
-    ${OSpages[0]} t/m
-    ${OSpages[1]}. </li>
-   <li> EK en WK voetbal van
-    ${ekwkPages[0]} t/m
-    ${ekwkPages[1]}. </li>
-   <li> <a href="sport_voetbal_WKD2019.html">WK vrouwen 2019</a>,
-        <a href="sport_voetbal_EKD2022.html">EK vrouwen 2022</a>,
-        <a href="sport_voetbal_WKD2023.html">WK vrouwen 2023</a>,
-        <a href="sport_voetbal_EKD2025.html">EK vrouwen 2025</a>.
-   <li> Nederlandse clubs in het Europacup voetbal van
-$voetbal_ec_list
-   </li>
-   <li> Betaald voetbal in Nederland van
-$voetbal_nl_list
-   </li>
-  </ul>
-</ul>
-EOF
-];
-
- my $url_stats = 'stats.html';
-
- my $deze_site = [
-'Deze site',
-<< "EOF"
-<ul>
- <li> <a href="reactie.html">reageer</a> </li>
- <li> hoe zo, <a href="epsig.html">epsig?</a> </li>
- <li> en, veel <a href="$url_stats">hits?</a> </li>
- <li>
-<form action="https://www.google.com/search" class="searchform" method="get" name="searchform" target="_blank">
-<input name="sitesearch" type="hidden" value="epsig.nl">
-<input autocomplete="on" class="form-control search" name="q" placeholder="Search in epsig.nl" required="required"  type="text">
-<button class="button" type="submit">Search</button>
-</form>
- </li>
-</ul>
-EOF
-];
-
- my $actueel = [
-'Actueel',
-"<ul>\n" . get_actueel('hopa') . "</ul>"
-];
-
- my $links = [
-'Links',
-<< 'EOF'
-<ul>
- <li> <a href="bookmarks_sport.html">Sport</a>
- <li> <a href="bookmarks_treinen.html">Treinen</a>
- <li> <a href="bookmarks_computers.html">Computers</a>
- <li> <a href="https://www.gewoonbij10.nl/">Kadotips voor het hele jaar</a>
-</ul>
-EOF
-];
-
- my $pout = [$deze_site, $actueel, $sport, $links];
- my $title ='Welkom op epsig.nl!';
- return maintxt2htmlpage($pout, $title, 'std', 20060825, {type1 => 'no_menu'});
-}
 
 sub get_epsig
 {# (c) Edwin Spee

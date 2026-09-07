@@ -17,14 +17,14 @@ milieu,Organizaties,organizations
 milieu,Milieuvriendelijk transport: de fiets,fietsen
 milieu,title,Bookmarks: Meteorologie en Milieu
 milieu,dd,20211016
-html,HTML (en CSS en JavaScript),html
-html,Invoer/uitvoer standards,io_std
-html,Versiebeheer,versiebeheer
-html,Perl,perl
-html,Fortran-90,fortran
-html,Overig,overig
-html,title,Bookmarks: Computers en internet
-html,dd,20211016
+computers,HTML (en CSS en JavaScript),html
+computers,Invoer/uitvoer standards,io_std
+computers,Versiebeheer,versiebeheer
+computers,Perl,perl
+computers,Fortran-90,fortran
+computers,Overig,overig
+computers,title,Bookmarks: Computers en internet
+computers,dd,20211016
 media,Het laatste nieuws,latest_news
 media,Kranten op Internet,newspapers
 media,reserved,empty
@@ -32,3 +32,12 @@ media,Divers,divers_news
 media,TV,tv
 media,Radio,radio
 media,title,Bookmarks: media
+sport,sites betaald voetbalclubs,bvo
+sport,trimlopen,trimlopen
+sport,Nederlandse marathons,marathons
+sport,overige athletieks-sites,athletiek
+sport,schaat-links,schaatsen
+sport,Enkele andere voetbal pagina's,voetbal
+sport,enkele andere sport pagina's,sport_overig
+sport,title,Bookmarks: sport
+sport,dd,20260826

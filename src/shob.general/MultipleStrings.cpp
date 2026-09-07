@@ -14,6 +14,15 @@ namespace shob::general
         extra.data.clear();
     }
 
+    void MultipleStrings::addContentReversed(MultipleStrings& extra)
+    {
+        for (auto it = extra.data.rbegin(); it != extra.data.rend(); ++it)
+        {
+            data.emplace_back(*it);
+        }
+        extra.data.clear();
+    }
+
     void MultipleStrings::addContent(std::string extra)
     {
         data.emplace_back(std::move(extra));

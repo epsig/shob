@@ -14,6 +14,8 @@
 #include "shob.pages/FormatSemestersAndYearStandingsFactory.h"
 #include "shob.pages/FormatHomeAndAwayStandingsFactory.h"
 #include "shob.pages/FormatStatsEredivisieFactory.h"
+#include "shob.pages/FormatHomePage.h"
+#include "shob.pages/FormatBookmarks.h"
 #include "shob.general/Season.h"
 #include "shob.general/shobException.h"
 #include "shob.html/updateIfNewer.h"
@@ -131,6 +133,16 @@ int main(int argc, char* argv[])
         dd = std::max(dd, fmt_ec.get_dd());
         dd = std::max(dd, fmt_ekwk_qf.get_dd());
         part = std::format("pages with last dd: {}", dd);
+        FormatHomePage::rebuildHomePage(dd);
+
+        const auto fmt_bookmarks = FormatBookmarks("bookmarks/", dd);
+        fmt_bookmarks.rebuildBookmarks("media");
+        fmt_bookmarks.rebuildBookmarks("treinen");
+        fmt_bookmarks.rebuildBookmarks("computers");
+        fmt_bookmarks.rebuildBookmarks("sport");
+        fmt_bookmarks.rebuildBookmarks("science", true);
+        fmt_bookmarks.rebuildBookmarks("milieu", true);
+        fmt_bookmarks.rebuildOwnSportLinks();
 
         part = "copy style sheets";
         shob::html::updateIfDifferent::update("../code/test/epsig.css", "../pages/epsig.css");

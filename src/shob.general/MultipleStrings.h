@@ -15,6 +15,7 @@ namespace shob::general
         /// <param name="extra"> content to be added </param>
         void addContent(MultipleStrings& extra);
         void addContent(std::string extra);
+        void addContentReversed(MultipleStrings& extra);
         bool areEqual(const MultipleStrings& other) const;
         int findString(const std::string& s) const;
         size_t length() const;

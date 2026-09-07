@@ -25,6 +25,10 @@ file(GLOB football_files "src/shob.football/*.*")
 add_library(shob.football STATIC ${football_files})
 set_target_properties(shob.football PROPERTIES CXX_STANDARD 20)
 
+file(GLOB bookmark_files "src/shob.bookmarks/*.*")
+add_library(shob.bookmarks STATIC ${bookmark_files})
+set_target_properties(shob.bookmarks PROPERTIES CXX_STANDARD 20)
+
 file(GLOB general_files "src/shob.general/*.*")
 add_library(shob.general STATIC ${general_files})
 set_target_properties(shob.general PROPERTIES CXX_STANDARD 20)
@@ -55,6 +59,10 @@ set_target_properties(shob.readers.test PROPERTIES CXX_STANDARD 20)
 file(GLOB football_test_files "src/shob.football.test/*.*")
 add_executable(shob.football.test ${football_test_files})
 set_target_properties(shob.football.test PROPERTIES CXX_STANDARD 20)
+
+file(GLOB bookmark_test_files "src/shob.bookmarks.test/*.*")
+add_executable(shob.bookmarks.test ${bookmark_test_files})
+set_target_properties(shob.bookmarks.test PROPERTIES CXX_STANDARD 20)
 
 file(GLOB general_test_files "src/shob.general.test/*.*")
 add_executable(shob.general.test ${general_test_files})
@@ -112,14 +120,17 @@ if(NOT googletest_POPULATED)
 endif()
 
 target_link_libraries(shob.football shob.general shob.readers shob.teams)
+target_link_libraries(shob.bookmarks shob.general shob.readers)
 target_link_libraries(shob.readers shob.general)
 target_link_libraries(shob.readers.test shob.general shob.test.utils shob.readers gtest_main)
 target_link_libraries(shob.football.test shob.football shob.general shob.test.utils shob.readers gtest_main)
+target_link_libraries(shob.bookmarks.test shob.bookmarks shob.general shob.test.utils shob.readers gtest_main)
 target_link_libraries(shob.html.test shob.html shob.general gtest_main)
-target_link_libraries(shob.pages shob.football shob.general shob.readers shob.html shob.teams)
-target_link_libraries(shob shob.football shob.general shob.readers shob.html shob.teams shob.pages)
+target_link_libraries(shob.pages shob.football shob.general shob.readers shob.html shob.teams shob.bookmarks)
+target_link_libraries(shob shob.football shob.general shob.readers shob.html shob.teams shob.pages
+    shob.bookmarks)
 target_link_libraries(shob.pages.test shob.football shob.general shob.readers shob.html
-    shob.teams shob.pages shob.test.utils gtest_main)
+    shob.teams shob.bookmarks shob.pages shob.test.utils gtest_main)
 target_link_libraries(shob.teams shob.readers shob.html)
 target_link_libraries(shob.teams.test shob.teams shob.readers shob.test.utils gtest_main)
 target_link_libraries(shob.general.test shob.general shob.test.utils gtest_main)
@@ -135,6 +146,12 @@ add_test(
 add_test(
   NAME shob-football-unit-tests
   COMMAND $<TARGET_FILE:shob.football.test>
+  WORKING_DIRECTORY ${CMAKE_CURRENT_LIST_DIR}
+)
+
+add_test(
+  NAME shob-bookmarks-unit-tests
+  COMMAND $<TARGET_FILE:shob.bookmarks.test>
   WORKING_DIRECTORY ${CMAKE_CURRENT_LIST_DIR}
 )
 
@@ -161,4 +178,3 @@ add_test(
   COMMAND $<TARGET_FILE:shob.general.test>
   WORKING_DIRECTORY ${CMAKE_CURRENT_LIST_DIR}
 )
-

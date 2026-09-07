@@ -10,7 +10,6 @@ use Shob_Tools::Settings;
 use Shob_Tools::General;
 use Shob::Algemeen;
 use Shob::Stats_Website;
-use Shob::Bookmarks;
 use Shob::Functions;
 use Shob::Politiek;
 use Shob::Foto;
@@ -19,7 +18,6 @@ use Shob_Tools::Idate qw(&split_idate);
 use Sport_Collector::Archief_Voetbal_NL;
 use Sport_Collector::Archief_Europacup_Voetbal;
 use Sport_Collector::Archief_EK_WK_Voetbal;
-use Sport_Collector::Bookmarks_Index;
 use Sport_Functions::Seasons;
 use Sport_Functions::Range_Available_Seasons qw(&get_sport_range);
 use Exporter;
@@ -59,7 +57,6 @@ sub handle_gen_files($$$)
  ]);
 
  do_all_text_dir ($lop, '', [
-  [$fast, 'all', sub {&get_hopa;}, 'index.html'],
   [2, 'all', sub {&file2str(File::Spec->catfile('my_scripts', 'validate_sport.js'));}, 'validate_sport.js'],
   [2, 'all', sub {&file2str(File::Spec->catfile('my_scripts', 'sort_table.js'));}, 'sort_table.js'],
   [2, 'all', sub {&get_epsig;}, 'epsig.html'],
@@ -67,7 +64,6 @@ sub handle_gen_files($$$)
   [2, 'all', sub {&get_tech_doc_kj;}, 'tech_doc_kj.html'],
   [2, 'all', sub {&get_tech_doc_shob;}, 'tech_doc_shob.html'],
   [2, 'all', sub {&get_tech_doc_adressen;}, 'tech_doc_adressen.html'],
-  [$fast, 'all', sub {&get_sport_index('', 0, 0);}, 'sport.html'],
   [2, 'all', sub {&get_reactie;}, 'reactie.html'],
   [2, 'all', sub {&get_dank();}, 'dank_u_wel.html'],
   [2, 'all', sub {&get_std_search_page;}, 'search.html'],
@@ -75,12 +71,6 @@ sub handle_gen_files($$$)
   [2, 'all', sub {&get_overzicht;}, 'overzicht.html'],
   [2, 'all', sub {&get_letters();}, 'anybrowser.html'],
   [2, 'all', sub {&get_ascii_codes;}, 'tmp_ascii_codes.html'],
-  [2, 'all', sub {&get_bkmrks_gen('treinen');}, 'bookmarks_treinen.html'],
-  [2, 'all', sub {&get_bkmrks_gen('html');}, 'bookmarks_computers.html'],
-  [2, 'all', sub {&get_sport_links;}, 'bookmarks_sport.html'],
-  [$fast, 'all', sub {&get_bkmrks_gen('media');}, 'bookmarks_media.html'],
-  [2, 'all', sub {&get_bkmrks_gen('science');}, 'tmp_bookmarks_science.html'],
-  [2, 'all', sub {&get_bkmrks_gen('milieu');}, 'tmp_bookmarks_milieu.html'],
   [2, 'all', sub {&get_klaverjas_faq;}, 'klaverjas_faq.html']]);
 # [1, ' rl', sub {&get_klaverjas_beta_versies;}, 'kj_beta_versies.html'],
 
