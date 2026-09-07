@@ -30,7 +30,7 @@ namespace shob::pages
 
         for (int i = 0; i < content.size(); i+= 2)
         {
-            MultipleStrings left, right, row;
+            MultipleStrings left, row;
             if (content[i].title == "reserved")
             {
                 left = currentEventsLinks();
@@ -40,13 +40,13 @@ namespace shob::pages
             {
                 left = List::inUnorderedList(bookmarks.getEventsForBlock(content[i].name).printAll());
             }
-            if (i + 1 >= (int)content.size())
+            if (i + 1 >= static_cast<int>(content.size()))
             {
                 row = table::yellowRed(left, content[i].title);
             }
             else
             {
-                right = List::inUnorderedList(bookmarks.getEventsForBlock(content[i + 1].name).printAll());
+                auto right = List::inUnorderedList(bookmarks.getEventsForBlock(content[i + 1].name).printAll());
                 row = table::yellowRed(left, right, content[i].title, content[i + 1].title);
             }
             blocks.push_back(row);
@@ -64,7 +64,7 @@ namespace shob::pages
         if (!blocks.empty())
         {
             std::swap(hb.body, blocks[0]);
-            for (int i = 1; i < blocks.size(); i++)
+            for (size_t i = 1; i < blocks.size(); i++)
             {
                 hb.body.addContent(blocks[i]);
             }
