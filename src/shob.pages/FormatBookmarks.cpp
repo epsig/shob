@@ -94,7 +94,22 @@ namespace shob::pages
         return List::inUnorderedList(events);
     }
 
-    void FormatBookmarks::rebuildOwnSportLinks() const
+    void FormatBookmarks::AddPunctuation(MultipleStrings& extra)
+    {
+        if (extra.data.empty()) return;
+
+        for (int i = static_cast<int>(extra.data.size()) - 1; i >= 2; i--)
+        {
+            extra.data[i] += ",";
+        }
+        if (extra.data.size() > 1)
+        {
+            extra.data[1] += " en ";
+        }
+        extra.data[0] += ".";
+    }
+
+    void FormatBookmarks::rebuildOwnSportLinks()
     {
         const auto os = OwnSportPages::getOlympicIceSkating();
         const auto ekwk = OwnSportPages::getEkWkSoccer();
@@ -107,6 +122,12 @@ namespace shob::pages
         auto ekwk_D_links = ekwk_D.printAll();
         auto eredivisie_links = eredivisie.printAll();
         auto europacup_links = europacup.printAll();
+
+        AddPunctuation(os_links);
+        AddPunctuation(ekwk_links);
+        AddPunctuation(ekwk_D_links);
+        AddPunctuation(eredivisie_links);
+        AddPunctuation(europacup_links);
 
         MultipleStrings content;
         content.addContent("<ul> <li> Wedstrijden Nederlands mannenelftal: <br> ");

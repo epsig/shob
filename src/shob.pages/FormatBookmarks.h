@@ -9,10 +9,11 @@ namespace shob::pages
     public:
         FormatBookmarks(const std::string& folder, const int dd);
         void rebuildBookmarks(const std::string& page, const bool is_tmp = false) const;
-        void rebuildOwnSportLinks() const;
+        static void rebuildOwnSportLinks();
     private:
         bookmarks::ConfigurableBookmarks bookmarks;
         int dd;
         general::MultipleStrings currentEventsLinks() const;
+        static void AddPunctuation(general::MultipleStrings& extra);
     };
 }

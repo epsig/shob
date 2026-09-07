@@ -16,18 +16,6 @@ namespace shob::general
 
     void MultipleStrings::addContentReversed(MultipleStrings& extra)
     {
-        if (extra.data.empty()) return;
-
-        for (int i = static_cast<int>(extra.data.size()) - 1; i >= 2; i--)
-        {
-            extra.data[i] += ",";
-        }
-        if (extra.data.size() > 1)
-        {
-            extra.data[1] += " en ";
-        }
-        extra.data[0] += ".";
-
         for (auto it = extra.data.rbegin(); it != extra.data.rend(); ++it)
         {
             data.emplace_back(*it);
