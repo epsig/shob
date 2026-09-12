@@ -109,7 +109,7 @@ namespace shob::pages
         extra.data[0] += ".";
     }
 
-    void FormatBookmarks::rebuildOwnSportLinks()
+    SportLinks FormatBookmarks::FillSportLinks()
     {
         const auto os = OwnSportPages::getOlympicIceSkating();
         const auto ekwk = OwnSportPages::getEkWkSoccer();
@@ -117,33 +117,41 @@ namespace shob::pages
         const auto eredivisie = OwnSportPages::getDutchSoccer(true);
         const auto europacup = OwnSportPages::getEuropacupSoccer(true);
 
-        auto os_links = os.printAll();
-        auto ekwk_links = ekwk.printAll();
-        auto ekwk_D_links = ekwk_D.printAll();
-        auto eredivisie_links = eredivisie.printAll();
-        auto europacup_links = europacup.printAll();
+        SportLinks links;
+        links.os = os.printAll();
+        links.ekwk = ekwk.printAll();
+        links.ekwk_D = ekwk_D.printAll();
+        links.eredivisie = eredivisie.printAll();
+        links.europacup = europacup.printAll();
 
-        AddPunctuation(os_links);
-        AddPunctuation(ekwk_links);
-        AddPunctuation(ekwk_D_links);
-        AddPunctuation(eredivisie_links);
-        AddPunctuation(europacup_links);
+        AddPunctuation(links.os);
+        AddPunctuation(links.ekwk);
+        AddPunctuation(links.ekwk_D);
+        AddPunctuation(links.eredivisie);
+        AddPunctuation(links.europacup);
+
+        return links;
+    }
+
+    void FormatBookmarks::rebuildOwnSportLinks()
+    {
+        auto links = FillSportLinks();
 
         MultipleStrings content;
         content.addContent("<ul> <li> Wedstrijden Nederlands mannenelftal: <br> ");
-        content.addContentReversed(ekwk_links);
+        content.addContentReversed(links.ekwk);
         content.addContent("</li> <li> Wedstrijden Nederlands vrouwenelftal: <br> ");
-        content.addContentReversed(ekwk_D_links);
+        content.addContentReversed(links.ekwk_D);
         content.addContent("</li> <li> Eindstand eredivisie, KNVB-beker en nacompetitie; <br> seizoenen:");
-        content.addContentReversed(eredivisie_links);
+        content.addContentReversed(links.eredivisie);
         content.addContent("</li> <li> Nederlandse clubteams in de Europacup voetbal; <br> seizoenen:");
-        content.addContentReversed(europacup_links);
+        content.addContentReversed(links.europacup);
         content.addContent("</li> <li> <a href=\"sport_voetbal_nl_stats.html\">Statistieken Eredivisie vanaf 1993</a>");
         content.addContent("en <a href=\"sport_voetbal_nl_stats_more.html\">nog meer stats</a>.");
         content.addContent("</li> <li> <a href=\"sport_voetbal_nl_jaarstanden.html\">Winterkampioen en jaarstanden vanaf 1993</a> |");
         content.addContent("<a href=\"sport_voetbal_nl_uit_thuis.html\">uit- en thuis standen vanaf 1993</a>.");
         content.addContent("</li> <li> Uitslagen schaatsen OS:");
-        content.addContentReversed(os_links);
+        content.addContentReversed(links.os);
         content.addContent("</li> <li>Zie verder: <a href=\"bookmarks_sport.html\">sport links</a> </li> </ul>");
 
         auto hb = HeadBottomInput(last_dd);
@@ -158,23 +166,7 @@ namespace shob::pages
 
     void FormatBookmarks::rebuildOverzicht()
     {
-        const auto os = OwnSportPages::getOlympicIceSkating();
-        const auto ekwk = OwnSportPages::getEkWkSoccer();
-        const auto ekwk_D = OwnSportPages::getEkWkSoccerWoman();
-        const auto eredivisie = OwnSportPages::getDutchSoccer(true);
-        const auto europacup = OwnSportPages::getEuropacupSoccer(true);
-
-        auto os_links = os.printAll();
-        auto ekwk_links = ekwk.printAll();
-        auto ekwk_D_links = ekwk_D.printAll();
-        auto eredivisie_links = eredivisie.printAll();
-        auto europacup_links = europacup.printAll();
-
-        AddPunctuation(os_links);
-        AddPunctuation(ekwk_links);
-        AddPunctuation(ekwk_D_links);
-        AddPunctuation(eredivisie_links);
-        AddPunctuation(europacup_links);
+        auto links = FillSportLinks();
 
         MultipleStrings content;
         content.addContent("<ol> <li>Algemeen: <a href=\"../pages//index.html\">Home page</a> </li>");
@@ -188,19 +180,19 @@ namespace shob::pages
         content.addContent("<li>Sport: <a href=\"sport.html\">sportpagina's</a></li> ");
         content.addContent("<ol> <li>Voetbal: <a href=\"sport_voetbal_nl_stats.html\">statistieken eredivisie</a> en <a href=\"sport_voetbal_nl_stats_more.html\">nog meer stats</a> </li>");
         content.addContent("<li>Nederlands betaald voetbal, seizoenen:<br> ");
-        content.addContentReversed(eredivisie_links);
+        content.addContentReversed(links.eredivisie);
         content.addContent("</li>");
-        content.addContent(" <li>Europacup voetbal, seizoenen:<br>");
-        content.addContentReversed(europacup_links);
+        content.addContent("<li>Europacup voetbal, seizoenen:<br>");
+        content.addContentReversed(links.europacup);
         content.addContent("</li>");
-        content.addContent(" <li>schaatsuitslagen Olympische Winterspelen:<br>");
-        content.addContentReversed(os_links);
+        content.addContent("<li>schaatsuitslagen Olympische Winterspelen:<br>");
+        content.addContentReversed(links.os);
         content.addContent("</li>");
-        content.addContent(" <li>Wedstrijden Nederlands mannenelftal:<br>");
-        content.addContentReversed(ekwk_links);
+        content.addContent("<li>Wedstrijden Nederlands mannenelftal:<br>");
+        content.addContentReversed(links.ekwk);
         content.addContent("</li>");
-        content.addContent(" <li>Wedstrijden Nederlands vrouwenelftal:<br>");
-        content.addContentReversed(ekwk_D_links);
+        content.addContent("<li>Wedstrijden Nederlands vrouwenelftal:<br>");
+        content.addContentReversed(links.ekwk_D);
         content.addContent("</li> </ol>");
 
         content.addContent("<li>Bookmarks: <ol> <li> <a href=\"bookmarks_sport.html\">sport</a>, ");

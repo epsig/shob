@@ -4,6 +4,15 @@
 
 namespace shob::pages
 {
+    struct SportLinks
+    {
+        general::MultipleStrings os;
+        general::MultipleStrings ekwk;
+        general::MultipleStrings ekwk_D;
+        general::MultipleStrings eredivisie;
+        general::MultipleStrings europacup;
+    };
+
     class FormatBookmarks
     {
     public:
@@ -15,6 +24,7 @@ namespace shob::pages
         bookmarks::ConfigurableBookmarks bookmarks;
         int dd;
         static constexpr int last_dd = 20260912;
+        static SportLinks FillSportLinks();
         general::MultipleStrings currentEventsLinks() const;
         static void AddPunctuation(general::MultipleStrings& extra);
     };
