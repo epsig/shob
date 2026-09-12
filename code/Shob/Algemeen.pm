@@ -26,7 +26,6 @@ $VERSION = '21.0';
 (#========================================================================
  '&get_epsig',
  '&get_std_search_page',
- '&get_overzicht',
  '&get_reactie',
  '&get_dank',
  '&get_samenvatting_proefschrift',
@@ -82,66 +81,6 @@ EOF
 ];
 
  return maintxt2htmlpage([$pout], $title, 'std', 20060521, {type1 => 'std_menu'});
-}
-
-sub get_overzicht
-{# (c) Edwin Spee
-
-my $extra_ascii = $local_version ? qq( en <a href="tmp_ascii_codes.html">ascii codes</a>\n) : '';
-
-my $link_web_versie = ($local_version ?
-qq(,\n <a href="https://www.epsig.nl/overzicht.html">Web-versie van dit overzicht.</a>):'');
-
-my $hopa  = ($web_index eq '' ? $www_epsig_nl : "$www_epsig_nl/$web_index");
-
-my $list_nl = get_voetbal_list('overzicht', 'NL');
-my $list_ec = get_voetbal_list('overzicht', 'EC');
-my $list_OS = OSlistWithCity();
-my $list_EKWK_DH = EKWK_DH_List();
-
-my $out = << "EOF";
-<ol>
- <li>Algemeen: <a href="$hopa">Home page</a>$link_web_versie
- <ol>
-  <li><a href="klaverjas_faq.html">een JavaScript-spel: klaverjassen</a>
-  <li><a href="anybrowser.html">speciale characters in html</a> $extra_ascii
-  <li><a href="cv.html">mijn CV</a>
-  <li><a href="samenvatting_proefschrift.html">samenvatting van mijn proefschrift</a>
-  <li><a href="reactie.html">verzoek om reacties, opmerkingen op deze site</a>
-  <li>technische documentatie: <a href="tech_doc_kj.html">klaverjassen</a>,
-   <a href="tech_doc_shob.html">shob</a> en
-   <a href="tech_doc_adressen.html">adressen</a>.
- </ol>
- <li><a href="sport.html">Sport</a>
- <ol>
-  <li><a href="sport_voetbal_nl_stats.html">statistieken eredivisie</a>
-  en <a href="sport_voetbal_nl_stats_more.html">nog meer stats</a>
-  <li>Nederlands betaald voetbal, seizoenen:<br>
-$list_nl
-  <li>Europacup voetbal, seizoenen:<br>
-$list_ec
-  <li>schaatsuitslagen Olympische Winterspelen:<br>
-$list_OS
-  <li>Europees en Wereldkampioenschappen voetbal:
-   <br>
-$list_EKWK_DH
- </ol>
- <li>Bookmarks
- <ol>
-  <li><a href="bookmarks_sport.html">sport</a>,
-      <a href="bookmarks_treinen.html">treinen</a>,
-      <a href="bookmarks_media.html">media</a>,
-      <a href="tmp_bookmarks_milieu.html">weer, klimaat en milieu</a>,
-      <a href="tmp_bookmarks_science.html">wetenschap</a> en
-      <a href="bookmarks_computers.html">computers en internet</a>.
- </ol>
-</ol>
-EOF
- my $datum_fixed = get_datum_fixed();
-return maintxt2htmlpage(
- bespaar_bandbreedte($out),
- 'Overzicht van de website van Edwin Spee',
- 'title2h1', $datum_fixed, {type1 => 'std_menu'});
 }
 
 sub get_reactie
