@@ -164,3 +164,13 @@ TEST(IntegrationTest, testBookmarks)
 {
     TestFormatBookmarks::test_1();
 }
+
+TEST(IntegrationTest, testOwnSportLinks)
+{
+    TestFormatBookmarks::test_2();
+}
+
+TEST(IntegrationTest, testOverzicht)
+{
+    TestFormatBookmarks::test_3();
+}

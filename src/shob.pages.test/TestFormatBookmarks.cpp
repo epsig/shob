@@ -22,4 +22,17 @@ namespace shob::pages::test
         EXPECT_GE(lines.findString("Prinsjesdag"), 0) << "check event Prinsjesdag is found";
         EXPECT_GE(lines.findString("Vuelta"), 0) << "check event Vuelta is found";
     }
+
+    void TestFormatBookmarks::test_2()
+    {
+        const auto lines = FormatBookmarks::getOwnSportLinks();
+        ASSERT_EQ(lines.data.size(), 125);
+    }
+
+    void TestFormatBookmarks::test_3()
+    {
+        const auto lines = FormatBookmarks::getOverzicht();
+        ASSERT_EQ(lines.data.size(), 138);
+    }
+
 }

@@ -21,6 +21,8 @@ namespace shob::pages
         static void rebuildOwnSportLinks();
         static void rebuildOverzicht();
         general::MultipleStrings getBookmarks(const std::string& page, const bool is_tmp) const;
+        static general::MultipleStrings getOwnSportLinks();
+        static general::MultipleStrings getOverzicht();
     private:
         bookmarks::ConfigurableBookmarks bookmarks;
         int dd;

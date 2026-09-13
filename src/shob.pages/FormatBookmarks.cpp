@@ -142,6 +142,12 @@ namespace shob::pages
 
     void FormatBookmarks::rebuildOwnSportLinks()
     {
+        auto pageContent = getOwnSportLinks();
+        updateIfDifferent::update("../pages/sport.html", pageContent);
+    }
+
+    MultipleStrings FormatBookmarks::getOwnSportLinks()
+    {
         auto links = FillSportLinks();
 
         MultipleStrings content;
@@ -168,11 +174,16 @@ namespace shob::pages
         hb.newStyleFooter = true;
         hb.body = table::yellowRed(content, hb.title);
         auto pageContent = HeadBottom::getPage(hb);
-
-        updateIfDifferent::update("../pages/sport.html", pageContent);
+        return pageContent;
     }
 
     void FormatBookmarks::rebuildOverzicht()
+    {
+        auto pageContent = getOverzicht();
+        updateIfDifferent::update("../pages/overzicht.html", pageContent);
+    }
+
+    MultipleStrings FormatBookmarks::getOverzicht()
     {
         auto links = FillSportLinks();
 
@@ -216,6 +227,6 @@ namespace shob::pages
         hb.body = table::yellowRed(content, hb.title);
         auto pageContent = HeadBottom::getPage(hb);
 
-        updateIfDifferent::update("../pages/overzicht.html", pageContent);
+        return pageContent;
     }
 }
