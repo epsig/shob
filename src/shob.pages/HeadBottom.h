@@ -32,6 +32,7 @@ namespace shob::pages
         general::itdate dd;
         bool copyTitleToH1 = true;
         bool withFooter = true;
+        bool newStyleFooter = false;
     };
 
     /// <summary>
@@ -44,7 +45,7 @@ namespace shob::pages
     private:
         static general::MultipleStrings getStyleSheet();
         static general::MultipleStrings getLinkToStyleSheet();
-        static general::MultipleStrings getFooter(const general::itdate& dd);
+        static general::MultipleStrings getFooter(const general::itdate& dd, const bool newStyleFooter);
         static general::MultipleStrings getJsSortTable();
     };
 }

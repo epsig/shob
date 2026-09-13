@@ -24,18 +24,31 @@ namespace shob::pages
         return out;
     }
 
-    general::MultipleStrings HeadBottom::getFooter(const general::itdate& dd)
+    general::MultipleStrings HeadBottom::getFooter(const general::itdate& dd, const bool newStyleFooter)
     {
         general::MultipleStrings out;
-        out.addContent(R"(<table width="100%"> <tr> <td width="10%">&nbsp;</td>)");
-        out.addContent(R"(<td width="80%" align=center><table border cellspacing="0">)");
-        out.addContent("<tr><td><a href=\"reactie.html\">mail-me</a></td> ");
-        out.addContent("<td><a href=\"index.html\">homepage</a></td> ");
-        out.addContent("<td><a href=\"klaverjas_faq.html\">klaverjassen</a></td> ");
-        out.addContent("<td><a href=\"sport.html\">sport</a></td> ");
-        out.addContent("<td>d.d. " + dd.toString(false) + " </td> </tr> ");
-        out.addContent("</table> ");
-        out.addContent("</td> <td width=\"10%\">&nbsp;</td> </tr> </table>");
+        if (newStyleFooter)
+        {
+            out.addContent(R"(<div class="footer">)");
+            out.addContent("| <a href=\"reactie.html\">mail-me</a>");
+            out.addContent("| <a href=\"index.html\">homepage</a> ");
+            out.addContent("| <a href=\"klaverjas_faq.html\">klaverjassen</a> ");
+            out.addContent("| <a href=\"sport.html\">sport</a> ");
+            out.addContent("| d.d. " + dd.toString(false) + " |");
+            out.addContent("</div>");
+        }
+        else
+        {
+            out.addContent(R"(<table width="100%"> <tr> <td width="10%">&nbsp;</td>)");
+            out.addContent(R"(<td width="80%" align=center><table border cellspacing="0">)");
+            out.addContent("<tr><td><a href=\"reactie.html\">mail-me</a></td> ");
+            out.addContent("<td><a href=\"index.html\">homepage</a></td> ");
+            out.addContent("<td><a href=\"klaverjas_faq.html\">klaverjassen</a></td> ");
+            out.addContent("<td><a href=\"sport.html\">sport</a></td> ");
+            out.addContent("<td>d.d. " + dd.toString(false) + " </td> </tr> ");
+            out.addContent("</table> ");
+            out.addContent("</td> <td width=\"10%\">&nbsp;</td> </tr> </table>");
+        }
 
         return out;
     }
@@ -71,7 +84,7 @@ namespace shob::pages
 
         if (input.withFooter)
         {
-            auto footer = getFooter(input.dd);
+            auto footer = getFooter(input.dd, input.newStyleFooter);
             out.addContent(footer);
         }
 

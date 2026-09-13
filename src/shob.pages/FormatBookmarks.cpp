@@ -61,6 +61,7 @@ namespace shob::pages
         hb.title = props.title;
         hb.css = StyleSheetType::SeparateFile;
         hb.copyTitleToH1 = false;
+        hb.newStyleFooter = true;
         if (!blocks.empty())
         {
             std::swap(hb.body, blocks[0]);
@@ -158,6 +159,7 @@ namespace shob::pages
         hb.title = "Sportpagina's op www.epsig.nl";
         hb.css = StyleSheetType::SeparateFile;
         hb.copyTitleToH1 = false;
+        hb.newStyleFooter = true;
         hb.body = table::yellowRed(content, hb.title);
         auto pageContent = HeadBottom::getPage(hb);
 
@@ -204,6 +206,7 @@ namespace shob::pages
         hb.title = "Overzicht van de website van Edwin Spee";
         hb.css = StyleSheetType::SeparateFile;
         hb.copyTitleToH1 = false;
+        hb.newStyleFooter = true;
         hb.body = table::yellowRed(content, hb.title);
         auto pageContent = HeadBottom::getPage(hb);
 
