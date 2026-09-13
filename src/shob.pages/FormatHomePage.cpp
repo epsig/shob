@@ -10,7 +10,13 @@ namespace shob::pages
     using namespace shob::bookmarks;
     using namespace shob::general;
 
-    void FormatHomePage::rebuildHomePage(const int dd)
+    void FormatHomePage::rebuildHomePage(const int dd) const
+    {
+        const auto page = getHomePage(dd);
+        html::updateIfDifferent::update("../pages/index.html", page);
+    }
+
+    MultipleStrings FormatHomePage::getHomePage(const int dd) const
     {
         auto content = ownSportLinks();
         auto current_events = currentEventsLinks(dd);
@@ -29,7 +35,7 @@ namespace shob::pages
         hb.body.addContent(bottom);
 
         auto page = HeadBottom::getPage(hb);
-        html::updateIfDifferent::update("../pages/index.html", page);
+        return page;
     }
 
     void FormatHomePage::AddPunctuation(MultipleStrings& extra)
@@ -77,9 +83,9 @@ namespace shob::pages
         return content;
     }
 
-    MultipleStrings FormatHomePage::currentEventsLinks(const int dd)
+    MultipleStrings FormatHomePage::currentEventsLinks(const int dd) const
     {
-        auto currentEvents = CurrentEvents::getCurrentBookmarks("bookmarks", dd);
+        auto currentEvents = CurrentEvents::getCurrentBookmarks(data_folder, dd);
 
         auto events = currentEvents.printAll();
         if (events.length() == 0)

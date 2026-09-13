@@ -133,7 +133,8 @@ int main(int argc, char* argv[])
         dd = std::max(dd, fmt_ec.get_dd());
         dd = std::max(dd, fmt_ekwk_qf.get_dd());
         part = std::format("pages with last dd: {}", dd);
-        FormatHomePage::rebuildHomePage(dd);
+        auto fmt_home_page = FormatHomePage("bookmarks/");
+        fmt_home_page.rebuildHomePage(dd);
 
         const auto fmt_bookmarks = FormatBookmarks("bookmarks/", dd);
         fmt_bookmarks.rebuildBookmarks("media");

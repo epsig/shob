@@ -10,6 +10,7 @@
 #include "TestTopMenu.h"
 #include "TestFormatStatsEredivisie.h"
 #include "TestFormatBookmarks.h"
+#include "TestFormatHomePage.h"
 
 using namespace shob::pages::test;
 
@@ -173,4 +174,9 @@ TEST(IntegrationTest, testOwnSportLinks)
 TEST(IntegrationTest, testOverzicht)
 {
     TestFormatBookmarks::test_3();
+}
+
+TEST(IntegrationTest, testHomePage)
+{
+    TestFormatHomePage::test_1();
 }
