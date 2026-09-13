@@ -9,6 +9,8 @@
 #include "TestFormatUnOfficial.h"
 #include "TestTopMenu.h"
 #include "TestFormatStatsEredivisie.h"
+#include "TestFormatBookmarks.h"
+#include "TestFormatHomePage.h"
 
 using namespace shob::pages::test;
 
@@ -157,4 +159,24 @@ TEST(IntegrationTest, testStatsEredivisieCompactVirtualDataHalfSeason)
 TEST(IntegrationTest, testStatsEredivisieExtraVirtualDataHalfSeason)
 {
     TestFormatStatsEredivisie::test5();
+}
+
+TEST(IntegrationTest, testBookmarks)
+{
+    TestFormatBookmarks::test_1();
+}
+
+TEST(IntegrationTest, testOwnSportLinks)
+{
+    TestFormatBookmarks::test_2();
+}
+
+TEST(IntegrationTest, testOverzicht)
+{
+    TestFormatBookmarks::test_3();
+}
+
+TEST(IntegrationTest, testHomePage)
+{
+    TestFormatHomePage::test_1();
 }

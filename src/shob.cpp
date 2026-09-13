@@ -133,7 +133,8 @@ int main(int argc, char* argv[])
         dd = std::max(dd, fmt_ec.get_dd());
         dd = std::max(dd, fmt_ekwk_qf.get_dd());
         part = std::format("pages with last dd: {}", dd);
-        FormatHomePage::rebuildHomePage(dd);
+        auto fmt_home_page = FormatHomePage("bookmarks/");
+        fmt_home_page.rebuildHomePage(dd);
 
         const auto fmt_bookmarks = FormatBookmarks("bookmarks/", dd);
         fmt_bookmarks.rebuildBookmarks("media");
@@ -143,6 +144,7 @@ int main(int argc, char* argv[])
         fmt_bookmarks.rebuildBookmarks("science", true);
         fmt_bookmarks.rebuildBookmarks("milieu", true);
         fmt_bookmarks.rebuildOwnSportLinks();
+        fmt_bookmarks.rebuildOverzicht();
 
         part = "copy style sheets";
         shob::html::updateIfDifferent::update("../code/test/epsig.css", "../pages/epsig.css");
