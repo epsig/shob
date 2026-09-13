@@ -20,9 +20,11 @@ namespace shob::pages
         void rebuildBookmarks(const std::string& page, const bool is_tmp = false) const;
         static void rebuildOwnSportLinks();
         static void rebuildOverzicht();
+        general::MultipleStrings getBookmarks(const std::string& page, const bool is_tmp) const;
     private:
         bookmarks::ConfigurableBookmarks bookmarks;
         int dd;
+        std::string folder;
         static constexpr int last_dd = 20260912;
         static SportLinks FillSportLinks();
         general::MultipleStrings currentEventsLinks() const;

@@ -13,11 +13,25 @@ namespace shob::pages
     using namespace shob::general;
     using namespace shob::html;
 
-    FormatBookmarks::FormatBookmarks(const std::string& folder, const int dd) : bookmarks(folder), dd(dd)
+    FormatBookmarks::FormatBookmarks(const std::string& folder, const int dd) : bookmarks(folder), dd(dd), folder(folder)
     {
     }
 
     void FormatBookmarks::rebuildBookmarks(const std::string& page, const bool is_tmp) const
+    {
+        auto pageContent = getBookmarks(page, is_tmp);
+
+        if (is_tmp)
+        {
+            updateIfDifferent::update("../pages/tmp_bookmarks_" + page + ".html", pageContent);
+        }
+        else
+        {
+            updateIfDifferent::update("../pages/bookmarks_" + page + ".html", pageContent);
+        }
+    }
+
+    MultipleStrings FormatBookmarks::getBookmarks(const std::string& page, const bool is_tmp) const
     {
         auto props = PageProperties();
         if (!bookmarks.getProperties(props, page))
@@ -71,20 +85,12 @@ namespace shob::pages
             }
         }
         auto pageContent = HeadBottom::getPage(hb);
-
-        if (is_tmp)
-        {
-            updateIfDifferent::update("../pages/tmp_bookmarks_" + page + ".html", pageContent);
-        }
-        else
-        {
-            updateIfDifferent::update("../pages/bookmarks_" + page + ".html", pageContent);
-        }
+        return pageContent;
     }
 
     MultipleStrings FormatBookmarks::currentEventsLinks() const
     {
-        auto currentEvents = CurrentEvents::getCurrentBookmarks("bookmarks", dd);
+        auto currentEvents = CurrentEvents::getCurrentBookmarks(folder, dd);
 
         auto events = currentEvents.printAll();
         if (events.length() == 0)

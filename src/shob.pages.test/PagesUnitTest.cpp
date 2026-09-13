@@ -9,6 +9,7 @@
 #include "TestFormatUnOfficial.h"
 #include "TestTopMenu.h"
 #include "TestFormatStatsEredivisie.h"
+#include "TestFormatBookmarks.h"
 
 using namespace shob::pages::test;
 
@@ -157,4 +158,9 @@ TEST(IntegrationTest, testStatsEredivisieCompactVirtualDataHalfSeason)
 TEST(IntegrationTest, testStatsEredivisieExtraVirtualDataHalfSeason)
 {
     TestFormatStatsEredivisie::test5();
+}
+
+TEST(IntegrationTest, testBookmarks)
+{
+    TestFormatBookmarks::test_1();
 }
