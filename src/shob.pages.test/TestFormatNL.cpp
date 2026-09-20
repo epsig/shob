@@ -17,7 +17,7 @@ namespace shob::pages::test
         auto settings = html::settings();
         auto fmt_nl = format_nl_factory::build(dataFolder, settings);
         auto lines = fmt_nl.getSeason(general::Season(2023));
-        EXPECT_EQ(lines.data.size(), 158);
+        EXPECT_EQ(lines.data.size(), 159);
     }
 
     void TestFormatNL::test_last_dd()

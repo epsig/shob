@@ -101,7 +101,7 @@ namespace shob::pages
 
         if (scoring1 != scoring2)
         {
-            return_value.addContent("<p/> Opm: puntentelling is halverwege het jaar veranderd. Tabel kalenderjaar rekent met nieuwe telling.");
+            return_value.addContent("<p> Opm: puntentelling is halverwege het jaar veranderd. Tabel kalenderjaar rekent met nieuwe telling. </p>");
         }
 
         auto hb = HeadBottomInput(dd);
