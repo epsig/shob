@@ -616,7 +616,7 @@ namespace shob::pages
         auto Table = html::table(settings);
         Table.id = "id6";
         auto return_value = MultipleStrings();
-        return_value.addContent("<p id=\"toesch\"> </p>");
+        return_value.addContent("<p id=\"toesch2\"> </p>");
         auto table = Table.buildTable({ content1, content });
         return_value.addContent(table);
         return return_value;

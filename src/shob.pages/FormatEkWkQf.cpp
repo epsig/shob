@@ -96,7 +96,7 @@ namespace shob::pages
         pageBlocks[0].description = "Stand en uitslagen groep van Nederland";
         const bool EKinBE_NL = pageBlocks[0].data.data.empty();
 
-        auto title = std::format("<h2> {} {}groepen: </h2>", EKinBE_NL ? "Alle":"Overige", ekwk.isWk() ? "Europese " : "");
+        auto title = std::format("<h2 id=\"standen\"> {} {}groepen: </h2>", EKinBE_NL ? "Alle":"Overige", ekwk.isWk() ? "Europese " : "");
         pageBlocks[1].data = get_other_standings(ekwk, title);
         pageBlocks[1].linkName = "standen";
         pageBlocks[1].description = std::format("Standen {} groepen", EKinBE_NL ? "alle" : "overige");
@@ -372,7 +372,7 @@ namespace shob::pages
         auto retVal = MultipleStrings();
         if ( ! csvData.body.empty())
         {
-            retVal.addContent(std::format("<p id=\"standen\"> {} </p>", title));
+            retVal.addContent(title);
             const auto parts = csvData.getParts();
             auto tablesLeft = std::vector<html::tableContent>();
             auto tablesRight = std::vector<html::tableContent>();
