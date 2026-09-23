@@ -340,8 +340,7 @@ namespace shob::pages
         auto Table = html::table(settings);
         Table.id = "id2";
         auto return_value = MultipleStrings();
-        return_value.addContent("<a name=\"extr_goals\">");
-        return_value.addContent("<p>Gebruik pijltje om te sorteren</p>");
+        return_value.addContent("<p id=\"extr_goals\">Gebruik pijltje om te sorteren</p>");
         auto table = Table.buildTable({ content1, content });
         return_value.addContent(table);
         if (data.back().first.getFirstYear() == 1956)
@@ -402,7 +401,7 @@ namespace shob::pages
         }
 
         auto return_value = MultipleStrings();
-        return_value.addContent("<a name=\"tot_goals\">");
+        return_value.addContent("<p id=\"tot_goals\"> </p>");
         auto Table = html::table(settings);
         Table.id = "id3";
         auto table = Table.buildTable( content);
@@ -459,7 +458,7 @@ namespace shob::pages
         auto Table = html::table(settings);
         Table.id = "id4";
         auto return_value = MultipleStrings();
-        return_value.addContent("<p/> <a name=\"extr_uitsl\">");
+        return_value.addContent("<p id=\"extr_uitsl\"> </p>");
         auto table = Table.buildTable({ content1, content });
         return_value.addContent(table);
         return return_value;
@@ -531,7 +530,7 @@ namespace shob::pages
         auto Table = html::table(settings);
         Table.id = "id5";
         auto return_value = MultipleStrings();
-        return_value.addContent("<a name=\"toesch\">");
+        return_value.addContent("<p id=\"toesch\"> </p>");
         if (results.front().second.estimateSpectatorsCurrentSeason)
         {
             auto szn = results.front().first;
@@ -540,7 +539,7 @@ namespace shob::pages
         }
         else
         {
-            return_value.addContent("<p/>");
+            return_value.addContent("<p> </p>");
         }
         auto table = Table.buildTable({ content1, content });
         return_value.addContent(table);
@@ -617,7 +616,7 @@ namespace shob::pages
         auto Table = html::table(settings);
         Table.id = "id6";
         auto return_value = MultipleStrings();
-        return_value.addContent("<p/> <a name=\"toesch\">");
+        return_value.addContent("<p id=\"toesch2\"> </p>");
         auto table = Table.buildTable({ content1, content });
         return_value.addContent(table);
         return return_value;
@@ -688,7 +687,7 @@ namespace shob::pages
         }
 
         auto return_value = MultipleStrings();
-        return_value.addContent("<a name=\"all_time_tp\">  <h2> All time Topscorers. </h2>");
+        return_value.addContent("<h2 id=\"all_time_tp\"> All time Topscorers. </h2>");
         auto Table = html::table(settings);
         Table.id = "id3";
         auto table = Table.buildTable(content);

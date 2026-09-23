@@ -61,7 +61,7 @@ namespace shob::pages
             const std::string title = (r2f.has_round("last16") ? "de laatste 16" : "de laatste 8");
             prepTable[0].header.addContent(title);
             auto content = Table.buildTable(prepTable);
-            return_value.data.addContent("<p/> <a name=\"r2f\"/>");
+            return_value.data.addContent("<p id=\"r2f\"> </p>");
             return_value.data.addContent(content);
             return_value.linkName = "r2f";
             return_value.description = title;
@@ -89,7 +89,7 @@ namespace shob::pages
         auto ret_val = PageBlock();
         if (!groups.data.empty())
         {
-            ret_val.data.addContent("<p/> <a name=\"groepsfase\"/>");
+            ret_val.data.addContent("<p id=\"groepsfase\"> </p>");
         }
 
         MultipleStrings content;
@@ -131,7 +131,7 @@ namespace shob::pages
 
         const auto [total, matches] = all_matches.getStatsSpectators();
 
-        ret_val.data.addContent(" <a name=\"stats\"/> <h2> Statistieken </h2>");
+        ret_val.data.addContent("<h2 id=\"stats\"> Statistieken </h2>");
 
         const auto results = all_matches.getStrikingResults();
         auto lines = table3_to_html(results);
@@ -140,7 +140,7 @@ namespace shob::pages
         if (matches > 0)
         {
             const auto mean = MathSupport::divide(total, matches);
-            const auto spectators = std::format("<p/> Na {} wedstrijden: {:.2f} miljoen toeschouwers; gemiddeld = {:.0f} duizend.",
+            const auto spectators = std::format("<p> Na {} wedstrijden: {:.2f} miljoen toeschouwers; gemiddeld = {:.0f} duizend.</p>",
                 matches, 1e-6 * static_cast<double>(total), 1e-3 * mean);
             ret_val.data.addContent(spectators);
         }
@@ -211,7 +211,7 @@ namespace shob::pages
             table.title = "Topscorers";
             auto Table = html::table(settings);
             auto out = Table.buildTable(table);
-            return_value.data.addContent("<p/> <a name =\"topscorers\"/>");
+            return_value.data.addContent("<p id=\"topscorers\"> </p>");
             return_value.data.addContent(out);
             return_value.description = "topscorers";
             return_value.linkName = return_value.description;
@@ -223,16 +223,16 @@ namespace shob::pages
     {
         auto return_value = MultipleStrings();
 
-        return_value.addContent("<a name=\"" + link.link_name + "\"/> ");
+        return_value.addContent("<p id=\"" + link.link_name + "\">");
         std::string base_path;
         if (ko_phase.empty())
         {
-            return_value.addContent(std::format("Groep {}: {}<br/>", g.name.back(), link.match_name));
+            return_value.addContent(std::format("Groep {}: {}<br>", g.name.back(), link.match_name));
             base_path = "games.group_phase." + g.long_name + "." + link.link_name;
         }
         else
         {
-            return_value.addContent(std::format("{}: {}<br/>", ko_phase, link.match_name));
+            return_value.addContent(std::format("{}: {}<br>", ko_phase, link.match_name));
             base_path = "games.ko." + ko_phase + "." + link.link_name;
         }
         std::string path = base_path + ".stats.stadium";
@@ -248,12 +248,12 @@ namespace shob::pages
         {
             stadium = readers::csvReader::trim(stadium, " ");
             spectators = readers::csvReader::trim(spectators, " ");
-            return_value.addContent(std::format("Gespeeld te {} voor {} toeschouwers. </br>", stadium, spectators));
+            return_value.addContent(std::format("Gespeeld te {} voor {} toeschouwers. <br>", stadium, spectators));
         }
         if (!arbiter.empty())
         {
             arbiter = readers::csvReader::trim(arbiter, " ");
-            return_value.addContent(std::format("Scheidsrechter: {}. </br>", arbiter));
+            return_value.addContent(std::format("Scheidsrechter: {}. <br>", arbiter));
         }
 
         path = base_path + ".stats.chronological";
@@ -270,7 +270,7 @@ namespace shob::pages
                 {
                     line += " " + players.expand(splitted.column[i]);
                 }
-                line += "<br/>";
+                line += "<br>";
                 red_cards.addContent(line);
             }
             else
@@ -278,23 +278,23 @@ namespace shob::pages
                 if (splitted.column.size() == 2)
                 {
                     auto expanded = players.expand(splitted.column[1]);
-                    return_value.addContent(std::format("{}' {} {}<br/>", time, splitted.column[0], expanded));
+                    return_value.addContent(std::format("{}' {} {}<br>", time, splitted.column[0], expanded));
                 }
                 else if (splitted.column.back() == "(p)")
                 {
                     auto expanded = players.expand(splitted.column[1]);
-                    return_value.addContent(std::format("{}' {} {} (p) <br/>", time, splitted.column[0], expanded));
+                    return_value.addContent(std::format("{}' {} {} (p) <br>", time, splitted.column[0], expanded));
                 }
                 else
                 {
-                    return_value.addContent(std::format("{}'{}<br/>", time, remark));
+                    return_value.addContent(std::format("{}'{}<br>", time, remark));
                 }
             }
         }
 
         if ( ! red_cards.data.empty())
         {
-            return_value.addContent("<font color=\"red\">rood:</font> </br>");
+            return_value.addContent("<font color=\"red\">rood:</font> <br>");
             return_value.addContent(red_cards);
         }
 
@@ -305,6 +305,7 @@ namespace shob::pages
             return_value.addContent("Strafschoppenserie:" + wns_short);
         }
 
+        return_value.addContent("</p>");
         return return_value;
     }
 
@@ -338,7 +339,7 @@ namespace shob::pages
         auto retval = PageBlock();
         retval.description = "details enkele wedstrijden";
         retval.linkName = "details";
-        retval.data.addContent("<p/> <a name=\"details\"/> <h2> Details enkele wedstrijden </h2> <hr>");
+        retval.data.addContent("<h2 id=\"details\"> Details enkele wedstrijden </h2> <hr>");
         for (auto& subBlock : sub_blocks)
         {
             retval.data.addContent(subBlock);

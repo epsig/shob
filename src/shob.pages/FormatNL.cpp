@@ -143,7 +143,8 @@ namespace shob::pages
         if (!matches.matches.empty())
         {
             auto prepTable = matches.prepareTable(teams, settings);
-            prepTable.title = std::format("<a name=\"JC\"/>Johan Cruijff schaal {}", season.getFirstYear());
+            prepTable.title = std::format("Johan Cruijff schaal {}", season.getFirstYear());
+            Table.id = "JC";
             retval.data = Table.buildTable(prepTable);
             retval.linkName = "JC";
             retval.description = "supercup";
@@ -160,10 +161,11 @@ namespace shob::pages
         if ( ! filtered.matches.empty())
         {
             auto Table = html::table(settings);
+            Table.id = "klassiekers";
             auto prepTable = filtered.prepareTable(teams, settings);
-            prepTable.title = "<a name=\"klassiekers\"/>De traditionele toppers";
-            retval.data.addContent("<p/>");
+            prepTable.title = "De traditionele toppers";
             auto content = Table.buildTable(prepTable);
+            retval.data.addContent("<p> </p>");
             retval.data.addContent(content);
             retval.linkName = "klassiekers";
             retval.description = retval.linkName;
@@ -176,6 +178,7 @@ namespace shob::pages
     {
         PageBlock retval;
         auto Table = html::table(settings);
+        Table.id = "eredivisie";
 
         std::string title = "Eredivisie";
         for (const auto& row : remarks_this_season)
@@ -193,16 +196,16 @@ namespace shob::pages
         auto prepTable = table.prepareTable(teams, settings);
         if (table.isFinished())
         {
-            prepTable.title = std::format("<a name=\"eredivisie\"/>Stand {} {}", title, season.toString());
+            prepTable.title = std::format("Stand {} {}", title, season.toString());
         }
         else
         {
             const auto date = competition.lastDate().toString(false);
-            prepTable.title = std::format("<a name=\"eredivisie\"/>Stand {} (per {})", title, date);
+            prepTable.title = std::format("Stand {} (per {})", title, date);
         }
 
         auto content = Table.buildTable(prepTable);
-        retval.data.addContent("<p/>");
+        retval.data.addContent("<p> </p>");
         retval.data.addContent(content);
 
         auto opms = MultipleStrings();
@@ -212,8 +215,9 @@ namespace shob::pages
         }
         if (!opms.data.empty())
         {
-            retval.data.addContent("<p/>");
+            retval.data.addContent("<p>");
             retval.data.addContent(opms);
+            retval.data.addContent("</p>");
         }
 
         retval.linkName = "eredivisie";
@@ -244,12 +248,13 @@ namespace shob::pages
             standing_1e_div.initFromFile(filename);
 
             auto prepTable = standing_1e_div.prepareTable(teams, settings);
-            prepTable.title = std::format("<a name=\"1ste_div\"/>Stand {}", title);
+            prepTable.title = std::format("Stand {}", title);
 
             auto Table = html::table(settings);
+            Table.id = "1ste_div";
             auto content = Table.buildTable(prepTable);
 
-            retval.data.addContent("<p/>");
+            retval.data.addContent("<p> </p>");
             retval.data.addContent(content);
             retval.linkName = "1ste_div";
             retval.description = "eerste divisie";
@@ -274,7 +279,7 @@ namespace shob::pages
             {
                 return retval;
             }
-            retval.data.addContent("<p/> <a name=\"topscorers\"/>");
+            retval.data.addContent("<p id=\"topscorers\"> </p>");
             if (tpL.data.empty()|| tpR.data.empty())
             {
                 retval.data.addContent(tpL);
@@ -330,7 +335,7 @@ namespace shob::pages
                 auto prepTable = r2f.prepareTable(teams, settings);
                 prepTable[0].header.addContent("KNVB Beker: de laatste 16");
                 auto content = Table.buildTable(prepTable);
-                retval.data.addContent("<p/> <a name=\"beker\"/>");
+                retval.data.addContent("<p id=\"beker\"> </p>");
                 retval.data.addContent(content);
                 retval.linkName = "beker";
                 retval.description = "beker-tournooi";
@@ -377,7 +382,7 @@ namespace shob::pages
             }
         }
 
-        retval.data.addContent("<a name=\"ec\"/> <h2> Geplaatst voor de Europacup </h2>");
+        retval.data.addContent("<h2 id=\"ec\"> Geplaatst voor de Europacup </h2>");
         retval.linkName = "ec";
         retval.description = "Europa in";
         for (size_t i = 0; i < tournements.size(); i++)

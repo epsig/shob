@@ -138,7 +138,7 @@ namespace shob::pages
     general::MultipleStrings FormatOs::getOneDistance(const std::string& distance, const char gender, const readers::csvContent& all_data) const
     {
         auto return_value = general::MultipleStrings();
-        return_value.addContent(std::format("<p/> <a name=\"{}{}\">", gender, distance));
+        return_value.addContent(std::format("<p id=\"{}{}\"> </p>", gender, distance));
         html::tableContent content;
 
         const auto gender_column = all_data.findColumn("DH");

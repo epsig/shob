@@ -96,7 +96,7 @@ namespace shob::pages
         pageBlocks[0].description = "Stand en uitslagen groep van Nederland";
         const bool EKinBE_NL = pageBlocks[0].data.data.empty();
 
-        auto title = std::format("<h2> {} {}groepen: </h2>", EKinBE_NL ? "Alle":"Overige", ekwk.isWk() ? "Europese " : "");
+        auto title = std::format("<h2 id=\"standen\"> {} {}groepen: </h2>", EKinBE_NL ? "Alle":"Overige", ekwk.isWk() ? "Europese " : "");
         pageBlocks[1].data = get_other_standings(ekwk, title);
         pageBlocks[1].linkName = "standen";
         pageBlocks[1].description = std::format("Standen {} groepen", EKinBE_NL ? "alle" : "overige");
@@ -221,7 +221,7 @@ namespace shob::pages
             stand.wns_cl = star;
 
             auto retVal = MultipleStrings();
-            retVal.addContent("<p/> <a name=\"groepNL\"/> <h2> Stand en uitslagen groep van Nederland </h2>");
+            retVal.addContent("<h2 id=\"groepNL\"> Stand en uitslagen groep van Nederland </h2>");
             auto standing_and_matches = print_splitted(stand, matches, remarks,
                 std::format("{}{}", "Stand Groep ", part.back()) ,
                 std::format("Overige uitslagen Groep {}", part.back()) );
@@ -248,7 +248,7 @@ namespace shob::pages
         auto retVal = MultipleStrings();
         if ( ! standings_data.body.empty())
         {
-            retVal.addContent("<p/> <a name=\"vstandings\"/>");
+            retVal.addContent("<p id=\"vstandings\"> </p>");
             auto standing = standings();
             standing.initFromData(standings_data);
             auto prepTableStandings = standing.prepareTable(teams, settings);
@@ -284,7 +284,7 @@ namespace shob::pages
             prepTableMatchesNL.title = "Naar de play-offs";
             const auto Table = html::table(settings);
             auto playoffs = Table.buildTable(prepTableMatchesNL);
-            retVal.addContent("<p/> <a name=\"playoffs\"/>");
+            retVal.addContent("<p id=\"playoffs\"> </p>");
             retVal.addContent(playoffs);
             return retVal;
         }
@@ -303,7 +303,7 @@ namespace shob::pages
             prepTable[0].header.addContent("Finals Nations League");
             auto Table = html::table(settings);
             Table.withBorder = false;
-            retVal.addContent("<p/> <a name=\"natleaguefinals\"/>");
+            retVal.addContent("<p id=\"natleaguefinals\"> </p>");
             auto matches = Table.buildTable(prepTable);
             retVal.addContent(matches);
             dd = std::max(dd, finals.lastDate().toInt());
@@ -325,7 +325,7 @@ namespace shob::pages
             dd = std::max(dd, competition.lastDate().toInt());
 
             const auto stand = results2standings::u2s(competition);
-            retVal.addContent("<p/> <a name=\"natleague\"/>");
+            retVal.addContent("<p id=\"natleague\"> </p>");
             auto matches = print_splitted(stand, competition, MultipleStrings(),
                 "Stand Nations League groep Nederland", "Overige uitslagen");
             retVal.addContent(matches);
@@ -357,7 +357,7 @@ namespace shob::pages
             dd = std::max(dd, filtered.lastDate().toInt());
             prepTableMatchesNL.title = "Uitslagen Oefenduels Nederland";
             const auto Table = html::table(settings);
-            retVal.addContent("<p/> <a name=\"keizersbaard\"/>");
+            retVal.addContent("<p id=\"keizersbaard\"> </p>");
             auto matches = Table.buildTable(prepTableMatchesNL);
             retVal.addContent(matches);
         }
@@ -372,7 +372,7 @@ namespace shob::pages
         auto retVal = MultipleStrings();
         if ( ! csvData.body.empty())
         {
-            retVal.addContent(std::format("<p/> <a name=\"standen\"/> {}", title));
+            retVal.addContent(title);
             const auto parts = csvData.getParts();
             auto tablesLeft = std::vector<html::tableContent>();
             auto tablesRight = std::vector<html::tableContent>();
@@ -421,7 +421,7 @@ namespace shob::pages
         auto retVal = MultipleStrings();
         if (!csvData.body.empty())
         {
-            retVal.addContent(std::format("<p/> <a name=\"deelnemers\"> <h2> {} </h2>", title_qualified));
+            retVal.addContent(std::format("<h2 id=\"deelnemers\"> {} </h2>", title_qualified));
             html::tableContent content;
             content.header.data = { "nr", "land", "opm" };
             for (size_t i = 0; i < csvData.body.size(); i++)
