@@ -136,7 +136,7 @@ target_link_libraries(shob.bookmarks.test shob.bookmarks shob.general shob.test.
 target_link_libraries(shob.html.test shob.html shob.general gtest_main)
 target_link_libraries(shob.pages shob.football shob.general shob.readers shob.html shob.teams shob.bookmarks)
 target_link_libraries(shob shob.football shob.general shob.readers shob.html shob.teams shob.pages
-    shob.bookmarks)
+    shob.bookmarks shob.klaverjas)
 target_link_libraries(shob.pages.test shob.football shob.general shob.readers shob.html
     shob.teams shob.bookmarks shob.pages shob.test.utils gtest_main)
 target_link_libraries(shob.teams shob.readers shob.html)

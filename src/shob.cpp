@@ -16,6 +16,7 @@
 #include "shob.pages/FormatStatsEredivisieFactory.h"
 #include "shob.pages/FormatHomePage.h"
 #include "shob.pages/FormatBookmarks.h"
+#include "shob.pages/FormatKlaverjas.h"
 #include "shob.general/Season.h"
 #include "shob.general/shobException.h"
 #include "shob.html/updateIfNewer.h"
@@ -145,6 +146,13 @@ int main(int argc, char* argv[])
         fmt_bookmarks.rebuildBookmarks("milieu", true);
         fmt_bookmarks.rebuildOwnSportLinks();
         fmt_bookmarks.rebuildOverzicht();
+
+        part = "klaverjas";
+        auto fmt_klaverjas = FormatKlaverjas();
+        fmt_klaverjas.rebuildKlaverjas("gfx", "adam");
+        fmt_klaverjas.rebuildKlaverjas("txt", "adam");
+        fmt_klaverjas.rebuildKlaverjas("gfx", "rdam");
+        fmt_klaverjas.rebuildKlaverjas("txt", "rdam");
 
         part = "copy style sheets";
         shob::html::updateIfDifferent::update("../code/test/epsig.css", "../pages/epsig.css");

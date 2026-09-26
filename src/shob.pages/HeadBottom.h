@@ -17,6 +17,8 @@ namespace shob::pages
     {
         None,
         SortTable,
+        KlaverjasGfx,
+        KlaverjasTxt
     };
 
     /// <summary>

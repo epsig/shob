@@ -68,11 +68,21 @@ namespace shob::pages
             auto style = getLinkToStyleSheet();
             out.addContent(style);
         }
+
         if (input.js == JavaScriptType::SortTable)
         {
             auto js = getJsSortTable();
             out.addContent(js);
         }
+        else if (input.js == JavaScriptType::KlaverjasGfx)
+        {
+            out.addContent("<script type=\"text/javascript\" src=\"include/kj_code_gfx.js\"></script>");
+        }
+        else if (input.js == JavaScriptType::KlaverjasTxt)
+        {
+            out.addContent("<script type=\"text/javascript\" src=\"include/kj_code_txt.js\"></script>");
+        }
+
         out.data.back() += "</head><body>";
 
         if (input.copyTitleToH1)
@@ -86,6 +96,11 @@ namespace shob::pages
         {
             auto footer = getFooter(input.dd, input.newStyleFooter);
             out.addContent(footer);
+        }
+
+        if (input.js == JavaScriptType::KlaverjasGfx || input.js == JavaScriptType::KlaverjasTxt)
+        {
+            out.addContent("<script type=\"text/javascript\"> StartSpel(); </script>");
         }
 
         out.addContent("</body></html>");
