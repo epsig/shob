@@ -44,7 +44,7 @@ namespace shob::pages
 
     int FormatEkWkQf::getLastYear() const
     {
-        return 2026; // TODO for the time being
+        return 2028; // TODO for the time being
     }
 
     int FormatEkWkQf::get_dd() const
@@ -206,6 +206,8 @@ namespace shob::pages
 
     MultipleStrings FormatEkWkQf::get_group_nl(int& dd, const int star, const readers::csvContent& matches_data, const MultipleStrings& remarks) const
     {
+        if (matches_data.body.empty()) return {};
+
         const auto parts = matches_data.getParts();
         const std::string part = parts.list()[0];
 
@@ -267,6 +269,8 @@ namespace shob::pages
 
     MultipleStrings FormatEkWkQf::get_play_offs(int& dd, const readers::csvContent& matches_data) const
     {
+        if (matches_data.body.empty()) return {};
+
         const auto parts = matches_data.getParts();
         const std::string part = parts.list().back();
 
