@@ -50,13 +50,18 @@ namespace shob::bookmarks
     ListOfEvents OwnSportPages::getEkWkSoccer()
     {
         constexpr int first_year = 1996;
-        constexpr int last_year = 2026;
+        constexpr int last_year = 2028;
         constexpr int step = 2;
         ListOfEvents return_value;
         for (int i = first_year; i <= last_year; i += step)
         {
             Event e;
-            if (i % 4 == 2)
+            if (i == 2028)
+            {
+                e.name = std::format("EK {}", i);
+                e.url = std::format("sport_voetbal_EK_{}_voorronde.html", i);
+            }
+            else if (i % 4 == 2)
             {
                 e.name = std::format("WK {}", i);
                 e.url = std::format("sport_voetbal_WK_{}.html", i);
