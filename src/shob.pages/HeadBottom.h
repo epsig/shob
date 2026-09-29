@@ -11,6 +11,7 @@ namespace shob::pages
     {
         InlineInHead,
         SeparateFile,
+        InlineForKlaverjas,
     };
 
     enum class JavaScriptType
@@ -46,6 +47,7 @@ namespace shob::pages
         static general::MultipleStrings getPage(HeadBottomInput& input);
     private:
         static general::MultipleStrings getStyleSheet();
+        static general::MultipleStrings getStyleSheetKlaverjas();
         static general::MultipleStrings getLinkToStyleSheet();
         static general::MultipleStrings getFooter(const general::itdate& dd, const bool newStyleFooter);
         static general::MultipleStrings getJsSortTable();

@@ -24,7 +24,7 @@ namespace shob::pages
 
         auto hb = HeadBottomInput(-1);
         hb.title = "Klaverjassen";
-        hb.css = StyleSheetType::SeparateFile;
+        hb.css = StyleSheetType::InlineForKlaverjas;
         hb.copyTitleToH1 = false;
         hb.newStyleFooter = true;
 

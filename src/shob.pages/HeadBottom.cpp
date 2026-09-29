@@ -16,6 +16,19 @@ namespace shob::pages
         return out;
     }
 
+    general::MultipleStrings HeadBottom::getStyleSheetKlaverjas()
+    {
+        general::MultipleStrings out;
+        out.addContent("<style type=\"text/css\">");
+        out.addContent(R"(body {background:silver; color:black; font-family:"Verdana","Arial"; font-size:12pt})");
+        out.addContent("th,td {background:white; font-size:12pt; padding-top:2pt; padding-bottom:2pt; padding-left:4pt; padding-right:4pt}");
+        out.addContent("input,option {font-family:\"Verdana\",\"Arial\"; font-size:12pt}");
+        out.addContent("input.k {font-family:\"Courier New\",\"Courier\"; font-weight: bold; font-size:14pt}");
+        out.addContent("input.b {font-family:\"Courier New\",\"Courier\"; font-weight: bold; font-size:12pt}");
+        out.addContent("</style>");
+        return out;
+    }
+
     general::MultipleStrings HeadBottom::getLinkToStyleSheet()
     {
         general::MultipleStrings out;
@@ -63,6 +76,17 @@ namespace shob::pages
             auto style = getStyleSheet();
             out.addContent(style);
         }
+
+        if (input.js == JavaScriptType::KlaverjasGfx || input.js == JavaScriptType::KlaverjasTxt)
+        {
+            out.addContent("<meta http-equiv=\"Content-Script-Type\" content=\"text/javascript\">");
+        }
+
+        if (input.css == StyleSheetType::InlineForKlaverjas)
+        {
+            auto style = getStyleSheetKlaverjas();
+            out.addContent(style);
+        }
         else
         {
             auto style = getLinkToStyleSheet();
@@ -76,11 +100,11 @@ namespace shob::pages
         }
         else if (input.js == JavaScriptType::KlaverjasGfx)
         {
-            out.addContent("<script type=\"text/javascript\" src=\"include/kj_code_gfx.js\"></script>");
+            out.addContent("<script type=\"text/javascript\" language=\"javascript\" src=\"include/kj_code_gfx.js\"></script>");
         }
         else if (input.js == JavaScriptType::KlaverjasTxt)
         {
-            out.addContent("<script type=\"text/javascript\" src=\"include/kj_code_txt.js\"></script>");
+            out.addContent("<script type=\"text/javascript\" language=\"javascript\" src=\"include/kj_code_txt.js\"></script>");
         }
 
         out.data.back() += "</head><body>";
