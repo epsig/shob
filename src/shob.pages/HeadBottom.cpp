@@ -37,10 +37,10 @@ namespace shob::pages
         return out;
     }
 
-    general::MultipleStrings HeadBottom::getFooter(const general::itdate& dd, const bool newStyleFooter)
+    general::MultipleStrings HeadBottom::getFooter(const general::itdate& dd, FooterStyle footerStyle, FooterSubStyle footerSubStyle)
     {
         general::MultipleStrings out;
-        if (newStyleFooter)
+        if (footerStyle == FooterStyle::New)
         {
             out.addContent(R"(<div class="footer">)");
             out.addContent("| <a href=\"reactie.html\">mail-me</a>");
@@ -50,7 +50,7 @@ namespace shob::pages
             out.addContent("| d.d. " + dd.toString(false) + " |");
             out.addContent("</div>");
         }
-        else
+        else if (footerStyle == FooterStyle::Old)
         {
             out.addContent(R"(<table width="100%"> <tr> <td width="10%">&nbsp;</td>)");
             out.addContent(R"(<td width="80%" align=center><table border cellspacing="0">)");
@@ -61,6 +61,46 @@ namespace shob::pages
             out.addContent("<td>d.d. " + dd.toString(false) + " </td> </tr> ");
             out.addContent("</table> ");
             out.addContent("</td> <td width=\"10%\">&nbsp;</td> </tr> </table>");
+        }
+        else if (footerStyle == FooterStyle::Klaverjas)
+        {
+            out.addContent(R"(<table width=100%> <tr>
+<td width=100% align=center><table border cellspacing=0>
+<tr><td><a href="javascript:NieuwSpel();">nieuw&nbsp;spel</a></td>
+<td><a href="klaverjas_faq.html">settings/faq</a></td>)");
+
+            if (footerSubStyle == FooterSubStyle::KlaverjasAdamGfx)
+            {
+                out.addContent(
+R"(<td><a href="kj_gfx_rdam.html">rotterdams</a></td>
+<td><a href="kj_txt_adam.html">tekst-only</a></td>)");
+            }
+            else if (footerSubStyle == FooterSubStyle::KlaverjasAdamTxt)
+            {
+                out.addContent(
+R"(<td><a href="kj_txt_rdam.html">rotterdams</a></td>
+<td><a href="kj_gfx_adam.html">met&nbsp;plaatjes</a></td>)");
+            }
+            else if (footerSubStyle == FooterSubStyle::KlaverjasRdamGfx)
+            {
+                out.addContent(
+R"(<td><a href="kj_gfx_adam.html">amsterdams</a></td>
+<td><a href="kj_txt_rdam.html">tekst-only</a></td>)");
+            }
+            else if (footerSubStyle == FooterSubStyle::KlaverjasRdamTxt)
+            {
+                out.addContent(
+R"(<td><a href="kj_txt_adam.html">amsterdams</a></td>
+<td><a href="kj_gfx_rdam.html">met&nbsp;plaatjes</a></td>)");
+            }
+
+            out.addContent(
+R"(<td><a href="reactie.html">mail-me</a></td>
+<td><a href="index.html">homepage</a></td>
+<td><a href="sport.html">sport</a></td>
+</tr>
+</table>
+</td> </tr> </table>)");
         }
 
         return out;
@@ -118,7 +158,7 @@ namespace shob::pages
 
         if (input.withFooter)
         {
-            auto footer = getFooter(input.dd, input.newStyleFooter);
+            auto footer = getFooter(input.dd, input.footerStyle, input.footerSubStyle);
             out.addContent(footer);
         }
 

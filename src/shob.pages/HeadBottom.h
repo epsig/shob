@@ -22,6 +22,21 @@ namespace shob::pages
         KlaverjasTxt
     };
 
+    enum class FooterStyle
+    {
+        Old,
+        New,
+        Klaverjas
+    };
+
+    enum class FooterSubStyle
+    {
+        KlaverjasAdamGfx,
+        KlaverjasAdamTxt,
+        KlaverjasRdamGfx,
+        KlaverjasRdamTxt,
+    };
+
     /// <summary>
     /// Input struct for class HeadBottom
     /// </summary>
@@ -35,7 +50,8 @@ namespace shob::pages
         general::itdate dd;
         bool copyTitleToH1 = true;
         bool withFooter = true;
-        bool newStyleFooter = false;
+        FooterStyle footerStyle = FooterStyle::Old;
+        FooterSubStyle footerSubStyle = FooterSubStyle::KlaverjasAdamGfx;
     };
 
     /// <summary>
@@ -49,7 +65,7 @@ namespace shob::pages
         static general::MultipleStrings getStyleSheet();
         static general::MultipleStrings getStyleSheetKlaverjas();
         static general::MultipleStrings getLinkToStyleSheet();
-        static general::MultipleStrings getFooter(const general::itdate& dd, const bool newStyleFooter);
+        static general::MultipleStrings getFooter(const general::itdate& dd, FooterStyle footerStyle, FooterSubStyle footerSubStyle);
         static general::MultipleStrings getJsSortTable();
     };
 }

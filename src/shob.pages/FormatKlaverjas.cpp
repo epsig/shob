@@ -26,15 +26,17 @@ namespace shob::pages
         hb.title = "Klaverjassen";
         hb.css = StyleSheetType::InlineForKlaverjas;
         hb.copyTitleToH1 = false;
-        hb.newStyleFooter = true;
+        hb.footerStyle = FooterStyle::Klaverjas;
 
         if (type == "gfx")
         {
             hb.js = JavaScriptType::KlaverjasGfx;
+            hb.footerSubStyle = location == "rdam" ? FooterSubStyle::KlaverjasRdamGfx : FooterSubStyle::KlaverjasAdamGfx;
         }
         else if (type == "txt")
         {
             hb.js = JavaScriptType::KlaverjasTxt;
+            hb.footerSubStyle = location == "rdam" ? FooterSubStyle::KlaverjasRdamTxt : FooterSubStyle::KlaverjasAdamTxt;
         }
 
         hb.body.addContent(ret);
