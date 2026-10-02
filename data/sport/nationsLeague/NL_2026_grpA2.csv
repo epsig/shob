@@ -1,7 +1,7 @@
-land1,land2,dd,result,remark
-NL,DE,20260924,1-1,debuut Xavi Hern&aacute;ndez als bondscoach Oranje (en J&uuml;rgen Klopp voor Duitsland)
-RS,GR,20260924,1-2,
-RS,NL,20260927,1-2,
-DE,GR,20260927,0-1,
-GR,NL,20261001,-,
-DE,RS,20261001,-,
+land1,land2,dd,result,stadium,remark
+NL,DE,20260924,1-1,arena,debuut Xavi Hern&aacute;ndez als bondscoach Oranje <br> (en J&uuml;rgen Klopp voor Duitsland)
+RS,GR,20260924,1-2,,
+RS,NL,20260927,1-2,,
+DE,GR,20260927,0-1,,
+GR,NL,20261001,2-2,Thessaloniki,
+DE,RS,20261001,2-0,,
