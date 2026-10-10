@@ -17,6 +17,7 @@
 #include "shob.pages/FormatHomePage.h"
 #include "shob.pages/FormatBookmarks.h"
 #include "shob.pages/FormatKlaverjas.h"
+#include "shob.klaverjas/MergeJavaScript.h"
 #include "shob.general/Season.h"
 #include "shob.general/shobException.h"
 #include "shob.html/updateIfNewer.h"
@@ -148,6 +149,7 @@ int main(int argc, char* argv[])
         fmt_bookmarks.rebuildOverzicht();
 
         part = "klaverjas";
+        shob::klaverjas::MergeJavaScript::mergeFiles("gfx");
         auto fmt_klaverjas = FormatKlaverjas();
         for (const auto& location : { "adam", "rdam" })
         {
