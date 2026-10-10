@@ -11,8 +11,5 @@ namespace shob::html
     public:
         static void update(const std::string& path, const general::MultipleStrings& content);
         static void update(const std::string& path1, const std::string& path2);
-    private:
-        static general::MultipleStrings readFile(const std::string& path);
-        static void writeToFile(const std::string& path, const general::MultipleStrings& data);
     };
 }
