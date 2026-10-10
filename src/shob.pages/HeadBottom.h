@@ -3,6 +3,7 @@
 
 #include "../shob.html/table.h"
 #include "../shob.general/itdate.h"
+#include "../shob.bookmarks/ListOfEvents.h"
 #include <string>
 
 namespace shob::pages
@@ -67,6 +68,7 @@ namespace shob::pages
         static general::MultipleStrings getLinkToStyleSheet();
         static general::MultipleStrings getFooter(const general::itdate& dd, FooterStyle footerStyle, FooterSubStyle footerSubStyle);
         static general::MultipleStrings getJsSortTable();
+        static bookmarks::ListOfEvents getFooterLinks(const general::itdate& dd);
     };
 }
 

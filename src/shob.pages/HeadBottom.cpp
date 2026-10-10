@@ -37,30 +37,31 @@ namespace shob::pages
         return out;
     }
 
+    bookmarks::ListOfEvents HeadBottom::getFooterLinks(const general::itdate& dd)
+    {
+        bookmarks::ListOfEvents out;
+        out.add(bookmarks::Event{ "mail-me", "reactie.html" });
+        out.add(bookmarks::Event{ "homepage", "index.html" });
+        out.add(bookmarks::Event{ "klaverjassen", "klaverjas_faq.html" });
+        out.add(bookmarks::Event{ "sport", "sport.html" });
+        out.add(bookmarks::Event{ "d.d. " + dd.toString(false) + " ", ""});
+        return out;
+    }
+
     general::MultipleStrings HeadBottom::getFooter(const general::itdate& dd, FooterStyle footerStyle, FooterSubStyle footerSubStyle)
     {
         general::MultipleStrings out;
         if (footerStyle == FooterStyle::New)
         {
-            out.addContent(R"(<div class="footer">)");
-            out.addContent("| <a href=\"reactie.html\">mail-me</a>");
-            out.addContent("| <a href=\"index.html\">homepage</a> ");
-            out.addContent("| <a href=\"klaverjas_faq.html\">klaverjassen</a> ");
-            out.addContent("| <a href=\"sport.html\">sport</a> ");
-            out.addContent("| d.d. " + dd.toString(false) + " |");
-            out.addContent("</div>");
+            auto links = getFooterLinks(dd);
+            auto content = links.printAsFooterNewStyle();
+            out.addContent(content);
         }
         else if (footerStyle == FooterStyle::Old)
         {
-            out.addContent(R"(<table width="100%"> <tr> <td width="10%">&nbsp;</td>)");
-            out.addContent(R"(<td width="80%" align=center><table border cellspacing="0">)");
-            out.addContent("<tr><td><a href=\"reactie.html\">mail-me</a></td> ");
-            out.addContent("<td><a href=\"index.html\">homepage</a></td> ");
-            out.addContent("<td><a href=\"klaverjas_faq.html\">klaverjassen</a></td> ");
-            out.addContent("<td><a href=\"sport.html\">sport</a></td> ");
-            out.addContent("<td>d.d. " + dd.toString(false) + " </td> </tr> ");
-            out.addContent("</table> ");
-            out.addContent("</td> <td width=\"10%\">&nbsp;</td> </tr> </table>");
+            auto links = getFooterLinks(dd);
+            auto content = links.printAsFooterOldStyle();
+            out.addContent(content);
         }
         else if (footerStyle == FooterStyle::Klaverjas)
         {

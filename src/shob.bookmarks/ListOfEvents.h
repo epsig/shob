@@ -12,6 +12,8 @@ namespace shob::bookmarks
         size_t size() const { return events.size();}
         general::MultipleStrings printAll() const;
         general::MultipleStrings printFirstAndLast() const;
+        general::MultipleStrings printAsFooterNewStyle() const;
+        general::MultipleStrings printAsFooterOldStyle() const;
     private:
         std::vector<Event> events;
     };
