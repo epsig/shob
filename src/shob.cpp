@@ -156,6 +156,7 @@ int main(int argc, char* argv[])
                 fmt_klaverjas.rebuildKlaverjas(type, location);
             }
         }
+        fmt_klaverjas.rebuildFaq();
 
         part = "copy style sheets";
         shob::html::updateIfDifferent::update("../code/test/epsig.css", "../pages/epsig.css");

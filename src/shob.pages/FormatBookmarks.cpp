@@ -5,6 +5,7 @@
 #include "../shob.bookmarks/OwnSportPages.h"
 #include "../shob.html/updateIfNewer.h"
 #include "../shob.html/List.h"
+#include "../shob.html/table.h"
 #include "../shob.general/shobException.h"
 
 namespace shob::pages
