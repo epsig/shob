@@ -13,6 +13,7 @@ namespace shob::pages
         InlineInHead,
         SeparateFile,
         InlineForKlaverjas,
+        InlineForKlaverjasKlein
     };
 
     enum class JavaScriptType
@@ -36,6 +37,8 @@ namespace shob::pages
         KlaverjasAdamTxt,
         KlaverjasRdamGfx,
         KlaverjasRdamTxt,
+        KlaverjasAdamKlein,
+        KlaverjasRdamKlein
     };
 
     /// <summary>
@@ -65,6 +68,7 @@ namespace shob::pages
     private:
         static general::MultipleStrings getStyleSheet();
         static general::MultipleStrings getStyleSheetKlaverjas();
+        static general::MultipleStrings getStyleSheetKlaverjasKlein();
         static general::MultipleStrings getLinkToStyleSheet();
         static general::MultipleStrings getFooter(const general::itdate& dd, FooterStyle footerStyle, FooterSubStyle footerSubStyle);
         static general::MultipleStrings getJsSortTable();

@@ -149,10 +149,13 @@ int main(int argc, char* argv[])
 
         part = "klaverjas";
         auto fmt_klaverjas = FormatKlaverjas();
-        fmt_klaverjas.rebuildKlaverjas("gfx", "adam");
-        fmt_klaverjas.rebuildKlaverjas("txt", "adam");
-        fmt_klaverjas.rebuildKlaverjas("gfx", "rdam");
-        fmt_klaverjas.rebuildKlaverjas("txt", "rdam");
+        for (const auto& location : { "adam", "rdam" })
+        {
+            for (const auto& type : { "gfx", "txt", "klein" })
+            {
+                fmt_klaverjas.rebuildKlaverjas(type, location);
+            }
+        }
 
         part = "copy style sheets";
         shob::html::updateIfDifferent::update("../code/test/epsig.css", "../pages/epsig.css");

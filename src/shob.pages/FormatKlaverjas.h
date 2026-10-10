@@ -10,5 +10,6 @@ namespace shob::pages
         FormatKlaverjas() = default;
         void rebuildKlaverjas(std::string_view type, std::string_view location);
         general::MultipleStrings getKlaverjas(std::string_view type, std::string_view location);
+        general::MultipleStrings getKlaverjasKleinScherm(std::string_view location);
     };
 }

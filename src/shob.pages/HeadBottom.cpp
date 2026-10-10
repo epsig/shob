@@ -29,6 +29,18 @@ namespace shob::pages
         return out;
     }
 
+    general::MultipleStrings HeadBottom::getStyleSheetKlaverjasKlein()
+    {
+        general::MultipleStrings out;
+        out.addContent("<style type=\"text/css\">");
+        out.addContent(R"(body{background:white;color:black;font-family:"Verdana","Arial";font-size:9pt})");
+        out.addContent("h1{font-weight:bold;font-size:12pt}");
+        out.addContent("th,td{font-size:9pt;padding-top:2pt;padding-bottom:2pt;padding-left:4pt;padding-right:4pt}");
+        out.addContent(".k{font-family:\"Courier New\",\"Courier\";font-weight:bold;font-size:14pt}");
+        out.addContent("</style>");
+        return out;
+    }
+
     general::MultipleStrings HeadBottom::getLinkToStyleSheet()
     {
         general::MultipleStrings out;
@@ -72,6 +84,16 @@ namespace shob::pages
         else if (footerSubStyle == FooterSubStyle::KlaverjasRdamTxt)
         {
             out.add(bookmarks::Event{ "amsterdams", "kj_txt_adam.html" });
+            out.add(bookmarks::Event{ "met&nbsp;plaatjes", "kj_gfx_rdam.html" });
+        }
+        else if (footerSubStyle == FooterSubStyle::KlaverjasAdamKlein)
+        {
+            out.add(bookmarks::Event{ "rotterdams", "kj_klein_rdam.html" });
+            out.add(bookmarks::Event{ "met&nbsp;plaatjes", "kj_gfx_adam.html" });
+        }
+        else if (footerSubStyle == FooterSubStyle::KlaverjasRdamKlein)
+        {
+            out.add(bookmarks::Event{ "amsterdams", "kj_klein_adam.html" });
             out.add(bookmarks::Event{ "met&nbsp;plaatjes", "kj_gfx_rdam.html" });
         }
 
@@ -125,6 +147,11 @@ namespace shob::pages
         if (input.css == StyleSheetType::InlineForKlaverjas)
         {
             auto style = getStyleSheetKlaverjas();
+            out.addContent(style);
+        }
+        else if (input.css == StyleSheetType::InlineForKlaverjasKlein)
+        {
+            auto style = getStyleSheetKlaverjasKlein();
             out.addContent(style);
         }
         else
