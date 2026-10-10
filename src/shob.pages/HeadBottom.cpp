@@ -48,6 +48,39 @@ namespace shob::pages
         return out;
     }
 
+    bookmarks::ListOfEvents HeadBottom::getFooterKlaverjasLinks(FooterSubStyle footerSubStyle)
+    {
+        bookmarks::ListOfEvents out;
+
+        out.add(bookmarks::Event{ "nieuw&nbsp;spel", "javascript:NieuwSpel();" });
+        out.add(bookmarks::Event{ "settings/faq", "klaverjas_faq.html" });
+        if (footerSubStyle == FooterSubStyle::KlaverjasAdamGfx)
+        {
+            out.add(bookmarks::Event{ "rotterdams", "kj_gfx_rdam.html" });
+            out.add(bookmarks::Event{ "tekst-only", "kj_txt_adam.html" });
+        }
+        else if (footerSubStyle == FooterSubStyle::KlaverjasAdamTxt)
+        {
+            out.add(bookmarks::Event{ "rotterdams", "kj_txt_rdam.html" });
+            out.add(bookmarks::Event{ "met&nbsp;plaatjes", "kj_gfx_adam.html" });
+        }
+        else if (footerSubStyle == FooterSubStyle::KlaverjasRdamGfx)
+        {
+            out.add(bookmarks::Event{ "amsterdams", "kj_gfx_adam.html" });
+            out.add(bookmarks::Event{ "tekst-only", "kj_txt_rdam.html" });
+        }
+        else if (footerSubStyle == FooterSubStyle::KlaverjasRdamTxt)
+        {
+            out.add(bookmarks::Event{ "amsterdams", "kj_txt_adam.html" });
+            out.add(bookmarks::Event{ "met&nbsp;plaatjes", "kj_gfx_rdam.html" });
+        }
+
+        out.add(bookmarks::Event{ "mail-me", "reactie.html" });
+        out.add(bookmarks::Event{ "homepage", "index.html" });
+        out.add(bookmarks::Event{ "sport", "sport.html" });
+        return out;
+    }
+
     general::MultipleStrings HeadBottom::getFooter(const general::itdate& dd, FooterStyle footerStyle, FooterSubStyle footerSubStyle)
     {
         general::MultipleStrings out;
@@ -65,43 +98,9 @@ namespace shob::pages
         }
         else if (footerStyle == FooterStyle::Klaverjas)
         {
-            out.addContent(R"(<table width=100%> <tr>
-<td width=100% align=center><table border cellspacing=0>
-<tr><td><a href="javascript:NieuwSpel();">nieuw&nbsp;spel</a></td>
-<td><a href="klaverjas_faq.html">settings/faq</a></td>)");
-
-            if (footerSubStyle == FooterSubStyle::KlaverjasAdamGfx)
-            {
-                out.addContent(
-R"(<td><a href="kj_gfx_rdam.html">rotterdams</a></td>
-<td><a href="kj_txt_adam.html">tekst-only</a></td>)");
-            }
-            else if (footerSubStyle == FooterSubStyle::KlaverjasAdamTxt)
-            {
-                out.addContent(
-R"(<td><a href="kj_txt_rdam.html">rotterdams</a></td>
-<td><a href="kj_gfx_adam.html">met&nbsp;plaatjes</a></td>)");
-            }
-            else if (footerSubStyle == FooterSubStyle::KlaverjasRdamGfx)
-            {
-                out.addContent(
-R"(<td><a href="kj_gfx_adam.html">amsterdams</a></td>
-<td><a href="kj_txt_rdam.html">tekst-only</a></td>)");
-            }
-            else if (footerSubStyle == FooterSubStyle::KlaverjasRdamTxt)
-            {
-                out.addContent(
-R"(<td><a href="kj_txt_adam.html">amsterdams</a></td>
-<td><a href="kj_gfx_rdam.html">met&nbsp;plaatjes</a></td>)");
-            }
-
-            out.addContent(
-R"(<td><a href="reactie.html">mail-me</a></td>
-<td><a href="index.html">homepage</a></td>
-<td><a href="sport.html">sport</a></td>
-</tr>
-</table>
-</td> </tr> </table>)");
+            auto links = getFooterKlaverjasLinks(footerSubStyle);
+            auto content = links.printAsFooterOldStyle();
+            out.addContent(content);
         }
 
         return out;

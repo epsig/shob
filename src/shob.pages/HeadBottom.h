@@ -69,6 +69,7 @@ namespace shob::pages
         static general::MultipleStrings getFooter(const general::itdate& dd, FooterStyle footerStyle, FooterSubStyle footerSubStyle);
         static general::MultipleStrings getJsSortTable();
         static bookmarks::ListOfEvents getFooterLinks(const general::itdate& dd);
+        static bookmarks::ListOfEvents getFooterKlaverjasLinks(FooterSubStyle footerSubStyle);
     };
 }
 
