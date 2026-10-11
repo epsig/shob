@@ -129,6 +129,7 @@ namespace shob::pages
         hb.copyTitleToH1 = false;
         hb.footerStyle = FooterStyle::New;
         hb.body = table::yellowRed(ml, hb.title);
+        hb.pageInFooter = "klaverjassen";
         auto pageContent = HeadBottom::getPage(hb);
         return pageContent;
     }

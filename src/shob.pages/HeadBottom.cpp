@@ -49,12 +49,19 @@ namespace shob::pages
         return out;
     }
 
-    bookmarks::ListOfEvents HeadBottom::getFooterLinks(const general::itdate& dd)
+    bookmarks::ListOfEvents HeadBottom::getFooterLinks(const general::itdate& dd, const std::string& pageInFooter)
     {
         bookmarks::ListOfEvents out;
         out.add(bookmarks::Event{ "mail-me", "reactie.html" });
         out.add(bookmarks::Event{ "homepage", "index.html" });
-        out.add(bookmarks::Event{ "klaverjassen", "klaverjas_faq.html" });
+        if (pageInFooter.empty())
+        {
+            out.add(bookmarks::Event{ "klaverjassen", "klaverjas_faq.html" });
+        }
+        else
+        {
+            out.add(bookmarks::Event{ "klaverjassen", "" });
+        }
         out.add(bookmarks::Event{ "sport", "sport.html" });
         out.add(bookmarks::Event{ "d.d. " + dd.toString(false) + " ", ""});
         return out;
@@ -103,18 +110,18 @@ namespace shob::pages
         return out;
     }
 
-    general::MultipleStrings HeadBottom::getFooter(const general::itdate& dd, FooterStyle footerStyle, FooterSubStyle footerSubStyle)
+    general::MultipleStrings HeadBottom::getFooter(const general::itdate& dd, FooterStyle footerStyle, FooterSubStyle footerSubStyle, const std::string& pageInFooter)
     {
         general::MultipleStrings out;
         if (footerStyle == FooterStyle::New)
         {
-            auto links = getFooterLinks(dd);
+            auto links = getFooterLinks(dd, pageInFooter);
             auto content = links.printAsFooterNewStyle();
             out.addContent(content);
         }
         else if (footerStyle == FooterStyle::Old)
         {
-            auto links = getFooterLinks(dd);
+            auto links = getFooterLinks(dd, pageInFooter);
             auto content = links.printAsFooterOldStyle();
             out.addContent(content);
         }
@@ -185,7 +192,7 @@ namespace shob::pages
 
         if (input.withFooter)
         {
-            auto footer = getFooter(input.dd, input.footerStyle, input.footerSubStyle);
+            auto footer = getFooter(input.dd, input.footerStyle, input.footerSubStyle, input.pageInFooter);
             out.addContent(footer);
         }
 

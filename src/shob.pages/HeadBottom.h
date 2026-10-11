@@ -56,6 +56,7 @@ namespace shob::pages
         bool withFooter = true;
         FooterStyle footerStyle = FooterStyle::Old;
         FooterSubStyle footerSubStyle = FooterSubStyle::KlaverjasAdamGfx;
+        std::string pageInFooter;
     };
 
     /// <summary>
@@ -70,9 +71,9 @@ namespace shob::pages
         static general::MultipleStrings getStyleSheetKlaverjas();
         static general::MultipleStrings getStyleSheetKlaverjasKlein();
         static general::MultipleStrings getLinkToStyleSheet();
-        static general::MultipleStrings getFooter(const general::itdate& dd, FooterStyle footerStyle, FooterSubStyle footerSubStyle);
+        static general::MultipleStrings getFooter(const general::itdate& dd, FooterStyle footerStyle, FooterSubStyle footerSubStyle, const std::string& pageInFooter);
         static general::MultipleStrings getJsSortTable();
-        static bookmarks::ListOfEvents getFooterLinks(const general::itdate& dd);
+        static bookmarks::ListOfEvents getFooterLinks(const general::itdate& dd, const std::string& pageInFooter);
         static bookmarks::ListOfEvents getFooterKlaverjasLinks(FooterSubStyle footerSubStyle);
     };
 }
