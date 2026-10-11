@@ -52,8 +52,10 @@ namespace shob::klaverjas
             }
         }
 
+        constexpr size_t skip_header_lines = 9; // Number of header lines to skip
         MultipleStrings return_input;
-        for (auto line : input.data) {
+        for (size_t i = 0; i < input.data.size(); ++i) {
+            auto line = input.data[i];
             if (line.starts_with("//")) {
                 continue; // Skip comment lines that start with "//"
             }
@@ -63,31 +65,27 @@ namespace shob::klaverjas
             else if (line.find("debug") != std::string::npos) {
                 continue; // Skip lines that contain "debug"
             }
-            const auto pos = line.find("//");
-            if (pos != std::string::npos) {
-                line = line.substr(0, pos); // Remove the comment part
+            if (line.find("'") == std::string::npos && line.find("http") == std::string::npos)
+            {
+                const auto pos = line.find("//");
+                if (pos != std::string::npos) {
+                    line = line.substr(0, pos); // Remove the comment part
+                }
+            }
+            if (i > skip_header_lines)
+            {
+                line = readers::csvReader::trim(line, " ");
             }
             if (line.empty()) continue;
             return_input.data.push_back(line); // Copy each line to the new MultipleStrings object
         }
 
-        constexpr size_t skip_header_lines = 9; // Number of header lines to skip
-
         for (size_t i = skip_header_lines; i < return_input.data.size(); ++i) {
             auto& line = return_input.data[i];
             versleutel(line, keyMap);
             line = readers::csvReader::trim(line, " ");
-            /*
-            for (const auto& [value, key] : keyMap) {
-                auto pos = line.find(value);
-                while (pos != std::string::npos) {
-                    line.replace(pos, value.length(), key);
-                    pos = line.find(value, pos + key.length());
-                }
-            }
-            */
             if (line.find("'") != std::string::npos) continue;
-            for (const std::string& token : { "+", "-", "=", "(", ")", "{", "}", "[", "]", ">", "<", ";", ",", "&", "!", "/", "|", "?", ":", "%"}) {
+            for (const std::string& token : { "+", "-", "=", "(", ")", "{", "}", "[", "]", ">", "<", ";", ",", "&", "!", "/", "|", "?", ":", "%", "*"}) {
                 const boost::regex pattern( " *" + escape_regex(token) + " *");
                 line = boost::regex_replace(
                     line, pattern, token,

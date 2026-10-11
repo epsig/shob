@@ -22,7 +22,7 @@
 #include "shob.general/shobException.h"
 #include "shob.html/updateIfNewer.h"
 
-void read_command_line(int argc, char* argv[], int& yr1, int&yr2)
+void read_command_line(int argc, char* argv[], int& yr1, int&yr2, bool& skip_kj)
 {
     using namespace shob::general;
     if (argc >= 3)
@@ -33,6 +33,10 @@ void read_command_line(int argc, char* argv[], int& yr1, int&yr2)
             const std::string arg2 = argv[2];
             yr1 = std::stoi(arg1);
             yr2 = std::stoi(arg2);
+            if (argc >= 4)
+            {
+                skip_kj = (std::string(argv[3]) != "with_kj");
+            }
         }
         else
         {
@@ -65,8 +69,9 @@ int main(int argc, char* argv[])
     {
         int firstYear = 1993;
         int lastYear = 2026; // TODO function of current date
+        bool skip_kj = true;
 
-        read_command_line(argc, argv, firstYear, lastYear);
+        read_command_line(argc, argv, firstYear, lastYear, skip_kj);
 
         part = "running factories";
         auto settings = shob::html::settings();
@@ -149,16 +154,20 @@ int main(int argc, char* argv[])
         fmt_bookmarks.rebuildOverzicht();
 
         part = "klaverjas";
-        shob::klaverjas::MergeJavaScript::mergeFiles("gfx");
-        auto fmt_klaverjas = FormatKlaverjas();
-        for (const auto& location : { "adam", "rdam" })
+        if (!skip_kj)
         {
-            for (const auto& type : { "gfx", "txt", "klein" })
+            shob::klaverjas::MergeJavaScript::mergeFiles("gfx");
+            shob::klaverjas::MergeJavaScript::mergeFiles("txt");
+            auto fmt_klaverjas = FormatKlaverjas();
+            for (const auto& location : { "adam", "rdam" })
             {
-                fmt_klaverjas.rebuildKlaverjas(type, location);
+                for (const auto& type : { "gfx", "txt", "klein" })
+                {
+                    fmt_klaverjas.rebuildKlaverjas(type, location);
+                }
             }
+            fmt_klaverjas.rebuildFaq();
         }
-        fmt_klaverjas.rebuildFaq();
 
         part = "copy style sheets";
         shob::html::updateIfDifferent::update("../code/test/epsig.css", "../pages/epsig.css");

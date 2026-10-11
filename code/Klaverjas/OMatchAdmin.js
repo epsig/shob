@@ -272,7 +272,7 @@ this.ComputerWeerAanZet = function (x)
   {
    this.SpeelKaart(x);
    timeout = Math.max(1, std_timeout - this.strat.tooktime );
-   // window.alert('times = ' + timeout + ' = ' + std_timeout + ' - ' + this.strat.tooktime );
+// window.alert('times = ' + timeout + ' = ' + std_timeout + ' - ' + this.strat.tooktime );
    n = x+1;
   }
   if (n <= 3) {window.setTimeout("ComputerWeerAanZet("+n+");", timeout ); return;}
