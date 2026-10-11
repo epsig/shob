@@ -174,6 +174,7 @@ namespace shob::pages
         hb.copyTitleToH1 = false;
         hb.footerStyle = FooterStyle::New;
         hb.body = table::yellowRed(content, hb.title);
+        hb.pageInFooter = "sport";
         auto pageContent = HeadBottom::getPage(hb);
         return pageContent;
     }

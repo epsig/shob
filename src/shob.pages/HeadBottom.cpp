@@ -51,19 +51,24 @@ namespace shob::pages
 
     bookmarks::ListOfEvents HeadBottom::getFooterLinks(const general::itdate& dd, const std::string& pageInFooter)
     {
-        bookmarks::ListOfEvents out;
-        out.add(bookmarks::Event{ "mail-me", "reactie.html" });
-        out.add(bookmarks::Event{ "homepage", "index.html" });
-        if (pageInFooter.empty())
+        auto defaults = std::vector<std::pair<std::string,std::string>>();
+        defaults.push_back({ "mail-me", "reactie.html" });
+        defaults.push_back({ "homepage", "index.html" });
+        defaults.push_back({ "klaverjassen", "klaverjas_faq.html" });
+        defaults.push_back({ "sport", "sport.html" });
+        defaults.push_back({ "d.d. " + dd.toString(false) + " ", ""});
+        auto out = bookmarks::ListOfEvents();
+        for (auto& e : defaults)
         {
-            out.add(bookmarks::Event{ "klaverjassen", "klaverjas_faq.html" });
+            if (!pageInFooter.empty())
+            {
+                if (e.first == pageInFooter)
+                {
+                    e.second.clear();
+                }
+            }
+            out.add(bookmarks::Event{ e.first, e.second });
         }
-        else
-        {
-            out.add(bookmarks::Event{ "klaverjassen", "" });
-        }
-        out.add(bookmarks::Event{ "sport", "sport.html" });
-        out.add(bookmarks::Event{ "d.d. " + dd.toString(false) + " ", ""});
         return out;
     }
 
