@@ -135,6 +135,7 @@ target_link_libraries(shob.football.test shob.football shob.general shob.test.ut
 target_link_libraries(shob.bookmarks.test shob.bookmarks shob.general shob.test.utils shob.readers gtest_main)
 target_link_libraries(shob.html.test shob.html shob.general gtest_main)
 target_link_libraries(shob.pages shob.football shob.general shob.readers shob.html shob.teams shob.bookmarks)
+target_link_libraries(shob.klaverjas shob.general shob.readers)
 target_link_libraries(shob shob.football shob.general shob.readers shob.html shob.teams shob.pages
     shob.bookmarks shob.klaverjas)
 target_link_libraries(shob.pages.test shob.football shob.general shob.readers shob.html
@@ -142,7 +143,7 @@ target_link_libraries(shob.pages.test shob.football shob.general shob.readers sh
 target_link_libraries(shob.teams shob.readers shob.html)
 target_link_libraries(shob.teams.test shob.teams shob.readers shob.test.utils gtest_main)
 target_link_libraries(shob.general.test shob.general shob.test.utils gtest_main)
-target_link_libraries(shob.klaverjas.test shob.klaverjas gtest_main)
+target_link_libraries(shob.klaverjas.test shob.klaverjas shob.general shob.readers shob.test.utils gtest_main)
 
 enable_testing()
 

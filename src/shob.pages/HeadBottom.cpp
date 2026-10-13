@@ -166,7 +166,7 @@ namespace shob::pages
             auto style = getStyleSheetKlaverjasKlein();
             out.addContent(style);
         }
-        else
+        else if (input.css == StyleSheetType::SeparateFile)
         {
             auto style = getLinkToStyleSheet();
             out.addContent(style);

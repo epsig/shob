@@ -31,7 +31,7 @@ namespace shob::klaverjas
             content.addContent(lines);
         }
 
-        auto versleutel = Versleutel();
+        auto versleutel = Versleutel(9, "../code/Klaverjas/sleutels.txt");
         auto encryptedContent = versleutel.versleutelCode(content);
 
         FileIO::writeToFile(outputFile, encryptedContent);

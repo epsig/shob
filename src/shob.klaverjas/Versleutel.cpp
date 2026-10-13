@@ -1,18 +1,16 @@
 #include "Versleutel.h"
 #include "../shob.general/FileIO.h"
-#include <map>
-#include <string>
 #include <utility>
 #include <vector>
 #include <boost/regex.hpp>
 #include "../shob.readers/csvReader.h"
+#include "../shob.general/shobException.h"
 
 namespace shob::klaverjas
 {
     using namespace shob::general;
 
-
-    static std::string escape_regex(const std::string & text)
+    std::string Versleutel::escape_regex(const std::string & text)
     {
         static const std::string special = R"(\.^$|()[]{}*+?)";
         std::string escaped;
@@ -25,9 +23,7 @@ namespace shob::klaverjas
         return escaped;
     }
 
-    void versleutel(
-        std::string& text,
-        const std::map<std::string, std::string>& lijst)
+    void Versleutel::versleutel(std::string& text, const std::map<std::string, std::string>& lijst)
     {
         for (const auto& [key, value] : lijst)
         {
@@ -41,7 +37,12 @@ namespace shob::klaverjas
 
     MultipleStrings Versleutel::versleutelCode(const MultipleStrings& input)
     {
-        auto keys = FileIO::readFile("../code/Klaverjas/sleutels.txt");
+        auto keys = FileIO::readFile(sleutels_path);
+        if (keys.data.empty())
+        {
+            throw shobException("Sleutels file is empty or not found: " + sleutels_path);
+        }
+
         auto keyMap = std::map<std::string, std::string>();
         for (const auto& line : keys.data) {
             auto delimiterPos = line.find(' ');
@@ -52,7 +53,6 @@ namespace shob::klaverjas
             }
         }
 
-        constexpr size_t skip_header_lines = 9; // Number of header lines to skip
         MultipleStrings return_input;
         for (size_t i = 0; i < input.data.size(); ++i) {
             auto line = input.data[i];
