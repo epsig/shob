@@ -5,6 +5,7 @@
 
 #include "../shob.general/MathSupport.h"
 #include "../shob.football/topscorers.h"
+#include "../shob.general/StringUtils.h"
 
 namespace shob::pages
 {
@@ -246,13 +247,13 @@ namespace shob::pages
 
         if (!stadium.empty() && !spectators.empty())
         {
-            stadium = readers::csvReader::trim(stadium, " ");
-            spectators = readers::csvReader::trim(spectators, " ");
+            stadium = StringUtils::trim(stadium, " ");
+            spectators = StringUtils::trim(spectators, " ");
             return_value.addContent(std::format("Gespeeld te {} voor {} toeschouwers. <br>", stadium, spectators));
         }
         if (!arbiter.empty())
         {
-            arbiter = readers::csvReader::trim(arbiter, " ");
+            arbiter = StringUtils::trim(arbiter, " ");
             return_value.addContent(std::format("Scheidsrechter: {}. <br>", arbiter));
         }
 
@@ -261,7 +262,7 @@ namespace shob::pages
         MultipleStrings red_cards;
         for (const auto& [time, remark] : games)
         {
-            const auto trimmed = readers::csvReader::trim(remark, " ");
+            const auto trimmed = StringUtils::trim(remark, " ");
             const auto splitted = readers::csvReader::split(trimmed, " ");
             if (trimmed.starts_with("Rood"))
             {

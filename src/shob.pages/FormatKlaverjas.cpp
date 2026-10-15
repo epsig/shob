@@ -4,7 +4,7 @@
 #include "../shob.klaverjas/KlaverjasTable.h"
 #include "../shob.html/updateIfNewer.h"
 #include "../shob.general/FileIO.h"
-#include "../shob.readers/csvReader.h"
+#include "../shob.general/StringUtils.h"
 #include "../shob.html/table.h"
 
 namespace shob::pages
@@ -57,7 +57,7 @@ namespace shob::pages
             {
                 line.replace(pos, 8, "nL");
             }
-            line = readers::csvReader::trim(line, " ");
+            line = StringUtils::trim(line, " ");
         }
 
         auto hb = HeadBottomInput(-1);

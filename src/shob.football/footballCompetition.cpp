@@ -3,6 +3,7 @@
 
 #include "../shob.readers/csvReader.h"
 #include "../shob.general/dateFactory.h"
+#include "../shob.general/StringUtils.h"
 #include "../shob.html/funcs.h"
 
 namespace shob::football
@@ -36,7 +37,7 @@ namespace shob::football
             {
                 if (!line[spectatorsColumn].empty())
                 {
-                    const auto spectatorsAsStr = csvReader::trim(line[spectatorsColumn], " ");
+                    const auto spectatorsAsStr = StringUtils::trim(line[spectatorsColumn], " ");
                     if (dateFactory::allDigits(spectatorsAsStr))
                     {
                         spectators = std::stoi(spectatorsAsStr);
