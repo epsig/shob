@@ -21,7 +21,7 @@ namespace shob::pages
 
     general::MultipleStrings FormatKlaverjas::getKlaverjas(std::string_view type, std::string_view location)
     {
-        const auto content = klaverjas::kjTable(type);
+        const auto content = klaverjas::KlaverjasTable::kjTable(type);
         auto ret = general::MultipleStrings();
         ret.addContent(content);
 

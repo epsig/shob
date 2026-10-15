@@ -10,7 +10,7 @@ namespace shob::klaverjas::test
 
     TEST(KlaverjasTable, BuildsGraphicsTable)
     {
-        const auto result = kjTable("gfx");
+        const auto result = KlaverjasTable::kjTable("gfx");
 
         EXPECT_TRUE(result.starts_with("<table border cellspacing=\"0\" width=\"100%\">") );
         EXPECT_NE(std::string::npos, result.find("javascript:KiesTroef(3)\""));
@@ -21,7 +21,7 @@ namespace shob::klaverjas::test
 
     TEST(KlaverjasTable, BuildsTextTable)
     {
-        const auto result = kjTable("txt");
+        const auto result = KlaverjasTable::kjTable("txt");
 
         EXPECT_NE(std::string::npos, result.find("value=\" ? \""));
         EXPECT_NE(std::string::npos, result.find("<form name=\"ShowKaartS\"><input"));

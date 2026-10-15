@@ -2,72 +2,9 @@
 
 #include <string>
 
-namespace
-{
-    constexpr auto nbsp = "&nbsp;";
-
-    std::string form(std::string_view name, const std::string& content)
-    {
-        return "<form name=\"" + std::string(name) + "\">" + content + "</form>\n";
-    }
-
-    std::string input(std::string_view type, std::string_view name, std::string_view value,
-        int size = 0, std::string_view cssClass = {}, std::string_view onClick = {})
-    {
-        std::string result = "<input";
-        if (!type.empty()) result += " type=\"" + std::string(type) + "\"";
-        if (!name.empty()) result += " name=\"" + std::string(name) + "\"";
-        result += " value=\"" + std::string(value) + "\"";
-        if (size > 0) result += " size=\"" + std::to_string(size) + "\"";
-        if (!cssClass.empty()) result += " class=\"" + std::string(cssClass) + "\"";
-        if (!onClick.empty()) result += " onClick=\"" + std::string(onClick) + "\"";
-        return result + "/>\n";
-    }
-
-    std::string td(const std::string& content, int columns = 1, int rows = 1,
-        std::string_view align = {}, std::string_view valign = {})
-    {
-        std::string result = "<td";
-        if (columns > 1) result += " colspan=\"" + std::to_string(columns) + "\"";
-        if (rows > 1) result += " rowspan=\"" + std::to_string(rows) + "\"";
-        if (!align.empty()) result += " align=\"" + std::string(align) + "\"";
-        if (!valign.empty()) result += " valign=\"" + std::string(valign) + "\"";
-        return result + ">" + content + "</td>";
-    }
-
-    std::string tdTop(const std::string& content)
-    {
-        return "<td valign=\"top\">" + content + "</td>\n";
-    }
-
-    std::string row(const std::string& content)
-    {
-        return "<tr>" + content + "</tr>\n";
-    }
-
-    std::string spacer(int columns)
-    {
-        return td(nbsp, columns);
-    }
-
-    std::string blankImage(int size)
-    {
-        return "<img border=0 src=\"include/wit.gif\" height=" + std::to_string(size) +
-            " width=" + std::to_string(size) + "/>";
-    }
-
-    std::string showCard(bool graphics, char position)
-    {
-        const auto content = graphics
-            ? blankImage(50)
-            : input("text", "", "", 4, "k");
-        return td(form("ShowKaart" + std::string(1, position), content));
-    }
-}
-
 namespace shob::klaverjas
 {
-    std::string kjTable(std::string_view displayType)
+    std::string KlaverjasTable::kjTable(std::string_view displayType)
     {
         const bool graphics = displayType == "gfx";
         std::string topLine = tdTop(form("KiesTroefTxt",
@@ -154,5 +91,63 @@ namespace shob::klaverjas
         output += row(td(form("msg",
             input("text", "m0", " ", 43) + input("text", "m1", " ", 43)), 6));
         return "<table border cellspacing=\"0\" width=\"100%\">" + output + "</table>\n";
+    }
+
+    std::string KlaverjasTable::form(std::string_view name, const std::string& content)
+    {
+        return "<form name=\"" + std::string(name) + "\">" + content + "</form>\n";
+    }
+
+    std::string KlaverjasTable::input(std::string_view type, std::string_view name, std::string_view value,
+        int size = 0, std::string_view cssClass, std::string_view onClick)
+    {
+        std::string result = "<input";
+        if (!type.empty()) result += " type=\"" + std::string(type) + "\"";
+        if (!name.empty()) result += " name=\"" + std::string(name) + "\"";
+        result += " value=\"" + std::string(value) + "\"";
+        if (size > 0) result += " size=\"" + std::to_string(size) + "\"";
+        if (!cssClass.empty()) result += " class=\"" + std::string(cssClass) + "\"";
+        if (!onClick.empty()) result += " onClick=\"" + std::string(onClick) + "\"";
+        return result + "/>\n";
+    }
+
+    std::string KlaverjasTable::td(const std::string& content, int columns, int rows,
+        std::string_view align, std::string_view valign)
+    {
+        std::string result = "<td";
+        if (columns > 1) result += " colspan=\"" + std::to_string(columns) + "\"";
+        if (rows > 1) result += " rowspan=\"" + std::to_string(rows) + "\"";
+        if (!align.empty()) result += " align=\"" + std::string(align) + "\"";
+        if (!valign.empty()) result += " valign=\"" + std::string(valign) + "\"";
+        return result + ">" + content + "</td>";
+    }
+
+    std::string KlaverjasTable::tdTop(const std::string& content)
+    {
+        return "<td valign=\"top\">" + content + "</td>\n";
+    }
+
+    std::string KlaverjasTable::row(const std::string& content)
+    {
+        return "<tr>" + content + "</tr>\n";
+    }
+
+    std::string KlaverjasTable::spacer(int columns)
+    {
+        return td(nbsp, columns);
+    }
+
+    std::string KlaverjasTable::blankImage(int size)
+    {
+        return "<img border=0 src=\"include/wit.gif\" height=" + std::to_string(size) +
+            " width=" + std::to_string(size) + "/>";
+    }
+
+    std::string KlaverjasTable::showCard(bool graphics, char position)
+    {
+        const auto content = graphics
+            ? blankImage(50)
+            : input("text", "", "", 4, "k");
+        return td(form("ShowKaart" + std::string(1, position), content));
     }
 }
