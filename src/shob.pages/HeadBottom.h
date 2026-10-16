@@ -3,6 +3,7 @@
 
 #include "../shob.html/table.h"
 #include "../shob.general/itdate.h"
+#include "../shob.bookmarks/ListOfEvents.h"
 #include <string>
 
 namespace shob::pages
@@ -11,12 +12,33 @@ namespace shob::pages
     {
         InlineInHead,
         SeparateFile,
+        InlineForKlaverjas,
+        InlineForKlaverjasKlein
     };
 
     enum class JavaScriptType
     {
         None,
         SortTable,
+        KlaverjasGfx,
+        KlaverjasTxt
+    };
+
+    enum class FooterStyle
+    {
+        Old,
+        New,
+        Klaverjas
+    };
+
+    enum class FooterSubStyle
+    {
+        KlaverjasAdamGfx,
+        KlaverjasAdamTxt,
+        KlaverjasRdamGfx,
+        KlaverjasRdamTxt,
+        KlaverjasAdamKlein,
+        KlaverjasRdamKlein
     };
 
     /// <summary>
@@ -32,7 +54,9 @@ namespace shob::pages
         general::itdate dd;
         bool copyTitleToH1 = true;
         bool withFooter = true;
-        bool newStyleFooter = false;
+        FooterStyle footerStyle = FooterStyle::Old;
+        FooterSubStyle footerSubStyle = FooterSubStyle::KlaverjasAdamGfx;
+        std::string pageInFooter;
     };
 
     /// <summary>
@@ -44,9 +68,13 @@ namespace shob::pages
         static general::MultipleStrings getPage(HeadBottomInput& input);
     private:
         static general::MultipleStrings getStyleSheet();
+        static general::MultipleStrings getStyleSheetKlaverjas();
+        static general::MultipleStrings getStyleSheetKlaverjasKlein();
         static general::MultipleStrings getLinkToStyleSheet();
-        static general::MultipleStrings getFooter(const general::itdate& dd, const bool newStyleFooter);
+        static general::MultipleStrings getFooter(const general::itdate& dd, FooterStyle footerStyle, FooterSubStyle footerSubStyle, const std::string& pageInFooter);
         static general::MultipleStrings getJsSortTable();
+        static bookmarks::ListOfEvents getFooterLinks(const general::itdate& dd, const std::string& pageInFooter);
+        static bookmarks::ListOfEvents getFooterKlaverjasLinks(FooterSubStyle footerSubStyle);
     };
 }
 

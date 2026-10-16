@@ -13,7 +13,6 @@ use Shob::Stats_Website;
 use Shob::Functions;
 use Shob::Politiek;
 use Shob::Foto;
-use Shob::Klaverjas_Funcs;
 use Shob_Tools::Idate qw(&split_idate);
 use Sport_Collector::Archief_Voetbal_NL;
 use Sport_Collector::Archief_Europacup_Voetbal;
@@ -70,8 +69,6 @@ sub handle_gen_files($$$)
   [2, 'all', sub {&get_samenvatting_proefschrift();}, 'samenvatting_proefschrift.html'],
   [2, 'all', sub {&get_letters();}, 'anybrowser.html'],
   [2, 'all', sub {&get_ascii_codes;}, 'tmp_ascii_codes.html'],
-  [2, 'all', sub {&get_klaverjas_faq;}, 'klaverjas_faq.html']]);
-# [1, ' rl', sub {&get_klaverjas_beta_versies;}, 'kj_beta_versies.html'],
 
   my $robots = File::Spec->catfile('Admin', 'robots.txt');
   if (-f $robots)
@@ -79,7 +76,6 @@ sub handle_gen_files($$$)
     do_all_text_dir ($lop, '', [[2, ' rl', sub {&file2str($robots);}, 'robots.txt']]);
   }
 
- handle_kj($lop, 1);
  do_all_bin_dir($lop, 2, 'all', 0, 'Shob', '.');
  do_all_bin_dir($lop, 2, 'all', 0, 'include', 'include');
  do_all_bin_dir($lop, 2, 'all', 0, 'kj_img', 'include');
@@ -131,49 +127,6 @@ sub handle_gen_files($$$)
  }
 
  handle_vimrc($lop);
-}
-
-sub handle_kj($$)
-{# (c) Edwin Spee
-
- my ($lop, $epsig) = @_;
-
- my $skip_beta_test = (get_history() or (not $epsig));
-#my $skip_beta_test = 1;
-
- my $hostid = get_host_id();
-
- do_all_text_dir ($lop, '', [
-  [3, 'all', sub {&get_kj_palmtop(1, 'adam', 'std');}, 'kj_klein_adam.html'],
-  [3, 'all', sub {&get_kj_palmtop(1, 'rdam', 'std');}, 'kj_klein_rdam.html'],
-  [3, 'all', sub {&get_klaverjas_std_scherm('gfx', 'adam', 'std');}, 'kj_gfx_adam.html'],
-  [3, 'all', sub {&get_klaverjas_std_scherm('gfx', 'rdam', 'std');}, 'kj_gfx_rdam.html'],
-  [3, 'all', sub {&get_klaverjas_std_scherm('txt', 'adam', 'std');}, 'kj_txt_adam.html'],
-  [3, 'all', sub {&get_klaverjas_std_scherm('txt', 'rdam', 'std');}, 'kj_txt_rdam.html'],
-  [3, 'all', sub {&get_kj_code('gfx', 'std')}, File::Spec->catfile('include', 'kj_code_gfx.js')],
-  [3, 'all', sub {&get_kj_code('txt', 'std')}, File::Spec->catfile('include', 'kj_code_txt.js')] ]);
- do_all_bin_dir($lop, 2, 'all', 0, 'kj_img', 'include');
-
- if (not $skip_beta_test)
- {
-  do_all_text_dir ($lop, '', [
-   [3, ' rl', sub {&get_kj_palmtop(1, 'adam', 'beta');}, 'kj_klein_adam_beta.html'],
-   [3, ' rl', sub {&get_kj_palmtop(1, 'rdam', 'beta');}, 'kj_klein_rdam_beta.html'],
-   [3, ' rl', sub {&get_klaverjas_std_scherm('gfx', 'adam', 'beta');}, 'kj_gfx_adam_beta.html'],
-   [3, ' rl', sub {&get_klaverjas_std_scherm('gfx', 'rdam', 'beta');}, 'kj_gfx_rdam_beta.html'],
-   [3, ' rl', sub {&get_klaverjas_std_scherm('txt', 'adam', 'beta');}, 'kj_txt_adam_beta.html'],
-   [3, ' rl', sub {&get_klaverjas_std_scherm('txt', 'rdam', 'beta');}, 'kj_txt_rdam_beta.html'],
-   [3, ' rl', sub {&get_kj_code('gfx', 'beta')}, File::Spec->catfile('include', 'kj_code_gfx_beta.js')],
-   [3, ' rl', sub {&get_kj_code('txt', 'beta')}, File::Spec->catfile('include', 'kj_code_txt_beta.js')] ]);
-
-  do_all_text_dir ($lop, '', [
-   [2, '  l', sub {&get_kj_palmtop(0, 'adam', 'test');}, 'kj_klein_adam_test.html'],
-   [2, '  l', sub {&get_kj_palmtop(0, 'rdam', 'test');}, 'kj_klein_rdam_test.html'],
-   [2, '  l', sub {&get_klaverjas_std_scherm('gfx', 'adam', 'test');}, 'kj_gfx_adam_test.html'],
-   [2, '  l', sub {&get_klaverjas_std_scherm('gfx', 'rdam', 'test');}, 'kj_gfx_rdam_test.html'],
-   [2, '  l', sub {&get_klaverjas_std_scherm('txt', 'adam', 'test');}, 'kj_txt_adam_test.html'],
-   [2, '  l', sub {&get_klaverjas_std_scherm('txt', 'rdam', 'test');}, 'kj_txt_rdam_test.html'] ]);
- }
 }
 
 sub handle_vimrc($)

@@ -16,6 +16,31 @@ namespace shob::pages
         return out;
     }
 
+    general::MultipleStrings HeadBottom::getStyleSheetKlaverjas()
+    {
+        general::MultipleStrings out;
+        out.addContent("<style type=\"text/css\">");
+        out.addContent(R"(body {background:silver; color:black; font-family:"Verdana","Arial"; font-size:12pt})");
+        out.addContent("th,td {background:white; font-size:12pt; padding-top:2pt; padding-bottom:2pt; padding-left:4pt; padding-right:4pt}");
+        out.addContent("input,option {font-family:\"Verdana\",\"Arial\"; font-size:12pt}");
+        out.addContent("input.k {font-family:\"Courier New\",\"Courier\"; font-weight: bold; font-size:14pt}");
+        out.addContent("input.b {font-family:\"Courier New\",\"Courier\"; font-weight: bold; font-size:12pt}");
+        out.addContent("</style>");
+        return out;
+    }
+
+    general::MultipleStrings HeadBottom::getStyleSheetKlaverjasKlein()
+    {
+        general::MultipleStrings out;
+        out.addContent("<style type=\"text/css\">");
+        out.addContent(R"(body{background:white;color:black;font-family:"Verdana","Arial";font-size:9pt})");
+        out.addContent("h1{font-weight:bold;font-size:12pt}");
+        out.addContent("th,td{font-size:9pt;padding-top:2pt;padding-bottom:2pt;padding-left:4pt;padding-right:4pt}");
+        out.addContent(".k{font-family:\"Courier New\",\"Courier\";font-weight:bold;font-size:14pt}");
+        out.addContent("</style>");
+        return out;
+    }
+
     general::MultipleStrings HeadBottom::getLinkToStyleSheet()
     {
         general::MultipleStrings out;
@@ -24,30 +49,92 @@ namespace shob::pages
         return out;
     }
 
-    general::MultipleStrings HeadBottom::getFooter(const general::itdate& dd, const bool newStyleFooter)
+    bookmarks::ListOfEvents HeadBottom::getFooterLinks(const general::itdate& dd, const std::string& pageInFooter)
+    {
+        auto defaults = std::vector<std::pair<std::string,std::string>>();
+        defaults.push_back({ "mail-me", "reactie.html" });
+        defaults.push_back({ "homepage", "index.html" });
+        defaults.push_back({ "klaverjassen", "klaverjas_faq.html" });
+        defaults.push_back({ "sport", "sport.html" });
+        defaults.push_back({ "d.d. " + dd.toString(false) + " ", ""});
+        auto out = bookmarks::ListOfEvents();
+        for (auto& e : defaults)
+        {
+            if (!pageInFooter.empty())
+            {
+                if (e.first == pageInFooter)
+                {
+                    e.second.clear();
+                }
+            }
+            out.add(bookmarks::Event{ e.first, e.second });
+        }
+        return out;
+    }
+
+    bookmarks::ListOfEvents HeadBottom::getFooterKlaverjasLinks(FooterSubStyle footerSubStyle)
+    {
+        bookmarks::ListOfEvents out;
+
+        out.add(bookmarks::Event{ "nieuw&nbsp;spel", "javascript:NieuwSpel();" });
+        out.add(bookmarks::Event{ "settings/faq", "klaverjas_faq.html" });
+        if (footerSubStyle == FooterSubStyle::KlaverjasAdamGfx)
+        {
+            out.add(bookmarks::Event{ "rotterdams", "kj_gfx_rdam.html" });
+            out.add(bookmarks::Event{ "tekst-only", "kj_txt_adam.html" });
+        }
+        else if (footerSubStyle == FooterSubStyle::KlaverjasAdamTxt)
+        {
+            out.add(bookmarks::Event{ "rotterdams", "kj_txt_rdam.html" });
+            out.add(bookmarks::Event{ "met&nbsp;plaatjes", "kj_gfx_adam.html" });
+        }
+        else if (footerSubStyle == FooterSubStyle::KlaverjasRdamGfx)
+        {
+            out.add(bookmarks::Event{ "amsterdams", "kj_gfx_adam.html" });
+            out.add(bookmarks::Event{ "tekst-only", "kj_txt_rdam.html" });
+        }
+        else if (footerSubStyle == FooterSubStyle::KlaverjasRdamTxt)
+        {
+            out.add(bookmarks::Event{ "amsterdams", "kj_txt_adam.html" });
+            out.add(bookmarks::Event{ "met&nbsp;plaatjes", "kj_gfx_rdam.html" });
+        }
+        else if (footerSubStyle == FooterSubStyle::KlaverjasAdamKlein)
+        {
+            out.add(bookmarks::Event{ "rotterdams", "kj_klein_rdam.html" });
+            out.add(bookmarks::Event{ "met&nbsp;plaatjes", "kj_gfx_adam.html" });
+        }
+        else if (footerSubStyle == FooterSubStyle::KlaverjasRdamKlein)
+        {
+            out.add(bookmarks::Event{ "amsterdams", "kj_klein_adam.html" });
+            out.add(bookmarks::Event{ "met&nbsp;plaatjes", "kj_gfx_rdam.html" });
+        }
+
+        out.add(bookmarks::Event{ "mail-me", "reactie.html" });
+        out.add(bookmarks::Event{ "homepage", "index.html" });
+        out.add(bookmarks::Event{ "sport", "sport.html" });
+        return out;
+    }
+
+    general::MultipleStrings HeadBottom::getFooter(const general::itdate& dd, FooterStyle footerStyle, FooterSubStyle footerSubStyle, const std::string& pageInFooter)
     {
         general::MultipleStrings out;
-        if (newStyleFooter)
+        if (footerStyle == FooterStyle::New)
         {
-            out.addContent(R"(<div class="footer">)");
-            out.addContent("| <a href=\"reactie.html\">mail-me</a>");
-            out.addContent("| <a href=\"index.html\">homepage</a> ");
-            out.addContent("| <a href=\"klaverjas_faq.html\">klaverjassen</a> ");
-            out.addContent("| <a href=\"sport.html\">sport</a> ");
-            out.addContent("| d.d. " + dd.toString(false) + " |");
-            out.addContent("</div>");
+            auto links = getFooterLinks(dd, pageInFooter);
+            auto content = links.printAsFooterNewStyle();
+            out.addContent(content);
         }
-        else
+        else if (footerStyle == FooterStyle::Old)
         {
-            out.addContent(R"(<table width="100%"> <tr> <td width="10%">&nbsp;</td>)");
-            out.addContent(R"(<td width="80%" align=center><table border cellspacing="0">)");
-            out.addContent("<tr><td><a href=\"reactie.html\">mail-me</a></td> ");
-            out.addContent("<td><a href=\"index.html\">homepage</a></td> ");
-            out.addContent("<td><a href=\"klaverjas_faq.html\">klaverjassen</a></td> ");
-            out.addContent("<td><a href=\"sport.html\">sport</a></td> ");
-            out.addContent("<td>d.d. " + dd.toString(false) + " </td> </tr> ");
-            out.addContent("</table> ");
-            out.addContent("</td> <td width=\"10%\">&nbsp;</td> </tr> </table>");
+            auto links = getFooterLinks(dd, pageInFooter);
+            auto content = links.printAsFooterOldStyle();
+            out.addContent(content);
+        }
+        else if (footerStyle == FooterStyle::Klaverjas)
+        {
+            auto links = getFooterKlaverjasLinks(footerSubStyle);
+            auto content = links.printAsFooterOldStyle();
+            out.addContent(content);
         }
 
         return out;
@@ -63,16 +150,42 @@ namespace shob::pages
             auto style = getStyleSheet();
             out.addContent(style);
         }
-        else
+
+        if (input.js == JavaScriptType::KlaverjasGfx || input.js == JavaScriptType::KlaverjasTxt)
+        {
+            out.addContent("<meta http-equiv=\"Content-Script-Type\" content=\"text/javascript\">");
+        }
+
+        if (input.css == StyleSheetType::InlineForKlaverjas)
+        {
+            auto style = getStyleSheetKlaverjas();
+            out.addContent(style);
+        }
+        else if (input.css == StyleSheetType::InlineForKlaverjasKlein)
+        {
+            auto style = getStyleSheetKlaverjasKlein();
+            out.addContent(style);
+        }
+        else if (input.css == StyleSheetType::SeparateFile)
         {
             auto style = getLinkToStyleSheet();
             out.addContent(style);
         }
+
         if (input.js == JavaScriptType::SortTable)
         {
             auto js = getJsSortTable();
             out.addContent(js);
         }
+        else if (input.js == JavaScriptType::KlaverjasGfx)
+        {
+            out.addContent("<script type=\"text/javascript\" language=\"javascript\" src=\"include/kj_code_gfx.js\"></script>");
+        }
+        else if (input.js == JavaScriptType::KlaverjasTxt)
+        {
+            out.addContent("<script type=\"text/javascript\" language=\"javascript\" src=\"include/kj_code_txt.js\"></script>");
+        }
+
         out.data.back() += "</head><body>";
 
         if (input.copyTitleToH1)
@@ -84,8 +197,13 @@ namespace shob::pages
 
         if (input.withFooter)
         {
-            auto footer = getFooter(input.dd, input.newStyleFooter);
+            auto footer = getFooter(input.dd, input.footerStyle, input.footerSubStyle, input.pageInFooter);
             out.addContent(footer);
+        }
+
+        if (input.js == JavaScriptType::KlaverjasGfx || input.js == JavaScriptType::KlaverjasTxt)
+        {
+            out.addContent("<script type=\"text/javascript\"> StartSpel(); </script>");
         }
 
         out.addContent("</body></html>");

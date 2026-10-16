@@ -1,3 +1,4 @@
+<!doctype html>
 <html lang="NL"><head><title>Klaverjassen</title>
 <meta http-equiv="Content-Script-Type" content="text/javascript">
 <style type="text/css">
@@ -5,7 +6,8 @@ body{background:white;color:black;font-family:"Verdana","Arial";font-size:9pt}
 h1{font-weight:bold;font-size:12pt}
 th,td{font-size:9pt;padding-top:2pt;padding-bottom:2pt;padding-left:4pt;padding-right:4pt}
 .k{font-family:"Courier New","Courier";font-weight:bold;font-size:14pt}
-</style><script type="text/javascript" language="javascript" src="include/kj_code_txt.js"></script></head><body>
+</style>
+<script type="text/javascript" language="javascript" src="include/kj_code_txt.js"></script></head><body>
 <table cellspacing="0">
 <tr> <td colspan="1">
 <form name="BSpelNiveau">
@@ -47,9 +49,11 @@ th,td{font-size:9pt;padding-top:2pt;padding-bottom:2pt;padding-left:4pt;padding-
 <td> &nbsp; </td> </tr>
 </table> </td> </tr>
 </td>
+
 </tr>
 </table>
 <table cellspacing="0">
+
 <tr>
 <td> <form name="IndeHand">
 <input type="button" class="k" value="???" onClick="SpeelDeze(0);">
@@ -67,25 +71,17 @@ th,td{font-size:9pt;padding-top:2pt;padding-bottom:2pt;padding-left:4pt;padding-
 <input type="text" name="msg0" value=" " size="30">
 </form> </td> </tr>
 </table>
-<table> <tr>
-<td width=100% align=center><table border cellspacing=0>
-<tr><td><a href="javascript:NieuwSpel();">nieuw&nbsp;spel</a></td>
-<td><a href="klaverjas_faq.html">settings/faq</a></td>
-<td><a href="kj_klein_adam.html">amsterdams</a></td>
-<td><a href="kj_gfx_rdam.html">met&nbsp;plaatjes</a></td>
-<td><a href="reactie.html">mail-me</a></td>
-<td><a href="index.html">homepage</a></td>
-<td><a href="sport.html">sport</a></td>
-</tr>
-</table>
-</td> </tr> </table>
-<script type="text/javascript" language="javascript">
-function setCookie(name, value) {
-var today = new Date();
-var expiry = new Date(today.getTime() + 2419200000);
- if (value != null && value != "")
-  document.cookie=name + "=" + escape(value) + "; expires=" + expiry.toGMTString();
-}
-StartSpel();
-</script>
+
+<table width="100%"> <tr> <td width="10%">&nbsp;</td>
+<td width="80%" align=center><table border cellspacing="0">
+<tr><td><a href="javascript:NieuwSpel();">nieuw&nbsp;spel</a></td> 
+<td><a href="klaverjas_faq.html">settings/faq</a></td> 
+<td><a href="kj_klein_adam.html">amsterdams</a></td> 
+<td><a href="kj_gfx_rdam.html">met&nbsp;plaatjes</a></td> 
+<td><a href="reactie.html">mail-me</a></td> 
+<td><a href="index.html">homepage</a></td> 
+<td><a href="sport.html">sport</a></td> </tr> 
+</table> 
+</td> <td width="10%">&nbsp;</td> </tr> </table>
+<script type="text/javascript"> StartSpel(); </script>
 </body></html>
