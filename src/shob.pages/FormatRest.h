@@ -26,6 +26,9 @@ namespace shob::pages
         /// </summary>
         general::MultipleStrings getAsciiCodes() const;
         void rebuildAsciiCodes() const;
+        general::MultipleStrings getEpsig(const int dd) const;
+        void rebuildEpsig(const int dd) const;
+
     private:
         std::string data_folder;
     };

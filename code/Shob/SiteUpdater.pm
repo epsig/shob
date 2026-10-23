@@ -54,7 +54,6 @@ sub handle_gen_files($$$)
  do_all_text_dir ($lop, '', [
   [2, 'all', sub {&file2str(File::Spec->catfile('my_scripts', 'validate_sport.js'));}, 'validate_sport.js'],
   [2, 'all', sub {&file2str(File::Spec->catfile('my_scripts', 'sort_table.js'));}, 'sort_table.js'],
-  [2, 'all', sub {&get_epsig;}, 'epsig.html'],
   [2, 'all', sub {&get_stats;}, 'stats.html'],
   [2, 'all', sub {&get_reactie;}, 'reactie.html'],
   [2, 'all', sub {&get_dank();}, 'dank_u_wel.html'],

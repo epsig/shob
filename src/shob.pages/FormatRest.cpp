@@ -2,11 +2,15 @@
 #include "HeadBottom.h"
 #include "../shob.html/updateIfNewer.h"
 #include "../shob.general/FileIO.h"
+#include "../shob.html/table.h"
 #include <array>
 #include <map>
 
 namespace shob::pages
 {
+    using namespace shob::general;
+    using namespace shob::html;
+
     void FormatRest::rebuildAsciiCodes() const
     {
         const auto page = getAsciiCodes();
@@ -163,4 +167,43 @@ Let er verder op dat de symbolen &amp;, &gt;, &lt; en &quot; een aparte betekeni
         auto page = HeadBottom::getPage(hb);
         return page;
     }
+
+    void FormatRest::rebuildEpsig(const int dd) const
+    {
+        const auto page = getEpsig(dd);
+        html::updateIfDifferent::update("../pages/epsig.html", page);
+    }
+
+    general::MultipleStrings FormatRest::getEpsig(const int dd) const
+    {
+        auto content = general::MultipleStrings();
+        content.addContent(R"(
+epsig = eps + sig (zonder dubbele s)
+<br> eps = epsilon = Griekse e; e = eerste letter van Edwin
+<br> sig = sigma = Griekse s; s = eerste letter van Spee
+<p>
+Het was in 2005 &eacute;&eacute;n van de weinige vrije domeinnamen met weinig letters
+en nog uit te spreken ook.
+<p>
+Verder worden epsilon en sigma veel gebruikt in <a href="cv.html">mijn vakgebied</a>.
+<p>
+Geinig, toch?
+<p>
+Edwin Spee
+<br>webmaster www.epsig.nl.
+<p> &nbsp;
+)");
+
+        auto hb = HeadBottomInput(dd);
+        hb.title = "Hoezo, epsig?";
+        hb.css = StyleSheetType::SeparateFile;
+
+        hb.copyTitleToH1 = false;
+        hb.footerStyle = FooterStyle::New;
+        hb.body = table::yellowRed(content, hb.title);
+
+        auto page = HeadBottom::getPage(hb);
+        return page;
+    }
+
 }

@@ -24,38 +24,11 @@ $VERSION = '21.0';
 
 @EXPORT =
 (#========================================================================
- '&get_epsig',
  '&get_reactie',
  '&get_dank',
  '&get_samenvatting_proefschrift',
  #========================================================================
 );
-
-sub get_epsig
-{# (c) Edwin Spee
- # versie 1.0 20-mar-2006 initiele versie
-
- my $out = << 'EOF';
-epsig = eps + sig (zonder dubbele s)
-<br> eps = epsilon = Griekse e; e = eerste letter van Edwin
-<br> sig = sigma = Griekse s; s = eerste letter van Spee
-<p>
-Het was in 2005 &eacute;&eacute;n van de weinige vrije domeinnamen met weinig letters
-en nog uit te spreken ook.
-<p>
-Verder worden epsilon en sigma veel gebruikt in <a href="cv.html">mijn vakgebied</a>.
-<p>
-Geinig, toch?
-<p>
-Edwin Spee
-<br>webmaster www.epsig.nl.
-<p> &nbsp;
-EOF
-
- my $title = 'Hoezo, epsig?';
- my $pout = [[$title, $out]];
- return maintxt2htmlpage($pout, $title, 'std', 20060520, {type1 => 'std_menu'});
-}
 
 sub get_reactie
 {# (c) Edwin Spee
