@@ -25,6 +25,7 @@ namespace shob::pages
         /// Build the HTML numeric character reference page for codes 30 through 259.
         /// </summary>
         general::MultipleStrings getAsciiCodes() const;
+        void rebuildAsciiCodes() const;
     private:
         std::string data_folder;
     };

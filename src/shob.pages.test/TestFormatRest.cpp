@@ -9,7 +9,7 @@ namespace shob::pages::test
         const auto page = FormatRest("").getAsciiCodes();
         EXPECT_GE(page.findString("<title>Ascii codes in HTML</title>"), 0);
         EXPECT_GE(page.findString("<h1>Ascii codes in HTML</h1>"), 0);
-        EXPECT_GE(page.findString("13 aug 2003"), 0);
+        EXPECT_GE(page.findString("23 okt 2026"), 0);
         EXPECT_GE(page.findString("href=\"reactie.html\""), 0);
         EXPECT_GE(page.findString("</body></html>"), 0);
 

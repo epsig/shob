@@ -7,6 +7,12 @@
 
 namespace shob::pages
 {
+    void FormatRest::rebuildAsciiCodes() const
+    {
+        const auto page = getAsciiCodes();
+        html::updateIfDifferent::update("../pages/tmp_ascii_codes.html", page);
+    }
+
     general::MultipleStrings FormatRest::getAsciiCodes() const
     {
         html::tableContent content;
@@ -26,7 +32,7 @@ namespace shob::pages
 
         auto settings = html::settings();
         settings.isCompatible = true;
-        auto hb = HeadBottomInput(20030813);
+        auto hb = HeadBottomInput(20261023);
         hb.title = "Ascii codes in HTML";
         hb.css = StyleSheetType::SeparateFile;
         hb.body = html::table(settings).buildTable(std::vector<html::tableContent>{ content });
