@@ -7,6 +7,32 @@
 
 namespace shob::pages
 {
+    general::MultipleStrings FormatRest::getAsciiCodes() const
+    {
+        html::tableContent content;
+        content.title = "escape codes";
+        for (int i = 3; i < 26; ++i)
+        {
+            general::MultipleStrings row;
+            for (int j = 0; j < 10; ++j)
+            {
+                const auto code = 10 * i + j;
+                const auto character = (code <= 32 || code > 255)
+                    ? "&nbsp;" : "&#" + std::to_string(code) + ";";
+                row.addContent(std::to_string(code) + ": " + character);
+            }
+            content.body.push_back(std::move(row));
+        }
+
+        auto settings = html::settings();
+        settings.isCompatible = true;
+        auto hb = HeadBottomInput(20030813);
+        hb.title = "Ascii codes in HTML";
+        hb.css = StyleSheetType::SeparateFile;
+        hb.body = html::table(settings).buildTable(std::vector<html::tableContent>{ content });
+        return HeadBottom::getPage(hb);
+    }
+
     void FormatRest::rebuildLetters() const
     {
         const auto page = getLetters();

@@ -190,3 +190,8 @@ TEST(UnitTest, testLettersEntityRows)
 {
     TestFormatRest::testLettersEntityRows();
 }
+
+TEST(UnitTest, testAsciiCodes)
+{
+    TestFormatRest::testAsciiCodes();
+}

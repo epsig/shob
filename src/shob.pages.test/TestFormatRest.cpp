@@ -4,6 +4,45 @@
 
 namespace shob::pages::test
 {
+    void TestFormatRest::testAsciiCodes()
+    {
+        const auto page = FormatRest("").getAsciiCodes();
+        EXPECT_GE(page.findString("<title>Ascii codes in HTML</title>"), 0);
+        EXPECT_GE(page.findString("<h1>Ascii codes in HTML</h1>"), 0);
+        EXPECT_GE(page.findString("13 aug 2003"), 0);
+        EXPECT_GE(page.findString("href=\"reactie.html\""), 0);
+        EXPECT_GE(page.findString("</body></html>"), 0);
+
+        const auto tableStart = page.findString("<table border cellspacing=0>");
+        ASSERT_GE(tableStart, 0);
+        const auto start = static_cast<size_t>(tableStart);
+        ASSERT_GT(page.data.size(), start + 25);
+        EXPECT_EQ(page.data[start], "<table border cellspacing=0>");
+        EXPECT_EQ(page.data[start + 1], "<tr><th colspan=\"10\" class=h>escape codes</th></tr>");
+
+        for (int row = 0; row < 23; ++row)
+        {
+            std::string expected = "<tr>";
+            for (int column = 0; column < 10; ++column)
+            {
+                const auto code = 30 + 10 * row + column;
+                expected += "<td>" + std::to_string(code) + ": ";
+                if (code >= 33 && code <= 255)
+                {
+                    expected += "&#" + std::to_string(code) + ";";
+                }
+                else
+                {
+                    expected += "&nbsp;";
+                }
+                expected += "</td>";
+            }
+            expected += "</tr>";
+            EXPECT_EQ(page.data[start + 2 + row], expected) << "row " << row;
+        }
+        EXPECT_EQ(page.data[start + 25], "</table>");
+    }
+
     void TestFormatRest::testLettersPage()
     {
         const auto page = shob::pages::FormatRest("").getLetters();

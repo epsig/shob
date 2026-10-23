@@ -7,5 +7,6 @@ namespace shob::pages::test
     public:
         static void testLettersPage();
         static void testLettersEntityRows();
+        static void testAsciiCodes();
     };
 }
