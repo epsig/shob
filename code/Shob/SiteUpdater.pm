@@ -51,10 +51,6 @@ sub handle_gen_files($$$)
 
  my ($opt, $lv, $lop) = @_;
 
- do_all_text_dir ($lop, 'search', [
-  [2, 'all', sub {&file2str(File::Spec->catfile('Shob', 'search_setup.pl'));}, 'search.setup'],
- ]);
-
  do_all_text_dir ($lop, '', [
   [2, 'all', sub {&file2str(File::Spec->catfile('my_scripts', 'validate_sport.js'));}, 'validate_sport.js'],
   [2, 'all', sub {&file2str(File::Spec->catfile('my_scripts', 'sort_table.js'));}, 'sort_table.js'],
@@ -65,7 +61,6 @@ sub handle_gen_files($$$)
   [2, 'all', sub {&get_tech_doc_adressen;}, 'tech_doc_adressen.html'],
   [2, 'all', sub {&get_reactie;}, 'reactie.html'],
   [2, 'all', sub {&get_dank();}, 'dank_u_wel.html'],
-  [2, 'all', sub {&get_std_search_page;}, 'search.html'],
   [2, 'all', sub {&get_samenvatting_proefschrift();}, 'samenvatting_proefschrift.html'],
   [2, 'all', sub {&get_letters();}, 'anybrowser.html'],
   [2, 'all', sub {&get_ascii_codes;}, 'tmp_ascii_codes.html'],

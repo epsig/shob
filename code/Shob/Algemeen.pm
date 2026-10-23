@@ -25,7 +25,6 @@ $VERSION = '21.0';
 @EXPORT =
 (#========================================================================
  '&get_epsig',
- '&get_std_search_page',
  '&get_reactie',
  '&get_dank',
  '&get_samenvatting_proefschrift',
@@ -61,26 +60,6 @@ EOF
  my $title = 'Hoezo, epsig?';
  my $pout = [[$title, $out]];
  return maintxt2htmlpage($pout, $title, 'std', 20060520, {type1 => 'std_menu'});
-}
-
-sub get_std_search_page()
-{# (c) Edwin Spee
- # versie 1.0  21-may-2006 initiele versie
-
- my $title = 'Zoeken binnen www.epsig.nl';
- my $pout = [
-$title,
-# <input type="hidden" name="user" value="www.epsig.nl">
-<< 'EOF'
-<form action="https://www.google.com/search" class="searchform" method="get" name="searchform" target="_blank">
-<input name="sitesearch" type="hidden" value="epsig.nl">
-<input autocomplete="on" class="form-control search" name="q" placeholder="Search in epsig.nl" required="required"  type="text">
-<button class="button" type="submit">Search</button>
-</form>
-EOF
-];
-
- return maintxt2htmlpage([$pout], $title, 'std', 20060521, {type1 => 'std_menu'});
 }
 
 sub get_reactie
