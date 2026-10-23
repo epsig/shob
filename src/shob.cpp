@@ -16,6 +16,7 @@
 #include "shob.pages/FormatStatsEredivisieFactory.h"
 #include "shob.pages/FormatHomePage.h"
 #include "shob.pages/FormatBookmarks.h"
+#include "shob.pages/FormatRest.h"
 #include "shob.pages/FormatKlaverjas.h"
 #include "shob.klaverjas/MergeJavaScript.h"
 #include "shob.general/Season.h"
@@ -136,6 +137,7 @@ int main(int argc, char* argv[])
         auto last_year = fmt_semesters_and_year.getLastYear();
         fmt_semesters_and_year.getPagesToFile(last_year, fmt_semesters_and_year.getOutputFilename("../pages"));
 
+        part = "bookmarks";
         auto dd = fmt_nl.get_dd();
         dd = std::max(dd, fmt_ec.get_dd());
         dd = std::max(dd, fmt_ekwk_qf.get_dd());
@@ -168,6 +170,12 @@ int main(int argc, char* argv[])
             }
             fmt_klaverjas.rebuildFaq();
         }
+
+        part = "rest";
+        auto fmt_rest = FormatRest("doc/");
+        fmt_rest.rebuildTechDoc(TechDocType::Klaverjas, 20261023);
+        fmt_rest.rebuildTechDoc(TechDocType::Shob, 20261023);
+        fmt_rest.rebuildTechDoc(TechDocType::Adressen, 20261023);
 
         part = "copy style sheets";
         shob::html::updateIfDifferent::update("../code/test/epsig.css", "../pages/epsig.css");

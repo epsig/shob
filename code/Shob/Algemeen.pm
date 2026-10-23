@@ -30,9 +30,6 @@ $VERSION = '21.0';
  '&get_samenvatting_proefschrift',
  '&get_letters',
  '&get_ascii_codes',
- '&get_tech_doc_shob',
- '&get_tech_doc_kj',
- '&get_tech_doc_adressen',
  #========================================================================
 );
 
@@ -224,36 +221,6 @@ sub get_ascii_codes
 
  return maintxt2htmlpage($out, 'Ascii codes in HTML', 'title2h1',
   20030813, {type1 => 'std_menu'});
-}
-
-sub get_tech_doc_kj
-{
- my $filenm = File::Spec->catfile('doc', 'tech_doc_kj.html');
- my $main = file2str($filenm);
- my $dd = (stat $filenm)[9];
-
- return maintxt2htmlpage($main, 'Technische documentatie Klaverjassen', 'title2h1',
-  time2idate($dd), {type1 => 'std_menu'});
-}
-
-sub get_tech_doc_shob
-{
- my $filenm = File::Spec->catfile('doc', 'tech_doc_shob.html');
- my $main = file2str($filenm);
- my $dd = (stat $filenm)[9];
-
- return maintxt2htmlpage($main, 'Technische documentatie Shob', 'title2h1',
-  time2idate($dd), {type1 => 'std_menu'});
-}
-
-sub get_tech_doc_adressen
-{
- my $filenm = File::Spec->catfile('doc', 'tech_doc_adressen.html');
- my $main = file2str($filenm);
- my $dd = (stat $filenm)[9];
-
- return maintxt2htmlpage($main, 'Technische documentatie Adressen', 'title2h1',
-  time2idate($dd), {type1 => 'std_menu'});
 }
 
 return 1;
