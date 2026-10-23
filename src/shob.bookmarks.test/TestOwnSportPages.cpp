@@ -31,7 +31,7 @@ namespace shob::bookmarks::test
     void TestOwnSportPages::test4()
     {
         const auto result = OwnSportPages::getEkWkSoccer();
-        EXPECT_EQ(result.size(), 16);
+        EXPECT_EQ(result.size(), 17);
     }
 
     void TestOwnSportPages::test5()

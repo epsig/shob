@@ -20,6 +20,7 @@ namespace shob::pages
         /// Build the browser compatibility and HTML character reference page.
         /// </summary>
         general::MultipleStrings getLetters() const;
+        void rebuildLetters() const;
     private:
         std::string data_folder;
     };

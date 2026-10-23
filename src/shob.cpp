@@ -176,6 +176,7 @@ int main(int argc, char* argv[])
         fmt_rest.rebuildTechDoc(TechDocType::Klaverjas, 20261023);
         fmt_rest.rebuildTechDoc(TechDocType::Shob, 20261023);
         fmt_rest.rebuildTechDoc(TechDocType::Adressen, 20261023);
+        fmt_rest.rebuildLetters();
 
         part = "copy style sheets";
         shob::html::updateIfDifferent::update("../code/test/epsig.css", "../pages/epsig.css");

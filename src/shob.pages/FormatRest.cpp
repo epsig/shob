@@ -7,9 +7,15 @@
 
 namespace shob::pages
 {
+    void FormatRest::rebuildLetters() const
+    {
+        const auto page = getLetters();
+        html::updateIfDifferent::update("../pages/anybrowser.html", page);
+    }
+
     general::MultipleStrings FormatRest::getLetters() const
     {
-        auto hb = HeadBottomInput(20060520);
+        auto hb = HeadBottomInput(20261023);
         hb.title = "Te bekijken met elke browser";
         hb.body.addContent(R"(<p align="left">
 <a href="http://www.anybrowser.org/campaign/">
@@ -91,6 +97,7 @@ Let er verder op dat de symbolen &amp;, &gt;, &lt; en &quot; een aparte betekeni
             }
         }
         hb.body.addContent("</table>");
+        hb.css = StyleSheetType::SeparateFile;
         return HeadBottom::getPage(hb);
     }
 
