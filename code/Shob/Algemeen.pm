@@ -28,7 +28,6 @@ $VERSION = '21.0';
  '&get_reactie',
  '&get_dank',
  '&get_samenvatting_proefschrift',
- '&get_letters',
  '&get_ascii_codes',
  #========================================================================
 );
@@ -111,95 +110,6 @@ sub get_samenvatting_proefschrift()
 
  return maintxt2htmlpage($out, 'Samenvatting proefschrift Edwin Spee',
  'title2h1', 20050530, {type1 => 'small_menu'});
-}
-
-sub get_letters()
-{# (c) Edwin Spee
-
- my @begin_letters =
-  ('A','a','E','e','I','i','N','n','O','o','U','u','Y','y');
- my @tekens =
-  ('acute','circ','grave','tilde','uml','slash');
- my $masker = {
-  A => [1,1,1,1,1,1],
-  E => [1,1,1,0,1,0],
-  I => [1,1,1,0,1,0],
-  N => [0,0,0,1,0,0],
-  O => [1,1,1,1,1,1],
-  U => [1,1,1,0,1,0],
-  Y => [1,0,0,0,1,0] };
-
- my $txt = '';
- foreach my $l (@begin_letters)
- {
-  my $row = '';
-  for (my $j=0; $j < scalar @tekens; $j++)
-  {
-   my $m = $masker->{uc($l)}[$j];
-   my $t = $tekens[$j];
-   if ($l =~ m/a/iso and $t eq 'slash') {$t = 'ring';}
-   my $lt = $l . $t;
-   if ($m)
-   {
-    $row .= ftdl(" &amp;$lt; = &$lt; ");
-   }
-   else
-   {
-    $row .= ftdl('&nbsp;');
-   }
-  }
-  $txt .= ftr($row);
- }
-
- my $out = << "EOF";
-<p align="left">
-<a href="http://www.anybrowser.org/campaign/">
-<img src="include/anybrowser_coffee.gif" width="157" height="44"
-alt="This site is best viewed from a comfortable chair with a cup of (Java) coffee" border="0">
-</a></p>
-Om de pagina's van mijn website te kunnen bekijken,
-is alleen nodig dat je browser met tabellen en heel elementair JavaScript overweg kan
-(mijn klaverjas-programma kan echt niet zonder).
-<br> HTML is dan ook uitgevonden om Internet pagina's leesbaar te houden
-op diverse computersystemen (Windows, Linux en Mac/Apple).
-<br> Helaas lukt dat steeds minder.
-<br> Bekijk daarom je website eens met een andere browser, of vraag een bekende dat te doen.
-<p>
-De tekens op deze pagina zijn probleemloos te gebruiken.
-Let er verder op dat de symbolen &amp;, &gt;, &lt; en &quot; een aparte betekenis hebben binnen HTML.
-<table border cellspacing=0>
-<tr><td colspan=2> &amp;amp;    = &amp;  </td>
-    <td colspan=2> &amp;euro;   = &euro;  </td>
-    <td colspan=2> &amp;micro;  = &micro;  </td> </tr>
-<tr><td colspan=2> &amp;gt;     = &gt;   </td>
-    <td colspan=2> &amp;pound;  = &pound;  </td>
-    <td colspan=2> &amp;para;   = &para;  </td> </tr>
-<tr><td colspan=2> &amp;lt;     = &lt;   </td>
-    <td colspan=2> &amp;yen;    = &yen;  </td>
-    <td colspan=2> &amp;sect;   = &sect;  </td> </tr>
-<tr><td colspan=2> &amp;quot;   = &quot; </td>
-    <td colspan=2> &amp;curren; = &curren; </td>
-    <!-- <td> &amp;fnof; = &fnof; </td> -->
-    <td colspan=2> &amp;deg;    = &deg;  </td> </tr>
-<tr><td colspan=2> &amp;pi;     = &pi; </td>
-    <td colspan=2> &amp;cent;   = &cent; </td>
-    <td colspan=2> &amp;plusmn; = &plusmn;  </td> </tr>
-<tr><td colspan=6> &nbsp; </td> </tr>
-<tr><td colspan=6> &amp;nbsp;   = &nbsp; (non braking space) </td> </tr>
-<tr><td colspan=2> &amp;copy;   = &copy;   </td>
-    <td colspan=2> &amp;reg;    = &reg;    </td>
-    <td colspan=2> &lt;sup&gt;TM&lt;/sup&gt; = <sup>TM</sup> </td> </tr>
-<tr><td colspan=3> O(&lt;sup&gt;1&lt;/sup&gt;D) = O(<sup>1</sup>D) </td>
-    <td colspan=3> CH&lt;sub&gt;2&lt;/sub&gt;O = CH<sub>2</sub>O </td> </tr>
-<tr><td colspan=2> &amp;szlig;  = &szlig;  </td>
-    <td colspan=2> &amp;aelig;  = &aelig;  </td>
-    <td colspan=2> &amp;ccedil; = &ccedil; </td> </tr>
-<tr><td colspan=6> &nbsp; </td> </tr>
-$txt
-</table>
-EOF
- return maintxt2htmlpage(bespaar_bandbreedte($out), 'Te bekijken met elke browser',
-  'title2h1', 20060520, {type1 => 'std_menu'});
 }
 
 sub get_ascii_codes
