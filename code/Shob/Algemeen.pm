@@ -28,7 +28,6 @@ $VERSION = '21.0';
  '&get_reactie',
  '&get_dank',
  '&get_samenvatting_proefschrift',
- '&get_ascii_codes',
  #========================================================================
 );
 
@@ -110,27 +109,6 @@ sub get_samenvatting_proefschrift()
 
  return maintxt2htmlpage($out, 'Samenvatting proefschrift Edwin Spee',
  'title2h1', 20050530, {type1 => 'small_menu'});
-}
-
-sub get_ascii_codes
-{# (c) Edwin Spee
-
- my $out = '';
- for (my $i=3;$i<26;$i++)
- {
-  my $tmp_out = '';
-  for (my $j=0;$j<10;$j++)
-  {
-   my $x = 10*$i+$j;
-   my $t = (($x <= 32 or $x > 255 ) ? '&nbsp;':"&#$x;");
-   $tmp_out .= ftd($x . ': ' . $t);
-  }
-  $out .= ftr($tmp_out);
- }
- $out = ftable('border', fth({cols => 10}, 'escape codes') . $out);
-
- return maintxt2htmlpage($out, 'Ascii codes in HTML', 'title2h1',
-  20030813, {type1 => 'std_menu'});
 }
 
 return 1;
