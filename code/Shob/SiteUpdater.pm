@@ -9,7 +9,6 @@ use Shob_Tools::Html_Stuff;
 use Shob_Tools::Settings;
 use Shob_Tools::General;
 use Shob::Algemeen;
-use Shob::Stats_Website;
 use Shob::Functions;
 use Shob::Politiek;
 use Shob::Foto;
@@ -54,7 +53,6 @@ sub handle_gen_files($$$)
  do_all_text_dir ($lop, '', [
   [2, 'all', sub {&file2str(File::Spec->catfile('my_scripts', 'validate_sport.js'));}, 'validate_sport.js'],
   [2, 'all', sub {&file2str(File::Spec->catfile('my_scripts', 'sort_table.js'));}, 'sort_table.js'],
-  [2, 'all', sub {&get_stats;}, 'stats.html'],
   [2, 'all', sub {&get_reactie;}, 'reactie.html'],
   [2, 'all', sub {&get_dank();}, 'dank_u_wel.html'],
   [2, 'all', sub {&get_samenvatting_proefschrift();}, 'samenvatting_proefschrift.html']);
