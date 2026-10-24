@@ -3,8 +3,16 @@
 #include "../shob.html/updateIfNewer.h"
 #include "../shob.general/FileIO.h"
 #include "../shob.html/table.h"
+#include "../shob.general/shobException.h"
+#include <algorithm>
 #include <array>
+#include <cctype>
+#include <cmath>
+#include <filesystem>
+#include <format>
+#include <fstream>
 #include <map>
+#include <regex>
 
 namespace shob::pages
 {
@@ -204,6 +212,155 @@ Edwin Spee
 
         auto page = HeadBottom::getPage(hb);
         return page;
+    }
+
+    void FormatRest::rebuildStats(const int dd) const
+    {
+        const auto page = getStats(dd);
+        html::updateIfDifferent::update("../pages/stats.html", page);
+    }
+
+    general::MultipleStrings FormatRest::getStats(const int dd) const
+    {
+        const std::array<std::string, 12> months = {
+            "Jan", "Feb", "Mar", "Apr", "May", "Jun",
+            "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"
+        };
+        const std::regex datePattern(R"(^ *(\d+) ([A-Za-z]{3}) (\d{4}))", std::regex::icase);
+        const std::regex trafficPattern(R"(traffickb = (\d+\.\d);)", std::regex::icase);
+        const std::regex hitPattern(R"((http\S*)\s+(\d+)\s*\((\d+.\d)Kb\))", std::regex::icase);
+        const std::regex excludedPattern("include|jpg|gif|ico|robots", std::regex::icase);
+        const std::regex sportPattern("sport", std::regex::icase);
+        const std::regex klaverjasPattern("kj_code", std::regex::icase);
+
+        tableContent stats;
+        stats.header.data = { "periode", "traffic", "M hits", "pageviews total",
+            "pageviews klaverjassen", "pageviews sport" };
+        int lastDate = -1;
+        const auto root = std::filesystem::path(data_folder);
+        for (int year = 2003; year <= dd / 10000; ++year)
+        {
+            for (const auto& month : months)
+            {
+                const auto suffix = month + std::to_string(year) + ".txt";
+                const std::array<std::filesystem::path, 4> paths = {
+                    root / std::to_string(year) / ("stats_epsig_" + suffix),
+                    root / std::to_string(year) / ("stats_" + suffix),
+                    root / ("stats_epsig_" + suffix),
+                    root / ("stats_" + suffix)
+                };
+                std::ifstream input;
+                std::filesystem::path filename;
+                for (const auto& path : paths)
+                {
+                    input.open(path);
+                    if (input.is_open())
+                    {
+                        filename = path;
+                        break;
+                    }
+                    if (std::filesystem::exists(path))
+                    {
+                        throw shobException("Cannot read statistics file: " + path.string());
+                    }
+                    input.clear();
+                }
+                if (!input.is_open()) continue;
+
+                int days = 0;
+                double traffic = 0;
+                double hits = 0;
+                std::array<long long, 3> pageviews = {};
+                std::string line;
+                std::smatch match;
+                while (std::getline(input, line))
+                {
+                    if (std::regex_search(line, match, datePattern))
+                    {
+                        const auto dateMonthName = match[2].str();
+                        const auto monthIt = std::find_if(months.begin(), months.end(),
+                            [&](const std::string& name) {
+                                return std::equal(name.begin(), name.end(), dateMonthName.begin(),
+                                    [](unsigned char left, unsigned char right) {
+                                        return std::tolower(left) == std::tolower(right);
+                                    });
+                            });
+                        if (monthIt == months.end())
+                        {
+                            throw shobException("Invalid date in statistics file: " + filename.string());
+                        }
+                        const auto day = std::stoi(match[1].str());
+                        const auto dateYear = std::stoi(match[3].str());
+                        const auto dateMonth = static_cast<int>(monthIt - months.begin()) + 1;
+                        if (day < 1 || day > static_cast<int>(shobDate::maxDays(dateYear, dateMonth)))
+                        {
+                            throw shobException("Invalid date in statistics file: " + filename.string());
+                        }
+                        lastDate = dateYear * 10000 + dateMonth * 100 + day;
+                        ++days;
+                    }
+                    else if (std::regex_search(line, match, trafficPattern))
+                    {
+                        traffic = std::stod(match[1].str()) / (1024 * 1024);
+                    }
+                    else if (std::regex_search(line, match, hitPattern))
+                    {
+                        const auto url = match[1].str();
+                        const auto count = std::stoll(match[2].str());
+                        hits += count;
+                        if (!std::regex_search(url, excludedPattern))
+                        {
+                            pageviews[0] += count;
+                            if (std::regex_search(url, sportPattern)) pageviews[2] += count;
+                        }
+                        if (std::regex_search(url, klaverjasPattern)) pageviews[1] += count;
+                    }
+                }
+                if (input.bad())
+                {
+                    throw shobException("Cannot read statistics file: " + filename.string());
+                }
+                if (days == 0)
+                {
+                    throw shobException("No daily dates in statistics file: " + filename.string());
+                }
+
+                hits *= 1e-6;
+                const bool estimated = days < 20;
+                const double scale = estimated ? 30.0 / days : 1.0;
+                MultipleStrings row;
+                row.data = { month + " " + std::to_string(year),
+                    std::format("{:.2f} Gb", traffic * scale), std::format("{:.2f}", hits * scale) };
+                for (const auto count : pageviews)
+                {
+                    const auto value = estimated
+                        ? std::to_string(static_cast<long long>(std::floor(0.5 + count * scale)))
+                        : std::to_string(count);
+                    row.addContent(estimated ? "<i>" + value + "</i>" : value);
+                }
+                stats.body.push_back(std::move(row));
+            }
+        }
+        std::reverse(stats.body.begin(), stats.body.end());
+
+        MultipleStrings content;
+        content.addContent(R"(De website www.epsig.nl <sup>*</sup>
+haalt de volgende hoeveelheid hits (dat is inclusief plaatjes) en pageviews:
+<p>&nbsp;)");
+        auto settings = html::settings();
+        settings.isCompatible = true;
+        auto statsTable = table(settings).buildTable(stats);
+        content.addContent(statsTable);
+        content.addContent("*: en voorganger www.xs4all.nl/~spee t/m mei 2005.");
+        content.addContent("<p>italic: cijfers aangepast vanwege ontbrekende dagen.");
+
+        auto hb = HeadBottomInput(lastDate);
+        hb.title = "stats www.epsig.nl";
+        hb.css = StyleSheetType::SeparateFile;
+        hb.copyTitleToH1 = false;
+        hb.footerStyle = FooterStyle::New;
+        hb.body = table::yellowRed(content, hb.title);
+        return HeadBottom::getPage(hb);
     }
 
 }

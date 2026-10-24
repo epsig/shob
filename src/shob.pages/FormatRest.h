@@ -28,6 +28,11 @@ namespace shob::pages
         void rebuildAsciiCodes() const;
         general::MultipleStrings getEpsig(const int dd) const;
         void rebuildEpsig(const int dd) const;
+        /// <summary>
+        /// Build website statistics through the year of dd, reading data_folder as the statistics directory.
+        /// </summary>
+        general::MultipleStrings getStats(const int dd) const;
+        void rebuildStats(const int dd) const;
 
     private:
         std::string data_folder;
