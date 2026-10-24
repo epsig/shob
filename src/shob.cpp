@@ -179,6 +179,8 @@ int main(int argc, char* argv[])
         fmt_rest.rebuildLetters();
         fmt_rest.rebuildAsciiCodes();
         fmt_rest.rebuildEpsig(20261023);
+        fmt_rest = FormatRest("./Data_stats_website/");
+        fmt_rest.rebuildStats(dd);
 
         part = "copy style sheets";
         shob::html::updateIfDifferent::update("../code/test/epsig.css", "../pages/epsig.css");
