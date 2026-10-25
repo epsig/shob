@@ -1,4 +1,3 @@
-
 #include <gtest/gtest.h>
 
 #include "TestFormatNL.h"
@@ -11,6 +10,7 @@
 #include "TestFormatStatsEredivisie.h"
 #include "TestFormatBookmarks.h"
 #include "TestFormatHomePage.h"
+#include "TestFormatRest.h"
 
 using namespace shob::pages::test;
 
@@ -179,4 +179,19 @@ TEST(IntegrationTest, testOverzicht)
 TEST(IntegrationTest, testHomePage)
 {
     TestFormatHomePage::test_1();
+}
+
+TEST(UnitTest, testLettersPage)
+{
+    TestFormatRest::testLettersPage();
+}
+
+TEST(UnitTest, testLettersEntityRows)
+{
+    TestFormatRest::testLettersEntityRows();
+}
+
+TEST(UnitTest, testAsciiCodes)
+{
+    TestFormatRest::testAsciiCodes();
 }

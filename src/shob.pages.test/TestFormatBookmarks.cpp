@@ -26,13 +26,13 @@ namespace shob::pages::test
     void TestFormatBookmarks::test_2()
     {
         const auto lines = FormatBookmarks::getOwnSportLinks();
-        ASSERT_EQ(lines.data.size(), 125);
+        ASSERT_EQ(lines.data.size(), 126);
     }
 
     void TestFormatBookmarks::test_3()
     {
         const auto lines = FormatBookmarks::getOverzicht();
-        ASSERT_EQ(lines.data.size(), 138);
+        ASSERT_EQ(lines.data.size(), 139);
     }
 
 }
