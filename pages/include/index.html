@@ -1,0 +1,33 @@
+<html>
+<head>
+<title>Klaverjassen</title>
+<script language="JavaScript">
+function wijs_door()
+{var browser_str = navigator.userAgent;
+ opera = browser_str.indexOf("Opera");
+ epoc = browser_str.indexOf("EPOC");
+ if ( opera > 0 && epoc > 0 )
+ {window.location = "../kj_palmtop.html"; }
+ else
+ {window.setTimeout
+  ('window.location = "../klaverjas_gfx.html";' , 7777);
+}}
+</script>
+</head>
+
+<body>
+
+Kies uit de volgende drie versies van het klaverjas-spel:
+<ul>
+ <li> <a href="../klaverjas_gfx.html"> met veel plaatjes; normaal scherm </a>
+ <li> <a href="../klaverjassen.html"> tekst-only; normaal scherm </a>
+ <li> <a href="../kj_palmtop.html"> tekst-only; klein scherm </a>
+</ul>
+
+<script language="JavaScript">
+ wijs_door();
+</script>
+
+</body>
+</html>
+
