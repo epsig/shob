@@ -11,7 +11,7 @@ namespace shob::html
     {
         MultipleStrings table;
 
-        std::string zeroWidth = settings_.isCompatible ? "0" : "\"0\"";
+        std::string zeroWidth = "\"0\"";
 
         std::string idTag;
         if (!id.empty()) idTag = " id=\"" + id + "\"";
@@ -58,7 +58,7 @@ namespace shob::html
 
         if (withBorder)
         {
-            const std::string zeroWidth = settings_.isCompatible ? "0" : "\"0\"";
+            const std::string zeroWidth = "\"0\"";
             table.data.emplace_back("<table border cellspacing=" + zeroWidth + idTag + ">");
         }
         else

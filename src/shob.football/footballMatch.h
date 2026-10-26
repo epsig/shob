@@ -19,7 +19,7 @@ namespace shob::football
             std::string result, int spectators, const starEnum star, const bool isFinal)
             : team1(std::move(team1)), team2(std::move(team2)), dd(dd), result(std::move(result)),
               star(star), spectators(spectators), isFinal(isFinal) {}
-        std::string printSimple(const teams::clubTeams& teams, const bool isReturn, const bool isCompatible,
+        std::string printSimple(const teams::clubTeams& teams, const bool isReturn,
             const std::vector<html::addCountryType>& addCountry) const;
         std::string matchName(const teams::clubTeams& teams) const;
         std::string team1; // id home playing team

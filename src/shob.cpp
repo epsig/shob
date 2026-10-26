@@ -183,10 +183,6 @@ int main(int argc, char* argv[])
 
         part = "copy style sheets";
         shob::html::updateIfDifferent::update("../code/test/epsig.css", "../pages/epsig.css");
-        if (std::filesystem::is_directory("../pages_new/"))
-        {
-            shob::html::updateIfDifferent::update("../code/test/epsig.css", "../pages_new/epsig.css");
-        }
     }
     catch (const std::exception& e)
     {

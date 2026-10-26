@@ -17,7 +17,7 @@ namespace shob::football
             {
                 general::MultipleStrings data;
                 for (size_t j = 0; j < offset; j++) data.data.emplace_back("");
-                data.data.push_back( matches.matches[i].printSimple(teams, false, settings.isCompatible, addCountry)) ;
+                data.data.push_back( matches.matches[i].printSimple(teams, false, addCountry)) ;
                 for (size_t j = offset + 1; j < maxCols; j++) data.data.emplace_back("");
                 table.body[positions[i]] = data;
             }
@@ -34,9 +34,9 @@ namespace shob::football
                     {
                         general::MultipleStrings data;
                         for (size_t j = 0; j < offset; j++) data.data.emplace_back("");
-                        auto first = matches.matches[i].printSimple(teams, false, settings.isCompatible, addCountry);
+                        auto first = matches.matches[i].printSimple(teams, false, addCountry);
                         auto ii = returns.couples[i];
-                        auto second = matches.matches[ii].printSimple(teams, true, settings.isCompatible, addCountry);
+                        auto second = matches.matches[ii].printSimple(teams, true, addCountry);
                         data.data.push_back(first + "<br>" + second);
                         for (size_t j = offset + 1; j < maxCols; j++) data.data.emplace_back("");
                         table.body[positions[ipos]] = data;

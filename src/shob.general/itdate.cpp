@@ -5,14 +5,14 @@
 
 namespace shob::general
 {
-    std::string itdate ::toString(bool isCompatible) const
+    std::string itdate ::toString() const
     {
         size_t year;
         size_t day;
         size_t mon;
         if (splitAndValidate(year, mon, day))
         {
-            std::string sday = isCompatible ? std::format("{:02}", day) : std::to_string(day);
+            std::string sday = std::to_string(day);
             return sday + " " + monthsDutch[mon - 1] + " " + std::to_string(year);
         }
         else if (dd > 0)

@@ -220,7 +220,6 @@ namespace shob::pages
             else if (qf == "intertoto")
             {
                 prepTable.title = "Finale Intertoto";
-                if (settings.isCompatible) prepTable.title += " (winnaars naar UEFA-cup)";
             }
             else
             {
@@ -438,14 +437,7 @@ namespace shob::pages
                     auto Table = table(settings);
                     Table.withBorder = false;
                     content = Table.buildTable(prepTable);
-                    if (settings.isCompatible)
-                    {
-                        out.addContent("<p><a name=\"" + leagueNames.getLinkName(part) + "_last8\"></a><p>");
-                    }
-                    else
-                    {
-                        out.addContent("<p><a name=\"" + leagueNames.getLinkName(part) + "_last8\"/>");
-                    }
+                    out.addContent("<p><a name=\"" + leagueNames.getLinkName(part) + "_last8\"/>");
                     out.addContent(content);
                     dd = std::max(dd, r2f.lastDate().toInt());
                 }

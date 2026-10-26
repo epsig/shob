@@ -145,16 +145,13 @@ namespace shob::football
             }
             if (withRemarks) table.header.data.emplace_back("remark");
         }
-        if (settings.isCompatible) table.header.data.clear();
         if (onlyKO)
         {
             table.colWidths = { 1, 1, 1 };
-            if (settings.isCompatible) table.colWidths = { 1, 1 };
         }
         else
         {
             table.colWidths = { 1, 2, 1 };
-            if (settings.isCompatible) table.colWidths = { 3, 1 };
         }
         if (withRemarks)
         {
@@ -168,7 +165,7 @@ namespace shob::football
         {
             auto& row = matches[i];
             auto out = MultipleStrings();
-            std::string dd = settings.dateFormatShort ? row.dd->toShortString() : row.dd->toString(settings.isCompatible);
+            std::string dd = settings.dateFormatShort ? row.dd->toShortString() : row.dd->toString();
             if ( ! row.stadium.empty())
             {
                 dd = html::funcs::acronym(dd, "te: " + row.stadium);
@@ -189,11 +186,7 @@ namespace shob::football
             if (row.star == starEnum::homeWinsXt || row.star == starEnum::awayWinsXt) result += "&nbsp;n.v.";
             if (row.star == starEnum::homeWinsPenalties || row.star == starEnum::awayWinsPenalties) result += "&nbsp;n.s.";
             const auto match_name = teams.expand(row.team1, addCountry) + stars[0] + " - " + teams.expand(row.team2, addCountry) + stars[1];
-            if (settings.isCompatible)
-            {
-                out.data = { dd + " " + match_name, result};
-            }
-            else if (row.link_name.empty())
+            if (row.link_name.empty())
             {
                 out.data = { dd, match_name, result };
             }

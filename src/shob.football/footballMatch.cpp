@@ -44,7 +44,7 @@ namespace shob::football
         }
     }
 
-    std::string footballMatch::printSimple(const teams::clubTeams& teams, const bool isReturn, const bool isCompatible,
+    std::string footballMatch::printSimple(const teams::clubTeams& teams, const bool isReturn,
         const std::vector<html::addCountryType>& addCountry) const
     {
         std::vector expanded = { teams.expand(team1, addCountry[0]), teams.expand(team2, addCountry[1])};
@@ -64,7 +64,7 @@ namespace shob::football
                 expanded[index] += " *";
             }
         }
-        auto datum = dd->toString(isCompatible);
+        auto datum = dd->toString();
         if ( ! stadium.empty())
         {
             datum = html::funcs::acronym(datum, "te: " + stadium);

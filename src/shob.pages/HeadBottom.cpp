@@ -56,7 +56,7 @@ namespace shob::pages
         defaults.push_back({ "homepage", "index.html" });
         defaults.push_back({ "klaverjassen", "klaverjas_faq.html" });
         defaults.push_back({ "sport", "sport.html" });
-        defaults.push_back({ "d.d. " + dd.toString(false) + " ", ""});
+        defaults.push_back({ "d.d. " + dd.toString() + " ", ""});
         auto out = bookmarks::ListOfEvents();
         for (auto& e : defaults)
         {

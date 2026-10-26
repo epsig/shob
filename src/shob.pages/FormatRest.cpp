@@ -43,7 +43,6 @@ namespace shob::pages
         }
 
         auto settings = html::settings();
-        settings.isCompatible = true;
         auto hb = HeadBottomInput(20261023);
         hb.title = "Ascii codes in HTML";
         hb.css = StyleSheetType::SeparateFile;
@@ -346,7 +345,6 @@ Edwin Spee
 haalt de volgende hoeveelheid hits (dat is inclusief plaatjes) en pageviews:
 <p>&nbsp;)");
         auto settings = html::settings();
-        settings.isCompatible = true;
         auto statsTable = table(settings).buildTable(stats);
         content.addContent(statsTable);
         content.addContent("*: en voorganger www.xs4all.nl/~spee t/m mei 2005.");

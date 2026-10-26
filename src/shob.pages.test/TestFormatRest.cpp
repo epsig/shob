@@ -126,11 +126,11 @@ namespace shob::pages::test
         EXPECT_GE(page.findString("href=\"reactie.html\""), 0);
         EXPECT_GE(page.findString("</body></html>"), 0);
 
-        const auto tableStart = page.findString("<table border cellspacing=0>");
+        const auto tableStart = page.findString("<table border cellspacing=\"0\">");
         ASSERT_GE(tableStart, 0);
         const auto start = static_cast<size_t>(tableStart);
         ASSERT_GT(page.data.size(), start + 25);
-        EXPECT_EQ(page.data[start], "<table border cellspacing=0>");
+        EXPECT_EQ(page.data[start], "<table border cellspacing=\"0\">");
         EXPECT_EQ(page.data[start + 1], "<tr><th colspan=\"10\" class=h>escape codes</th></tr>");
 
         for (int row = 0; row < 23; ++row)

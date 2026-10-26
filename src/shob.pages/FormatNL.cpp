@@ -200,7 +200,7 @@ namespace shob::pages
         }
         else
         {
-            const auto date = competition.lastDate().toString(false);
+            const auto date = competition.lastDate().toString();
             prepTable.title = std::format("Stand {} (per {})", title, date);
         }
 

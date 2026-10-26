@@ -395,7 +395,6 @@ namespace shob::football
             table.header.data[0] = "land";
         }
 
-        if (settings.isCompatible) table.header.data.clear();
         for (size_t i = 0; i < list.size(); i++)
         {
             const auto& row = list[i];
@@ -406,7 +405,7 @@ namespace shob::football
             {
                 extraData = extras.at(row.team).extras;
             }
-            const auto punishmentPoints = settings.isCompatible ?  0: row.punishmentPoints;
+            const auto punishmentPoints = row.punishmentPoints;
             if (punishmentPoints != 0 || !extraData.empty())
             {
                 updateTeamWithExtras(team, extraData, punishmentPoints);
