@@ -150,7 +150,6 @@ Let er verder op dat de symbolen &amp;, &gt;, &lt; en &quot; een aparte betekeni
         const auto type_str = std::map<TechDocType, std::string>{
             { TechDocType::Klaverjas, "tech_doc_kj.html" },
             { TechDocType::Shob, "tech_doc_shob.html" },
-            { TechDocType::Adressen, "tech_doc_adressen.html" }
         } [type] ;
 
         const auto page = getTechDoc(type_str, type, dd);
@@ -162,7 +161,6 @@ Let er verder op dat de symbolen &amp;, &gt;, &lt; en &quot; een aparte betekeni
         const auto title = std::map<TechDocType, std::string>{
             { TechDocType::Klaverjas, "Klaverjassen" },
             { TechDocType::Shob, "Shob" },
-            { TechDocType::Adressen, "Adressen" }
         } [type] ;
 
         auto content = general::FileIO::readFile("doc/" + type_str);

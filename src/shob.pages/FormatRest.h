@@ -7,7 +7,6 @@ namespace shob::pages
     {
         Klaverjas,
         Shob,
-        Adressen,
     };
 
     class FormatRest

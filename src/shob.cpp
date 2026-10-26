@@ -175,7 +175,6 @@ int main(int argc, char* argv[])
         auto fmt_rest = FormatRest("doc/");
         fmt_rest.rebuildTechDoc(TechDocType::Klaverjas, 20261023);
         fmt_rest.rebuildTechDoc(TechDocType::Shob, 20261023);
-        fmt_rest.rebuildTechDoc(TechDocType::Adressen, 20261023);
         fmt_rest.rebuildLetters();
         fmt_rest.rebuildAsciiCodes();
         fmt_rest.rebuildEpsig(20261023);
