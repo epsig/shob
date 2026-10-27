@@ -4,7 +4,7 @@
 #include <gtest/gtest.h>
 
 #include "../shob.html/settings.h"
-#include "../shob.pages/FormatOsFactory.h"
+#include "../shob.pages/FormatOsBuilder.h"
 #include "../shob.test.utils/testUtils.h"
 
 namespace shob::pages::test
@@ -14,7 +14,7 @@ namespace shob::pages::test
     const std::string data_map = "../../data/sport/schaatsen/";
     const std::string data_folder = testUtils::refFileWithPath(__FILE__, data_map);
     constexpr auto settings = html::settings();
-    const auto format_os = FormatOsFactory::build(data_folder, settings);
+    const auto format_os = FormatOsBuilder::build(data_folder, settings);
 
     void TestFormatOs::testOs2002()
     {

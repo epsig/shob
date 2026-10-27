@@ -1,17 +1,15 @@
 #pragma once
-
-#include "FormatOs.h"
-#include "TopMenu.h"
+#include <string>
+#include "FormatEkWkQf.h"
 
 namespace shob::pages
 {
-    class FormatOsFactory
+    class FormatEkWkQfBuilder
     {
     public:
-        static FormatOs build(const std::string& folder, const html::settings& settings);
+        static FormatEkWkQf build(const std::string& dataFolder, const html::settings& settings);
     private:
         static TopMenu prepareTopMenu(const std::string& dataFolderEkWkQf);
         static bool cmpFunc(const std::string& a, const std::string& b);
     };
 }
-

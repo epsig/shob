@@ -1,5 +1,5 @@
 
-#include "FormatEkWkDFactory.h"
+#include "FormatEkWkDBuilder.h"
 
 #include <algorithm>
 
@@ -7,7 +7,7 @@
 
 namespace shob::pages
 {
-    FormatEkWkD FormatEkWkDFactory::build(const std::string& dataFolder, const html::settings& settings)
+    FormatEkWkD FormatEkWkDBuilder::build(const std::string& dataFolder, const html::settings& settings)
     {
         const auto data_folder_ek_wk = dataFolder + "/ekwk/";
 
@@ -30,14 +30,14 @@ namespace shob::pages
         return retval;
     }
 
-    bool FormatEkWkDFactory::cmpFunc(const std::string& a, const std::string& b)
+    bool FormatEkWkDBuilder::cmpFunc(const std::string& a, const std::string& b)
     {
         const auto num1 = a.substr(3, 4);
         const auto num2 = b.substr(3, 4);
         return num1 < num2;
     }
 
-    TopMenu FormatEkWkDFactory::prepareTopMenu(const std::string& dataFolderEkWk)
+    TopMenu FormatEkWkDBuilder::prepareTopMenu(const std::string& dataFolderEkWk)
     {
         auto archive = general::glob::list(dataFolderEkWk, "[ew]kD[0-9]{4}.csv");
         std::sort(archive.begin(), archive.end(), cmpFunc);

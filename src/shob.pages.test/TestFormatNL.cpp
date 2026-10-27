@@ -3,7 +3,7 @@
 
 #include <gtest/gtest.h>
 
-#include "../shob.pages/FormatNL_Factory.h"
+#include "../shob.pages/FormatNL_Builder.h"
 #include "../shob.test.utils/testUtils.h"
 
 namespace shob::pages::test
@@ -15,7 +15,7 @@ namespace shob::pages::test
         const std::string dataMap = "../../data/sport/";
         const std::string dataFolder = testUtils::refFileWithPath(__FILE__, dataMap);
         auto settings = html::settings();
-        auto fmt_nl = format_nl_factory::build(dataFolder, settings);
+        auto fmt_nl = format_nl_builder::build(dataFolder, settings);
         auto lines = fmt_nl.getSeason(general::Season(2023));
         EXPECT_EQ(lines.data.size(), 159);
     }
@@ -25,7 +25,7 @@ namespace shob::pages::test
         const std::string dataMap = "../../data/sport/";
         const std::string dataFolder = testUtils::refFileWithPath(__FILE__, dataMap);
         auto settings = html::settings();
-        auto fmt_nl = format_nl_factory::build(dataFolder, settings);
+        auto fmt_nl = format_nl_builder::build(dataFolder, settings);
         int dd = fmt_nl.get_dd();
         EXPECT_GE(dd, 20260101);
     }

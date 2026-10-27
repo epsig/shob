@@ -5,7 +5,7 @@
 
 namespace shob::pages
 {
-    class FormatEkWkDFactory
+    class FormatEkWkDBuilder
     {
     public:
         static FormatEkWkD build(const std::string& dataFolder, const html::settings& settings);

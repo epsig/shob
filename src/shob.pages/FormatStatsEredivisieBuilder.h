@@ -5,7 +5,7 @@
 
 namespace shob::pages
 {
-    class FormatStatsEredivisieFactory
+    class FormatStatsEredivisieBuilder
     {
     public:
         static FormatStatsEredivisie build(const std::string& dataFolder, const html::settings& settings);

@@ -5,7 +5,7 @@
 
 namespace shob::pages
 {
-    class FormatSemestersAndYearStandingsFactory
+    class FormatSemestersAndYearStandingsBuilder
     {
     public:
         FormatSemestersAndYearStandings build(const std::string& folder, const html::settings& settings);

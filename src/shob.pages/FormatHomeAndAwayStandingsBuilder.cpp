@@ -1,11 +1,11 @@
 
-#include "FormatHomeAndAwayStandingsFactory.h"
+#include "FormatHomeAndAwayStandingsBuilder.h"
 #include "../shob.general/glob.h"
 #include <algorithm>
 
 namespace shob::pages
 {
-    FormatHomeAndAwayStandings FormatHomeAndAwayStandingsFactory::build(const std::string& folder, const html::settings& settings)
+    FormatHomeAndAwayStandings FormatHomeAndAwayStandingsBuilder::build(const std::string& folder, const html::settings& settings)
     {
         auto menu = prepareTopMenu(folder);
 
@@ -19,7 +19,7 @@ namespace shob::pages
         return format;
     }
 
-    TopMenu FormatHomeAndAwayStandingsFactory::prepareTopMenu(const std::string& dataFolder)
+    TopMenu FormatHomeAndAwayStandingsBuilder::prepareTopMenu(const std::string& dataFolder)
     {
         auto archive = general::glob::list(dataFolder, "eredivisie_[0-9]{4}_[0-9]{4}.csv");
         std::sort(archive.begin(), archive.end(), cmpFunc);
@@ -44,7 +44,7 @@ namespace shob::pages
         return menu;
     }
 
-    bool FormatHomeAndAwayStandingsFactory::cmpFunc(const std::string& a, const std::string& b)
+    bool FormatHomeAndAwayStandingsBuilder::cmpFunc(const std::string& a, const std::string& b)
     {
         return a < b;
     }

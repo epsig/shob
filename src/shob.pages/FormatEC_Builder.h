@@ -5,7 +5,7 @@
 
 namespace shob::pages
 {
-    class FormatEC_Factory
+    class FormatEC_Builder
     {
     public:
         static bool cmpFunc(const std::string& a, const std::string& b);

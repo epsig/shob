@@ -1,5 +1,5 @@
 
-#include "FormatOsFactory.h"
+#include "FormatOsBuilder.h"
 #include "../shob.general/glob.h"
 #include <algorithm>
 
@@ -7,14 +7,14 @@ namespace shob::pages
 {
     using namespace shob::readers;
 
-    bool FormatOsFactory::cmpFunc(const std::string& a, const std::string& b)
+    bool FormatOsBuilder::cmpFunc(const std::string& a, const std::string& b)
     {
         const auto num1 = a.substr(2, 4);
         const auto num2 = b.substr(2, 4);
         return num1 < num2;
     }
 
-    TopMenu FormatOsFactory::prepareTopMenu(const std::string& dataFolder)
+    TopMenu FormatOsBuilder::prepareTopMenu(const std::string& dataFolder)
     {
         auto archive = general::glob::list(dataFolder, "OS_[0-9]{4}.csv");
         std::sort(archive.begin(), archive.end(), cmpFunc);
@@ -31,7 +31,7 @@ namespace shob::pages
         return menu;
     }
 
-    FormatOs FormatOsFactory::build(const std::string& folder, const html::settings& settings)
+    FormatOs FormatOsBuilder::build(const std::string& folder, const html::settings& settings)
     {
         auto remarks = csvAllSeasonsReader();
         remarks.init(folder + "schaatsen_remarks.csv");

@@ -5,15 +5,15 @@
 #include <algorithm>
 
 #include "shob.general/dateFactory.h"
-#include "shob.pages/FormatEC_Factory.h"
-#include "shob.pages/FormatNL_Factory.h"
-#include "shob.pages/FormatEkWkFactory.h"
-#include "shob.pages/FormatEkWkDFactory.h"
-#include "shob.pages/FormatEkWkQfFactory.h"
-#include "shob.pages/FormatOsFactory.h"
-#include "shob.pages/FormatSemestersAndYearStandingsFactory.h"
-#include "shob.pages/FormatHomeAndAwayStandingsFactory.h"
-#include "shob.pages/FormatStatsEredivisieFactory.h"
+#include "shob.pages/FormatEC_Builder.h"
+#include "shob.pages/FormatNL_Builder.h"
+#include "shob.pages/FormatEkWkBuilder.h"
+#include "shob.pages/FormatEkWkDBuilder.h"
+#include "shob.pages/FormatEkWkQfBuilder.h"
+#include "shob.pages/FormatOsBuilder.h"
+#include "shob.pages/FormatSemestersAndYearStandingsBuilder.h"
+#include "shob.pages/FormatHomeAndAwayStandingsBuilder.h"
+#include "shob.pages/FormatStatsEredivisieBuilder.h"
 #include "shob.pages/FormatHomePage.h"
 #include "shob.pages/FormatBookmarks.h"
 #include "shob.pages/FormatRest.h"
@@ -74,19 +74,19 @@ int main(int argc, char* argv[])
 
         read_command_line(argc, argv, firstYear, lastYear, skip_kj);
 
-        part = "running factories";
+        part = "running builders";
         auto settings = shob::html::settings();
         settings.dateFormatShort = false;
-        auto fmt_nl = format_nl_factory::build("sport", settings);
-        auto fmt_ec = FormatEC_Factory::build("sport", settings);
-        auto fmt_ekwk = FormatEkWkFactory::build("sport", settings);
-        auto fmt_ekwkD = FormatEkWkDFactory::build("sport", settings);
-        auto fmt_ekwk_qf = FormatEkWkQfFactory::build("sport", settings);
-        auto fmt_os = FormatOsFactory::build("sport/schaatsen/", settings);
-        auto fmt_semesters_and_year = FormatSemestersAndYearStandingsFactory().build("sport/eredivisie/", settings);
-        auto fmt_home_away = FormatHomeAndAwayStandingsFactory::build("sport/eredivisie/", settings);
+        auto fmt_nl = format_nl_builder::build("sport", settings);
+        auto fmt_ec = FormatEC_Builder::build("sport", settings);
+        auto fmt_ekwk = FormatEkWkBuilder::build("sport", settings);
+        auto fmt_ekwkD = FormatEkWkDBuilder::build("sport", settings);
+        auto fmt_ekwk_qf = FormatEkWkQfBuilder::build("sport", settings);
+        auto fmt_os = FormatOsBuilder::build("sport/schaatsen/", settings);
+        auto fmt_semesters_and_year = FormatSemestersAndYearStandingsBuilder().build("sport/eredivisie/", settings);
+        auto fmt_home_away = FormatHomeAndAwayStandingsBuilder::build("sport/eredivisie/", settings);
 
-        auto fmt_stats_eredivisie = FormatStatsEredivisieFactory::build("sport/eredivisie/", settings);
+        auto fmt_stats_eredivisie = FormatStatsEredivisieBuilder::build("sport/eredivisie/", settings);
         for (const auto & extra : {true, false})
         {
             fmt_stats_eredivisie.getPagesToFile(extra,

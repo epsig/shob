@@ -5,7 +5,7 @@
 
 namespace shob::pages
 {
-    class format_nl_factory
+    class format_nl_builder
     {
     public:
         static bool cmpFunc(const std::string& a, const std::string& b);

@@ -5,7 +5,7 @@
 
 namespace shob::pages
 {
-    class FormatHomeAndAwayStandingsFactory
+    class FormatHomeAndAwayStandingsBuilder
     {
     public:
         static FormatHomeAndAwayStandings build(const std::string& folder, const html::settings& settings);

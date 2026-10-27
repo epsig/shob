@@ -4,10 +4,10 @@
 
 namespace shob::pages
 {
-    class EkWkOneYearFactory
+    class EkWkOneYearBuilder
     {
     public:
-        static EkWkOneYear Factory(const EkWkDate ekwk, const html::settings settings, const teams::clubTeams& teams,
+        static EkWkOneYear build(const EkWkDate ekwk, const html::settings settings, const teams::clubTeams& teams,
             const readers::csvAllSeasonsReader& top_scorers, const teams::footballers& players,
             const std::vector<std::vector<std::string>>& current_remarks, const std::string& data_sport_folder);
     private:

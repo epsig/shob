@@ -1,5 +1,5 @@
 
-#include "FormatSemestersAndYearStandingsFactory.h"
+#include "FormatSemestersAndYearStandingsBuilder.h"
 #include "../shob.general/glob.h"
 #include "../shob.football/footballCompetition.h"
 
@@ -9,7 +9,7 @@
 namespace shob::pages
 {
 
-    FormatSemestersAndYearStandings FormatSemestersAndYearStandingsFactory::build(const std::string& folder, const html::settings& settings)
+    FormatSemestersAndYearStandings FormatSemestersAndYearStandingsBuilder::build(const std::string& folder, const html::settings& settings)
     {
         getLastYear(folder);
         auto menu = prepareTopMenu(folder);
@@ -24,7 +24,7 @@ namespace shob::pages
         return format;
     }
 
-    TopMenu FormatSemestersAndYearStandingsFactory::prepareTopMenu(const std::string& dataFolder) const
+    TopMenu FormatSemestersAndYearStandingsBuilder::prepareTopMenu(const std::string& dataFolder) const
     {
         auto archive = general::glob::list(dataFolder, "eredivisie_[0-9]{4}_[0-9]{4}.csv");
         std::sort(archive.begin(), archive.end(), cmpFunc);
@@ -57,12 +57,12 @@ namespace shob::pages
         return menu;
     }
 
-    bool FormatSemestersAndYearStandingsFactory::cmpFunc(const std::string& a, const std::string& b)
+    bool FormatSemestersAndYearStandingsBuilder::cmpFunc(const std::string& a, const std::string& b)
     {
         return a < b;
     }
 
-    readers::csvContent FormatSemestersAndYearStandingsFactory::readMatchesData(const std::string& folder, const general::Season& season)
+    readers::csvContent FormatSemestersAndYearStandingsBuilder::readMatchesData(const std::string& folder, const general::Season& season)
     {
         const auto csv_input = std::format("{}/eredivisie_{}.csv", folder, season.toPartFilename());
         const auto csv_data = readers::csvReader::readCsvFile(csv_input);
@@ -74,7 +74,7 @@ namespace shob::pages
         return a < b;
     }
 
-    void FormatSemestersAndYearStandingsFactory::getLastYear(const std::string& folder)
+    void FormatSemestersAndYearStandingsBuilder::getLastYear(const std::string& folder)
     {
         auto archive = general::glob::list(folder, "eredivisie_[0-9]{4}_[0-9]{4}.csv");
         std::sort(archive.begin(), archive.end(), cmpFunc2);

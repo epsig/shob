@@ -1,5 +1,5 @@
 
-#include "FormatEC_Factory.h"
+#include "FormatEC_Builder.h"
 
 #include <algorithm>
 
@@ -8,14 +8,14 @@
 
 namespace shob::pages
 {
-    bool FormatEC_Factory::cmpFunc(const std::string& a, const std::string& b)
+    bool FormatEC_Builder::cmpFunc(const std::string& a, const std::string& b)
     {
         const auto num1 = a.substr(10, 4);
         const auto num2 = b.substr(10, 4);
         return num1 < num2;
     }
 
-    FormatEC FormatEC_Factory::build(const std::string& dataFolder, const html::settings& settings)
+    FormatEC FormatEC_Builder::build(const std::string& dataFolder, const html::settings& settings)
     {
         auto remarks = readers::csvAllSeasonsReader();
         remarks.init(dataFolder + "/europacup/europacup_remarks.csv");

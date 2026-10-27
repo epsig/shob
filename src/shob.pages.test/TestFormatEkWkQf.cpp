@@ -3,7 +3,7 @@
 
 #include <gtest/gtest.h>
 
-#include "../shob.pages/FormatEkWkQfFactory.h"
+#include "../shob.pages/FormatEkWkQfBuilder.h"
 #include "../shob.test.utils/testUtils.h"
 
 namespace shob::pages::test
@@ -13,7 +13,7 @@ namespace shob::pages::test
     const std::string data_map = "../../data/sport/";
     const std::string data_folder = testUtils::refFileWithPath(__FILE__, data_map);
     constexpr auto settings = html::settings();
-    const auto format_ek_wk_qf = FormatEkWkQfFactory::build(data_folder, settings);
+    const auto format_ek_wk_qf = FormatEkWkQfBuilder::build(data_folder, settings);
 
     void TestFormatEkWkQf::test_ek_2000()
     {

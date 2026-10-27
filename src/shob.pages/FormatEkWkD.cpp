@@ -2,7 +2,7 @@
 #include "FormatEkWkD.h"
 #include "HeadBottom.h"
 #include "EkWkOneYear.h"
-#include "EkWkOneYearFactory.h"
+#include "EkWkOneYearBuilder.h"
 #include <format>
 #include <filesystem>
 
@@ -55,7 +55,7 @@ namespace shob::pages
         int dd = 19920101;
 
         const auto current_remarks = remarks.getSeason(ekwk.shortNameWithYear());
-        auto helper = EkWkOneYearFactory::Factory(ekwk, settings, teams, top_scorers, players, current_remarks, data_sport_folder);
+        auto helper = EkWkOneYearBuilder::build(ekwk, settings, teams, top_scorers, players, current_remarks, data_sport_folder);
 
         auto pageBlocks = helper.getAllPageBlocks(dd);
 

@@ -1,4 +1,4 @@
-#include "FormatEkWkQfFactory.h"
+#include "FormatEkWkQfBuilder.h"
 
 #include "TopMenu.h"
 #include "../shob.readers/csvAllSeasonsReader.h"
@@ -9,14 +9,14 @@
 
 namespace shob::pages
 {
-    bool FormatEkWkQfFactory::cmpFunc(const std::string& a, const std::string& b)
+    bool FormatEkWkQfBuilder::cmpFunc(const std::string& a, const std::string& b)
     {
         const auto num1 = a.substr(2, 4);
         const auto num2 = b.substr(2, 4);
         return num1 < num2;
     }
 
-    TopMenu FormatEkWkQfFactory::prepareTopMenu(const std::string& dataFolderEkWkQf)
+    TopMenu FormatEkWkQfBuilder::prepareTopMenu(const std::string& dataFolderEkWkQf)
     {
         auto archive = general::glob::list(dataFolderEkWkQf, "[ew]k[0-9]{4}.*csv");
         std::sort(archive.begin(), archive.end(), cmpFunc);
@@ -35,7 +35,7 @@ namespace shob::pages
         return menu;
     }
 
-    FormatEkWkQf FormatEkWkQfFactory::build(const std::string& dataFolder, const html::settings& settings)
+    FormatEkWkQf FormatEkWkQfBuilder::build(const std::string& dataFolder, const html::settings& settings)
     {
         auto dataFolderEkWkQf = dataFolder + "/ekwk_qf/";
 
