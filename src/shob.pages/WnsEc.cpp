@@ -1,9 +1,9 @@
 
-#include "wns_ec.h"
+#include "WnsEc.h"
 
 namespace shob::pages
 {
-    int wns_ec::getWns(const std::string& part, const std::string& group, const football::footballCompetition& matches) const
+    int WnsEc::getWns(const std::string& part, const std::string& group, const football::footballCompetition& matches) const
     {
         if (groups.contains(group))
         {

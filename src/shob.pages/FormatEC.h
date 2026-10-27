@@ -10,7 +10,7 @@
 #include "../shob.general/Season.h"
 #include "../shob.football/leagueNames.h"
 #include "TopMenu.h"
-#include "wns_ec.h"
+#include "WnsEc.h"
 
 namespace shob::pages
 {
@@ -35,14 +35,14 @@ namespace shob::pages
         const html::settings settings;
         const TopMenu menu;
         const football::leagueNames leagueNames;
-        general::MultipleStrings getFirstHalfYear(const std::string& part, const readers::csvContent& data, const wns_ec& wns_cl,
+        general::MultipleStrings getFirstHalfYear(const std::string& part, const readers::csvContent& data, const WnsEc& wns_cl,
             const std::vector<std::vector<std::string>>& extraU2s, const int sortRule, int& dd) const;
         static general::uniqueStrings getGroups(const std::string& part, const readers::csvContent& data);
         static general::uniqueStrings getQualifiers(const std::string& part, const readers::csvContent& data);
         static general::uniqueStrings getXtra(const std::string& part, const readers::csvContent& data);
         static std::string getRemarks(const std::string& part, const std::string& group, const std::vector<std::vector<std::string>>& extraU2s);
         general::MultipleStrings getInternalLinks(const std::vector<std::string>& ECparts, const readers::csvContent& csvData) const;
-        std::vector<std::vector<std::string>> readExtras(const general::Season& season, wns_ec& wns_cl, general::MultipleStrings& summary) const;
+        std::vector<std::vector<std::string>> readExtras(const general::Season& season, WnsEc& wns_cl, general::MultipleStrings& summary) const;
         static bool hasFinal(const std::string& part, const readers::csvContent& csvData);
         general::MultipleStrings getSupercup(const readers::csvContent& data, int& dd) const;
         static void readSortRule(int& sortRule, const std::vector<std::vector<std::string>>& extraU2s);

@@ -105,7 +105,7 @@ namespace shob::pages
         return groups;
     }
 
-    std::vector<std::vector<std::string>> FormatEC::readExtras(const Season& season, wns_ec& wns_cl, MultipleStrings& summary) const
+    std::vector<std::vector<std::string>> FormatEC::readExtras(const Season& season, WnsEc& wns_cl, MultipleStrings& summary) const
     {
         std::vector<std::vector<std::string>> extraU2s = extras.getSeason(season);
         wns_cl.wns_cl = -1;
@@ -188,7 +188,7 @@ namespace shob::pages
         return remarks;
     }
 
-    MultipleStrings FormatEC::getFirstHalfYear(const std::string& part, const csvContent& data, const wns_ec& wns_cl,
+    MultipleStrings FormatEC::getFirstHalfYear(const std::string& part, const csvContent& data, const WnsEc& wns_cl,
         const std::vector<std::vector<std::string>>& extraU2s, const int sortRule, int& dd) const
     {
         auto tables = std::vector<tableContent>();
@@ -380,7 +380,7 @@ namespace shob::pages
         const auto file1 = sportDataFolder + "/europacup/europacup_" + season.toPartFilename() + ".csv";
         const auto csvData = csvReader::readCsvFile(file1);
 
-        wns_ec wns_cl;
+        WnsEc wns_cl;
         MultipleStrings summary;
         auto extraU2s = readExtras(season, wns_cl, summary);
         auto out = MultipleStrings();

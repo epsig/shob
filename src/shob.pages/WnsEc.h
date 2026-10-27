@@ -6,7 +6,7 @@
 
 namespace shob::pages
 {
-    class wns_ec
+    class WnsEc
     {
     public:
         int wns_cl;
