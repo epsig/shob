@@ -13,7 +13,7 @@ namespace shob::pages
         int wns_cf;
         int scoring;
         std::map<std::string, int> groups;
-        int getWns(const std::string& part, const std::string& group, const football::footballCompetition& matches) const;
+        int getWns(const std::string& part, const std::string& group, const football::FootballCompetition& matches) const;
     };
 
 }

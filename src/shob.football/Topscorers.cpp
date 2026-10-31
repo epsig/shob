@@ -1,30 +1,30 @@
 
-#include "topscorers.h"
+#include "Topscorers.h"
 
 namespace shob::football
 {
     using namespace shob::general;
 
-    void topscorers::initFromFile(const Season& season)
+    void Topscorers::initFromFile(const Season& season)
     {
         auto data = reader.getSeason(season);
 
         initFromFile(data);
     }
 
-    void topscorers::initFromFile(const std::string& season)
+    void Topscorers::initFromFile(const std::string& season)
     {
         auto data = reader.getSeason(season);
 
         initFromFile(data);
     }
 
-    void topscorers::initFromFile(const std::vector<std::vector<std::string>>& data)
+    void Topscorers::initFromFile(const std::vector<std::vector<std::string>>& data)
     {
         for (size_t i = 1; i < data.size(); i++)
         {
             const auto& row = data[i];
-            auto tp = topscorer();
+            auto tp = Topscorer();
             tp.rank = std::stoi(row[0]);
             tp.name = row[1];
             tp.club = row[2];
@@ -33,7 +33,7 @@ namespace shob::football
         }
     }
 
-    html::tableContent topscorers::prepareTable(const teams::clubTeams& teams, const teams::footballers& players, const html::settings& settings) const
+    html::tableContent Topscorers::prepareTable(const teams::clubTeams& teams, const teams::footballers& players, const html::settings& settings) const
     {
         auto table = html::tableContent();
         if (settings.lang == html::language::Dutch)
@@ -66,9 +66,9 @@ namespace shob::football
         return table;
     }
 
-    numbers1 topscorers::getNumbers1(const teams::clubTeams& teams, const teams::footballers& players) const
+    Numbers1 Topscorers::getNumbers1(const teams::clubTeams& teams, const teams::footballers& players) const
     {
-        auto table = numbers1();
+        auto table = Numbers1();
         for (const auto& row : list_tp)
         {
             if (row.rank == 1)

@@ -1,5 +1,5 @@
 
-#include "footballCompetition.h"
+#include "FootballCompetition.h"
 
 #include "../shob.readers/csvReader.h"
 #include "../shob.general/dateFactory.h"
@@ -11,15 +11,15 @@ namespace shob::football
     using namespace shob::readers;
     using namespace shob::general;
 
-    void footballCompetition::readFromCsv(const std::string& filename)
+    void FootballCompetition::readFromCsv(const std::string& filename)
     {
         auto csvData = csvReader::readCsvFile(filename);
         readFromCsvData(csvData);
     }
 
-    void footballCompetition::readFromCsvData(const csvContent& csvData)
+    void FootballCompetition::readFromCsvData(const csvContent& csvData)
     {
-        matches = std::vector<footballMatch>();
+        matches = std::vector<FootballMatch>();
 
         const auto clubNames = csvData.findColumnNamesTeams();
         const auto team1Column = csvData.findColumn(clubNames[0]);
@@ -46,15 +46,15 @@ namespace shob::football
             }
             const std::string remarks=  (remarksColumn < line.size() ? line[remarksColumn] : "");
             const auto date = dateFactory::getDate(line[ddColumn]);
-            const auto match = footballMatch(line[team1Column], line[team2Column], date,
+            const auto match = FootballMatch(line[team1Column], line[team2Column], date,
                 line[resultColumn], spectators, remarks);
             matches.push_back(match);
         }
     }
 
-    footballCompetition footballCompetition::filter(const std::set<std::string>& clubs) const
+    FootballCompetition FootballCompetition::filter(const std::set<std::string>& clubs) const
     {
-        auto filtered = footballCompetition();
+        auto filtered = FootballCompetition();
         for (const auto& match : matches)
         {
             if (clubs.contains(match.team1) && clubs.contains(match.team2))
@@ -65,9 +65,9 @@ namespace shob::football
         return filtered;
     }
 
-    footballCompetition footballCompetition::filterNL() const
+    FootballCompetition FootballCompetition::filterNL() const
     {
-        auto filtered = footballCompetition();
+        auto filtered = FootballCompetition();
         for (const auto& match : matches)
         {
             if (match.team1.starts_with("NL") || match.team2.starts_with("NL"))
@@ -78,11 +78,11 @@ namespace shob::football
         return filtered;
     }
 
-    std::pair<footballCompetition, footballCompetition>
-        footballCompetition::split_matches(const std::string& team) const
+    std::pair<FootballCompetition, FootballCompetition>
+        FootballCompetition::split_matches(const std::string& team) const
     {
-        auto withTeam = footballCompetition();
-        auto withoutTeam = footballCompetition();
+        auto withTeam = FootballCompetition();
+        auto withoutTeam = FootballCompetition();
         for (const auto& match : matches)
         {
             if (match.team1 == team || match.team2 == team)
@@ -97,9 +97,9 @@ namespace shob::football
         return { withTeam, withoutTeam };
     }
 
-    footballCompetition footballCompetition::filterDate(const itdate& date1, const itdate& date2) const
+    FootballCompetition FootballCompetition::filterDate(const itdate& date1, const itdate& date2) const
     {
-        auto retVal = footballCompetition();
+        auto retVal = FootballCompetition();
         for (const auto& match : matches)
         {
             if (match.dd->toInt() >= date1.toInt() && match.dd->toInt() <= date2.toInt())
@@ -110,7 +110,7 @@ namespace shob::football
         return retVal;
     }
 
-    html::tableContent footballCompetition::prepareTable(const teams::clubTeams& teams, const html::settings& settings) const
+    html::tableContent FootballCompetition::prepareTable(const teams::clubTeams& teams, const html::settings& settings) const
     {
         auto table = html::tableContent();
         if ( matches.empty()) { return table; }
@@ -183,8 +183,8 @@ namespace shob::football
                 if (index >= 0) stars[index] = "&nbsp;*";
             }
             auto result = row.result;
-            if (row.star == starEnum::homeWinsXt || row.star == starEnum::awayWinsXt) result += "&nbsp;n.v.";
-            if (row.star == starEnum::homeWinsPenalties || row.star == starEnum::awayWinsPenalties) result += "&nbsp;n.s.";
+            if (row.star == StarEnum::homeWinsXt || row.star == StarEnum::awayWinsXt) result += "&nbsp;n.v.";
+            if (row.star == StarEnum::homeWinsPenalties || row.star == StarEnum::awayWinsPenalties) result += "&nbsp;n.s.";
             const auto match_name = teams.expand(row.team1, addCountry) + stars[0] + " - " + teams.expand(row.team2, addCountry) + stars[1];
             if (row.link_name.empty())
             {
@@ -202,7 +202,7 @@ namespace shob::football
         return table;
     }
 
-    std::pair<int, int> footballCompetition::getStatsSpectators() const
+    std::pair<int, int> FootballCompetition::getStatsSpectators() const
     {
         int total_spectators = 0;
         int total_matches = 0;
@@ -217,14 +217,14 @@ namespace shob::football
         return { total_spectators, total_matches };
     }
 
-    bool footballCompetition::equalTeams(size_t i, size_t j) const
+    bool FootballCompetition::equalTeams(size_t i, size_t j) const
     {
         if (matches[i].team1 == matches[j].team2 && matches[i].team2 == matches[j].team1) return true;
         if (matches[i].team1 == matches[j].team1 && matches[i].team2 == matches[j].team2) return true;
         return false;
     }
 
-    coupledMatchesData footballCompetition::getReturns() const
+    coupledMatchesData FootballCompetition::getReturns() const
     {
         coupledMatchesData coupledMatches;
         coupledMatches.isSecondMatch = std::vector(matches.size(), false);
@@ -245,7 +245,7 @@ namespace shob::football
         return coupledMatches;
     }
 
-    itdate footballCompetition::lastDate(bool all) const
+    itdate FootballCompetition::lastDate(bool all) const
     {
         int date = 19000101;
         for (const auto& match : matches)
@@ -259,7 +259,7 @@ namespace shob::football
         return dd;
     }
 
-    std::vector<linkInfo> footballCompetition::getLinks(const teams::clubTeams& teams) const
+    std::vector<linkInfo> FootballCompetition::getLinks(const teams::clubTeams& teams) const
     {
         auto retval = std::vector<linkInfo>();
 
@@ -272,7 +272,7 @@ namespace shob::football
         return retval;
     }
 
-    strikingResults footballCompetition::getStrikingResults() const
+    strikingResults FootballCompetition::getStrikingResults() const
     {
         strikingResults results;
         int maxDiff = 0;

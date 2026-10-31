@@ -1,5 +1,5 @@
 
-#include "route2final.h"
+#include "Route2final.h"
 
 #include "../shob.general/shobException.h"
 
@@ -7,7 +7,7 @@ namespace shob::football
 {
     using namespace shob::html;
 
-    void route2final::addOneRound(tableContent& table, const footballCompetition& matches,
+    void RouteToFfinal::addOneRound(tableContent& table, const FootballCompetition& matches,
         const std::vector<int>& positions, const teams::clubTeams& teams, const size_t offset, const size_t maxCols,
         const settings settings, const std::vector<addCountryType>& addCountry)
     {
@@ -47,7 +47,7 @@ namespace shob::football
         }
     }
 
-    std::vector<tableContent> route2final::prepareTable(const teams::clubTeams& teams, const settings& settings) const
+    std::vector<tableContent> RouteToFfinal::prepareTable(const teams::clubTeams& teams, const settings& settings) const
     {
         const std::vector lineNrs16 = { 0, 2, 4, 6, 9, 11, 13, 15 };
         std::vector<int> lineNrs8;
@@ -153,7 +153,7 @@ namespace shob::football
         return { table };
     }
 
-    general::itdate route2final::lastDate() const
+    general::itdate RouteToFfinal::lastDate() const
     {
         auto dd = final.lastDate().toInt();
         dd = std::max(dd, bronze.lastDate().toInt());
@@ -164,20 +164,20 @@ namespace shob::football
         return date;
     }
 
-    bool route2final::has_round(const std::string& round) const
+    bool RouteToFfinal::has_round(const std::string& round) const
     {
         if (round == "last16") return !last16.matches.empty();
         throw general::shobException("not implemented yet");
     }
 
-    bool route2final::empty() const
+    bool RouteToFfinal::empty() const
     {
         return final.matches.empty() && bronze.matches.empty() && semiFinal.matches.empty() && quarterFinal.matches.empty() && last16.matches.empty();
     }
 
-    footballCompetition route2final::getAllMatches() const
+    FootballCompetition RouteToFfinal::getAllMatches() const
     {
-        auto return_value = footballCompetition();
+        auto return_value = FootballCompetition();
         for (const auto& part : {last16, quarterFinal, semiFinal, bronze, final} )
         {
             for (const auto& m : part.matches)

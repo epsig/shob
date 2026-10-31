@@ -12,10 +12,10 @@ namespace shob::football
         std::string shortName;
     };
 
-    class leagueNames
+    class LeagueNames
     {
     public:
-        leagueNames(const std::string& filename);
+        LeagueNames(const std::string& filename);
         std::string getFullName(const std::string& id) const;
         std::string getLinkName(const std::string& id) const;
         std::string getShortName(const std::string& id) const;

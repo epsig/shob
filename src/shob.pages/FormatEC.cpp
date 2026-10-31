@@ -157,10 +157,10 @@ namespace shob::pages
 
     MultipleStrings FormatEC::getSupercup(const csvContent& data, int& dd) const
     {
-        auto filter = filterInputList();
+        auto filter = FilterInputList();
         const std::string part = "supercup";
         filter.filters.push_back({ 0, part });
-        const auto matches = filterResults::readFromCsvData(data, filter);
+        const auto matches = FilterResults::readFromCsvData(data, filter);
         dd = std::max(dd, matches.lastDate().toInt());
         auto adjSettings = settings;
         adjSettings.addCountry = addCountryType::withAcronym;
@@ -202,10 +202,10 @@ namespace shob::pages
         const auto qualifiers = getQualifiers(part, data).list();
         for (const auto& qf : qualifiers)
         {
-            auto filter = filterInputList();
+            auto filter = FilterInputList();
             filter.filters.push_back({ 0, part });
             filter.filters.push_back({ 1, qf });
-            auto matches = filterResults::readFromCsvData(data, filter);
+            auto matches = FilterResults::readFromCsvData(data, filter);
             if (qf == "intertoto") matches = matches.filterNL();
             if (groups.empty()) matches.onlyKO = true;
             auto prepTable = matches.prepareTable(teams, adjSettings);
@@ -232,11 +232,11 @@ namespace shob::pages
 
         for (const auto& group : groups)
         {
-            auto filter = filterInputList();
+            auto filter = FilterInputList();
             filter.filters.push_back({ 0, part });
             filter.filters.push_back({ 1, group });
-            const auto groupsPhase = filterResults::readFromCsvData(data, filter);
-            auto stand = results2standings::u2s(groupsPhase, wns_cl.scoring, sortRule);
+            const auto groupsPhase = FilterResults::readFromCsvData(data, filter);
+            auto stand = ResultsToStandings::u2s(groupsPhase, wns_cl.scoring, sortRule);
             stand.wns_cl = wns_cl.getWns(part, group, groupsPhase);
             auto prepTable = stand.prepareTable(teams, adjSettings);
             if (group.find('2') == std::string::npos)
@@ -269,10 +269,10 @@ namespace shob::pages
         int rounds = 0;
         for (const auto& qf : xtras)
         {
-            auto filter = filterInputList();
+            auto filter = FilterInputList();
             filter.filters.push_back({ 0, part });
             filter.filters.push_back({ 1, qf });
-            auto matches = filterResults::readFromCsvData(data, filter).filterNL();
+            auto matches = FilterResults::readFromCsvData(data, filter).filterNL();
             if (groups.empty()) matches.onlyKO = true;
             if ( ! matches.matches.empty())
             {
@@ -431,7 +431,7 @@ namespace shob::pages
                 out.addContent(content);
                 if (hasFinal(part, csvData))
                 {
-                    const auto r2f = route2finaleFactory::createEC(csvData, part);
+                    const auto r2f = RouteToFinalFactory::createEC(csvData, part);
                     auto prepTable = r2f.prepareTable(teams, settings);
                     prepTable[0].header.addContent(leagueNames.getFullName(part) + ": de laatste acht");
                     auto Table = table(settings);

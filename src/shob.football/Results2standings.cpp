@@ -1,15 +1,15 @@
 
-#include "results2standings.h"
+#include "Results2standings.h"
 #include "../shob.readers/csvReader.h"
 
 namespace shob::football
 {
 
-    standings results2standings::u2s(const footballCompetition& matches, const int scoring, const int sortRule)
+    Standings ResultsToStandings::u2s(const FootballCompetition& matches, const int scoring, const int sortRule)
     {
         std::vector<compactMatch> matchList;
 
-        auto table = standings();
+        auto table = Standings();
         table.scoring = scoring;
 
         for (const auto& match : matches.matches)
@@ -53,7 +53,7 @@ namespace shob::football
         return table;
     }
 
-    void results2standings::u2s_home_away(const footballCompetition& matches, standings& home, standings& away, const int scoring)
+    void ResultsToStandings::u2s_home_away(const FootballCompetition& matches, Standings& home, Standings& away, const int scoring)
     {
         home.scoring = scoring;
         away.scoring = scoring;

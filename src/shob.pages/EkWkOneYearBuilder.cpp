@@ -3,10 +3,10 @@
 #include <format>
 #include <filesystem>
 
-#include "../shob.football/route2finalFactory.h"
-#include "../shob.football/route2final.h"
-#include "../shob.football/filterResults.h"
-#include "../shob.football/results2standings.h"
+#include "../shob.football/Route2finalFactory.h"
+#include "../shob.football/Route2final.h"
+#include "../shob.football/FilterResults.h"
+#include "../shob.football/Results2Standings.h"
 
 namespace shob::pages
 {
@@ -19,7 +19,7 @@ namespace shob::pages
         const std::string filename = data_sport_folder + "/ekwk/" + ekwk.shortName() + std::to_string(year) + ".csv";
         auto csv_content = readers::csvReader::readCsvFile(filename);
 
-        auto r2f = football::route2finaleFactory::create(csv_content);
+        auto r2f = football::RouteToFinalFactory::create(csv_content);
 
         auto groups = getGroupData(csv_content, current_remarks);
         auto round2 = getRound2data(csv_content);
@@ -36,11 +36,11 @@ namespace shob::pages
         return result;
     }
 
-    football::footballCompetition EkWkOneYearBuilder::getRound2data(const readers::csvContent& csv_content)
+    football::FootballCompetition EkWkOneYearBuilder::getRound2data(const readers::csvContent& csv_content)
     {
-        auto filter = football::filterInputList();
+        auto filter = football::FilterInputList();
         filter.filters.push_back({ 0, "round2" });
-        const auto round2 = football::filterResults::readFromCsvData(csv_content, filter);
+        const auto round2 = football::FilterResults::readFromCsvData(csv_content, filter);
 
         return round2;
     }
@@ -79,10 +79,10 @@ namespace shob::pages
 
         for (const auto& group : groups)
         {
-            auto filter = football::filterInputList();
+            auto filter = football::FilterInputList();
             filter.filters.push_back({ 0, group });
-            const auto groupsPhase = football::filterResults::readFromCsvData(csv_content, filter);
-            auto stand = football::results2standings::u2s(groupsPhase, 3, sort_rule);
+            const auto groupsPhase = football::FilterResults::readFromCsvData(csv_content, filter);
+            auto stand = football::ResultsToStandings::u2s(groupsPhase, 3, sort_rule);
             int ster_cur_group = ster_default;
             for (const auto& cur_rem : current_remarks)
             {

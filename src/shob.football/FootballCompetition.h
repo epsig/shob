@@ -27,23 +27,23 @@ namespace shob::football
 
     struct strikingResults
     {
-        std::vector<footballMatch> biggestVictory;
-        std::vector<footballMatch> mostGoalsPerTeam;
-        std::vector<footballMatch> mostGoalsPerMatch;
+        std::vector<FootballMatch> biggestVictory;
+        std::vector<FootballMatch> mostGoalsPerTeam;
+        std::vector<FootballMatch> mostGoalsPerMatch;
     };
 
-    class footballCompetition
+    class FootballCompetition
     {
     public:
         std::string id;
-        std::vector<footballMatch> matches;
+        std::vector<FootballMatch> matches;
         void readFromCsv(const std::string & filename);
         void readFromCsvData(const readers::csvContent& csvData);
         coupledMatchesData getReturns() const;
-        footballCompetition filter(const std::set<std::string>& clubs) const;
-        footballCompetition filterNL() const;
-        std::pair<footballCompetition, footballCompetition> split_matches(const std::string& team) const;
-        footballCompetition filterDate(const general::itdate& date1, const general::itdate& date2) const;
+        FootballCompetition filter(const std::set<std::string>& clubs) const;
+        FootballCompetition filterNL() const;
+        std::pair<FootballCompetition, FootballCompetition> split_matches(const std::string& team) const;
+        FootballCompetition filterDate(const general::itdate& date1, const general::itdate& date2) const;
         html::tableContent prepareTable(const teams::clubTeams& teams, const html::settings& settings) const;
         bool onlyKO = false;
         general::itdate lastDate(bool all=false) const;

@@ -67,22 +67,22 @@ namespace shob::pages
         const StatFilesSummary list_matches;
         const html::settings settings;
         static void updateOneResult(teamWithMinMaxResults& result, const int x, const std::string& team);
-        goalsSummary getGoalsSummary(const football::standings& table) const;
-        static sumGoalsAndMatches getSumGoalsAndMatches(const football::standings& table);
-        static SpectatorResults getSpectatorStats(const football::footballCompetition& competition);
+        goalsSummary getGoalsSummary(const football::Standings& table) const;
+        static sumGoalsAndMatches getSumGoalsAndMatches(const football::Standings& table);
+        static SpectatorResults getSpectatorStats(const football::FootballCompetition& competition);
         static void updateStatsFromRemarks(SpectatorResults& spectatorsStats,
                                     const std::vector<std::vector<std::string>>& current_remarks);
         static std::string getButton(const std::string& id, const int col, const int updown);
         general::MultipleStrings table1_to_html(const std::vector<std::pair<general::Season, goalsSummary>>& data) const;
         general::MultipleStrings table2_to_html(const std::vector<std::pair<general::Season, sumGoalsAndMatches>>& data,
-            const std::vector<std::pair<general::Season, football::numbers1>>& topscorers) const;
-        void getFieldsTable3(const std::vector<football::footballMatch>& matches, std::string& matchNames,
+            const std::vector<std::pair<general::Season, football::Numbers1>>& topscorers) const;
+        void getFieldsTable3(const std::vector<football::FootballMatch>& matches, std::string& matchNames,
                              std::string& results) const;
         general::MultipleStrings table3_to_html(const std::vector<std::pair<general::Season, football::strikingResults>>& results) const;
         general::MultipleStrings table4a_to_html(
             const std::vector<std::pair<general::Season, SpectatorResults>>& results) const;
         general::MultipleStrings table4b_to_html(const std::vector<std::pair<general::Season, SpectatorResults>>& results) const;
         general::MultipleStrings table5_to_html(
-            const std::vector<std::pair<general::Season, football::numbers1>>& topscorers) const;
+            const std::vector<std::pair<general::Season, football::Numbers1>>& topscorers) const;
     };
 }

@@ -14,7 +14,7 @@ namespace shob::pages
     EkWkOneYear::EkWkOneYear(const EkWkDate ekwk, const html::settings settings, const teams::clubTeams& teams,
         const readers::csvAllSeasonsReader& top_scorers, const teams::footballers& players,
         const std::vector<std::vector<std::string>>& current_remarks,
-        football::route2final r2f, groupList groups, football::footballCompetition round2, readers::xmlReader reader)
+        football::RouteToFfinal r2f, groupList groups, football::FootballCompetition round2, readers::xmlReader reader)
         : ekwk(ekwk), settings(settings), teams(teams), top_scorers(top_scorers), players(players), current_remarks(current_remarks),
         r2f(std::move(r2f)), groups(std::move(groups)), round2(std::move(round2)), reader(std::move(reader))
     {
@@ -152,7 +152,7 @@ namespace shob::pages
         return ret_val;
     }
 
-    void EkWkOneYear::getFieldsTable3(const std::vector<football::footballMatch>& matches, std::string& matchNames, std::string& results) const
+    void EkWkOneYear::getFieldsTable3(const std::vector<football::FootballMatch>& matches, std::string& matchNames, std::string& results) const
     {   // copied from getFieldsTable3 in FormatStatsEredivisie
         // TODO avoid duplication
         const std::string sp = "&nbsp;";
@@ -204,7 +204,7 @@ namespace shob::pages
     PageBlock EkWkOneYear::getTopscorers() const
     {
         auto return_value = PageBlock();
-        auto tp = football::topscorers(top_scorers);
+        auto tp = football::Topscorers(top_scorers);
         tp.initFromFile(ekwk.shortNameWithYear());
         if (tp.getSizeList() > 0)
         {

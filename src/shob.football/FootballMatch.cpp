@@ -1,27 +1,27 @@
 
-#include "footballMatch.h"
+#include "FootballMatch.h"
 #include "../shob.html/funcs.h"
 
 namespace shob::football
 {
-    int footballMatch::winner() const
+    int FootballMatch::winner() const
     {
         switch (star)  // NOLINT(clang-diagnostic-switch-enum)
         {
-        case starEnum::awayWins:
-        case starEnum::awayWinsXt:
-        case starEnum::awayWinsPenalties:
+        case StarEnum::awayWins:
+        case StarEnum::awayWinsXt:
+        case StarEnum::awayWinsPenalties:
             return 1;
-        case starEnum::homeWins:
-        case starEnum::homeWinsXt:
-        case starEnum::homeWinsPenalties:
+        case StarEnum::homeWins:
+        case StarEnum::homeWinsXt:
+        case StarEnum::homeWinsPenalties:
             return 0;
         default:
             return -1;
         }
     }
 
-    bool footballMatch::withSpectator() const
+    bool FootballMatch::withSpectator() const
     {
         if (team2 == "straf") return false;
         if (result == "-") return false;
@@ -29,22 +29,22 @@ namespace shob::football
         return true;
     }
 
-    std::string footballMatch::nvns() const
+    std::string FootballMatch::nvns() const
     {
         switch (star)  // NOLINT(clang-diagnostic-switch-enum)
         {
-        case starEnum::awayWinsXt:
-        case starEnum::homeWinsXt:
+        case StarEnum::awayWinsXt:
+        case StarEnum::homeWinsXt:
             return " nv";
-        case starEnum::awayWinsPenalties:
-        case starEnum::homeWinsPenalties:
+        case StarEnum::awayWinsPenalties:
+        case StarEnum::homeWinsPenalties:
             return " ns";
         default:
             return "";
         }
     }
 
-    std::string footballMatch::printSimple(const teams::clubTeams& teams, const bool isReturn,
+    std::string FootballMatch::printSimple(const teams::clubTeams& teams, const bool isReturn,
         const std::vector<html::addCountryType>& addCountry) const
     {
         std::vector expanded = { teams.expand(team1, addCountry[0]), teams.expand(team2, addCountry[1])};
@@ -79,7 +79,7 @@ namespace shob::football
         }
     }
 
-    std::string footballMatch::matchName(const teams::clubTeams& teams) const
+    std::string FootballMatch::matchName(const teams::clubTeams& teams) const
     {
         std::vector expanded = { teams.expand(team1), teams.expand(team2) };
         return expanded[0] + " - " + expanded[1];

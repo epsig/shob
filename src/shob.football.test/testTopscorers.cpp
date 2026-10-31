@@ -26,7 +26,7 @@ namespace shob::football::test
         auto allTp = readers::csvAllSeasonsReader();
         allTp.init(filename);
 
-        auto tp = topscorers(allTp);
+        auto tp = Topscorers(allTp);
         tp.initFromFile(general::Season(2019));
 
         auto players = teams::footballers();

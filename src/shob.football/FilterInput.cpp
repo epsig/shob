@@ -1,9 +1,9 @@
 
-#include "filterInput.h"
+#include "FilterInput.h"
 
 namespace shob::football
 {
-    bool filterInputList::isFinale() const
+    bool FilterInputList::isFinale() const
     {
         for (const auto& filter : filters)
         {
@@ -15,7 +15,7 @@ namespace shob::football
         return false;
     }
 
-    bool filterInputList::checkLine(const readers::csvColContent& col) const
+    bool FilterInputList::checkLine(const readers::csvColContent& col) const
     {
         for (const auto& filter : filters)
         {

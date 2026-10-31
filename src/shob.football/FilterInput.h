@@ -6,16 +6,16 @@
 
 namespace shob::football
 {
-    struct filterInput
+    struct FilterInput
     {
         size_t rowIndex;
         std::string name;
     };
 
-    class filterInputList
+    class FilterInputList
     {
     public:
-        std::vector<filterInput> filters;
+        std::vector<FilterInput> filters;
         bool isFinale() const;
         bool checkLine(const readers::csvColContent& col) const;
     };

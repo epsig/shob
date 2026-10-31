@@ -35,15 +35,15 @@ namespace shob::pages
 
         const auto matches_csv = readMatchesData(season);
 
-        auto matches = football::footballCompetition();
+        auto matches = football::FootballCompetition();
         matches.readFromCsvData(matches_csv);
 
         const auto dd = matches.lastDate().toInt();
 
-        auto stand1 = football::standings();
-        auto stand2 = football::standings();
-        football::results2standings::u2s_home_away(matches, stand1, stand2, scoring);
-        const auto stand3 = football::results2standings::u2s(matches, scoring);
+        auto stand1 = football::Standings();
+        auto stand2 = football::Standings();
+        football::ResultsToStandings::u2s_home_away(matches, stand1, stand2, scoring);
+        const auto stand3 = football::ResultsToStandings::u2s(matches, scoring);
 
         auto prep_table1 = stand1.prepareTable(teams, settings);
         prep_table1.title = "thuis " + season.toString();

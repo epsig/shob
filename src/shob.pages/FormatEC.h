@@ -18,7 +18,7 @@ namespace shob::pages
     {
     public:
         FormatEC(std::string folder, readers::csvAllSeasonsReader& extras, teams::clubTeams& teams, const html::settings& settings,
-            TopMenu menu, football::leagueNames leagueNames) :
+            TopMenu menu, football::LeagueNames leagueNames) :
             sportDataFolder(std::move(folder)), extras(std::move(extras)), teams(std::move(teams)), settings(settings),
             menu(std::move(menu)), leagueNames(std::move(leagueNames)) {}
         general::MultipleStrings getSeason(const general::Season& season) const override;
@@ -34,7 +34,7 @@ namespace shob::pages
         const teams::clubTeams teams;
         const html::settings settings;
         const TopMenu menu;
-        const football::leagueNames leagueNames;
+        const football::LeagueNames leagueNames;
         general::MultipleStrings getFirstHalfYear(const std::string& part, const readers::csvContent& data, const WnsEc& wns_cl,
             const std::vector<std::vector<std::string>>& extraU2s, const int sortRule, int& dd) const;
         static general::uniqueStrings getGroups(const std::string& part, const readers::csvContent& data);

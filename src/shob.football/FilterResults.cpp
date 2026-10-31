@@ -1,5 +1,5 @@
 
-#include "filterResults.h"
+#include "FilterResults.h"
 
 #include <iostream>
 
@@ -9,9 +9,9 @@ namespace shob::football
 {
     using namespace readers;
 
-    starEnum filterResults::getStar(const std::vector<std::string>& line, size_t index)
+    StarEnum FilterResults::getStar(const std::vector<std::string>& line, size_t index)
     {
-        auto star = starEnum::unknownYet;
+        auto star = StarEnum::unknownYet;
         if (index < line.size())
         {
             if ( ! line[index].empty())
@@ -19,7 +19,7 @@ namespace shob::football
                 const auto& number = line[index];
                 if ( number == "-1" || general::dateFactory::allDigits(number))
                 {
-                    star = static_cast<starEnum>(std::stoi(number));
+                    star = static_cast<StarEnum>(std::stoi(number));
                 }
                 else
                 {
@@ -30,9 +30,9 @@ namespace shob::football
         return star;
     }
 
-    footballCompetition filterResults::readFromCsvData(const csvContent & csvData, const filterInputList& filter, const std::string& ko_phase)
+    FootballCompetition FilterResults::readFromCsvData(const csvContent & csvData, const FilterInputList& filter, const std::string& ko_phase)
     {
-        auto comp = footballCompetition();
+        auto comp = FootballCompetition();
 
         const auto clubNames = csvData.findColumnNamesTeams();
         const auto team1Column = csvData.findColumn(clubNames[0]);
@@ -62,7 +62,7 @@ namespace shob::football
                 if (stadiumColumn < line.size()) stadium = line[stadiumColumn];
                 const auto date = general::dateFactory::getDate(line[ddColumn]);
                 const auto star = getStar(line,starColumn);
-                auto match = footballMatch(line[team1Column], line[team2Column], date, line[resultColumn],
+                auto match = FootballMatch(line[team1Column], line[team2Column], date, line[resultColumn],
                     spectators, star, isFinal);
                 match.stadium = stadium;
                 if (remarkColumn < line.size())

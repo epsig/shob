@@ -12,7 +12,7 @@ namespace shob::pages
             const std::vector<std::vector<std::string>>& current_remarks, const std::string& data_sport_folder);
     private:
         static groupList getGroupData(const readers::csvContent& csv_content, const std::vector<std::vector<std::string>>& current_remarks);
-        static football::footballCompetition getRound2data(const readers::csvContent& csv_content);
+        static football::FootballCompetition getRound2data(const readers::csvContent& csv_content);
         static general::uniqueStrings getGroups(const readers::csvContent& csv_content);
     };
 }

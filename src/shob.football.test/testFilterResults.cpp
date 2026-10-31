@@ -22,7 +22,7 @@ namespace shob::football::test
         auto reader = teams::clubTeams();
         reader.InitFromFile(filename2, teams::clubsOrCountries::clubs);
 
-        const auto r2f = route2finaleFactory::create(filename);
+        const auto r2f = RouteToFinalFactory::create(filename);
         const auto prepTable = r2f.prepareTable(reader, html::settings());
 
         EXPECT_EQ(16, prepTable[0].body.size());
@@ -35,9 +35,9 @@ namespace shob::football::test
         const std::string filename = testUtils::refFileWithPath(__FILE__, beker0910);
         const auto data = csvReader::readCsvFile(filename);
 
-        auto filter = filterInputList();
+        auto filter = FilterInputList();
         filter.filters.push_back({ 0, "f" });
-        const auto finale = filterResults::readFromCsvData(data, filter);
+        const auto finale = FilterResults::readFromCsvData(data, filter);
         const auto coupledMatches = finale.getReturns();
         EXPECT_EQ(1, coupledMatches.couples.size());
     }
@@ -53,7 +53,7 @@ namespace shob::football::test
         reader.InitFromFile(filename2, teams::clubsOrCountries::clubs);
 
         const auto data = csvReader::readCsvFile(filename);
-        const auto r2f = route2finaleFactory::createEC(data, "CL");
+        const auto r2f = RouteToFinalFactory::createEC(data, "CL");
         const auto prepTable = r2f.prepareTable(reader, html::settings());
 
         EXPECT_EQ(8, prepTable[0].body.size());

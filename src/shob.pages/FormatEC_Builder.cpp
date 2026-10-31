@@ -32,7 +32,7 @@ namespace shob::pages
         std::sort(archive.begin(), archive.end(), cmpFunc);
         auto menu = TopMenu(archive, 'K');
 
-        auto leagueNames = football::leagueNames(dataFolder + "/europacup/league_names.csv");
+        auto leagueNames = football::LeagueNames(dataFolder + "/europacup/league_names.csv");
 
         auto format = FormatEC(dataFolder, remarks, teams, settings, menu, leagueNames);
         return format;

@@ -33,7 +33,7 @@ namespace shob::pages
     {
         auto table1 = std::vector<std::pair<Season, goalsSummary>>();
         auto table2 = std::vector<std::pair<Season, sumGoalsAndMatches>>();
-        auto table2b = std::vector<std::pair<Season, football::numbers1>>();
+        auto table2b = std::vector<std::pair<Season, football::Numbers1>>();
         auto table3 = std::vector<std::pair<Season, football::strikingResults>>();
         auto table4 = std::vector<std::pair<Season, SpectatorResults>>();
         int dd = 0;
@@ -56,19 +56,19 @@ namespace shob::pages
         for (int year = startYear; year >= lastYear; year--)
         {
             const auto season = Season(year);
-            football::standings table;
+            football::Standings table;
             const auto file1 = sportDataFolder + "/eredivisie_" + season.toPartFilename() + ".csv";
             const auto file2 = sportDataFolder + "/eindstand_eredivisie_" + season.toPartFilename() + ".csv";
-            auto competition = football::footballCompetition();
+            auto competition = football::FootballCompetition();
             if (fs::exists(file1))
             {
                 competition.readFromCsv(file1);
                 dd = std::max(dd, competition.lastDate().toInt());
-                table = football::results2standings::u2s(competition);
+                table = football::ResultsToStandings::u2s(competition);
             }
             else if (fs::exists(file2))
             {
-                table = football::standings();
+                table = football::Standings();
                 table.initFromFile(file2);
             }
             else
@@ -83,7 +83,7 @@ namespace shob::pages
                 const auto summary2 = getSumGoalsAndMatches(table);
                 table2.emplace_back(season, summary2);
 
-                auto tp = football::topscorers(allTp);
+                auto tp = football::Topscorers(allTp);
                 tp.initFromFile(season);
                 const auto tpSummary = tp.getNumbers1(teams, players);
                 table2b.emplace_back(season, tpSummary);
@@ -184,7 +184,7 @@ namespace shob::pages
         }
     }
 
-    goalsSummary FormatStatsEredivisie::getGoalsSummary(const football::standings& table) const
+    goalsSummary FormatStatsEredivisie::getGoalsSummary(const football::Standings& table) const
     {
         auto summary = goalsSummary();
         for (const auto& result : table.list)
@@ -197,7 +197,7 @@ namespace shob::pages
         return summary;
     }
 
-    sumGoalsAndMatches FormatStatsEredivisie::getSumGoalsAndMatches(const football::standings& table)
+    sumGoalsAndMatches FormatStatsEredivisie::getSumGoalsAndMatches(const football::Standings& table)
     {
         auto summary = sumGoalsAndMatches();
         for (const auto& result : table.list)
@@ -209,7 +209,7 @@ namespace shob::pages
         return summary;
     }
 
-    SpectatorResults FormatStatsEredivisie::getSpectatorStats(const football::footballCompetition& competition)
+    SpectatorResults FormatStatsEredivisie::getSpectatorStats(const football::FootballCompetition& competition)
     {
         SpectatorResults results;
         int total = 0;
@@ -356,7 +356,7 @@ namespace shob::pages
 
 
     MultipleStrings FormatStatsEredivisie::table2_to_html(const std::vector<std::pair<Season, sumGoalsAndMatches>>& data,
-        const std::vector<std::pair<Season, football::numbers1>>& topscorers) const
+        const std::vector<std::pair<Season, football::Numbers1>>& topscorers) const
     {
         html::tableContent content;
 
@@ -409,7 +409,7 @@ namespace shob::pages
         return return_value;
     }
 
-    void FormatStatsEredivisie::getFieldsTable3(const std::vector<football::footballMatch>& matches, std::string& matchNames, std::string& results) const
+    void FormatStatsEredivisie::getFieldsTable3(const std::vector<football::FootballMatch>& matches, std::string& matchNames, std::string& results) const
     {
         for (size_t i = 0; i < matches.size(); i++)
         {
@@ -622,7 +622,7 @@ namespace shob::pages
         return return_value;
     }
 
-    MultipleStrings FormatStatsEredivisie::table5_to_html(const std::vector<std::pair<Season, football::numbers1>>& topscorers) const
+    MultipleStrings FormatStatsEredivisie::table5_to_html(const std::vector<std::pair<Season, football::Numbers1>>& topscorers) const
     {
         constexpr int threshold = 30;
         struct tpSummary

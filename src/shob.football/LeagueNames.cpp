@@ -1,10 +1,10 @@
 
-#include "leagueNames.h"
+#include "LeagueNames.h"
 #include "../shob.readers/csvReader.h"
 
 namespace shob::football
 {
-    leagueNames::leagueNames(const std::string& filename)
+    LeagueNames::LeagueNames(const std::string& filename)
     {
         auto leagueNames = readers::csvReader::readCsvFile(filename);
         for (const auto& line : leagueNames.body)
@@ -17,22 +17,22 @@ namespace shob::football
         }
     }
 
-    std::string leagueNames::getFullName(const std::string& id) const
+    std::string LeagueNames::getFullName(const std::string& id) const
     {
         return data.at(id).fullName;
     }
 
-    std::string leagueNames::getLinkName(const std::string& id) const
+    std::string LeagueNames::getLinkName(const std::string& id) const
     {
         return data.at(id).linkName;
     }
 
-    std::string leagueNames::getShortName(const std::string& id) const
+    std::string LeagueNames::getShortName(const std::string& id) const
     {
         return data.at(id).shortName;
     }
 
-    bool leagueNames::contains(const std::string& id) const
+    bool LeagueNames::contains(const std::string& id) const
     {
         return data.contains(id);
     }

@@ -9,7 +9,7 @@ namespace shob::football::test
 {
     void testFilterInput::test1()
     {
-        auto filter = filterInputList();
+        auto filter = FilterInputList();
         filter.filters.push_back({ 0, "f" });
 
         auto hasFinale = filter.isFinale();
@@ -18,7 +18,7 @@ namespace shob::football::test
 
     void testFilterInput::test2()
     {
-        auto filter = filterInputList();
+        auto filter = FilterInputList();
         filter.filters.push_back({ 0, "f" });
 
         auto header = readers::csvColContent();
@@ -30,7 +30,7 @@ namespace shob::football::test
 
     void testFilterInput::test3()
     {
-        auto filter = filterInputList();
+        auto filter = FilterInputList();
         filter.filters.push_back({ 0, "2f" });
 
         auto hasFinale = filter.isFinale();
@@ -39,7 +39,7 @@ namespace shob::football::test
 
     void testFilterInput::test4()
     {
-        auto filter = filterInputList();
+        auto filter = FilterInputList();
         filter.filters.push_back({ 0, "2f" });
 
         auto header = readers::csvColContent();

@@ -20,11 +20,11 @@ namespace shob::football::test
 
     void testResults2standings::test1()
     {
-        auto competition = footballCompetition();
+        auto competition = FootballCompetition();
 
         competition.readFromCsv(filename);
 
-        auto table = results2standings::u2s(competition);
+        auto table = ResultsToStandings::u2s(competition);
 
         EXPECT_EQ(table.list.size(), 18);
     }
@@ -32,11 +32,11 @@ namespace shob::football::test
     void testResults2standings::test2()
     {
         const std::string filename2 = testUtils::refFileWithPath(__FILE__, clubs);
-        auto competition = footballCompetition();
+        auto competition = FootballCompetition();
 
         competition.readFromCsv(filename);
 
-        auto table = results2standings::u2s(competition);
+        auto table = ResultsToStandings::u2s(competition);
 
         auto settings = html::settings();
         auto reader = teams::clubTeams();
@@ -51,11 +51,11 @@ namespace shob::football::test
     void testResults2standings::test3()
     {
         const std::string filename2 = testUtils::refFileWithPath(__FILE__, clubs);
-        auto competition = footballCompetition();
+        auto competition = FootballCompetition();
     
         competition.readFromCsv(filename);
     
-        auto table = results2standings::u2s(competition);
+        auto table = ResultsToStandings::u2s(competition);
         auto extras = readers::csvAllSeasonsReader();
         const std::string filename3 = testUtils::refFileWithPath(__FILE__, u2s);
         extras.init(filename3);
@@ -76,18 +76,18 @@ namespace shob::football::test
         // set up test:
         const auto file1 = testUtils::refFileWithPath(__FILE__, "../../data/sport/europacup/europacup_1996_1997.csv");
         const auto csvData = readers::csvReader::readCsvFile(file1);
-        auto filter = filterInputList();
+        auto filter = FilterInputList();
         filter.filters.push_back({ 0, "CL" });
         filter.filters.push_back({ 1, "gA" });
-        const auto CL_gA = filterResults::readFromCsvData(csvData, filter);
+        const auto CL_gA = FilterResults::readFromCsvData(csvData, filter);
 
         // standing with mutual results:
-        const auto stand = results2standings::u2s(CL_gA, 3, 3);
+        const auto stand = ResultsToStandings::u2s(CL_gA, 3, 3);
         EXPECT_EQ(stand.list[0].team, "FRaux");
         EXPECT_EQ(stand.list[1].team, "NLajx");
 
         // standing without mutual results:
-        const auto stand2 = results2standings::u2s(CL_gA, 3, 0);
+        const auto stand2 = ResultsToStandings::u2s(CL_gA, 3, 0);
         EXPECT_EQ(stand2.list[1].team, "FRaux");
         EXPECT_EQ(stand2.list[0].team, "NLajx");
     }
@@ -97,13 +97,13 @@ namespace shob::football::test
         // set up test:
         const auto file1 = testUtils::refFileWithPath(__FILE__, "../../data/sport/europacup/europacup_2024_2025.csv");
         const auto csvData = readers::csvReader::readCsvFile(file1);
-        auto filter = filterInputList();
+        auto filter = FilterInputList();
         filter.filters.push_back({ 0, "CF" });
         filter.filters.push_back({ 1, "gA" });
-        const auto CF_gA = filterResults::readFromCsvData(csvData, filter);
+        const auto CF_gA = FilterResults::readFromCsvData(csvData, filter);
 
         // standing with sort method = 6:
-        const auto stand = results2standings::u2s(CF_gA, 3, 6);
+        const auto stand = ResultsToStandings::u2s(CF_gA, 3, 6);
         EXPECT_EQ(stand.list[4].team, "SEdjg");
         EXPECT_EQ(stand.list[5].team, "CHlgn");
         EXPECT_EQ(stand.list[4].goals, 11);
@@ -115,15 +115,15 @@ namespace shob::football::test
     void testResults2standings::testSortOnResultsOpponent2Matches()
     {
         // set up test:
-        auto comp = footballCompetition();
+        auto comp = FootballCompetition();
         const auto date = std::make_shared<general::itdate>(20251001);
-        const auto match1 = footballMatch("A", "B", date, "1-0", 12345, "");
-        const auto match2 = footballMatch("C", "D", date, "1-0", 12345, "");
+        const auto match1 = FootballMatch("A", "B", date, "1-0", 12345, "");
+        const auto match2 = FootballMatch("C", "D", date, "1-0", 12345, "");
         comp.matches.push_back(match1);
         comp.matches.push_back(match2);
 
         // standing with sort method = 6:
-        const auto stand = results2standings::u2s(comp, 3, 6);
+        const auto stand = ResultsToStandings::u2s(comp, 3, 6);
         // A and C have the same points (3) and other comparing data; fall back on alphabetical
         // B and D have the same points (0) and other comparing data; fall back on alphabetical
         EXPECT_EQ(stand.list[0].team, "A");

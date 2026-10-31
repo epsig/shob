@@ -11,7 +11,7 @@
 
 namespace shob::football
 {
-    struct topscorer
+    struct Topscorer
     {
         int rank = 0;
         std::string name;
@@ -19,24 +19,24 @@ namespace shob::football
         int goals = 0;
     };
 
-    struct numbers1
+    struct Numbers1
     {
         std::vector<std::string> ListNamesWithClubs;
         int goals = 0;
     };
 
-    class topscorers
+    class Topscorers
     {
     public:
-        topscorers(const readers::csvAllSeasonsReader& reader) : reader(reader) {}
+        Topscorers(const readers::csvAllSeasonsReader& reader) : reader(reader) {}
         void initFromFile(const general::Season& season);
         void initFromFile(const std::string& season);
         html::tableContent prepareTable(const teams::clubTeams& teams, const teams::footballers& players, const html::settings& settings) const;
-        numbers1 getNumbers1(const teams::clubTeams& teams, const teams::footballers& players) const;
+        Numbers1 getNumbers1(const teams::clubTeams& teams, const teams::footballers& players) const;
         size_t getSizeList() const { return list_tp.size(); }
     private:
         const readers::csvAllSeasonsReader& reader;
-        std::vector<topscorer> list_tp;
+        std::vector<Topscorer> list_tp;
         void initFromFile(const std::vector<std::vector<std::string>>& data);
     };
 }

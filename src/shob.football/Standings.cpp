@@ -1,5 +1,5 @@
 
-#include "standings.h"
+#include "Standings.h"
 
 #include <algorithm>
 #include <format>
@@ -13,7 +13,7 @@ namespace shob::football
 {
     using namespace shob::general;
 
-    standings::standings()
+    Standings::Standings()
     {
         // TODO in cvs ; add full descriptions; add English ; remove NP and ND
         mapExtra.insert({ "PDD", "NC;degr." });
@@ -29,7 +29,7 @@ namespace shob::football
         mapExtra.insert({ "ND", "degr." });
     }
 
-    void standings::initFromFile(const std::string& filename)
+    void Standings::initFromFile(const std::string& filename)
     {
         auto stand = readers::csvReader::readCsvFile(filename);
         if ( ! stand.body.empty())
@@ -38,7 +38,7 @@ namespace shob::football
         }
     }
 
-    void standings::initFromData(const readers::csvContent& stand)
+    void Standings::initFromData(const readers::csvContent& stand)
     {
         const auto clubNames = stand.findColumnNamesTeams();
         const auto teamColumn = stand.findColumn(clubNames[0]);
@@ -94,23 +94,23 @@ namespace shob::football
         }
     }
 
-    void standings::addResult(const std::string& team1, const std::string& team2, const int goals1, const int goals2)
+    void Standings::addResult(const std::string& team1, const std::string& team2, const int goals1, const int goals2)
     {
         addRow(team1, goals1, goals2, false);
         addRow(team2, goals2, goals1, true);  // NOLINT(readability-suspicious-call-argument)
     }
 
-    void standings::addResultHome(const std::string& team, const int goals1, const int goals2)
+    void Standings::addResultHome(const std::string& team, const int goals1, const int goals2)
     {
         addRow(team, goals1, goals2, false);
     }
 
-    void standings::addResultAway(const std::string& team, const int goals1, const int goals2)
+    void Standings::addResultAway(const std::string& team, const int goals1, const int goals2)
     {
         addRow(team, goals2, goals1, true);  // NOLINT(readability-suspicious-call-argument)
     }
 
-    size_t standings::findIndex(const std::string& team)
+    size_t Standings::findIndex(const std::string& team)
     {
         for (size_t i = 0; i < list.size(); i++)
         {
@@ -122,7 +122,7 @@ namespace shob::football
         return list.size() - 1;
     }
 
-    void standings::addRow(const std::string& team, const int goals1, const int goals2, const bool switched)
+    void Standings::addRow(const std::string& team, const int goals1, const int goals2, const bool switched)
     {
         auto index = findIndex(team);
         auto& row = list[index];
@@ -147,7 +147,7 @@ namespace shob::football
         if (switched) row.awayGoals += goals1;
     }
 
-    void standings::handlePunishment(const std::string team, const int pnts)
+    void Standings::handlePunishment(const std::string team, const int pnts)
     {
         auto index = findIndex(team);
         auto& row = list[index];
@@ -199,7 +199,7 @@ namespace shob::football
         return team < other.team;
     }
 
-    void standings::addNecessaryMutualResults(const std::vector<compactMatch>& matches)
+    void Standings::addNecessaryMutualResults(const std::vector<compactMatch>& matches)
     {
         for (int i=0; i < static_cast<int>(list.size()); i++)
         {
@@ -239,7 +239,7 @@ namespace shob::football
         }
     }
 
-    size_t standings::findIndex(const std::string& team) const
+    size_t Standings::findIndex(const std::string& team) const
     {
         for (size_t i = 0; i < list.size(); i++)
         {
@@ -248,7 +248,7 @@ namespace shob::football
         throw shobException("Team not found");
     }
 
-    void standings::addResultsOpponents(const std::vector<compactMatch>& matches)
+    void Standings::addResultsOpponents(const std::vector<compactMatch>& matches)
     {
         for (auto & row : list)
         {
@@ -274,7 +274,7 @@ namespace shob::football
         }
     }
 
-    void standings::sort(const int sort_rule)
+    void Standings::sort(const int sort_rule)
     {
         if (sort_rule == 6)
         {
@@ -297,12 +297,12 @@ namespace shob::football
         return s1 + separator + s2;
     }
 
-    void standings::expandExtra(std::string& extra) const
+    void Standings::expandExtra(std::string& extra) const
     {
         if (mapExtra.contains(extra)) extra = mapExtra.at(extra);
     }
 
-    void standings::updateTeamWithExtras(std::string& team, const std::vector<std::string>& extraData, const int punishment) const
+    void Standings::updateTeamWithExtras(std::string& team, const std::vector<std::string>& extraData, const int punishment) const
     {
         bool useBold = false;
         std::string extra1;
@@ -342,7 +342,7 @@ namespace shob::football
         }
     }
 
-    void standings::updateTeamWithWnsCl(std::string& team, const size_t i) const
+    void Standings::updateTeamWithWnsCl(std::string& team, const size_t i) const
     {
         if (wns_cl == 1)
         {
@@ -379,7 +379,7 @@ namespace shob::football
         }
     }
 
-    html::tableContent standings::prepareTable(const teams::clubTeams& teams, const html::settings& settings) const
+    html::tableContent Standings::prepareTable(const teams::clubTeams& teams, const html::settings& settings) const
     {
         auto table = html::tableContent();
         if (settings.lang == html::language::Dutch)
@@ -440,7 +440,7 @@ namespace shob::football
         return table;
     }
 
-    void standings::addExtras(const readers::csvAllSeasonsReader& r, const Season& season)
+    void Standings::addExtras(const readers::csvAllSeasonsReader& r, const Season& season)
     {
         const auto extraU2s = r.getSeason(season);
         for (size_t i = 1; i < extraU2s.size(); i++)
@@ -457,7 +457,7 @@ namespace shob::football
         }
     }
 
-    bool standings::isFinished() const
+    bool Standings::isFinished() const
     {
         const auto expectedMatches = 2 * (static_cast<int>(list.size()) - 1);
         for (const auto& row : list)

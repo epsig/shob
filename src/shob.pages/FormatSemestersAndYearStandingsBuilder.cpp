@@ -82,7 +82,7 @@ namespace shob::pages
         auto lastyear = std::stoi(last_year_in_filename);
         auto season = general::Season(lastyear);
         auto matches = readMatchesData(folder, season);
-        auto competition = football::footballCompetition();
+        auto competition = football::FootballCompetition();
         competition.readFromCsvData(matches);
         auto date = competition.lastDate(true).toInt();
         last_year = date / 10000;

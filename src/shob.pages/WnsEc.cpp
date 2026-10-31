@@ -3,7 +3,7 @@
 
 namespace shob::pages
 {
-    int WnsEc::getWns(const std::string& part, const std::string& group, const football::footballCompetition& matches) const
+    int WnsEc::getWns(const std::string& part, const std::string& group, const football::FootballCompetition& matches) const
     {
         if (groups.contains(group))
         {

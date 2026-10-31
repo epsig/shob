@@ -56,7 +56,7 @@ namespace shob::pages
         auto menu = prepareTopMenu(dataFolderEkWkQf);
 
         const auto csvInput = dataFolder + "/oefenduels.csv";
-        auto allFriendlies = football::footballCompetition();
+        auto allFriendlies = football::FootballCompetition();
         allFriendlies.readFromCsv(csvInput);
 
         auto fmt = FormatEkWkQf(dataFolderEkWkQf, national_teams, remarks, settings, menu, organizingCountries, allFriendlies);

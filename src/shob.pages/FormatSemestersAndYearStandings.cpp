@@ -47,15 +47,15 @@ namespace shob::pages
             all_matches.body.push_back(row);
         }
 
-        auto matches1 = football::footballCompetition();
+        auto matches1 = football::FootballCompetition();
         matches1.readFromCsvData(matches1_csv);
-        football::footballCompetition matches2;
-        football::footballCompetition matches3;
+        football::FootballCompetition matches2;
+        football::FootballCompetition matches3;
         if ( ! matches2_csv.body.empty())
         {
-            matches2 = football::footballCompetition();
+            matches2 = football::FootballCompetition();
             matches2.readFromCsvData(matches2_csv);
-            matches3 = football::footballCompetition();
+            matches3 = football::FootballCompetition();
             matches3.readFromCsvData(all_matches);
         }
 
@@ -66,9 +66,9 @@ namespace shob::pages
         const auto filtered3 = matches3.filterDate(date1, date2);
         const auto dd = matches2_csv.body.empty() ? filtered1.lastDate().toInt() : filtered3.lastDate().toInt();
 
-        const auto stand1 = football::results2standings::u2s(filtered1, scoring1);
-        const auto stand2 = football::results2standings::u2s(filtered2, scoring2);
-        const auto stand3 = football::results2standings::u2s(filtered3, scoring2);
+        const auto stand1 = football::ResultsToStandings::u2s(filtered1, scoring1);
+        const auto stand2 = football::ResultsToStandings::u2s(filtered2, scoring2);
+        const auto stand3 = football::ResultsToStandings::u2s(filtered3, scoring2);
 
         auto prep_table1 = stand1.prepareTable(teams, settings);
         prep_table1.title = "stand 1e helft " + std::to_string(year);

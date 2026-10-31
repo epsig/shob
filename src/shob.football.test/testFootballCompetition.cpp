@@ -15,7 +15,7 @@ namespace shob::football::test
 
     void testFootballCompetition::test1()
     {
-        auto competition = footballCompetition();
+        auto competition = FootballCompetition();
         competition.readFromCsv(filename);
         EXPECT_EQ(306, competition.matches.size());
     }
@@ -29,11 +29,11 @@ namespace shob::football::test
         readers::csvContent csvData;
         csvData.header = header;
         csvData.body.push_back(straf);
-        auto competition = footballCompetition();
+        auto competition = FootballCompetition();
         competition.readFromCsvData(csvData);
         ASSERT_EQ(1, competition.matches.size());
 
-        auto table = results2standings::u2s(competition);
+        auto table = ResultsToStandings::u2s(competition);
 
         ASSERT_EQ(table.list.size(), 1);
         EXPECT_EQ(table.list[0].points, -18);
@@ -41,7 +41,7 @@ namespace shob::football::test
 
     void testFootballCompetition::testFiltered()
     {
-        auto competition = footballCompetition();
+        auto competition = FootballCompetition();
         competition.readFromCsv(filename);
 
         const std::set<std::string> toppers = { "ajx", "fyn", "psv" };
@@ -51,7 +51,7 @@ namespace shob::football::test
 
     void testFootballCompetition::testPrepareTable()
     {
-        auto competition = footballCompetition();
+        auto competition = FootballCompetition();
         competition.readFromCsv(filename);
 
         const std::set<std::string> toppers = { "ajx", "fyn", "psv" };
