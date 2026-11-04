@@ -3,7 +3,7 @@
 
 namespace shob::football::test
 {
-    class testResults2standings
+    class TestResults2standings
     {
     public:
         static void test1();

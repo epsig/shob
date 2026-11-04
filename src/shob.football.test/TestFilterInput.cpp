@@ -1,13 +1,13 @@
 
-#include "testFilterInput.h"
+#include "TestFilterInput.h"
 
 #include <gtest/gtest.h>
 
-#include "../shob.football/filterInput.h"
+#include "../shob.football/FilterInput.h"
 
 namespace shob::football::test
 {
-    void testFilterInput::test1()
+    void TestFilterInput::test1()
     {
         auto filter = FilterInputList();
         filter.filters.push_back({ 0, "f" });
@@ -16,7 +16,7 @@ namespace shob::football::test
         EXPECT_TRUE(hasFinale);
     }
 
-    void testFilterInput::test2()
+    void TestFilterInput::test2()
     {
         auto filter = FilterInputList();
         filter.filters.push_back({ 0, "f" });
@@ -28,7 +28,7 @@ namespace shob::football::test
         EXPECT_TRUE(isFinale);
     }
 
-    void testFilterInput::test3()
+    void TestFilterInput::test3()
     {
         auto filter = FilterInputList();
         filter.filters.push_back({ 0, "2f" });
@@ -37,7 +37,7 @@ namespace shob::football::test
         EXPECT_FALSE(hasFinale);
     }
 
-    void testFilterInput::test4()
+    void TestFilterInput::test4()
     {
         auto filter = FilterInputList();
         filter.filters.push_back({ 0, "2f" });

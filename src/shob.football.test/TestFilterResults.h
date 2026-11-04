@@ -3,7 +3,7 @@
 
 namespace shob::football::test
 {
-    class testFilterResults
+    class TestFilterResults
     {
     public:
         static void testFilterWithRoute2Finale();

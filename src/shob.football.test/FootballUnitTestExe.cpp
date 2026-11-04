@@ -16,94 +16,94 @@ int main(int argc, char** argv)
     return RUN_ALL_TESTS();
 }
 
-TEST(unitTest, testResults2standings)
+TEST(unitTest, TestResults2standings)
 {
-    testResults2standings::test1();
+    TestResults2standings::test1();
 }
 
 TEST(unitTest, testResults2standingsWithTeams)
 {
-    testResults2standings::test2();
+    TestResults2standings::test2();
 }
 
 TEST(unitTest, testResults2standingsWithExtras)
 {
-    testResults2standings::test3();
+    TestResults2standings::test3();
 }
 
 TEST(unitTest, testResults2standingsWithMutualResults)
 {
-    testResults2standings::testMutualResults();
+    TestResults2standings::testMutualResults();
 }
 
 TEST(unitTest, testSortOnResultsOpponents)
 {
-    testResults2standings::testSortOnResultsOpponents();
+    TestResults2standings::testSortOnResultsOpponents();
 }
 
 TEST(unitTest, testSortOnResultsOpponents2Matches)
 {
-    testResults2standings::testSortOnResultsOpponent2Matches();
+    TestResults2standings::testSortOnResultsOpponent2Matches();
 }
 
-TEST(unitTest, testFootballCompetition)
+TEST(unitTest, TestFootballCompetition)
 {
-    testFootballCompetition::test1();
+    TestFootballCompetition::test1();
 }
 
 TEST(unitTest, testStrafPoints)
 {
-    testFootballCompetition::testStrafPoints();
+    TestFootballCompetition::testStrafPoints();
 }
 
 TEST(unitTest, testFiltered)
 {
-    testFootballCompetition::testFiltered();
+    TestFootballCompetition::testFiltered();
 }
 
 TEST(unitTest, testPrepareTable)
 {
-    testFootballCompetition::testPrepareTable();
+    TestFootballCompetition::testPrepareTable();
 }
 
 TEST(unitTest, testTopScorers)
 {
-    testTopscorers::test1();
+    TestTopscorers::test1();
 }
 
-TEST(unitTest, testFilterResults)
+TEST(unitTest, TestFilterResults)
 {
-    testFilterResults::testFilterWithRoute2Finale();
+    TestFilterResults::testFilterWithRoute2Finale();
 }
 
 TEST(unitTest, testGetReturns)
 {
-    testFilterResults::testGetReturns();
+    TestFilterResults::testGetReturns();
 }
 
 TEST(unitTest, testFilterEuropacup)
 {
-    testFilterResults::testFilterEuropacup();
+    TestFilterResults::testFilterEuropacup();
 }
 
 TEST(unitTest, testFilterInput1)
 {
-    testFilterInput::test1();
+    TestFilterInput::test1();
 }
 
 TEST(unitTest, testFilterInput2)
 {
-    testFilterInput::test2();
+    TestFilterInput::test2();
 }
 
 TEST(unitTest, testFilterInput3)
 {
-    testFilterInput::test3();
+    TestFilterInput::test3();
 }
 
 TEST(unitTest, testFilterInput4)
 {
-    testFilterInput::test4();
+    TestFilterInput::test4();
 }
 
 

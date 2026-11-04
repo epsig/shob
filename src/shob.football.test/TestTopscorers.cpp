@@ -1,12 +1,12 @@
 
 
-#include "testTopscorers.h"
+#include "TestTopscorers.h"
 
 #include <gtest/gtest.h>
 
 #include "../shob.test.utils/testUtils.h"
 
-#include "../shob.football/topscorers.h"
+#include "../shob.football/Topscorers.h"
 
 #include "../shob.teams/clubTeams.h"
 
@@ -21,7 +21,7 @@ namespace shob::football::test
     const std::string clubs = "../../data/sport/clubs.csv";
     const std::string voetballers = "../../data/sport/voetballers.csv";
 
-    void testTopscorers::test1()
+    void TestTopscorers::test1()
     {
         auto allTp = readers::csvAllSeasonsReader();
         allTp.init(filename);

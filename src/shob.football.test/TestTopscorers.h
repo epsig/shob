@@ -3,7 +3,7 @@
 
 namespace shob::football::test
 {
-    class testTopscorers
+    class TestTopscorers
     {
     public:
         static void test1();

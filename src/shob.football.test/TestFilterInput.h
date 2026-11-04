@@ -3,7 +3,7 @@
 
 namespace shob::football::test
 {
-    class testFilterInput
+    class TestFilterInput
     {
     public:
         static void test1();
