@@ -14,23 +14,23 @@ int main(int argc, char** argv)
     return RUN_ALL_TESTS();
 }
 
-TEST(unitTest, testCsvReader)
+TEST(unitTest, TestCsvReader)
 {
-    testCsvReader::test1();
+    TestCsvReader::test1();
 }
 
 TEST(unitTest, testSplit)
 {
-    testCsvReader::test2();
+    TestCsvReader::test2();
 }
 
 TEST(unitTest, testXmlReader2)
 {
-    testXmlReader::test2();
+    TestXmlReader::test2();
 }
 
-TEST(unitTest, testCsvAllSeasonsReader)
+TEST(unitTest, TestCsvAllSeasonsReader)
 {
-    testCsvAllSeasonsReader::test1();
+    TestCsvAllSeasonsReader::test1();
 }
 

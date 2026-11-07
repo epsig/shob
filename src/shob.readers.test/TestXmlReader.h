@@ -1,13 +1,10 @@
-
 #pragma once
 
 namespace shob::readers::test
 {
-    class testXmlReader
+    class TestXmlReader
     {
     public:
         static void test2();
     };
-
 }
-

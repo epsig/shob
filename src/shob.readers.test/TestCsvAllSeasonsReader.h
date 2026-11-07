@@ -1,13 +1,10 @@
-
 #pragma once
 
 namespace shob::readers::test
 {
-    class testCsvAllSeasonsReader
+    class TestCsvAllSeasonsReader
     {
     public:
         static void test1();
     };
-
 }
-
