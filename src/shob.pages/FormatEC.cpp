@@ -46,7 +46,7 @@ namespace shob::pages
         if (isValidSeason(s)) return s;
         auto s2 = Season(y - 1);
         if (isValidSeason(s2)) return s2;
-        throw shobException("Season not found for EC");
+        throw ShobException("Season not found for EC");
     }
 
     int FormatEC::get_dd() const
@@ -57,9 +57,9 @@ namespace shob::pages
         return dd;
     }
 
-    uniqueStrings FormatEC::getQualifiers(const std::string& part, const csvContent& data)
+    UniqueStrings FormatEC::getQualifiers(const std::string& part, const CsvContent& data)
     {
-        auto parts = uniqueStrings();
+        auto parts = UniqueStrings();
         for (const auto& row : data.body)
         {
             const auto& qf = row.column[1];
@@ -75,9 +75,9 @@ namespace shob::pages
         return parts;
     }
 
-    uniqueStrings FormatEC::getXtra(const std::string& part, const csvContent& data)
+    UniqueStrings FormatEC::getXtra(const std::string& part, const CsvContent& data)
     {
-        auto parts = uniqueStrings();
+        auto parts = UniqueStrings();
         for (const auto& row : data.body)
         {
             const auto& qf = row.column[1];
@@ -92,9 +92,9 @@ namespace shob::pages
         return parts;
     }
 
-    uniqueStrings FormatEC::getGroups(const std::string& part, const csvContent& data)
+    UniqueStrings FormatEC::getGroups(const std::string& part, const CsvContent& data)
     {
-        auto groups = uniqueStrings();
+        auto groups = UniqueStrings();
         for ( const auto& row : data.body)
         {
             if (row.column[0] == part && row.column[1].at(0) == 'g')
@@ -105,21 +105,21 @@ namespace shob::pages
         return groups;
     }
 
-    std::vector<std::vector<std::string>> FormatEC::readExtras(const Season& season, wns_ec& wns_cl, MultipleStrings& summary) const
+    std::vector<std::vector<std::string>> FormatEC::readExtras(const Season& season, WnsEc& wns_cl, MultipleStrings& summary) const
     {
         std::vector<std::vector<std::string>> extraU2s = extras.getSeason(season);
         wns_cl.wns_cl = -1;
         wns_cl.wns_cf = -1;
         wns_cl.scoring = 3; // default since 1995
 
-        std::string summary_key = (settings.lang == language::Dutch ? "summary_NL" : "summary_UK");
+        std::string summary_key = (settings.lang == Language::Dutch ? "summary_NL" : "summary_UK");
 
         for (const auto& row : extraU2s)
         {
             if (row[0] == "wns_CF")
             {
                 auto option = row[1];
-                if (dateFactory::allDigits(option))
+                if (DateFactory::allDigits(option))
                 {
                     wns_cl.wns_cf = std::stoi(option);
                 }
@@ -127,16 +127,16 @@ namespace shob::pages
             else if (row[0] == "wns_CL")
             {
                 auto option = row[1];
-                if (dateFactory::allDigits(option))
+                if (DateFactory::allDigits(option))
                 {
                     wns_cl.wns_cl = std::stoi(option);
                 }
                 else
                 {
-                    auto splitted = csvReader::split(option, ";");
+                    auto splitted = CsvReader::split(option, ";");
                     for (const auto & part: splitted.column)
                     {
-                        auto splitted2 = csvReader::split(part, ":");
+                        auto splitted2 = CsvReader::split(part, ":");
                         auto group = "g" + splitted2.column[0];
                         auto wns = splitted2.column[1];
                         wns_cl.groups.insert({ group, std::stoi(wns) });
@@ -155,19 +155,19 @@ namespace shob::pages
         return extraU2s;
     }
 
-    MultipleStrings FormatEC::getSupercup(const csvContent& data, int& dd) const
+    MultipleStrings FormatEC::getSupercup(const CsvContent& data, int& dd) const
     {
-        auto filter = filterInputList();
+        auto filter = FilterInputList();
         const std::string part = "supercup";
         filter.filters.push_back({ 0, part });
-        const auto matches = filterResults::readFromCsvData(data, filter);
+        const auto matches = FilterResults::readFromCsvData(data, filter);
         dd = std::max(dd, matches.lastDate().toInt());
         auto adjSettings = settings;
-        adjSettings.addCountry = addCountryType::withAcronym;
+        adjSettings.addCountry = AddCountryType::withAcronym;
         auto prepTable = matches.prepareTable(teams, adjSettings);
         prepTable.title = "Europese Supercup";
-        auto Table = table(settings);
-        return Table.buildTable(prepTable);
+        auto table = Table(settings);
+        return table.buildTable(prepTable);
     }
 
     std::string FormatEC::getRemarks(const std::string& part, const std::string& group, const std::vector<std::vector<std::string>>& extraU2s)
@@ -188,13 +188,13 @@ namespace shob::pages
         return remarks;
     }
 
-    MultipleStrings FormatEC::getFirstHalfYear(const std::string& part, const csvContent& data, const wns_ec& wns_cl,
+    MultipleStrings FormatEC::getFirstHalfYear(const std::string& part, const CsvContent& data, const WnsEc& wns_cl,
         const std::vector<std::vector<std::string>>& extraU2s, const int sortRule, int& dd) const
     {
-        auto tables = std::vector<tableContent>();
+        auto tables = std::vector<TableContent>();
 
         auto adjSettings = settings;
-        adjSettings.addCountry = addCountryType::fullCountryName;
+        adjSettings.addCountry = AddCountryType::fullCountryName;
 
         // formatting depends on presence / absence of groups
         const auto groups = getGroups(part, data).list();
@@ -202,10 +202,10 @@ namespace shob::pages
         const auto qualifiers = getQualifiers(part, data).list();
         for (const auto& qf : qualifiers)
         {
-            auto filter = filterInputList();
+            auto filter = FilterInputList();
             filter.filters.push_back({ 0, part });
             filter.filters.push_back({ 1, qf });
-            auto matches = filterResults::readFromCsvData(data, filter);
+            auto matches = FilterResults::readFromCsvData(data, filter);
             if (qf == "intertoto") matches = matches.filterNL();
             if (groups.empty()) matches.onlyKO = true;
             auto prepTable = matches.prepareTable(teams, adjSettings);
@@ -220,7 +220,6 @@ namespace shob::pages
             else if (qf == "intertoto")
             {
                 prepTable.title = "Finale Intertoto";
-                if (settings.isCompatible) prepTable.title += " (winnaars naar UEFA-cup)";
             }
             else
             {
@@ -233,11 +232,11 @@ namespace shob::pages
 
         for (const auto& group : groups)
         {
-            auto filter = filterInputList();
+            auto filter = FilterInputList();
             filter.filters.push_back({ 0, part });
             filter.filters.push_back({ 1, group });
-            const auto groupsPhase = filterResults::readFromCsvData(data, filter);
-            auto stand = results2standings::u2s(groupsPhase, wns_cl.scoring, sortRule);
+            const auto groupsPhase = FilterResults::readFromCsvData(data, filter);
+            auto stand = ResultsToStandings::u2s(groupsPhase, wns_cl.scoring, sortRule);
             stand.wns_cl = wns_cl.getWns(part, group, groupsPhase);
             auto prepTable = stand.prepareTable(teams, adjSettings);
             if (group.find('2') == std::string::npos)
@@ -255,7 +254,7 @@ namespace shob::pages
             auto remarks = getRemarks(part, group, extraU2s);
             if ( ! remarks.empty())
             {
-                auto prepTable3 = tableContent();
+                auto prepTable3 = TableContent();
                 prepTable3.colWidths.push_back(4);
                 auto ms = MultipleStrings();
                 ms.addContent(remarks);
@@ -270,10 +269,10 @@ namespace shob::pages
         int rounds = 0;
         for (const auto& qf : xtras)
         {
-            auto filter = filterInputList();
+            auto filter = FilterInputList();
             filter.filters.push_back({ 0, part });
             filter.filters.push_back({ 1, qf });
-            auto matches = filterResults::readFromCsvData(data, filter).filterNL();
+            auto matches = FilterResults::readFromCsvData(data, filter).filterNL();
             if (groups.empty()) matches.onlyKO = true;
             if ( ! matches.matches.empty())
             {
@@ -309,11 +308,11 @@ namespace shob::pages
             }
         }
 
-        auto Table = table(settings);
-        return Table.buildTable(tables);
+        auto table = Table(settings);
+        return table.buildTable(tables);
     }
 
-    bool FormatEC::hasFinal(const std::string& part, const csvContent& csvData)
+    bool FormatEC::hasFinal(const std::string& part, const CsvContent& csvData)
     {
         const auto lookFor = { "4f", "2f", "f" };
         for (const auto& line : csvData.body)
@@ -329,7 +328,7 @@ namespace shob::pages
         return false;
     }
 
-    MultipleStrings FormatEC::getInternalLinks(const std::vector<std::string>& ECparts, const csvContent& csvData) const
+    MultipleStrings FormatEC::getInternalLinks(const std::vector<std::string>& ECparts, const CsvContent& csvData) const
     {
         auto out = MultipleStrings();
         bool isFirst = true;
@@ -379,9 +378,9 @@ namespace shob::pages
     MultipleStrings FormatEC::getSeason(const Season& season, int& dd) const
     {
         const auto file1 = sportDataFolder + "/europacup/europacup_" + season.toPartFilename() + ".csv";
-        const auto csvData = csvReader::readCsvFile(file1);
+        const auto csvData = CsvReader::readCsvFile(file1);
 
-        wns_ec wns_cl;
+        WnsEc wns_cl;
         MultipleStrings summary;
         auto extraU2s = readExtras(season, wns_cl, summary);
         auto out = MultipleStrings();
@@ -391,7 +390,7 @@ namespace shob::pages
         readSortRule(sortRule, extraU2s);
 
         std::string title;
-        if (settings.lang == language::Dutch)
+        if (settings.lang == Language::Dutch)
         {
             title = "Europacup voetbal seizoen " + season.toString();
             menuOut.data[0] = "<hr> andere seizoenen: | " + menuOut.data[0];
@@ -410,7 +409,7 @@ namespace shob::pages
 
         if ( ! summary.data.empty())
         {
-            if (settings.lang == language::Dutch)
+            if (settings.lang == Language::Dutch)
                 out.addContent("<h2>Samenvatting Europacup Seizoen " + season.toString() + "</h2>");
             else
                 out.addContent("<h2>Summary Europa cup season " + season.toString() + "</h2>");
@@ -432,20 +431,13 @@ namespace shob::pages
                 out.addContent(content);
                 if (hasFinal(part, csvData))
                 {
-                    const auto r2f = route2finaleFactory::createEC(csvData, part);
+                    const auto r2f = RouteToFinalFactory::createEC(csvData, part);
                     auto prepTable = r2f.prepareTable(teams, settings);
                     prepTable[0].header.addContent(leagueNames.getFullName(part) + ": de laatste acht");
-                    auto Table = table(settings);
-                    Table.withBorder = false;
-                    content = Table.buildTable(prepTable);
-                    if (settings.isCompatible)
-                    {
-                        out.addContent("<p><a name=\"" + leagueNames.getLinkName(part) + "_last8\"></a><p>");
-                    }
-                    else
-                    {
-                        out.addContent("<p><a name=\"" + leagueNames.getLinkName(part) + "_last8\"/>");
-                    }
+                    auto table = Table(settings);
+                    table.withBorder = false;
+                    content = table.buildTable(prepTable);
+                    out.addContent("<p><a name=\"" + leagueNames.getLinkName(part) + "_last8\"/>");
                     out.addContent(content);
                     dd = std::max(dd, r2f.lastDate().toInt());
                 }

@@ -1,4 +1,3 @@
-
 #pragma once
 
 #include "FormatOnePageEachYear.h"
@@ -12,8 +11,8 @@ namespace shob::pages
     class FormatSemestersAndYearStandings: public FormatOnePageEachYear
     {
     public:
-        FormatSemestersAndYearStandings(std::string folder, teams::clubTeams teams, TopMenu menu,
-          readers::csvAllSeasonsReader all_seasons_reader,int last_year, const html::settings settings)
+        FormatSemestersAndYearStandings(std::string folder, teams::ClubTeams teams, TopMenu menu,
+          readers::CsvAllSeasonsReader all_seasons_reader,int last_year, const html::Settings& settings)
         : folder(std::move(folder)), teams(std::move(teams)), menu(std::move(menu)),
           all_seasons_reader(std::move(all_seasons_reader)), last_year(last_year), settings(settings) {}
         general::MultipleStrings getPages(const int year) const override;
@@ -23,13 +22,12 @@ namespace shob::pages
         int getLastYear() const override;
     private:
         const std::string folder;
-        const teams::clubTeams teams;
+        const teams::ClubTeams teams;
         const TopMenu menu;
-        const readers::csvAllSeasonsReader all_seasons_reader;
+        const readers::CsvAllSeasonsReader all_seasons_reader;
         const int last_year;
-        const html::settings settings;
-        readers::csvContent readMatchesData(const general::Season& season) const;
+        const html::Settings settings;
+        readers::CsvContent readMatchesData(const general::Season& season) const;
         int getScoring(const general::Season& season) const;
     };
 }
-

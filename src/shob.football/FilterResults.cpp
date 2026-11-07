@@ -1,0 +1,88 @@
+
+#include "FilterResults.h"
+
+#include <iostream>
+
+#include "../shob.general/dateFactory.h"
+
+namespace shob::football
+{
+    using namespace readers;
+
+    StarEnum FilterResults::getStar(const std::vector<std::string>& line, size_t index)
+    {
+        auto star = StarEnum::unknownYet;
+        if (index < line.size())
+        {
+            if ( ! line[index].empty())
+            {
+                const auto& number = line[index];
+                if ( number == "-1" || general::DateFactory::allDigits(number))
+                {
+                    star = static_cast<StarEnum>(std::stoi(number));
+                }
+                else
+                {
+                    std::cout << "warning found invalid star: " << number << std::endl;
+                }
+            }
+        }
+        return star;
+    }
+
+    FootballCompetition FilterResults::readFromCsvData(const CsvContent & csvData, const FilterInputList& filter, const std::string& ko_phase)
+    {
+        auto comp = FootballCompetition();
+
+        const auto clubNames = csvData.findColumnNamesTeams();
+        const auto team1Column = csvData.findColumn(clubNames[0]);
+        const auto team2Column = csvData.findColumn(clubNames[1]);
+        const auto ddColumn = csvData.findColumn("dd");
+        const auto resultColumn = csvData.findColumn("result");
+        const auto spectatorsColumn = csvData.findColumn("spectators");
+        const auto starColumn = csvData.findColumn("star");
+        const auto stadiumColumn = csvData.findColumn("stadium");
+        const auto remarkColumn = csvData.findColumn("remark");
+
+        const auto isFinal = filter.isFinale();
+        for (const auto& col : csvData.body)
+        {
+            if (filter.checkLine(col))
+            {
+                const auto& line = col.column;
+                int spectators = -1;
+                if (spectatorsColumn < line.size())
+                {
+                    if (!line[spectatorsColumn].empty())
+                    {
+                        spectators = std::stoi(line[spectatorsColumn]);
+                    }
+                }
+                std::string stadium;
+                if (stadiumColumn < line.size()) stadium = line[stadiumColumn];
+                const auto date = general::DateFactory::getDate(line[ddColumn]);
+                const auto star = getStar(line,starColumn);
+                auto match = FootballMatch(line[team1Column], line[team2Column], date, line[resultColumn],
+                    spectators, star, isFinal);
+                match.stadium = stadium;
+                if (remarkColumn < line.size())
+                {
+                    auto remark = line[remarkColumn];
+                    if (remark.starts_with("ref="))
+                    {
+                        match.link_name = remark.substr(4, remark.size()-4);
+                    }
+                    else
+                    {
+                        match.remark = remark;
+                    }
+                }
+                match.ko_phase = ko_phase;
+                comp.matches.push_back(match);
+            }
+        }
+
+        return comp;
+    }
+
+}

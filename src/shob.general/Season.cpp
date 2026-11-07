@@ -1,6 +1,6 @@
 
 #include "Season.h"
-#include "shobException.h"
+#include "ShobException.h"
 
 #include <boost/regex.hpp>
 #include <format>
@@ -50,7 +50,7 @@ namespace shob::general
             return { parts[0] };
         }
 
-        throw shobException("season not found in: " + text);
+        throw ShobException("season not found in: " + text);
     }
 
 }

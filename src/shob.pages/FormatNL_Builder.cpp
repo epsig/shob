@@ -1,0 +1,52 @@
+#include "FormatNL_Builder.h"
+
+#include <algorithm>
+
+#include "../shob.general/Glob.h"
+#include "TopMenu.h"
+
+namespace shob::pages
+{
+    // TODO move to string utils
+    void replace_first(
+        std::string& s,
+        std::string const& toReplace,
+        std::string const& replaceWith
+    ) {
+        std::size_t pos = s.find(toReplace);
+        if (pos == std::string::npos) return;
+        s.replace(pos, toReplace.length(), replaceWith);
+    }
+
+    bool format_nl_builder::cmpFunc(const std::string& a, const std::string& b)
+    {
+        const auto num1 = a.substr(11, 4);
+        const auto num2 = b.substr(11, 4);
+        return num1 < num2;
+    }
+
+    FormatNL format_nl_builder::build(const std::string& dataFolder, const html::Settings& settings)
+    {
+        auto extras = readers::CsvAllSeasonsReader();
+        extras.init(dataFolder + "/eredivisie/eredivisie_u2s.csv");
+
+        auto remarks = readers::CsvAllSeasonsReader();
+        remarks.init(dataFolder + "/eredivisie/eredivisie_remarks.csv");
+
+        auto archive = general::Glob::list(dataFolder + "/eredivisie", "eredivisie_[0-9].*csv");
+        archive.erase(archive.begin()); // there is one more csv input file than html output
+        std::sort(archive.begin(), archive.end(), cmpFunc);
+        for (auto& row : archive)
+        {
+            replace_first(row, "eredivisie", "nl");
+        }
+        auto menu = TopMenu(archive, 'K');
+
+        auto teams = teams::ClubTeams();
+        auto file2 = dataFolder + "/clubs.csv";
+        teams.InitFromFile(file2, teams::ClubsOrCountries::clubs);
+
+        auto format = FormatNL(dataFolder, extras, remarks, menu, teams, settings);
+        return format;
+    }
+}

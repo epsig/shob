@@ -18,8 +18,8 @@ namespace shob::pages
     {
         std::string name;
         std::string long_name;
-        football::footballCompetition matches;
-        football::standings standings;
+        football::FootballCompetition matches;
+        football::Standings standings;
     };
 
     struct groupList
@@ -30,30 +30,30 @@ namespace shob::pages
     class EkWkOneYear
     {
     public:
-        EkWkOneYear(const EkWkDate ekwk, const html::settings settings, const teams::clubTeams& teams,
-            const readers::csvAllSeasonsReader& top_scorers, const teams::footballers& players,
+        EkWkOneYear(const EkWkDate ekwk, const html::Settings settings, const teams::ClubTeams& teams,
+            const readers::CsvAllSeasonsReader& top_scorers, const teams::Footballers& players,
             const std::vector<std::vector<std::string>>& current_remarks,
-            football::route2final r2f,
+            football::RouteToFfinal r2f,
             groupList groups,
-            football::footballCompetition round2,
-            readers::xmlReader reader
+            football::FootballCompetition round2,
+            readers::XmlReader reader
             );
         std::vector<PageBlock> getAllPageBlocks(int& dd);
 
     private:
         const EkWkDate ekwk;
-        const html::settings settings;
-        const teams::clubTeams& teams;
-        const readers::csvAllSeasonsReader& top_scorers;
-        const teams::footballers& players;
+        const html::Settings settings;
+        const teams::ClubTeams& teams;
+        const readers::CsvAllSeasonsReader& top_scorers;
+        const teams::Footballers& players;
         const std::vector<std::vector<std::string>>& current_remarks;
-        readers::csvContent csv_content;
-        football::route2final r2f;
+        readers::CsvContent csv_content;
+        football::RouteToFfinal r2f;
         groupList groups;
-        football::footballCompetition round2;
-        readers::xmlReader reader;
+        football::FootballCompetition round2;
+        readers::XmlReader reader;
 
-        general::uniqueStrings getGroups() const;
+        general::UniqueStrings getGroups() const;
         PageBlock getRound2(int& dd) const;
         PageBlock getLast16(int& dd) const;
         PageBlock getGroupResults(int& dd) const;
@@ -61,7 +61,7 @@ namespace shob::pages
         PageBlock getTopscorers() const;
         PageBlock printExtras();
 
-        void getFieldsTable3(const std::vector<football::footballMatch>& matches, std::string& matchNames,
+        void getFieldsTable3(const std::vector<football::FootballMatch>& matches, std::string& matchNames,
             std::string& results) const;
         general::MultipleStrings table3_to_html(const football::strikingResults& data) const;
         general::MultipleStrings getExtraForOneMatch(const groupData& g, const football::linkInfo& link,

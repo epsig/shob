@@ -1,7 +1,7 @@
 #include "KlaverjasTableTest.h"
 
 #include "../shob.klaverjas/KlaverjasTable.h"
-#include "../shob.test.utils/testUtils.h"
+#include "../shob.test.utils/TestUtils.h"
 
 #include <gtest/gtest.h>
 

@@ -1,23 +1,22 @@
-
 #include "TestFormatEkWk.h"
 
 #include <gtest/gtest.h>
 
-#include "../shob.pages/FormatEkWkFactory.h"
-#include "../shob.pages/FormatEkWkDFactory.h"
-#include "../shob.test.utils/testUtils.h"
+#include "../shob.pages/FormatEkWkBuilder.h"
+#include "../shob.pages/FormatEkWkDBuilder.h"
+#include "../shob.test.utils/TestUtils.h"
 
 namespace shob::pages::test
 {
     using namespace readers::test;
 
     const std::string data_map = "../../data/sport/";
-    const std::string data_folder = testUtils::refFileWithPath(__FILE__, data_map);
-    constexpr auto settings = html::settings();
+    const std::string data_folder = TestUtils::refFileWithPath(__FILE__, data_map);
+    constexpr auto settings = html::Settings();
 
     void TestFormatEkWk::test_wk_2022()
     {
-        const auto format_ek_wk = FormatEkWkFactory::build(data_folder, settings);
+        const auto format_ek_wk = FormatEkWkBuilder::build(data_folder, settings);
         const auto lines = format_ek_wk.getPages(2022);
         ASSERT_EQ(lines.data.size(), 238);
         EXPECT_GE(lines.findString("Scheidsrechter: Ghorbal (DZ). <br>"), 0);
@@ -29,7 +28,7 @@ namespace shob::pages::test
 
     void TestFormatEkWk::test_ekD_2022()
     {
-        const auto format_ek_wk_d = FormatEkWkDFactory::build(data_folder, settings);
+        const auto format_ek_wk_d = FormatEkWkDBuilder::build(data_folder, settings);
         const auto lines = format_ek_wk_d.getPages(2022);
         ASSERT_EQ(lines.data.size(), 126);
     }

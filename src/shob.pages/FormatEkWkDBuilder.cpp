@@ -1,0 +1,59 @@
+
+#include "FormatEkWkDBuilder.h"
+
+#include <algorithm>
+
+#include "../shob.general/glob.h"
+
+namespace shob::pages
+{
+    FormatEkWkD FormatEkWkDBuilder::build(const std::string& dataFolder, const html::Settings& settings)
+    {
+        const auto data_folder_ek_wk = dataFolder + "/ekwk/";
+
+        auto remarks = readers::CsvAllSeasonsReader();
+        remarks.init(dataFolder + "/ekwk/ekwk_remarks.csv");
+
+        auto topScorers = readers::CsvAllSeasonsReader();
+        topScorers.init(dataFolder + "/ekwk/topscorers_ekwk.csv");
+
+        auto players = teams::Footballers();
+        const std::string filename = dataFolder + "/voetballers.csv";
+        players.initFromFile(filename);
+
+        auto national_teams = teams::ClubTeams();
+        national_teams.InitFromFile(dataFolder + "/landcodes.csv", teams::ClubsOrCountries::countries);
+
+        auto menu = prepareTopMenu(data_folder_ek_wk);
+
+        auto retval = FormatEkWkD(dataFolder, national_teams, settings, remarks, topScorers, players, menu);
+        return retval;
+    }
+
+    bool FormatEkWkDBuilder::cmpFunc(const std::string& a, const std::string& b)
+    {
+        const auto num1 = a.substr(3, 4);
+        const auto num2 = b.substr(3, 4);
+        return num1 < num2;
+    }
+
+    TopMenu FormatEkWkDBuilder::prepareTopMenu(const std::string& dataFolderEkWk)
+    {
+        auto archive = general::Glob::list(dataFolderEkWk, "[ew]kD[0-9]{4}.csv");
+        std::sort(archive.begin(), archive.end(), cmpFunc);
+
+        auto filenames = general::UniqueStrings();
+        for (auto& name : archive)
+        {
+            auto shortName = name.substr(0, 2) + "D" + name.substr(3, 4);
+            std::transform(shortName.begin(), shortName.end(), shortName.begin(), ::toupper);
+            shortName = "sport_voetbal_" + shortName;
+            filenames.insert(shortName);
+        }
+
+        auto menu = TopMenu(filenames.list(), 'K');
+
+        return menu;
+    }
+
+}

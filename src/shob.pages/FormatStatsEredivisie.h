@@ -2,7 +2,7 @@
 #pragma once
 #include "SpectatorResults.h"
 #include "../shob.teams/clubTeams.h"
-#include "../shob.html/settings.h"
+#include "../shob.html/Settings.h"
 #include "../shob.general/MultipleStrings.h"
 #include "../shob.football/results2standings.h"
 #include "../shob.football/topscorers.h"
@@ -56,33 +56,33 @@ namespace shob::pages
     class FormatStatsEredivisie
     {
     public:
-        FormatStatsEredivisie(std::string folder, teams::clubTeams& teams, StatFilesSummary& list_matches,
-            const html::settings& settings);
+        FormatStatsEredivisie(std::string folder, teams::ClubTeams& teams, StatFilesSummary& list_matches,
+            const html::Settings& settings);
         void getPagesToFile(const bool extraStats, const std::string& filename) const;
         general::MultipleStrings getStats(const bool extraStats) const;
         static std::string getOutputFilename(const std::string& folder, const bool extraStats);
     private:
         const std::string sportDataFolder;
-        const teams::clubTeams teams;
+        const teams::ClubTeams teams;
         const StatFilesSummary list_matches;
-        const html::settings settings;
+        const html::Settings settings;
         static void updateOneResult(teamWithMinMaxResults& result, const int x, const std::string& team);
-        goalsSummary getGoalsSummary(const football::standings& table) const;
-        static sumGoalsAndMatches getSumGoalsAndMatches(const football::standings& table);
-        static SpectatorResults getSpectatorStats(const football::footballCompetition& competition);
+        goalsSummary getGoalsSummary(const football::Standings& table) const;
+        static sumGoalsAndMatches getSumGoalsAndMatches(const football::Standings& table);
+        static SpectatorResults getSpectatorStats(const football::FootballCompetition& competition);
         static void updateStatsFromRemarks(SpectatorResults& spectatorsStats,
                                     const std::vector<std::vector<std::string>>& current_remarks);
         static std::string getButton(const std::string& id, const int col, const int updown);
         general::MultipleStrings table1_to_html(const std::vector<std::pair<general::Season, goalsSummary>>& data) const;
         general::MultipleStrings table2_to_html(const std::vector<std::pair<general::Season, sumGoalsAndMatches>>& data,
-            const std::vector<std::pair<general::Season, football::numbers1>>& topscorers) const;
-        void getFieldsTable3(const std::vector<football::footballMatch>& matches, std::string& matchNames,
+            const std::vector<std::pair<general::Season, football::Numbers1>>& topscorers) const;
+        void getFieldsTable3(const std::vector<football::FootballMatch>& matches, std::string& matchNames,
                              std::string& results) const;
         general::MultipleStrings table3_to_html(const std::vector<std::pair<general::Season, football::strikingResults>>& results) const;
         general::MultipleStrings table4a_to_html(
             const std::vector<std::pair<general::Season, SpectatorResults>>& results) const;
         general::MultipleStrings table4b_to_html(const std::vector<std::pair<general::Season, SpectatorResults>>& results) const;
         general::MultipleStrings table5_to_html(
-            const std::vector<std::pair<general::Season, football::numbers1>>& topscorers) const;
+            const std::vector<std::pair<general::Season, football::Numbers1>>& topscorers) const;
     };
 }

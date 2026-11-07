@@ -24,11 +24,11 @@ namespace shob::pages
 
         if (is_tmp)
         {
-            updateIfDifferent::update("../pages/tmp_bookmarks_" + page + ".html", pageContent);
+            UpdateIfDifferent::update("../pages/tmp_bookmarks_" + page + ".html", pageContent);
         }
         else
         {
-            updateIfDifferent::update("../pages/bookmarks_" + page + ".html", pageContent);
+            UpdateIfDifferent::update("../pages/bookmarks_" + page + ".html", pageContent);
         }
     }
 
@@ -37,7 +37,7 @@ namespace shob::pages
         auto props = PageProperties();
         if (!bookmarks.getProperties(props, page))
         {
-            throw shobException("Error: page " + page + " not found in config.csv");
+            throw ShobException("Error: page " + page + " not found in config.csv");
         }
         auto content = bookmarks.getAllParts(page);
 
@@ -57,12 +57,12 @@ namespace shob::pages
             }
             if (i + 1 >= static_cast<int>(content.size()))
             {
-                row = table::yellowRed(left, content[i].title);
+                row = Table::yellowRed(left, content[i].title);
             }
             else
             {
                 auto right = List::inUnorderedList(bookmarks.getEventsForBlock(content[i + 1].name).printAll());
-                row = table::yellowRed(left, right, content[i].title, content[i + 1].title);
+                row = Table::yellowRed(left, right, content[i].title, content[i + 1].title);
             }
             blocks.push_back(row);
         }
@@ -144,7 +144,7 @@ namespace shob::pages
     void FormatBookmarks::rebuildOwnSportLinks()
     {
         auto pageContent = getOwnSportLinks();
-        updateIfDifferent::update("../pages/sport.html", pageContent);
+        UpdateIfDifferent::update("../pages/sport.html", pageContent);
     }
 
     MultipleStrings FormatBookmarks::getOwnSportLinks()
@@ -173,7 +173,7 @@ namespace shob::pages
         hb.css = StyleSheetType::SeparateFile;
         hb.copyTitleToH1 = false;
         hb.footerStyle = FooterStyle::New;
-        hb.body = table::yellowRed(content, hb.title);
+        hb.body = Table::yellowRed(content, hb.title);
         hb.pageInFooter = "sport";
         auto pageContent = HeadBottom::getPage(hb);
         return pageContent;
@@ -182,7 +182,7 @@ namespace shob::pages
     void FormatBookmarks::rebuildOverzicht()
     {
         auto pageContent = getOverzicht();
-        updateIfDifferent::update("../pages/overzicht.html", pageContent);
+        UpdateIfDifferent::update("../pages/overzicht.html", pageContent);
     }
 
     MultipleStrings FormatBookmarks::getOverzicht()
@@ -226,7 +226,7 @@ namespace shob::pages
         hb.css = StyleSheetType::SeparateFile;
         hb.copyTitleToH1 = false;
         hb.footerStyle = FooterStyle::New;
-        hb.body = table::yellowRed(content, hb.title);
+        hb.body = Table::yellowRed(content, hb.title);
         auto pageContent = HeadBottom::getPage(hb);
 
         return pageContent;

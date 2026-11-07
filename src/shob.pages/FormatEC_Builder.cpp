@@ -1,0 +1,39 @@
+#include "FormatEC_Builder.h"
+
+#include <algorithm>
+
+#include "TopMenu.h"
+#include "../shob.general/Glob.h"
+
+namespace shob::pages
+{
+    bool FormatEC_Builder::cmpFunc(const std::string& a, const std::string& b)
+    {
+        const auto num1 = a.substr(10, 4);
+        const auto num2 = b.substr(10, 4);
+        return num1 < num2;
+    }
+
+    FormatEC FormatEC_Builder::build(const std::string& dataFolder, const html::Settings& settings)
+    {
+        auto remarks = readers::CsvAllSeasonsReader();
+        remarks.init(dataFolder + "/europacup/europacup_remarks.csv");
+
+        auto national_teams = teams::NationalTeams();
+        national_teams.InitFromFile(dataFolder + "/landcodes.csv");
+
+        auto teams = teams::ClubTeams();
+        auto file2 = dataFolder + "/clubs.csv";
+        teams.InitFromFile(file2, teams::ClubsOrCountries::clubs);
+        teams.AddLandCodes(national_teams);
+
+        auto archive = general::Glob::list(dataFolder + "/europacup", "europacup_[0-9].*csv");
+        std::sort(archive.begin(), archive.end(), cmpFunc);
+        auto menu = TopMenu(archive, 'K');
+
+        auto leagueNames = football::LeagueNames(dataFolder + "/europacup/league_names.csv");
+
+        auto format = FormatEC(dataFolder, remarks, teams, settings, menu, leagueNames);
+        return format;
+    }
+}

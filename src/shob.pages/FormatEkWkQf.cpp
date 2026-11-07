@@ -162,16 +162,16 @@ namespace shob::pages
         return HeadBottom::getPage(hb);
     }
 
-    MultipleStrings FormatEkWkQf::print_splitted(const standings& stand, const footballCompetition& matches,
+    MultipleStrings FormatEkWkQf::print_splitted(const Standings& stand, const FootballCompetition& matches,
         const MultipleStrings& remarks, const std::string& title, const std::string& title2) const
     {
         auto prepTableStandings = stand.prepareTable(teams, settings);
         prepTableStandings.title = title;
 
-        html::tableContent beslissend;
+        html::TableContent beslissend;
         if ( ! remarks.data.empty())
         {
-            auto splitted_countries = readers::csvReader::split(remarks.data[0], ";");
+            auto splitted_countries = readers::CsvReader::split(remarks.data[0], ";");
             std::set<std::string> top3;
             for (const auto& field : splitted_countries.column)
             {
@@ -186,7 +186,7 @@ namespace shob::pages
 
         auto prepTableMatchesNL = splitted.first.prepareTable(teams, settings);
         prepTableMatchesNL.title = "Uitslagen Nederlands Elftal";
-        const auto Table = html::table(settings);
+        const auto Table = html::Table(settings);
         auto leftPart = Table.buildTable({ prepTableStandings, beslissend, prepTableMatchesNL });
 
         auto prepTableMatchesWithoutNL = splitted.second.prepareTable(teams, settings);
@@ -197,14 +197,14 @@ namespace shob::pages
         return retVal;
     }
 
-    readers::csvContent FormatEkWkQf::read_matches_data(const EkWkDate& ekwk, const char type) const
+    readers::CsvContent FormatEkWkQf::read_matches_data(const EkWkDate& ekwk, const char type) const
     {
         const auto csvInput = std::format("{}{}{}{}.csv", dataSportFolder, ekwk.shortName(), ekwk.year, type);
-        const auto csvData = readers::csvReader::readCsvFile(csvInput);
+        const auto csvData = readers::CsvReader::readCsvFile(csvInput);
         return csvData;
     }
 
-    MultipleStrings FormatEkWkQf::get_group_nl(int& dd, const int star, const readers::csvContent& matches_data, const MultipleStrings& remarks) const
+    MultipleStrings FormatEkWkQf::get_group_nl(int& dd, const int star, const readers::CsvContent& matches_data, const MultipleStrings& remarks) const
     {
         if (matches_data.body.empty()) return {};
 
@@ -213,13 +213,13 @@ namespace shob::pages
 
         if (part.starts_with("g"))
         {
-            auto filter = filterInputList();
+            auto filter = FilterInputList();
             filter.filters.push_back({ 0, part });
-            const auto matches = filterResults::readFromCsvData(matches_data, filter);
+            const auto matches = FilterResults::readFromCsvData(matches_data, filter);
 
             dd = matches.lastDate().toInt();
 
-            auto stand = results2standings::u2s(matches);
+            auto stand = ResultsToStandings::u2s(matches);
             stand.wns_cl = star;
 
             auto retVal = MultipleStrings();
@@ -251,11 +251,11 @@ namespace shob::pages
         if ( ! standings_data.body.empty())
         {
             retVal.addContent("<p id=\"vstandings\"> </p>");
-            auto standing = standings();
+            auto standing = Standings();
             standing.initFromData(standings_data);
             auto prepTableStandings = standing.prepareTable(teams, settings);
             prepTableStandings.title = "Virtuele stand nummers 2";
-            auto table = html::table(settings);
+            auto table = html::Table(settings);
             auto lines = table.buildTable(prepTableStandings);
             retVal.addContent(lines);
             if ( ! opms_vstand.data.empty())
@@ -267,7 +267,7 @@ namespace shob::pages
         return retVal;
     }
 
-    MultipleStrings FormatEkWkQf::get_play_offs(int& dd, const readers::csvContent& matches_data) const
+    MultipleStrings FormatEkWkQf::get_play_offs(int& dd, const readers::CsvContent& matches_data) const
     {
         if (matches_data.body.empty()) return {};
 
@@ -277,16 +277,16 @@ namespace shob::pages
         MultipleStrings retVal;
         if (part == "po")
         {
-            auto filter = filterInputList();
+            auto filter = FilterInputList();
             filter.filters.push_back({ 0, part });
-            auto matches = filterResults::readFromCsvData(matches_data, filter);
+            auto matches = FilterResults::readFromCsvData(matches_data, filter);
             matches.doCoupleMatches = false;
 
             dd = std::max(dd, matches.lastDate().toInt());
 
             auto prepTableMatchesNL = matches.prepareTable(teams, settings);
             prepTableMatchesNL.title = "Naar de play-offs";
-            const auto Table = html::table(settings);
+            const auto Table = html::Table(settings);
             auto playoffs = Table.buildTable(prepTableMatchesNL);
             retVal.addContent("<p id=\"playoffs\"> </p>");
             retVal.addContent(playoffs);
@@ -302,10 +302,10 @@ namespace shob::pages
         const auto csvInput = std::format("{}{}{}.csv", dataSportFolder, "../nationsLeague/NL_", year);
         if (fs::exists(csvInput))
         {
-            const auto finals = route2finaleFactory::create(csvInput);
+            const auto finals = RouteToFinalFactory::create(csvInput);
             auto prepTable = finals.prepareTable(teams, settings);
             prepTable[0].header.addContent("Finals Nations League");
-            auto Table = html::table(settings);
+            auto Table = html::Table(settings);
             Table.withBorder = false;
             retVal.addContent("<p id=\"natleaguefinals\"> </p>");
             auto matches = Table.buildTable(prepTable);
@@ -320,15 +320,15 @@ namespace shob::pages
     {
         auto retVal = MultipleStrings();
         const auto csvInput = std::format("{}{}.*.csv", "NL_", year);
-        auto list = glob::list(dataSportFolder + "../nationsLeague/", csvInput);
+        auto list = Glob::list(dataSportFolder + "../nationsLeague/", csvInput);
         if ( ! list.empty())
         {
-            auto competition = footballCompetition();
+            auto competition = FootballCompetition();
             competition.readFromCsv(dataSportFolder + "../nationsLeague/" + list[0]);
 
             dd = std::max(dd, competition.lastDate().toInt());
 
-            const auto stand = results2standings::u2s(competition);
+            const auto stand = ResultsToStandings::u2s(competition);
             retVal.addContent("<p id=\"natleague\"> </p>");
             auto matches = print_splitted(stand, competition, MultipleStrings(),
                 "Stand Nations League groep Nederland", "Overige uitslagen");
@@ -351,8 +351,8 @@ namespace shob::pages
             if (key_value[0] == "dd1kzb") dd1kzb = std::stoi(key_value[1]);
             if (key_value[0] == "dd2kzb") dd2kzb = std::stoi(key_value[1]);
         }
-        const auto date1 = itdate(dd1kzb);
-        const auto date2 = itdate(dd2kzb);
+        const auto date1 = ItDate(dd1kzb);
+        const auto date2 = ItDate(dd2kzb);
         const auto filtered = allFriendlies.filterDate(date1, date2);
 
         auto prepTableMatchesNL = filtered.prepareTable(teams, settings);
@@ -360,7 +360,7 @@ namespace shob::pages
         {
             dd = std::max(dd, filtered.lastDate().toInt());
             prepTableMatchesNL.title = "Uitslagen Oefenduels Nederland";
-            const auto Table = html::table(settings);
+            const auto Table = html::Table(settings);
             retVal.addContent("<p id=\"keizersbaard\"> </p>");
             auto matches = Table.buildTable(prepTableMatchesNL);
             retVal.addContent(matches);
@@ -378,14 +378,14 @@ namespace shob::pages
         {
             retVal.addContent(title);
             const auto parts = csvData.getParts();
-            auto tablesLeft = std::vector<html::tableContent>();
-            auto tablesRight = std::vector<html::tableContent>();
+            auto tablesLeft = std::vector<html::TableContent>();
+            auto tablesRight = std::vector<html::TableContent>();
             int i = 0;
             for (const auto& part : parts.list())
             {
                 if ( part.find('_') == std::string::npos)
                 {
-                    auto csvStand = readers::csvContent();
+                    auto csvStand = readers::CsvContent();
                     csvStand.header = csvData.header;
                     for (auto line : csvData.body)
                     {
@@ -394,7 +394,7 @@ namespace shob::pages
                             csvStand.body.push_back(line);
                         }
                     }
-                    auto standing = standings();
+                    auto standing = Standings();
                     standing.initFromData(csvStand);
                     auto prepTableStandings = standing.prepareTable(teams, settings);
                     prepTableStandings.title = std::format("Groep {}", part[1]);
@@ -409,7 +409,7 @@ namespace shob::pages
                     i++;
                 }
             }
-            const auto table = html::table(settings);
+            const auto table = html::Table(settings);
             auto leftPart = table.buildTable(tablesLeft);
             auto rightPart = table.buildTable(tablesRight);
             auto all = table.tableOfTwoTables(leftPart, rightPart);
@@ -426,7 +426,7 @@ namespace shob::pages
         if (!csvData.body.empty())
         {
             retVal.addContent(std::format("<h2 id=\"deelnemers\"> {} </h2>", title_qualified));
-            html::tableContent content;
+            html::TableContent content;
             content.header.data = { "nr", "land", "opm" };
             for (size_t i = 0; i < csvData.body.size(); i++)
             {
@@ -436,7 +436,7 @@ namespace shob::pages
                 body.data = { std::format("{}", i+1), country, row.column[2]};
                 content.body.push_back(body);
             }
-            const auto Table = html::table(settings);
+            const auto Table = html::Table(settings);
             auto table = Table.buildTable(content);
             retVal.addContent(table);
         }

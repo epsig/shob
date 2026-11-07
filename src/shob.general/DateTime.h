@@ -3,11 +3,11 @@
 
 namespace shob::general
 {
-    class DateTime : public shobDate
+    class DateTime : public ShobDate
     {
     public:
         DateTime(const int yyyymmdd, const int hhmm);
-        std::string toString(bool isCompatible) const override;
+        std::string toString() const override;
         std::string toShortString() const override;
     private:
         int yyyymmdd = -999; // date in the form 20250419

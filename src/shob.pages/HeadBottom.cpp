@@ -49,14 +49,14 @@ namespace shob::pages
         return out;
     }
 
-    bookmarks::ListOfEvents HeadBottom::getFooterLinks(const general::itdate& dd, const std::string& pageInFooter)
+    bookmarks::ListOfEvents HeadBottom::getFooterLinks(const general::ItDate& dd, const std::string& pageInFooter)
     {
         auto defaults = std::vector<std::pair<std::string,std::string>>();
         defaults.push_back({ "mail-me", "reactie.html" });
         defaults.push_back({ "homepage", "index.html" });
         defaults.push_back({ "klaverjassen", "klaverjas_faq.html" });
         defaults.push_back({ "sport", "sport.html" });
-        defaults.push_back({ "d.d. " + dd.toString(false) + " ", ""});
+        defaults.push_back({ "d.d. " + dd.toString() + " ", ""});
         auto out = bookmarks::ListOfEvents();
         for (auto& e : defaults)
         {
@@ -115,7 +115,7 @@ namespace shob::pages
         return out;
     }
 
-    general::MultipleStrings HeadBottom::getFooter(const general::itdate& dd, FooterStyle footerStyle, FooterSubStyle footerSubStyle, const std::string& pageInFooter)
+    general::MultipleStrings HeadBottom::getFooter(const general::ItDate& dd, FooterStyle footerStyle, FooterSubStyle footerSubStyle, const std::string& pageInFooter)
     {
         general::MultipleStrings out;
         if (footerStyle == FooterStyle::New)

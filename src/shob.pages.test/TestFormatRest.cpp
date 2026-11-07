@@ -108,13 +108,13 @@ namespace shob::pages::test
     TEST_F(FormatRestStats, RejectsFilesWithoutDailyDates)
     {
         writeStats("stats_Jan2003.txt", 0);
-        EXPECT_THROW(FormatRest(folder.string()).getStats(20031231), general::shobException);
+        EXPECT_THROW(FormatRest(folder.string()).getStats(20031231), general::ShobException);
     }
 
     TEST_F(FormatRestStats, RejectsInvalidDates)
     {
         writeStats("stats_Feb2003.txt", 30, "Feb");
-        EXPECT_THROW(FormatRest(folder.string()).getStats(20031231), general::shobException);
+        EXPECT_THROW(FormatRest(folder.string()).getStats(20031231), general::ShobException);
     }
 
     void TestFormatRest::testAsciiCodes()
@@ -126,11 +126,11 @@ namespace shob::pages::test
         EXPECT_GE(page.findString("href=\"reactie.html\""), 0);
         EXPECT_GE(page.findString("</body></html>"), 0);
 
-        const auto tableStart = page.findString("<table border cellspacing=0>");
+        const auto tableStart = page.findString("<table border cellspacing=\"0\">");
         ASSERT_GE(tableStart, 0);
         const auto start = static_cast<size_t>(tableStart);
         ASSERT_GT(page.data.size(), start + 25);
-        EXPECT_EQ(page.data[start], "<table border cellspacing=0>");
+        EXPECT_EQ(page.data[start], "<table border cellspacing=\"0\">");
         EXPECT_EQ(page.data[start + 1], "<tr><th colspan=\"10\" class=h>escape codes</th></tr>");
 
         for (int row = 0; row < 23; ++row)

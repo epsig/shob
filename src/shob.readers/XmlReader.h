@@ -1,0 +1,20 @@
+#pragma once
+
+#include <string>
+#include <vector>
+#include <boost/property_tree/ptree.hpp>
+
+namespace shob::readers
+{
+    class XmlReader
+    {
+    public:
+        XmlReader() = default;
+        XmlReader(const std::string& file);
+        bool isReady() const { return !pt.empty(); }
+        std::vector<std::pair<std::string, std::string>> loadPairs(const std::string& path, const std::string& attr);
+        std::string loadSingleValue(const std::string& path);
+    private:
+        boost::property_tree::ptree pt;
+    };
+}

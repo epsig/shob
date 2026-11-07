@@ -7,8 +7,8 @@
 
 namespace shob::pages
 {
-    FormatOs::FormatOs(std::string folder, readers::csvAllSeasonsReader reader, readers::csvContent dames,
-        readers::csvContent heren, TopMenu menu, teams::nationalTeams teams, html::settings settings) :
+    FormatOs::FormatOs(std::string folder, readers::CsvAllSeasonsReader reader, readers::CsvContent dames,
+        readers::CsvContent heren, TopMenu menu, teams::NationalTeams teams, html::Settings settings) :
         folder(std::move(folder)), seasons_reader(std::move(reader)),
         dames(std::move(dames)), heren(std::move(heren)), menu(std::move(menu)), land_codes(std::move(teams)), settings(settings) {  }
 
@@ -35,7 +35,7 @@ namespace shob::pages
     general::MultipleStrings FormatOs::getPages(const int year) const
     {
         auto return_value = general::MultipleStrings();
-        if (settings.lang == html::language::English)
+        if (settings.lang == html::Language::English)
         {
             return_value.addContent("<hr> other Winter Olympics: |");
         }
@@ -68,18 +68,18 @@ namespace shob::pages
         return HeadBottom::getPage(hb);
     }
 
-    readers::csvContent FormatOs::readMatchesData(const int year) const
+    readers::CsvContent FormatOs::readMatchesData(const int year) const
     {
         const auto csv_input = std::format("{}/OS_{}.csv", folder, year);
-        const auto csv_data = readers::csvReader::readCsvFile(csv_input);
+        const auto csv_data = readers::CsvReader::readCsvFile(csv_input);
         return csv_data;
     }
 
-    general::MultipleStrings FormatOs::getNumbersOne(const readers::csvContent& all_data) const
+    general::MultipleStrings FormatOs::getNumbersOne(const readers::CsvContent& all_data) const
     {
         auto return_value = general::MultipleStrings();
-        html::tableContent content;
-        if (settings.lang == html::language::English)
+        html::TableContent content;
+        if (settings.lang == html::Language::English)
         {
             content.header.data = { "distance", "name", "time" };
             content.title = "Golden medal winners";
@@ -109,7 +109,7 @@ namespace shob::pages
                 const auto team = (team_column < row.column.size() ? row.column[team_column] : "");
                 const auto country = name.substr(0, 2);
                 const auto full_name = (DH == "D" ? findName(name, dames) : findName(name, heren));
-                const auto land_code_and_name = html::funcs::acronym(country, land_codes.expand(country));
+                const auto land_code_and_name = html::Funcs::acronym(country, land_codes.expand(country));
                 std::string name_with_country;
                 if (team.empty())
                 {
@@ -129,17 +129,17 @@ namespace shob::pages
                 content.body.push_back(body);
             }
         }
-        const auto Table = html::table(settings);
+        const auto Table = html::Table(settings);
         auto table = Table.buildTable(content);
         return_value.addContent(table);
         return return_value;
     }
 
-    general::MultipleStrings FormatOs::getOneDistance(const std::string& distance, const char gender, const readers::csvContent& all_data) const
+    general::MultipleStrings FormatOs::getOneDistance(const std::string& distance, const char gender, const readers::CsvContent& all_data) const
     {
         auto return_value = general::MultipleStrings();
         return_value.addContent(std::format("<p id=\"{}{}\"> </p>", gender, distance));
-        html::tableContent content;
+        html::TableContent content;
 
         const auto gender_column = all_data.findColumn("DH");
         const auto distance_column = all_data.findColumn("distance");
@@ -161,7 +161,7 @@ namespace shob::pages
                 const auto team = (team_column < row.column.size() ? row.column[team_column] : "");
                 const auto country = name.substr(0, 2);
                 const auto full_name = (gender == 'D' ? findName(name, dames) : findName(name, heren));
-                const auto land_code_and_name = html::funcs::acronym(country, land_codes.expand(country));
+                const auto land_code_and_name = html::Funcs::acronym(country, land_codes.expand(country));
                 std::string name_with_country;
                 if (team.empty())
                 {
@@ -181,7 +181,7 @@ namespace shob::pages
             }
         }
 
-        if (settings.lang == html::language::English)
+        if (settings.lang == html::Language::English)
         {
             content.header.data = { "rank", "name", found_points ? "points" : "time" };
             content.title = distance + " " + (gender == 'H' ? "men" : "woman");
@@ -192,13 +192,13 @@ namespace shob::pages
             content.title = distance + " " + (gender == 'H' ? "Heren" : "Dames");
         }
 
-        const auto Table = html::table(settings);
+        const auto Table = html::Table(settings);
         auto table = Table.buildTable(content);
         return_value.addContent(table);
         return return_value;
     }
 
-    general::MultipleStrings FormatOs::getAllDistances(const char gender, const readers::csvContent& all_data) const
+    general::MultipleStrings FormatOs::getAllDistances(const char gender, const readers::CsvContent& all_data) const
     {
         auto return_value = general::MultipleStrings();
         const auto distances = findDistances(gender, all_data);
@@ -210,7 +210,7 @@ namespace shob::pages
         return return_value;
     }
 
-    std::string FormatOs::findName(const std::string& name, const readers::csvContent& listNames)
+    std::string FormatOs::findName(const std::string& name, const readers::CsvContent& listNames)
     {
         for (const auto& row : listNames.body)
         {
@@ -225,7 +225,7 @@ namespace shob::pages
         {
             if (row[0] == "dd") return std::stoi(row[1]);
         }
-        throw general::shobException("Date not found in remarks");
+        throw general::ShobException("Date not found in remarks");
     }
 
     std::string FormatOs::findTitle(const std::vector<std::vector<std::string>>& remarks)
@@ -237,7 +237,7 @@ namespace shob::pages
         return "";
     }
 
-    std::vector<std::string> FormatOs::findDistances(const char gender, const readers::csvContent& all_data)
+    std::vector<std::string> FormatOs::findDistances(const char gender, const readers::CsvContent& all_data)
     {
         auto return_value = std::vector<std::string>();
         std::string previous;
@@ -271,11 +271,11 @@ namespace shob::pages
         }
         else if (time_as_string.find(';') != std::string::npos)
         {
-            const auto times_as_strings = readers::csvReader::split(time_as_string, ";");
+            const auto times_as_strings = readers::CsvReader::split(time_as_string, ";");
             const auto first_500m = times_as_strings.column[0];
             const auto second_500m = times_as_strings.column[1];
-            const auto parts1 = readers::csvReader::split(first_500m, " ");
-            const auto parts2 = readers::csvReader::split(second_500m, " ");
+            const auto parts1 = readers::CsvReader::split(first_500m, " ");
+            const auto parts2 = readers::CsvReader::split(second_500m, " ");
             const auto remark1 = (parts1.column.size() > 1 ? " (" + parts1.column[1] + ")" : "");
             const auto remark2 = (parts2.column.size() > 1 ? " (" + parts2.column[1] + ")" : "");
             try

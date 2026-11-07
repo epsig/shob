@@ -1,0 +1,87 @@
+
+#include "Topscorers.h"
+
+namespace shob::football
+{
+    using namespace shob::general;
+
+    void Topscorers::initFromFile(const Season& season)
+    {
+        auto data = reader.getSeason(season);
+
+        initFromFile(data);
+    }
+
+    void Topscorers::initFromFile(const std::string& season)
+    {
+        auto data = reader.getSeason(season);
+
+        initFromFile(data);
+    }
+
+    void Topscorers::initFromFile(const std::vector<std::vector<std::string>>& data)
+    {
+        for (size_t i = 1; i < data.size(); i++)
+        {
+            const auto& row = data[i];
+            auto tp = Topscorer();
+            tp.rank = std::stoi(row[0]);
+            tp.name = row[1];
+            tp.club = row[2];
+            tp.goals = std::stoi(row[3]);
+            list_tp.push_back(tp);
+        }
+    }
+
+    html::TableContent Topscorers::prepareTable(const teams::ClubTeams& teams, const teams::Footballers& players, const html::Settings& settings) const
+    {
+        auto table = html::TableContent();
+        if (settings.lang == html::Language::Dutch)
+        {
+            if (teams.getClubsOrCountries() == teams::ClubsOrCountries::countries)
+                table.header.data = { "positie", "naam (land)", "doelpunten" };
+            else
+                table.header.data = { "positie", "naam (club)", "doelpunten" };
+        }
+        else
+        {
+            if (teams.getClubsOrCountries() == teams::ClubsOrCountries::countries)
+                table.header.data = { "rank", "player (country)", "goals" };
+            else
+                table.header.data = { "rank", "player (club)", "goals" };
+        }
+        for (const auto& row : list_tp)
+        {
+            MultipleStrings data;
+            auto team = teams.expand(row.club);
+            auto name = players.expand(row.name);
+            if (row.rank == 1)
+            {
+                name = "<b>" + name + "</b>";
+            }
+            data.data = { std::to_string(row.rank), name + " (" + team + ")", std::to_string(row.goals) };
+            table.body.push_back(data);
+        }
+
+        return table;
+    }
+
+    Numbers1 Topscorers::getNumbers1(const teams::ClubTeams& teams, const teams::Footballers& players) const
+    {
+        auto table = Numbers1();
+        for (const auto& row : list_tp)
+        {
+            if (row.rank == 1)
+            {
+                const auto team = teams.expand(row.club);
+                const auto name = players.expand(row.name);
+                const auto nameWithClub = name + " (" + team + ")";
+                table.ListNamesWithClubs.push_back(nameWithClub);
+                table.goals = row.goals;
+            }
+        }
+        return table;
+    }
+
+}
+

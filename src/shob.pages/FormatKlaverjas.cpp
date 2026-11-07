@@ -16,7 +16,7 @@ namespace shob::pages
     {
         const auto content = type == "klein" ? getKlaverjasKleinScherm(location) : getKlaverjas(type, location);
         const auto filename = "../pages/kj_" + std::string(type) + "_" + std::string(location) + ".html";
-        updateIfDifferent::update(filename, content);
+        UpdateIfDifferent::update(filename, content);
     }
 
     general::MultipleStrings FormatKlaverjas::getKlaverjas(std::string_view type, std::string_view location)
@@ -77,7 +77,7 @@ namespace shob::pages
     void FormatKlaverjas::rebuildFaq()
     {
         auto pageContent = getFaq();
-        updateIfDifferent::update("../pages/klaverjas_faq.html", pageContent);
+        UpdateIfDifferent::update("../pages/klaverjas_faq.html", pageContent);
     }
 
     general::MultipleStrings FormatKlaverjas::getFaq()
@@ -128,7 +128,7 @@ namespace shob::pages
         hb.css = StyleSheetType::SeparateFile;
         hb.copyTitleToH1 = false;
         hb.footerStyle = FooterStyle::New;
-        hb.body = table::yellowRed(ml, hb.title);
+        hb.body = Table::yellowRed(ml, hb.title);
         hb.pageInFooter = "klaverjassen";
         auto pageContent = HeadBottom::getPage(hb);
         return pageContent;

@@ -35,15 +35,15 @@ namespace shob::pages
 
         const auto matches_csv = readMatchesData(season);
 
-        auto matches = football::footballCompetition();
+        auto matches = football::FootballCompetition();
         matches.readFromCsvData(matches_csv);
 
         const auto dd = matches.lastDate().toInt();
 
-        auto stand1 = football::standings();
-        auto stand2 = football::standings();
-        football::results2standings::u2s_home_away(matches, stand1, stand2, scoring);
-        const auto stand3 = football::results2standings::u2s(matches, scoring);
+        auto stand1 = football::Standings();
+        auto stand2 = football::Standings();
+        football::ResultsToStandings::u2s_home_away(matches, stand1, stand2, scoring);
+        const auto stand3 = football::ResultsToStandings::u2s(matches, scoring);
 
         auto prep_table1 = stand1.prepareTable(teams, settings);
         prep_table1.title = "thuis " + season.toString();
@@ -52,7 +52,7 @@ namespace shob::pages
         auto prep_table3 = stand3.prepareTable(teams, settings);
         prep_table3.title = "uit + thuis " + season.toString();
 
-        const auto table = html::table(settings);
+        const auto table = html::Table(settings);
         auto part1 = table.buildTable(prep_table1);
         auto part2 = table.buildTable(prep_table2);
         auto part3 = table.buildTable(prep_table3);
@@ -86,7 +86,7 @@ namespace shob::pages
 
     general::Season FormatHomeAndAwayStandings::getLastSeason() const
     {
-        auto archive = general::glob::list(folder, "eredivisie_[0-9]{4}_[0-9]{4}.csv");
+        auto archive = general::Glob::list(folder, "eredivisie_[0-9]{4}_[0-9]{4}.csv");
         sortArchive(archive);
         auto last_year_in_filename = archive.back().substr(11, 4); // TODO with regex
         return std::stoi(last_year_in_filename);
@@ -98,10 +98,10 @@ namespace shob::pages
         return fs::exists(csv_input);
     }
 
-    readers::csvContent FormatHomeAndAwayStandings::readMatchesData(const general::Season& season) const
+    readers::CsvContent FormatHomeAndAwayStandings::readMatchesData(const general::Season& season) const
     {
         const auto csv_input = std::format("{}/eredivisie_{}.csv", folder, season.toPartFilename());
-        const auto csv_data = readers::csvReader::readCsvFile(csv_input);
+        const auto csv_data = readers::CsvReader::readCsvFile(csv_input);
         return csv_data;
     }
 

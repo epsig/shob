@@ -1,0 +1,51 @@
+
+#include "FormatOsBuilder.h"
+#include "../shob.general/glob.h"
+#include <algorithm>
+
+namespace shob::pages
+{
+    using namespace shob::readers;
+
+    bool FormatOsBuilder::cmpFunc(const std::string& a, const std::string& b)
+    {
+        const auto num1 = a.substr(2, 4);
+        const auto num2 = b.substr(2, 4);
+        return num1 < num2;
+    }
+
+    TopMenu FormatOsBuilder::prepareTopMenu(const std::string& dataFolder)
+    {
+        auto archive = general::Glob::list(dataFolder, "OS_[0-9]{4}.csv");
+        std::sort(archive.begin(), archive.end(), cmpFunc);
+
+        auto filenames = general::UniqueStrings();
+        for (const auto& name : archive)
+        {
+            const auto shortName = "sport_schaatsen_" + name.substr(0, 7);
+            filenames.insert(shortName);
+        }
+
+        auto menu = TopMenu(filenames.list(), 'S');
+
+        return menu;
+    }
+
+    FormatOs FormatOsBuilder::build(const std::string& folder, const html::Settings& settings)
+    {
+        auto remarks = CsvAllSeasonsReader();
+        remarks.init(folder + "schaatsen_remarks.csv");
+
+        const auto dames = CsvReader::readCsvFile(folder + "schaatsersD.csv");
+        const auto heren = CsvReader::readCsvFile(folder + "schaatsersH.csv");
+
+        auto national_teams = teams::NationalTeams();
+        national_teams.InitFromFile(folder + "../landcodes.csv");
+
+        auto menu = prepareTopMenu(folder);
+
+        auto os = FormatOs(folder, remarks, dames, heren, menu, national_teams, settings);
+        return os;
+    }
+}
+

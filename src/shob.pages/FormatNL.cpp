@@ -39,7 +39,7 @@ namespace shob::pages
         if (isValidSeason(s)) return s;
         auto s2 = Season(y - 1);
         if (isValidSeason(s2)) return s2;
-        throw shobException("Season not found for NL");
+        throw ShobException("Season not found for NL");
     }
 
     int FormatNL::get_dd() const
@@ -59,7 +59,7 @@ namespace shob::pages
     MultipleStrings FormatNL::getSeason(const Season& season, int& dd) const
     {
         auto file1 = sportDataFolder + "/eredivisie/eredivisie_" + season.toPartFilename() + ".csv";
-        auto competition = football::footballCompetition();
+        auto competition = football::FootballCompetition();
         if (fs::exists(file1))
         {
             competition.readFromCsv(file1);
@@ -67,14 +67,14 @@ namespace shob::pages
 
         auto out = MultipleStrings();
 
-        auto Table = html::table(settings);
+        auto Table = html::Table(settings);
 
         // beker/supercup:
         const std::string bekerFilename = sportDataFolder + "/beker/beker_" + season.toPartFilename() + ".csv";
-        readers::csvContent dataBekerAndSupercup;
+        readers::CsvContent dataBekerAndSupercup;
         if (fs::exists(bekerFilename))
         {
-            dataBekerAndSupercup = readers::csvReader::readCsvFile(bekerFilename);
+            dataBekerAndSupercup = readers::CsvReader::readCsvFile(bekerFilename);
         }
 
         const auto currentRemarks = remarks.getSeason(season);
@@ -130,16 +130,16 @@ namespace shob::pages
         return HeadBottom::getPage(hb);
     }
 
-    PageBlock FormatNL::getSupercup(const readers::csvContent& dataBekerAndSupercup, const Season& season, int& dd) const
+    PageBlock FormatNL::getSupercup(const readers::CsvContent& dataBekerAndSupercup, const Season& season, int& dd) const
     {
         PageBlock retval;
         if (dataBekerAndSupercup.body.empty()) return retval;
 
-        auto Table = html::table(settings);
-        auto filter = football::filterInputList();
+        auto Table = html::Table(settings);
+        auto filter = football::FilterInputList();
         const std::string part = "supercup";
         filter.filters.push_back({ 0, part });
-        const auto matches = football::filterResults::readFromCsvData(dataBekerAndSupercup, filter);
+        const auto matches = football::FilterResults::readFromCsvData(dataBekerAndSupercup, filter);
         if (!matches.matches.empty())
         {
             auto prepTable = matches.prepareTable(teams, settings);
@@ -153,14 +153,14 @@ namespace shob::pages
         return retval;
     }
 
-    PageBlock FormatNL::getKlassiekers(const football::footballCompetition& competition) const
+    PageBlock FormatNL::getKlassiekers(const football::FootballCompetition& competition) const
     {
         PageBlock retval;
         const std::set<std::string> toppers = { "ajx", "fyn", "psv" };
         const auto filtered = competition.filter(toppers);
         if ( ! filtered.matches.empty())
         {
-            auto Table = html::table(settings);
+            auto Table = html::Table(settings);
             Table.id = "klassiekers";
             auto prepTable = filtered.prepareTable(teams, settings);
             prepTable.title = "De traditionele toppers";
@@ -173,11 +173,11 @@ namespace shob::pages
         return retval;
     }
 
-    PageBlock FormatNL::getStandEredivisie(const football::footballCompetition& competition, int scoring, const Season& season,
+    PageBlock FormatNL::getStandEredivisie(const football::FootballCompetition& competition, int scoring, const Season& season,
         const std::vector<std::vector<std::string>>& remarks_this_season) const
     {
         PageBlock retval;
-        auto Table = html::table(settings);
+        auto Table = html::Table(settings);
         Table.id = "eredivisie";
 
         std::string title = "Eredivisie";
@@ -185,11 +185,11 @@ namespace shob::pages
         {
             if (row[0] == "title")
             {
-                title = html::funcs::acronym("Eredivisie", row[1]);
+                title = html::Funcs::acronym("Eredivisie", row[1]);
             }
         }
 
-        auto table = football::results2standings::u2s(competition, scoring);
+        auto table = football::ResultsToStandings::u2s(competition, scoring);
 
         table.addExtras(extras, season);
 
@@ -200,7 +200,7 @@ namespace shob::pages
         }
         else
         {
-            const auto date = competition.lastDate().toString(false);
+            const auto date = competition.lastDate().toString();
             prepTable.title = std::format("Stand {} (per {})", title, date);
         }
 
@@ -231,7 +231,7 @@ namespace shob::pages
         const auto filename = sportDataFolder + "/eerste_divisie/eerste_divisie_" + season.toPartFilename() + ".csv";
         if (fs::exists(filename))
         {
-            auto remarks_1e_div = readers::csvAllSeasonsReader();
+            auto remarks_1e_div = readers::CsvAllSeasonsReader();
             remarks_1e_div.init(sportDataFolder + "/eerste_divisie/eerste_divisie_remarks.csv");
             const auto currentRemarks = remarks_1e_div.getSeason(season);
 
@@ -240,17 +240,17 @@ namespace shob::pages
             {
                 if (row[0] == "title")
                 {
-                    title = html::funcs::acronym("Eerste Divisie", row[1]);
+                    title = html::Funcs::acronym("Eerste Divisie", row[1]);
                 }
             }
 
-            auto standing_1e_div = football::standings();
+            auto standing_1e_div = football::Standings();
             standing_1e_div.initFromFile(filename);
 
             auto prepTable = standing_1e_div.prepareTable(teams, settings);
             prepTable.title = std::format("Stand {}", title);
 
-            auto Table = html::table(settings);
+            auto Table = html::Table(settings);
             Table.id = "1ste_div";
             auto content = Table.buildTable(prepTable);
 
@@ -269,7 +269,7 @@ namespace shob::pages
         const auto file_tp_eerste_divisie = sportDataFolder + "/eerste_divisie/topscorers_eerste_divisie.csv";
         if (fs::exists(file_tp_eredivisie) || fs::exists(file_tp_eerste_divisie))
         {
-            auto players = teams::footballers();
+            auto players = teams::Footballers();
             const std::string filename = sportDataFolder + "/voetballers.csv";
             players.initFromFile(filename);
 
@@ -301,18 +301,18 @@ namespace shob::pages
     }
 
     MultipleStrings FormatNL::getTopScorers(const std::string& file, const std::string& name_competition, const Season& season,
-        const teams::footballers& players) const
+        const teams::Footballers& players) const
     {
-        auto allTp = readers::csvAllSeasonsReader();
+        auto allTp = readers::CsvAllSeasonsReader();
         allTp.init(file);
 
-        auto tp = football::topscorers(allTp);
+        auto tp = football::Topscorers(allTp);
         tp.initFromFile(season);
         if (tp.getSizeList() > 0)
         {
             auto table = tp.prepareTable(teams, players, settings);
             table.title = "Topscorers " + name_competition;
-            auto Table = html::table(settings);
+            auto Table = html::Table(settings);
             auto out = Table.buildTable(table);
             return out;
         }
@@ -322,14 +322,14 @@ namespace shob::pages
         }
     }
 
-    PageBlock FormatNL::getBeker(const readers::csvContent& dataBekerAndSupercup, int& dd) const
+    PageBlock FormatNL::getBeker(const readers::CsvContent& dataBekerAndSupercup, int& dd) const
     {
         PageBlock retval;
-        auto Table = html::table(settings);
+        auto Table = html::Table(settings);
         Table.withBorder = false;
         if (!dataBekerAndSupercup.body.empty())
         {
-            const auto r2f = football::route2finaleFactory::create(dataBekerAndSupercup);
+            const auto r2f = football::RouteToFinalFactory::create(dataBekerAndSupercup);
             if (!r2f.empty())
             {
                 auto prepTable = r2f.prepareTable(teams, settings);
@@ -358,8 +358,8 @@ namespace shob::pages
 
         for (const auto& row : extraU2s)
         {
-            auto splittedTeams = readers::csvReader::split(row[0], ";").column;
-            auto splittedBatches = readers::csvReader::split(row[1], ";").column;
+            auto splittedTeams = readers::CsvReader::split(row[0], ";").column;
+            auto splittedBatches = readers::CsvReader::split(row[1], ";").column;
 
             for (const auto& t : tournements)
             {

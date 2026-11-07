@@ -1,0 +1,44 @@
+#pragma once
+
+#include <string>
+#include <memory>
+#include "../shob.general/shobDate.h"
+#include "starEnum.h"
+#include "../shob.teams/clubTeams.h"
+
+namespace shob::football
+{
+    class FootballMatch
+    {
+    public:
+        FootballMatch(std::string team1, std::string team2, const std::shared_ptr<general::ShobDate>& dd,
+            std::string result, int spectators, std::string remark)
+            : team1(std::move(team1)), team2(std::move(team2)), dd(dd), result(std::move(result)),
+              spectators(spectators), remark(std::move(remark)) {}
+        FootballMatch(std::string team1, std::string team2, const std::shared_ptr<general::ShobDate>& dd,
+            std::string result, int spectators, const StarEnum star, const bool isFinal)
+            : team1(std::move(team1)), team2(std::move(team2)), dd(dd), result(std::move(result)),
+              star(star), spectators(spectators), isFinal(isFinal) {}
+        std::string printSimple(const teams::ClubTeams& teams, const bool isReturn,
+            const std::vector<html::AddCountryType>& addCountry) const;
+        std::string matchName(const teams::ClubTeams& teams) const;
+        std::string team1; // id home playing team
+        std::string team2; // id away playing team
+        std::shared_ptr <general::ShobDate> dd;
+        std::string result; // in the form : "3-2"
+        StarEnum star = StarEnum::unknownYet; // indication for who is going to the next round
+        std::string stadium;
+        std::string referee;
+        int spectators;
+        bool isFinal = false;
+        std::string remark;
+        std::string link_name;
+        std::string ko_phase;
+        int winner() const;
+        bool withSpectator() const;
+    private:
+        std::string nvns() const;
+    };
+
+}
+

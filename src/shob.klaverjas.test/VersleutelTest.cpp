@@ -1,7 +1,7 @@
 #include "VersleutelTest.h"
 
 #include "../shob.klaverjas/Versleutel.h"
-#include "../shob.test.utils/testUtils.h"
+#include "../shob.test.utils/TestUtils.h"
 
 #include <gtest/gtest.h>
 
@@ -12,7 +12,7 @@ namespace shob::klaverjas::test
     void VersleutelTest::TestVersleutel()
     {
         const std::string relative_path = "../../code/Klaverjas/sleutels.txt";
-        const std::string filename = testUtils::refFileWithPath(__FILE__, relative_path);
+        const std::string filename = TestUtils::refFileWithPath(__FILE__, relative_path);
 
         auto result = Versleutel(0, filename);
 

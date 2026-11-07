@@ -38,7 +38,7 @@ namespace shob::pages
 
         const auto matches1_csv = readMatchesData(season1);
         const auto matches2_csv = readMatchesData(season2);
-        auto all_matches = readers::csvContent();
+        auto all_matches = readers::CsvContent();
         all_matches.header = matches1_csv.header;
         all_matches.body = matches1_csv.body;
         for (const auto& row : matches2_csv.body)
@@ -47,28 +47,28 @@ namespace shob::pages
             all_matches.body.push_back(row);
         }
 
-        auto matches1 = football::footballCompetition();
+        auto matches1 = football::FootballCompetition();
         matches1.readFromCsvData(matches1_csv);
-        football::footballCompetition matches2;
-        football::footballCompetition matches3;
+        football::FootballCompetition matches2;
+        football::FootballCompetition matches3;
         if ( ! matches2_csv.body.empty())
         {
-            matches2 = football::footballCompetition();
+            matches2 = football::FootballCompetition();
             matches2.readFromCsvData(matches2_csv);
-            matches3 = football::footballCompetition();
+            matches3 = football::FootballCompetition();
             matches3.readFromCsvData(all_matches);
         }
 
-        const auto date1 = general::itdate(year * 10000);
-        const auto date2 = general::itdate((year + 1) * 10000);
+        const auto date1 = general::ItDate(year * 10000);
+        const auto date2 = general::ItDate((year + 1) * 10000);
         const auto filtered1 = matches1.filterDate(date1, date2);
         const auto filtered2 = matches2.filterDate(date1, date2);
         const auto filtered3 = matches3.filterDate(date1, date2);
         const auto dd = matches2_csv.body.empty() ? filtered1.lastDate().toInt() : filtered3.lastDate().toInt();
 
-        const auto stand1 = football::results2standings::u2s(filtered1, scoring1);
-        const auto stand2 = football::results2standings::u2s(filtered2, scoring2);
-        const auto stand3 = football::results2standings::u2s(filtered3, scoring2);
+        const auto stand1 = football::ResultsToStandings::u2s(filtered1, scoring1);
+        const auto stand2 = football::ResultsToStandings::u2s(filtered2, scoring2);
+        const auto stand3 = football::ResultsToStandings::u2s(filtered3, scoring2);
 
         auto prep_table1 = stand1.prepareTable(teams, settings);
         prep_table1.title = "stand 1e helft " + std::to_string(year);
@@ -77,7 +77,7 @@ namespace shob::pages
         auto prep_table3 = stand3.prepareTable(teams, settings);
         prep_table3.title = "kalenderjaar " + std::to_string(year);
 
-        const auto table = html::table(settings);
+        const auto table = html::Table(settings);
         auto part1 = table.buildTable(prep_table1);
         auto part2 = table.buildTable(prep_table2);
         auto part3 = table.buildTable(prep_table3);
@@ -136,10 +136,10 @@ namespace shob::pages
         return last_year;
     }
 
-    readers::csvContent FormatSemestersAndYearStandings::readMatchesData(const general::Season& season) const
+    readers::CsvContent FormatSemestersAndYearStandings::readMatchesData(const general::Season& season) const
     {
         const auto csv_input = std::format("{}/eredivisie_{}.csv", folder, season.toPartFilename());
-        const auto csv_data = readers::csvReader::readCsvFile(csv_input);
+        const auto csv_data = readers::CsvReader::readCsvFile(csv_input);
         return csv_data;
     }
 

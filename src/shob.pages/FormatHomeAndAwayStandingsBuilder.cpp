@@ -1,0 +1,53 @@
+
+#include "FormatHomeAndAwayStandingsBuilder.h"
+#include "../shob.general/glob.h"
+#include <algorithm>
+
+namespace shob::pages
+{
+    FormatHomeAndAwayStandings FormatHomeAndAwayStandingsBuilder::build(const std::string& folder, const html::Settings& settings)
+    {
+        auto menu = prepareTopMenu(folder);
+
+        auto teams = teams::ClubTeams();
+        teams.InitFromFile(folder + "/../clubs.csv", teams::ClubsOrCountries::clubs);
+
+        auto remarks = readers::CsvAllSeasonsReader();
+        remarks.init(folder + "eredivisie_remarks.csv");
+
+        auto format = FormatHomeAndAwayStandings(folder, teams, menu, remarks, settings);
+        return format;
+    }
+
+    TopMenu FormatHomeAndAwayStandingsBuilder::prepareTopMenu(const std::string& dataFolder)
+    {
+        auto archive = general::Glob::list(dataFolder, "eredivisie_[0-9]{4}_[0-9]{4}.csv");
+        std::sort(archive.begin(), archive.end(), cmpFunc);
+
+        auto filenames = general::UniqueStrings();
+        bool is_first = true;
+        for (const auto& name : archive)
+        {
+            if (is_first)
+            {
+                is_first = false;
+            }
+            else
+            {
+                const auto shortName = "nl_uit_thuis_" + name.substr(11, 13);
+                filenames.insert(shortName);
+            }
+        }
+
+        auto menu = TopMenu(filenames.list(), 'n');
+
+        return menu;
+    }
+
+    bool FormatHomeAndAwayStandingsBuilder::cmpFunc(const std::string& a, const std::string& b)
+    {
+        return a < b;
+    }
+
+}
+

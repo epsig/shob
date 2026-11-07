@@ -1,0 +1,192 @@
+
+#include "Route2final.h"
+
+#include "../shob.general/shobException.h"
+
+namespace shob::football
+{
+    using namespace shob::html;
+
+    void RouteToFfinal::addOneRound(TableContent& table, const FootballCompetition& matches,
+        const std::vector<int>& positions, const teams::ClubTeams& teams, const size_t offset, const size_t maxCols,
+        const Settings& settings, const std::vector<AddCountryType>& addCountry)
+    {
+        if (matches.matches.size() == positions.size())
+        {
+            for(size_t i = 0; i < positions.size(); i++)
+            {
+                general::MultipleStrings data;
+                for (size_t j = 0; j < offset; j++) data.data.emplace_back("");
+                data.data.push_back( matches.matches[i].printSimple(teams, false, addCountry)) ;
+                for (size_t j = offset + 1; j < maxCols; j++) data.data.emplace_back("");
+                table.body[positions[i]] = data;
+            }
+        }
+        else
+        {
+            auto returns = matches.getReturns();
+            if (matches.matches.size() -returns.couples.size() == positions.size())
+            {
+                size_t ipos = 0; // counter for positions
+                for (size_t i = 0; i < matches.matches.size(); i++)
+                {
+                    if ( ! returns.isSecondMatch[i])
+                    {
+                        general::MultipleStrings data;
+                        for (size_t j = 0; j < offset; j++) data.data.emplace_back("");
+                        auto first = matches.matches[i].printSimple(teams, false, addCountry);
+                        auto ii = returns.couples[i];
+                        auto second = matches.matches[ii].printSimple(teams, true, addCountry);
+                        data.data.push_back(first + "<br>" + second);
+                        for (size_t j = offset + 1; j < maxCols; j++) data.data.emplace_back("");
+                        table.body[positions[ipos]] = data;
+                        ipos++;
+                    }
+                }
+            }
+        }
+    }
+
+    std::vector<TableContent> RouteToFfinal::prepareTable(const teams::ClubTeams& teams, const Settings& settings) const
+    {
+        const std::vector lineNrs16 = { 0, 2, 4, 6, 9, 11, 13, 15 };
+        std::vector<int> lineNrs8;
+        std::vector<int> lineNrs4;
+        std::vector<int> lineNrs2;
+        std::vector<size_t> offsets;
+        int finalTextRow;
+        size_t maxCols;
+
+        auto table = TableContent();
+        if (!last16.matches.empty())
+        {
+            lineNrs8 = { 1, 5, 10, 14 };
+            lineNrs4 = { 3, 12 };
+            lineNrs2 = { 8 };
+            table.body = std::vector<general::MultipleStrings>(16);
+            finalTextRow = 7;
+            offsets = { 3,2,1,0 };
+            maxCols = 4;
+        }
+        else
+        {
+            lineNrs8 = { 0, 2, 5, 7 };
+            lineNrs4 = { 1, 6 };
+            lineNrs2 = { 4 };
+            table.body = std::vector<general::MultipleStrings>(8);
+            finalTextRow = 3;
+            offsets = { 2,1,0 };
+            maxCols = 3;
+        }
+
+        if ( ! final.matches.empty())
+        {
+            auto row = general::MultipleStrings();
+            for (int i = 0; i < (last16.matches.empty() ? 2 : 3); i++)
+            {
+                row.data.emplace_back("");
+            }
+            if (settings.lang == Language::Dutch)
+            {
+                row.data.emplace_back("<b>F I N A L E:</b>");
+                if ( ! bronze.matches.empty())
+                {
+                    row.data[1] = "<i>3e/4e plaats:</i>";
+                }
+            }
+            else
+            {
+                row.data.emplace_back("<b>F I N A L:</b>");
+                if ( ! bronze.matches.empty())
+                {
+                    row.data[1] = "<i>3rd/4th place:</i>";
+                }
+            }
+            table.body[finalTextRow] = row;
+        }
+        std::vector<AddCountryType> addCountries1 = { AddCountryType::withAcronym, AddCountryType::notAtAll };
+        std::vector<AddCountryType> addCountries2 = { AddCountryType::notAtAll, AddCountryType::notAtAll };
+        std::string keep;
+        if ( ! bronze.matches.empty())
+        {
+            addOneRound(table, bronze, lineNrs2, teams, offsets[0], maxCols, settings, addCountries2);
+            keep = table.body[lineNrs2[0]].data[offsets[0]];
+        }
+        addOneRound(table, final, lineNrs2, teams, offsets[0], maxCols, settings, addCountries2);
+        if ( ! keep.empty())
+        {
+            table.body[lineNrs2[0]].data[1] = keep;
+        }
+        addOneRound(table, semiFinal, lineNrs4, teams, offsets[1], maxCols, settings, addCountries2);
+        if (!last16.matches.empty())
+        {
+            addOneRound(table, quarterFinal, lineNrs8, teams, offsets[2], maxCols, settings, addCountries2);
+            addOneRound(table, last16, lineNrs16, teams, offsets[3], maxCols, settings, addCountries1);
+        }
+        else
+        {
+            addOneRound(table, quarterFinal, lineNrs8, teams, offsets[2], maxCols, settings, addCountries1);
+        }
+
+        if (!final.matches.empty())
+        {
+            if (!final.matches[0].remark.empty())
+            {
+                auto table2 = TableContent();
+                general::MultipleStrings s;
+                auto remark = "(opm: " + final.matches[0].remark + ")";
+                s.addContent(remark);
+                table2.body.push_back(s);
+                table2.colWidths = { static_cast<int>(maxCols) };
+                if (maxCols == 3)
+                {
+                    table.colWidths = { 1, 1, 1 };
+                }
+                else
+                {
+                    table.colWidths = {1, 1, 1, 1};
+                }
+                return { table, table2 };
+            }
+        }
+
+        return { table };
+    }
+
+    general::ItDate RouteToFfinal::lastDate() const
+    {
+        auto dd = final.lastDate().toInt();
+        dd = std::max(dd, bronze.lastDate().toInt());
+        dd = std::max(dd, semiFinal.lastDate().toInt());
+        dd = std::max(dd, quarterFinal.lastDate().toInt());
+        dd = std::max(dd, last16.lastDate().toInt());
+        auto date = general::ItDate(dd);
+        return date;
+    }
+
+    bool RouteToFfinal::has_round(const std::string& round) const
+    {
+        if (round == "last16") return !last16.matches.empty();
+        throw general::ShobException("not implemented yet");
+    }
+
+    bool RouteToFfinal::empty() const
+    {
+        return final.matches.empty() && bronze.matches.empty() && semiFinal.matches.empty() && quarterFinal.matches.empty() && last16.matches.empty();
+    }
+
+    FootballCompetition RouteToFfinal::getAllMatches() const
+    {
+        auto return_value = FootballCompetition();
+        for (const auto& part : {last16, quarterFinal, semiFinal, bronze, final} )
+        {
+            for (const auto& m : part.matches)
+            {
+                return_value.matches.push_back(m);
+            }
+        }
+        return return_value;
+    }
+
+}
+

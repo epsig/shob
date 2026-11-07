@@ -1,0 +1,48 @@
+
+#include "ItDate.h"
+
+#include <format>
+
+namespace shob::general
+{
+    std::string ItDate ::toString() const
+    {
+        size_t year;
+        size_t day;
+        size_t mon;
+        if (splitAndValidate(year, mon, day))
+        {
+            std::string sday = std::to_string(day);
+            return sday + " " + monthsDutch[mon - 1] + " " + std::to_string(year);
+        }
+        else if (dd > 0)
+        {
+            return std::to_string(dd);
+        }
+        else
+        {
+            return "";
+        }
+    }
+
+    bool ItDate::splitAndValidate(size_t& year, size_t& mon, size_t& day) const
+    {
+        if (dd < 0) return false;
+        year = dd / 10000;
+        day = dd % 100;
+        mon = (dd - day - 10000 * year) / 100;
+        return mon <= 12 && day <= maxDays(year, mon);
+    }
+
+    std::string ItDate::toShortString() const
+    {
+        size_t year;
+        size_t day;
+        size_t mon;
+        if (splitAndValidate(year, mon, day))
+        {
+            return std::to_string(day) + " " + monthsDutch[mon - 1];
+        }
+        return "*****";
+    }
+}

@@ -11,10 +11,10 @@ namespace shob::pages
 {
     using namespace shob::general;
 
-    EkWkOneYear::EkWkOneYear(const EkWkDate ekwk, const html::settings settings, const teams::clubTeams& teams,
-        const readers::csvAllSeasonsReader& top_scorers, const teams::footballers& players,
+    EkWkOneYear::EkWkOneYear(const EkWkDate ekwk, const html::Settings settings, const teams::ClubTeams& teams,
+        const readers::CsvAllSeasonsReader& top_scorers, const teams::Footballers& players,
         const std::vector<std::vector<std::string>>& current_remarks,
-        football::route2final r2f, groupList groups, football::footballCompetition round2, readers::xmlReader reader)
+        football::RouteToFfinal r2f, groupList groups, football::FootballCompetition round2, readers::XmlReader reader)
         : ekwk(ekwk), settings(settings), teams(teams), top_scorers(top_scorers), players(players), current_remarks(current_remarks),
         r2f(std::move(r2f)), groups(std::move(groups)), round2(std::move(round2)), reader(std::move(reader))
     {
@@ -43,7 +43,7 @@ namespace shob::pages
         prepTable.title = "Tussenronde";
         dd = std::max(dd, round2.lastDate().toInt());
 
-        auto Table = html::table(settings);
+        auto Table = html::Table(settings);
         auto content = Table.buildTable(prepTable);
         ret_val.data.addContent(content);
         ret_val.linkName = "round2";
@@ -54,7 +54,7 @@ namespace shob::pages
     PageBlock EkWkOneYear::getLast16(int& dd) const
     {
         PageBlock return_value;
-        auto Table = html::table(settings);
+        auto Table = html::Table(settings);
         Table.withBorder = false;
         if (!r2f.empty())
         {
@@ -73,7 +73,7 @@ namespace shob::pages
 
     PageBlock EkWkOneYear::getGroupResults(int& dd) const
     {
-        auto tables = std::vector<html::tableContent>();
+        auto tables = std::vector<html::TableContent>();
 
         for (const auto& g : groups.data)
         {
@@ -86,7 +86,7 @@ namespace shob::pages
             dd = std::max(dd, g.matches.lastDate().toInt());
         }
 
-        auto Table = html::table(settings);
+        auto Table = html::Table(settings);
         auto ret_val = PageBlock();
         if (!groups.data.empty())
         {
@@ -98,7 +98,7 @@ namespace shob::pages
         {
             auto left = Table.buildTable({ tables[4 * i] , tables[4 * i + 1] });
             auto right = Table.buildTable({ tables[4 * i + 2] , tables[4 * i + 3] });
-            auto combined = html::table::tableOfTwoTables(left, right);
+            auto combined = html::Table::tableOfTwoTables(left, right);
             content.addContent(combined);
         }
         if (tables.size() % 4 != 0)
@@ -152,7 +152,7 @@ namespace shob::pages
         return ret_val;
     }
 
-    void EkWkOneYear::getFieldsTable3(const std::vector<football::footballMatch>& matches, std::string& matchNames, std::string& results) const
+    void EkWkOneYear::getFieldsTable3(const std::vector<football::FootballMatch>& matches, std::string& matchNames, std::string& results) const
     {   // copied from getFieldsTable3 in FormatStatsEredivisie
         // TODO avoid duplication
         const std::string sp = "&nbsp;";
@@ -171,9 +171,9 @@ namespace shob::pages
 
     MultipleStrings EkWkOneYear::table3_to_html(const football::strikingResults& data) const
     {   // based on table3_to_html in FormatStatsEredivisie
-        html::tableContent content1;
+        html::TableContent content1;
 
-        if (settings.lang == html::language::English)
+        if (settings.lang == html::Language::English)
         {
             content1.header.data = { "biggest victory", "most goals per team", "most goals per match" };
         }
@@ -184,7 +184,7 @@ namespace shob::pages
 
         content1.colWidths = { 2, 2, 2 };
 
-        html::tableContent content;
+        html::TableContent content;
         content.header.data = {};
 
         MultipleStrings body;
@@ -194,7 +194,7 @@ namespace shob::pages
         getFieldsTable3(data.mostGoalsPerMatch, body.data[4], body.data[5]);
         content.body.push_back(body);
 
-        auto Table = html::table(settings);
+        auto Table = html::Table(settings);
         auto return_value = MultipleStrings();
         auto table = Table.buildTable({ content1, content });
         return_value.addContent(table);
@@ -204,13 +204,13 @@ namespace shob::pages
     PageBlock EkWkOneYear::getTopscorers() const
     {
         auto return_value = PageBlock();
-        auto tp = football::topscorers(top_scorers);
+        auto tp = football::Topscorers(top_scorers);
         tp.initFromFile(ekwk.shortNameWithYear());
         if (tp.getSizeList() > 0)
         {
             auto table = tp.prepareTable(teams, players, settings);
             table.title = "Topscorers";
-            auto Table = html::table(settings);
+            auto Table = html::Table(settings);
             auto out = Table.buildTable(table);
             return_value.data.addContent("<p id=\"topscorers\"> </p>");
             return_value.data.addContent(out);
@@ -263,7 +263,7 @@ namespace shob::pages
         for (const auto& [time, remark] : games)
         {
             const auto trimmed = StringUtils::trim(remark, " ");
-            const auto splitted = readers::csvReader::split(trimmed, " ");
+            const auto splitted = readers::CsvReader::split(trimmed, " ");
             if (trimmed.starts_with("Rood"))
             {
                 std::string line = time + "'";

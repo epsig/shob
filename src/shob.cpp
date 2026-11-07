@@ -1,34 +1,33 @@
-
 #include <filesystem>
 #include <iostream>
 #include <format>
 #include <algorithm>
 
-#include "shob.general/dateFactory.h"
-#include "shob.pages/FormatEC_Factory.h"
-#include "shob.pages/FormatNL_Factory.h"
-#include "shob.pages/FormatEkWkFactory.h"
-#include "shob.pages/FormatEkWkDFactory.h"
-#include "shob.pages/FormatEkWkQfFactory.h"
-#include "shob.pages/FormatOsFactory.h"
-#include "shob.pages/FormatSemestersAndYearStandingsFactory.h"
-#include "shob.pages/FormatHomeAndAwayStandingsFactory.h"
-#include "shob.pages/FormatStatsEredivisieFactory.h"
+#include "shob.general/DateFactory.h"
+#include "shob.pages/FormatEC_Builder.h"
+#include "shob.pages/FormatNL_Builder.h"
+#include "shob.pages/FormatEkWkBuilder.h"
+#include "shob.pages/FormatEkWkDBuilder.h"
+#include "shob.pages/FormatEkWkQfBuilder.h"
+#include "shob.pages/FormatOsBuilder.h"
+#include "shob.pages/FormatSemestersAndYearStandingsBuilder.h"
+#include "shob.pages/FormatHomeAndAwayStandingsBuilder.h"
+#include "shob.pages/FormatStatsEredivisieBuilder.h"
 #include "shob.pages/FormatHomePage.h"
 #include "shob.pages/FormatBookmarks.h"
 #include "shob.pages/FormatRest.h"
 #include "shob.pages/FormatKlaverjas.h"
 #include "shob.klaverjas/MergeJavaScript.h"
 #include "shob.general/Season.h"
-#include "shob.general/shobException.h"
-#include "shob.html/updateIfNewer.h"
+#include "shob.general/ShobException.h"
+#include "shob.html/UpdateIfNewer.h"
 
 void read_command_line(int argc, char* argv[], int& yr1, int&yr2, bool& skip_kj)
 {
     using namespace shob::general;
     if (argc >= 3)
     {
-        if (dateFactory::allDigits(argv[1]) && dateFactory::allDigits(argv[2]))
+        if (DateFactory::allDigits(argv[1]) && DateFactory::allDigits(argv[2]))
         {
             const std::string arg1 = argv[1];
             const std::string arg2 = argv[2];
@@ -41,12 +40,12 @@ void read_command_line(int argc, char* argv[], int& yr1, int&yr2, bool& skip_kj)
         }
         else
         {
-            throw shobException("first two command line arguments must be years");
+            throw ShobException("first two command line arguments must be years");
         }
     }
     else if (argc == 2)
     {
-        if (dateFactory::allDigits(argv[1]))
+        if (DateFactory::allDigits(argv[1]))
         {
             const std::string arg1 = argv[1];
             yr1 = std::stoi(arg1);
@@ -54,7 +53,7 @@ void read_command_line(int argc, char* argv[], int& yr1, int&yr2, bool& skip_kj)
         }
         else
         {
-            throw shobException("first command line argument must be a year");
+            throw ShobException("first command line argument must be a year");
         }
     }
 }
@@ -74,19 +73,19 @@ int main(int argc, char* argv[])
 
         read_command_line(argc, argv, firstYear, lastYear, skip_kj);
 
-        part = "running factories";
-        auto settings = shob::html::settings();
+        part = "running builders";
+        auto settings = shob::html::Settings();
         settings.dateFormatShort = false;
-        auto fmt_nl = format_nl_factory::build("sport", settings);
-        auto fmt_ec = FormatEC_Factory::build("sport", settings);
-        auto fmt_ekwk = FormatEkWkFactory::build("sport", settings);
-        auto fmt_ekwkD = FormatEkWkDFactory::build("sport", settings);
-        auto fmt_ekwk_qf = FormatEkWkQfFactory::build("sport", settings);
-        auto fmt_os = FormatOsFactory::build("sport/schaatsen/", settings);
-        auto fmt_semesters_and_year = FormatSemestersAndYearStandingsFactory().build("sport/eredivisie/", settings);
-        auto fmt_home_away = FormatHomeAndAwayStandingsFactory::build("sport/eredivisie/", settings);
+        auto fmt_nl = format_nl_builder::build("sport", settings);
+        auto fmt_ec = FormatEC_Builder::build("sport", settings);
+        auto fmt_ekwk = FormatEkWkBuilder::build("sport", settings);
+        auto fmt_ekwkD = FormatEkWkDBuilder::build("sport", settings);
+        auto fmt_ekwk_qf = FormatEkWkQfBuilder::build("sport", settings);
+        auto fmt_os = FormatOsBuilder::build("sport/schaatsen/", settings);
+        auto fmt_semesters_and_year = FormatSemestersAndYearStandingsBuilder().build("sport/eredivisie/", settings);
+        auto fmt_home_away = FormatHomeAndAwayStandingsBuilder::build("sport/eredivisie/", settings);
 
-        auto fmt_stats_eredivisie = FormatStatsEredivisieFactory::build("sport/eredivisie/", settings);
+        auto fmt_stats_eredivisie = FormatStatsEredivisieBuilder::build("sport/eredivisie/", settings);
         for (const auto & extra : {true, false})
         {
             fmt_stats_eredivisie.getPagesToFile(extra,
@@ -175,7 +174,6 @@ int main(int argc, char* argv[])
         auto fmt_rest = FormatRest("doc/");
         fmt_rest.rebuildTechDoc(TechDocType::Klaverjas, 20261023);
         fmt_rest.rebuildTechDoc(TechDocType::Shob, 20261023);
-        fmt_rest.rebuildTechDoc(TechDocType::Adressen, 20261023);
         fmt_rest.rebuildLetters();
         fmt_rest.rebuildAsciiCodes();
         fmt_rest.rebuildEpsig(20261023);
@@ -183,11 +181,7 @@ int main(int argc, char* argv[])
         fmt_rest.rebuildStats(dd);
 
         part = "copy style sheets";
-        shob::html::updateIfDifferent::update("../code/test/epsig.css", "../pages/epsig.css");
-        if (std::filesystem::is_directory("../pages_new/"))
-        {
-            shob::html::updateIfDifferent::update("../code/test/epsig.css", "../pages_new/epsig.css");
-        }
+        shob::html::UpdateIfDifferent::update("../code/test/epsig.css", "../pages/epsig.css");
     }
     catch (const std::exception& e)
     {

@@ -46,12 +46,12 @@ namespace shob::pages
     /// </summary>
     struct HeadBottomInput
     {
-        HeadBottomInput(int d) : dd(general::itdate(d)) {}
+        HeadBottomInput(int d) : dd(general::ItDate(d)) {}
         general::MultipleStrings body;
         std::string title;
         StyleSheetType css = StyleSheetType::InlineInHead;
         JavaScriptType js = JavaScriptType::None;
-        general::itdate dd;
+        general::ItDate dd;
         bool copyTitleToH1 = true;
         bool withFooter = true;
         FooterStyle footerStyle = FooterStyle::Old;
@@ -71,9 +71,9 @@ namespace shob::pages
         static general::MultipleStrings getStyleSheetKlaverjas();
         static general::MultipleStrings getStyleSheetKlaverjasKlein();
         static general::MultipleStrings getLinkToStyleSheet();
-        static general::MultipleStrings getFooter(const general::itdate& dd, FooterStyle footerStyle, FooterSubStyle footerSubStyle, const std::string& pageInFooter);
+        static general::MultipleStrings getFooter(const general::ItDate& dd, FooterStyle footerStyle, FooterSubStyle footerSubStyle, const std::string& pageInFooter);
         static general::MultipleStrings getJsSortTable();
-        static bookmarks::ListOfEvents getFooterLinks(const general::itdate& dd, const std::string& pageInFooter);
+        static bookmarks::ListOfEvents getFooterLinks(const general::ItDate& dd, const std::string& pageInFooter);
         static bookmarks::ListOfEvents getFooterKlaverjasLinks(FooterSubStyle footerSubStyle);
     };
 }

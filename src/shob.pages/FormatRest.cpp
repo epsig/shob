@@ -22,12 +22,12 @@ namespace shob::pages
     void FormatRest::rebuildAsciiCodes() const
     {
         const auto page = getAsciiCodes();
-        html::updateIfDifferent::update("../pages/tmp_ascii_codes.html", page);
+        html::UpdateIfDifferent::update("../pages/tmp_ascii_codes.html", page);
     }
 
     general::MultipleStrings FormatRest::getAsciiCodes() const
     {
-        html::tableContent content;
+        html::TableContent content;
         content.title = "escape codes";
         for (int i = 3; i < 26; ++i)
         {
@@ -42,19 +42,18 @@ namespace shob::pages
             content.body.push_back(std::move(row));
         }
 
-        auto settings = html::settings();
-        settings.isCompatible = true;
+        auto settings = html::Settings();
         auto hb = HeadBottomInput(20261023);
         hb.title = "Ascii codes in HTML";
         hb.css = StyleSheetType::SeparateFile;
-        hb.body = html::table(settings).buildTable(std::vector<html::tableContent>{ content });
+        hb.body = html::Table(settings).buildTable(std::vector<html::TableContent>{ content });
         return HeadBottom::getPage(hb);
     }
 
     void FormatRest::rebuildLetters() const
     {
         const auto page = getLetters();
-        html::updateIfDifferent::update("../pages/anybrowser.html", page);
+        html::UpdateIfDifferent::update("../pages/anybrowser.html", page);
     }
 
     general::MultipleStrings FormatRest::getLetters() const
@@ -150,11 +149,10 @@ Let er verder op dat de symbolen &amp;, &gt;, &lt; en &quot; een aparte betekeni
         const auto type_str = std::map<TechDocType, std::string>{
             { TechDocType::Klaverjas, "tech_doc_kj.html" },
             { TechDocType::Shob, "tech_doc_shob.html" },
-            { TechDocType::Adressen, "tech_doc_adressen.html" }
         } [type] ;
 
         const auto page = getTechDoc(type_str, type, dd);
-        html::updateIfDifferent::update("../pages/" + type_str, page);
+        html::UpdateIfDifferent::update("../pages/" + type_str, page);
     }
 
     general::MultipleStrings FormatRest::getTechDoc(const std::string& type_str, const TechDocType type, const int dd) const
@@ -162,7 +160,6 @@ Let er verder op dat de symbolen &amp;, &gt;, &lt; en &quot; een aparte betekeni
         const auto title = std::map<TechDocType, std::string>{
             { TechDocType::Klaverjas, "Klaverjassen" },
             { TechDocType::Shob, "Shob" },
-            { TechDocType::Adressen, "Adressen" }
         } [type] ;
 
         auto content = general::FileIO::readFile("doc/" + type_str);
@@ -179,7 +176,7 @@ Let er verder op dat de symbolen &amp;, &gt;, &lt; en &quot; een aparte betekeni
     void FormatRest::rebuildEpsig(const int dd) const
     {
         const auto page = getEpsig(dd);
-        html::updateIfDifferent::update("../pages/epsig.html", page);
+        html::UpdateIfDifferent::update("../pages/epsig.html", page);
     }
 
     general::MultipleStrings FormatRest::getEpsig(const int dd) const
@@ -208,7 +205,7 @@ Edwin Spee
 
         hb.copyTitleToH1 = false;
         hb.footerStyle = FooterStyle::New;
-        hb.body = table::yellowRed(content, hb.title);
+        hb.body = Table::yellowRed(content, hb.title);
 
         auto page = HeadBottom::getPage(hb);
         return page;
@@ -217,7 +214,7 @@ Edwin Spee
     void FormatRest::rebuildStats(const int dd) const
     {
         const auto page = getStats(dd);
-        html::updateIfDifferent::update("../pages/stats.html", page);
+        html::UpdateIfDifferent::update("../pages/stats.html", page);
     }
 
     general::MultipleStrings FormatRest::getStats(const int dd) const
@@ -233,7 +230,7 @@ Edwin Spee
         const std::regex sportPattern("sport", std::regex::icase);
         const std::regex klaverjasPattern("kj_code", std::regex::icase);
 
-        tableContent stats;
+        TableContent stats;
         stats.header.data = { "periode", "traffic", "M hits", "pageviews total",
             "pageviews klaverjassen", "pageviews sport" };
         int lastDate = -1;
@@ -261,7 +258,7 @@ Edwin Spee
                     }
                     if (std::filesystem::exists(path))
                     {
-                        throw shobException("Cannot read statistics file: " + path.string());
+                        throw ShobException("Cannot read statistics file: " + path.string());
                     }
                     input.clear();
                 }
@@ -287,14 +284,14 @@ Edwin Spee
                             });
                         if (monthIt == months.end())
                         {
-                            throw shobException("Invalid date in statistics file: " + filename.string());
+                            throw ShobException("Invalid date in statistics file: " + filename.string());
                         }
                         const auto day = std::stoi(match[1].str());
                         const auto dateYear = std::stoi(match[3].str());
                         const auto dateMonth = static_cast<int>(monthIt - months.begin()) + 1;
-                        if (day < 1 || day > static_cast<int>(shobDate::maxDays(dateYear, dateMonth)))
+                        if (day < 1 || day > static_cast<int>(ShobDate::maxDays(dateYear, dateMonth)))
                         {
-                            throw shobException("Invalid date in statistics file: " + filename.string());
+                            throw ShobException("Invalid date in statistics file: " + filename.string());
                         }
                         lastDate = dateYear * 10000 + dateMonth * 100 + day;
                         ++days;
@@ -318,11 +315,11 @@ Edwin Spee
                 }
                 if (input.bad())
                 {
-                    throw shobException("Cannot read statistics file: " + filename.string());
+                    throw ShobException("Cannot read statistics file: " + filename.string());
                 }
                 if (days == 0)
                 {
-                    throw shobException("No daily dates in statistics file: " + filename.string());
+                    throw ShobException("No daily dates in statistics file: " + filename.string());
                 }
 
                 hits *= 1e-6;
@@ -347,9 +344,8 @@ Edwin Spee
         content.addContent(R"(De website www.epsig.nl <sup>*</sup>
 haalt de volgende hoeveelheid hits (dat is inclusief plaatjes) en pageviews:
 <p>&nbsp;)");
-        auto settings = html::settings();
-        settings.isCompatible = true;
-        auto statsTable = table(settings).buildTable(stats);
+        auto settings = html::Settings();
+        auto statsTable = Table(settings).buildTable(stats);
         content.addContent(statsTable);
         content.addContent("*: en voorganger www.xs4all.nl/~spee t/m mei 2005.");
         content.addContent("<p>italic: cijfers aangepast vanwege ontbrekende dagen.");
@@ -359,7 +355,7 @@ haalt de volgende hoeveelheid hits (dat is inclusief plaatjes) en pageviews:
         hb.css = StyleSheetType::SeparateFile;
         hb.copyTitleToH1 = false;
         hb.footerStyle = FooterStyle::New;
-        hb.body = table::yellowRed(content, hb.title);
+        hb.body = Table::yellowRed(content, hb.title);
         return HeadBottom::getPage(hb);
     }
 
