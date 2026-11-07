@@ -62,7 +62,7 @@ namespace shob::football::test
         auto reader = teams::clubTeams();
         reader.InitFromFile(filename2, teams::clubsOrCountries::clubs);
 
-        const auto table = filtered.prepareTable(reader, html::settings());
+        const auto table = filtered.prepareTable(reader, html::Settings());
         EXPECT_EQ(6, table.body.size());
     }
 

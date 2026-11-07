@@ -1,10 +1,9 @@
-
 #include <filesystem>
 #include <iostream>
 #include <format>
 #include <algorithm>
 
-#include "shob.general/dateFactory.h"
+#include "shob.general/DateFactory.h"
 #include "shob.pages/FormatEC_Builder.h"
 #include "shob.pages/FormatNL_Builder.h"
 #include "shob.pages/FormatEkWkBuilder.h"
@@ -20,8 +19,8 @@
 #include "shob.pages/FormatKlaverjas.h"
 #include "shob.klaverjas/MergeJavaScript.h"
 #include "shob.general/Season.h"
-#include "shob.general/shobException.h"
-#include "shob.html/updateIfNewer.h"
+#include "shob.general/ShobException.h"
+#include "shob.html/UpdateIfNewer.h"
 
 void read_command_line(int argc, char* argv[], int& yr1, int&yr2, bool& skip_kj)
 {
@@ -75,7 +74,7 @@ int main(int argc, char* argv[])
         read_command_line(argc, argv, firstYear, lastYear, skip_kj);
 
         part = "running builders";
-        auto settings = shob::html::settings();
+        auto settings = shob::html::Settings();
         settings.dateFormatShort = false;
         auto fmt_nl = format_nl_builder::build("sport", settings);
         auto fmt_ec = FormatEC_Builder::build("sport", settings);
@@ -182,7 +181,7 @@ int main(int argc, char* argv[])
         fmt_rest.rebuildStats(dd);
 
         part = "copy style sheets";
-        shob::html::updateIfDifferent::update("../code/test/epsig.css", "../pages/epsig.css");
+        shob::html::UpdateIfDifferent::update("../code/test/epsig.css", "../pages/epsig.css");
     }
     catch (const std::exception& e)
     {

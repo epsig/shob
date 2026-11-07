@@ -1,13 +1,13 @@
 
-#include "table.h"
-#include "funcs.h"
+#include "Table.h"
+#include "Funcs.h"
 #include <boost/regex.hpp>
 
 namespace shob::html
 {
     using namespace shob::general;
 
-    MultipleStrings table::buildTable(const tableContent& content) const
+    MultipleStrings Table::buildTable(const TableContent& content) const
     {
         MultipleStrings table;
 
@@ -48,7 +48,7 @@ namespace shob::html
         return table;
     }
 
-    MultipleStrings table::buildTable(const std::vector<tableContent>& content) const
+    MultipleStrings Table::buildTable(const std::vector<TableContent>& content) const
     {
         MultipleStrings table;
         if (content.empty()) { return table; }
@@ -114,7 +114,7 @@ namespace shob::html
         return table;
     }
 
-    MultipleStrings table::tableOfTwoTables(MultipleStrings& left, MultipleStrings& right)
+    MultipleStrings Table::tableOfTwoTables(MultipleStrings& left, MultipleStrings& right)
     {
         auto retVal = MultipleStrings();
         retVal.addContent(R"(<div class="row"><div class="column">)");
@@ -135,7 +135,7 @@ namespace shob::html
     /// <param name="title_left"> The title for the left column. </param>
     /// <param name="title_right"> The title for the right column. </param>
     /// <returns> A MultipleStrings object containing the formatted HTML for the two columns. </returns>
-    MultipleStrings table::yellowRed(const MultipleStrings& left, const MultipleStrings& right, const std::string& title_left, const std::string& title_right)
+    MultipleStrings Table::yellowRed(const MultipleStrings& left, const MultipleStrings& right, const std::string& title_left, const std::string& title_right)
     {
         auto retVal = MultipleStrings();
         retVal.addContent(R"(<div class="row"><div class="column">)");
@@ -169,7 +169,7 @@ namespace shob::html
     /// <param name="left"> The content for the left column. </param>
     /// <param name="title"> The title for the column. </param>
     /// <returns> A MultipleStrings object containing the formatted HTML for the column. </returns>
-    MultipleStrings table::yellowRed(const MultipleStrings& left, const std::string& title)
+    MultipleStrings Table::yellowRed(const MultipleStrings& left, const std::string& title)
     {
         auto retVal = MultipleStrings();
         retVal.addContent(R"(<div class="row"><div class="column1000">)");
@@ -186,7 +186,7 @@ namespace shob::html
         return retVal;
     }
 
-    MultipleStrings table::tableOfThreeTables(MultipleStrings& left, MultipleStrings& middle, MultipleStrings& right)
+    MultipleStrings Table::tableOfThreeTables(MultipleStrings& left, MultipleStrings& middle, MultipleStrings& right)
     {
         auto retVal = MultipleStrings();
         retVal.addContent(R"(<div class="row"><div class="column3">)");
@@ -200,7 +200,7 @@ namespace shob::html
         return retVal;
     }
 
-    std::string table::buildRow(const MultipleStrings& content, const std::vector<int>& colWidths)
+    std::string Table::buildRow(const MultipleStrings& content, const std::vector<int>& colWidths)
     {
         std::vector<std::string> tag1;
         std::vector<std::string> tag2;
@@ -219,17 +219,17 @@ namespace shob::html
         return buildRow(content, tag1, tag2);
     }
 
-    std::string table::buildRow(const MultipleStrings& content)
+    std::string Table::buildRow(const MultipleStrings& content)
     {
         return buildRow(content, "<td>", "</td>");
     }
 
-    std::string table::buildHeader(const MultipleStrings& content)
+    std::string Table::buildHeader(const MultipleStrings& content)
     {
         return buildRow(content, "<th>", "</th>");
     }
 
-    std::string table::buildHeader(const MultipleStrings& content, const std::vector<int>& colWidths)
+    std::string Table::buildHeader(const MultipleStrings& content, const std::vector<int>& colWidths)
     {
         std::vector<std::string> tag1;
         std::vector<std::string> tag2;
@@ -248,14 +248,14 @@ namespace shob::html
         return buildRow(content, tag1, tag2);
     }
 
-    std::string table::buildHeader(const std::string& s, const size_t cols)
+    std::string Table::buildHeader(const std::string& s, const size_t cols)
     {
         MultipleStrings content;
         content.data.push_back(s);
         return buildRow(content, "<th colspan=\"" + std::to_string(cols) + "\" class=h>", "</th>");
     }
 
-    std::string table::buildRow(const MultipleStrings& content, const std::string& tag1, const std::string& tag2)
+    std::string Table::buildRow(const MultipleStrings& content, const std::string& tag1, const std::string& tag2)
     {
         std::string row = "<tr>";
         boost::regex expression("\\d+-\\d+");
@@ -264,7 +264,7 @@ namespace shob::html
         for (int i = 0; i < static_cast<int>(content.data.size()); i++)
         {
             auto& col = content.data[i];
-            if (funcs::isAcronymOnly(col) && col.find(" =") != std::string::npos)
+            if (Funcs::isAcronymOnly(col) && col.find(" =") != std::string::npos)
             {
                 if (extraLine) row += "\n";
                 row += "<td class=r>" + col + tag2;
@@ -285,7 +285,7 @@ namespace shob::html
         return row;
     }
 
-    std::string table::buildRow(const MultipleStrings& content, const std::vector<std::string>& tag1, const std::vector<std::string>& tag2)
+    std::string Table::buildRow(const MultipleStrings& content, const std::vector<std::string>& tag1, const std::vector<std::string>& tag2)
     {
         std::string row = "<tr>";
         boost::regex expression("\\d+-\\d+");

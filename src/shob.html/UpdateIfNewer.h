@@ -1,4 +1,3 @@
-
 #pragma once
 
 #include "../shob.general/MultipleStrings.h"
@@ -6,7 +5,7 @@
 
 namespace shob::html
 {
-    class updateIfDifferent
+    class UpdateIfDifferent
     {
     public:
         static void update(const std::string& path, const general::MultipleStrings& content);

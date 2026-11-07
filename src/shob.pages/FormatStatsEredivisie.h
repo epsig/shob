@@ -2,7 +2,7 @@
 #pragma once
 #include "SpectatorResults.h"
 #include "../shob.teams/clubTeams.h"
-#include "../shob.html/settings.h"
+#include "../shob.html/Settings.h"
 #include "../shob.general/MultipleStrings.h"
 #include "../shob.football/results2standings.h"
 #include "../shob.football/topscorers.h"
@@ -57,7 +57,7 @@ namespace shob::pages
     {
     public:
         FormatStatsEredivisie(std::string folder, teams::clubTeams& teams, StatFilesSummary& list_matches,
-            const html::settings& settings);
+            const html::Settings& settings);
         void getPagesToFile(const bool extraStats, const std::string& filename) const;
         general::MultipleStrings getStats(const bool extraStats) const;
         static std::string getOutputFilename(const std::string& folder, const bool extraStats);
@@ -65,7 +65,7 @@ namespace shob::pages
         const std::string sportDataFolder;
         const teams::clubTeams teams;
         const StatFilesSummary list_matches;
-        const html::settings settings;
+        const html::Settings settings;
         static void updateOneResult(teamWithMinMaxResults& result, const int x, const std::string& team);
         goalsSummary getGoalsSummary(const football::Standings& table) const;
         static sumGoalsAndMatches getSumGoalsAndMatches(const football::Standings& table);

@@ -13,7 +13,7 @@ namespace shob::pages
     void FormatHomePage::rebuildHomePage(const int dd) const
     {
         const auto page = getHomePage(dd);
-        html::updateIfDifferent::update("../pages/index.html", page);
+        html::UpdateIfDifferent::update("../pages/index.html", page);
     }
 
     MultipleStrings FormatHomePage::getHomePage(const int dd) const
@@ -23,8 +23,8 @@ namespace shob::pages
         auto block_top_left = blockTopLeft();
         auto block_bottom_right = blockBottomRight();
 
-        auto top = html::table::yellowRed(block_top_left, current_events, "Deze site", "Actueel");
-        auto bottom = html::table::yellowRed(content, block_bottom_right, "Sport en spel", "Links");
+        auto top = html::Table::yellowRed(block_top_left, current_events, "Deze site", "Actueel");
+        auto bottom = html::Table::yellowRed(content, block_bottom_right, "Sport en spel", "Links");
 
         auto hb = HeadBottomInput(dd);
         hb.title = "Welkom op epsig.nl!";

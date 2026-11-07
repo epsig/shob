@@ -67,7 +67,7 @@ namespace shob::pages
 
         auto out = MultipleStrings();
 
-        auto Table = html::table(settings);
+        auto Table = html::Table(settings);
 
         // beker/supercup:
         const std::string bekerFilename = sportDataFolder + "/beker/beker_" + season.toPartFilename() + ".csv";
@@ -135,7 +135,7 @@ namespace shob::pages
         PageBlock retval;
         if (dataBekerAndSupercup.body.empty()) return retval;
 
-        auto Table = html::table(settings);
+        auto Table = html::Table(settings);
         auto filter = football::FilterInputList();
         const std::string part = "supercup";
         filter.filters.push_back({ 0, part });
@@ -160,7 +160,7 @@ namespace shob::pages
         const auto filtered = competition.filter(toppers);
         if ( ! filtered.matches.empty())
         {
-            auto Table = html::table(settings);
+            auto Table = html::Table(settings);
             Table.id = "klassiekers";
             auto prepTable = filtered.prepareTable(teams, settings);
             prepTable.title = "De traditionele toppers";
@@ -177,7 +177,7 @@ namespace shob::pages
         const std::vector<std::vector<std::string>>& remarks_this_season) const
     {
         PageBlock retval;
-        auto Table = html::table(settings);
+        auto Table = html::Table(settings);
         Table.id = "eredivisie";
 
         std::string title = "Eredivisie";
@@ -185,7 +185,7 @@ namespace shob::pages
         {
             if (row[0] == "title")
             {
-                title = html::funcs::acronym("Eredivisie", row[1]);
+                title = html::Funcs::acronym("Eredivisie", row[1]);
             }
         }
 
@@ -240,7 +240,7 @@ namespace shob::pages
             {
                 if (row[0] == "title")
                 {
-                    title = html::funcs::acronym("Eerste Divisie", row[1]);
+                    title = html::Funcs::acronym("Eerste Divisie", row[1]);
                 }
             }
 
@@ -250,7 +250,7 @@ namespace shob::pages
             auto prepTable = standing_1e_div.prepareTable(teams, settings);
             prepTable.title = std::format("Stand {}", title);
 
-            auto Table = html::table(settings);
+            auto Table = html::Table(settings);
             Table.id = "1ste_div";
             auto content = Table.buildTable(prepTable);
 
@@ -312,7 +312,7 @@ namespace shob::pages
         {
             auto table = tp.prepareTable(teams, players, settings);
             table.title = "Topscorers " + name_competition;
-            auto Table = html::table(settings);
+            auto Table = html::Table(settings);
             auto out = Table.buildTable(table);
             return out;
         }
@@ -325,7 +325,7 @@ namespace shob::pages
     PageBlock FormatNL::getBeker(const readers::csvContent& dataBekerAndSupercup, int& dd) const
     {
         PageBlock retval;
-        auto Table = html::table(settings);
+        auto Table = html::Table(settings);
         Table.withBorder = false;
         if (!dataBekerAndSupercup.body.empty())
         {

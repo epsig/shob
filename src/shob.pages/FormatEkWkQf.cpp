@@ -168,7 +168,7 @@ namespace shob::pages
         auto prepTableStandings = stand.prepareTable(teams, settings);
         prepTableStandings.title = title;
 
-        html::tableContent beslissend;
+        html::TableContent beslissend;
         if ( ! remarks.data.empty())
         {
             auto splitted_countries = readers::csvReader::split(remarks.data[0], ";");
@@ -186,7 +186,7 @@ namespace shob::pages
 
         auto prepTableMatchesNL = splitted.first.prepareTable(teams, settings);
         prepTableMatchesNL.title = "Uitslagen Nederlands Elftal";
-        const auto Table = html::table(settings);
+        const auto Table = html::Table(settings);
         auto leftPart = Table.buildTable({ prepTableStandings, beslissend, prepTableMatchesNL });
 
         auto prepTableMatchesWithoutNL = splitted.second.prepareTable(teams, settings);
@@ -255,7 +255,7 @@ namespace shob::pages
             standing.initFromData(standings_data);
             auto prepTableStandings = standing.prepareTable(teams, settings);
             prepTableStandings.title = "Virtuele stand nummers 2";
-            auto table = html::table(settings);
+            auto table = html::Table(settings);
             auto lines = table.buildTable(prepTableStandings);
             retVal.addContent(lines);
             if ( ! opms_vstand.data.empty())
@@ -286,7 +286,7 @@ namespace shob::pages
 
             auto prepTableMatchesNL = matches.prepareTable(teams, settings);
             prepTableMatchesNL.title = "Naar de play-offs";
-            const auto Table = html::table(settings);
+            const auto Table = html::Table(settings);
             auto playoffs = Table.buildTable(prepTableMatchesNL);
             retVal.addContent("<p id=\"playoffs\"> </p>");
             retVal.addContent(playoffs);
@@ -305,7 +305,7 @@ namespace shob::pages
             const auto finals = RouteToFinalFactory::create(csvInput);
             auto prepTable = finals.prepareTable(teams, settings);
             prepTable[0].header.addContent("Finals Nations League");
-            auto Table = html::table(settings);
+            auto Table = html::Table(settings);
             Table.withBorder = false;
             retVal.addContent("<p id=\"natleaguefinals\"> </p>");
             auto matches = Table.buildTable(prepTable);
@@ -360,7 +360,7 @@ namespace shob::pages
         {
             dd = std::max(dd, filtered.lastDate().toInt());
             prepTableMatchesNL.title = "Uitslagen Oefenduels Nederland";
-            const auto Table = html::table(settings);
+            const auto Table = html::Table(settings);
             retVal.addContent("<p id=\"keizersbaard\"> </p>");
             auto matches = Table.buildTable(prepTableMatchesNL);
             retVal.addContent(matches);
@@ -378,8 +378,8 @@ namespace shob::pages
         {
             retVal.addContent(title);
             const auto parts = csvData.getParts();
-            auto tablesLeft = std::vector<html::tableContent>();
-            auto tablesRight = std::vector<html::tableContent>();
+            auto tablesLeft = std::vector<html::TableContent>();
+            auto tablesRight = std::vector<html::TableContent>();
             int i = 0;
             for (const auto& part : parts.list())
             {
@@ -409,7 +409,7 @@ namespace shob::pages
                     i++;
                 }
             }
-            const auto table = html::table(settings);
+            const auto table = html::Table(settings);
             auto leftPart = table.buildTable(tablesLeft);
             auto rightPart = table.buildTable(tablesRight);
             auto all = table.tableOfTwoTables(leftPart, rightPart);
@@ -426,7 +426,7 @@ namespace shob::pages
         if (!csvData.body.empty())
         {
             retVal.addContent(std::format("<h2 id=\"deelnemers\"> {} </h2>", title_qualified));
-            html::tableContent content;
+            html::TableContent content;
             content.header.data = { "nr", "land", "opm" };
             for (size_t i = 0; i < csvData.body.size(); i++)
             {
@@ -436,7 +436,7 @@ namespace shob::pages
                 body.data = { std::format("{}", i+1), country, row.column[2]};
                 content.body.push_back(body);
             }
-            const auto Table = html::table(settings);
+            const auto Table = html::Table(settings);
             auto table = Table.buildTable(content);
             retVal.addContent(table);
         }

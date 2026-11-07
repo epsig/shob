@@ -8,7 +8,7 @@ namespace shob::pages
     class FormatEkWkDBuilder
     {
     public:
-        static FormatEkWkD build(const std::string& dataFolder, const html::settings& settings);
+        static FormatEkWkD build(const std::string& dataFolder, const html::Settings& settings);
         static bool cmpFunc(const std::string& a, const std::string& b);
         static TopMenu prepareTopMenu(const std::string& dataFolderEkWkQf);
     };

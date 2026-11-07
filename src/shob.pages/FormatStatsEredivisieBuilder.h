@@ -8,6 +8,6 @@ namespace shob::pages
     class FormatStatsEredivisieBuilder
     {
     public:
-        static FormatStatsEredivisie build(const std::string& dataFolder, const html::settings& settings);
+        static FormatStatsEredivisie build(const std::string& dataFolder, const html::Settings& settings);
     };
 }

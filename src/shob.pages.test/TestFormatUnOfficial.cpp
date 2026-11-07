@@ -1,9 +1,8 @@
-
 #include "TestFormatUnOfficial.h"
 
 #include <gtest/gtest.h>
 
-#include "../shob.html/settings.h"
+#include "../shob.html/Settings.h"
 #include "../shob.pages/FormatSemestersAndYearStandingsBuilder.h"
 #include "../shob.pages/FormatHomeAndAwayStandingsBuilder.h"
 #include "../shob.test.utils/testUtils.h"
@@ -16,7 +15,7 @@ namespace shob::pages::test
     {
         const std::string dataMap = "../../data/sport/eredivisie/";
         const std::string dataFolder = testUtils::refFileWithPath(__FILE__, dataMap);
-        constexpr auto settings = html::settings();
+        constexpr auto settings = html::Settings();
         const auto fmt_un_off = FormatSemestersAndYearStandingsBuilder().build(dataFolder, settings);
         const auto lines = fmt_un_off.getPages(2010);
         ASSERT_EQ(lines.data.size(), 99);
@@ -26,7 +25,7 @@ namespace shob::pages::test
     {
         const std::string dataMap = "../../data/sport/eredivisie/";
         const std::string dataFolder = testUtils::refFileWithPath(__FILE__, dataMap);
-        constexpr auto settings = html::settings();
+        constexpr auto settings = html::Settings();
         const auto fmt_home_away = FormatHomeAndAwayStandingsBuilder::build(dataFolder, settings);
         const auto season = general::Season(2010);
         const bool exists = fmt_home_away.isValidSeason(season);
@@ -39,7 +38,7 @@ namespace shob::pages::test
     {
         const std::string dataMap = "../testdata/yearstandings1/";
         const std::string dataFolder = testUtils::refFileWithPath(__FILE__, dataMap);
-        constexpr auto settings = html::settings();
+        constexpr auto settings = html::Settings();
         const auto fmt_un_off = FormatSemestersAndYearStandingsBuilder().build(dataFolder, settings);
         const auto last_year = fmt_un_off.getLastYear();
         EXPECT_EQ(last_year, 2014);
@@ -51,13 +50,11 @@ namespace shob::pages::test
     {
         const std::string dataMap = "../testdata/yearstandings2/";
         const std::string dataFolder = testUtils::refFileWithPath(__FILE__, dataMap);
-        constexpr auto settings = html::settings();
+        constexpr auto settings = html::Settings();
         const auto fmt_un_off = FormatSemestersAndYearStandingsBuilder().build(dataFolder, settings);
         const auto last_year = fmt_un_off.getLastYear();
         EXPECT_EQ(last_year, 2013);
         const auto lines = fmt_un_off.getPages(2011);
         ASSERT_EQ(lines.data.size(), 88);
     }
-
 }
-

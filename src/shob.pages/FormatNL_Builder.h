@@ -9,6 +9,6 @@ namespace shob::pages
     {
     public:
         static bool cmpFunc(const std::string& a, const std::string& b);
-        static FormatNL build(const std::string& dataFolder, const html::settings& settings);
+        static FormatNL build(const std::string& dataFolder, const html::Settings& settings);
     };
 }

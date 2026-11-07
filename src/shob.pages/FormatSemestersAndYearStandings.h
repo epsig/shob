@@ -1,4 +1,3 @@
-
 #pragma once
 
 #include "FormatOnePageEachYear.h"
@@ -13,7 +12,7 @@ namespace shob::pages
     {
     public:
         FormatSemestersAndYearStandings(std::string folder, teams::clubTeams teams, TopMenu menu,
-          readers::csvAllSeasonsReader all_seasons_reader,int last_year, const html::settings settings)
+          readers::csvAllSeasonsReader all_seasons_reader,int last_year, const html::Settings& settings)
         : folder(std::move(folder)), teams(std::move(teams)), menu(std::move(menu)),
           all_seasons_reader(std::move(all_seasons_reader)), last_year(last_year), settings(settings) {}
         general::MultipleStrings getPages(const int year) const override;
@@ -27,9 +26,8 @@ namespace shob::pages
         const TopMenu menu;
         const readers::csvAllSeasonsReader all_seasons_reader;
         const int last_year;
-        const html::settings settings;
+        const html::Settings settings;
         readers::csvContent readMatchesData(const general::Season& season) const;
         int getScoring(const general::Season& season) const;
     };
 }
-

@@ -35,7 +35,7 @@ namespace shob::pages
         return menu;
     }
 
-    FormatEkWkQf FormatEkWkQfBuilder::build(const std::string& dataFolder, const html::settings& settings)
+    FormatEkWkQf FormatEkWkQfBuilder::build(const std::string& dataFolder, const html::Settings& settings)
     {
         auto dataFolderEkWkQf = dataFolder + "/ekwk_qf/";
 

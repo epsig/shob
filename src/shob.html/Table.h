@@ -1,13 +1,12 @@
-
 #pragma once
 #include "../shob.general/MultipleStrings.h"
-#include "settings.h"
+#include "Settings.h"
 #include <string>
 #include <vector>
 
 namespace shob::html
 {
-    class tableContent
+    class TableContent
     {
     public:
         general::MultipleStrings header;
@@ -17,12 +16,12 @@ namespace shob::html
         bool empty() const { return body.empty() && header.data.empty(); }
     };
 
-    class table
+    class Table
     {
     public:
-        table(settings s) : settings_(s){}
-        general::MultipleStrings buildTable(const tableContent& content) const;
-        general::MultipleStrings buildTable(const std::vector<tableContent>& content) const;
+        Table(Settings s) : settings_(s){}
+        general::MultipleStrings buildTable(const TableContent& content) const;
+        general::MultipleStrings buildTable(const std::vector<TableContent>& content) const;
         static general::MultipleStrings tableOfTwoTables(general::MultipleStrings& left, general::MultipleStrings& right);
         static general::MultipleStrings yellowRed(const general::MultipleStrings& left, const general::MultipleStrings& right, const std::string& title_left, const std::string& title_right);
         static general::MultipleStrings yellowRed(const general::MultipleStrings& left, const std::string& title);
@@ -37,6 +36,6 @@ namespace shob::html
         static std::string buildHeader(const general::MultipleStrings& content, const std::vector<int>& colWidths);
         static std::string buildRow(const general::MultipleStrings& content, const std::string& tag1, const std::string& tag2);
         static std::string buildRow(const general::MultipleStrings& content, const std::vector<std::string>& tag1, const std::vector<std::string>& tag2);
-        settings settings_;
+        Settings settings_;
     };
 }

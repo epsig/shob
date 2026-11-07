@@ -23,7 +23,7 @@ namespace shob::football::test
         reader.InitFromFile(filename2, teams::clubsOrCountries::clubs);
 
         const auto r2f = RouteToFinalFactory::create(filename);
-        const auto prepTable = r2f.prepareTable(reader, html::settings());
+        const auto prepTable = r2f.prepareTable(reader, html::Settings());
 
         EXPECT_EQ(16, prepTable[0].body.size());
         EXPECT_EQ(prepTable[0].body[8].data[3], "21 apr 2025 AZ - <b>Go Ahead Eagles</b> 1-1 ns") << "check bold for winner";
@@ -54,7 +54,7 @@ namespace shob::football::test
 
         const auto data = csvReader::readCsvFile(filename);
         const auto r2f = RouteToFinalFactory::createEC(data, "CL");
-        const auto prepTable = r2f.prepareTable(reader, html::settings());
+        const auto prepTable = r2f.prepareTable(reader, html::Settings());
 
         EXPECT_EQ(8, prepTable[0].body.size());
         EXPECT_EQ(prepTable[0].body[0].data[0], "8 apr 2025 Arsenal - Real Madrid 3-0<br>16 apr 2025 Real Madrid - Arsenal * 1-2")

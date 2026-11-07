@@ -7,7 +7,7 @@ namespace shob::pages
     void FormatOnePageEachSeason::getPagesToFile(const general::Season& season, const std::string& filename) const
     {
         auto output = getSeason(season);
-        html::updateIfDifferent::update(filename, output);
+        html::UpdateIfDifferent::update(filename, output);
     }
 
     void FormatOnePageEachSeason::getPagesStdout(const general::Season& season) const

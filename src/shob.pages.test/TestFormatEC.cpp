@@ -1,4 +1,3 @@
-
 #include "TestFormatEC.h"
 
 #include <gtest/gtest.h>
@@ -12,7 +11,7 @@ namespace shob::pages::test
 
     const std::string data_map = "../../data/sport/";
     const std::string data_folder = testUtils::refFileWithPath(__FILE__, data_map);
-    constexpr auto settings = html::settings();
+    constexpr auto settings = html::Settings();
     const auto format_ec = FormatEC_Builder::build(data_folder, settings);
 
     void TestFormatEC::test_2024_2025()
@@ -37,7 +36,7 @@ namespace shob::pages::test
 
     void TestFormatEC::test_2019_2020_UK()
     {
-        constexpr auto settingsUK = html::settings(html::language::English);
+        constexpr auto settingsUK = html::Settings(html::Language::English);
         const auto fmt_ec_uk = FormatEC_Builder::build(data_folder, settingsUK);
         const auto lines = fmt_ec_uk.getSeason(general::Season(2019));
         ASSERT_EQ(lines.data.size(), 169);

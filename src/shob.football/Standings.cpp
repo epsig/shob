@@ -379,10 +379,10 @@ namespace shob::football
         }
     }
 
-    html::tableContent Standings::prepareTable(const teams::clubTeams& teams, const html::settings& settings) const
+    html::TableContent Standings::prepareTable(const teams::clubTeams& teams, const html::Settings& settings) const
     {
-        auto table = html::tableContent();
-        if (settings.lang == html::language::Dutch)
+        auto table = html::TableContent();
+        if (settings.lang == html::Language::Dutch)
         {
             table.header.data = { "club", "wedstrijden", "punten", "doelsaldo" };
         }
@@ -415,7 +415,7 @@ namespace shob::football
             std::string points;
             if (row.wins >= 0 && row.draws >= 0 && row.losses >= 0)
             {
-                points = html::funcs::acronym(std::to_string(row.points),
+                points = html::Funcs::acronym(std::to_string(row.points),
                     std::format("{:} x w, {:} x g en {:} x v => {:} pnt", row.wins, row.draws, row.losses, row.points));
             }
             else
@@ -425,12 +425,12 @@ namespace shob::football
             std::string goalDiff;
             if (row.goalDifference() == 0)
             {
-                goalDiff = html::funcs::acronym(std::format("{0:}", row.goalDifference()),
+                goalDiff = html::Funcs::acronym(std::format("{0:}", row.goalDifference()),
                     std::format("{:} - {:} = {:}", row.goals, row.goalsAgainst, row.goalDifference()));
             }
             else
             {
-                goalDiff = html::funcs::acronym(std::format("{0:+}", row.goalDifference()),
+                goalDiff = html::Funcs::acronym(std::format("{0:+}", row.goalDifference()),
                     std::format("{:} - {:} = {:+}", row.goals, row.goalsAgainst, row.goalDifference()));
             }
             data.data = { team, std::to_string(row.totalGames), points, goalDiff };

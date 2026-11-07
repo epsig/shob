@@ -22,7 +22,7 @@ namespace shob::teams
         void AddLandCodes(const nationalTeams& national_teams);
         void MergeTeams(const clubTeams& other);
         std::string expand(const std::string& club) const;
-        std::string expand(const std::string& club, const html::addCountryType addCountry) const;
+        std::string expand(const std::string& club, const html::AddCountryType addCountry) const;
         clubsOrCountries getClubsOrCountries() const { return teamType; }
     private:
         clubsOrCountries teamType = clubsOrCountries::unknownYet;

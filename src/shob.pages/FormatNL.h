@@ -16,7 +16,7 @@ namespace shob::pages
     {
     public:
         FormatNL(std::string folder, readers::csvAllSeasonsReader extras, readers::csvAllSeasonsReader remarks, TopMenu menu,
-            teams::clubTeams teams, html::settings settings) :
+            teams::clubTeams teams, html::Settings settings) :
             sportDataFolder(std::move(folder)), extras(std::move(extras)), remarks(std::move(remarks)), menu(std::move(menu)),
             teams(std::move(teams)), settings(settings) {}
         bool isValidSeason(const general::Season& season) const override;
@@ -32,7 +32,7 @@ namespace shob::pages
         const readers::csvAllSeasonsReader remarks;
         const TopMenu menu;
         const teams::clubTeams teams;
-        const html::settings settings;
+        const html::Settings settings;
         general::MultipleStrings getTopScorers(const std::string& file, const std::string& name_competition, const general::Season& season,
             const teams::footballers& players) const;
         PageBlock getSupercup(const readers::csvContent& dataBekerAndSupercup, const general::Season& season, int& dd) const;

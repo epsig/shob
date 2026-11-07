@@ -1,9 +1,8 @@
-
 #include "TestFormatOs.h"
 
 #include <gtest/gtest.h>
 
-#include "../shob.html/settings.h"
+#include "../shob.html/Settings.h"
 #include "../shob.pages/FormatOsBuilder.h"
 #include "../shob.test.utils/testUtils.h"
 
@@ -13,7 +12,7 @@ namespace shob::pages::test
 
     const std::string data_map = "../../data/sport/schaatsen/";
     const std::string data_folder = testUtils::refFileWithPath(__FILE__, data_map);
-    constexpr auto settings = html::settings();
+    constexpr auto settings = html::Settings();
     const auto format_os = FormatOsBuilder::build(data_folder, settings);
 
     void TestFormatOs::testOs2002()
@@ -79,6 +78,4 @@ namespace shob::pages::test
         const auto result2 = FormatOs::printResult(input, remark);
         EXPECT_EQ(result2, expected2);
     }
-
 }
-

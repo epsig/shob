@@ -4,7 +4,7 @@
 #include "TopMenu.h"
 #include "FormatOnePageEachYear.h"
 #include "../shob.readers/csvAllSeasonsReader.h"
-#include "../shob.html/settings.h"
+#include "../shob.html/Settings.h"
 #include "../shob.general/MultipleStrings.h"
 #include "../shob.teams/clubTeams.h"
 
@@ -17,7 +17,7 @@ namespace shob::pages
     {
     public:
         FormatOs(std::string folder, readers::csvAllSeasonsReader reader, readers::csvContent dames,
-            readers::csvContent heren, TopMenu menu, teams::nationalTeams teams, html::settings settings);
+            readers::csvContent heren, TopMenu menu, teams::nationalTeams teams, html::Settings settings);
         general::MultipleStrings getPages(const int year) const override;
         bool isValidYear(const int year) const override;
         std::string getOutputFilename(const std::string& output_folder, const int year) const override;
@@ -32,7 +32,7 @@ namespace shob::pages
         const readers::csvContent heren;
         const TopMenu menu;
         const teams::nationalTeams land_codes;
-        const html::settings settings;
+        const html::Settings settings;
         readers::csvContent readMatchesData(const int year) const;
         general::MultipleStrings getNumbersOne(const readers::csvContent& all_data) const;
         general::MultipleStrings getAllDistances(const char gender, const readers::csvContent& all_data) const;
@@ -44,4 +44,3 @@ namespace shob::pages
         static std::string adjustTeam(const std::string& team);
     };
 }
-

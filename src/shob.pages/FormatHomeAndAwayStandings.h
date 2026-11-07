@@ -1,4 +1,3 @@
-
 #pragma once
 
 #include "FormatOnePageEachSeason.h"
@@ -14,7 +13,7 @@ namespace shob::pages
     {
     public:
         FormatHomeAndAwayStandings(std::string folder, teams::clubTeams teams, TopMenu menu,
-            readers::csvAllSeasonsReader all_seasons_reader, const html::settings settings)
+            readers::csvAllSeasonsReader all_seasons_reader, const html::Settings& settings)
             : folder(std::move(folder)), teams(std::move(teams)), menu(std::move(menu)),
             all_seasons_reader(std::move(all_seasons_reader)), settings(settings) {}
         general::MultipleStrings getSeason(const general::Season& season) const override;
@@ -27,7 +26,7 @@ namespace shob::pages
         const teams::clubTeams teams;
         const TopMenu menu;
         const readers::csvAllSeasonsReader all_seasons_reader;
-        const html::settings settings;
+        const html::Settings settings;
         readers::csvContent readMatchesData(const general::Season& season) const;
         int getScoring(const general::Season& season) const;
     };

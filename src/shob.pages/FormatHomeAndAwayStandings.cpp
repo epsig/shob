@@ -52,7 +52,7 @@ namespace shob::pages
         auto prep_table3 = stand3.prepareTable(teams, settings);
         prep_table3.title = "uit + thuis " + season.toString();
 
-        const auto table = html::table(settings);
+        const auto table = html::Table(settings);
         auto part1 = table.buildTable(prep_table1);
         auto part2 = table.buildTable(prep_table2);
         auto part3 = table.buildTable(prep_table3);

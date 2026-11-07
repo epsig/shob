@@ -31,7 +31,7 @@ namespace shob::pages
         return menu;
     }
 
-    FormatOs FormatOsBuilder::build(const std::string& folder, const html::settings& settings)
+    FormatOs FormatOsBuilder::build(const std::string& folder, const html::Settings& settings)
     {
         auto remarks = csvAllSeasonsReader();
         remarks.init(folder + "schaatsen_remarks.csv");

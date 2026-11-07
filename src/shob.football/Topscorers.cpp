@@ -33,10 +33,10 @@ namespace shob::football
         }
     }
 
-    html::tableContent Topscorers::prepareTable(const teams::clubTeams& teams, const teams::footballers& players, const html::settings& settings) const
+    html::TableContent Topscorers::prepareTable(const teams::clubTeams& teams, const teams::footballers& players, const html::Settings& settings) const
     {
-        auto table = html::tableContent();
-        if (settings.lang == html::language::Dutch)
+        auto table = html::TableContent();
+        if (settings.lang == html::Language::Dutch)
         {
             if (teams.getClubsOrCountries() == teams::clubsOrCountries::countries)
                 table.header.data = { "positie", "naam (land)", "doelpunten" };

@@ -7,9 +7,9 @@ namespace shob::football
 {
     using namespace shob::html;
 
-    void RouteToFfinal::addOneRound(tableContent& table, const FootballCompetition& matches,
+    void RouteToFfinal::addOneRound(TableContent& table, const FootballCompetition& matches,
         const std::vector<int>& positions, const teams::clubTeams& teams, const size_t offset, const size_t maxCols,
-        const settings settings, const std::vector<addCountryType>& addCountry)
+        const Settings& settings, const std::vector<AddCountryType>& addCountry)
     {
         if (matches.matches.size() == positions.size())
         {
@@ -47,7 +47,7 @@ namespace shob::football
         }
     }
 
-    std::vector<tableContent> RouteToFfinal::prepareTable(const teams::clubTeams& teams, const settings& settings) const
+    std::vector<TableContent> RouteToFfinal::prepareTable(const teams::clubTeams& teams, const Settings& settings) const
     {
         const std::vector lineNrs16 = { 0, 2, 4, 6, 9, 11, 13, 15 };
         std::vector<int> lineNrs8;
@@ -57,7 +57,7 @@ namespace shob::football
         int finalTextRow;
         size_t maxCols;
 
-        auto table = tableContent();
+        auto table = TableContent();
         if (!last16.matches.empty())
         {
             lineNrs8 = { 1, 5, 10, 14 };
@@ -86,7 +86,7 @@ namespace shob::football
             {
                 row.data.emplace_back("");
             }
-            if (settings.lang == language::Dutch)
+            if (settings.lang == Language::Dutch)
             {
                 row.data.emplace_back("<b>F I N A L E:</b>");
                 if ( ! bronze.matches.empty())
@@ -104,8 +104,8 @@ namespace shob::football
             }
             table.body[finalTextRow] = row;
         }
-        std::vector addCountries1 = { addCountryType::withAcronym, addCountryType::notAtAll };
-        std::vector addCountries2 = { addCountryType::notAtAll, addCountryType::notAtAll };
+        std::vector<AddCountryType> addCountries1 = { AddCountryType::withAcronym, AddCountryType::notAtAll };
+        std::vector<AddCountryType> addCountries2 = { AddCountryType::notAtAll, AddCountryType::notAtAll };
         std::string keep;
         if ( ! bronze.matches.empty())
         {
@@ -132,7 +132,7 @@ namespace shob::football
         {
             if (!final.matches[0].remark.empty())
             {
-                auto table2 = tableContent();
+                auto table2 = TableContent();
                 general::MultipleStrings s;
                 auto remark = "(opm: " + final.matches[0].remark + ")";
                 s.addContent(remark);

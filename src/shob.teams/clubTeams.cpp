@@ -27,20 +27,20 @@ namespace shob::teams
         }
     }
 
-    std::string clubTeams::expand(const std::string& club, const html::addCountryType addCountry) const
+    std::string clubTeams::expand(const std::string& club, const html::AddCountryType addCountry) const
     {
         auto expanded = expand(club);
         if (club.size() == 3 || landCodes.empty()) return expanded;
         auto land = club.substr(0, 2);
-        if (addCountry != html::addCountryType::notAtAll && land != "NL")
+        if (addCountry != html::AddCountryType::notAtAll && land != "NL")
         {
             auto shortName = nationalTeams::shortName(land);
             if (const auto it = landCodes.find(land); it != landCodes.end())
             {
                 const auto& fullNameLand = it->second;
-                if (addCountry == html::addCountryType::withAcronym)
+                if (addCountry == html::AddCountryType::withAcronym)
                 {
-                    expanded += " (" + html::funcs::acronym(shortName, fullNameLand) + ")";
+                    expanded += " (" + html::Funcs::acronym(shortName, fullNameLand) + ")";
                 }
                 else
                 {

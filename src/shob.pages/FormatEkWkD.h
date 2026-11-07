@@ -13,7 +13,7 @@ namespace shob::pages
     class FormatEkWkD : public FormatOnePageEachYear
     {
     public:
-        FormatEkWkD(std::string data_sport_folder, teams::clubTeams teams, const html::settings& settings, readers::csvAllSeasonsReader remarks,
+        FormatEkWkD(std::string data_sport_folder, teams::clubTeams teams, const html::Settings& settings, readers::csvAllSeasonsReader remarks,
             readers::csvAllSeasonsReader top_scorers, teams::footballers players, TopMenu top_menu)
         : data_sport_folder(std::move(data_sport_folder)), teams(std::move(teams)), settings(settings), remarks(std::move(remarks)),
         top_scorers(std::move(top_scorers)), players(std::move(players)), top_menu(std::move(top_menu)) {}
@@ -26,7 +26,7 @@ namespace shob::pages
     private:
         std::string data_sport_folder;
         teams::clubTeams teams;
-        html::settings settings;
+        html::Settings settings;
         readers::csvAllSeasonsReader remarks;
         readers::csvAllSeasonsReader top_scorers;
         teams::footballers players;

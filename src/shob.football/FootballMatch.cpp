@@ -45,7 +45,7 @@ namespace shob::football
     }
 
     std::string FootballMatch::printSimple(const teams::clubTeams& teams, const bool isReturn,
-        const std::vector<html::addCountryType>& addCountry) const
+        const std::vector<html::AddCountryType>& addCountry) const
     {
         std::vector expanded = { teams.expand(team1, addCountry[0]), teams.expand(team2, addCountry[1])};
         auto index = winner();
@@ -67,7 +67,7 @@ namespace shob::football
         auto datum = dd->toString();
         if ( ! stadium.empty())
         {
-            datum = html::funcs::acronym(datum, "te: " + stadium);
+            datum = html::Funcs::acronym(datum, "te: " + stadium);
         }
         if (link_name.empty())
         {

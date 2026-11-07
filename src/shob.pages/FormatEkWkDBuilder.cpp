@@ -7,7 +7,7 @@
 
 namespace shob::pages
 {
-    FormatEkWkD FormatEkWkDBuilder::build(const std::string& dataFolder, const html::settings& settings)
+    FormatEkWkD FormatEkWkDBuilder::build(const std::string& dataFolder, const html::Settings& settings)
     {
         const auto data_folder_ek_wk = dataFolder + "/ekwk/";
 

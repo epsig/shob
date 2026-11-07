@@ -1,21 +1,20 @@
-
 #pragma once
-#include "language.h"
+#include "Language.h"
 
 namespace shob::html
 {
-    enum class addCountryType
+    enum class AddCountryType
     {
         notAtAll,
         withAcronym,
         fullCountryName
     };
 
-    class settings
+    class Settings
     {
     public:
-        language lang = language::Dutch;
+        Language lang = Language::Dutch;
         bool dateFormatShort = true;
-        addCountryType addCountry = addCountryType::notAtAll;
+        AddCountryType addCountry = AddCountryType::notAtAll;
     };
 }

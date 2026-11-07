@@ -5,7 +5,7 @@
 
 namespace shob::pages
 {
-    FormatHomeAndAwayStandings FormatHomeAndAwayStandingsBuilder::build(const std::string& folder, const html::settings& settings)
+    FormatHomeAndAwayStandings FormatHomeAndAwayStandingsBuilder::build(const std::string& folder, const html::Settings& settings)
     {
         auto menu = prepareTopMenu(folder);
 

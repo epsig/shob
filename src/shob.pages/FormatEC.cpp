@@ -112,7 +112,7 @@ namespace shob::pages
         wns_cl.wns_cf = -1;
         wns_cl.scoring = 3; // default since 1995
 
-        std::string summary_key = (settings.lang == language::Dutch ? "summary_NL" : "summary_UK");
+        std::string summary_key = (settings.lang == Language::Dutch ? "summary_NL" : "summary_UK");
 
         for (const auto& row : extraU2s)
         {
@@ -163,11 +163,11 @@ namespace shob::pages
         const auto matches = FilterResults::readFromCsvData(data, filter);
         dd = std::max(dd, matches.lastDate().toInt());
         auto adjSettings = settings;
-        adjSettings.addCountry = addCountryType::withAcronym;
+        adjSettings.addCountry = AddCountryType::withAcronym;
         auto prepTable = matches.prepareTable(teams, adjSettings);
         prepTable.title = "Europese Supercup";
-        auto Table = table(settings);
-        return Table.buildTable(prepTable);
+        auto table = Table(settings);
+        return table.buildTable(prepTable);
     }
 
     std::string FormatEC::getRemarks(const std::string& part, const std::string& group, const std::vector<std::vector<std::string>>& extraU2s)
@@ -191,10 +191,10 @@ namespace shob::pages
     MultipleStrings FormatEC::getFirstHalfYear(const std::string& part, const csvContent& data, const WnsEc& wns_cl,
         const std::vector<std::vector<std::string>>& extraU2s, const int sortRule, int& dd) const
     {
-        auto tables = std::vector<tableContent>();
+        auto tables = std::vector<TableContent>();
 
         auto adjSettings = settings;
-        adjSettings.addCountry = addCountryType::fullCountryName;
+        adjSettings.addCountry = AddCountryType::fullCountryName;
 
         // formatting depends on presence / absence of groups
         const auto groups = getGroups(part, data).list();
@@ -254,7 +254,7 @@ namespace shob::pages
             auto remarks = getRemarks(part, group, extraU2s);
             if ( ! remarks.empty())
             {
-                auto prepTable3 = tableContent();
+                auto prepTable3 = TableContent();
                 prepTable3.colWidths.push_back(4);
                 auto ms = MultipleStrings();
                 ms.addContent(remarks);
@@ -308,8 +308,8 @@ namespace shob::pages
             }
         }
 
-        auto Table = table(settings);
-        return Table.buildTable(tables);
+        auto table = Table(settings);
+        return table.buildTable(tables);
     }
 
     bool FormatEC::hasFinal(const std::string& part, const csvContent& csvData)
@@ -390,7 +390,7 @@ namespace shob::pages
         readSortRule(sortRule, extraU2s);
 
         std::string title;
-        if (settings.lang == language::Dutch)
+        if (settings.lang == Language::Dutch)
         {
             title = "Europacup voetbal seizoen " + season.toString();
             menuOut.data[0] = "<hr> andere seizoenen: | " + menuOut.data[0];
@@ -409,7 +409,7 @@ namespace shob::pages
 
         if ( ! summary.data.empty())
         {
-            if (settings.lang == language::Dutch)
+            if (settings.lang == Language::Dutch)
                 out.addContent("<h2>Samenvatting Europacup Seizoen " + season.toString() + "</h2>");
             else
                 out.addContent("<h2>Summary Europa cup season " + season.toString() + "</h2>");
@@ -434,9 +434,9 @@ namespace shob::pages
                     const auto r2f = RouteToFinalFactory::createEC(csvData, part);
                     auto prepTable = r2f.prepareTable(teams, settings);
                     prepTable[0].header.addContent(leagueNames.getFullName(part) + ": de laatste acht");
-                    auto Table = table(settings);
-                    Table.withBorder = false;
-                    content = Table.buildTable(prepTable);
+                    auto table = Table(settings);
+                    table.withBorder = false;
+                    content = table.buildTable(prepTable);
                     out.addContent("<p><a name=\"" + leagueNames.getLinkName(part) + "_last8\"/>");
                     out.addContent(content);
                     dd = std::max(dd, r2f.lastDate().toInt());

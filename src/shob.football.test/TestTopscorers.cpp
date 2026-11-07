@@ -1,5 +1,3 @@
-
-
 #include "TestTopscorers.h"
 
 #include <gtest/gtest.h>
@@ -33,7 +31,7 @@ namespace shob::football::test
         const std::string filename3 = testUtils::refFileWithPath(__FILE__, voetballers);
         players.initFromFile(filename3);
 
-        auto settings = html::settings();
+        auto settings = html::Settings();
         auto reader = teams::clubTeams();
         const std::string filename2 = testUtils::refFileWithPath(__FILE__, clubs);
 

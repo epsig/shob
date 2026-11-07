@@ -1,9 +1,8 @@
-
 #include "FormatStatsEredivisie.h"
 
 #include "HeadBottom.h"
-#include "../shob.html/updateIfNewer.h"
-#include "../shob.football/topscorers.h"
+#include "../shob.html/UpdateIfNewer.h"
+#include "../shob.football/Topscorers.h"
 #include "../shob.general/MathSupport.h"
 #include <format>
 #include <filesystem>
@@ -17,7 +16,7 @@ namespace shob::pages
     using namespace shob::general;
 
     FormatStatsEredivisie::FormatStatsEredivisie(std::string folder, teams::clubTeams& teams, StatFilesSummary& list_matches,
-        const html::settings& settings) :
+        const html::Settings& settings) :
         sportDataFolder(std::move(folder)), teams(std::move(teams)), list_matches(std::move(list_matches)),
         settings(settings)
     {
@@ -26,7 +25,7 @@ namespace shob::pages
     void FormatStatsEredivisie::getPagesToFile(const bool extraStats, const std::string& filename) const
     {
         const auto output = getStats(extraStats);
-        html::updateIfDifferent::update(filename, output);
+        html::UpdateIfDifferent::update(filename, output);
     }
 
     MultipleStrings FormatStatsEredivisie::getStats(const bool extraStats) const
@@ -297,9 +296,9 @@ namespace shob::pages
 
     MultipleStrings FormatStatsEredivisie::table1_to_html(const std::vector<std::pair<Season, goalsSummary>>& data) const
     {
-        html::tableContent content1;
+        html::TableContent content1;
 
-        if (settings.lang == html::language::English)
+        if (settings.lang == html::Language::English)
         {
             content1.header.data = { "season", "most goals", "least goals", "most goals against", "least goals against",
                 "highest goal difference", "lowest goal difference" };
@@ -321,7 +320,7 @@ namespace shob::pages
 
         content1.colWidths = { 1, 2, 2, 2, 2, 2, 2 };
 
-        html::tableContent content;
+        html::TableContent content;
         content.header.data = {};
 
         for (const auto& [szn, summary] : data)
@@ -337,7 +336,7 @@ namespace shob::pages
             };
             content.body.push_back(body);
         }
-        auto Table = html::table(settings);
+        auto Table = html::Table(settings);
         Table.id = "id2";
         auto return_value = MultipleStrings();
         return_value.addContent("<p id=\"extr_goals\">Gebruik pijltje om te sorteren</p>");
@@ -358,9 +357,9 @@ namespace shob::pages
     MultipleStrings FormatStatsEredivisie::table2_to_html(const std::vector<std::pair<Season, sumGoalsAndMatches>>& data,
         const std::vector<std::pair<Season, football::Numbers1>>& topscorers) const
     {
-        html::tableContent content;
+        html::TableContent content;
 
-        if (settings.lang == html::language::English)
+        if (settings.lang == html::Language::English)
         {
             content.header.data = { "season", "goals", "average", "name topscorer", "number of goals" };
         }
@@ -402,7 +401,7 @@ namespace shob::pages
 
         auto return_value = MultipleStrings();
         return_value.addContent("<p id=\"tot_goals\"> </p>");
-        auto Table = html::table(settings);
+        auto Table = html::Table(settings);
         Table.id = "id3";
         auto table = Table.buildTable( content);
         return_value.addContent(table);
@@ -425,9 +424,9 @@ namespace shob::pages
 
     MultipleStrings FormatStatsEredivisie::table3_to_html(const std::vector<std::pair<Season, football::strikingResults>>& results) const
     {
-        html::tableContent content1;
+        html::TableContent content1;
 
-        if (settings.lang == html::language::English)
+        if (settings.lang == html::Language::English)
         {
             content1.header.data = { "season", "biggest victory", "most goals per team", "most goals per match" };
         }
@@ -438,7 +437,7 @@ namespace shob::pages
 
         content1.colWidths = { 1, 2, 2, 2 };
 
-        html::tableContent content;
+        html::TableContent content;
         content.header.data = {};
 
         for (const auto& result : results)
@@ -455,7 +454,7 @@ namespace shob::pages
             content.body.push_back(body);
         }
 
-        auto Table = html::table(settings);
+        auto Table = html::Table(settings);
         Table.id = "id4";
         auto return_value = MultipleStrings();
         return_value.addContent("<p id=\"extr_uitsl\"> </p>");
@@ -466,9 +465,9 @@ namespace shob::pages
 
     MultipleStrings FormatStatsEredivisie::table4a_to_html(const std::vector<std::pair<Season, SpectatorResults>>& results) const
     {
-        html::tableContent content1;
+        html::TableContent content1;
 
-        if (settings.lang == html::language::English)
+        if (settings.lang == html::Language::English)
         {
             content1.header.data = { "season", "total number of spectators", "mean per match", "highest mean per team",
                 "lowest mean per team"};
@@ -494,7 +493,7 @@ namespace shob::pages
 
         content1.colWidths = { 1, 1, 1, 2, 2 };
 
-        html::tableContent content;
+        html::TableContent content;
         content.header.data = {};
 
         for (const auto& result : results)
@@ -527,7 +526,7 @@ namespace shob::pages
             content.body.push_back(body);
         }
 
-        auto Table = html::table(settings);
+        auto Table = html::Table(settings);
         Table.id = "id5";
         auto return_value = MultipleStrings();
         return_value.addContent("<p id=\"toesch\"> </p>");
@@ -548,9 +547,9 @@ namespace shob::pages
 
     MultipleStrings FormatStatsEredivisie::table4b_to_html(const std::vector<std::pair<Season, SpectatorResults>>& results) const
     {
-        html::tableContent content1;
+        html::TableContent content1;
 
-        if (settings.lang == html::language::English)
+        if (settings.lang == html::Language::English)
         {
             content1.header.data = { "season", "most visitors", "least visitors"};
         }
@@ -572,7 +571,7 @@ namespace shob::pages
 
         content1.colWidths = { 1, 2, 2 };
 
-        html::tableContent content;
+        html::TableContent content;
         content.header.data = {};
 
         for (const auto& result : results)
@@ -592,7 +591,7 @@ namespace shob::pages
             body.data[2] = std::format("{:04.1f} k", static_cast<double>(data.mostSpectators[0].spectators) * 1e-3);
             if (data.leastSpectators.size() > 3 && data.leastSpectators[0].spectators == 0)
             {
-                if (settings.lang == html::language::Dutch)
+                if (settings.lang == html::Language::Dutch)
                 {
                     body.data[3] = std::format("Geen publiek bij {} duels.", data.leastSpectators.size());
                 }
@@ -613,7 +612,7 @@ namespace shob::pages
             content.body.push_back(body);
         }
 
-        auto Table = html::table(settings);
+        auto Table = html::Table(settings);
         Table.id = "id6";
         auto return_value = MultipleStrings();
         return_value.addContent("<p id=\"toesch2\"> </p>");
@@ -649,9 +648,9 @@ namespace shob::pages
             }
         }
 
-        html::tableContent content;
+        html::TableContent content;
 
-        if (settings.lang == html::language::English)
+        if (settings.lang == html::Language::English)
         {
             content.header.data = { "rank", "season", "name topscorer", "number of goals" };
         }
@@ -688,7 +687,7 @@ namespace shob::pages
 
         auto return_value = MultipleStrings();
         return_value.addContent("<h2 id=\"all_time_tp\"> All time Topscorers. </h2>");
-        auto Table = html::table(settings);
+        auto Table = html::Table(settings);
         Table.id = "id3";
         auto table = Table.buildTable(content);
         return_value.addContent(table);

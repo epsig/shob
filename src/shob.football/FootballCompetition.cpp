@@ -110,9 +110,9 @@ namespace shob::football
         return retVal;
     }
 
-    html::tableContent FootballCompetition::prepareTable(const teams::clubTeams& teams, const html::settings& settings) const
+    html::TableContent FootballCompetition::prepareTable(const teams::clubTeams& teams, const html::Settings& settings) const
     {
-        auto table = html::tableContent();
+        auto table = html::TableContent();
         if ( matches.empty()) { return table; }
 
         bool withRemarks = false;
@@ -121,7 +121,7 @@ namespace shob::football
             if (!row.remark.empty()) withRemarks = true;
         }
 
-        if (settings.lang == html::language::Dutch)
+        if (settings.lang == html::Language::Dutch)
         {
             if (teams.getClubsOrCountries() == teams::clubsOrCountries::clubs)
             {
@@ -168,14 +168,14 @@ namespace shob::football
             std::string dd = settings.dateFormatShort ? row.dd->toShortString() : row.dd->toString();
             if ( ! row.stadium.empty())
             {
-                dd = html::funcs::acronym(dd, "te: " + row.stadium);
+                dd = html::Funcs::acronym(dd, "te: " + row.stadium);
             }
             auto addCountry = settings.addCountry;
             std::vector<std::string> stars = { "", "" };
             auto index = row.winner();
             if (returns.isSecondMatch[i])
             {
-                addCountry = html::addCountryType::notAtAll;
+                addCountry = html::AddCountryType::notAtAll;
                 if (index >= 0) stars[1-index] = "&nbsp;*";
             }
             else

@@ -15,7 +15,7 @@ namespace shob::pages::test
     {
         const std::string dataMap = "../../data/sport/eredivisie/";
         const std::string dataFolder = testUtils::refFileWithPath(__FILE__, dataMap);
-        constexpr auto settings = html::settings();
+        constexpr auto settings = html::Settings();
         const auto fmt_stats_eredivisie = FormatStatsEredivisieBuilder::build(dataFolder, settings);
         const auto lines = fmt_stats_eredivisie.getStats(false);
         EXPECT_GE(lines.findString("Klaas-Jan Huntelaar"), 0);
@@ -26,7 +26,7 @@ namespace shob::pages::test
     {
         const std::string dataMap = "../../data/sport/eredivisie";
         const std::string dataFolder = testUtils::refFileWithPath(__FILE__, dataMap);
-        constexpr auto settings = html::settings();
+        constexpr auto settings = html::Settings();
         const auto fmt_stats_eredivisie = FormatStatsEredivisieBuilder::build(dataFolder, settings);
         const auto lines = fmt_stats_eredivisie.getStats(true);
         EXPECT_GE(lines.findString("Marco van Basten"), 0);
@@ -36,7 +36,7 @@ namespace shob::pages::test
     {
         const std::string dataMap = "../testdata/yearstandings1/";
         const std::string dataFolder = testUtils::refFileWithPath(__FILE__, dataMap);
-        constexpr auto settings = html::settings();
+        constexpr auto settings = html::Settings();
         const auto fmt_stats_eredivisie = FormatStatsEredivisieBuilder::build(dataFolder, settings);
         const auto lines = fmt_stats_eredivisie.getStats(false);
         EXPECT_EQ(lines.data.size(), 87);
@@ -46,7 +46,7 @@ namespace shob::pages::test
     {
         const std::string dataMap = "../testdata/yearstandings2/";
         const std::string dataFolder = testUtils::refFileWithPath(__FILE__, dataMap);
-        constexpr auto settings = html::settings();
+        constexpr auto settings = html::Settings();
         const auto fmt_stats_eredivisie = FormatStatsEredivisieBuilder::build(dataFolder, settings);
         const auto lines = fmt_stats_eredivisie.getStats(false);
         EXPECT_EQ(lines.data.size(), 85);
@@ -56,7 +56,7 @@ namespace shob::pages::test
     {
         const std::string dataMap = "../testdata/yearstandings2/";
         const std::string dataFolder = testUtils::refFileWithPath(__FILE__, dataMap);
-        constexpr auto settings = html::settings();
+        constexpr auto settings = html::Settings();
         const auto fmt_stats_eredivisie = FormatStatsEredivisieBuilder::build(dataFolder, settings);
         const auto lines = fmt_stats_eredivisie.getStats(true);
         EXPECT_EQ(lines.data.size(), 92);

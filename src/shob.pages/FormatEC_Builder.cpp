@@ -1,10 +1,9 @@
-
 #include "FormatEC_Builder.h"
 
 #include <algorithm>
 
 #include "TopMenu.h"
-#include "../shob.general/glob.h"
+#include "../shob.general/Glob.h"
 
 namespace shob::pages
 {
@@ -15,7 +14,7 @@ namespace shob::pages
         return num1 < num2;
     }
 
-    FormatEC FormatEC_Builder::build(const std::string& dataFolder, const html::settings& settings)
+    FormatEC FormatEC_Builder::build(const std::string& dataFolder, const html::Settings& settings)
     {
         auto remarks = readers::csvAllSeasonsReader();
         remarks.init(dataFolder + "/europacup/europacup_remarks.csv");

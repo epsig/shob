@@ -1,13 +1,12 @@
-
 #include "FormatEkWkBuilder.h"
 
 #include <algorithm>
 
-#include "../shob.general/glob.h"
+#include "../shob.general/Glob.h"
 
 namespace shob::pages
 {
-    FormatEkWk FormatEkWkBuilder::build(const std::string& dataFolder, const html::settings& settings)
+    FormatEkWk FormatEkWkBuilder::build(const std::string& dataFolder, const html::Settings& settings)
     {
         const auto data_folder_ek_wk = dataFolder + "/ekwk/";
 

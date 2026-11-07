@@ -9,7 +9,7 @@
 namespace shob::pages
 {
 
-    FormatSemestersAndYearStandings FormatSemestersAndYearStandingsBuilder::build(const std::string& folder, const html::settings& settings)
+    FormatSemestersAndYearStandings FormatSemestersAndYearStandingsBuilder::build(const std::string& folder, const html::Settings& settings)
     {
         getLastYear(folder);
         auto menu = prepareTopMenu(folder);

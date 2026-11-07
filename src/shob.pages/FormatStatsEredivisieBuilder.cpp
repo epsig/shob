@@ -1,11 +1,10 @@
-
 #include "FormatStatsEredivisieBuilder.h"
-#include "../shob.general/glob.h"
+#include "../shob.general/Glob.h"
 #include <algorithm>
 
 namespace shob::pages
 {
-    FormatStatsEredivisie FormatStatsEredivisieBuilder::build(const std::string& dataFolder, const html::settings& settings)
+    FormatStatsEredivisie FormatStatsEredivisieBuilder::build(const std::string& dataFolder, const html::Settings& settings)
     {
         auto teams = teams::clubTeams();
         const auto file = dataFolder + "/../clubs.csv";

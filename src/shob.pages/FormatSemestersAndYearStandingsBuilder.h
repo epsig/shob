@@ -8,7 +8,7 @@ namespace shob::pages
     class FormatSemestersAndYearStandingsBuilder
     {
     public:
-        FormatSemestersAndYearStandings build(const std::string& folder, const html::settings& settings);
+        FormatSemestersAndYearStandings build(const std::string& folder, const html::Settings& settings);
     private:
         TopMenu prepareTopMenu(const std::string& dataFolder) const;
         static bool cmpFunc(const std::string& a, const std::string& b);

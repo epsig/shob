@@ -1,9 +1,8 @@
-
 #include "FormatNL_Builder.h"
 
 #include <algorithm>
 
-#include "../shob.general/glob.h"
+#include "../shob.general/Glob.h"
 #include "TopMenu.h"
 
 namespace shob::pages
@@ -26,7 +25,7 @@ namespace shob::pages
         return num1 < num2;
     }
 
-    FormatNL format_nl_builder::build(const std::string& dataFolder, const html::settings& settings)
+    FormatNL format_nl_builder::build(const std::string& dataFolder, const html::Settings& settings)
     {
         auto extras = readers::csvAllSeasonsReader();
         extras.init(dataFolder + "/eredivisie/eredivisie_u2s.csv");

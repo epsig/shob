@@ -7,7 +7,7 @@ namespace shob::pages
     void FormatOnePageEachYear::getPagesToFile(const int year, const std::string& filename) const
     {
         auto output = getPages(year);
-        html::updateIfDifferent::update(filename, output);
+        html::UpdateIfDifferent::update(filename, output);
     }
 
     void FormatOnePageEachYear::getPagesStdout(const int year) const
