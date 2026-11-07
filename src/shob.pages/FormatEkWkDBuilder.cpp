@@ -39,10 +39,10 @@ namespace shob::pages
 
     TopMenu FormatEkWkDBuilder::prepareTopMenu(const std::string& dataFolderEkWk)
     {
-        auto archive = general::glob::list(dataFolderEkWk, "[ew]kD[0-9]{4}.csv");
+        auto archive = general::Glob::list(dataFolderEkWk, "[ew]kD[0-9]{4}.csv");
         std::sort(archive.begin(), archive.end(), cmpFunc);
 
-        auto filenames = general::uniqueStrings();
+        auto filenames = general::UniqueStrings();
         for (auto& name : archive)
         {
             auto shortName = name.substr(0, 2) + "D" + name.substr(3, 4);

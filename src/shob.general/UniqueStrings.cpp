@@ -1,9 +1,8 @@
-
-#include "uniqueStrings.h"
+#include "UniqueStrings.h"
 
 namespace shob::general
 {
-    void uniqueStrings::insert(const std::string& s)
+    void UniqueStrings::insert(const std::string& s)
     {
         if (!contains(s))
         {
@@ -11,7 +10,7 @@ namespace shob::general
         }
     }
 
-    bool uniqueStrings::contains(const std::string& s) const
+    bool UniqueStrings::contains(const std::string& s) const
     {
         for (const auto& val : myset)
         {
@@ -20,7 +19,7 @@ namespace shob::general
         return false;
     }
 
-    std::vector<std::string> uniqueStrings::list() const
+    std::vector<std::string> UniqueStrings::list() const
     {
         return myset;
     }

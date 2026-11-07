@@ -28,7 +28,7 @@ void read_command_line(int argc, char* argv[], int& yr1, int&yr2, bool& skip_kj)
     using namespace shob::general;
     if (argc >= 3)
     {
-        if (dateFactory::allDigits(argv[1]) && dateFactory::allDigits(argv[2]))
+        if (DateFactory::allDigits(argv[1]) && DateFactory::allDigits(argv[2]))
         {
             const std::string arg1 = argv[1];
             const std::string arg2 = argv[2];
@@ -41,12 +41,12 @@ void read_command_line(int argc, char* argv[], int& yr1, int&yr2, bool& skip_kj)
         }
         else
         {
-            throw shobException("first two command line arguments must be years");
+            throw ShobException("first two command line arguments must be years");
         }
     }
     else if (argc == 2)
     {
-        if (dateFactory::allDigits(argv[1]))
+        if (DateFactory::allDigits(argv[1]))
         {
             const std::string arg1 = argv[1];
             yr1 = std::stoi(arg1);
@@ -54,7 +54,7 @@ void read_command_line(int argc, char* argv[], int& yr1, int&yr2, bool& skip_kj)
         }
         else
         {
-            throw shobException("first command line argument must be a year");
+            throw ShobException("first command line argument must be a year");
         }
     }
 }

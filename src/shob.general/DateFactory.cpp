@@ -1,25 +1,25 @@
 
-#include "dateFactory.h"
-#include "itdate.h"
-#include "dateAsString.h"
+#include "DateFactory.h"
+#include "ItDate.h"
+#include "DateAsString.h"
 
 namespace shob::general
 {
-    std::shared_ptr<shobDate> dateFactory::getDate(const std::string& dd)
+    std::shared_ptr<ShobDate> DateFactory::getDate(const std::string& dd)
     {
         if (isInt(dd))
         {
-            auto date = std::make_shared<itdate>(std::stoi(dd));
+            auto date = std::make_shared<ItDate>(std::stoi(dd));
             return date;
         }
         else
         {
-            auto date = std::make_shared<dateAsString>(dd);
+            auto date = std::make_shared<DateAsString>(dd);
             return date;
         }
     }
 
-    bool dateFactory::allDigits(const std::string& date)
+    bool DateFactory::allDigits(const std::string& date)
     {
         for (const char& c : date)
         {
@@ -28,7 +28,7 @@ namespace shob::general
         return true;
     }
 
-    bool dateFactory::isInt(const std::string& date)
+    bool DateFactory::isInt(const std::string& date)
     {
         for (size_t i = 0; i < date.size(); i++)
         {

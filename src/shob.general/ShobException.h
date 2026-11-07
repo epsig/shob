@@ -5,13 +5,13 @@
 #include <cstddef>
 
 namespace shob::general {
-    class shobException : public std::exception
+    class ShobException : public std::exception
     {
     public:
-        shobException(std::string msg) : message(std::move(msg)) {}
+        ShobException(std::string msg) : message(std::move(msg)) {}
         //shobException(const std::string& msg, const double r) : message(msg + tos(r)) {}
-        shobException(const std::string& msg, const int i) : message(msg + std::to_string(i)) {}
-        shobException(const std::string& msg, const size_t i) : message(msg + std::to_string(i)) {}
+        ShobException(const std::string& msg, const int i) : message(msg + std::to_string(i)) {}
+        ShobException(const std::string& msg, const size_t i) : message(msg + std::to_string(i)) {}
         virtual const char* what() const throw() { return message.c_str(); }
     private:
         const std::string message;

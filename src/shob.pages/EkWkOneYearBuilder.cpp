@@ -45,9 +45,9 @@ namespace shob::pages
         return round2;
     }
 
-    general::uniqueStrings EkWkOneYearBuilder::getGroups(const readers::csvContent& csv_content)
+    general::UniqueStrings EkWkOneYearBuilder::getGroups(const readers::csvContent& csv_content)
     {
-        auto groups = general::uniqueStrings();
+        auto groups = general::UniqueStrings();
         for (const auto& row : csv_content.body)
         {
             if (row.column[0].at(0) == 'g')

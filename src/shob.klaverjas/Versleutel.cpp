@@ -40,7 +40,7 @@ namespace shob::klaverjas
         auto keys = FileIO::readFile(sleutels_path);
         if (keys.data.empty())
         {
-            throw shobException("Sleutels file is empty or not found: " + sleutels_path);
+            throw ShobException("Sleutels file is empty or not found: " + sleutels_path);
         }
 
         auto keyMap = std::map<std::string, std::string>();

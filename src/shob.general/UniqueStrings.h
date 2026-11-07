@@ -9,7 +9,7 @@ namespace shob::general
     /// <summary>
     /// class for storing unique strings in the order that they are given
     /// </summary>
-    class uniqueStrings
+    class UniqueStrings
     {
     public:
         void insert(const std::string& s);

@@ -3,7 +3,7 @@
 
 namespace shob::general
 {
-    class DateTime : public shobDate
+    class DateTime : public ShobDate
     {
     public:
         DateTime(const int yyyymmdd, const int hhmm);

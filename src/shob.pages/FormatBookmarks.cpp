@@ -37,7 +37,7 @@ namespace shob::pages
         auto props = PageProperties();
         if (!bookmarks.getProperties(props, page))
         {
-            throw shobException("Error: page " + page + " not found in config.csv");
+            throw ShobException("Error: page " + page + " not found in config.csv");
         }
         auto content = bookmarks.getAllParts(page);
 

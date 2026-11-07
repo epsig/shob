@@ -320,7 +320,7 @@ namespace shob::pages
     {
         auto retVal = MultipleStrings();
         const auto csvInput = std::format("{}{}.*.csv", "NL_", year);
-        auto list = glob::list(dataSportFolder + "../nationsLeague/", csvInput);
+        auto list = Glob::list(dataSportFolder + "../nationsLeague/", csvInput);
         if ( ! list.empty())
         {
             auto competition = FootballCompetition();
@@ -351,8 +351,8 @@ namespace shob::pages
             if (key_value[0] == "dd1kzb") dd1kzb = std::stoi(key_value[1]);
             if (key_value[0] == "dd2kzb") dd2kzb = std::stoi(key_value[1]);
         }
-        const auto date1 = itdate(dd1kzb);
-        const auto date2 = itdate(dd2kzb);
+        const auto date1 = ItDate(dd1kzb);
+        const auto date2 = ItDate(dd2kzb);
         const auto filtered = allFriendlies.filterDate(date1, date2);
 
         auto prepTableMatchesNL = filtered.prepareTable(teams, settings);

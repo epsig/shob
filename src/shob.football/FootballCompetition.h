@@ -43,10 +43,10 @@ namespace shob::football
         FootballCompetition filter(const std::set<std::string>& clubs) const;
         FootballCompetition filterNL() const;
         std::pair<FootballCompetition, FootballCompetition> split_matches(const std::string& team) const;
-        FootballCompetition filterDate(const general::itdate& date1, const general::itdate& date2) const;
+        FootballCompetition filterDate(const general::ItDate& date1, const general::ItDate& date2) const;
         html::tableContent prepareTable(const teams::clubTeams& teams, const html::settings& settings) const;
         bool onlyKO = false;
-        general::itdate lastDate(bool all=false) const;
+        general::ItDate lastDate(bool all=false) const;
         std::vector<linkInfo> getLinks(const teams::clubTeams& teams) const;
         strikingResults getStrikingResults() const;
         bool doCoupleMatches = true;

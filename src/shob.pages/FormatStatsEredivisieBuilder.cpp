@@ -13,8 +13,8 @@ namespace shob::pages
 
         auto fileSummary = StatFilesSummary();
 
-        fileSummary.list_matches = general::glob::list(dataFolder, "eredivisie_[12][90].*");
-        fileSummary.list_standings = general::glob::list(dataFolder, "eindstand_eredivisie_[12][90].*");
+        fileSummary.list_matches = general::Glob::list(dataFolder, "eredivisie_[12][90].*");
+        fileSummary.list_standings = general::Glob::list(dataFolder, "eindstand_eredivisie_[12][90].*");
 
         std::sort(fileSummary.list_matches.begin(), fileSummary.list_matches.end(),
             [](const std::string& val1, const std::string& val2) {return val1 < val2; });

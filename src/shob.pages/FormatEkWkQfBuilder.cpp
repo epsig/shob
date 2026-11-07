@@ -18,10 +18,10 @@ namespace shob::pages
 
     TopMenu FormatEkWkQfBuilder::prepareTopMenu(const std::string& dataFolderEkWkQf)
     {
-        auto archive = general::glob::list(dataFolderEkWkQf, "[ew]k[0-9]{4}.*csv");
+        auto archive = general::Glob::list(dataFolderEkWkQf, "[ew]k[0-9]{4}.*csv");
         std::sort(archive.begin(), archive.end(), cmpFunc);
 
-        auto filenames = general::uniqueStrings();
+        auto filenames = general::UniqueStrings();
         for (auto & name : archive)
         {
             auto shortName = name.substr(0, 2) + "_" + name.substr(2,4);

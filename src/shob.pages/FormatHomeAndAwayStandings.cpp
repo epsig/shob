@@ -86,7 +86,7 @@ namespace shob::pages
 
     general::Season FormatHomeAndAwayStandings::getLastSeason() const
     {
-        auto archive = general::glob::list(folder, "eredivisie_[0-9]{4}_[0-9]{4}.csv");
+        auto archive = general::Glob::list(folder, "eredivisie_[0-9]{4}_[0-9]{4}.csv");
         sortArchive(archive);
         auto last_year_in_filename = archive.back().substr(11, 4); // TODO with regex
         return std::stoi(last_year_in_filename);

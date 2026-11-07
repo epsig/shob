@@ -245,7 +245,7 @@ namespace shob::football
         {
             if (list[i].team == team) return i;
         }
-        throw shobException("Team not found");
+        throw ShobException("Team not found");
     }
 
     void Standings::addResultsOpponents(const std::vector<compactMatch>& matches)

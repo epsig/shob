@@ -91,9 +91,9 @@ namespace shob::readers
         return names;
     }
 
-    general::uniqueStrings csvContent::getParts() const
+    general::UniqueStrings csvContent::getParts() const
     {
-        auto parts = general::uniqueStrings();
+        auto parts = general::UniqueStrings();
         for (const auto& row : body)
         {
             const auto& part = row.column[0];

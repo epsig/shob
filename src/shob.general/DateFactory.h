@@ -1,15 +1,15 @@
 
 #pragma once
 
-#include "shobDate.h"
+#include "ShobDate.h"
 #include <memory>
 
 namespace shob::general
 {
-    class dateFactory
+    class DateFactory
     {
     public:
-        static std::shared_ptr<shobDate> getDate(const std::string& dd);
+        static std::shared_ptr<ShobDate> getDate(const std::string& dd);
         static bool allDigits(const std::string& date);
         static bool isInt(const std::string& date);
     };

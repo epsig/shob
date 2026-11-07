@@ -59,8 +59,8 @@ namespace shob::pages
             matches3.readFromCsvData(all_matches);
         }
 
-        const auto date1 = general::itdate(year * 10000);
-        const auto date2 = general::itdate((year + 1) * 10000);
+        const auto date1 = general::ItDate(year * 10000);
+        const auto date2 = general::ItDate((year + 1) * 10000);
         const auto filtered1 = matches1.filterDate(date1, date2);
         const auto filtered2 = matches2.filterDate(date1, date2);
         const auto filtered3 = matches3.filterDate(date1, date2);

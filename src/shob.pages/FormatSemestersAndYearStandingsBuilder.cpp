@@ -26,10 +26,10 @@ namespace shob::pages
 
     TopMenu FormatSemestersAndYearStandingsBuilder::prepareTopMenu(const std::string& dataFolder) const
     {
-        auto archive = general::glob::list(dataFolder, "eredivisie_[0-9]{4}_[0-9]{4}.csv");
+        auto archive = general::Glob::list(dataFolder, "eredivisie_[0-9]{4}_[0-9]{4}.csv");
         std::sort(archive.begin(), archive.end(), cmpFunc);
 
-        auto filenames = general::uniqueStrings();
+        auto filenames = general::UniqueStrings();
         bool is_first = true;
         auto yr = std::to_string(last_year);
         bool found_last_year = false;
@@ -76,7 +76,7 @@ namespace shob::pages
 
     void FormatSemestersAndYearStandingsBuilder::getLastYear(const std::string& folder)
     {
-        auto archive = general::glob::list(folder, "eredivisie_[0-9]{4}_[0-9]{4}.csv");
+        auto archive = general::Glob::list(folder, "eredivisie_[0-9]{4}_[0-9]{4}.csv");
         std::sort(archive.begin(), archive.end(), cmpFunc2);
         auto last_year_in_filename = archive.back().substr(11, 4); // TODO with regex
         auto lastyear = std::stoi(last_year_in_filename);

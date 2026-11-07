@@ -8,7 +8,7 @@ namespace shob::general::test
 {
     void testUniqueStrings::test1()
     {
-        auto set = uniqueStrings();
+        auto set = UniqueStrings();
         set.insert("CL");
         set.insert("EL");
         set.insert("CF");

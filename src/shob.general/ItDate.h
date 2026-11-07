@@ -1,14 +1,14 @@
 
 #pragma once
 
-#include "shobDate.h"
+#include "ShobDate.h"
 
 namespace shob::general
 {
-    class itdate : public shobDate
+    class ItDate : public ShobDate
     {
     public:
-        itdate(const int dd) : dd(dd) {}
+        ItDate(const int dd) : dd(dd) {}
         std::string toString() const override;
         std::string toShortString() const override;
         int toInt() const override { return dd; }

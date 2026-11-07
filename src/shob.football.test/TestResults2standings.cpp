@@ -116,7 +116,7 @@ namespace shob::football::test
     {
         // set up test:
         auto comp = FootballCompetition();
-        const auto date = std::make_shared<general::itdate>(20251001);
+        const auto date = std::make_shared<general::ItDate>(20251001);
         const auto match1 = FootballMatch("A", "B", date, "1-0", 12345, "");
         const auto match2 = FootballMatch("C", "D", date, "1-0", 12345, "");
         comp.matches.push_back(match1);

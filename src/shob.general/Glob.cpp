@@ -1,5 +1,5 @@
 
-#include "glob.h"
+#include "Glob.h"
 
 #include <filesystem>
 #include <boost/regex.hpp>
@@ -7,11 +7,11 @@
 
 namespace shob::general
 {
-    std::vector<std::string> glob::list(const std::string& path, const std::string& expr)
+    std::vector<std::string> Glob::list(const std::string& path, const std::string& expr)
     {
         if (!std::filesystem::is_directory(path))
         {
-            throw shobException(path + " is not a folder");
+            throw ShobException(path + " is not a folder");
         }
         std::vector<std::string> file_list;
 

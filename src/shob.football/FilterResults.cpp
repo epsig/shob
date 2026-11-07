@@ -17,7 +17,7 @@ namespace shob::football
             if ( ! line[index].empty())
             {
                 const auto& number = line[index];
-                if ( number == "-1" || general::dateFactory::allDigits(number))
+                if ( number == "-1" || general::DateFactory::allDigits(number))
                 {
                     star = static_cast<StarEnum>(std::stoi(number));
                 }
@@ -60,7 +60,7 @@ namespace shob::football
                 }
                 std::string stadium;
                 if (stadiumColumn < line.size()) stadium = line[stadiumColumn];
-                const auto date = general::dateFactory::getDate(line[ddColumn]);
+                const auto date = general::DateFactory::getDate(line[ddColumn]);
                 const auto star = getStar(line,starColumn);
                 auto match = FootballMatch(line[team1Column], line[team2Column], date, line[resultColumn],
                     spectators, star, isFinal);

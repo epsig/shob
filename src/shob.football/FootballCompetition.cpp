@@ -38,14 +38,14 @@ namespace shob::football
                 if (!line[spectatorsColumn].empty())
                 {
                     const auto spectatorsAsStr = StringUtils::trim(line[spectatorsColumn], " ");
-                    if (dateFactory::allDigits(spectatorsAsStr))
+                    if (DateFactory::allDigits(spectatorsAsStr))
                     {
                         spectators = std::stoi(spectatorsAsStr);
                     }
                 }
             }
             const std::string remarks=  (remarksColumn < line.size() ? line[remarksColumn] : "");
-            const auto date = dateFactory::getDate(line[ddColumn]);
+            const auto date = DateFactory::getDate(line[ddColumn]);
             const auto match = FootballMatch(line[team1Column], line[team2Column], date,
                 line[resultColumn], spectators, remarks);
             matches.push_back(match);
@@ -97,7 +97,7 @@ namespace shob::football
         return { withTeam, withoutTeam };
     }
 
-    FootballCompetition FootballCompetition::filterDate(const itdate& date1, const itdate& date2) const
+    FootballCompetition FootballCompetition::filterDate(const ItDate& date1, const ItDate& date2) const
     {
         auto retVal = FootballCompetition();
         for (const auto& match : matches)
@@ -245,7 +245,7 @@ namespace shob::football
         return coupledMatches;
     }
 
-    itdate FootballCompetition::lastDate(bool all) const
+    ItDate FootballCompetition::lastDate(bool all) const
     {
         int date = 19000101;
         for (const auto& match : matches)
@@ -255,7 +255,7 @@ namespace shob::football
                 date = std::max(date, match.dd->toInt());
             }
         }
-        auto dd = itdate(date);
+        auto dd = ItDate(date);
         return dd;
     }
 

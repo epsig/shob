@@ -108,13 +108,13 @@ namespace shob::pages::test
     TEST_F(FormatRestStats, RejectsFilesWithoutDailyDates)
     {
         writeStats("stats_Jan2003.txt", 0);
-        EXPECT_THROW(FormatRest(folder.string()).getStats(20031231), general::shobException);
+        EXPECT_THROW(FormatRest(folder.string()).getStats(20031231), general::ShobException);
     }
 
     TEST_F(FormatRestStats, RejectsInvalidDates)
     {
         writeStats("stats_Feb2003.txt", 30, "Feb");
-        EXPECT_THROW(FormatRest(folder.string()).getStats(20031231), general::shobException);
+        EXPECT_THROW(FormatRest(folder.string()).getStats(20031231), general::ShobException);
     }
 
     void TestFormatRest::testAsciiCodes()

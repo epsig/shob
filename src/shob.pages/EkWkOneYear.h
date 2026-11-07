@@ -53,7 +53,7 @@ namespace shob::pages
         football::FootballCompetition round2;
         readers::xmlReader reader;
 
-        general::uniqueStrings getGroups() const;
+        general::UniqueStrings getGroups() const;
         PageBlock getRound2(int& dd) const;
         PageBlock getLast16(int& dd) const;
         PageBlock getGroupResults(int& dd) const;

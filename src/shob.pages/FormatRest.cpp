@@ -258,7 +258,7 @@ Edwin Spee
                     }
                     if (std::filesystem::exists(path))
                     {
-                        throw shobException("Cannot read statistics file: " + path.string());
+                        throw ShobException("Cannot read statistics file: " + path.string());
                     }
                     input.clear();
                 }
@@ -284,14 +284,14 @@ Edwin Spee
                             });
                         if (monthIt == months.end())
                         {
-                            throw shobException("Invalid date in statistics file: " + filename.string());
+                            throw ShobException("Invalid date in statistics file: " + filename.string());
                         }
                         const auto day = std::stoi(match[1].str());
                         const auto dateYear = std::stoi(match[3].str());
                         const auto dateMonth = static_cast<int>(monthIt - months.begin()) + 1;
-                        if (day < 1 || day > static_cast<int>(shobDate::maxDays(dateYear, dateMonth)))
+                        if (day < 1 || day > static_cast<int>(ShobDate::maxDays(dateYear, dateMonth)))
                         {
-                            throw shobException("Invalid date in statistics file: " + filename.string());
+                            throw ShobException("Invalid date in statistics file: " + filename.string());
                         }
                         lastDate = dateYear * 10000 + dateMonth * 100 + day;
                         ++days;
@@ -315,11 +315,11 @@ Edwin Spee
                 }
                 if (input.bad())
                 {
-                    throw shobException("Cannot read statistics file: " + filename.string());
+                    throw ShobException("Cannot read statistics file: " + filename.string());
                 }
                 if (days == 0)
                 {
-                    throw shobException("No daily dates in statistics file: " + filename.string());
+                    throw ShobException("No daily dates in statistics file: " + filename.string());
                 }
 
                 hits *= 1e-6;

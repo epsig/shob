@@ -153,21 +153,21 @@ namespace shob::football
         return { table };
     }
 
-    general::itdate RouteToFfinal::lastDate() const
+    general::ItDate RouteToFfinal::lastDate() const
     {
         auto dd = final.lastDate().toInt();
         dd = std::max(dd, bronze.lastDate().toInt());
         dd = std::max(dd, semiFinal.lastDate().toInt());
         dd = std::max(dd, quarterFinal.lastDate().toInt());
         dd = std::max(dd, last16.lastDate().toInt());
-        auto date = general::itdate(dd);
+        auto date = general::ItDate(dd);
         return date;
     }
 
     bool RouteToFfinal::has_round(const std::string& round) const
     {
         if (round == "last16") return !last16.matches.empty();
-        throw general::shobException("not implemented yet");
+        throw general::ShobException("not implemented yet");
     }
 
     bool RouteToFfinal::empty() const

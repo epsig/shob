@@ -1,12 +1,12 @@
 #pragma once
-#include "shobDate.h"
+#include "ShobDate.h"
 
 namespace shob::general
 {
-    class dateAsString : public shobDate
+    class DateAsString : public ShobDate
     {
     public:
-        dateAsString(std::string dd) : dd(std::move(dd)) {}
+        DateAsString(std::string dd) : dd(std::move(dd)) {}
         std::string toString() const override { return dd; }
         std::string toShortString() const override { return dd; }
     private:

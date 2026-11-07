@@ -16,10 +16,10 @@ namespace shob::pages
 
     TopMenu FormatOsBuilder::prepareTopMenu(const std::string& dataFolder)
     {
-        auto archive = general::glob::list(dataFolder, "OS_[0-9]{4}.csv");
+        auto archive = general::Glob::list(dataFolder, "OS_[0-9]{4}.csv");
         std::sort(archive.begin(), archive.end(), cmpFunc);
 
-        auto filenames = general::uniqueStrings();
+        auto filenames = general::UniqueStrings();
         for (const auto& name : archive)
         {
             const auto shortName = "sport_schaatsen_" + name.substr(0, 7);

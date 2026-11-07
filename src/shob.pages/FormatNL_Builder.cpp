@@ -34,7 +34,7 @@ namespace shob::pages
         auto remarks = readers::csvAllSeasonsReader();
         remarks.init(dataFolder + "/eredivisie/eredivisie_remarks.csv");
 
-        auto archive = general::glob::list(dataFolder + "/eredivisie", "eredivisie_[0-9].*csv");
+        auto archive = general::Glob::list(dataFolder + "/eredivisie", "eredivisie_[0-9].*csv");
         archive.erase(archive.begin()); // there is one more csv input file than html output
         std::sort(archive.begin(), archive.end(), cmpFunc);
         for (auto& row : archive)

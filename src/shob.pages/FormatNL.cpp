@@ -39,7 +39,7 @@ namespace shob::pages
         if (isValidSeason(s)) return s;
         auto s2 = Season(y - 1);
         if (isValidSeason(s2)) return s2;
-        throw shobException("Season not found for NL");
+        throw ShobException("Season not found for NL");
     }
 
     int FormatNL::get_dd() const

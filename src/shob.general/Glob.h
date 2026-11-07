@@ -5,7 +5,7 @@
 
 namespace shob::general
 {
-    class glob
+    class Glob
     {
     public:
         static std::vector<std::string> list(const std::string& path, const std::string& expr);

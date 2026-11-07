@@ -21,10 +21,10 @@ namespace shob::pages
 
     TopMenu FormatHomeAndAwayStandingsBuilder::prepareTopMenu(const std::string& dataFolder)
     {
-        auto archive = general::glob::list(dataFolder, "eredivisie_[0-9]{4}_[0-9]{4}.csv");
+        auto archive = general::Glob::list(dataFolder, "eredivisie_[0-9]{4}_[0-9]{4}.csv");
         std::sort(archive.begin(), archive.end(), cmpFunc);
 
-        auto filenames = general::uniqueStrings();
+        auto filenames = general::UniqueStrings();
         bool is_first = true;
         for (const auto& name : archive)
         {

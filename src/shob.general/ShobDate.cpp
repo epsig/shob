@@ -1,10 +1,10 @@
 
-#include "shobDate.h"
-#include "shobException.h"
+#include "ShobDate.h"
+#include "ShobException.h"
 
 namespace shob::general
 {
-    bool shobDate:: isLeapYear(const size_t year)
+    bool ShobDate:: isLeapYear(const size_t year)
     {
         // use definitions for Gregorian calendar:
         if (year % 4 > 0) return false;
@@ -12,9 +12,9 @@ namespace shob::general
         return true;
     }
 
-    size_t shobDate::maxDays(const size_t year, const size_t mon)
+    size_t ShobDate::maxDays(const size_t year, const size_t mon)
     {
-        if (mon > 12) throw shobException("Invalid month number: ", mon);
+        if (mon > 12) throw ShobException("Invalid month number: ", mon);
 
         if (mon != 2) return maxDaysPerMonth[mon - 1];
         return isLeapYear(year) ? 29 : 28;

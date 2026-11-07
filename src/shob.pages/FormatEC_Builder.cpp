@@ -28,7 +28,7 @@ namespace shob::pages
         teams.InitFromFile(file2, teams::clubsOrCountries::clubs);
         teams.AddLandCodes(national_teams);
 
-        auto archive = general::glob::list(dataFolder + "/europacup", "europacup_[0-9].*csv");
+        auto archive = general::Glob::list(dataFolder + "/europacup", "europacup_[0-9].*csv");
         std::sort(archive.begin(), archive.end(), cmpFunc);
         auto menu = TopMenu(archive, 'K');
 

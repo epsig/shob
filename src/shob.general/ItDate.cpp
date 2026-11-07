@@ -1,11 +1,11 @@
 
-#include "itdate.h"
+#include "ItDate.h"
 
 #include <format>
 
 namespace shob::general
 {
-    std::string itdate ::toString() const
+    std::string ItDate ::toString() const
     {
         size_t year;
         size_t day;
@@ -25,7 +25,7 @@ namespace shob::general
         }
     }
 
-    bool itdate::splitAndValidate(size_t& year, size_t& mon, size_t& day) const
+    bool ItDate::splitAndValidate(size_t& year, size_t& mon, size_t& day) const
     {
         if (dd < 0) return false;
         year = dd / 10000;
@@ -34,7 +34,7 @@ namespace shob::general
         return mon <= 12 && day <= maxDays(year, mon);
     }
 
-    std::string itdate::toShortString() const
+    std::string ItDate::toShortString() const
     {
         size_t year;
         size_t day;

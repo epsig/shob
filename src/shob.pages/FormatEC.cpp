@@ -46,7 +46,7 @@ namespace shob::pages
         if (isValidSeason(s)) return s;
         auto s2 = Season(y - 1);
         if (isValidSeason(s2)) return s2;
-        throw shobException("Season not found for EC");
+        throw ShobException("Season not found for EC");
     }
 
     int FormatEC::get_dd() const
@@ -57,9 +57,9 @@ namespace shob::pages
         return dd;
     }
 
-    uniqueStrings FormatEC::getQualifiers(const std::string& part, const csvContent& data)
+    UniqueStrings FormatEC::getQualifiers(const std::string& part, const csvContent& data)
     {
-        auto parts = uniqueStrings();
+        auto parts = UniqueStrings();
         for (const auto& row : data.body)
         {
             const auto& qf = row.column[1];
@@ -75,9 +75,9 @@ namespace shob::pages
         return parts;
     }
 
-    uniqueStrings FormatEC::getXtra(const std::string& part, const csvContent& data)
+    UniqueStrings FormatEC::getXtra(const std::string& part, const csvContent& data)
     {
-        auto parts = uniqueStrings();
+        auto parts = UniqueStrings();
         for (const auto& row : data.body)
         {
             const auto& qf = row.column[1];
@@ -92,9 +92,9 @@ namespace shob::pages
         return parts;
     }
 
-    uniqueStrings FormatEC::getGroups(const std::string& part, const csvContent& data)
+    UniqueStrings FormatEC::getGroups(const std::string& part, const csvContent& data)
     {
-        auto groups = uniqueStrings();
+        auto groups = UniqueStrings();
         for ( const auto& row : data.body)
         {
             if (row.column[0] == part && row.column[1].at(0) == 'g')
@@ -119,7 +119,7 @@ namespace shob::pages
             if (row[0] == "wns_CF")
             {
                 auto option = row[1];
-                if (dateFactory::allDigits(option))
+                if (DateFactory::allDigits(option))
                 {
                     wns_cl.wns_cf = std::stoi(option);
                 }
@@ -127,7 +127,7 @@ namespace shob::pages
             else if (row[0] == "wns_CL")
             {
                 auto option = row[1];
-                if (dateFactory::allDigits(option))
+                if (DateFactory::allDigits(option))
                 {
                     wns_cl.wns_cl = std::stoi(option);
                 }
