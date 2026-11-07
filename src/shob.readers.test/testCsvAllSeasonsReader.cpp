@@ -13,7 +13,7 @@ namespace shob::readers::test
     {
         const std::string u2sFile = "../../data/sport/eredivisie/eredivisie_u2s.csv";
         const std::string filename = testUtils::refFileWithPath(__FILE__, u2sFile);
-        auto result = csvAllSeasonsReader();
+        auto result = CsvAllSeasonsReader();
         result.init(filename);
         auto filtered = result.getSeason(general::Season(2023));
         EXPECT_EQ(9, filtered.size());

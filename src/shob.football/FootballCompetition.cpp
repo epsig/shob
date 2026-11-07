@@ -13,11 +13,11 @@ namespace shob::football
 
     void FootballCompetition::readFromCsv(const std::string& filename)
     {
-        auto csvData = csvReader::readCsvFile(filename);
+        auto csvData = CsvReader::readCsvFile(filename);
         readFromCsvData(csvData);
     }
 
-    void FootballCompetition::readFromCsvData(const csvContent& csvData)
+    void FootballCompetition::readFromCsvData(const CsvContent& csvData)
     {
         matches = std::vector<FootballMatch>();
 
@@ -282,7 +282,7 @@ namespace shob::football
         {
             if (match.team2 == "straf") continue;
             if (match.result == "-") continue;
-            const auto parts = readers::csvReader::split(match.result, "-").column;
+            const auto parts = readers::CsvReader::split(match.result, "-").column;
             const auto goals1 = std::stoi(parts[0]);
             const auto goals2 = std::stoi(parts[1]);
 

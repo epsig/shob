@@ -57,11 +57,11 @@ namespace shob::football
         void addResult(const std::string& team1, const std::string& team2, const int goals1, const int goals2);
         void addResultHome(const std::string& team, const int goals1, const int goals2);
         void addResultAway(const std::string& team, const int goals1, const int goals2);
-        void addExtras(const readers::csvAllSeasonsReader& r, const general::Season& season);
+        void addExtras(const readers::CsvAllSeasonsReader& r, const general::Season& season);
         bool isFinished() const;
         void sort(const int sort_rule = 3);
         void initFromFile(const std::string& filename);
-        void initFromData(const readers::csvContent& stand);
+        void initFromData(const readers::CsvContent& stand);
         void handlePunishment(const std::string team, const int pnts);
         html::TableContent prepareTable(const teams::clubTeams & teams, const html::Settings & settings) const;
         int wns_cl = -1;

@@ -1,19 +1,18 @@
-
-#include "csvAllSeasonsReader.h"
-#include "csvReader.h"
+#include "CsvAllSeasonsReader.h"
+#include "CsvReader.h"
 
 namespace shob::readers
 {
-    void csvAllSeasonsReader::init(const std::string& filename)
+    void CsvAllSeasonsReader::init(const std::string& filename)
     {
-        allData = csvReader::readCsvFile(filename);
+        allData = CsvReader::readCsvFile(filename);
     }
-    std::vector<std::vector<std::string>> csvAllSeasonsReader::getSeason(const general::Season& season) const
+    std::vector<std::vector<std::string>> CsvAllSeasonsReader::getSeason(const general::Season& season) const
     {
         return getSeason(season.toString());
     }
 
-    std::vector<std::vector<std::string>> csvAllSeasonsReader::getSeason(const std::string& id) const
+    std::vector<std::vector<std::string>> CsvAllSeasonsReader::getSeason(const std::string& id) const
     {
         std::vector<std::vector<std::string>> oneSeasonData;
         oneSeasonData.push_back(allData.header.column);
@@ -32,7 +31,7 @@ namespace shob::readers
         return oneSeasonData;
     }
 
-    std::map<std::string, std::string> csvAllSeasonsReader::getAll(const std::string& id) const
+    std::map<std::string, std::string> CsvAllSeasonsReader::getAll(const std::string& id) const
     {
         auto retval = std::map<std::string, std::string>();
         for (const auto& line : allData.body)
@@ -44,6 +43,4 @@ namespace shob::readers
         }
         return retval;
     }
-
 }
-

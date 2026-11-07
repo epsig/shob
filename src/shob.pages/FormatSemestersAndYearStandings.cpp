@@ -38,7 +38,7 @@ namespace shob::pages
 
         const auto matches1_csv = readMatchesData(season1);
         const auto matches2_csv = readMatchesData(season2);
-        auto all_matches = readers::csvContent();
+        auto all_matches = readers::CsvContent();
         all_matches.header = matches1_csv.header;
         all_matches.body = matches1_csv.body;
         for (const auto& row : matches2_csv.body)
@@ -136,10 +136,10 @@ namespace shob::pages
         return last_year;
     }
 
-    readers::csvContent FormatSemestersAndYearStandings::readMatchesData(const general::Season& season) const
+    readers::CsvContent FormatSemestersAndYearStandings::readMatchesData(const general::Season& season) const
     {
         const auto csv_input = std::format("{}/eredivisie_{}.csv", folder, season.toPartFilename());
-        const auto csv_data = readers::csvReader::readCsvFile(csv_input);
+        const auto csv_data = readers::CsvReader::readCsvFile(csv_input);
         return csv_data;
     }
 

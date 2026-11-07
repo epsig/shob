@@ -1,5 +1,4 @@
-
-#include "csvReader.h"
+#include "CsvReader.h"
 #include "../shob.general/StringUtils.h"
 
 #include <fstream>
@@ -8,11 +7,11 @@
 namespace shob::readers
 {
     // for string delimiter
-    csvColContent csvReader::split(const std::string& s, const std::string& delimiter)
+    CsvColContent CsvReader::split(const std::string& s, const std::string& delimiter)
     {
         size_t pos_start = 0, pos_end, delim_len = delimiter.length();
         std::string token;
-        csvColContent res;
+        CsvColContent res;
 
         constexpr char doubleQuote = '"';
         const std::string q = std::string(1, doubleQuote);
@@ -37,9 +36,9 @@ namespace shob::readers
         return res;
     }
 
-    csvContent csvReader::readCsvFile(const std::string& filename)
+    CsvContent CsvReader::readCsvFile(const std::string& filename)
     {
-        csvContent result;
+        CsvContent result;
 
         std::ifstream myFile(filename);
         std::string line;
@@ -71,7 +70,7 @@ namespace shob::readers
         return result;
     }
 
-    size_t csvContent::findColumn(const std::string& columnName) const
+    size_t CsvContent::findColumn(const std::string& columnName) const
     {
         for (size_t i = 0; i < header.column.size(); i++)
         {
@@ -80,7 +79,7 @@ namespace shob::readers
         return 999;
     }
 
-    std::vector<std::string> csvContent::findColumnNamesTeams() const
+    std::vector<std::string> CsvContent::findColumnNamesTeams() const
     {
         auto names = std::vector<std::string>();
         std::vector<std::string> possibilities = { "team1", "team2", "club1", "club2", "land1", "land2", "club_id", "land" };
@@ -91,7 +90,7 @@ namespace shob::readers
         return names;
     }
 
-    general::UniqueStrings csvContent::getParts() const
+    general::UniqueStrings CsvContent::getParts() const
     {
         auto parts = general::UniqueStrings();
         for (const auto& row : body)

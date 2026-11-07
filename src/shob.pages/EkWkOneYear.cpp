@@ -12,9 +12,9 @@ namespace shob::pages
     using namespace shob::general;
 
     EkWkOneYear::EkWkOneYear(const EkWkDate ekwk, const html::Settings settings, const teams::clubTeams& teams,
-        const readers::csvAllSeasonsReader& top_scorers, const teams::footballers& players,
+        const readers::CsvAllSeasonsReader& top_scorers, const teams::footballers& players,
         const std::vector<std::vector<std::string>>& current_remarks,
-        football::RouteToFfinal r2f, groupList groups, football::FootballCompetition round2, readers::xmlReader reader)
+        football::RouteToFfinal r2f, groupList groups, football::FootballCompetition round2, readers::XmlReader reader)
         : ekwk(ekwk), settings(settings), teams(teams), top_scorers(top_scorers), players(players), current_remarks(current_remarks),
         r2f(std::move(r2f)), groups(std::move(groups)), round2(std::move(round2)), reader(std::move(reader))
     {
@@ -263,7 +263,7 @@ namespace shob::pages
         for (const auto& [time, remark] : games)
         {
             const auto trimmed = StringUtils::trim(remark, " ");
-            const auto splitted = readers::csvReader::split(trimmed, " ");
+            const auto splitted = readers::CsvReader::split(trimmed, " ");
             if (trimmed.starts_with("Rood"))
             {
                 std::string line = time + "'";

@@ -33,7 +33,7 @@ namespace shob::football::test
     {
         const std::string beker0910 = "../../data/sport/beker/beker_2009_2010.csv";
         const std::string filename = testUtils::refFileWithPath(__FILE__, beker0910);
-        const auto data = csvReader::readCsvFile(filename);
+        const auto data = CsvReader::readCsvFile(filename);
 
         auto filter = FilterInputList();
         filter.filters.push_back({ 0, "f" });
@@ -52,7 +52,7 @@ namespace shob::football::test
         auto reader = teams::clubTeams();
         reader.InitFromFile(filename2, teams::clubsOrCountries::clubs);
 
-        const auto data = csvReader::readCsvFile(filename);
+        const auto data = CsvReader::readCsvFile(filename);
         const auto r2f = RouteToFinalFactory::createEC(data, "CL");
         const auto prepTable = r2f.prepareTable(reader, html::Settings());
 

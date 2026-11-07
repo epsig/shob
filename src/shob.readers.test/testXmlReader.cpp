@@ -12,7 +12,7 @@ namespace shob::readers::test
     {
         const std::string filename = testUtils::refFileWithPath(__FILE__, "../../data/sport/ekwk/EK_1996.xml");
         const std::string  path = "games.group_phase.groupA.CH_NL.stats.chronological";
-        auto reader = xmlReader(filename);
+        auto reader = XmlReader(filename);
         const auto games = reader.loadPairs(path , "min");
         ASSERT_EQ(2, games.size());
         EXPECT_EQ(" 0-1 Jordi ", games[0].second);

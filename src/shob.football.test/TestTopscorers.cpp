@@ -21,7 +21,7 @@ namespace shob::football::test
 
     void TestTopscorers::test1()
     {
-        auto allTp = readers::csvAllSeasonsReader();
+        auto allTp = readers::CsvAllSeasonsReader();
         allTp.init(filename);
 
         auto tp = Topscorers(allTp);

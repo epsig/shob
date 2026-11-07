@@ -15,7 +15,7 @@ namespace shob::football
         return false;
     }
 
-    bool FilterInputList::checkLine(const readers::csvColContent& col) const
+    bool FilterInputList::checkLine(const readers::CsvColContent& col) const
     {
         for (const auto& filter : filters)
         {

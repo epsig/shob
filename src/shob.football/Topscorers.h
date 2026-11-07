@@ -28,14 +28,14 @@ namespace shob::football
     class Topscorers
     {
     public:
-        Topscorers(const readers::csvAllSeasonsReader& reader) : reader(reader) {}
+        Topscorers(const readers::CsvAllSeasonsReader& reader) : reader(reader) {}
         void initFromFile(const general::Season& season);
         void initFromFile(const std::string& season);
         html::TableContent prepareTable(const teams::clubTeams& teams, const teams::footballers& players, const html::Settings& settings) const;
         Numbers1 getNumbers1(const teams::clubTeams& teams, const teams::footballers& players) const;
         size_t getSizeList() const { return list_tp.size(); }
     private:
-        const readers::csvAllSeasonsReader& reader;
+        const readers::CsvAllSeasonsReader& reader;
         std::vector<Topscorer> list_tp;
         void initFromFile(const std::vector<std::vector<std::string>>& data);
     };

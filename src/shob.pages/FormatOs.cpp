@@ -7,8 +7,8 @@
 
 namespace shob::pages
 {
-    FormatOs::FormatOs(std::string folder, readers::csvAllSeasonsReader reader, readers::csvContent dames,
-        readers::csvContent heren, TopMenu menu, teams::nationalTeams teams, html::Settings settings) :
+    FormatOs::FormatOs(std::string folder, readers::CsvAllSeasonsReader reader, readers::CsvContent dames,
+        readers::CsvContent heren, TopMenu menu, teams::nationalTeams teams, html::Settings settings) :
         folder(std::move(folder)), seasons_reader(std::move(reader)),
         dames(std::move(dames)), heren(std::move(heren)), menu(std::move(menu)), land_codes(std::move(teams)), settings(settings) {  }
 
@@ -68,14 +68,14 @@ namespace shob::pages
         return HeadBottom::getPage(hb);
     }
 
-    readers::csvContent FormatOs::readMatchesData(const int year) const
+    readers::CsvContent FormatOs::readMatchesData(const int year) const
     {
         const auto csv_input = std::format("{}/OS_{}.csv", folder, year);
-        const auto csv_data = readers::csvReader::readCsvFile(csv_input);
+        const auto csv_data = readers::CsvReader::readCsvFile(csv_input);
         return csv_data;
     }
 
-    general::MultipleStrings FormatOs::getNumbersOne(const readers::csvContent& all_data) const
+    general::MultipleStrings FormatOs::getNumbersOne(const readers::CsvContent& all_data) const
     {
         auto return_value = general::MultipleStrings();
         html::TableContent content;
@@ -135,7 +135,7 @@ namespace shob::pages
         return return_value;
     }
 
-    general::MultipleStrings FormatOs::getOneDistance(const std::string& distance, const char gender, const readers::csvContent& all_data) const
+    general::MultipleStrings FormatOs::getOneDistance(const std::string& distance, const char gender, const readers::CsvContent& all_data) const
     {
         auto return_value = general::MultipleStrings();
         return_value.addContent(std::format("<p id=\"{}{}\"> </p>", gender, distance));
@@ -198,7 +198,7 @@ namespace shob::pages
         return return_value;
     }
 
-    general::MultipleStrings FormatOs::getAllDistances(const char gender, const readers::csvContent& all_data) const
+    general::MultipleStrings FormatOs::getAllDistances(const char gender, const readers::CsvContent& all_data) const
     {
         auto return_value = general::MultipleStrings();
         const auto distances = findDistances(gender, all_data);
@@ -210,7 +210,7 @@ namespace shob::pages
         return return_value;
     }
 
-    std::string FormatOs::findName(const std::string& name, const readers::csvContent& listNames)
+    std::string FormatOs::findName(const std::string& name, const readers::CsvContent& listNames)
     {
         for (const auto& row : listNames.body)
         {
@@ -237,7 +237,7 @@ namespace shob::pages
         return "";
     }
 
-    std::vector<std::string> FormatOs::findDistances(const char gender, const readers::csvContent& all_data)
+    std::vector<std::string> FormatOs::findDistances(const char gender, const readers::CsvContent& all_data)
     {
         auto return_value = std::vector<std::string>();
         std::string previous;
@@ -271,11 +271,11 @@ namespace shob::pages
         }
         else if (time_as_string.find(';') != std::string::npos)
         {
-            const auto times_as_strings = readers::csvReader::split(time_as_string, ";");
+            const auto times_as_strings = readers::CsvReader::split(time_as_string, ";");
             const auto first_500m = times_as_strings.column[0];
             const auto second_500m = times_as_strings.column[1];
-            const auto parts1 = readers::csvReader::split(first_500m, " ");
-            const auto parts2 = readers::csvReader::split(second_500m, " ");
+            const auto parts1 = readers::CsvReader::split(first_500m, " ");
+            const auto parts2 = readers::CsvReader::split(second_500m, " ");
             const auto remark1 = (parts1.column.size() > 1 ? " (" + parts1.column[1] + ")" : "");
             const auto remark2 = (parts2.column.size() > 1 ? " (" + parts2.column[1] + ")" : "");
             try

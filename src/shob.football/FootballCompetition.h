@@ -38,7 +38,7 @@ namespace shob::football
         std::string id;
         std::vector<FootballMatch> matches;
         void readFromCsv(const std::string & filename);
-        void readFromCsvData(const readers::csvContent& csvData);
+        void readFromCsvData(const readers::CsvContent& csvData);
         coupledMatchesData getReturns() const;
         FootballCompetition filter(const std::set<std::string>& clubs) const;
         FootballCompetition filterNL() const;

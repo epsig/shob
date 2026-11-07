@@ -17,6 +17,6 @@ namespace shob::football
     public:
         std::vector<FilterInput> filters;
         bool isFinale() const;
-        bool checkLine(const readers::csvColContent& col) const;
+        bool checkLine(const readers::CsvColContent& col) const;
     };
 }

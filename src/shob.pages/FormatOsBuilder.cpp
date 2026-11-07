@@ -33,11 +33,11 @@ namespace shob::pages
 
     FormatOs FormatOsBuilder::build(const std::string& folder, const html::Settings& settings)
     {
-        auto remarks = csvAllSeasonsReader();
+        auto remarks = CsvAllSeasonsReader();
         remarks.init(folder + "schaatsen_remarks.csv");
 
-        const auto dames = csvReader::readCsvFile(folder + "schaatsersD.csv");
-        const auto heren = csvReader::readCsvFile(folder + "schaatsersH.csv");
+        const auto dames = CsvReader::readCsvFile(folder + "schaatsersD.csv");
+        const auto heren = CsvReader::readCsvFile(folder + "schaatsersH.csv");
 
         auto national_teams = teams::nationalTeams();
         national_teams.InitFromFile(folder + "../landcodes.csv");

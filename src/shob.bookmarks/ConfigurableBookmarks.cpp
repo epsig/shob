@@ -8,8 +8,8 @@ namespace shob::bookmarks
 
     ConfigurableBookmarks::ConfigurableBookmarks(const std::string& folder)
     {
-        archive = csvReader::readCsvFile(folder + "/archive.csv");
-        config = csvReader::readCsvFile(folder + "/config.csv");
+        archive = CsvReader::readCsvFile(folder + "/archive.csv");
+        config = CsvReader::readCsvFile(folder + "/config.csv");
     }
 
     bool ConfigurableBookmarks::getProperties(PageProperties& props, const std::string& page) const

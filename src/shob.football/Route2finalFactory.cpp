@@ -8,11 +8,11 @@ namespace shob::football
 {
     RouteToFfinal RouteToFinalFactory::create(const std::string& filename)
     {
-        const auto data = readers::csvReader::readCsvFile(filename);
+        const auto data = readers::CsvReader::readCsvFile(filename);
         return create(data);
     }
 
-    RouteToFfinal RouteToFinalFactory::create(const readers::csvContent& data)
+    RouteToFfinal RouteToFinalFactory::create(const readers::CsvContent& data)
     {
         auto filter = FilterInputList();
         filter.filters.push_back({ 0, "f" });
@@ -30,7 +30,7 @@ namespace shob::football
         return r2f;
     }
 
-    RouteToFfinal RouteToFinalFactory::createEC(const readers::csvContent& data, const std::string& ECpart)
+    RouteToFfinal RouteToFinalFactory::createEC(const readers::CsvContent& data, const std::string& ECpart)
     {
         auto filter = FilterInputList();
         filter.filters.push_back({ 0, ECpart });

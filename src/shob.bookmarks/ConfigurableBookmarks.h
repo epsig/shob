@@ -26,7 +26,7 @@ namespace shob::bookmarks
         std::vector<BlockProperties> getAllParts(const std::string& page) const;
         ListOfEvents getEventsForBlock(const std::string& block) const;
     private:
-        readers::csvContent archive;
-        readers::csvContent config;
+        readers::CsvContent archive;
+        readers::CsvContent config;
     };
 }

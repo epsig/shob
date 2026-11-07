@@ -12,18 +12,18 @@ namespace shob::readers::test
     void testCsvReader::test1()
     {
         const std::string filename = testUtils::refFileWithPath(__FILE__,  "../../data/sport/eredivisie/eredivisie_2024_2025.csv");
-        auto result = csvReader::readCsvFile(filename);
+        auto result = CsvReader::readCsvFile(filename);
         EXPECT_EQ(306, result.body.size());
     }
 
     void testCsvReader::test2()
     {
         const std::string s = "string1,string2";
-        const auto splitted = csvReader::split(s, ",");
+        const auto splitted = CsvReader::split(s, ",");
         EXPECT_EQ(splitted.column.size(), 2);
 
         auto s2 = "string1, \"string2a,string2b\"";
-        const auto splitted2 = csvReader::split(s2, ",");
+        const auto splitted2 = CsvReader::split(s2, ",");
         EXPECT_EQ(splitted.column.size(), 2);
     }
 

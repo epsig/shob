@@ -30,7 +30,7 @@ namespace shob::football
         return star;
     }
 
-    FootballCompetition FilterResults::readFromCsvData(const csvContent & csvData, const FilterInputList& filter, const std::string& ko_phase)
+    FootballCompetition FilterResults::readFromCsvData(const CsvContent & csvData, const FilterInputList& filter, const std::string& ko_phase)
     {
         auto comp = FootballCompetition();
 

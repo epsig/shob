@@ -27,10 +27,10 @@ namespace shob::pages
 
     FormatNL format_nl_builder::build(const std::string& dataFolder, const html::Settings& settings)
     {
-        auto extras = readers::csvAllSeasonsReader();
+        auto extras = readers::CsvAllSeasonsReader();
         extras.init(dataFolder + "/eredivisie/eredivisie_u2s.csv");
 
-        auto remarks = readers::csvAllSeasonsReader();
+        auto remarks = readers::CsvAllSeasonsReader();
         remarks.init(dataFolder + "/eredivisie/eredivisie_remarks.csv");
 
         auto archive = general::Glob::list(dataFolder + "/eredivisie", "eredivisie_[0-9].*csv");

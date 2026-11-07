@@ -15,7 +15,7 @@ namespace shob::pages
     class FormatEkWkQf : public FormatOnePageEachYear
     {
     public:
-        FormatEkWkQf(std::string folder, teams::clubTeams teams, readers::csvAllSeasonsReader reader, html::Settings settings,
+        FormatEkWkQf(std::string folder, teams::clubTeams teams, readers::CsvAllSeasonsReader reader, html::Settings settings,
             TopMenu menu, std::map<std::string, std::string> organizingCountries, football::FootballCompetition allFriendlies) :
             dataSportFolder(std::move(folder)), teams(std::move(teams)), seasonsReader(std::move(reader)),
             settings(settings), menu(std::move(menu)), organizingCountries(std::move(organizingCountries)),
@@ -30,16 +30,16 @@ namespace shob::pages
     private:
         std::string dataSportFolder;
         teams::clubTeams teams;
-        readers::csvAllSeasonsReader seasonsReader;
+        readers::CsvAllSeasonsReader seasonsReader;
         html::Settings settings;
         TopMenu menu;
         std::map<std::string, std::string> organizingCountries;
         football::FootballCompetition allFriendlies;
-        readers::csvContent read_matches_data(const EkWkDate& ekwk, const char type) const;
+        readers::CsvContent read_matches_data(const EkWkDate& ekwk, const char type) const;
         static general::MultipleStrings filter_remarks(const std::vector<std::vector<std::string>>& remarks, const std::string& key);
-        general::MultipleStrings get_group_nl(int& dd, const int star, const readers::csvContent& matches_data, const general::MultipleStrings& remarks) const;
+        general::MultipleStrings get_group_nl(int& dd, const int star, const readers::CsvContent& matches_data, const general::MultipleStrings& remarks) const;
         general::MultipleStrings get_virtual_standings(const EkWkDate& ekwk, general::MultipleStrings& opms_vstand) const;
-        general::MultipleStrings get_play_offs(int& dd, const readers::csvContent& matches_data) const;
+        general::MultipleStrings get_play_offs(int& dd, const readers::CsvContent& matches_data) const;
         general::MultipleStrings print_splitted(const football::Standings& stand, const football::FootballCompetition& matches,
             const general::MultipleStrings& remarks, const std::string& title, const std::string& title2) const;
         general::MultipleStrings get_nationsLeagueFinals(const int& year, int& dd) const;

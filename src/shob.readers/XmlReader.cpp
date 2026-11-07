@@ -1,16 +1,16 @@
-#include "xmlReader.h"
+#include "XmlReader.h"
 
 #include <boost/property_tree/ptree.hpp>
 #include <boost/property_tree/xml_parser.hpp>
 
 namespace shob::readers
 {
-    xmlReader::xmlReader(const std::string& file)
+    XmlReader::XmlReader(const std::string& file)
     {
         read_xml(file, pt);
     }
 
-    std::vector<std::pair<std::string, std::string>> xmlReader:: loadPairs(const std::string& path, const std::string& attr)
+    std::vector<std::pair<std::string, std::string>> XmlReader:: loadPairs(const std::string& path, const std::string& attr)
     {
         std::vector<std::pair<std::string, std::string>> Pairs;
         auto check = pt.get_child_optional(path);
@@ -27,7 +27,7 @@ namespace shob::readers
         return Pairs;
     }
 
-    std::string xmlReader::loadSingleValue(const std::string& path)
+    std::string XmlReader::loadSingleValue(const std::string& path)
     {
         auto check = pt.get_child_optional(path);
         if (!check) return "";
@@ -36,6 +36,4 @@ namespace shob::readers
 
         return x;
     }
-
 }
-

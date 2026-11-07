@@ -24,7 +24,7 @@ namespace shob::teams
 
         bool empty() const { return countries.empty(); }
     private:
-        void Init(const readers::csvContent& data);
+        void Init(const readers::CsvContent& data);
         std::map<std::string, std::string, std::less<>> countries;
     };
 }

@@ -16,7 +16,7 @@ namespace shob::pages
 
     FormatEC FormatEC_Builder::build(const std::string& dataFolder, const html::Settings& settings)
     {
-        auto remarks = readers::csvAllSeasonsReader();
+        auto remarks = readers::CsvAllSeasonsReader();
         remarks.init(dataFolder + "/europacup/europacup_remarks.csv");
 
         auto national_teams = teams::nationalTeams();

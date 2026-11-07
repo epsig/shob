@@ -17,7 +17,7 @@ namespace shob::pages
         auto teams = teams::clubTeams();
         teams.InitFromFile(folder + "/../clubs.csv", teams::clubsOrCountries::clubs);
 
-        auto remarks = readers::csvAllSeasonsReader();
+        auto remarks = readers::CsvAllSeasonsReader();
         remarks.init(folder + "eredivisie_remarks.csv");
 
         auto format = FormatSemestersAndYearStandings(folder, teams, menu, remarks, last_year, settings);
@@ -62,10 +62,10 @@ namespace shob::pages
         return a < b;
     }
 
-    readers::csvContent FormatSemestersAndYearStandingsBuilder::readMatchesData(const std::string& folder, const general::Season& season)
+    readers::CsvContent FormatSemestersAndYearStandingsBuilder::readMatchesData(const std::string& folder, const general::Season& season)
     {
         const auto csv_input = std::format("{}/eredivisie_{}.csv", folder, season.toPartFilename());
-        const auto csv_data = readers::csvReader::readCsvFile(csv_input);
+        const auto csv_data = readers::CsvReader::readCsvFile(csv_input);
         return csv_data;
     }
 

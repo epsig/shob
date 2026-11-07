@@ -42,11 +42,11 @@ namespace shob::pages
         players.initFromFile(filename3);
 
         const auto file_tp_eredivisie = sportDataFolder + "/topscorers_eredivisie.csv";
-        auto allTp = readers::csvAllSeasonsReader();
+        auto allTp = readers::CsvAllSeasonsReader();
         allTp.init(file_tp_eredivisie);
 
         const auto file_remarks = sportDataFolder + "/eredivisie_remarks.csv";
-        auto remarks = readers::csvAllSeasonsReader();
+        auto remarks = readers::CsvAllSeasonsReader();
         remarks.init(file_remarks);
 
         const int startYear = list_matches.last_year_matches;
@@ -267,14 +267,14 @@ namespace shob::pages
         {
             if (line[0] == "max_spectators")
             {
-                auto parts = readers::csvReader::split(line[1], ":");
+                auto parts = readers::CsvReader::split(line[1], ":");
                 auto spectators = std::stoi(parts.column[1]);
                 spectatorsStats.teamsWithMostSpectators.clear();
                 spectatorsStats.teamsWithMostSpectators.emplace_back(parts.column[0], spectators);
             }
             else if (line[0] == "min_spectators")
             {
-                auto parts = readers::csvReader::split(line[1], ":");
+                auto parts = readers::CsvReader::split(line[1], ":");
                 auto spectators = std::stoi(parts.column[1]);
                 spectatorsStats.teamsWithLeastSpectators.clear();
                 spectatorsStats.teamsWithLeastSpectators.emplace_back(parts.column[0], spectators);

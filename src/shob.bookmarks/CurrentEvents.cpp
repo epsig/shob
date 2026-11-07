@@ -20,7 +20,7 @@ namespace shob::bookmarks
             throw ShobException("Invalid date: " + std::to_string(dd));
         }
         const double date_cmp = static_cast<double>(month) + static_cast<double>(day) / 30.0;
-        const auto content_file = csvReader::readCsvFile(folder + "/current.csv");
+        const auto content_file = CsvReader::readCsvFile(folder + "/current.csv");
 
         auto return_value = ListOfEvents();
         for (const auto& row : content_file.body)

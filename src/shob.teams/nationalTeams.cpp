@@ -8,7 +8,7 @@ namespace shob::teams
     {
         using namespace shob::readers;
 
-        auto data = csvReader::readCsvFile(filename);
+        auto data = CsvReader::readCsvFile(filename);
         Init(data);
     }
 
@@ -17,7 +17,7 @@ namespace shob::teams
         return countries.at(landcode);
     }
 
-    void nationalTeams::Init(const readers::csvContent& data)
+    void nationalTeams::Init(const readers::CsvContent& data)
     {
         for (const auto& row : data.body)
         {

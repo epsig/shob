@@ -8,8 +8,8 @@ namespace shob::football
     {
     public:
         static RouteToFfinal create(const std::string& filename);
-        static RouteToFfinal create(const readers::csvContent& data);
-        static RouteToFfinal createEC(const readers::csvContent& data, const std::string& ECpart);
+        static RouteToFfinal create(const readers::CsvContent& data);
+        static RouteToFfinal createEC(const readers::CsvContent& data, const std::string& ECpart);
     };
 
 }

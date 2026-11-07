@@ -12,12 +12,12 @@ namespace shob::pages
 {
     namespace fs = std::filesystem;
     EkWkOneYear EkWkOneYearBuilder::build(const EkWkDate ekwk, const html::Settings settings, const teams::clubTeams& teams,
-            const readers::csvAllSeasonsReader& top_scorers, const teams::footballers& players,
+            const readers::CsvAllSeasonsReader& top_scorers, const teams::footballers& players,
             const std::vector<std::vector<std::string>>& current_remarks, const std::string& data_sport_folder)
     {
         int year = ekwk.year;
         const std::string filename = data_sport_folder + "/ekwk/" + ekwk.shortName() + std::to_string(year) + ".csv";
-        auto csv_content = readers::csvReader::readCsvFile(filename);
+        auto csv_content = readers::CsvReader::readCsvFile(filename);
 
         auto r2f = football::RouteToFinalFactory::create(csv_content);
 
@@ -25,10 +25,10 @@ namespace shob::pages
         auto round2 = getRound2data(csv_content);
 
         auto filename_xml = data_sport_folder + "/ekwk/" + ekwk.shortNameUpper() + "_" + std::to_string(year) + ".xml";
-        readers::xmlReader reader;
+        readers::XmlReader reader;
         if (fs::exists(filename_xml))
         {
-            reader = readers::xmlReader(filename_xml);
+            reader = readers::XmlReader(filename_xml);
         }
 
         auto result = EkWkOneYear(ekwk, settings, teams, top_scorers, players, current_remarks,
@@ -36,7 +36,7 @@ namespace shob::pages
         return result;
     }
 
-    football::FootballCompetition EkWkOneYearBuilder::getRound2data(const readers::csvContent& csv_content)
+    football::FootballCompetition EkWkOneYearBuilder::getRound2data(const readers::CsvContent& csv_content)
     {
         auto filter = football::FilterInputList();
         filter.filters.push_back({ 0, "round2" });
@@ -45,7 +45,7 @@ namespace shob::pages
         return round2;
     }
 
-    general::UniqueStrings EkWkOneYearBuilder::getGroups(const readers::csvContent& csv_content)
+    general::UniqueStrings EkWkOneYearBuilder::getGroups(const readers::CsvContent& csv_content)
     {
         auto groups = general::UniqueStrings();
         for (const auto& row : csv_content.body)
@@ -58,7 +58,7 @@ namespace shob::pages
         return groups;
     }
 
-    groupList EkWkOneYearBuilder::getGroupData(const readers::csvContent& csv_content, const std::vector<std::vector<std::string>>& current_remarks)
+    groupList EkWkOneYearBuilder::getGroupData(const readers::CsvContent& csv_content, const std::vector<std::vector<std::string>>& current_remarks)
     {
         const auto groups = getGroups(csv_content).list();
         auto retval = groupList();

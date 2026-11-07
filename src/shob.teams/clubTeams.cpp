@@ -10,7 +10,7 @@ namespace shob::teams
     void clubTeams::InitFromFile(const std::string& filename, clubsOrCountries team_type)
     {
         teamType = team_type;
-        auto data = csvReader::readCsvFile(filename);
+        auto data = CsvReader::readCsvFile(filename);
         Init(data);
     }
 
@@ -78,7 +78,7 @@ namespace shob::teams
         return club;
     }
 
-    void clubTeams::Init(const readers::csvContent& data)
+    void clubTeams::Init(const readers::CsvContent& data)
     {
         int col = 1;
         if (data.header.column[1].find("code") != std::string::npos) col = 2;

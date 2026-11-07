@@ -6,7 +6,7 @@ namespace shob::football
 {
     LeagueNames::LeagueNames(const std::string& filename)
     {
-        auto leagueNames = readers::csvReader::readCsvFile(filename);
+        auto leagueNames = readers::CsvReader::readCsvFile(filename);
         for (const auto& line : leagueNames.body)
         {
             auto allNames = leagueName();

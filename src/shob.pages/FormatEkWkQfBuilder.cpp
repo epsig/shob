@@ -39,10 +39,10 @@ namespace shob::pages
     {
         auto dataFolderEkWkQf = dataFolder + "/ekwk_qf/";
 
-        auto remarks = readers::csvAllSeasonsReader();
+        auto remarks = readers::CsvAllSeasonsReader();
         remarks.init(dataFolderEkWkQf + "ekwk_qf_remarks.csv");
 
-        auto remarksMainTournement = readers::csvAllSeasonsReader();
+        auto remarksMainTournement = readers::CsvAllSeasonsReader();
         remarksMainTournement.init(dataFolder + "/ekwk/ekwk_remarks.csv");
         auto organizingCountries = remarksMainTournement.getAll("organising_country");
 

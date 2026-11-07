@@ -18,7 +18,7 @@ namespace shob::teams
 
     void footballers::initFromFile(const std::string& filename)
     {
-        auto data = readers::csvReader::readCsvFile(filename);
+        auto data = readers::CsvReader::readCsvFile(filename);
 
         for (const auto& col : data.body)
         {

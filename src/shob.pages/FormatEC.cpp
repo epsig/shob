@@ -57,7 +57,7 @@ namespace shob::pages
         return dd;
     }
 
-    UniqueStrings FormatEC::getQualifiers(const std::string& part, const csvContent& data)
+    UniqueStrings FormatEC::getQualifiers(const std::string& part, const CsvContent& data)
     {
         auto parts = UniqueStrings();
         for (const auto& row : data.body)
@@ -75,7 +75,7 @@ namespace shob::pages
         return parts;
     }
 
-    UniqueStrings FormatEC::getXtra(const std::string& part, const csvContent& data)
+    UniqueStrings FormatEC::getXtra(const std::string& part, const CsvContent& data)
     {
         auto parts = UniqueStrings();
         for (const auto& row : data.body)
@@ -92,7 +92,7 @@ namespace shob::pages
         return parts;
     }
 
-    UniqueStrings FormatEC::getGroups(const std::string& part, const csvContent& data)
+    UniqueStrings FormatEC::getGroups(const std::string& part, const CsvContent& data)
     {
         auto groups = UniqueStrings();
         for ( const auto& row : data.body)
@@ -133,10 +133,10 @@ namespace shob::pages
                 }
                 else
                 {
-                    auto splitted = csvReader::split(option, ";");
+                    auto splitted = CsvReader::split(option, ";");
                     for (const auto & part: splitted.column)
                     {
-                        auto splitted2 = csvReader::split(part, ":");
+                        auto splitted2 = CsvReader::split(part, ":");
                         auto group = "g" + splitted2.column[0];
                         auto wns = splitted2.column[1];
                         wns_cl.groups.insert({ group, std::stoi(wns) });
@@ -155,7 +155,7 @@ namespace shob::pages
         return extraU2s;
     }
 
-    MultipleStrings FormatEC::getSupercup(const csvContent& data, int& dd) const
+    MultipleStrings FormatEC::getSupercup(const CsvContent& data, int& dd) const
     {
         auto filter = FilterInputList();
         const std::string part = "supercup";
@@ -188,7 +188,7 @@ namespace shob::pages
         return remarks;
     }
 
-    MultipleStrings FormatEC::getFirstHalfYear(const std::string& part, const csvContent& data, const WnsEc& wns_cl,
+    MultipleStrings FormatEC::getFirstHalfYear(const std::string& part, const CsvContent& data, const WnsEc& wns_cl,
         const std::vector<std::vector<std::string>>& extraU2s, const int sortRule, int& dd) const
     {
         auto tables = std::vector<TableContent>();
@@ -312,7 +312,7 @@ namespace shob::pages
         return table.buildTable(tables);
     }
 
-    bool FormatEC::hasFinal(const std::string& part, const csvContent& csvData)
+    bool FormatEC::hasFinal(const std::string& part, const CsvContent& csvData)
     {
         const auto lookFor = { "4f", "2f", "f" };
         for (const auto& line : csvData.body)
@@ -328,7 +328,7 @@ namespace shob::pages
         return false;
     }
 
-    MultipleStrings FormatEC::getInternalLinks(const std::vector<std::string>& ECparts, const csvContent& csvData) const
+    MultipleStrings FormatEC::getInternalLinks(const std::vector<std::string>& ECparts, const CsvContent& csvData) const
     {
         auto out = MultipleStrings();
         bool isFirst = true;
@@ -378,7 +378,7 @@ namespace shob::pages
     MultipleStrings FormatEC::getSeason(const Season& season, int& dd) const
     {
         const auto file1 = sportDataFolder + "/europacup/europacup_" + season.toPartFilename() + ".csv";
-        const auto csvData = csvReader::readCsvFile(file1);
+        const auto csvData = CsvReader::readCsvFile(file1);
 
         WnsEc wns_cl;
         MultipleStrings summary;

@@ -171,7 +171,7 @@ namespace shob::pages
         html::TableContent beslissend;
         if ( ! remarks.data.empty())
         {
-            auto splitted_countries = readers::csvReader::split(remarks.data[0], ";");
+            auto splitted_countries = readers::CsvReader::split(remarks.data[0], ";");
             std::set<std::string> top3;
             for (const auto& field : splitted_countries.column)
             {
@@ -197,14 +197,14 @@ namespace shob::pages
         return retVal;
     }
 
-    readers::csvContent FormatEkWkQf::read_matches_data(const EkWkDate& ekwk, const char type) const
+    readers::CsvContent FormatEkWkQf::read_matches_data(const EkWkDate& ekwk, const char type) const
     {
         const auto csvInput = std::format("{}{}{}{}.csv", dataSportFolder, ekwk.shortName(), ekwk.year, type);
-        const auto csvData = readers::csvReader::readCsvFile(csvInput);
+        const auto csvData = readers::CsvReader::readCsvFile(csvInput);
         return csvData;
     }
 
-    MultipleStrings FormatEkWkQf::get_group_nl(int& dd, const int star, const readers::csvContent& matches_data, const MultipleStrings& remarks) const
+    MultipleStrings FormatEkWkQf::get_group_nl(int& dd, const int star, const readers::CsvContent& matches_data, const MultipleStrings& remarks) const
     {
         if (matches_data.body.empty()) return {};
 
@@ -267,7 +267,7 @@ namespace shob::pages
         return retVal;
     }
 
-    MultipleStrings FormatEkWkQf::get_play_offs(int& dd, const readers::csvContent& matches_data) const
+    MultipleStrings FormatEkWkQf::get_play_offs(int& dd, const readers::CsvContent& matches_data) const
     {
         if (matches_data.body.empty()) return {};
 
@@ -385,7 +385,7 @@ namespace shob::pages
             {
                 if ( part.find('_') == std::string::npos)
                 {
-                    auto csvStand = readers::csvContent();
+                    auto csvStand = readers::CsvContent();
                     csvStand.header = csvData.header;
                     for (auto line : csvData.body)
                     {

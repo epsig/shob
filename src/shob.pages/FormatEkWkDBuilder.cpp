@@ -11,10 +11,10 @@ namespace shob::pages
     {
         const auto data_folder_ek_wk = dataFolder + "/ekwk/";
 
-        auto remarks = readers::csvAllSeasonsReader();
+        auto remarks = readers::CsvAllSeasonsReader();
         remarks.init(dataFolder + "/ekwk/ekwk_remarks.csv");
 
-        auto topScorers = readers::csvAllSeasonsReader();
+        auto topScorers = readers::CsvAllSeasonsReader();
         topScorers.init(dataFolder + "/ekwk/topscorers_ekwk.csv");
 
         auto players = teams::footballers();

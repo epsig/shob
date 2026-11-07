@@ -16,8 +16,8 @@ namespace shob::pages
     class FormatOs : public FormatOnePageEachYear
     {
     public:
-        FormatOs(std::string folder, readers::csvAllSeasonsReader reader, readers::csvContent dames,
-            readers::csvContent heren, TopMenu menu, teams::nationalTeams teams, html::Settings settings);
+        FormatOs(std::string folder, readers::CsvAllSeasonsReader reader, readers::CsvContent dames,
+            readers::CsvContent heren, TopMenu menu, teams::nationalTeams teams, html::Settings settings);
         general::MultipleStrings getPages(const int year) const override;
         bool isValidYear(const int year) const override;
         std::string getOutputFilename(const std::string& output_folder, const int year) const override;
@@ -27,20 +27,20 @@ namespace shob::pages
         static std::string printResult(const std::string& time_as_string, const std::string& remark);
     private:
         const std::string folder;
-        const readers::csvAllSeasonsReader seasons_reader;
-        const readers::csvContent dames;
-        const readers::csvContent heren;
+        const readers::CsvAllSeasonsReader seasons_reader;
+        const readers::CsvContent dames;
+        const readers::CsvContent heren;
         const TopMenu menu;
         const teams::nationalTeams land_codes;
         const html::Settings settings;
-        readers::csvContent readMatchesData(const int year) const;
-        general::MultipleStrings getNumbersOne(const readers::csvContent& all_data) const;
-        general::MultipleStrings getAllDistances(const char gender, const readers::csvContent& all_data) const;
-        general::MultipleStrings getOneDistance(const std::string& distance, const char gender, const readers::csvContent& all_data) const;
+        readers::CsvContent readMatchesData(const int year) const;
+        general::MultipleStrings getNumbersOne(const readers::CsvContent& all_data) const;
+        general::MultipleStrings getAllDistances(const char gender, const readers::CsvContent& all_data) const;
+        general::MultipleStrings getOneDistance(const std::string& distance, const char gender, const readers::CsvContent& all_data) const;
         static int findDate(const std::vector<std::vector<std::string>>& remarks);
         static std::string findTitle(const std::vector<std::vector<std::string>>& remarks);
-        static std::string findName(const std::string& name, const readers::csvContent& listNames);
-        static std::vector<std::string> findDistances(const char gender, const readers::csvContent& all_data);
+        static std::string findName(const std::string& name, const readers::CsvContent& listNames);
+        static std::vector<std::string> findDistances(const char gender, const readers::CsvContent& all_data);
         static std::string adjustTeam(const std::string& team);
     };
 }

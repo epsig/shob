@@ -71,10 +71,10 @@ namespace shob::pages
 
         // beker/supercup:
         const std::string bekerFilename = sportDataFolder + "/beker/beker_" + season.toPartFilename() + ".csv";
-        readers::csvContent dataBekerAndSupercup;
+        readers::CsvContent dataBekerAndSupercup;
         if (fs::exists(bekerFilename))
         {
-            dataBekerAndSupercup = readers::csvReader::readCsvFile(bekerFilename);
+            dataBekerAndSupercup = readers::CsvReader::readCsvFile(bekerFilename);
         }
 
         const auto currentRemarks = remarks.getSeason(season);
@@ -130,7 +130,7 @@ namespace shob::pages
         return HeadBottom::getPage(hb);
     }
 
-    PageBlock FormatNL::getSupercup(const readers::csvContent& dataBekerAndSupercup, const Season& season, int& dd) const
+    PageBlock FormatNL::getSupercup(const readers::CsvContent& dataBekerAndSupercup, const Season& season, int& dd) const
     {
         PageBlock retval;
         if (dataBekerAndSupercup.body.empty()) return retval;
@@ -231,7 +231,7 @@ namespace shob::pages
         const auto filename = sportDataFolder + "/eerste_divisie/eerste_divisie_" + season.toPartFilename() + ".csv";
         if (fs::exists(filename))
         {
-            auto remarks_1e_div = readers::csvAllSeasonsReader();
+            auto remarks_1e_div = readers::CsvAllSeasonsReader();
             remarks_1e_div.init(sportDataFolder + "/eerste_divisie/eerste_divisie_remarks.csv");
             const auto currentRemarks = remarks_1e_div.getSeason(season);
 
@@ -303,7 +303,7 @@ namespace shob::pages
     MultipleStrings FormatNL::getTopScorers(const std::string& file, const std::string& name_competition, const Season& season,
         const teams::footballers& players) const
     {
-        auto allTp = readers::csvAllSeasonsReader();
+        auto allTp = readers::CsvAllSeasonsReader();
         allTp.init(file);
 
         auto tp = football::Topscorers(allTp);
@@ -322,7 +322,7 @@ namespace shob::pages
         }
     }
 
-    PageBlock FormatNL::getBeker(const readers::csvContent& dataBekerAndSupercup, int& dd) const
+    PageBlock FormatNL::getBeker(const readers::CsvContent& dataBekerAndSupercup, int& dd) const
     {
         PageBlock retval;
         auto Table = html::Table(settings);
@@ -358,8 +358,8 @@ namespace shob::pages
 
         for (const auto& row : extraU2s)
         {
-            auto splittedTeams = readers::csvReader::split(row[0], ";").column;
-            auto splittedBatches = readers::csvReader::split(row[1], ";").column;
+            auto splittedTeams = readers::CsvReader::split(row[0], ";").column;
+            auto splittedBatches = readers::CsvReader::split(row[1], ";").column;
 
             for (const auto& t : tournements)
             {

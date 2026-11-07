@@ -31,14 +31,14 @@ namespace shob::football
 
     void Standings::initFromFile(const std::string& filename)
     {
-        auto stand = readers::csvReader::readCsvFile(filename);
+        auto stand = readers::CsvReader::readCsvFile(filename);
         if ( ! stand.body.empty())
         {
             initFromData(stand);
         }
     }
 
-    void Standings::initFromData(const readers::csvContent& stand)
+    void Standings::initFromData(const readers::CsvContent& stand)
     {
         const auto clubNames = stand.findColumnNamesTeams();
         const auto teamColumn = stand.findColumn(clubNames[0]);
@@ -87,7 +87,7 @@ namespace shob::football
             if (remarksColumn < rowCsv.size() && !rowCsv[remarksColumn].empty())
             {
                 u2sExtra data;
-                data.extras = readers::csvReader::split(rowCsv[remarksColumn], ";").column;
+                data.extras = readers::CsvReader::split(rowCsv[remarksColumn], ";").column;
                 extras.insert({ row.team, data });
             }
             list.push_back(row);
@@ -440,16 +440,16 @@ namespace shob::football
         return table;
     }
 
-    void Standings::addExtras(const readers::csvAllSeasonsReader& r, const Season& season)
+    void Standings::addExtras(const readers::CsvAllSeasonsReader& r, const Season& season)
     {
         const auto extraU2s = r.getSeason(season);
         for (size_t i = 1; i < extraU2s.size(); i++)
         {
             auto teams = extraU2s[i][0];
-            auto splittedTeams = readers::csvReader::split(teams, ";").column;
+            auto splittedTeams = readers::CsvReader::split(teams, ";").column;
             auto u2s = extraU2s[i][1];
             u2sExtra data;
-            data.extras = readers::csvReader::split(u2s, ";").column;
+            data.extras = readers::CsvReader::split(u2s, ";").column;
             for (const auto& team : splittedTeams)
             {
                 extras.insert({ team, data });

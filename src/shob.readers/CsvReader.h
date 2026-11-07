@@ -3,32 +3,30 @@
 
 #include <string>
 #include <vector>
-#include "../shob.general/uniqueStrings.h"
+#include "../shob.general/UniqueStrings.h"
 
 namespace shob::readers
 {
-    class csvColContent
+    class CsvColContent
     {
     public:
         std::vector<std::string> column;
     };
 
-    class csvContent
+    class CsvContent
     {
     public:
-        csvColContent header;
-        std::vector<csvColContent> body;
+        CsvColContent header;
+        std::vector<CsvColContent> body;
         size_t findColumn(const std::string& columnName) const;
         std::vector<std::string> findColumnNamesTeams() const;
         general::UniqueStrings getParts() const;
     };
 
-    class csvReader
+    class CsvReader
     {
     public:
-        static csvContent readCsvFile(const std::string& filename);
-        static csvColContent split(const std::string& s, const std::string& delimiter);
+        static CsvContent readCsvFile(const std::string& filename);
+        static CsvColContent split(const std::string& s, const std::string& delimiter);
     };
-
 }
-

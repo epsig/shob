@@ -56,7 +56,7 @@ namespace shob::football::test
         competition.readFromCsv(filename);
     
         auto table = ResultsToStandings::u2s(competition);
-        auto extras = readers::csvAllSeasonsReader();
+        auto extras = readers::CsvAllSeasonsReader();
         const std::string filename3 = testUtils::refFileWithPath(__FILE__, u2s);
         extras.init(filename3);
         table.addExtras(extras, general::Season(2023));
@@ -75,7 +75,7 @@ namespace shob::football::test
     {
         // set up test:
         const auto file1 = testUtils::refFileWithPath(__FILE__, "../../data/sport/europacup/europacup_1996_1997.csv");
-        const auto csvData = readers::csvReader::readCsvFile(file1);
+        const auto csvData = readers::CsvReader::readCsvFile(file1);
         auto filter = FilterInputList();
         filter.filters.push_back({ 0, "CL" });
         filter.filters.push_back({ 1, "gA" });
@@ -96,7 +96,7 @@ namespace shob::football::test
     {
         // set up test:
         const auto file1 = testUtils::refFileWithPath(__FILE__, "../../data/sport/europacup/europacup_2024_2025.csv");
-        const auto csvData = readers::csvReader::readCsvFile(file1);
+        const auto csvData = readers::CsvReader::readCsvFile(file1);
         auto filter = FilterInputList();
         filter.filters.push_back({ 0, "CF" });
         filter.filters.push_back({ 1, "gA" });

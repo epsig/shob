@@ -26,7 +26,7 @@ namespace shob::teams
         clubsOrCountries getClubsOrCountries() const { return teamType; }
     private:
         clubsOrCountries teamType = clubsOrCountries::unknownYet;
-        void Init(const readers::csvContent& data);
+        void Init(const readers::CsvContent& data);
         std::map<std::string, std::string, std::less<>> clubs;
         nationalTeams landCodes;
     };

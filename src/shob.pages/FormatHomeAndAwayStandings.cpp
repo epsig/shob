@@ -98,10 +98,10 @@ namespace shob::pages
         return fs::exists(csv_input);
     }
 
-    readers::csvContent FormatHomeAndAwayStandings::readMatchesData(const general::Season& season) const
+    readers::CsvContent FormatHomeAndAwayStandings::readMatchesData(const general::Season& season) const
     {
         const auto csv_input = std::format("{}/eredivisie_{}.csv", folder, season.toPartFilename());
-        const auto csv_data = readers::csvReader::readCsvFile(csv_input);
+        const auto csv_data = readers::CsvReader::readCsvFile(csv_input);
         return csv_data;
     }
 

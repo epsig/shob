@@ -22,11 +22,11 @@ namespace shob::football::test
 
     void TestFootballCompetition::testStrafPoints()
     {
-        readers::csvColContent header;
+        readers::CsvColContent header;
         header.column = { "club1", "club2", "dd", "result", "spectators", "remark" };
-        readers::csvColContent straf;
+        readers::CsvColContent straf;
         straf.column = { "vit", "straf" , "pnt", "18", "", "dd 19 april" };
-        readers::csvContent csvData;
+        readers::CsvContent csvData;
         csvData.header = header;
         csvData.body.push_back(straf);
         auto competition = FootballCompetition();

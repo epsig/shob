@@ -21,7 +21,7 @@ namespace shob::football::test
         auto filter = FilterInputList();
         filter.filters.push_back({ 0, "f" });
 
-        auto header = readers::csvColContent();
+        auto header = readers::CsvColContent();
         header.column = { "f", "club1", "club2", "0-0" };
 
         auto isFinale = filter.checkLine(header);
@@ -42,7 +42,7 @@ namespace shob::football::test
         auto filter = FilterInputList();
         filter.filters.push_back({ 0, "2f" });
 
-        auto header = readers::csvColContent();
+        auto header = readers::CsvColContent();
         header.column = { "f", "club1", "club2", "0-0" };
 
         auto isFinale = filter.checkLine(header);
