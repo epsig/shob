@@ -3,7 +3,7 @@
 #include <gtest/gtest.h>
 
 #include "../shob.pages/FormatNL_Builder.h"
-#include "../shob.test.utils/testUtils.h"
+#include "../shob.test.utils/TestUtils.h"
 
 namespace shob::pages::test
 {
@@ -12,7 +12,7 @@ namespace shob::pages::test
     void TestFormatNL::test1()
     {
         const std::string dataMap = "../../data/sport/";
-        const std::string dataFolder = testUtils::refFileWithPath(__FILE__, dataMap);
+        const std::string dataFolder = TestUtils::refFileWithPath(__FILE__, dataMap);
         auto settings = html::Settings();
         auto fmt_nl = format_nl_builder::build(dataFolder, settings);
         auto lines = fmt_nl.getSeason(general::Season(2023));
@@ -22,7 +22,7 @@ namespace shob::pages::test
     void TestFormatNL::test_last_dd()
     {
         const std::string dataMap = "../../data/sport/";
-        const std::string dataFolder = testUtils::refFileWithPath(__FILE__, dataMap);
+        const std::string dataFolder = TestUtils::refFileWithPath(__FILE__, dataMap);
         auto settings = html::Settings();
         auto fmt_nl = format_nl_builder::build(dataFolder, settings);
         int dd = fmt_nl.get_dd();

@@ -3,13 +3,13 @@
 #include <gtest/gtest.h>
 
 #include "../shob.readers/XmlReader.h"
-#include "../shob.test.utils/testUtils.h"
+#include "../shob.test.utils/TestUtils.h"
 
 namespace shob::readers::test
 {
     void TestXmlReader::test2()
     {
-        const std::string filename = testUtils::refFileWithPath(__FILE__, "../../data/sport/ekwk/EK_1996.xml");
+        const std::string filename = TestUtils::refFileWithPath(__FILE__, "../../data/sport/ekwk/EK_1996.xml");
         const std::string  path = "games.group_phase.groupA.CH_NL.stats.chronological";
         auto reader = XmlReader(filename);
         const auto games = reader.loadPairs(path , "min");

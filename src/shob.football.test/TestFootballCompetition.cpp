@@ -6,12 +6,12 @@
 #include "../shob.football/FootballCompetition.h"
 #include "../shob.football/Results2Standings.h"
 
-#include "../shob.test.utils/testUtils.h"
+#include "../shob.test.utils/TestUtils.h"
 
 namespace shob::football::test
 {
     const std::string eredivisie2425 = "../../data/sport/eredivisie/eredivisie_2024_2025.csv";
-    const std::string filename = readers::test::testUtils::refFileWithPath(__FILE__, eredivisie2425);
+    const std::string filename = readers::test::TestUtils::refFileWithPath(__FILE__, eredivisie2425);
 
     void TestFootballCompetition::test1()
     {
@@ -58,7 +58,7 @@ namespace shob::football::test
         const auto filtered = competition.filter(toppers);
 
         const std::string clubs = "../../data/sport/clubs.csv";
-        const std::string filename2 = readers::test::testUtils::refFileWithPath(__FILE__, clubs);
+        const std::string filename2 = readers::test::TestUtils::refFileWithPath(__FILE__, clubs);
         auto reader = teams::ClubTeams();
         reader.InitFromFile(filename2, teams::ClubsOrCountries::clubs);
 

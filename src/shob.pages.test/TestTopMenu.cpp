@@ -4,7 +4,7 @@
 #include <gtest/gtest.h>
 
 #include "../shob.pages/TopMenu.h"
-#include "../shob.test.utils/testUtils.h"
+#include "../shob.test.utils/TestUtils.h"
 
 namespace shob::pages::test
 {

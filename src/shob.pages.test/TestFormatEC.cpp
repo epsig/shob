@@ -3,14 +3,14 @@
 #include <gtest/gtest.h>
 
 #include "../shob.pages/FormatEC_Builder.h"
-#include "../shob.test.utils/testUtils.h"
+#include "../shob.test.utils/TestUtils.h"
 
 namespace shob::pages::test
 {
     using namespace readers::test;
 
     const std::string data_map = "../../data/sport/";
-    const std::string data_folder = testUtils::refFileWithPath(__FILE__, data_map);
+    const std::string data_folder = TestUtils::refFileWithPath(__FILE__, data_map);
     constexpr auto settings = html::Settings();
     const auto format_ec = FormatEC_Builder::build(data_folder, settings);
 

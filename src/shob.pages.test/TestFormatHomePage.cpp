@@ -3,14 +3,14 @@
 #include <gtest/gtest.h>
 
 #include "../shob.pages/FormatHomePage.h"
-#include "../shob.test.utils/testUtils.h"
+#include "../shob.test.utils/TestUtils.h"
 
 namespace shob::pages::test
 {
     using namespace readers::test;
 
     const std::string data_map = "../../data/bookmarks/";
-    const std::string data_folder = testUtils::refFileWithPath(__FILE__, data_map);
+    const std::string data_folder = TestUtils::refFileWithPath(__FILE__, data_map);
 
     void TestFormatHomePage::test_1()
     {

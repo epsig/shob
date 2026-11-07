@@ -4,13 +4,13 @@
 
 #include "../shob.readers/CsvReader.h"
 
-#include "../shob.test.utils/testUtils.h"
+#include "../shob.test.utils/TestUtils.h"
 
 namespace shob::readers::test
 {
     void TestCsvReader::test1()
     {
-        const std::string filename = testUtils::refFileWithPath(__FILE__,  "../../data/sport/eredivisie/eredivisie_2024_2025.csv");
+        const std::string filename = TestUtils::refFileWithPath(__FILE__,  "../../data/sport/eredivisie/eredivisie_2024_2025.csv");
         auto result = CsvReader::readCsvFile(filename);
         EXPECT_EQ(306, result.body.size());
     }

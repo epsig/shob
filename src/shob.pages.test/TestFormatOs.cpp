@@ -4,14 +4,14 @@
 
 #include "../shob.html/Settings.h"
 #include "../shob.pages/FormatOsBuilder.h"
-#include "../shob.test.utils/testUtils.h"
+#include "../shob.test.utils/TestUtils.h"
 
 namespace shob::pages::test
 {
     using namespace readers::test;
 
     const std::string data_map = "../../data/sport/schaatsen/";
-    const std::string data_folder = testUtils::refFileWithPath(__FILE__, data_map);
+    const std::string data_folder = TestUtils::refFileWithPath(__FILE__, data_map);
     constexpr auto settings = html::Settings();
     const auto format_os = FormatOsBuilder::build(data_folder, settings);
 

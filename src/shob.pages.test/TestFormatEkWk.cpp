@@ -4,14 +4,14 @@
 
 #include "../shob.pages/FormatEkWkBuilder.h"
 #include "../shob.pages/FormatEkWkDBuilder.h"
-#include "../shob.test.utils/testUtils.h"
+#include "../shob.test.utils/TestUtils.h"
 
 namespace shob::pages::test
 {
     using namespace readers::test;
 
     const std::string data_map = "../../data/sport/";
-    const std::string data_folder = testUtils::refFileWithPath(__FILE__, data_map);
+    const std::string data_folder = TestUtils::refFileWithPath(__FILE__, data_map);
     constexpr auto settings = html::Settings();
 
     void TestFormatEkWk::test_wk_2022()

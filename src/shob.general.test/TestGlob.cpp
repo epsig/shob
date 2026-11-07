@@ -8,7 +8,7 @@ namespace shob::general::test
     void TestGlob::test1()
     {
         const std::string dataMap = "../testdata/yearstandings1";
-        const std::string dataFolder = readers::test::testUtils::refFileWithPath(__FILE__, dataMap);
+        const std::string dataFolder = readers::test::TestUtils::refFileWithPath(__FILE__, dataMap);
 
         const auto list = Glob::list(dataFolder, "eredivisie_[12][90].*");
 

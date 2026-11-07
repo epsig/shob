@@ -2,11 +2,11 @@
 
 #include <gtest/gtest.h>
 
-#include "../shob.test.utils/testUtils.h"
+#include "../shob.test.utils/TestUtils.h"
 
 #include "../shob.football/Topscorers.h"
 
-#include "../shob.teams/clubTeams.h"
+#include "../shob.teams/ClubTeams.h"
 
 #include "../shob.readers/csvAllSeasonsReader.h"
 
@@ -15,7 +15,7 @@ namespace shob::football::test
     using namespace readers::test;
 
     const std::string eredivisie = "../../data/sport/eredivisie/topscorers_eredivisie.csv";
-    const std::string filename = testUtils::refFileWithPath(__FILE__, eredivisie);
+    const std::string filename = TestUtils::refFileWithPath(__FILE__, eredivisie);
     const std::string clubs = "../../data/sport/clubs.csv";
     const std::string voetballers = "../../data/sport/voetballers.csv";
 
@@ -28,12 +28,12 @@ namespace shob::football::test
         tp.initFromFile(general::Season(2019));
 
         auto players = teams::Footballers();
-        const std::string filename3 = testUtils::refFileWithPath(__FILE__, voetballers);
+        const std::string filename3 = TestUtils::refFileWithPath(__FILE__, voetballers);
         players.initFromFile(filename3);
 
         auto settings = html::Settings();
         auto reader = teams::ClubTeams();
-        const std::string filename2 = testUtils::refFileWithPath(__FILE__, clubs);
+        const std::string filename2 = TestUtils::refFileWithPath(__FILE__, clubs);
 
         reader.InitFromFile(filename2, teams::ClubsOrCountries::clubs);
         auto table2 = tp.prepareTable(reader, players, settings);

@@ -3,7 +3,7 @@
 
 #include <gtest/gtest.h>
 
-#include "../shob.test.utils/testUtils.h"
+#include "../shob.test.utils/TestUtils.h"
 #include "../shob.football/Results2standings.h"
 #include "../shob.teams/clubTeams.h"
 #include "../shob.football/FilterInput.h"
@@ -15,7 +15,7 @@ namespace shob::football::test
 
     const std::string eredivisie = "../../data/sport/eredivisie/eredivisie_2023_2024.csv";
     const std::string u2s = "../../data/sport/eredivisie/eredivisie_u2s.csv";
-    const std::string filename = testUtils::refFileWithPath(__FILE__, eredivisie);
+    const std::string filename = TestUtils::refFileWithPath(__FILE__, eredivisie);
     const std::string clubs = "../../data/sport/clubs.csv";
 
     void TestResults2standings::test1()
@@ -31,7 +31,7 @@ namespace shob::football::test
 
     void TestResults2standings::test2()
     {
-        const std::string filename2 = testUtils::refFileWithPath(__FILE__, clubs);
+        const std::string filename2 = TestUtils::refFileWithPath(__FILE__, clubs);
         auto competition = FootballCompetition();
 
         competition.readFromCsv(filename);
@@ -50,14 +50,14 @@ namespace shob::football::test
 
     void TestResults2standings::test3()
     {
-        const std::string filename2 = testUtils::refFileWithPath(__FILE__, clubs);
+        const std::string filename2 = TestUtils::refFileWithPath(__FILE__, clubs);
         auto competition = FootballCompetition();
     
         competition.readFromCsv(filename);
     
         auto table = ResultsToStandings::u2s(competition);
         auto extras = readers::CsvAllSeasonsReader();
-        const std::string filename3 = testUtils::refFileWithPath(__FILE__, u2s);
+        const std::string filename3 = TestUtils::refFileWithPath(__FILE__, u2s);
         extras.init(filename3);
         table.addExtras(extras, general::Season(2023));
 
@@ -74,7 +74,7 @@ namespace shob::football::test
     void TestResults2standings::testMutualResults()
     {
         // set up test:
-        const auto file1 = testUtils::refFileWithPath(__FILE__, "../../data/sport/europacup/europacup_1996_1997.csv");
+        const auto file1 = TestUtils::refFileWithPath(__FILE__, "../../data/sport/europacup/europacup_1996_1997.csv");
         const auto csvData = readers::CsvReader::readCsvFile(file1);
         auto filter = FilterInputList();
         filter.filters.push_back({ 0, "CL" });
@@ -95,7 +95,7 @@ namespace shob::football::test
     void TestResults2standings::testSortOnResultsOpponents()
     {
         // set up test:
-        const auto file1 = testUtils::refFileWithPath(__FILE__, "../../data/sport/europacup/europacup_2024_2025.csv");
+        const auto file1 = TestUtils::refFileWithPath(__FILE__, "../../data/sport/europacup/europacup_2024_2025.csv");
         const auto csvData = readers::CsvReader::readCsvFile(file1);
         auto filter = FilterInputList();
         filter.filters.push_back({ 0, "CF" });

@@ -4,14 +4,14 @@
 
 #include "../shob.readers/CsvAllSeasonsReader.h"
 
-#include "../shob.test.utils/testUtils.h"
+#include "../shob.test.utils/TestUtils.h"
 
 namespace shob::readers::test
 {
     void TestCsvAllSeasonsReader::test1()
     {
         const std::string u2sFile = "../../data/sport/eredivisie/eredivisie_u2s.csv";
-        const std::string filename = testUtils::refFileWithPath(__FILE__, u2sFile);
+        const std::string filename = TestUtils::refFileWithPath(__FILE__, u2sFile);
         auto result = CsvAllSeasonsReader();
         result.init(filename);
         auto filtered = result.getSeason(general::Season(2023));

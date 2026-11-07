@@ -4,7 +4,7 @@
 #include <gtest/gtest.h>
 
 #include "../shob.football/FilterResults.h"
-#include "../shob.test.utils/testUtils.h"
+#include "../shob.test.utils/TestUtils.h"
 #include "../shob.football/Route2finalFactory.h"
 
 namespace shob::football::test
@@ -15,10 +15,10 @@ namespace shob::football::test
     void TestFilterResults::testFilterWithRoute2Finale()
     {
         const std::string beker2425 = "../../data/sport/beker/beker_2024_2025.csv";
-        const std::string filename = testUtils::refFileWithPath(__FILE__, beker2425);
+        const std::string filename = TestUtils::refFileWithPath(__FILE__, beker2425);
 
         const std::string clubs = "../../data/sport/clubs.csv";
-        const std::string filename2 = testUtils::refFileWithPath(__FILE__, clubs);
+        const std::string filename2 = TestUtils::refFileWithPath(__FILE__, clubs);
         auto reader = teams::ClubTeams();
         reader.InitFromFile(filename2, teams::ClubsOrCountries::clubs);
 
@@ -32,7 +32,7 @@ namespace shob::football::test
     void TestFilterResults::testGetReturns()
     {
         const std::string beker0910 = "../../data/sport/beker/beker_2009_2010.csv";
-        const std::string filename = testUtils::refFileWithPath(__FILE__, beker0910);
+        const std::string filename = TestUtils::refFileWithPath(__FILE__, beker0910);
         const auto data = CsvReader::readCsvFile(filename);
 
         auto filter = FilterInputList();
@@ -45,10 +45,10 @@ namespace shob::football::test
     void TestFilterResults::testFilterEuropacup()
     {
         const std::string ec2425 = "../../data/sport/europacup/europacup_2024_2025.csv";
-        const std::string filename = testUtils::refFileWithPath(__FILE__, ec2425);
+        const std::string filename = TestUtils::refFileWithPath(__FILE__, ec2425);
 
         const std::string clubs = "../../data/sport/clubs.csv";
-        const std::string filename2 = testUtils::refFileWithPath(__FILE__, clubs);
+        const std::string filename2 = TestUtils::refFileWithPath(__FILE__, clubs);
         auto reader = teams::ClubTeams();
         reader.InitFromFile(filename2, teams::ClubsOrCountries::clubs);
 
