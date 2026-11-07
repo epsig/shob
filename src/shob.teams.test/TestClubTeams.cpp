@@ -1,16 +1,15 @@
-
-#include "testClubTeams.h"
+#include "TestClubTeams.h"
 #include <string>
 #include <gtest/gtest.h>
 
 #include "../shob.test.utils/testUtils.h"
-#include "../shob.teams/clubTeams.h"
+#include "../shob.teams/ClubTeams.h"
 
 namespace shob::teams::test
 {
     using namespace readers::test;
 
-    void testClubTeams::test1()
+    void TestClubTeams::test1()
     {
         const std::string clubs = "../../data/sport/clubs.csv";
         const std::string filename = testUtils::refFileWithPath(__FILE__, clubs);
@@ -20,5 +19,3 @@ namespace shob::teams::test
         EXPECT_EQ(fullName, "Feyenoord");
     }
 }
-
-

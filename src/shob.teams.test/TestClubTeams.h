@@ -1,14 +1,10 @@
-
 #pragma once
 
 namespace shob::teams::test
 {
-    class testNationalTeams
+    class TestClubTeams
     {
     public:
         static void test1();
     };
 }
-;
-
-

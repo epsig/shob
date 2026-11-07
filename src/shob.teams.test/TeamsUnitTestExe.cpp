@@ -1,8 +1,7 @@
-
 #include <gtest/gtest.h>
 
-#include "testClubTeams.h"
-#include "testNationalTeams.h"
+#include "TestClubTeams.h"
+#include "TestNationalTeams.h"
 
 using namespace shob::teams::test;
 
@@ -15,11 +14,10 @@ int main(int argc, char** argv)
 
 TEST(unitTest, testClubs)
 {
-    testClubTeams::test1();
+    TestClubTeams::test1();
 }
 
 TEST(unitTest, testLandcodes)
 {
-    testNationalTeams::test1();
+    TestNationalTeams::test1();
 }
-
