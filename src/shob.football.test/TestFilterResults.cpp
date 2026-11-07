@@ -19,8 +19,8 @@ namespace shob::football::test
 
         const std::string clubs = "../../data/sport/clubs.csv";
         const std::string filename2 = testUtils::refFileWithPath(__FILE__, clubs);
-        auto reader = teams::clubTeams();
-        reader.InitFromFile(filename2, teams::clubsOrCountries::clubs);
+        auto reader = teams::ClubTeams();
+        reader.InitFromFile(filename2, teams::ClubsOrCountries::clubs);
 
         const auto r2f = RouteToFinalFactory::create(filename);
         const auto prepTable = r2f.prepareTable(reader, html::Settings());
@@ -49,8 +49,8 @@ namespace shob::football::test
 
         const std::string clubs = "../../data/sport/clubs.csv";
         const std::string filename2 = testUtils::refFileWithPath(__FILE__, clubs);
-        auto reader = teams::clubTeams();
-        reader.InitFromFile(filename2, teams::clubsOrCountries::clubs);
+        auto reader = teams::ClubTeams();
+        reader.InitFromFile(filename2, teams::ClubsOrCountries::clubs);
 
         const auto data = CsvReader::readCsvFile(filename);
         const auto r2f = RouteToFinalFactory::createEC(data, "CL");

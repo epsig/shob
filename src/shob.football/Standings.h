@@ -63,7 +63,7 @@ namespace shob::football
         void initFromFile(const std::string& filename);
         void initFromData(const readers::CsvContent& stand);
         void handlePunishment(const std::string team, const int pnts);
-        html::TableContent prepareTable(const teams::clubTeams & teams, const html::Settings & settings) const;
+        html::TableContent prepareTable(const teams::ClubTeams & teams, const html::Settings & settings) const;
         int wns_cl = -1;
         int scoring = 3;
         void addNecessaryMutualResults(const std::vector<compactMatch>& matches);

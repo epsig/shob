@@ -1,10 +1,9 @@
-
-#include "nationalTeams.h"
-#include "../shob.readers/csvReader.h"
+#include "NationalTeams.h"
+#include "../shob.readers/CsvReader.h"
 
 namespace shob::teams
 {
-    void nationalTeams::InitFromFile(const std::string& filename)
+    void NationalTeams::InitFromFile(const std::string& filename)
     {
         using namespace shob::readers;
 
@@ -12,12 +11,12 @@ namespace shob::teams
         Init(data);
     }
 
-    std::string nationalTeams::expand(const std::string& landcode) const
+    std::string NationalTeams::expand(const std::string& landcode) const
     {
         return countries.at(landcode);
     }
 
-    void nationalTeams::Init(const readers::CsvContent& data)
+    void NationalTeams::Init(const readers::CsvContent& data)
     {
         for (const auto& row : data.body)
         {
@@ -25,12 +24,12 @@ namespace shob::teams
         }
     }
 
-    bool nationalTeams::contains(const std::string& landcode) const
+    bool NationalTeams::contains(const std::string& landcode) const
     {
         return countries.contains(landcode);
     }
 
-    std::string nationalTeams::shortName(const std::string& land)
+    std::string NationalTeams::shortName(const std::string& land)
     {
         auto shortName = land;
         if (land == "G1") shortName = "ENG";

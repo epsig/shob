@@ -110,7 +110,7 @@ namespace shob::football
         return retVal;
     }
 
-    html::TableContent FootballCompetition::prepareTable(const teams::clubTeams& teams, const html::Settings& settings) const
+    html::TableContent FootballCompetition::prepareTable(const teams::ClubTeams& teams, const html::Settings& settings) const
     {
         auto table = html::TableContent();
         if ( matches.empty()) { return table; }
@@ -123,7 +123,7 @@ namespace shob::football
 
         if (settings.lang == html::Language::Dutch)
         {
-            if (teams.getClubsOrCountries() == teams::clubsOrCountries::clubs)
+            if (teams.getClubsOrCountries() == teams::ClubsOrCountries::clubs)
             {
                 table.header.data = { "dd", "team1 - team2", "uitslag" };
             }
@@ -135,7 +135,7 @@ namespace shob::football
         }
         else
         {
-            if (teams.getClubsOrCountries() == teams::clubsOrCountries::clubs)
+            if (teams.getClubsOrCountries() == teams::ClubsOrCountries::clubs)
             {
                 table.header.data = { "dd", "team (home) - team (away)", "result" };
             }
@@ -259,7 +259,7 @@ namespace shob::football
         return dd;
     }
 
-    std::vector<linkInfo> FootballCompetition::getLinks(const teams::clubTeams& teams) const
+    std::vector<linkInfo> FootballCompetition::getLinks(const teams::ClubTeams& teams) const
     {
         auto retval = std::vector<linkInfo>();
 

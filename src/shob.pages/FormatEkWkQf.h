@@ -15,7 +15,7 @@ namespace shob::pages
     class FormatEkWkQf : public FormatOnePageEachYear
     {
     public:
-        FormatEkWkQf(std::string folder, teams::clubTeams teams, readers::CsvAllSeasonsReader reader, html::Settings settings,
+        FormatEkWkQf(std::string folder, teams::ClubTeams teams, readers::CsvAllSeasonsReader reader, html::Settings settings,
             TopMenu menu, std::map<std::string, std::string> organizingCountries, football::FootballCompetition allFriendlies) :
             dataSportFolder(std::move(folder)), teams(std::move(teams)), seasonsReader(std::move(reader)),
             settings(settings), menu(std::move(menu)), organizingCountries(std::move(organizingCountries)),
@@ -29,7 +29,7 @@ namespace shob::pages
         int get_dd() const override;
     private:
         std::string dataSportFolder;
-        teams::clubTeams teams;
+        teams::ClubTeams teams;
         readers::CsvAllSeasonsReader seasonsReader;
         html::Settings settings;
         TopMenu menu;

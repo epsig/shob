@@ -8,7 +8,7 @@
 namespace shob::pages
 {
     FormatOs::FormatOs(std::string folder, readers::CsvAllSeasonsReader reader, readers::CsvContent dames,
-        readers::CsvContent heren, TopMenu menu, teams::nationalTeams teams, html::Settings settings) :
+        readers::CsvContent heren, TopMenu menu, teams::NationalTeams teams, html::Settings settings) :
         folder(std::move(folder)), seasons_reader(std::move(reader)),
         dames(std::move(dames)), heren(std::move(heren)), menu(std::move(menu)), land_codes(std::move(teams)), settings(settings) {  }
 

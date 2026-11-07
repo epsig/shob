@@ -17,7 +17,7 @@ namespace shob::pages
     {
     public:
         FormatOs(std::string folder, readers::CsvAllSeasonsReader reader, readers::CsvContent dames,
-            readers::CsvContent heren, TopMenu menu, teams::nationalTeams teams, html::Settings settings);
+            readers::CsvContent heren, TopMenu menu, teams::NationalTeams teams, html::Settings settings);
         general::MultipleStrings getPages(const int year) const override;
         bool isValidYear(const int year) const override;
         std::string getOutputFilename(const std::string& output_folder, const int year) const override;
@@ -31,7 +31,7 @@ namespace shob::pages
         const readers::CsvContent dames;
         const readers::CsvContent heren;
         const TopMenu menu;
-        const teams::nationalTeams land_codes;
+        const teams::NationalTeams land_codes;
         const html::Settings settings;
         readers::CsvContent readMatchesData(const int year) const;
         general::MultipleStrings getNumbersOne(const readers::CsvContent& all_data) const;

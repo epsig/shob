@@ -56,14 +56,14 @@ namespace shob::pages
     class FormatStatsEredivisie
     {
     public:
-        FormatStatsEredivisie(std::string folder, teams::clubTeams& teams, StatFilesSummary& list_matches,
+        FormatStatsEredivisie(std::string folder, teams::ClubTeams& teams, StatFilesSummary& list_matches,
             const html::Settings& settings);
         void getPagesToFile(const bool extraStats, const std::string& filename) const;
         general::MultipleStrings getStats(const bool extraStats) const;
         static std::string getOutputFilename(const std::string& folder, const bool extraStats);
     private:
         const std::string sportDataFolder;
-        const teams::clubTeams teams;
+        const teams::ClubTeams teams;
         const StatFilesSummary list_matches;
         const html::Settings settings;
         static void updateOneResult(teamWithMinMaxResults& result, const int x, const std::string& team);

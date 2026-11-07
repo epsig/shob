@@ -31,8 +31,8 @@ namespace shob::football
         Topscorers(const readers::CsvAllSeasonsReader& reader) : reader(reader) {}
         void initFromFile(const general::Season& season);
         void initFromFile(const std::string& season);
-        html::TableContent prepareTable(const teams::clubTeams& teams, const teams::footballers& players, const html::Settings& settings) const;
-        Numbers1 getNumbers1(const teams::clubTeams& teams, const teams::footballers& players) const;
+        html::TableContent prepareTable(const teams::ClubTeams& teams, const teams::Footballers& players, const html::Settings& settings) const;
+        Numbers1 getNumbers1(const teams::ClubTeams& teams, const teams::Footballers& players) const;
         size_t getSizeList() const { return list_tp.size(); }
     private:
         const readers::CsvAllSeasonsReader& reader;

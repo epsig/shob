@@ -27,15 +27,15 @@ namespace shob::football::test
         auto tp = Topscorers(allTp);
         tp.initFromFile(general::Season(2019));
 
-        auto players = teams::footballers();
+        auto players = teams::Footballers();
         const std::string filename3 = testUtils::refFileWithPath(__FILE__, voetballers);
         players.initFromFile(filename3);
 
         auto settings = html::Settings();
-        auto reader = teams::clubTeams();
+        auto reader = teams::ClubTeams();
         const std::string filename2 = testUtils::refFileWithPath(__FILE__, clubs);
 
-        reader.InitFromFile(filename2, teams::clubsOrCountries::clubs);
+        reader.InitFromFile(filename2, teams::ClubsOrCountries::clubs);
         auto table2 = tp.prepareTable(reader, players, settings);
 
         EXPECT_EQ(table2.body.size(), 2);

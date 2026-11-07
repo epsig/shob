@@ -9,8 +9,8 @@ namespace shob::pages
     {
         auto menu = prepareTopMenu(folder);
 
-        auto teams = teams::clubTeams();
-        teams.InitFromFile(folder + "/../clubs.csv", teams::clubsOrCountries::clubs);
+        auto teams = teams::ClubTeams();
+        teams.InitFromFile(folder + "/../clubs.csv", teams::ClubsOrCountries::clubs);
 
         auto remarks = readers::CsvAllSeasonsReader();
         remarks.init(folder + "eredivisie_remarks.csv");

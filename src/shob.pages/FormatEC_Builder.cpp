@@ -19,12 +19,12 @@ namespace shob::pages
         auto remarks = readers::CsvAllSeasonsReader();
         remarks.init(dataFolder + "/europacup/europacup_remarks.csv");
 
-        auto national_teams = teams::nationalTeams();
+        auto national_teams = teams::NationalTeams();
         national_teams.InitFromFile(dataFolder + "/landcodes.csv");
 
-        auto teams = teams::clubTeams();
+        auto teams = teams::ClubTeams();
         auto file2 = dataFolder + "/clubs.csv";
-        teams.InitFromFile(file2, teams::clubsOrCountries::clubs);
+        teams.InitFromFile(file2, teams::ClubsOrCountries::clubs);
         teams.AddLandCodes(national_teams);
 
         auto archive = general::Glob::list(dataFolder + "/europacup", "europacup_[0-9].*csv");

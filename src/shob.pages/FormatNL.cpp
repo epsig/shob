@@ -269,7 +269,7 @@ namespace shob::pages
         const auto file_tp_eerste_divisie = sportDataFolder + "/eerste_divisie/topscorers_eerste_divisie.csv";
         if (fs::exists(file_tp_eredivisie) || fs::exists(file_tp_eerste_divisie))
         {
-            auto players = teams::footballers();
+            auto players = teams::Footballers();
             const std::string filename = sportDataFolder + "/voetballers.csv";
             players.initFromFile(filename);
 
@@ -301,7 +301,7 @@ namespace shob::pages
     }
 
     MultipleStrings FormatNL::getTopScorers(const std::string& file, const std::string& name_competition, const Season& season,
-        const teams::footballers& players) const
+        const teams::Footballers& players) const
     {
         auto allTp = readers::CsvAllSeasonsReader();
         allTp.init(file);

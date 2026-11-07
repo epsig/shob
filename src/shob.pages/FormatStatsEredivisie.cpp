@@ -15,7 +15,7 @@ namespace shob::pages
 
     using namespace shob::general;
 
-    FormatStatsEredivisie::FormatStatsEredivisie(std::string folder, teams::clubTeams& teams, StatFilesSummary& list_matches,
+    FormatStatsEredivisie::FormatStatsEredivisie(std::string folder, teams::ClubTeams& teams, StatFilesSummary& list_matches,
         const html::Settings& settings) :
         sportDataFolder(std::move(folder)), teams(std::move(teams)), list_matches(std::move(list_matches)),
         settings(settings)
@@ -37,7 +37,7 @@ namespace shob::pages
         auto table4 = std::vector<std::pair<Season, SpectatorResults>>();
         int dd = 0;
 
-        auto players = teams::footballers();
+        auto players = teams::Footballers();
         const std::string filename3 = sportDataFolder + "/../voetballers.csv";
         players.initFromFile(filename3);
 

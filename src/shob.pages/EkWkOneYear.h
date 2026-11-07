@@ -30,8 +30,8 @@ namespace shob::pages
     class EkWkOneYear
     {
     public:
-        EkWkOneYear(const EkWkDate ekwk, const html::Settings settings, const teams::clubTeams& teams,
-            const readers::CsvAllSeasonsReader& top_scorers, const teams::footballers& players,
+        EkWkOneYear(const EkWkDate ekwk, const html::Settings settings, const teams::ClubTeams& teams,
+            const readers::CsvAllSeasonsReader& top_scorers, const teams::Footballers& players,
             const std::vector<std::vector<std::string>>& current_remarks,
             football::RouteToFfinal r2f,
             groupList groups,
@@ -43,9 +43,9 @@ namespace shob::pages
     private:
         const EkWkDate ekwk;
         const html::Settings settings;
-        const teams::clubTeams& teams;
+        const teams::ClubTeams& teams;
         const readers::CsvAllSeasonsReader& top_scorers;
-        const teams::footballers& players;
+        const teams::Footballers& players;
         const std::vector<std::vector<std::string>>& current_remarks;
         readers::CsvContent csv_content;
         football::RouteToFfinal r2f;

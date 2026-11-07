@@ -11,8 +11,8 @@ namespace shob::pages
 {
     using namespace shob::general;
 
-    EkWkOneYear::EkWkOneYear(const EkWkDate ekwk, const html::Settings settings, const teams::clubTeams& teams,
-        const readers::CsvAllSeasonsReader& top_scorers, const teams::footballers& players,
+    EkWkOneYear::EkWkOneYear(const EkWkDate ekwk, const html::Settings settings, const teams::ClubTeams& teams,
+        const readers::CsvAllSeasonsReader& top_scorers, const teams::Footballers& players,
         const std::vector<std::vector<std::string>>& current_remarks,
         football::RouteToFfinal r2f, groupList groups, football::FootballCompetition round2, readers::XmlReader reader)
         : ekwk(ekwk), settings(settings), teams(teams), top_scorers(top_scorers), players(players), current_remarks(current_remarks),

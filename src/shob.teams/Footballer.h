@@ -1,4 +1,3 @@
-
 #pragma once
 
 #include <string>
@@ -6,7 +5,7 @@
 
 namespace shob::teams
 {
-    class footballer
+    class Footballer
     {
     public:
         std::string firstName;
@@ -15,12 +14,12 @@ namespace shob::teams
         std::string fullName() const;
     };
 
-    class footballers
+    class Footballers
     {
     public:
         void initFromFile(const std::string& filename);
         std::string expand(const std::string& name) const;
     private:
-        std::map<std::string, footballer> all;
+        std::map<std::string, Footballer> all;
     };
 }

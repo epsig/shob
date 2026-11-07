@@ -33,19 +33,19 @@ namespace shob::football
         }
     }
 
-    html::TableContent Topscorers::prepareTable(const teams::clubTeams& teams, const teams::footballers& players, const html::Settings& settings) const
+    html::TableContent Topscorers::prepareTable(const teams::ClubTeams& teams, const teams::Footballers& players, const html::Settings& settings) const
     {
         auto table = html::TableContent();
         if (settings.lang == html::Language::Dutch)
         {
-            if (teams.getClubsOrCountries() == teams::clubsOrCountries::countries)
+            if (teams.getClubsOrCountries() == teams::ClubsOrCountries::countries)
                 table.header.data = { "positie", "naam (land)", "doelpunten" };
             else
                 table.header.data = { "positie", "naam (club)", "doelpunten" };
         }
         else
         {
-            if (teams.getClubsOrCountries() == teams::clubsOrCountries::countries)
+            if (teams.getClubsOrCountries() == teams::ClubsOrCountries::countries)
                 table.header.data = { "rank", "player (country)", "goals" };
             else
                 table.header.data = { "rank", "player (club)", "goals" };
@@ -66,7 +66,7 @@ namespace shob::football
         return table;
     }
 
-    Numbers1 Topscorers::getNumbers1(const teams::clubTeams& teams, const teams::footballers& players) const
+    Numbers1 Topscorers::getNumbers1(const teams::ClubTeams& teams, const teams::Footballers& players) const
     {
         auto table = Numbers1();
         for (const auto& row : list_tp)

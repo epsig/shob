@@ -12,7 +12,7 @@ namespace shob::pages
     class FormatHomeAndAwayStandings : public FormatOnePageEachSeason
     {
     public:
-        FormatHomeAndAwayStandings(std::string folder, teams::clubTeams teams, TopMenu menu,
+        FormatHomeAndAwayStandings(std::string folder, teams::ClubTeams teams, TopMenu menu,
             readers::CsvAllSeasonsReader all_seasons_reader, const html::Settings& settings)
             : folder(std::move(folder)), teams(std::move(teams)), menu(std::move(menu)),
             all_seasons_reader(std::move(all_seasons_reader)), settings(settings) {}
@@ -23,7 +23,7 @@ namespace shob::pages
         general::Season getLastSeason() const override;
     private:
         const std::string folder;
-        const teams::clubTeams teams;
+        const teams::ClubTeams teams;
         const TopMenu menu;
         const readers::CsvAllSeasonsReader all_seasons_reader;
         const html::Settings settings;

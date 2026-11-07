@@ -46,11 +46,11 @@ namespace shob::pages
         remarksMainTournement.init(dataFolder + "/ekwk/ekwk_remarks.csv");
         auto organizingCountries = remarksMainTournement.getAll("organising_country");
 
-        auto national_teams = teams::clubTeams();
-        national_teams.InitFromFile(dataFolder + "/landcodes.csv", teams::clubsOrCountries::countries);
+        auto national_teams = teams::ClubTeams();
+        national_teams.InitFromFile(dataFolder + "/landcodes.csv", teams::ClubsOrCountries::countries);
 
-        auto teams = teams::clubTeams();
-        teams.InitFromFile(dataFolder + "/clubs.csv", teams::clubsOrCountries::unknownYet);
+        auto teams = teams::ClubTeams();
+        teams.InitFromFile(dataFolder + "/clubs.csv", teams::ClubsOrCountries::unknownYet);
         national_teams.MergeTeams(teams);
 
         auto menu = prepareTopMenu(dataFolderEkWkQf);

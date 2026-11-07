@@ -39,8 +39,8 @@ namespace shob::football::test
         auto table = ResultsToStandings::u2s(competition);
 
         auto settings = html::Settings();
-        auto reader = teams::clubTeams();
-        reader.InitFromFile(filename2, teams::clubsOrCountries::clubs);
+        auto reader = teams::ClubTeams();
+        reader.InitFromFile(filename2, teams::ClubsOrCountries::clubs);
         auto table2 = table.prepareTable(reader, settings);
 
         EXPECT_EQ(table2.body.size(), 18);
@@ -62,8 +62,8 @@ namespace shob::football::test
         table.addExtras(extras, general::Season(2023));
 
         auto settings = html::Settings();
-        auto reader = teams::clubTeams();
-        reader.InitFromFile(filename2, teams::clubsOrCountries::clubs);
+        auto reader = teams::ClubTeams();
+        reader.InitFromFile(filename2, teams::ClubsOrCountries::clubs);
         auto table2 = table.prepareTable(reader, settings);
 
         EXPECT_EQ(table2.body.size(), 18);

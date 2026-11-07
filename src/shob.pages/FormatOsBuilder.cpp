@@ -39,7 +39,7 @@ namespace shob::pages
         const auto dames = CsvReader::readCsvFile(folder + "schaatsersD.csv");
         const auto heren = CsvReader::readCsvFile(folder + "schaatsersH.csv");
 
-        auto national_teams = teams::nationalTeams();
+        auto national_teams = teams::NationalTeams();
         national_teams.InitFromFile(folder + "../landcodes.csv");
 
         auto menu = prepareTopMenu(folder);

@@ -8,7 +8,7 @@ namespace shob::football
     using namespace shob::html;
 
     void RouteToFfinal::addOneRound(TableContent& table, const FootballCompetition& matches,
-        const std::vector<int>& positions, const teams::clubTeams& teams, const size_t offset, const size_t maxCols,
+        const std::vector<int>& positions, const teams::ClubTeams& teams, const size_t offset, const size_t maxCols,
         const Settings& settings, const std::vector<AddCountryType>& addCountry)
     {
         if (matches.matches.size() == positions.size())
@@ -47,7 +47,7 @@ namespace shob::football
         }
     }
 
-    std::vector<TableContent> RouteToFfinal::prepareTable(const teams::clubTeams& teams, const Settings& settings) const
+    std::vector<TableContent> RouteToFfinal::prepareTable(const teams::ClubTeams& teams, const Settings& settings) const
     {
         const std::vector lineNrs16 = { 0, 2, 4, 6, 9, 11, 13, 15 };
         std::vector<int> lineNrs8;

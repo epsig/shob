@@ -14,7 +14,7 @@ namespace shob::teams::test
     {
         const std::string landcodes = "../../data/sport/landcodes.csv";
         const std::string filename = testUtils::refFileWithPath(__FILE__, landcodes);
-        auto countries = nationalTeams();
+        auto countries = NationalTeams();
         countries.InitFromFile(filename);
         const auto fullName = countries.expand("NL");
         EXPECT_EQ(fullName, "Nederland");

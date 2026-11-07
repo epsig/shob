@@ -1,12 +1,11 @@
-
 #pragma once
 #include <string>
 #include <map>
-#include "../shob.readers/csvReader.h"
+#include "../shob.readers/CsvReader.h"
 
 namespace shob::teams
 {
-    class nationalTeams
+    class NationalTeams
     {
     public:
         void InitFromFile(const std::string& filename);

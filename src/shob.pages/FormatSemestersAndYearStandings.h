@@ -11,7 +11,7 @@ namespace shob::pages
     class FormatSemestersAndYearStandings: public FormatOnePageEachYear
     {
     public:
-        FormatSemestersAndYearStandings(std::string folder, teams::clubTeams teams, TopMenu menu,
+        FormatSemestersAndYearStandings(std::string folder, teams::ClubTeams teams, TopMenu menu,
           readers::CsvAllSeasonsReader all_seasons_reader,int last_year, const html::Settings& settings)
         : folder(std::move(folder)), teams(std::move(teams)), menu(std::move(menu)),
           all_seasons_reader(std::move(all_seasons_reader)), last_year(last_year), settings(settings) {}
@@ -22,7 +22,7 @@ namespace shob::pages
         int getLastYear() const override;
     private:
         const std::string folder;
-        const teams::clubTeams teams;
+        const teams::ClubTeams teams;
         const TopMenu menu;
         const readers::CsvAllSeasonsReader all_seasons_reader;
         const int last_year;

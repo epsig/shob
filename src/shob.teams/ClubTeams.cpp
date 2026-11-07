@@ -1,25 +1,24 @@
-
-#include "clubTeams.h"
-#include "../shob.readers/csvReader.h"
-#include "../shob.html/funcs.h"
+#include "ClubTeams.h"
+#include "../shob.readers/CsvReader.h"
+#include "../shob.html/Funcs.h"
 
 namespace shob::teams
 {
     using namespace shob::readers;
 
-    void clubTeams::InitFromFile(const std::string& filename, clubsOrCountries team_type)
+    void ClubTeams::InitFromFile(const std::string& filename, ClubsOrCountries team_type)
     {
         teamType = team_type;
         auto data = CsvReader::readCsvFile(filename);
         Init(data);
     }
 
-    void clubTeams::AddLandCodes(const nationalTeams& national_teams)
+    void ClubTeams::AddLandCodes(const NationalTeams& national_teams)
     {
         landCodes = national_teams;
     }
 
-    void clubTeams::MergeTeams(const clubTeams& other)
+    void ClubTeams::MergeTeams(const ClubTeams& other)
     {
         for (const auto& team : other.clubs)
         {
@@ -27,14 +26,14 @@ namespace shob::teams
         }
     }
 
-    std::string clubTeams::expand(const std::string& club, const html::AddCountryType addCountry) const
+    std::string ClubTeams::expand(const std::string& club, const html::AddCountryType addCountry) const
     {
         auto expanded = expand(club);
         if (club.size() == 3 || landCodes.empty()) return expanded;
         auto land = club.substr(0, 2);
         if (addCountry != html::AddCountryType::notAtAll && land != "NL")
         {
-            auto shortName = nationalTeams::shortName(land);
+            auto shortName = NationalTeams::shortName(land);
             if (const auto it = landCodes.find(land); it != landCodes.end())
             {
                 const auto& fullNameLand = it->second;
@@ -60,7 +59,7 @@ namespace shob::teams
         return expanded;
     }
 
-    std::string clubTeams::expand(const std::string& club) const
+    std::string ClubTeams::expand(const std::string& club) const
     {
         if (club.size() == 3)
         {
@@ -78,7 +77,7 @@ namespace shob::teams
         return club;
     }
 
-    void clubTeams::Init(const readers::CsvContent& data)
+    void ClubTeams::Init(const readers::CsvContent& data)
     {
         int col = 1;
         if (data.header.column[1].find("code") != std::string::npos) col = 2;

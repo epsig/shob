@@ -1,10 +1,9 @@
-
-#include "footballer.h"
-#include "../shob.readers/csvReader.h"
+#include "Footballer.h"
+#include "../shob.readers/CsvReader.h"
 
 namespace shob::teams
 {
-    std::string footballer::fullName() const
+    std::string Footballer::fullName() const
     {
         if (insertion.empty())
         {
@@ -16,14 +15,14 @@ namespace shob::teams
         }
     }
 
-    void footballers::initFromFile(const std::string& filename)
+    void Footballers::initFromFile(const std::string& filename)
     {
         auto data = readers::CsvReader::readCsvFile(filename);
 
         for (const auto& col : data.body)
         {
             const auto& row = col.column;
-            auto player = footballer();
+            auto player = Footballer();
             player.firstName = row[1];
             player.insertion = row[2];
             player.lastName = row[3];
@@ -31,7 +30,7 @@ namespace shob::teams
         }
     }
 
-    std::string footballers::expand(const std::string& name) const
+    std::string Footballers::expand(const std::string& name) const
     {
         const auto it = all.find(name);
         if (it != all.end())

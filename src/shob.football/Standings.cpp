@@ -379,7 +379,7 @@ namespace shob::football
         }
     }
 
-    html::TableContent Standings::prepareTable(const teams::clubTeams& teams, const html::Settings& settings) const
+    html::TableContent Standings::prepareTable(const teams::ClubTeams& teams, const html::Settings& settings) const
     {
         auto table = html::TableContent();
         if (settings.lang == html::Language::Dutch)
@@ -390,7 +390,7 @@ namespace shob::football
         {
             table.header.data = { "club", "games", "points", "goal difference" };
         }
-        if (teams.getClubsOrCountries() == teams::clubsOrCountries::countries)
+        if (teams.getClubsOrCountries() == teams::ClubsOrCountries::countries)
         {
             table.header.data[0] = "land";
         }

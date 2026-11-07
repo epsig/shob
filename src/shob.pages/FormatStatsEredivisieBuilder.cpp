@@ -6,9 +6,9 @@ namespace shob::pages
 {
     FormatStatsEredivisie FormatStatsEredivisieBuilder::build(const std::string& dataFolder, const html::Settings& settings)
     {
-        auto teams = teams::clubTeams();
+        auto teams = teams::ClubTeams();
         const auto file = dataFolder + "/../clubs.csv";
-        teams.InitFromFile(file, teams::clubsOrCountries::clubs);
+        teams.InitFromFile(file, teams::ClubsOrCountries::clubs);
 
         auto fileSummary = StatFilesSummary();
 

@@ -42,9 +42,9 @@ namespace shob::pages
         }
         auto menu = TopMenu(archive, 'K');
 
-        auto teams = teams::clubTeams();
+        auto teams = teams::ClubTeams();
         auto file2 = dataFolder + "/clubs.csv";
-        teams.InitFromFile(file2, teams::clubsOrCountries::clubs);
+        teams.InitFromFile(file2, teams::ClubsOrCountries::clubs);
 
         auto format = FormatNL(dataFolder, extras, remarks, menu, teams, settings);
         return format;

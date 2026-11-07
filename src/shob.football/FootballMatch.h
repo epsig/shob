@@ -19,9 +19,9 @@ namespace shob::football
             std::string result, int spectators, const StarEnum star, const bool isFinal)
             : team1(std::move(team1)), team2(std::move(team2)), dd(dd), result(std::move(result)),
               star(star), spectators(spectators), isFinal(isFinal) {}
-        std::string printSimple(const teams::clubTeams& teams, const bool isReturn,
+        std::string printSimple(const teams::ClubTeams& teams, const bool isReturn,
             const std::vector<html::AddCountryType>& addCountry) const;
-        std::string matchName(const teams::clubTeams& teams) const;
+        std::string matchName(const teams::ClubTeams& teams) const;
         std::string team1; // id home playing team
         std::string team2; // id away playing team
         std::shared_ptr <general::ShobDate> dd;

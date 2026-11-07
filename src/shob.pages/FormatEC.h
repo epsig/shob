@@ -17,7 +17,7 @@ namespace shob::pages
     class FormatEC : public FormatOnePageEachSeason
     {
     public:
-        FormatEC(std::string folder, readers::CsvAllSeasonsReader& extras, teams::clubTeams& teams, const html::Settings& settings,
+        FormatEC(std::string folder, readers::CsvAllSeasonsReader& extras, teams::ClubTeams& teams, const html::Settings& settings,
             TopMenu menu, football::LeagueNames leagueNames) :
             sportDataFolder(std::move(folder)), extras(std::move(extras)), teams(std::move(teams)), settings(settings),
             menu(std::move(menu)), leagueNames(std::move(leagueNames)) {}
@@ -31,7 +31,7 @@ namespace shob::pages
     private:
         const std::string sportDataFolder;
         const readers::CsvAllSeasonsReader extras;
-        const teams::clubTeams teams;
+        const teams::ClubTeams teams;
         const html::Settings settings;
         const TopMenu menu;
         const football::LeagueNames leagueNames;

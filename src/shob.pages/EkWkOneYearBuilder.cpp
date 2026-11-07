@@ -11,8 +11,8 @@
 namespace shob::pages
 {
     namespace fs = std::filesystem;
-    EkWkOneYear EkWkOneYearBuilder::build(const EkWkDate ekwk, const html::Settings settings, const teams::clubTeams& teams,
-            const readers::CsvAllSeasonsReader& top_scorers, const teams::footballers& players,
+    EkWkOneYear EkWkOneYearBuilder::build(const EkWkDate ekwk, const html::Settings settings, const teams::ClubTeams& teams,
+            const readers::CsvAllSeasonsReader& top_scorers, const teams::Footballers& players,
             const std::vector<std::vector<std::string>>& current_remarks, const std::string& data_sport_folder)
     {
         int year = ekwk.year;

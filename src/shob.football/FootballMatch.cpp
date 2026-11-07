@@ -44,7 +44,7 @@ namespace shob::football
         }
     }
 
-    std::string FootballMatch::printSimple(const teams::clubTeams& teams, const bool isReturn,
+    std::string FootballMatch::printSimple(const teams::ClubTeams& teams, const bool isReturn,
         const std::vector<html::AddCountryType>& addCountry) const
     {
         std::vector expanded = { teams.expand(team1, addCountry[0]), teams.expand(team2, addCountry[1])};
@@ -79,7 +79,7 @@ namespace shob::football
         }
     }
 
-    std::string FootballMatch::matchName(const teams::clubTeams& teams) const
+    std::string FootballMatch::matchName(const teams::ClubTeams& teams) const
     {
         std::vector expanded = { teams.expand(team1), teams.expand(team2) };
         return expanded[0] + " - " + expanded[1];

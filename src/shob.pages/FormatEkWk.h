@@ -13,8 +13,8 @@ namespace shob::pages
     class FormatEkWk : public FormatOnePageEachYear
     {
     public:
-        FormatEkWk(std::string data_sport_folder, teams::clubTeams teams, const html::Settings& settings, readers::CsvAllSeasonsReader remarks,
-            readers::CsvAllSeasonsReader top_scorers, teams::footballers players, TopMenu top_menu)
+        FormatEkWk(std::string data_sport_folder, teams::ClubTeams teams, const html::Settings& settings, readers::CsvAllSeasonsReader remarks,
+            readers::CsvAllSeasonsReader top_scorers, teams::Footballers players, TopMenu top_menu)
         : data_sport_folder(std::move(data_sport_folder)), teams(std::move(teams)), settings(settings), remarks(std::move(remarks)),
         top_scorers(std::move(top_scorers)), players(std::move(players)), top_menu(std::move(top_menu)) {}
 
@@ -25,11 +25,11 @@ namespace shob::pages
         int getLastYear() const override;
     private:
         std::string data_sport_folder;
-        teams::clubTeams teams;
+        teams::ClubTeams teams;
         html::Settings settings;
         readers::CsvAllSeasonsReader remarks;
         readers::CsvAllSeasonsReader top_scorers;
-        teams::footballers players;
+        teams::Footballers players;
         TopMenu top_menu;
     };
 }
