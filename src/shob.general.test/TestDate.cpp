@@ -1,27 +1,26 @@
-
-#include "testDate.h"
-#include "../shob.general/itdate.h"
+#include "TestDate.h"
+#include "../shob.general/ItDate.h"
 #include <gtest/gtest.h>
 
-#include "../shob.general/shobException.h"
+#include "../shob.general/ShobException.h"
 
 namespace shob::general::test
 {
-    void testDate::testItdateToString()
+    void TestDate::testItdateToString()
     {
         const auto date = ItDate(20250524);
         const auto str = date.toShortString();
         ASSERT_EQ(str, "24 mei");
     }
 
-    void testDate::testErrorHandling()
+    void TestDate::testErrorHandling()
     {
         const auto date = ItDate(20251524); // invalid month
         const auto str = date.toShortString();
         ASSERT_EQ(str, "*****");
     }
 
-    void testDate::testErrorHandlingMaxDays()
+    void TestDate::testErrorHandlingMaxDays()
     {
         std::string msg;
         try
@@ -36,7 +35,7 @@ namespace shob::general::test
         ASSERT_EQ(msg, "Invalid month number: 15");
     }
 
-    void testDate::testIsLeapYear()
+    void TestDate::testIsLeapYear()
     {
         const auto isLeap1 = ShobDate::isLeapYear(2000);
         ASSERT_TRUE(isLeap1);
@@ -48,7 +47,7 @@ namespace shob::general::test
         ASSERT_TRUE(isLeap4);
     }
 
-    void testDate::testMaxDays()
+    void TestDate::testMaxDays()
     {
         const auto maxDays1 = ShobDate::maxDays(2025, 2);
         ASSERT_EQ(maxDays1, 28);

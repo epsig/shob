@@ -1,10 +1,9 @@
-
 #include <gtest/gtest.h>
 
-#include "testDate.h"
-#include "testUniqueStrings.h"
-#include "testGlob.h"
-#include "testSeason.h"
+#include "TestDate.h"
+#include "TestUniqueStrings.h"
+#include "TestGlob.h"
+#include "TestSeason.h"
 
 using namespace shob::general::test;
 
@@ -17,46 +16,46 @@ int main(int argc, char** argv)
 
 TEST(unitTest, testItdateToString)
 {
-    testDate::testItdateToString();
+    TestDate::testItdateToString();
 }
 
 TEST(unitTest, testErrorHandling)
 {
-    testDate::testErrorHandling();
+    TestDate::testErrorHandling();
 }
 
 TEST(unitTest, testErrorHandlingMaxDays)
 {
-    testDate::testErrorHandlingMaxDays();
+    TestDate::testErrorHandlingMaxDays();
 }
 
 TEST(unitTest, testLeapYear)
 {
-    testDate::testIsLeapYear();
+    TestDate::testIsLeapYear();
 }
 
 TEST(unitTest, testMaxDaysPerMonth)
 {
-    testDate::testMaxDays();
+    TestDate::testMaxDays();
 }
 
-TEST(unitTest, testUniqueStrings)
+TEST(unitTest, TestUniqueStrings)
 {
-    testUniqueStrings::test1();
+    TestUniqueStrings::test1();
 }
 
-TEST(unitTest, testGlob)
+TEST(unitTest, TestGlob)
 {
-    testGlob::test1();
+    TestGlob::test1();
 }
 
 TEST(unitTest, testSeason1)
 {
-    testSeason::test1();
+    TestSeason::test1();
 }
 
 TEST(unitTest, testSeason2)
 {
-    testSeason::test2();
+    TestSeason::test2();
 }
 

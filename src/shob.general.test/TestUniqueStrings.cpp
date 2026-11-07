@@ -1,12 +1,11 @@
-
-#include "testUniqueStrings.h"
+#include "TestUniqueStrings.h"
 #include <gtest/gtest.h>
 
-#include "../shob.general/uniqueStrings.h"
+#include "../shob.general/UniqueStrings.h"
 
 namespace shob::general::test
 {
-    void testUniqueStrings::test1()
+    void TestUniqueStrings::test1()
     {
         auto set = UniqueStrings();
         set.insert("CL");

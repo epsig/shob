@@ -1,9 +1,8 @@
-
 #pragma once
 
 namespace shob::general::test
 {
-    class testGlob
+    class TestGlob
     {
     public:
         static void test1();

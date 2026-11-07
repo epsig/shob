@@ -1,9 +1,8 @@
-
 #pragma once
 
 namespace shob::general::test
 {
-    class testDate
+    class TestDate
     {
     public:
         static void testItdateToString();

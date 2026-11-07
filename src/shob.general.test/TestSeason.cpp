@@ -1,18 +1,17 @@
-
-#include "testSeason.h"
+#include "TestSeason.h"
 #include "../shob.general/Season.h"
 #include <gtest/gtest.h>
 
 namespace shob::general::test
 {
-    void testSeason::test1()
+    void TestSeason::test1()
     {
         const auto season = Season(2020);
         const auto str = season.toString();
         ASSERT_EQ(str, "2020-2021");
     }
 
-    void testSeason::test2()
+    void TestSeason::test2()
     {
         const auto season = Season(2020);
         const auto str = season.toPartFilename();

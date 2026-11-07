@@ -1,9 +1,8 @@
-
 #pragma once
 
 namespace shob::general::test
 {
-    class testUniqueStrings
+    class TestUniqueStrings
     {
     public:
         static void test1();
