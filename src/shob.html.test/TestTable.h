@@ -1,9 +1,8 @@
-
 #pragma once
 
 namespace shob::html::test
 {
-    class testTable
+    class TestTable
     {
     public:
         static void test1();

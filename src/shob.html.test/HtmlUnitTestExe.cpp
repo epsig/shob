@@ -1,7 +1,6 @@
-
 #include <gtest/gtest.h>
 
-#include "testTable.h"
+#include "TestTable.h"
 
 using namespace shob::html::test;
 
@@ -14,6 +13,6 @@ int main(int argc, char** argv)
 
 TEST(unitTest, testTable1)
 {
-    testTable::test1();
+    TestTable::test1();
 }
 
