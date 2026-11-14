@@ -4,8 +4,8 @@
 #include <algorithm>
 
 #include "shob.general/DateFactory.h"
-#include "shob.pages/FormatEC_Builder.h"
-#include "shob.pages/FormatNL_Builder.h"
+#include "shob.pages/FormatEcBuilder.h"
+#include "shob.pages/FormatNlBuilder.h"
 #include "shob.pages/FormatEkWkBuilder.h"
 #include "shob.pages/FormatEkWkDBuilder.h"
 #include "shob.pages/FormatEkWkQfBuilder.h"
@@ -76,8 +76,8 @@ int main(int argc, char* argv[])
         part = "running builders";
         auto settings = shob::html::Settings();
         settings.dateFormatShort = false;
-        auto fmt_nl = format_nl_builder::build("sport", settings);
-        auto fmt_ec = FormatEC_Builder::build("sport", settings);
+        auto fmt_nl = FormatNlBuilder::build("sport", settings);
+        auto fmt_ec = FormatEcBuilder::build("sport", settings);
         auto fmt_ekwk = FormatEkWkBuilder::build("sport", settings);
         auto fmt_ekwkD = FormatEkWkDBuilder::build("sport", settings);
         auto fmt_ekwk_qf = FormatEkWkQfBuilder::build("sport", settings);

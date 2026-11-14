@@ -1,4 +1,3 @@
-
 #pragma once
 
 namespace shob::football::test
@@ -10,6 +9,4 @@ namespace shob::football::test
         static void testGetReturns();
         static void testFilterEuropacup();
     };
-
 }
-

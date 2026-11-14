@@ -1,23 +1,22 @@
-
 #pragma once
 #include <string>
 #include <vector>
 #include "FormatOnePageEachSeason.h"
-#include "../shob.general/uniqueStrings.h"
-#include "../shob.readers/csvAllSeasonsReader.h"
-#include "../shob.teams/clubTeams.h"
-#include "../shob.html/settings.h"
+#include "../shob.general/UniqueStrings.h"
+#include "../shob.readers/CsvAllSeasonsReader.h"
+#include "../shob.teams/ClubTeams.h"
+#include "../shob.html/Settings.h"
 #include "../shob.general/Season.h"
-#include "../shob.football/leagueNames.h"
+#include "../shob.football/LeagueNames.h"
 #include "TopMenu.h"
 #include "WnsEc.h"
 
 namespace shob::pages
 {
-    class FormatEC : public FormatOnePageEachSeason
+    class FormatEc : public FormatOnePageEachSeason
     {
     public:
-        FormatEC(std::string folder, readers::CsvAllSeasonsReader& extras, teams::ClubTeams& teams, const html::Settings& settings,
+        FormatEc(std::string folder, readers::CsvAllSeasonsReader& extras, teams::ClubTeams& teams, const html::Settings& settings,
             TopMenu menu, football::LeagueNames leagueNames) :
             sportDataFolder(std::move(folder)), extras(std::move(extras)), teams(std::move(teams)), settings(settings),
             menu(std::move(menu)), leagueNames(std::move(leagueNames)) {}

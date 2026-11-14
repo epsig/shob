@@ -1,11 +1,11 @@
 
 #pragma once
 
-#include "footballMatch.h"
-#include "../shob.html/table.h"
-#include "../shob.html/settings.h"
-#include "../shob.readers/csvReader.h"
-#include "../shob.general/itdate.h"
+#include "FootballMatch.h"
+#include "../shob.html/Table.h"
+#include "../shob.html/Settings.h"
+#include "../shob.readers/CsvReader.h"
+#include "../shob.general/ItDate.h"
 #include <set>
 #include <map>
 #include <vector>

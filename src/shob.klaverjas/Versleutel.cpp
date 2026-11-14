@@ -3,7 +3,7 @@
 #include <utility>
 #include <vector>
 #include <boost/regex.hpp>
-#include "../shob.general/shobException.h"
+#include "../shob.general/ShobException.h"
 #include "../shob.general/StringUtils.h"
 
 namespace shob::klaverjas

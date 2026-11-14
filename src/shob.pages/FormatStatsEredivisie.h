@@ -1,11 +1,11 @@
 
 #pragma once
 #include "SpectatorResults.h"
-#include "../shob.teams/clubTeams.h"
+#include "../shob.teams/ClubTeams.h"
 #include "../shob.html/Settings.h"
 #include "../shob.general/MultipleStrings.h"
-#include "../shob.football/results2standings.h"
-#include "../shob.football/topscorers.h"
+#include "../shob.football/ResultsToStandings.h"
+#include "../shob.football/Topscorers.h"
 
 namespace shob::pages
 {

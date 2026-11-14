@@ -1,6 +1,5 @@
-
 #include "FootballMatch.h"
-#include "../shob.html/funcs.h"
+#include "../shob.html/Funcs.h"
 
 namespace shob::football
 {

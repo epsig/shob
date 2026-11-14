@@ -1,10 +1,10 @@
 #include "FormatEkWkQf.h"
 #include "HeadBottom.h"
 #include "PageBlock.h"
-#include "../shob.football/filterResults.h"
-#include "../shob.football/results2standings.h"
-#include "../shob.football/route2finalFactory.h"
-#include "../shob.general/glob.h"
+#include "../shob.football/FilterResults.h"
+#include "../shob.football/ResultsToStandings.h"
+#include "../shob.football/RouteToFinalFactory.h"
+#include "../shob.general/Glob.h"
 
 #include <filesystem>
 #include <format>

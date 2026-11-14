@@ -1,8 +1,8 @@
-#include "TestFormatEC.h"
+#include "TestFormatEc.h"
 
 #include <gtest/gtest.h>
 
-#include "../shob.pages/FormatEC_Builder.h"
+#include "../shob.pages/FormatEcBuilder.h"
 #include "../shob.test.utils/TestUtils.h"
 
 namespace shob::pages::test
@@ -12,32 +12,32 @@ namespace shob::pages::test
     const std::string data_map = "../../data/sport/";
     const std::string data_folder = TestUtils::refFileWithPath(__FILE__, data_map);
     constexpr auto settings = html::Settings();
-    const auto format_ec = FormatEC_Builder::build(data_folder, settings);
+    const auto format_ec = FormatEcBuilder::build(data_folder, settings);
 
-    void TestFormatEC::test_2024_2025()
+    void TestFormatEc::test_2024_2025()
     {
         const auto lines = format_ec.getSeason(general::Season(2024));
         ASSERT_EQ(lines.data.size(), 283);
         EXPECT_GE(lines.findString("Atalanta Bergamo (Itali&euml;) +"), 0) << "check + after team name";
     }
 
-    void TestFormatEC::test_2023_2024()
+    void TestFormatEc::test_2023_2024()
     {
         const auto lines = format_ec.getSeason(general::Season(2023));
         EXPECT_EQ(lines.data.size(), 183);
     }
 
-    void TestFormatEC::test_1994_1995()
+    void TestFormatEc::test_1994_1995()
     {
         const auto lines = format_ec.getSeason(general::Season(1994));
         ASSERT_EQ(lines.data.size(), 122);
         EXPECT_GE(lines.findString("4 x w, 2 x g en 0 x v => 10 pnt"), 0) << "check 2 points for a win";
     }
 
-    void TestFormatEC::test_2019_2020_UK()
+    void TestFormatEc::test_2019_2020_UK()
     {
         constexpr auto settingsUK = html::Settings(html::Language::English);
-        const auto fmt_ec_uk = FormatEC_Builder::build(data_folder, settingsUK);
+        const auto fmt_ec_uk = FormatEcBuilder::build(data_folder, settingsUK);
         const auto lines = fmt_ec_uk.getSeason(general::Season(2019));
         ASSERT_EQ(lines.data.size(), 169);
         EXPECT_GE(lines.findString("Due to the Covid-19 pandemic, the tournament was suspended"), 0) << "check reading comma between quotes";
@@ -45,7 +45,7 @@ namespace shob::pages::test
         EXPECT_GE(lines.findString("<b>F I N A L:</b>"), 0) << "check language in route2final";
     }
 
-    void TestFormatEC::test_last_dd()
+    void TestFormatEc::test_last_dd()
     {
         int dd = format_ec.get_dd();
         EXPECT_GE(dd, 20260101);

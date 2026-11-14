@@ -2,10 +2,10 @@
 #include "HeadBottom.h"
 
 #include "../shob.klaverjas/KlaverjasTable.h"
-#include "../shob.html/updateIfNewer.h"
+#include "../shob.html/UpdateIfNewer.h"
 #include "../shob.general/FileIO.h"
 #include "../shob.general/StringUtils.h"
-#include "../shob.html/table.h"
+#include "../shob.html/Table.h"
 
 namespace shob::pages
 {

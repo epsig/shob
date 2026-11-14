@@ -1,11 +1,10 @@
-
 #include <gtest/gtest.h>
 
-#include "testFootballCompetition.h"
-#include "testResults2standings.h"
-#include "testTopscorers.h"
-#include "testFilterResults.h"
-#include "testFilterInput.h"
+#include "TestFootballCompetition.h"
+#include "TestResultsToStandings.h"
+#include "TestTopscorers.h"
+#include "TestFilterResults.h"
+#include "TestFilterInput.h"
 
 using namespace shob::football::test;
 
@@ -16,34 +15,34 @@ int main(int argc, char** argv)
     return RUN_ALL_TESTS();
 }
 
-TEST(unitTest, TestResults2standings)
+TEST(unitTest, TestResultsToStandings)
 {
-    TestResults2standings::test1();
+    TestResultsToStandings::test1();
 }
 
 TEST(unitTest, testResults2standingsWithTeams)
 {
-    TestResults2standings::test2();
+    TestResultsToStandings::test2();
 }
 
 TEST(unitTest, testResults2standingsWithExtras)
 {
-    TestResults2standings::test3();
+    TestResultsToStandings::test3();
 }
 
 TEST(unitTest, testResults2standingsWithMutualResults)
 {
-    TestResults2standings::testMutualResults();
+    TestResultsToStandings::testMutualResults();
 }
 
 TEST(unitTest, testSortOnResultsOpponents)
 {
-    TestResults2standings::testSortOnResultsOpponents();
+    TestResultsToStandings::testSortOnResultsOpponents();
 }
 
 TEST(unitTest, testSortOnResultsOpponents2Matches)
 {
-    TestResults2standings::testSortOnResultsOpponent2Matches();
+    TestResultsToStandings::testSortOnResultsOpponent2Matches();
 }
 
 TEST(unitTest, TestFootballCompetition)

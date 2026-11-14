@@ -1,4 +1,3 @@
-
 #include "FormatOnePage.h"
 #include <algorithm>
 

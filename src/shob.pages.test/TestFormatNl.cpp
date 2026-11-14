@@ -1,30 +1,30 @@
-#include "TestFormatNL.h"
+#include "TestFormatNl.h"
 
 #include <gtest/gtest.h>
 
-#include "../shob.pages/FormatNL_Builder.h"
+#include "../shob.pages/FormatNlBuilder.h"
 #include "../shob.test.utils/TestUtils.h"
 
 namespace shob::pages::test
 {
     using namespace readers::test;
 
-    void TestFormatNL::test1()
+    void TestFormatNl::test1()
     {
         const std::string dataMap = "../../data/sport/";
         const std::string dataFolder = TestUtils::refFileWithPath(__FILE__, dataMap);
         auto settings = html::Settings();
-        auto fmt_nl = format_nl_builder::build(dataFolder, settings);
+        auto fmt_nl = FormatNlBuilder::build(dataFolder, settings);
         auto lines = fmt_nl.getSeason(general::Season(2023));
         EXPECT_EQ(lines.data.size(), 159);
     }
 
-    void TestFormatNL::test_last_dd()
+    void TestFormatNl::test_last_dd()
     {
         const std::string dataMap = "../../data/sport/";
         const std::string dataFolder = TestUtils::refFileWithPath(__FILE__, dataMap);
         auto settings = html::Settings();
-        auto fmt_nl = format_nl_builder::build(dataFolder, settings);
+        auto fmt_nl = FormatNlBuilder::build(dataFolder, settings);
         int dd = fmt_nl.get_dd();
         EXPECT_GE(dd, 20260101);
     }

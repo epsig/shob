@@ -1,4 +1,3 @@
-
 #include "TestFormatStatsEredivisie.h"
 
 #include <gtest/gtest.h>

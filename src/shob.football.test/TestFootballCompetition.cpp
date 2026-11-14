@@ -1,10 +1,9 @@
-
 #include "TestFootballCompetition.h"
 
 #include <gtest/gtest.h>
 
 #include "../shob.football/FootballCompetition.h"
-#include "../shob.football/Results2Standings.h"
+#include "../shob.football/ResultsToStandings.h"
 
 #include "../shob.test.utils/TestUtils.h"
 

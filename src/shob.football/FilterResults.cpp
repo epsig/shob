@@ -1,9 +1,8 @@
-
 #include "FilterResults.h"
 
 #include <iostream>
 
-#include "../shob.general/dateFactory.h"
+#include "../shob.general/DateFactory.h"
 
 namespace shob::football
 {

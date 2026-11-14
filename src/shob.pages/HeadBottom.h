@@ -1,8 +1,7 @@
-
 #pragma once
 
-#include "../shob.html/table.h"
-#include "../shob.general/itdate.h"
+#include "../shob.html/Table.h"
+#include "../shob.general/ItDate.h"
 #include "../shob.bookmarks/ListOfEvents.h"
 #include <string>
 

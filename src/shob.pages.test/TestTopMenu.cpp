@@ -1,4 +1,3 @@
-
 #include "TestTopMenu.h"
 
 #include <gtest/gtest.h>

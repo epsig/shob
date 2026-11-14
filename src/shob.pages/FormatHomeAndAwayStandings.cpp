@@ -1,9 +1,8 @@
-
 #include "FormatHomeAndAwayStandings.h"
 #include "HeadBottom.h"
-#include "../shob.football/footballCompetition.h"
-#include "../shob.football/results2standings.h"
-#include "../shob.general/glob.h"
+#include "../shob.football/FootballCompetition.h"
+#include "../shob.football/ResultsToStandings.h"
+#include "../shob.general/Glob.h"
 
 #include <format>
 #include <filesystem>

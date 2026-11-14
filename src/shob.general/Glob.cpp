@@ -1,4 +1,3 @@
-
 #include "Glob.h"
 
 #include <filesystem>

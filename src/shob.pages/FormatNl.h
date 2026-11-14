@@ -1,21 +1,20 @@
-
 #pragma once
 #include <string>
 
 #include "FormatOnePageEachSeason.h"
 #include "PageBlock.h"
-#include "../shob.readers/csvAllSeasonsReader.h"
-#include "../shob.football/topscorers.h"
+#include "../shob.readers/CsvAllSeasonsReader.h"
+#include "../shob.football/Topscorers.h"
 #include "../shob.general/Season.h"
-#include "../shob.football/footballCompetition.h"
+#include "../shob.football/FootballCompetition.h"
 #include "TopMenu.h"
 
 namespace shob::pages
 {
-    class FormatNL : public FormatOnePageEachSeason
+    class FormatNl : public FormatOnePageEachSeason
     {
     public:
-        FormatNL(std::string folder, readers::CsvAllSeasonsReader extras, readers::CsvAllSeasonsReader remarks, TopMenu menu,
+        FormatNl(std::string folder, readers::CsvAllSeasonsReader extras, readers::CsvAllSeasonsReader remarks, TopMenu menu,
             teams::ClubTeams teams, html::Settings settings) :
             sportDataFolder(std::move(folder)), extras(std::move(extras)), remarks(std::move(remarks)), menu(std::move(menu)),
             teams(std::move(teams)), settings(settings) {}

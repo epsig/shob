@@ -2,10 +2,10 @@
 
 #include "FormatOnePageEachSeason.h"
 #include "TopMenu.h"
-#include "../shob.html/settings.h"
-#include "../shob.teams/clubTeams.h"
+#include "../shob.html/Settings.h"
+#include "../shob.teams/ClubTeams.h"
 #include "../shob.general/Season.h"
-#include "../shob.readers/csvAllSeasonsReader.h"
+#include "../shob.readers/CsvAllSeasonsReader.h"
 
 namespace shob::pages
 {

@@ -1,4 +1,3 @@
-
 #include "MultipleStrings.h"
 
 #include <iostream>

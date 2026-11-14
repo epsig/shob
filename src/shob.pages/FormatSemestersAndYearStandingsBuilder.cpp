@@ -1,7 +1,6 @@
-
 #include "FormatSemestersAndYearStandingsBuilder.h"
-#include "../shob.general/glob.h"
-#include "../shob.football/footballCompetition.h"
+#include "../shob.general/Glob.h"
+#include "../shob.football/FootballCompetition.h"
 
 #include <algorithm>
 #include <format>

@@ -1,17 +1,16 @@
-
 #include "FormatNL.h"
 #include <array>
 #include <filesystem>
 #include <format>
 
 #include "PageBlock.h"
-#include "../shob.football/results2standings.h"
-#include "../shob.football/route2finalFactory.h"
+#include "../shob.football/ResultsToStandings.h"
+#include "../shob.football/RouteToFinalFactory.h"
 #include "../shob.pages/HeadBottom.h"
-#include "../shob.html/updateIfNewer.h"
-#include "../shob.html/funcs.h"
-#include "../shob.football/filterResults.h"
-#include "../shob.general/shobException.h"
+#include "../shob.html/UpdateIfNewer.h"
+#include "../shob.html/Funcs.h"
+#include "../shob.football/FilterResults.h"
+#include "../shob.general/ShobException.h"
 #include "../shob.general/CurrentDateTime.h"
 
 namespace shob::pages
@@ -19,7 +18,7 @@ namespace shob::pages
     namespace fs = std::filesystem;
     using namespace shob::general;
 
-    bool FormatNL::isValidSeason(const Season& season) const
+    bool FormatNl::isValidSeason(const Season& season) const
     {
         std::string file_eredivisie = sportDataFolder + "/eredivisie/eredivisie_" + season.toPartFilename() + ".csv";
         std::string file_1e_divisie = sportDataFolder + "/eerste_divisie/eerste_divisie_" + season.toPartFilename() + ".csv";
@@ -27,12 +26,12 @@ namespace shob::pages
         return fs::exists(file_eredivisie) || fs::exists(file_1e_divisie) || fs::exists(file_beker);
     }
 
-    std::string FormatNL::getOutputFilename(const std::string& folder, const Season& season)
+    std::string FormatNl::getOutputFilename(const std::string& folder, const Season& season)
     {
         return std::format("{}/sport_voetbal_nl_{}.html", folder, season.toPartFilename());
     }
 
-    Season FormatNL::getLastSeason() const
+    Season FormatNl::getLastSeason() const
     {
         auto y = CurrentDateTime::getCurrentYear();
         auto s = Season(y);
@@ -42,7 +41,7 @@ namespace shob::pages
         throw ShobException("Season not found for NL");
     }
 
-    int FormatNL::get_dd() const
+    int FormatNl::get_dd() const
     {
         const auto last_season = getLastSeason();
         int dd = 0;
@@ -50,13 +49,13 @@ namespace shob::pages
         return dd;
     }
 
-    MultipleStrings FormatNL::getSeason(const Season& season) const
+    MultipleStrings FormatNl::getSeason(const Season& season) const
     {
         int dd = 19920101;
         return getSeason(season, dd);
     }
 
-    MultipleStrings FormatNL::getSeason(const Season& season, int& dd) const
+    MultipleStrings FormatNl::getSeason(const Season& season, int& dd) const
     {
         auto file1 = sportDataFolder + "/eredivisie/eredivisie_" + season.toPartFilename() + ".csv";
         auto competition = football::FootballCompetition();
@@ -130,7 +129,7 @@ namespace shob::pages
         return HeadBottom::getPage(hb);
     }
 
-    PageBlock FormatNL::getSupercup(const readers::CsvContent& dataBekerAndSupercup, const Season& season, int& dd) const
+    PageBlock FormatNl::getSupercup(const readers::CsvContent& dataBekerAndSupercup, const Season& season, int& dd) const
     {
         PageBlock retval;
         if (dataBekerAndSupercup.body.empty()) return retval;
@@ -153,7 +152,7 @@ namespace shob::pages
         return retval;
     }
 
-    PageBlock FormatNL::getKlassiekers(const football::FootballCompetition& competition) const
+    PageBlock FormatNl::getKlassiekers(const football::FootballCompetition& competition) const
     {
         PageBlock retval;
         const std::set<std::string> toppers = { "ajx", "fyn", "psv" };
@@ -173,7 +172,7 @@ namespace shob::pages
         return retval;
     }
 
-    PageBlock FormatNL::getStandEredivisie(const football::FootballCompetition& competition, int scoring, const Season& season,
+    PageBlock FormatNl::getStandEredivisie(const football::FootballCompetition& competition, int scoring, const Season& season,
         const std::vector<std::vector<std::string>>& remarks_this_season) const
     {
         PageBlock retval;
@@ -225,7 +224,7 @@ namespace shob::pages
         return retval;
     }
 
-    PageBlock FormatNL::getEersteDivisie(const Season& season) const
+    PageBlock FormatNl::getEersteDivisie(const Season& season) const
     {
         PageBlock retval;
         const auto filename = sportDataFolder + "/eerste_divisie/eerste_divisie_" + season.toPartFilename() + ".csv";
@@ -262,7 +261,7 @@ namespace shob::pages
         return retval;
     }
 
-    PageBlock FormatNL::getBothTopScorers(const Season& season) const
+    PageBlock FormatNl::getBothTopScorers(const Season& season) const
     {
         PageBlock retval;
         const auto file_tp_eredivisie = sportDataFolder + "/eredivisie/topscorers_eredivisie.csv";
@@ -300,7 +299,7 @@ namespace shob::pages
         return retval;
     }
 
-    MultipleStrings FormatNL::getTopScorers(const std::string& file, const std::string& name_competition, const Season& season,
+    MultipleStrings FormatNl::getTopScorers(const std::string& file, const std::string& name_competition, const Season& season,
         const teams::Footballers& players) const
     {
         auto allTp = readers::CsvAllSeasonsReader();
@@ -322,7 +321,7 @@ namespace shob::pages
         }
     }
 
-    PageBlock FormatNL::getBeker(const readers::CsvContent& dataBekerAndSupercup, int& dd) const
+    PageBlock FormatNl::getBeker(const readers::CsvContent& dataBekerAndSupercup, int& dd) const
     {
         PageBlock retval;
         auto Table = html::Table(settings);
@@ -345,7 +344,7 @@ namespace shob::pages
         return retval;
     }
 
-    PageBlock FormatNL::getToEuropacup(const Season& season) const
+    PageBlock FormatNl::getToEuropacup(const Season& season) const
     {
         PageBlock retval;
         const auto extraU2s = extras.getSeason(season);

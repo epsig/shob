@@ -1,12 +1,12 @@
 #pragma once
 
 #include "FormatOnePageEachYear.h"
-#include "../shob.teams/clubTeams.h"
-#include "../shob.readers/csvAllSeasonsReader.h"
-#include "../shob.html/settings.h"
-#include "../shob.teams/footballer.h"
+#include "../shob.teams/ClubTeams.h"
+#include "../shob.readers/CsvAllSeasonsReader.h"
+#include "../shob.html/Settings.h"
+#include "../shob.teams/Footballer.h"
 #include "TopMenu.h"
-#include "../shob.football/footballCompetition.h"
+#include "../shob.football/FootballCompetition.h"
 
 namespace shob::pages
 {

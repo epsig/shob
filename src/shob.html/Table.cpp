@@ -1,4 +1,3 @@
-
 #include "Table.h"
 #include "Funcs.h"
 #include <boost/regex.hpp>

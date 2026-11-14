@@ -1,7 +1,7 @@
 #include "CurrentEvents.h"
-#include "../shob.readers/csvReader.h"
-#include "../shob.general/itdate.h"
-#include "../shob.general/shobException.h"
+#include "../shob.readers/CsvReader.h"
+#include "../shob.general/ItDate.h"
+#include "../shob.general/ShobException.h"
 #include <filesystem>
 #include <vector>
 

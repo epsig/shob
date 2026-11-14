@@ -1,4 +1,3 @@
-
 #include "Topscorers.h"
 
 namespace shob::football

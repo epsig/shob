@@ -3,10 +3,10 @@
 #include <format>
 #include <filesystem>
 
-#include "../shob.football/Route2finalFactory.h"
-#include "../shob.football/Route2final.h"
+#include "../shob.football/RouteToFinalFactory.h"
+#include "../shob.football/RouteToFinal.h"
 #include "../shob.football/FilterResults.h"
-#include "../shob.football/Results2Standings.h"
+#include "../shob.football/ResultsToStandings.h"
 
 namespace shob::pages
 {

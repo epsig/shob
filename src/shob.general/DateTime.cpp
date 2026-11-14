@@ -1,4 +1,3 @@
-
 #include "DateTime.h"
 
 namespace shob::general
@@ -14,5 +13,4 @@ namespace shob::general
     {
         return std::to_string(yyyymmdd);
     }
-
 }

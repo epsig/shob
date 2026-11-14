@@ -1,8 +1,7 @@
-
 #include "FormatOs.h"
 #include "HeadBottom.h"
-#include "../shob.html/funcs.h"
-#include "../shob.general/shobException.h"
+#include "../shob.html/Funcs.h"
+#include "../shob.general/ShobException.h"
 #include <format>
 
 namespace shob::pages

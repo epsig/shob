@@ -2,12 +2,12 @@
 
 #include "EkWkDate.h"
 #include "PageBlock.h"
-#include "../shob.readers/csvReader.h"
-#include "../shob.football/route2final.h"
-#include "../shob.readers/csvAllSeasonsReader.h"
-#include "../shob.football/standings.h"
-#include "../shob.teams/footballer.h"
-#include "../shob.readers/xmlReader.h"
+#include "../shob.readers/CsvReader.h"
+#include "../shob.football/RouteToFinal.h"
+#include "../shob.readers/CsvAllSeasonsReader.h"
+#include "../shob.football/Standings.h"
+#include "../shob.teams/Footballer.h"
+#include "../shob.readers/XmlReader.h"
 
 #include <string>
 #include <vector>
@@ -33,7 +33,7 @@ namespace shob::pages
         EkWkOneYear(const EkWkDate ekwk, const html::Settings settings, const teams::ClubTeams& teams,
             const readers::CsvAllSeasonsReader& top_scorers, const teams::Footballers& players,
             const std::vector<std::vector<std::string>>& current_remarks,
-            football::RouteToFfinal r2f,
+            football::RouteToFinal r2f,
             groupList groups,
             football::FootballCompetition round2,
             readers::XmlReader reader
@@ -48,7 +48,7 @@ namespace shob::pages
         const teams::Footballers& players;
         const std::vector<std::vector<std::string>>& current_remarks;
         readers::CsvContent csv_content;
-        football::RouteToFfinal r2f;
+        football::RouteToFinal r2f;
         groupList groups;
         football::FootballCompetition round2;
         readers::XmlReader reader;

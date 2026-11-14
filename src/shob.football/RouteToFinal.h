@@ -1,17 +1,17 @@
 #pragma once
 
 #include <vector>
-#include "footballCompetition.h"
-#include "../shob.html/table.h"
-#include "../shob.teams/clubTeams.h"
-#include "../shob.html/settings.h"
+#include "FootballCompetition.h"
+#include "../shob.html/Table.h"
+#include "../shob.teams/ClubTeams.h"
+#include "../shob.html/Settings.h"
 
 namespace shob::football
 {
-    class RouteToFfinal
+    class RouteToFinal
     {
     public:
-        RouteToFfinal(FootballCompetition final, FootballCompetition semiFinal,
+        RouteToFinal(FootballCompetition final, FootballCompetition semiFinal,
             FootballCompetition quarterFinal, FootballCompetition last16, FootballCompetition bronze = FootballCompetition()) :
             final(std::move(final)), semiFinal(std::move(semiFinal)), quarterFinal(std::move(quarterFinal)),
             last16(std::move(last16)), bronze(std::move(bronze)) {}

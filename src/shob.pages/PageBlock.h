@@ -1,4 +1,3 @@
-
 #pragma once
 
 #include "../shob.general/MultipleStrings.h"

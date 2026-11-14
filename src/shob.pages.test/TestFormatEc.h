@@ -1,9 +1,8 @@
-
 #pragma once
 
 namespace shob::pages::test
 {
-    class TestFormatEC
+    class TestFormatEc
     {
     public:
         static void test_2024_2025();
@@ -12,6 +11,4 @@ namespace shob::pages::test
         static void test_2019_2020_UK();
         static void test_last_dd();
     };
-
 }
-

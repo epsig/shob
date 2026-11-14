@@ -1,11 +1,10 @@
-
-#include "TestResults2standings.h"
+#include "TestResultsToStandings.h"
 
 #include <gtest/gtest.h>
 
 #include "../shob.test.utils/TestUtils.h"
-#include "../shob.football/Results2standings.h"
-#include "../shob.teams/clubTeams.h"
+#include "../shob.football/ResultsToStandings.h"
+#include "../shob.teams/ClubTeams.h"
 #include "../shob.football/FilterInput.h"
 #include "../shob.football/FilterResults.h"
 
@@ -18,7 +17,7 @@ namespace shob::football::test
     const std::string filename = TestUtils::refFileWithPath(__FILE__, eredivisie);
     const std::string clubs = "../../data/sport/clubs.csv";
 
-    void TestResults2standings::test1()
+    void TestResultsToStandings::test1()
     {
         auto competition = FootballCompetition();
 
@@ -29,7 +28,7 @@ namespace shob::football::test
         EXPECT_EQ(table.list.size(), 18);
     }
 
-    void TestResults2standings::test2()
+    void TestResultsToStandings::test2()
     {
         const std::string filename2 = TestUtils::refFileWithPath(__FILE__, clubs);
         auto competition = FootballCompetition();
@@ -48,7 +47,7 @@ namespace shob::football::test
         EXPECT_EQ(table2.body[17].data[0], "Vitesse (-18)");
     }
 
-    void TestResults2standings::test3()
+    void TestResultsToStandings::test3()
     {
         const std::string filename2 = TestUtils::refFileWithPath(__FILE__, clubs);
         auto competition = FootballCompetition();
@@ -71,7 +70,7 @@ namespace shob::football::test
         EXPECT_EQ(table2.body[17].data[0], "Vitesse (-18; degr.)");
     }
 
-    void TestResults2standings::testMutualResults()
+    void TestResultsToStandings::testMutualResults()
     {
         // set up test:
         const auto file1 = TestUtils::refFileWithPath(__FILE__, "../../data/sport/europacup/europacup_1996_1997.csv");
@@ -92,7 +91,7 @@ namespace shob::football::test
         EXPECT_EQ(stand2.list[0].team, "NLajx");
     }
 
-    void TestResults2standings::testSortOnResultsOpponents()
+    void TestResultsToStandings::testSortOnResultsOpponents()
     {
         // set up test:
         const auto file1 = TestUtils::refFileWithPath(__FILE__, "../../data/sport/europacup/europacup_2024_2025.csv");
@@ -112,7 +111,7 @@ namespace shob::football::test
         EXPECT_EQ(stand.list[5].sumPointsOpponents, 48);
     }
 
-    void TestResults2standings::testSortOnResultsOpponent2Matches()
+    void TestResultsToStandings::testSortOnResultsOpponent2Matches()
     {
         // set up test:
         auto comp = FootballCompetition();

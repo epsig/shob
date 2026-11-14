@@ -1,4 +1,3 @@
-
 #include "HeadBottom.h"
 
 namespace shob::pages

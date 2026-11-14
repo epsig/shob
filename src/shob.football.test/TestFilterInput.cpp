@@ -1,4 +1,3 @@
-
 #include "TestFilterInput.h"
 
 #include <gtest/gtest.h>

@@ -1,14 +1,13 @@
-
 #pragma once
 #include <string>
-#include "FormatEC.h"
+#include "FormatNL.h"
 
 namespace shob::pages
 {
-    class FormatEC_Builder
+    class FormatNlBuilder
     {
     public:
         static bool cmpFunc(const std::string& a, const std::string& b);
-        static FormatEC build(const std::string& dataFolder, const html::Settings& settings);
+        static FormatNl build(const std::string& dataFolder, const html::Settings& settings);
     };
 }

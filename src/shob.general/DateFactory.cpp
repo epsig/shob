@@ -1,4 +1,3 @@
-
 #include "DateFactory.h"
 #include "ItDate.h"
 #include "DateAsString.h"
