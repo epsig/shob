@@ -1,9 +1,8 @@
-
 #pragma once
 
 namespace shob::pages::test
 {
-    class TestFormatNL
+    class TestFormatNl
     {
     public:
         static void test1();

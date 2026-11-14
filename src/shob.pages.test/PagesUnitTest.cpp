@@ -1,7 +1,7 @@
 #include <gtest/gtest.h>
 
-#include "TestFormatNL.h"
-#include "TestFormatEC.h"
+#include "TestFormatNl.h"
+#include "TestFormatEc.h"
 #include "TestFormatEkWk.h"
 #include "TestFormatEkWkQf.h"
 #include "TestFormatOs.h"
@@ -17,43 +17,43 @@ using namespace shob::pages::test;
 int main(int argc, char** argv)
 {
     ::testing::InitGoogleTest(&argc, argv);
-    //::testing::GTEST_FLAG(filter) = "unitTest.testFormatNL";
+    //::testing::GTEST_FLAG(filter) = "IntegrationTest.testFormatNL";
     return RUN_ALL_TESTS();
 }
 
-TEST(IntegrationTest, testFormatNL)
+TEST(IntegrationTest, testFormatNl)
 {
-    TestFormatNL::test1();
+    TestFormatNl::test1();
 }
 
 TEST(IntegrationTest, testFormatNlDate)
 {
-    TestFormatNL::test_last_dd();
+    TestFormatNl::test_last_dd();
 }
 
 TEST(IntegrationTest, testFormatEc_2024_2025)
 {
-    TestFormatEC::test_2024_2025();
+    TestFormatEc::test_2024_2025();
 }
 
 TEST(IntegrationTest, testFormatEc_2023_2024)
 {
-    TestFormatEC::test_2023_2024();
+    TestFormatEc::test_2023_2024();
 }
 
 TEST(IntegrationTest, testFormatEc_1994_1995)
 {
-    TestFormatEC::test_1994_1995();
+    TestFormatEc::test_1994_1995();
 }
 
 TEST(IntegrationTest, test_2019_2020_UK)
 {
-    TestFormatEC::test_2019_2020_UK();
+    TestFormatEc::test_2019_2020_UK();
 }
 
 TEST(IntegrationTest, test_ec_last_dd)
 {
-    TestFormatEC::test_last_dd();
+    TestFormatEc::test_last_dd();
 }
 
 TEST(UnitTest, testTopMenuLeft)

@@ -1,4 +1,4 @@
-#include "TestFormatNL.h"
+#include "TestFormatNl.h"
 
 #include <gtest/gtest.h>
 
@@ -9,7 +9,7 @@ namespace shob::pages::test
 {
     using namespace readers::test;
 
-    void TestFormatNL::test1()
+    void TestFormatNl::test1()
     {
         const std::string dataMap = "../../data/sport/";
         const std::string dataFolder = TestUtils::refFileWithPath(__FILE__, dataMap);
@@ -19,7 +19,7 @@ namespace shob::pages::test
         EXPECT_EQ(lines.data.size(), 159);
     }
 
-    void TestFormatNL::test_last_dd()
+    void TestFormatNl::test_last_dd()
     {
         const std::string dataMap = "../../data/sport/";
         const std::string dataFolder = TestUtils::refFileWithPath(__FILE__, dataMap);
