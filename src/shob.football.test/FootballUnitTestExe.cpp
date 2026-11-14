@@ -2,7 +2,7 @@
 
 #include "TestFootballCompetition.h"
 #include "TestResultsToStandings.h"
-#include "TestTopScorers.h"
+#include "TestTopscorers.h"
 #include "TestFilterResults.h"
 #include "TestFilterInput.h"
 

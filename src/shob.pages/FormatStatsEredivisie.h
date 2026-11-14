@@ -5,7 +5,7 @@
 #include "../shob.html/Settings.h"
 #include "../shob.general/MultipleStrings.h"
 #include "../shob.football/ResultsToStandings.h"
-#include "../shob.football/TopScorers.h"
+#include "../shob.football/Topscorers.h"
 
 namespace shob::pages
 {
