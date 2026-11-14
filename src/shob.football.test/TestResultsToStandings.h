@@ -1,9 +1,8 @@
-
 #pragma once
 
 namespace shob::football::test
 {
-    class TestResults2standings
+    class TestResultsToStandings
     {
     public:
         static void test1();
