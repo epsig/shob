@@ -53,7 +53,7 @@ file(GLOB klaverjas_files "src/shob.klaverjas/*.*")
 add_library(shob.klaverjas STATIC ${klaverjas_files})
 set_target_properties(shob.klaverjas PROPERTIES CXX_STANDARD 20)
 
-add_executable(shob src/shob.cpp)
+add_executable(shob src/Shob.cpp)
 set_target_properties(shob PROPERTIES CXX_STANDARD 20)
 
 file(GLOB readers_test_files "src/shob.readers.test/*.*")
