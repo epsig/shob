@@ -1,4 +1,3 @@
-
 #include "FormatNL.h"
 #include <array>
 #include <filesystem>
