@@ -96,6 +96,10 @@ file(GLOB klaverjas_test_files "src/shob.klaverjas.test/*.*")
 add_executable(shob.klaverjas.test ${klaverjas_test_files})
 set_target_properties(shob.klaverjas.test PROPERTIES CXX_STANDARD 20)
 
+file(GLOB main_test_files "src/shob.main.test/*.*")
+add_executable(shob.main.test ${main_test_files})
+set_target_properties(shob.main.test PROPERTIES CXX_STANDARD 20)
+
 
 include(FetchContent)
 
@@ -149,6 +153,7 @@ target_link_libraries(shob.teams shob.readers shob.html)
 target_link_libraries(shob.teams.test shob.teams shob.readers shob.test.utils gtest_main)
 target_link_libraries(shob.general.test shob.general shob.test.utils gtest_main)
 target_link_libraries(shob.klaverjas.test shob.klaverjas shob.general shob.readers shob.test.utils gtest_main)
+target_link_libraries(shob.main.test shob.main shob.general gtest_main)
 
 enable_testing()
 
@@ -197,5 +202,11 @@ add_test(
 add_test(
   NAME shob-klaverjas-unit-tests
   COMMAND $<TARGET_FILE:shob.klaverjas.test>
+  WORKING_DIRECTORY ${CMAKE_CURRENT_LIST_DIR}
+)
+
+add_test(
+  NAME shob-main-unit-tests
+  COMMAND $<TARGET_FILE:shob.main.test>
   WORKING_DIRECTORY ${CMAKE_CURRENT_LIST_DIR}
 )
