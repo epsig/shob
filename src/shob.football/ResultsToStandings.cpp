@@ -1,6 +1,6 @@
 
-#include "Results2standings.h"
-#include "../shob.readers/csvReader.h"
+#include "ResultsToStandings.h"
+#include "../shob.readers/CsvReader.h"
 
 namespace shob::football
 {

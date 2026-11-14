@@ -5,13 +5,13 @@
 #include <format>
 
 #include "PageBlock.h"
-#include "../shob.football/results2standings.h"
-#include "../shob.football/route2finalFactory.h"
+#include "../shob.football/ResultsToStandings.h"
+#include "../shob.football/RouteToFinalFactory.h"
 #include "../shob.pages/HeadBottom.h"
-#include "../shob.html/updateIfNewer.h"
-#include "../shob.html/funcs.h"
-#include "../shob.football/filterResults.h"
-#include "../shob.general/shobException.h"
+#include "../shob.html/UpdateIfNewer.h"
+#include "../shob.html/Funcs.h"
+#include "../shob.football/FilterResults.h"
+#include "../shob.general/ShobException.h"
 #include "../shob.general/CurrentDateTime.h"
 
 namespace shob::pages

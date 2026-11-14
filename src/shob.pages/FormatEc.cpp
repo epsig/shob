@@ -3,11 +3,11 @@
 #include "../shob.general/CurrentDateTime.h"
 
 #include "HeadBottom.h"
-#include "../shob.football/results2standings.h"
-#include "../shob.football/route2finalFactory.h"
-#include "../shob.football/filterResults.h"
-#include "../shob.general/dateFactory.h"
-#include "../shob.html/updateIfNewer.h"
+#include "../shob.football/ResultsToStandings.h"
+#include "../shob.football/RouteToFinalFactory.h"
+#include "../shob.football/FilterResults.h"
+#include "../shob.general/DateFactory.h"
+#include "../shob.html/UpdateIfNewer.h"
 
 #include <format>
 #include <filesystem>

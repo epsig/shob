@@ -4,8 +4,8 @@
 #include <gtest/gtest.h>
 
 #include "../shob.test.utils/TestUtils.h"
-#include "../shob.football/Results2standings.h"
-#include "../shob.teams/clubTeams.h"
+#include "../shob.football/ResultsToStandings.h"
+#include "../shob.teams/ClubTeams.h"
 #include "../shob.football/FilterInput.h"
 #include "../shob.football/FilterResults.h"
 

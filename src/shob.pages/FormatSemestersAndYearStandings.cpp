@@ -2,7 +2,7 @@
 #include "FormatSemestersAndYearStandings.h"
 #include "HeadBottom.h"
 #include "../shob.football/footballCompetition.h"
-#include "../shob.football/results2standings.h"
+#include "../shob.football/ResultsToStandings.h"
 
 #include <format>
 #include <filesystem>

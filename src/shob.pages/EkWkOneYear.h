@@ -2,12 +2,12 @@
 
 #include "EkWkDate.h"
 #include "PageBlock.h"
-#include "../shob.readers/csvReader.h"
-#include "../shob.football/route2final.h"
-#include "../shob.readers/csvAllSeasonsReader.h"
-#include "../shob.football/standings.h"
-#include "../shob.teams/footballer.h"
-#include "../shob.readers/xmlReader.h"
+#include "../shob.readers/CsvReader.h"
+#include "../shob.football/RouteToFinal.h"
+#include "../shob.readers/CsvAllSeasonsReader.h"
+#include "../shob.football/Standings.h"
+#include "../shob.teams/Footballer.h"
+#include "../shob.readers/XmlReader.h"
 
 #include <string>
 #include <vector>

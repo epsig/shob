@@ -4,8 +4,8 @@
 #include "../shob.teams/clubTeams.h"
 #include "../shob.html/Settings.h"
 #include "../shob.general/MultipleStrings.h"
-#include "../shob.football/results2standings.h"
-#include "../shob.football/topscorers.h"
+#include "../shob.football/ResultsToStandings.h"
+#include "../shob.football/TopScorers.h"
 
 namespace shob::pages
 {
