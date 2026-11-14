@@ -3,8 +3,8 @@
 #include <format>
 #include <algorithm>
 
-#include "shob.general/DateFactory.h"
 #include "shob.main/HandleAllSportPages.h"
+#include "shob.main/CommandLine.h"
 #include "shob.pages/FormatHomePage.h"
 #include "shob.pages/FormatBookmarks.h"
 #include "shob.pages/FormatRest.h"
@@ -13,43 +13,6 @@
 #include "shob.general/Season.h"
 #include "shob.general/ShobException.h"
 #include "shob.html/UpdateIfNewer.h"
-
-void read_command_line(int argc, char* argv[], int& yr1, int&yr2, bool& skip_kj)
-{
-    using namespace shob::general;
-    if (argc >= 3)
-    {
-        if (DateFactory::allDigits(argv[1]) && DateFactory::allDigits(argv[2]))
-        {
-            const std::string arg1 = argv[1];
-            const std::string arg2 = argv[2];
-            yr1 = std::stoi(arg1);
-            yr2 = std::stoi(arg2);
-            if (argc >= 4)
-            {
-                skip_kj = (std::string(argv[3]) != "with_kj");
-            }
-        }
-        else
-        {
-            throw ShobException("first two command line arguments must be years");
-        }
-    }
-    else if (argc == 2)
-    {
-        if (DateFactory::allDigits(argv[1]))
-        {
-            const std::string arg1 = argv[1];
-            yr1 = std::stoi(arg1);
-            yr2 = yr1;
-        }
-        else
-        {
-            throw ShobException("first command line argument must be a year");
-        }
-    }
-}
-
 
 int main(int argc, char* argv[])
 {
@@ -60,14 +23,14 @@ int main(int argc, char* argv[])
     std::string part;
     try
     {
-        int firstYear = 1993;
-        int lastYear = 2026; // TODO function of current date
+        int first_year = 1993;
+        int last_year = 2026; // TODO function of current date
         bool skip_kj = true;
 
-        read_command_line(argc, argv, firstYear, lastYear, skip_kj);
+        CommandLine::readCommandLine(argc, argv, first_year, last_year, skip_kj);
 
         int dd = 0;
-        HandleAllSportPages::build_all_sport(firstYear, lastYear, dd, part);
+        HandleAllSportPages::buildAllSport(first_year, last_year, dd, part);
 
         part = "bookmarks";
         auto fmt_home_page = FormatHomePage("bookmarks/");

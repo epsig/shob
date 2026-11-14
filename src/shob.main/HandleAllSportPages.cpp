@@ -17,7 +17,7 @@ namespace shob::main
     using namespace shob::general;
     using namespace shob::pages;
 
-    void HandleAllSportPages::build_all_sport(const int first_year, const int last_year, int& dd, std::string& part)
+    void HandleAllSportPages::buildAllSport(const int first_year, const int last_year, int& dd, std::string& part)
     {
         part = "running builders";
         auto settings = shob::html::Settings();
