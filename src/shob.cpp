@@ -4,8 +4,8 @@
 #include <algorithm>
 
 #include "shob.general/DateFactory.h"
-#include "shob.pages/FormatEC_Builder.h"
-#include "shob.pages/FormatNL_Builder.h"
+#include "shob.pages/FormatEcBuilder.h"
+#include "shob.pages/FormatNlBuilder.h"
 #include "shob.pages/FormatEkWkBuilder.h"
 #include "shob.pages/FormatEkWkDBuilder.h"
 #include "shob.pages/FormatEkWkQfBuilder.h"

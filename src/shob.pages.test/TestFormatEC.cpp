@@ -2,7 +2,7 @@
 
 #include <gtest/gtest.h>
 
-#include "../shob.pages/FormatEC_Builder.h"
+#include "../shob.pages/FormatEcBuilder.h"
 #include "../shob.test.utils/TestUtils.h"
 
 namespace shob::pages::test
