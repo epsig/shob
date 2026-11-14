@@ -12,7 +12,7 @@ namespace shob::pages::test
     const std::string data_map = "../../data/sport/";
     const std::string data_folder = TestUtils::refFileWithPath(__FILE__, data_map);
     constexpr auto settings = html::Settings();
-    const auto format_ec = FormatEC_Builder::build(data_folder, settings);
+    const auto format_ec = FormatEcBuilder::build(data_folder, settings);
 
     void TestFormatEC::test_2024_2025()
     {
@@ -37,7 +37,7 @@ namespace shob::pages::test
     void TestFormatEC::test_2019_2020_UK()
     {
         constexpr auto settingsUK = html::Settings(html::Language::English);
-        const auto fmt_ec_uk = FormatEC_Builder::build(data_folder, settingsUK);
+        const auto fmt_ec_uk = FormatEcBuilder::build(data_folder, settingsUK);
         const auto lines = fmt_ec_uk.getSeason(general::Season(2019));
         ASSERT_EQ(lines.data.size(), 169);
         EXPECT_GE(lines.findString("Due to the Covid-19 pandemic, the tournament was suspended"), 0) << "check reading comma between quotes";

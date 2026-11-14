@@ -18,14 +18,14 @@ namespace shob::pages
         s.replace(pos, toReplace.length(), replaceWith);
     }
 
-    bool format_nl_builder::cmpFunc(const std::string& a, const std::string& b)
+    bool FormatNlBuilder::cmpFunc(const std::string& a, const std::string& b)
     {
         const auto num1 = a.substr(11, 4);
         const auto num2 = b.substr(11, 4);
         return num1 < num2;
     }
 
-    FormatNL format_nl_builder::build(const std::string& dataFolder, const html::Settings& settings)
+    FormatNl FormatNlBuilder::build(const std::string& dataFolder, const html::Settings& settings)
     {
         auto extras = readers::CsvAllSeasonsReader();
         extras.init(dataFolder + "/eredivisie/eredivisie_u2s.csv");
@@ -46,7 +46,7 @@ namespace shob::pages
         auto file2 = dataFolder + "/clubs.csv";
         teams.InitFromFile(file2, teams::ClubsOrCountries::clubs);
 
-        auto format = FormatNL(dataFolder, extras, remarks, menu, teams, settings);
+        auto format = FormatNl(dataFolder, extras, remarks, menu, teams, settings);
         return format;
     }
 }

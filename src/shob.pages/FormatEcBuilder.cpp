@@ -7,14 +7,14 @@
 
 namespace shob::pages
 {
-    bool FormatEC_Builder::cmpFunc(const std::string& a, const std::string& b)
+    bool FormatEcBuilder::cmpFunc(const std::string& a, const std::string& b)
     {
         const auto num1 = a.substr(10, 4);
         const auto num2 = b.substr(10, 4);
         return num1 < num2;
     }
 
-    FormatEC FormatEC_Builder::build(const std::string& dataFolder, const html::Settings& settings)
+    FormatEc FormatEcBuilder::build(const std::string& dataFolder, const html::Settings& settings)
     {
         auto remarks = readers::CsvAllSeasonsReader();
         remarks.init(dataFolder + "/europacup/europacup_remarks.csv");
@@ -33,7 +33,7 @@ namespace shob::pages
 
         auto leagueNames = football::LeagueNames(dataFolder + "/europacup/league_names.csv");
 
-        auto format = FormatEC(dataFolder, remarks, teams, settings, menu, leagueNames);
+        auto format = FormatEc(dataFolder, remarks, teams, settings, menu, leagueNames);
         return format;
     }
 }

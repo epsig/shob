@@ -5,10 +5,10 @@
 
 namespace shob::pages
 {
-    class FormatEC_Builder
+    class FormatEcBuilder
     {
     public:
         static bool cmpFunc(const std::string& a, const std::string& b);
-        static FormatEC build(const std::string& dataFolder, const html::Settings& settings);
+        static FormatEc build(const std::string& dataFolder, const html::Settings& settings);
     };
 }

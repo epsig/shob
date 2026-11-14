@@ -14,10 +14,10 @@
 
 namespace shob::pages
 {
-    class FormatEC : public FormatOnePageEachSeason
+    class FormatEc : public FormatOnePageEachSeason
     {
     public:
-        FormatEC(std::string folder, readers::CsvAllSeasonsReader& extras, teams::ClubTeams& teams, const html::Settings& settings,
+        FormatEc(std::string folder, readers::CsvAllSeasonsReader& extras, teams::ClubTeams& teams, const html::Settings& settings,
             TopMenu menu, football::LeagueNames leagueNames) :
             sportDataFolder(std::move(folder)), extras(std::move(extras)), teams(std::move(teams)), settings(settings),
             menu(std::move(menu)), leagueNames(std::move(leagueNames)) {}
