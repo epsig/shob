@@ -1,13 +1,12 @@
-
 #include "Standings.h"
 
 #include <algorithm>
 #include <format>
 #include <iostream>
 
-#include "../shob.general/shobException.h"
-#include "../shob.readers/csvReader.h"
-#include "../shob.html/funcs.h"
+#include "../shob.general/ShobException.h"
+#include "../shob.readers/CsvReader.h"
+#include "../shob.html/Funcs.h"
 
 namespace shob::football
 {

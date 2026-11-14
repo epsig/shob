@@ -2,9 +2,9 @@
 
 #include <string>
 #include <memory>
-#include "../shob.general/shobDate.h"
-#include "starEnum.h"
-#include "../shob.teams/clubTeams.h"
+#include "../shob.general/ShobDate.h"
+#include "StarEnum.h"
+#include "../shob.teams/ClubTeams.h"
 
 namespace shob::football
 {

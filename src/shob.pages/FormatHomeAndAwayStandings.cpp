@@ -1,4 +1,3 @@
-
 #include "FormatHomeAndAwayStandings.h"
 #include "HeadBottom.h"
 #include "../shob.football/FootballCompetition.h"

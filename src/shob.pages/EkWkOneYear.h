@@ -33,7 +33,7 @@ namespace shob::pages
         EkWkOneYear(const EkWkDate ekwk, const html::Settings settings, const teams::ClubTeams& teams,
             const readers::CsvAllSeasonsReader& top_scorers, const teams::Footballers& players,
             const std::vector<std::vector<std::string>>& current_remarks,
-            football::RouteToFfinal r2f,
+            football::RouteToFinal r2f,
             groupList groups,
             football::FootballCompetition round2,
             readers::XmlReader reader
@@ -48,7 +48,7 @@ namespace shob::pages
         const teams::Footballers& players;
         const std::vector<std::vector<std::string>>& current_remarks;
         readers::CsvContent csv_content;
-        football::RouteToFfinal r2f;
+        football::RouteToFinal r2f;
         groupList groups;
         football::FootballCompetition round2;
         readers::XmlReader reader;

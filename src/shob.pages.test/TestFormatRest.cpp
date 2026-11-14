@@ -1,6 +1,6 @@
 #include "TestFormatRest.h"
 #include "../shob.pages/FormatRest.h"
-#include "../shob.general/shobException.h"
+#include "../shob.general/ShobException.h"
 #include <chrono>
 #include <filesystem>
 #include <fstream>

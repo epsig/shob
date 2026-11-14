@@ -1,4 +1,3 @@
-
 #include "FilterInput.h"
 
 namespace shob::football

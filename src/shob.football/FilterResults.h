@@ -1,9 +1,8 @@
-
 #pragma once
 
-#include "filterInput.h"
-#include "footballCompetition.h"
-#include "../shob.readers/csvReader.h"
+#include "FilterInput.h"
+#include "FootballCompetition.h"
+#include "../shob.readers/CsvReader.h"
 
 namespace shob::football
 {

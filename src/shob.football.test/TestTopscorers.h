@@ -8,4 +8,3 @@ namespace shob::football::test
         static void test1();
     };
 }
-

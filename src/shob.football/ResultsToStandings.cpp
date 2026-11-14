@@ -1,4 +1,3 @@
-
 #include "ResultsToStandings.h"
 #include "../shob.readers/CsvReader.h"
 

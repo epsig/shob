@@ -1,8 +1,7 @@
-
 #pragma once
 #include <string>
 #include <map>
-#include "../shob.football/footballCompetition.h"
+#include "../shob.football/FootballCompetition.h"
 
 namespace shob::pages
 {

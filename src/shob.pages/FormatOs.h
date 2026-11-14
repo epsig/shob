@@ -3,10 +3,10 @@
 
 #include "TopMenu.h"
 #include "FormatOnePageEachYear.h"
-#include "../shob.readers/csvAllSeasonsReader.h"
+#include "../shob.readers/CsvAllSeasonsReader.h"
 #include "../shob.html/Settings.h"
 #include "../shob.general/MultipleStrings.h"
-#include "../shob.teams/clubTeams.h"
+#include "../shob.teams/ClubTeams.h"
 
 namespace shob::pages
 {

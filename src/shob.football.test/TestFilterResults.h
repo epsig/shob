@@ -9,6 +9,4 @@ namespace shob::football::test
         static void testGetReturns();
         static void testFilterEuropacup();
     };
-
 }
-

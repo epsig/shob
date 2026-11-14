@@ -1,4 +1,3 @@
-
 #include "TestFootballCompetition.h"
 
 #include <gtest/gtest.h>

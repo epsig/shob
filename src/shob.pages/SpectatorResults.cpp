@@ -1,4 +1,3 @@
-
 #include "SpectatorResults.h"
 
 namespace shob::pages

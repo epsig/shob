@@ -3,12 +3,9 @@
 #include <gtest/gtest.h>
 
 #include "../shob.test.utils/TestUtils.h"
-
 #include "../shob.football/Topscorers.h"
-
 #include "../shob.teams/ClubTeams.h"
-
-#include "../shob.readers/csvAllSeasonsReader.h"
+#include "../shob.readers/CsvAllSeasonsReader.h"
 
 namespace shob::football::test
 {

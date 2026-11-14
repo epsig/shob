@@ -1,9 +1,8 @@
-
 #include <gtest/gtest.h>
 
-#include "testCsvReader.h"
-#include "testXmlReader.h"
-#include "testCsvAllSeasonsReader.h"
+#include "TestCsvReader.h"
+#include "TestXmlReader.h"
+#include "TestCsvAllSeasonsReader.h"
 
 using namespace shob::readers::test;
 

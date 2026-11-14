@@ -10,6 +10,4 @@ namespace shob::football::test
         static void test3();
         static void test4();
     };
-
 }
-

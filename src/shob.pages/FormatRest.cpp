@@ -1,9 +1,9 @@
 #include "FormatRest.h"
 #include "HeadBottom.h"
-#include "../shob.html/updateIfNewer.h"
+#include "../shob.html/UpdateIfNewer.h"
 #include "../shob.general/FileIO.h"
-#include "../shob.html/table.h"
-#include "../shob.general/shobException.h"
+#include "../shob.html/Table.h"
+#include "../shob.general/ShobException.h"
 #include <algorithm>
 #include <array>
 #include <cctype>

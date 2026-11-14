@@ -7,9 +7,9 @@ namespace shob::football
     class RouteToFinalFactory
     {
     public:
-        static RouteToFfinal create(const std::string& filename);
-        static RouteToFfinal create(const readers::CsvContent& data);
-        static RouteToFfinal createEC(const readers::CsvContent& data, const std::string& ECpart);
+        static RouteToFinal create(const std::string& filename);
+        static RouteToFinal create(const readers::CsvContent& data);
+        static RouteToFinal createEC(const readers::CsvContent& data, const std::string& ECpart);
     };
 
 }

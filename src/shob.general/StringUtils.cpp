@@ -1,4 +1,3 @@
-
 #include "StringUtils.h"
 
 namespace shob::general
@@ -25,6 +24,4 @@ namespace shob::general
         auto trimmed = rtrim(s, t);
         return ltrim(trimmed, t);
     }
-
 }
-

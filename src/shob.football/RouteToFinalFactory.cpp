@@ -5,13 +5,13 @@
 
 namespace shob::football
 {
-    RouteToFfinal RouteToFinalFactory::create(const std::string& filename)
+    RouteToFinal RouteToFinalFactory::create(const std::string& filename)
     {
         const auto data = readers::CsvReader::readCsvFile(filename);
         return create(data);
     }
 
-    RouteToFfinal RouteToFinalFactory::create(const readers::CsvContent& data)
+    RouteToFinal RouteToFinalFactory::create(const readers::CsvContent& data)
     {
         auto filter = FilterInputList();
         filter.filters.push_back({ 0, "f" });
@@ -25,11 +25,11 @@ namespace shob::football
         filter.filters[0].name = "f34";
         const auto bronze = FilterResults::readFromCsvData(data, filter, "final");
 
-        const auto r2f = RouteToFfinal(finale, semiFinal, quarterFinal, last16, bronze);
+        const auto r2f = RouteToFinal(finale, semiFinal, quarterFinal, last16, bronze);
         return r2f;
     }
 
-    RouteToFfinal RouteToFinalFactory::createEC(const readers::CsvContent& data, const std::string& ECpart)
+    RouteToFinal RouteToFinalFactory::createEC(const readers::CsvContent& data, const std::string& ECpart)
     {
         auto filter = FilterInputList();
         filter.filters.push_back({ 0, ECpart });
@@ -41,7 +41,7 @@ namespace shob::football
         const auto quarterFinal = FilterResults::readFromCsvData(data, filter, "last8");
         const auto last16 = FootballCompetition();
 
-        const auto r2f = RouteToFfinal(finale, semiFinal, quarterFinal, last16);
+        const auto r2f = RouteToFinal(finale, semiFinal, quarterFinal, last16);
         return r2f;
     }
 

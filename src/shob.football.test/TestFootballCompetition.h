@@ -10,6 +10,4 @@ namespace shob::football::test
         static void testFiltered();
         static void testPrepareTable();
     };
-
 }
-

@@ -1,4 +1,3 @@
-
 #include "Season.h"
 #include "ShobException.h"
 

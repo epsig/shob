@@ -1,4 +1,3 @@
-
 #include "ItDate.h"
 
 #include <format>

@@ -1,11 +1,11 @@
 #pragma once
 
 #include "FormatOnePageEachYear.h"
-#include "../shob.teams/clubTeams.h"
-#include "../shob.readers/csvAllSeasonsReader.h"
-#include "../shob.html/settings.h"
-#include "../shob.football/footballCompetition.h"
-#include "../shob.football/standings.h"
+#include "../shob.teams/ClubTeams.h"
+#include "../shob.readers/CsvAllSeasonsReader.h"
+#include "../shob.html/Settings.h"
+#include "../shob.football/FootballCompetition.h"
+#include "../shob.football/Standings.h"
 #include "EkWkDate.h"
 #include "TopMenu.h"
 #include <map>

@@ -1,14 +1,13 @@
-
 #pragma once
 #include <string>
 #include <vector>
 #include "FormatOnePageEachSeason.h"
-#include "../shob.general/uniqueStrings.h"
-#include "../shob.readers/csvAllSeasonsReader.h"
-#include "../shob.teams/clubTeams.h"
-#include "../shob.html/settings.h"
+#include "../shob.general/UniqueStrings.h"
+#include "../shob.readers/CsvAllSeasonsReader.h"
+#include "../shob.teams/ClubTeams.h"
+#include "../shob.html/Settings.h"
 #include "../shob.general/Season.h"
-#include "../shob.football/leagueNames.h"
+#include "../shob.football/LeagueNames.h"
 #include "TopMenu.h"
 #include "WnsEc.h"
 

@@ -1,10 +1,9 @@
-
 #include "FootballCompetition.h"
 
-#include "../shob.readers/csvReader.h"
-#include "../shob.general/dateFactory.h"
+#include "../shob.readers/CsvReader.h"
+#include "../shob.general/DateFactory.h"
 #include "../shob.general/StringUtils.h"
-#include "../shob.html/funcs.h"
+#include "../shob.html/Funcs.h"
 
 namespace shob::football
 {

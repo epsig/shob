@@ -1,12 +1,11 @@
-
 #pragma once
 #include <vector>
 #include <string>
-#include "../shob.readers/csvAllSeasonsReader.h"
-#include "../shob.html/table.h"
-#include "../shob.teams/clubTeams.h"
-#include "../shob.teams/footballer.h"
-#include "../shob.html/settings.h"
+#include "../shob.readers/CsvAllSeasonsReader.h"
+#include "../shob.html/Table.h"
+#include "../shob.teams/ClubTeams.h"
+#include "../shob.teams/Footballer.h"
+#include "../shob.html/Settings.h"
 #include "../shob.general/Season.h"
 
 namespace shob::football

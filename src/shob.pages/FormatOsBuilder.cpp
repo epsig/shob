@@ -1,6 +1,6 @@
-
 #include "FormatOsBuilder.h"
-#include "../shob.general/glob.h"
+#include "../shob.general/Glob.h"
+#include "../shob.general/UniqueStrings.h"
 #include <algorithm>
 
 namespace shob::pages

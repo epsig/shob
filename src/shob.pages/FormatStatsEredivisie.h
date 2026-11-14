@@ -1,7 +1,7 @@
 
 #pragma once
 #include "SpectatorResults.h"
-#include "../shob.teams/clubTeams.h"
+#include "../shob.teams/ClubTeams.h"
 #include "../shob.html/Settings.h"
 #include "../shob.general/MultipleStrings.h"
 #include "../shob.football/ResultsToStandings.h"

@@ -1,9 +1,9 @@
 #include "FormatEkWkQfBuilder.h"
 
 #include "TopMenu.h"
-#include "../shob.readers/csvAllSeasonsReader.h"
-#include "../shob.general/glob.h"
-#include "../shob.general/uniqueStrings.h"
+#include "../shob.readers/CsvAllSeasonsReader.h"
+#include "../shob.general/Glob.h"
+#include "../shob.general/UniqueStrings.h"
 
 #include <algorithm>
 
