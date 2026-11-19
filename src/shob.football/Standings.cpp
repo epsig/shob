@@ -376,6 +376,11 @@ namespace shob::football
             if (i < 2) team += " +";
             else if (i < 3) team += " *";
         }
+        else if (wns_cl == 8)
+        {
+            if (i < 2) team += " *";
+            else if (i == 3) team += " -";
+        }
     }
 
     html::TableContent Standings::prepareTable(const teams::ClubTeams& teams, const html::Settings& settings) const
