@@ -1,184 +1,37 @@
 #include <filesystem>
 #include <iostream>
-#include <format>
-#include <algorithm>
 
-#include "shob.general/DateFactory.h"
-#include "shob.pages/FormatEcBuilder.h"
-#include "shob.pages/FormatNlBuilder.h"
-#include "shob.pages/FormatEkWkBuilder.h"
-#include "shob.pages/FormatEkWkDBuilder.h"
-#include "shob.pages/FormatEkWkQfBuilder.h"
-#include "shob.pages/FormatOsBuilder.h"
-#include "shob.pages/FormatSemestersAndYearStandingsBuilder.h"
-#include "shob.pages/FormatHomeAndAwayStandingsBuilder.h"
-#include "shob.pages/FormatStatsEredivisieBuilder.h"
-#include "shob.pages/FormatHomePage.h"
-#include "shob.pages/FormatBookmarks.h"
-#include "shob.pages/FormatRest.h"
-#include "shob.pages/FormatKlaverjas.h"
-#include "shob.klaverjas/MergeJavaScript.h"
-#include "shob.general/Season.h"
-#include "shob.general/ShobException.h"
+#include "shob.main/GetDefaultFirstLastYear.h"
+#include "shob.main/HandleAllSportPages.h"
+#include "shob.main/HandleKlaverjasPages.h"
+#include "shob.main/HandleBookmarksPages.h"
+#include "shob.main/HandleRemainingPages.h"
+#include "shob.main/CommandLine.h"
 #include "shob.html/UpdateIfNewer.h"
-
-void read_command_line(int argc, char* argv[], int& yr1, int&yr2, bool& skip_kj)
-{
-    using namespace shob::general;
-    if (argc >= 3)
-    {
-        if (DateFactory::allDigits(argv[1]) && DateFactory::allDigits(argv[2]))
-        {
-            const std::string arg1 = argv[1];
-            const std::string arg2 = argv[2];
-            yr1 = std::stoi(arg1);
-            yr2 = std::stoi(arg2);
-            if (argc >= 4)
-            {
-                skip_kj = (std::string(argv[3]) != "with_kj");
-            }
-        }
-        else
-        {
-            throw ShobException("first two command line arguments must be years");
-        }
-    }
-    else if (argc == 2)
-    {
-        if (DateFactory::allDigits(argv[1]))
-        {
-            const std::string arg1 = argv[1];
-            yr1 = std::stoi(arg1);
-            yr2 = yr1;
-        }
-        else
-        {
-            throw ShobException("first command line argument must be a year");
-        }
-    }
-}
-
 
 int main(int argc, char* argv[])
 {
-    using namespace shob::pages;
     using namespace shob::general;
+    using namespace shob::main;
 
     std::string part;
     try
     {
-        int firstYear = 1993;
-        int lastYear = 2026; // TODO function of current date
+        int first_year;
+        int last_year;
+        GetDefaultFirstLastYear::get(first_year, last_year);
         bool skip_kj = true;
 
-        read_command_line(argc, argv, firstYear, lastYear, skip_kj);
+        CommandLine::readCommandLine(argc, argv, first_year, last_year, skip_kj);
 
-        part = "running builders";
-        auto settings = shob::html::Settings();
-        settings.dateFormatShort = false;
-        auto fmt_nl = FormatNlBuilder::build("sport", settings);
-        auto fmt_ec = FormatEcBuilder::build("sport", settings);
-        auto fmt_ekwk = FormatEkWkBuilder::build("sport", settings);
-        auto fmt_ekwkD = FormatEkWkDBuilder::build("sport", settings);
-        auto fmt_ekwk_qf = FormatEkWkQfBuilder::build("sport", settings);
-        auto fmt_os = FormatOsBuilder::build("sport/schaatsen/", settings);
-        auto fmt_semesters_and_year = FormatSemestersAndYearStandingsBuilder().build("sport/eredivisie/", settings);
-        auto fmt_home_away = FormatHomeAndAwayStandingsBuilder::build("sport/eredivisie/", settings);
+        int dd = 0;
+        HandleAllSportPages::buildAllSport(first_year, last_year, dd, part);
 
-        auto fmt_stats_eredivisie = FormatStatsEredivisieBuilder::build("sport/eredivisie/", settings);
-        for (const auto & extra : {true, false})
-        {
-            fmt_stats_eredivisie.getPagesToFile(extra,
-                FormatStatsEredivisie::getOutputFilename("../pages/", extra));
-        }
+        HandleBookmarksPages::buildAllBookmarks(part, dd);
 
-        for (int year = firstYear; year <= lastYear; year++)
-        {
-            part = std::format("running year: {}", year);
-            const auto season = Season(year);
-            if (fmt_nl.isValidSeason(season))
-            {
-                fmt_nl.getPagesToFile(season, fmt_nl.getOutputFilename("../pages", season));
-            }
-            if (fmt_ec.isValidSeason(season))
-            {
-                fmt_ec.getPagesToFile(season, fmt_ec.getOutputFilename("../pages", season));
-            }
-            if (fmt_semesters_and_year.isValidYear(year))
-            {
-                fmt_semesters_and_year.getPagesToFile(year, fmt_semesters_and_year.getOutputFilename("../pages", year));
-            }
-            if (fmt_home_away.isValidSeason(season))
-            {
-                fmt_home_away.getPagesToFile(season, fmt_home_away.getOutputFilename("../pages", season));
-            }
-            if (fmt_ekwk.isValidYear(year))
-            {
-                fmt_ekwk.getPagesToFile(year, fmt_ekwk.getOutputFilename("../pages", year));
-            }
-            if (fmt_ekwkD.isValidYear(year))
-            {
-                fmt_ekwkD.getPagesToFile(year, fmt_ekwkD.getOutputFilename("../pages", year));
-            }
-            if (fmt_ekwk_qf.isValidYear(year))
-            {
-                fmt_ekwk_qf.getPagesToFile(year, fmt_ekwk_qf.getOutputFilename("../pages", year));
-            }
-            if (fmt_os.isValidYear(year))
-            {
-                fmt_os.getPagesToFile(year, fmt_os.getOutputFilename("../pages", year));
-            }
-        }
+        HandleKlaverjasPages::buildAllKJ(part, skip_kj);
 
-        part = "last year/season unofficial standings";
-        auto last_season = fmt_home_away.getLastSeason();
-        fmt_home_away.getPagesToFile(last_season, fmt_home_away.getOutputFilename("../pages"));
-        auto last_year = fmt_semesters_and_year.getLastYear();
-        fmt_semesters_and_year.getPagesToFile(last_year, fmt_semesters_and_year.getOutputFilename("../pages"));
-
-        part = "bookmarks";
-        auto dd = fmt_nl.get_dd();
-        dd = std::max(dd, fmt_ec.get_dd());
-        dd = std::max(dd, fmt_ekwk_qf.get_dd());
-        part = std::format("pages with last dd: {}", dd);
-        auto fmt_home_page = FormatHomePage("bookmarks/");
-        fmt_home_page.rebuildHomePage(dd);
-
-        const auto fmt_bookmarks = FormatBookmarks("bookmarks/", dd);
-        fmt_bookmarks.rebuildBookmarks("media");
-        fmt_bookmarks.rebuildBookmarks("treinen");
-        fmt_bookmarks.rebuildBookmarks("computers");
-        fmt_bookmarks.rebuildBookmarks("sport");
-        fmt_bookmarks.rebuildBookmarks("science", true);
-        fmt_bookmarks.rebuildBookmarks("milieu", true);
-        fmt_bookmarks.rebuildOwnSportLinks();
-        fmt_bookmarks.rebuildOverzicht();
-
-        part = "klaverjas";
-        if (!skip_kj)
-        {
-            shob::klaverjas::MergeJavaScript::mergeFiles("gfx");
-            shob::klaverjas::MergeJavaScript::mergeFiles("txt");
-            auto fmt_klaverjas = FormatKlaverjas();
-            for (const auto& location : { "adam", "rdam" })
-            {
-                for (const auto& type : { "gfx", "txt", "klein" })
-                {
-                    fmt_klaverjas.rebuildKlaverjas(type, location);
-                }
-            }
-            fmt_klaverjas.rebuildFaq();
-        }
-
-        part = "rest";
-        auto fmt_rest = FormatRest("doc/");
-        fmt_rest.rebuildTechDoc(TechDocType::Klaverjas, 20261023);
-        fmt_rest.rebuildTechDoc(TechDocType::Shob, 20261023);
-        fmt_rest.rebuildLetters();
-        fmt_rest.rebuildAsciiCodes();
-        fmt_rest.rebuildEpsig(20261023);
-        fmt_rest = FormatRest("./Data_stats_website/");
-        fmt_rest.rebuildStats(dd);
+        HandleRemainingPages::buildAllRemaining(part, dd);
 
         part = "copy style sheets";
         shob::html::UpdateIfDifferent::update("../code/test/epsig.css", "../pages/epsig.css");

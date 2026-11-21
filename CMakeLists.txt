@@ -25,6 +25,10 @@ file(GLOB football_files "src/shob.football/*.*")
 add_library(shob.football STATIC ${football_files})
 set_target_properties(shob.football PROPERTIES CXX_STANDARD 20)
 
+file(GLOB main_files "src/shob.main/*.*")
+add_library(shob.main STATIC ${main_files})
+set_target_properties(shob.main PROPERTIES CXX_STANDARD 20)
+
 file(GLOB bookmark_files "src/shob.bookmarks/*.*")
 add_library(shob.bookmarks STATIC ${bookmark_files})
 set_target_properties(shob.bookmarks PROPERTIES CXX_STANDARD 20)
@@ -92,6 +96,10 @@ file(GLOB klaverjas_test_files "src/shob.klaverjas.test/*.*")
 add_executable(shob.klaverjas.test ${klaverjas_test_files})
 set_target_properties(shob.klaverjas.test PROPERTIES CXX_STANDARD 20)
 
+file(GLOB main_test_files "src/shob.main.test/*.*")
+add_executable(shob.main.test ${main_test_files})
+set_target_properties(shob.main.test PROPERTIES CXX_STANDARD 20)
+
 
 include(FetchContent)
 
@@ -134,16 +142,18 @@ target_link_libraries(shob.readers.test shob.general shob.test.utils shob.reader
 target_link_libraries(shob.football.test shob.football shob.general shob.test.utils shob.readers gtest_main)
 target_link_libraries(shob.bookmarks.test shob.bookmarks shob.general shob.test.utils shob.readers gtest_main)
 target_link_libraries(shob.html.test shob.html shob.general gtest_main)
-target_link_libraries(shob.pages shob.football shob.general shob.readers shob.html shob.teams shob.bookmarks)
+target_link_libraries(shob.pages shob.football shob.general shob.readers shob.html shob.teams shob.bookmarks shob.klaverjas)
 target_link_libraries(shob.klaverjas shob.general shob.readers)
+target_link_libraries(shob.main shob.football shob.general shob.readers shob.html shob.teams shob.pages)
 target_link_libraries(shob shob.football shob.general shob.readers shob.html shob.teams shob.pages
-    shob.bookmarks shob.klaverjas)
+    shob.bookmarks shob.klaverjas shob.main)
 target_link_libraries(shob.pages.test shob.football shob.general shob.readers shob.html
     shob.teams shob.bookmarks shob.pages shob.test.utils gtest_main)
 target_link_libraries(shob.teams shob.readers shob.html)
 target_link_libraries(shob.teams.test shob.teams shob.readers shob.test.utils gtest_main)
 target_link_libraries(shob.general.test shob.general shob.test.utils gtest_main)
 target_link_libraries(shob.klaverjas.test shob.klaverjas shob.general shob.readers shob.test.utils gtest_main)
+target_link_libraries(shob.main.test shob.main shob.general gtest_main)
 
 enable_testing()
 
@@ -192,5 +202,11 @@ add_test(
 add_test(
   NAME shob-klaverjas-unit-tests
   COMMAND $<TARGET_FILE:shob.klaverjas.test>
+  WORKING_DIRECTORY ${CMAKE_CURRENT_LIST_DIR}
+)
+
+add_test(
+  NAME shob-main-unit-tests
+  COMMAND $<TARGET_FILE:shob.main.test>
   WORKING_DIRECTORY ${CMAKE_CURRENT_LIST_DIR}
 )
