@@ -29,7 +29,7 @@ namespace shob::football
                 const auto goals1 = std::stoi(parts[0]);
                 const auto goals2 = std::stoi(parts[1]);
                 table.addResult(match.team1, match.team2, goals1, goals2);
-                if (sortRule == 3 || sortRule == 6)
+                if (sortRule == 3 || sortRule == 6 || sortRule == 9)
                 {
                     auto m = compactMatch({ match.team1, match.team2, goals1, goals2 });
                     matchList.push_back(m);
@@ -47,7 +47,14 @@ namespace shob::football
         }
 
 
-        table.sort(sortRule);
+        if (sortRule == 9)
+        {
+            table.sortNationsLeague(matchList);
+        }
+        else
+        {
+            table.sort(sortRule);
+        }
 
         return table;
     }

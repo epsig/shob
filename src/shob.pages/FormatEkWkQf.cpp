@@ -67,6 +67,19 @@ namespace shob::pages
         return 0;
     }
 
+    int FormatEkWkQf::findNatLeagueGroupStar(const std::vector<std::vector<std::string>>& remarks)
+    {
+        for (const auto& remark : remarks)
+        {
+            if (remark[0].starts_with("NatLeagueGroupSter"))
+            {
+                const auto number = remark[1];
+                return std::stoi(number);
+            }
+        }
+        return 0;
+    }
+
     MultipleStrings FormatEkWkQf::getPages(const int year) const
     {
         int dd = 0;
@@ -79,6 +92,7 @@ namespace shob::pages
 
         auto remarks = seasonsReader.getSeason(ekwk.shortNameWithYear());
         auto star = findStar(remarks);
+        auto natLeagueGroupStar = findNatLeagueGroupStar(remarks);
 
         auto retVal = MultipleStrings();
         retVal.addContent("<hr>");
@@ -105,7 +119,7 @@ namespace shob::pages
         pageBlocks[2].linkName = "natleaguefinals";
         pageBlocks[2].description = "Finale Nations League";
 
-        pageBlocks[3].data = get_nationsLeagueGroupPhase(year-2, dd);
+        pageBlocks[3].data = get_nationsLeagueGroupPhase(year-2, dd, natLeagueGroupStar);
         pageBlocks[3].linkName = "natleague";
         pageBlocks[3].description = "Nations League groepsfase";
 
@@ -316,7 +330,7 @@ namespace shob::pages
         return retVal;
     }
 
-    MultipleStrings FormatEkWkQf::get_nationsLeagueGroupPhase(const int& year, int& dd) const
+    MultipleStrings FormatEkWkQf::get_nationsLeagueGroupPhase(const int& year, int& dd, int natLeagueGroupStar) const
     {
         auto retVal = MultipleStrings();
         const auto csvInput = std::format("{}{}.*.csv", "NL_", year);
@@ -328,7 +342,8 @@ namespace shob::pages
 
             dd = std::max(dd, competition.lastDate().toInt());
 
-            const auto stand = ResultsToStandings::u2s(competition);
+            auto stand = ResultsToStandings::u2s(competition, 3, 9);
+            stand.wns_cl = natLeagueGroupStar;
             retVal.addContent("<p id=\"natleague\"> </p>");
             auto matches = print_splitted(stand, competition, MultipleStrings(),
                 "Stand Nations League groep Nederland", "Overige uitslagen");

@@ -134,4 +134,66 @@ namespace shob::football::test
         EXPECT_EQ(stand.list[2].sumPointsOpponents, 3);
         EXPECT_EQ(stand.list[3].sumPointsOpponents, 3);
     }
+
+    TEST(ResultsToStandings, NationsLeagueHeadToHeadBeforeOverallGoals)
+    {
+        auto competition = FootballCompetition();
+        competition.readFromCsv(TestUtils::refFileWithPath(__FILE__, "../../data/sport/nationsLeague/NL_2026_grpA2.csv"));
+        ASSERT_GE(competition.matches.size(), 10);
+        competition.matches.erase(competition.matches.begin() + 10, competition.matches.end());
+
+        auto stand = ResultsToStandings::u2s(competition, 3, 9);
+        ASSERT_EQ(stand.list.size(), 4);
+        EXPECT_EQ(stand.list[0].team, "NL");
+        EXPECT_EQ(stand.list[1].team, "GR");
+        EXPECT_EQ(stand.list[2].team, "DE");
+        EXPECT_EQ(stand.list[1].points, stand.list[2].points);
+        EXPECT_LT(stand.list[1].goalDifference(), stand.list[2].goalDifference());
+
+        auto teams = teams::ClubTeams();
+        teams.InitFromFile(TestUtils::refFileWithPath(__FILE__, "../../data/sport/landcodes.csv"),
+            teams::ClubsOrCountries::countries);
+        stand.wns_cl = 8;
+        const auto table = stand.prepareTable(teams, html::Settings());
+        EXPECT_EQ(table.body[1].data[0], "Griekenland *");
+        EXPECT_EQ(table.body[2].data[0], "Duitsland");
+    }
+
+    TEST(ResultsToStandings, NationsLeagueReappliesHeadToHeadToRemainingTie)
+    {
+        auto stand = Standings();
+        for (const auto& team : {"A", "B", "C"})
+        {
+            auto row = standingsRow();
+            row.team = team;
+            row.points = 6;
+            row.goals = team == std::string("A") ? 10 : 0;
+            stand.list.push_back(row);
+        }
+        stand.sortNationsLeague({{"A", "B", 0, 1}, {"B", "C", 1, 2}, {"C", "A", 1, 2}});
+
+        ASSERT_EQ(stand.list.size(), 3);
+        EXPECT_EQ(stand.list[0].team, "C");
+        EXPECT_EQ(stand.list[1].team, "B");
+        EXPECT_EQ(stand.list[2].team, "A");
+    }
+
+    TEST(ResultsToStandings, NationsLeagueFallsBackToOverallResults)
+    {
+        auto stand = Standings();
+        for (const auto& team : {"A", "B", "C"})
+        {
+            auto row = standingsRow();
+            row.team = team;
+            row.points = 3;
+            row.goals = team == std::string("B") ? 2 : 1;
+            stand.list.push_back(row);
+        }
+        stand.sortNationsLeague({{"A", "B", 1, 0}, {"B", "C", 1, 0}, {"C", "A", 1, 0}});
+
+        ASSERT_EQ(stand.list.size(), 3);
+        EXPECT_EQ(stand.list[0].team, "B");
+        EXPECT_EQ(stand.list[1].team, "A");
+        EXPECT_EQ(stand.list[2].team, "C");
+    }
 }

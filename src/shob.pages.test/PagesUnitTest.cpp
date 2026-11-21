@@ -91,6 +91,11 @@ TEST(IntegrationTest, testEkQf2024)
     TestFormatEkWkQf::test_ek_2024();
 }
 
+TEST(IntegrationTest, testEkQf2028)
+{
+    TestFormatEkWkQf::test_ek_2028();
+}
+
 TEST(IntegrationTest, testOsSchaatsen)
 {
     TestFormatOs::testOs2002();
