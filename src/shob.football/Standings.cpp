@@ -242,6 +242,21 @@ namespace shob::football
 
     void Standings::sortNationsLeague(const std::vector<compactMatch>& matches)
     {
+        /* This sorts according to the rules of the Nations League, which are:
+            UEFA ranks teams in each Nations League group in this order:
+                Points
+                Points in matches between the tied teams
+                Goal difference in those matches
+                Goals scored in those matches
+                Away goals scored in those matches
+                If more than two teams remain tied, repeat steps 2–5 among the remaining teams
+                Overall goal difference
+                Overall goals scored
+                Overall away goals
+                Disciplinary points (not implemented)
+                Position in the UEFA Nations League overall ranking (not implemented)
+        */
+
         std::sort(list.begin(), list.end(), [](const standingsRow& a, const standingsRow& b)
             { return a.points > b.points; });
 
