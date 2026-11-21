@@ -43,10 +43,11 @@ namespace shob::pages
         general::MultipleStrings print_splitted(const football::Standings& stand, const football::FootballCompetition& matches,
             const general::MultipleStrings& remarks, const std::string& title, const std::string& title2) const;
         general::MultipleStrings get_nationsLeagueFinals(const int& year, int& dd) const;
-        general::MultipleStrings get_nationsLeagueGroupPhase(const int& year, int& dd) const;
+        general::MultipleStrings get_nationsLeagueGroupPhase(const int& year, int& dd, int natLeagueGroupStar) const;
         general::MultipleStrings get_friendlies(const int& year, const std::vector<std::vector<std::string>>& remarks, int& dd) const;
         general::MultipleStrings get_other_standings(const EkWkDate& ekwk, const std::string& title) const;
         general::MultipleStrings get_list_qualified_countries(const EkWkDate& ekwk, const std::string& title_qualified) const;
         static int findStar(const std::vector<std::vector<std::string>>& remarks);
+        static int findNatLeagueGroupStar(const std::vector<std::vector<std::string>>& remarks);
     };
 }
