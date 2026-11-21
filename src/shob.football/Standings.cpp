@@ -2,7 +2,9 @@
 
 #include <algorithm>
 #include <format>
+#include <functional>
 #include <iostream>
+#include <tuple>
 
 #include "../shob.general/ShobException.h"
 #include "../shob.readers/CsvReader.h"
@@ -235,6 +237,74 @@ namespace shob::football
                     }
                 }
             }
+        }
+    }
+
+    void Standings::sortNationsLeague(const std::vector<compactMatch>& matches)
+    {
+        std::sort(list.begin(), list.end(), [](const standingsRow& a, const standingsRow& b)
+            { return a.points > b.points; });
+
+        const auto overall = [](const standingsRow& row)
+        {
+            return std::tuple(row.goalDifference(), row.goals, row.awayGoals, row.wins, row.awayWins);
+        };
+        std::function<void(size_t, size_t)> sortTied;
+        sortTied = [&](const size_t begin, const size_t end)
+        {
+            if (end - begin < 2) return;
+
+            Standings mutual;
+            mutual.scoring = scoring;
+            for (size_t i = begin; i < end; ++i)
+            {
+                mutual.findIndex(list[i].team);
+            }
+            for (const auto& match : matches)
+            {
+                const auto inGroup = [&](const std::string& team)
+                {
+                    return std::any_of(list.begin() + begin, list.begin() + end,
+                        [&](const standingsRow& row) { return row.team == team; });
+                };
+                if (inGroup(match.team1) && inGroup(match.team2))
+                {
+                    mutual.addResult(match.team1, match.team2, match.goals1, match.goals2);
+                }
+            }
+            const auto key = [&](const standingsRow& row)
+            {
+                const auto& m = mutual.list[mutual.findIndex(row.team)];
+                return std::tuple(m.points, m.goalDifference(), m.goals);
+            };
+            std::sort(list.begin() + begin, list.begin() + end,
+                [&](const standingsRow& a, const standingsRow& b) { return key(a) > key(b); });
+
+            if (key(list[begin]) == key(list[end - 1]))
+            {
+                std::sort(list.begin() + begin, list.begin() + end,
+                    [&](const standingsRow& a, const standingsRow& b)
+                    {
+                        if (overall(a) != overall(b)) return overall(a) > overall(b);
+                        return a.team < b.team;
+                    });
+                return;
+            }
+            for (size_t first = begin; first < end;)
+            {
+                auto last = first + 1;
+                while (last < end && key(list[first]) == key(list[last])) ++last;
+                sortTied(first, last);
+                first = last;
+            }
+        };
+
+        for (size_t first = 0; first < list.size();)
+        {
+            auto last = first + 1;
+            while (last < list.size() && list[first].points == list[last].points) ++last;
+            sortTied(first, last);
+            first = last;
         }
     }
 
@@ -475,4 +545,3 @@ namespace shob::football
     }
 
 }
-

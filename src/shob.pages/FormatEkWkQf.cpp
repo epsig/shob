@@ -342,7 +342,7 @@ namespace shob::pages
 
             dd = std::max(dd, competition.lastDate().toInt());
 
-            auto stand = ResultsToStandings::u2s(competition);
+            auto stand = ResultsToStandings::u2s(competition, 3, 9);
             stand.wns_cl = natLeagueGroupStar;
             retVal.addContent("<p id=\"natleague\"> </p>");
             auto matches = print_splitted(stand, competition, MultipleStrings(),

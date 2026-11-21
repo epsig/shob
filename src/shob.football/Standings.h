@@ -67,6 +67,7 @@ namespace shob::football
         int wns_cl = -1;
         int scoring = 3;
         void addNecessaryMutualResults(const std::vector<compactMatch>& matches);
+        void sortNationsLeague(const std::vector<compactMatch>& matches);
         void addResultsOpponents(const std::vector<compactMatch>& matches);
     private:
         std::map<std::string, u2sExtra> extras;
@@ -79,4 +80,3 @@ namespace shob::football
         size_t findIndex(const std::string& team) const;
     };
 }
-

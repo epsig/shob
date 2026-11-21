@@ -29,5 +29,15 @@ namespace shob::pages::test
         EXPECT_GE(lines.findString("18 jun 2023 <b>Spanje</b> - Kroati&euml; 0-0 ns"), 0);
     }
 
-}
+    void TestFormatEkWkQf::test_ek_2028()
+    {
+        const auto lines = format_ek_wk_qf.getPages(2028);
+        const auto germany = lines.findString("<tr><td>Duitsland *</td>");
+        const auto netherlands = lines.findString("<tr><td>Nederland *</td>");
+        const auto greece = lines.findString("<tr><td>Griekenland</td>");
+        ASSERT_GE(germany, 0);
+        ASSERT_GT(netherlands, germany);
+        ASSERT_GT(greece, netherlands);
+    }
 
+}
