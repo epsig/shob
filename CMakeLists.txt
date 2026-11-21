@@ -97,6 +97,10 @@ add_executable(shob.klaverjas.test ${klaverjas_test_files})
 set_target_properties(shob.klaverjas.test PROPERTIES CXX_STANDARD 20)
 
 file(GLOB main_test_files "src/shob.main.test/*.*")
+list(APPEND main_test_files
+    "src/shob.main.test/TestGetDefaultFirstLastYear.cpp"
+    "src/shob.main.test/TestGetDefaultFirstLastYear.h"
+)
 add_executable(shob.main.test ${main_test_files})
 set_target_properties(shob.main.test PROPERTIES CXX_STANDARD 20)
 

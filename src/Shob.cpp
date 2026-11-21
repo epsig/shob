@@ -1,6 +1,7 @@
 #include <filesystem>
 #include <iostream>
 
+#include "shob.main/GetDefaultFirstLastYear.h"
 #include "shob.main/HandleAllSportPages.h"
 #include "shob.main/HandleKlaverjasPages.h"
 #include "shob.main/HandleBookmarksPages.h"
@@ -16,8 +17,9 @@ int main(int argc, char* argv[])
     std::string part;
     try
     {
-        int first_year = 1993;
-        int last_year = 2026; // TODO function of current date
+        int first_year;
+        int last_year;
+        GetDefaultFirstLastYear::get(first_year, last_year);
         bool skip_kj = true;
 
         CommandLine::readCommandLine(argc, argv, first_year, last_year, skip_kj);

@@ -1,6 +1,7 @@
 #include <gtest/gtest.h>
 
 #include "TestCommandLine.h"
+#include "TestGetDefaultFirstLastYear.h"
 
 using namespace shob::main::test;
 
@@ -38,4 +39,14 @@ TEST(UnitTest, testCommandLineInvalidOneArg)
 TEST(UnitTest, testCommandLineInvalidTwoArgs)
 {
     TestCommandLine::testInvalidTwoArgs();
+}
+
+TEST(UnitTest, testGetDefaultFirstLastYearWithoutRemarks)
+{
+    TestGetDefaultFirstLastYear::testDefaultIsCurrentYearWhenNoRemarksFile();
+}
+
+TEST(UnitTest, testGetDefaultFirstLastYearWithNextEkwkInRemarks)
+{
+    TestGetDefaultFirstLastYear::testDefaultUsesNextEkwkYearWhenDefinedInRemarks();
 }
